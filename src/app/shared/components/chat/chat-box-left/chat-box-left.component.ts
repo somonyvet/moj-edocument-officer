@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Track } from 'ngx-audio-player';
 import { ChatTypeEnum } from 'src/app/dummy/chat';
 
 @Component({
@@ -19,7 +18,7 @@ export class ChatBoxLeftComponent implements OnInit {
   @Input() files: any[];
 
   CHAT_TYPE_ENUM = ChatTypeEnum;
-  msaapPlaylist: Track[] = [];
+  audioUrl: string;
   fileAudio: any[] = [];
   fileImages: any[] = [];
   isClicked: boolean = false;
@@ -34,22 +33,12 @@ export class ChatBoxLeftComponent implements OnInit {
 
     if (fileAudio?.length > 0) {
       const value = fileAudio[fileAudio.length - 1]
-      this.msaapPlaylist.push({
-        title: 'Audio One Title',
-        link: value?.downloadURL || value?.downloadUrl,
-        artist: 'Artist',
-        duration: value.duration
-      });
+      this.audioUrl = value?.downloadURL || value?.downloadUrl;
     }
   }
 
-
   chatClicked() {
     this.isClicked = !this.isClicked;
-  }
-
-  onEnded(event) {
-
   }
 
 }

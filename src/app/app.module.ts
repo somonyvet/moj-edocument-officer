@@ -27,7 +27,6 @@ import { ChatBoxLeftComponent } from './shared/components/chat/chat-box-left/cha
 import { ChatBoxRightComponent } from './shared/components/chat/chat-box-right/chat-box-right.component';
 import { SignInFormComponent } from './pages/sign-in-form/sign-in-form.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
-import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { RegisterFormComponent } from './pages/auth/register-form/register-form.component';
@@ -84,7 +83,6 @@ export function playerFactory() {
     ContextMenuModule.forRoot(),
     SharedModule,
     NgbModule,
-    NgxAudioPlayerModule,
     LottieModule,
     LottieModule.forRoot({ player: playerFactory }),
     ServiceWorkerModule.register('ngsw-worker.js', {

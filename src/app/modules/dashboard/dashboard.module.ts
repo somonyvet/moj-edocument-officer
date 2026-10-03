@@ -14,7 +14,6 @@ import { ViodDocumentsComponent } from './pages/viod-documents/viod-documents.co
 import { HistoryDocumentsComponent } from './pages/history-documents/history-documents.component';
 import { DashboardRouterComponent } from './pages/dashboard-router/dashboard-router.component';
 import { FinalDocumentListsComponent } from './pages/final-document-lists/final-document-lists.component';
-import { NgAudioRecorderModule } from 'ng-audio-recorder';
 import { ApprovedDocsComponent } from './pages/approved-docs/approved-docs.component';
 import { NotYetApproveDocsComponent } from './pages/not-yet-approve-docs/not-yet-approve-docs.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -67,7 +66,6 @@ export function playerFactory() {
     CommonModule,
     SharedModule,
     DashboardRoutingModule,
-    NgAudioRecorderModule,
     LottieModule,
     LottieModule.forRoot({ player: playerFactory }),
     // IonicModule.forRoot(),

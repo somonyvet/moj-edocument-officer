@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, OnDestroy, SimpleChanges, ChangeDetectorRef, AfterContentChecked, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgAudioRecorderService, OutputFormat } from 'ng-audio-recorder';
+import { AudioRecorderService } from 'src/app/shared/services/audio-recorder.service';
 import { Subscription } from 'rxjs';
 import { ChatTypeEnum } from 'src/app/dummy/chat';
 import { IChat } from 'src/app/interfaces/chat';
@@ -53,7 +53,7 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked, AfterViewInit
     private fb: FormBuilder,
     private ds: DataService,
     private uploadService: FirestorageFilesUploadService,
-    private audioRecorderService: NgAudioRecorderService,
+    private audioRecorderService: AudioRecorderService,
     private changeRef: ChangeDetectorRef
   ) { }
 
@@ -262,7 +262,7 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked, AfterViewInit
   }
 
   stopRecording() {
-    this.audioRecorderService.stopRecording(OutputFormat.WEBM_BLOB).then((output) => {
+    this.audioRecorderService.stopRecording().then((output) => {
       this.recordedVoice = output;
       // const recordedVoice = "data:audio/webm;base64," + output;
     }).catch(errorCase => {

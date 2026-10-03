@@ -71,7 +71,6 @@ import { LayoutComponent } from '../layouts/layout/layout.component';
 import { SidebarComponent } from '../layouts/sidebar/sidebar.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { NgAudioRecorderModule } from 'ng-audio-recorder';
 import { ConfirmSuccessComponent } from './components/confirm-success/confirm-success.component';
 import { PeopleCardComponent } from './components/people-card/people-card.component';
 import { RemoveFirebaseTextPipe, SafePipe } from './pipes/safeHtml.pipe';
@@ -403,7 +402,6 @@ const modules = [
   NgbTimepickerModule,
   MomentModule,
   NgxSkeletonLoaderModule,
-  NgAudioRecorderModule,
   NgxUsefulSwiperModule,
   EditorModule,
   PdfViewerModule,

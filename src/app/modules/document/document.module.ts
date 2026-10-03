@@ -14,7 +14,6 @@ import { DocumentApplicationDepartmentContentComponent } from './document-applic
 import { DocumentApplicationDepartmentSuccessComponent } from './document-application-department-success/document-application-department-success.component';
 import { AddNumberRefDocumentApplicationDepartmentComponent } from './document-application-department-form/add-number-ref-document-application-department/add-number-ref-document-application-department.component';
 import { DocumentDepartmentFormComponent } from './document-department-form/document-department-form.component';
-import { NgAudioRecorderModule } from 'ng-audio-recorder';
 import { DocumentConfirmReleasedComponent } from './document-confirm-released/document-confirm-released.component';
 import { DocumentNotedComponent } from './document-application/document-noted/document-noted.component';
 import { DocumentRouterComponent } from './document-application/document-router/document-router.component';
@@ -67,7 +66,6 @@ import { DocumentAddCustomStyleComponent } from './document-add-custom-style/doc
     CommonModule,
     SharedModule,
     DocumentRoutingModule,
-    NgAudioRecorderModule,
   ]
 })
 export class DocumentModule { }

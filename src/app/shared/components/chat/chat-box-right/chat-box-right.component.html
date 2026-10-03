@@ -7,10 +7,7 @@
       </ng-container>
 
       <ng-container *ngIf="fileAudio?.length>0">
-        <ngx-audio-player class="audio-swot own" [playlist]="msaapPlaylist" [displayTitle]="false" [autoPlay]="false" muted="muted"
-          [displayPlaylist]="false" [pageSizeOptions]="false" [displayArtist]="false" [displayDuration]="true"
-          [expanded]="true" (trackEnded)="onEnded($event)" [displayVolumeControls]="false"
-          [displayRepeatControls]="false" [disablePositionSlider]="msaapDisablePositionSlider"></ngx-audio-player>
+        <audio class="audio-swot own" controls [src]="audioUrl"></audio>
       </ng-container>
 
       <div class="img-gride" [ngClass]="'grid' + fileImages.length" *ngIf="fileImages?.length>0">
