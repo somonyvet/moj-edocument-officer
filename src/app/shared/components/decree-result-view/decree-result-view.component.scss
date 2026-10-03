@@ -1,0 +1,182 @@
+@import '../../../../assets/styles/variable.scss';
+
+.decree-card {
+  width: 1240px;
+  min-width: 920px;
+  margin: 0 auto 12px;
+  padding: 20px 36px;
+  border-radius: 6px;
+  background-color: $whiteColor;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.decree-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+
+  .header-title {
+    font-family: $appFont;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    margin: 0;
+  }
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: $appFont;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  padding: 2px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+
+  &.is-invalid {
+    color: #1565C0;
+    background-color: rgba(21, 101, 192, 0.08);
+    border-color: rgba(21, 101, 192, 0.24);
+  }
+
+  &.is-valid {
+    color: #C62828;
+    background-color: rgba(198, 40, 40, 0.08);
+    border-color: rgba(198, 40, 40, 0.24);
+  }
+}
+
+.decree-comment {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: $appFont;
+
+  .comment-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $titleColor;
+    margin: 0 0 10px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      color: $subtitle;
+    }
+  }
+
+  .comment-item {
+    padding: 12px 14px;
+    border: 1px solid $divider;
+    border-radius: 6px;
+    background: #fafbfc;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  .comment-item-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .comment-identity {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.35;
+  }
+
+  .comment-dep {
+    font-size: 15px;
+    font-weight: 600;
+    color: $titleColor;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .comment-meta {
+    font-size: 13px;
+    color: $subtitle;
+
+    strong {
+      font-weight: 500;
+      color: $descColor;
+    }
+  }
+
+  .comment-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.8);
+
+    ::ng-deep p {
+      margin: 0 0 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.decree-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  // border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: $appFont;
+  font-size: 14px;
+  color: $subtitle;
+
+  .decree-info-text {
+    line-height: 1.4;
+  }
+
+  strong {
+    font-weight: 500;
+    color: $titleColor;
+  }
+}
+
+.img-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  box-sizing: border-box;
+  background: $whiteColor;
+  border: 1px solid $divider;
+}
+
+@media print {
+  .decree-card {
+    display: none;
+  }
+}

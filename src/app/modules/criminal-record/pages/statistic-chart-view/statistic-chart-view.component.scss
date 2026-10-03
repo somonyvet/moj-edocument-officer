@@ -1,0 +1,43 @@
+
+.g-att-box {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    .att-button-f {
+      &.mat-button {
+        text-decoration: none;
+        background-color: #e4e6eb;
+        // border-radius: 26px;
+        padding: 8px 16px;
+        margin-right: 8px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        color: #202124;
+        margin-bottom: 16px;
+        &:hover {
+          color: #202124;
+          text-decoration: none;
+        }
+        .att-button {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          .material-icons {
+            margin-right: 6px;
+            font-size: 28px;
+          }
+          .g-att-text {
+            white-space: break-spaces;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',Roboto,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif,'Khmer OS Battambang','Kh Siemreap','Siemreap';
+            font-weight: 600;
+            margin-top: 3px;
+          }
+        }
+      }
+    }
+  }

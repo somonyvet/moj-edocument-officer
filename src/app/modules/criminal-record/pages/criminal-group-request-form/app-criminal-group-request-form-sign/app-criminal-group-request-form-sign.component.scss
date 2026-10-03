@@ -1,0 +1,340 @@
+$fontTitleitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "Moul", "auxswot", "khmer os siemreap",
+    "khmeros_siemreap";
+$colorBlue: #002060;
+$fontSubitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue,
+    Helvetica, Arial, sans-serif, "auxswot-bold", "auxswot", "Battambang", "khmeros_siemreap";
+
+@import 'src/assets/styles/variable.scss';
+
+.row-item-new {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 80px;
+    margin-bottom: 26px;
+    border-top: 0;
+    border: 1px solid $colorBlue;
+    //     .itmborderight {
+    //     border-right: 1px solid $colorBlue;
+    // }
+    // .itmbordeleft {
+    //     border-left: 1px solid $colorBlue;
+    // }
+    // .itmbordetop {
+    //     border-top: 1px solid $colorBlue;
+    // }
+    .itmbordebottom {
+        border-bottom: 1px solid $colorBlue;
+    }
+    .itmflex1 {
+        flex: 1;
+    }
+    .item-box-new {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.item-box-new-2 {
+    display: flex;
+    .itm-flex {
+        flex: 1;
+        border-bottom: 1px solid $colorBlue;
+    }
+    .itm-flex:first-child {
+        border-right: 1px solid #002060;
+    }
+}
+
+.itm-title-box {
+    display: flex;
+    justify-content: center;
+}
+.sub-txt-title {
+    font-size: 16px;
+    font-family: $fontSubitm;
+    text-align: center;
+    margin-bottom: 0;
+    line-height: normal;
+}
+.itm-mr-212 {
+    margin-right: 212px;
+}
+.itm-mr-16 {
+    margin-right: 16px;
+}
+
+.itm-box-sign {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6px;
+    .itm-sign-date {
+        margin: 0;
+        font-family: $fontSubitm;
+        font-size: 16px;
+        margin-top: 6px;
+    }
+    .itm-sign-box {
+        width: 100px;
+        // height: 100px;
+    }
+    .itm-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 32px 12px 0;
+    }
+}
+.item-pd-16 {
+    padding: 0 16px;
+}
+
+.itm-main-sign {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 12px;
+    .sub-txt-left {
+        padding: 0 16px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .itmflex1 {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.itm-bg-sign {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    .sn-title {
+        font-size: 18px;
+        font-family: $fontSubitm;
+        color: #1a73e8;
+        margin-bottom: 8px;
+    }
+    .sn-box {
+        width: 120px;
+        // height: 120px;
+    }
+    .sn-name {
+        font-size: 18px;
+        font-family: $fontSubitm;
+        color: red;
+    }
+}
+
+.itm-bg-box {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  .itm-txt {
+    font-size: 18px;
+    line-height: normal;
+    margin-bottom: 0;
+    .font-title{
+      font-family: $appFontTitle;
+    }
+  }
+  .itm-sign-date {
+    font-weight: bold;
+    margin: 0;
+    font-family: $fontSubitm;
+    font-size: 16px;
+    margin-top: 6px;
+  }
+}
+
+.itm-box-blank {
+    height: 220px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.sub-txt{
+  font-size: 16px;
+  line-height: normal;
+  text-indent: 0;
+}
+
+.ps-eform-title{
+  font-size: 16px;
+}
+
+.indent-22{
+  text-indent: 22px !important;
+}
+.pd-12{
+  padding: 8px 12px;
+}
+
+.bg-td{
+  background-color: $background;
+}
+
+.pd-100{
+  padding-left: 100px;
+}
+
+.font-normal{
+  font-family: $appFont;
+  font-size: 16px;
+}
+
+table{
+  .label-title{
+    font-size: 16px;
+    font-family: $appFontTitle;
+    width: 100px;
+    white-space: nowrap;
+  }
+  .text-content{
+    p{
+      font-size: 18px;
+      font-family: $appFont;
+    }
+  }
+}
+
+.text-row{
+  font-size: 18px;
+  font-family: $appFont;
+  text-indent: 100px;
+  line-height: 1.5;
+  .bold-title{
+    font-size: 16px;
+    font-family: $appFontTitle;
+  }
+}
+
+.date-sign{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 200px;
+  &.pd-0{
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+  }
+}
+
+.col-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.date-sign{
+  margin-top: 40px;
+  h4{
+    margin-bottom: 4px;
+  }
+
+  .font-bold{
+    font-size: 16px;
+    font-family: $appFontTitle;
+  }
+}
+
+.officer-name{
+  margin-left: 60px;
+  white-space: nowrap;
+}
+
+.itm-sign-date{
+  font-family: $appFont;
+  font-size: 18px;
+}
+.head-item{
+  font-size: 18px;
+}
+
+.font-normal{
+  font-family: $appFont;
+  font-size: 14px;
+}
+
+.eform{
+  background-color: transparent!important;
+  box-shadow: unset!important;
+  border-radius: unset!important;
+  gap: 12px;
+  .printable{
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 24px;
+    border-radius: 6px;
+    width:100%;
+    position: relative;
+  }
+}
+
+.body-table{
+  width: 100%;
+  height: 1100px;
+  margin-top: 16px;
+  th, td {
+    padding: 20px;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  .width-small{
+    width: 40%;
+  }
+
+}
+
+.col-container{
+  text-align: center;
+}
+
+.w-100{
+  width: 100%;
+  text-align: start;
+  &.center{
+    text-align: center;
+  }
+  .indent-24{
+    text-indent: 24px;
+  }
+}
+
+.text-17{
+  font-family: $appFont;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.m-6{
+  margin: 8px;
+}
+.row-container{
+  display: flex;
+}
+
+.space-around{
+  justify-content: space-around;
+}
+.mt-12{
+  margin-top: 12px;
+}
+
+
+.font-bold{
+  font-weight: bold;
+}
+
+.font-underline{
+  text-decoration: underline;
+}
+
+.font-title{
+  font-family: $appFontTitle;
+}

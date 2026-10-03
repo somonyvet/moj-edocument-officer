@@ -1,0 +1,67 @@
+.mat-tree {
+  &.sw-tree {
+    .mat-tree-node {
+      font-family: $appFont;
+      min-height: 28px;
+
+      &.sw-tree-b {
+        background-color: #fff;
+      }
+
+      .sw-tree-node {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .mat-icon-button {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        margin-right: 3px;
+
+        .mat-icon {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+
+.cd-form {
+  width: 100%;
+
+  :host ::ng-deep .ck-editor__editable_inline {
+    min-height: calc(100vh - 64px - 85px - 70px);
+  }
+}
+
+.submit-story {
+  margin: 16px;
+  background: $btnBg;
+  border-radius: 8px;
+  padding: 16px;
+
+  h4 {
+    font-family: $appFontStrong;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+}
+
+.eform-note {
+  padding: 24px;
+
+  h4 {
+    font-family: $appFontStrong;
+    font-size: 19px;
+    font-weight: 600;
+  }
+
+  p {
+    font-family: $appFont;
+    line-height: normal;
+    font-size: 16px;
+  }
+}

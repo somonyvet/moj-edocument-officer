@@ -1,0 +1,38 @@
+<div class="page-container" *mobxAutorun>
+  <div class="page-doc" [formGroup]="form">
+
+    <div class="form-group" style="margin-top: 20px;">
+      <div style="padding: 16px; font-size: 15px;">
+        ជ្រើសរើសចំណារ
+      </div>
+      <div class="photo-pro">
+        <div class="avatar">
+          <img [src]="STAMP_URL" />
+          <div (click)="stampFile.click()" class="change-profile">
+            <mat-icon class="mat-icon" role="img">
+              photo_camera
+            </mat-icon>
+          </div>
+        </div>
+        <input #stampFile type="file" accept='image/*' (change)="onSelectedStampFile($event)" style="display:none;" />
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ជ្រើសរើសពាក្យចំណារ</mat-label>
+        <mat-select [compareWith]="compareWithObj" formControlName="remark_officer">
+          <mat-option *ngFor="let item of remarkOfficer; let i = index" [value]="item" (click)="selectedRemark(form.controls['remark_officer'])">
+            <div class="rows">
+              <span>{{item?.remarkText}}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['remark_officer'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+    </div> -->
+
+  </div>
+</div>

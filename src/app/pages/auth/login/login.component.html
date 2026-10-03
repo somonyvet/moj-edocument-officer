@@ -1,0 +1,111 @@
+<ng-lottie class="app-lottie" [options]="options"></ng-lottie>
+<div class="app-container" style="min-height: 100vh;">
+    <div class="gcnp-logo">
+        <div class="header-box-container">
+            <img src="../../../../assets/images/moj.jpeg">
+            <h4 class="title gcnp">ក្រសួងយុត្តិធម៌</h4>
+            <h5 class="location gcnp">Ministry of Justice</h5>
+        </div>
+    </div>
+    <div class="login-inner-form">
+        <div class="details">
+            <div class="header-box-container form">
+                <h1 class="title">ប្រព័ន្ធព្រឹត្តិបត្រថ្កោលទោសឌីជីថល</h1>
+                <p class="location">Criminal Record Digital</p>
+            </div>
+            <div class="ms-error" *ngIf="error">{{error}}</div>
+            <form [formGroup]="form">
+                <div class="p-fluid">
+                    <div class="phone-auth">
+                        <mat-form-field class="phone-num" appearance="fill">
+                            <mat-label>អត្តលេខ</mat-label>
+                            <input #phone formControlName="email" matInput placeholder="87382">
+                            <mat-error *ngIf="form.controls['email'].hasError('required')">
+                                សូមបំពេញព័ត៌មាននេះ
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="phone-num" appearance="fill">
+                            <mat-label>ពាក្យសម្ងាត់</mat-label>
+                            <input type="password" formControlName="password" matInput placeholder="ពាក្យសម្ងាត់">
+                            <mat-error *ngIf="form.controls['password'].hasError('required')">
+                                សូមបំពេញព័ត៌មាននេះ
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-footer">
+                        <app-primary-button btnId="btnSignIn" class="w100" [process]="process" [disable]="process"
+                            label="ចូលប្រព័ន្ធ" (onPress)="_onSignIn(form?.value)">
+                        </app-primary-button>
+                    </div>
+                    <div class="more-opt">
+                        <a class="link" target="_blank" href="https://t.me/null_123_bot">
+                            <span>ប្រព័ន្ធព្រឹត្តិបត្រថ្កោលទោសឌីជីថល Telegram Bot</span>
+                        </a>
+                        <a class="link" (click)="openBottomSheet()">ទំនាក់ទំនងក្រុមបច្ចេកទេស</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="recaptcha-container"></div>
+    <div class="copy-right">
+        <h4>Copyright © 2022 ក្រសួងយុត្តិធម៌</h4>
+        <p>រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+    </div>
+</div>
+<!-- <ng-lottie class="app-lottie" [options]="options"></ng-lottie>
+<div class="app-container" style="min-height: 100vh;">
+    <div class="gcnp-logo">
+        <div class="header-box-container">
+            <img src="../../../../assets/images/GDI_Logo.png">
+            <h4 class="title gcnp">អគ្គនាយកដ្ឋាន អន្តោប្រវេសន៍</h4>
+            <h5 class="location gcnp">General Department Of Immigration</h5>
+        </div>
+    </div>
+    <div class="login-inner-form">
+        <div class="details">
+            <div class="header-box-container form">
+                <h1 class="title">នគរបាលអន្តោប្រវេសន៍ឌីជីថល</h1>
+                <p class="location">Digital Immigration</p>
+            </div>
+            <div class="ms-error" *ngIf="error">{{error}}</div>
+            <form [formGroup]="form">
+                <div class="p-fluid">
+                    <div class="phone-auth">
+                        <mat-form-field class="phone-num" appearance="fill">
+                            <mat-label>អត្តលេខនគរបាលជាតិ</mat-label>
+                            <input #phone formControlName="email" matInput placeholder="87382">
+                            <mat-error *ngIf="form.controls['email'].hasError('required')">
+                                សូមបំពេញព័ត៌មាននេះ
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="phone-num" appearance="fill">
+                            <mat-label>ពាក្យសម្ងាត់</mat-label>
+                            <input type="password" formControlName="password" matInput placeholder="ពាក្យសម្ងាត់">
+                            <mat-error *ngIf="form.controls['password'].hasError('required')">
+                                សូមបំពេញព័ត៌មាននេះ
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-footer">
+                        <app-primary-button btnId="btnSignIn" class="w100" [process]="process" [disable]="process"
+                            label="ចូលប្រព័ន្ធ" (onPress)="_onSignIn(form?.value)">
+                        </app-primary-button>
+                    </div>
+                    <div class="more-opt">
+                        <a class="link" target="_blank" href="https://t.me/null_123_bot">
+                            <span>នគរបាលអន្តោប្រវេសន៍ឌីជីថល Telegram Bot</span>
+                        </a>
+                        <a class="link" (click)="openBottomSheet()">ទំនាក់ទំនងក្រុមបច្ចេកទេស</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="recaptcha-container"></div>
+    <div class="copy-right">
+        <h4>Copyright © 2022 អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</h4>
+        <p>រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+    </div>
+</div> -->

@@ -1,0 +1,10 @@
+<mat-nav-list *mobxAutorun class="task-manager">
+  <a *ngFor="let item of store?.fileData; let i=index;" mat-list-item (click)="openLink($event)">
+    <span mat-line class="line-title">{{item?.name}}</span>
+    <span mat-line>{{item?.type}} ~ {{item?.size}}</span>
+    <span mat-line>
+      <mat-progress-bar mat-line mode="determinate"
+        [value]="!item?.start && item?.finish ? 100 : !item?.start && !item?.finish ? 0 : store.uploadPercent"></mat-progress-bar>
+    </span>
+  </a>
+</mat-nav-list>

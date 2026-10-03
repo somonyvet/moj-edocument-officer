@@ -1,0 +1,57 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <button mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Code</mat-label>
+                <input formControlName="id" type="number" required matInput placeholder="id">
+                <mat-error *ngIf="form.controls['id'].hasError('required')">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input formControlName="name" required matInput placeholder="Name (KH)">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Name (EN)</mat-label>
+                <input formControlName="en_name" matInput placeholder="Name (EN)">
+                <mat-error *ngIf="form.controls['en_name'].hasError('required')">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+       
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឃុំ/សង្កាត់</mat-label>
+                <input [matAutocomplete]="autoSubOfCommittee" formControlName="geo_prefix" matInput
+                    placeholder="ឃុំ/សង្កាត់">
+                <mat-autocomplete [displayWith]="dd?.displayFn" #autoSubOfCommittee="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredOptions | async;let i=index" [value]="item">
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
+        <button  class="enbutton primary" mat-button type="submit"  (click)="create(form.value,false)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

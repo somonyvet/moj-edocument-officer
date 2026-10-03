@@ -1,0 +1,127 @@
+<div class="main-panel">
+    <div class="main-l" [ngStyle]="setToggle()">
+        <div class="head-bar" *ngIf="this.store.attendance">
+            <ng-container *ngIf="!this.store.attendance.isCheckedIn;else checkoutTemplate">
+                <a mat-button class="enbutton primary" (click)="checkIn()">
+                    <div class="rows">
+                        <ion-icon name="create-outline"></ion-icon>
+                        <span>ចាប់ផ្ដើមម៉ោងធ្វើការ</span>
+                    </div>
+                </a>
+            </ng-container>
+            <ng-template #checkoutTemplate>
+                <a mat-button class="enbutton primary cancel" (click)="checkOut()">
+                    <div class="rows">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                        <span>បញ្ចប់ម៉ោងធ្វើការ</span>
+                    </div>
+                </a>
+            </ng-template>
+        </div>
+        <div class="main-body" *ngIf="this.store.attendance">
+            <div class="tog-side-nav">
+                <div class="side-nav-item">
+                    <span>{{'ម៉ោង '+timeClock.hour+':'+timeClock.minute+':'+timeClock.second}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-calendar">
+            <mat-divider></mat-divider>
+            <mat-calendar (selectedChange)="_onSelectedCalendar($event)" [(selected)]="selected"></mat-calendar>
+        </div>
+    </div>
+    <div class="main-r">
+        <div class="page-container">
+
+            <div class="action-bar">
+                <div class="nav-content">
+                    <h3 class="head-title">
+                        វត្តមានមន្ត្រី
+                    </h3>
+                    <!-- <div class="action-item">
+                        <button mat-button (click)="addOfficer()" class="enbutton primary">បន្ថែមមន្ត្រី</button>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="page-doc">
+                <virtual-scroller #scroll [items]="store?.data" class="as-tb-wrap vt-doc"
+                    *ngIf="!store?.fetchingAttendances && !store?.emptyAttendances"
+                    (vsEnd)="fetchMoreAttendances($event)">
+                    <table class="as-table-wrapper">
+                        <thead #header>
+                            <tr>
+                                <th class="center">
+                                    ល.រ
+                                </th>
+                                <th class="left">
+                                    ថ្ងៃ.ខែ.ឆ្នាំ
+                                </th>
+                                <th class="left">
+                                    វត្តមាន
+                                </th>
+                                <th class="left">
+                                    រយៈពេលធ្វើការ
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody #container>
+                            <tr *ngFor="let item of scroll.viewPortItems">
+                                <td class="center" style="width: 64px;">
+                                    {{item.rowIndex}}
+                                </td>
+                                <td>
+                                    {{ item?.createdAt?.toDate() | dateKh}}
+                                </td>
+                                <td>
+                                    {{item?.dayStatus.text_kh ||'-'}}
+                                </td>
+                                <td>
+                                    <!-- {{convertWorkingHour(item?.totalWorkingHour) ||'-'}} -->
+                                    {{item?.totalWorkingHour | convertWorkingHour}}
+                                </td>
+                                <td style="width: 64px;">
+                                    <div class="card-list-action">
+                                        <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <!-- <button mat-menu-item type="button" (click)="removeOfficer(item)">
+                                                <mat-icon>cancel</mat-icon>
+                                                <span>ដកចេញ</span>
+                                            </button> -->
+                                        </mat-menu>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="empty-block" *ngIf="store?.fetchingAttendances">
+                        <div class="center-block-empty">
+                            <app-spinner></app-spinner>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="store?.emptyAttendances && !store?.fetchingAttendances">
+                        <div class="empty-block">
+                            <div class="center-block-empty">
+                                <div class="empty-img">
+                                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                                        alt="empty">
+                                </div>
+                                <div class="empty-text">
+                                    <p class="empty-state-title">
+                                        ពុំមានទិន្នន័យ
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </virtual-scroller>
+
+            </div>
+        </div>
+    </div>
+</div>

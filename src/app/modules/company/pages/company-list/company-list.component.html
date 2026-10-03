@@ -1,0 +1,66 @@
+<!-- <mat-progress-bar class="prog-indeter" ></mat-progress-bar> -->
+<div class="site-nav-container add-container">
+    <div class="site-nav">
+        <div class="nav-bar navBarFlex">
+            <div class="overSide">
+                <div class="title">
+                    Companies
+                </div>
+                <div class="overBLockListAllStore">
+                    <div class="st-list">
+                        <a mat-button class="oBLASMain"
+                            routerLinkActive="active">
+                            <div class="rows">
+                                <span class="oBLASMainL">
+                                    <mat-icon>store</mat-icon>
+                                </span>
+                                <span class="oBLASMainM">
+                                    Monyrottanak Store
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <a mat-button class="oBLASMBCreate" (click)="onLink()">
+                        <mat-icon>add</mat-icon>
+                        Create new company
+                    </a>
+                    <div class="divider">
+                        <mat-divider></mat-divider>
+                    </div>
+                    <div class="scb9dxdrList" style="margin-top: 8px;">
+                        <a class="scb9dxdrBox">
+                            <div class="boxIcon">
+                                <mat-icon>bolt</mat-icon>
+                            </div>
+                            <span class="boxTxt">
+                                Smart merchant
+                            </span>
+                        </a>
+
+                        <a class="scb9dxdrBox">
+                            <div class="boxIcon">
+                                <mat-icon>share</mat-icon>
+                            </div>
+                            <div class="boxTxt">
+                                My network
+                            </div>
+                        </a>
+                        <a class="scb9dxdrBox">
+                            <div class="boxIcon">
+                                <mat-icon>rebase</mat-icon>
+                            </div>
+                            <div class="boxTxt">
+                                My Promotions
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-nav"></div>
+    </div>
+</div>
+
+<div class="bodyMain">
+    <router-outlet></router-outlet>
+</div>

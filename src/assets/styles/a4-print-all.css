@@ -1,0 +1,109 @@
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+@page {
+  size: A4 portrait;
+  /* size: 148mm  210mm; */
+  /* size: auto; */
+  /* position: absolute; */
+  /* margin: 0; */
+  padding: 0;
+  /* margin-left: 0; */
+  /* margin-right: 1cm;  */
+  /* margin-top: 0.5cm;
+  margin-bottom: 0.5cm; */
+  margin: 1cm 1cm!important;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    background-color: #fff;
+  }
+  html,body {
+    background: #fff !important;
+  }
+  body {
+    margin-top: 0 !important;
+  }
+
+  html,
+  body,
+  .print-page {
+    /* width: 100%; */
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+
+  table {
+    border-spacing: 0px !important;
+    page-break-inside: auto !important;
+  }
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+  td {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+  tbody {
+    page-break-after: auto !important;
+  }
+  thead {
+    page-break-after: auto !important;
+  }
+  .page {
+    page-break-after: auto !important;
+  }
+
+  .page {
+    border-radius: 0;
+    padding: 0;
+  }
+  .report-wrapper {
+    padding: 20px !important;
+    width: 100% !important;
+  }
+  .report-title p{
+    text-align: center !important;
+  }
+
+  .title-content {
+    width: 98px;
+    flex: none;
+  }
+
+  .sign-conent {
+    max-height: 30px;
+    line-height: 24px;
+  }
+
+  .content-container {
+    width: 100%;
+  }
+
+  .page-footer-space{
+    height: 50px;
+  }
+  .b-r-fs{
+    page-break-inside: avoid!important;
+    page-break-before: auto!important;
+  }
+  .print-no-padding{
+    padding: 0 !important;
+  }
+}
+

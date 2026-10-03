@@ -1,0 +1,105 @@
+<div class="nav-site-dock">
+  <div class="nav-docks">
+      <div class="nav-dock-header" *ngIf="auth?.planing?.key">
+          <div class="rows doc-header-box">
+              <div class="dock-header" *ngIf="store?.selectedPlaning">
+                  <p>ផែនការអនុម័តប្រចាំឆ្នាំ · {{store?.selectedPlaning?.projectStatus?.name_kh}}</p>
+                  <h1><span class="dot-status" [style.background-color]="store?.selectedPlaning?.projectStatus?.color"></span><span>{{store?.selectedPlaning?.name}}</span></h1>
+              </div>
+              <a class="mat-btn-n" mat-button mat-icon-button>
+                  <mat-icon>settings</mat-icon>
+              </a>
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item *ngFor="let item of store.mme_years">
+                    <span>{{item?.name}}</span>
+                  </button>
+                </mat-menu>
+          </div>
+          <form class="form-search">
+
+          </form>
+      </div>
+
+      <!-- <div class="nav-dock-body" [ngClass]="(auth?.planing?.key && store?.rootLevelNodes?.length>0)?'':'no-scroll'">
+          <ng-container *ngIf="!loading else treeLoading">
+              <mat-tree *ngIf="(auth?.planing?.key && store?.rootLevelNodes?.length>0) else emptyTree"
+                  #treeProject class="nav-tree" [dataSource]="dataSource" [treeControl]="treeControl">
+                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                      <button mat-button type="button" mat-icon-button disabled></button>
+                      <a [routerLink]="['/planing/'+node?.item?.project?.key+'/'+ node?.item?.category?.key +'/' + (node?.item?.subOfProgram?.key ||'na') +'/' + node?.item?.key]"
+                          routerLinkActive="active" class="nav-tree-text">
+                          {{node.item?.name}}
+                      </a>
+                  </mat-tree-node>
+                  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                      <a mat-button type="button" mat-icon-button [attr.aria-label]="'Toggle ' + node.item"
+                          matTreeNodeToggle>
+                          <mat-icon class="mat-icon-rtl-mirror">
+                              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                          </mat-icon>
+                      </a>
+                      <a [routerLink]="['/planing/'+node?.item?.project?.key+'/'+ node?.item?.category?.key +'/' + (node?.item?.subOfProgram?.key ||'na') +'/' + node?.item?.key]"
+                          routerLinkActive="active" class="nav-tree-text">
+                          {{node.item?.name}}
+                      </a>
+                  </mat-tree-node>
+              </mat-tree>
+              <ng-template #emptyTree>
+                  <app-empty className="full-bx" img="../../../../../assets/images/empty-mail.svg"
+                      name="ពុំមានកម្មវិធីផែនការប្រចាំឆ្នាំ"></app-empty>
+              </ng-template>
+          </ng-container>
+          <ng-template #treeLoading>
+              <app-skeleton-loader></app-skeleton-loader>
+          </ng-template>
+      </div> -->
+      <div class="nav-dock-body">
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+        </nav>
+        <router-outlet *ngIf="!loading else formLoading">
+        </router-outlet>
+        <ng-template #formLoading>
+            <app-skeleton-loader></app-skeleton-loader>
+        </ng-template>
+      </div>
+
+      <div class="nav-dock-footer" *ngIf="!loading">
+          <div class="site-nav-button">
+              <a mat-button class="mat-btn-primary" [ngClass]="auth?.planing?.key?'':'disabled'" (click)="_onPublicAnnualProject()">
+                  ដាក់ឲ្យលើកផែនការត្រីមាស
+              </a>
+              <div class="scb9dxdrList pad16">
+                  <a mat-button class="scb9dxdrBox" [ngClass]="auth?.planing?.key?'':'disabled'"
+                      [routerLink]="['/planing/' + auth?.planing?.key + '/na/draft/form']">
+                      <div class="boxIcon">
+                          <mat-icon>edit_calendar</mat-icon>
+                      </div>
+                      <div class="boxTxt">
+                          បញ្ចូលកម្មវិធីក្នុងផែនការប្រចាំឆ្នាំ
+                      </div>
+                  </a>
+                  <a mat-button class="scb9dxdrBox" (click)="create()">
+                      <div class="boxIcon">
+                          <mat-icon>source</mat-icon>
+                      </div>
+                      <div class="boxTxt">
+                          បង្កើតផែនការប្រចាំឆ្នាំ
+                      </div>
+                  </a>
+                  <a mat-button class="scb9dxdrBox" [routerLink]="['/apps/year-program']">
+                      <div class="boxIcon">
+                          <mat-icon>newspaper</mat-icon>
+                      </div>
+                      <div class="boxTxt">
+                          ផែនការប្រចាំឆ្នាំ
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+      </div>
+  </div>
+  <div class="shadow-nav"></div>
+</div>

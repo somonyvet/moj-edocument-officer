@@ -1,0 +1,19 @@
+@import "src/assets/styles/variable.scss";
+.form-wrapper {
+    background-color: $background;
+}
+
+.as-tb-wrap.vt-doc {
+    height: 60vh !important;
+}
+
+mat-checkbox {
+    margin-bottom: 0 !important;
+}
+
+thead {
+    box-shadow: 4px 3px 8px 1px #ededed;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

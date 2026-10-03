@@ -1,0 +1,125 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <button mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="photo-pro">
+            <div class="avatar">
+              <img [src]="URL" />
+              <div (click)="photoFile.click()" class="change-profile">
+                <mat-icon class="mat-icon" role="img">
+                  photo_camera
+                </mat-icon>
+              </div>
+            </div>
+            <input #photoFile type="file" accept='image/*' (change)="onSelectedFile($event)" style="display:none;" />
+        </div>
+        <div class="form-group ">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះ</mat-label>
+                <textarea #focusInput formControlName="khName" required matInput placeholder="Name (KH)"
+                    cdkTextareaAutosize></textarea>
+                <mat-error *ngIf="form.controls['khName'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះ (EN)</mat-label>
+                <textarea formControlName="name" required matInput placeholder="Name (EN)"
+                    cdkTextareaAutosize></textarea>
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>អាសយដ្ឋាន</mat-label>
+                <textarea name="address" formControlName="address" matInput cdkTextareaAutosize cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="10" placeholder="អាសយដ្ឋាន"></textarea>
+                <mat-error *ngIf="form.controls['address'].hasError('required')">
+                    {{tran?.strings['requiredField']}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>លេខ​ទំនាក់​ទំនង</mat-label>
+                <textarea formControlName="contact" matInput placeholder="លេខ​ទំនាក់​ទំនង"
+                    cdkTextareaAutosize></textarea>
+                <mat-error *ngIf="form.controls['contact'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ប្រទេស</mat-label>
+                <input matInput placeholder="country" formControlName="country" type="text" autocomplete="off"
+                [matAutocomplete]="autoCountry">
+                <mat-autocomplete #autoCountry="matAutocomplete" [displayWith]="displayName">
+                  <mat-option *ngFor="let option of filteredCountryOptions | async" [value]="option">
+                    {{option?.en_short_name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="form.controls['country'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['country'].hasError('validKey')">
+                  This field only select from lists
+                </mat-error>
+
+            </mat-form-field>
+        </div>
+        
+        
+        <h3 style="margin: 0; padding-left: 6px;">
+            ទីតាំង
+        </h3>
+
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>រយៈទទឹង</mat-label>
+                <input formControlName="latitude" matInput placeholder="latitude" type="number" />
+                <mat-error *ngIf="form.controls['latitude'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>រយៈបណ្តោយ</mat-label>
+                <input formControlName="longitude" matInput placeholder="longitude" type="number" />
+                <mat-error *ngIf="form.controls['longitude'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>បរិយាយ</mat-label>
+                <textarea name="description" formControlName="description" matInput cdkTextareaAutosize
+                    cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10" placeholder="បរិយាយ"></textarea>
+            </mat-form-field>
+        </div>
+        <app-spinner class="abs-spinner" *ngIf="process"></app-spinner>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
+        <button class="enbutton primary" mat-button type="submit" *ngIf="!data?.item"
+            (click)="create(form.value, true)">រក្សាទុករួចធ្វើបន្ត</button>
+        <button class="enbutton primary" mat-button type="submit"
+            (click)="create(form.value, false)">{{data?.item?'រក្សាទុក':'រក្សាទុករួចបិទ'}}</button>
+    </mat-dialog-actions>
+</form>

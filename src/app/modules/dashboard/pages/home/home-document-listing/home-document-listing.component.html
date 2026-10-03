@@ -1,0 +1,100 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <h4>{{title}}</h4>
+        <app-search-filter-box placeholder="ស្វែងរកឯកសារ" (searchValue)="onSearch($event)"></app-search-filter-box>
+
+        <nav mat-tab-nav-bar class="fire-tabs">
+          <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">{{link.label}}</a>
+        </nav>
+      </div>
+      <ng-container *ngIf="store?.data?.length>0 && !loading else emptyData;">
+        <virtual-scroller #scroll [items]="store?.data" [checkResizeInterval]="0" class="doc-ls-items"
+          (vsEnd)="scrollHandler($event)">
+          <a mat-button class="avatar-vt-item" [routerLink]="link+item?.key" routerLinkActive="active"
+            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+            <div class="avatar">
+              <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+            </div>
+            <div class="av-vt-body">
+              <div class="rows r-title">
+                <strong>{{item?.documentNo}} · {{item?.documentTitle}} <span class="doc-ref" *ngIf="item?.refNo">
+                    ({{item?.refNo}})
+                  </span></strong>
+                <span class="dot-status s6" *ngIf="!item?.isChecked"></span>
+              </div>
+              <div class="rows sub-text">
+                {{item?.workplace?.name}}
+              </div>
+              <div class="rows sub-text time-person-view">
+                <span class="priority">#{{item?.priority?.name}}</span>
+                <div class="amTimeAgo">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span matTooltipClass="tooltipClass"
+                    [matTooltip]="item?.created_at?.toDate()| dateTime">{{item?.amTimeAgo}}</span>
+                </div>
+              </div>
+              <div class="rows sub-text time-person-view">
+                <div class="p-view-doc">
+                  <ion-icon name="person-outline"></ion-icon>
+                  <span>{{item?.total_visitor||0}}នាក់បានឃើញ</span>
+                </div>
+                <div class="view-doc">
+                  <ion-icon name="eye-outline"></ion-icon>
+                  <span>{{item?.total_view || 0}}ដងចូលមើល</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- <a class="doc-nav-item" [routerLink]="item?.key" routerLinkActive="active"
+                  *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+                    <div class="wrapper">
+                      <p class="doc-title">
+                        {{item?.documentTitle}} ({{item?.documentNo}})
+                      </p>
+                      <div class="dflex-r">
+                        <div class="content-wrapper">
+                          <p class="doc-subTitle">
+                            {{item?.workplace?.name}}
+                          </p>
+                          <div class="doc-remark">
+                            <div class="wrapper">
+                              <span [ngClass]="item?.priority?.key===1?'normal':'urgent'">
+                                {{item?.priority?.name}}
+                              </span>
+                              <span class="doc-ref" *ngIf="item?.refNo">
+                                #{{item?.refNo}}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="date-wrapper">
+                          <p class="wrap">
+                            {{item?.created_at?.toDate()| dateTime}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </a> -->
+        </virtual-scroller>
+      </ng-container>
+      <ng-container *ngIf="loading">
+        <div style="padding: 12px 0 0 12px;">
+          <app-side-list-item-skeleton-loading [number]="3"></app-side-list-item-skeleton-loading>
+        </div>
+      </ng-container>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានឯកសារ"
+            subtitle="សូមចុចលើបង្កើតឯកសារ ដើម្បីរៀបចំកំណត់បង្ហាញ កំណត់បង្ហាញឆ្លើយតប និងរបាយការណ៍ផ្សេងៗ"></app-empty>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
+</div>

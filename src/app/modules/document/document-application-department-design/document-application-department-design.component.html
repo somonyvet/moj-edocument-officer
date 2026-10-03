@@ -1,0 +1,31 @@
+<div class="doc-form-wrapper">
+    <div class="step-navigation">
+        <ul class="steps">
+            <li class="past" [routerLink]="['/documents/department-form/' + param?.id + '/' +  param?.cid + '/setup']"
+                routerLinkActive="active">
+                <span>
+                    <strong>ជំហានទី ១</strong>
+                    បញ្ចូលលេខយោង
+                </span><i></i>
+            </li>
+            <li class="present"
+                [routerLink]="['/documents/department-form/' + param?.id + '/' + param?.cid + '/content']"
+                routerLinkActive="active">
+                <span>
+                    <strong>ជំហានទី ២</strong>
+                    បញ្ចូលខ្លឹមសារឯកសារ
+                </span><i></i>
+            </li>
+            <li class="future"
+                [routerLink]="['/documents/department-form/' + param?.id + '/' + param?.cid + '/success']"
+                routerLinkActive="active">
+                <span>
+                    <strong>ជំហានទី ៣</strong>
+                    ទម្រង់ឯកសារសម្រេច
+                </span><i></i>
+            </li>
+        </ul>
+    </div>
+    <router-outlet *ngIf="!loading"></router-outlet>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>

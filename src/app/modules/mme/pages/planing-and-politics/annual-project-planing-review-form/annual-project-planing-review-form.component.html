@@ -1,0 +1,93 @@
+<div class="dialog-wrapper" [formGroup]="form">
+    <div class="dialog-header">
+        <div class="title">
+            {{title}}
+        </div>
+        <div class="flex1"></div>
+        <a mat-button mat-icon-button mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+
+    <ng-container *ngIf=" data?.approvalStatus?.key === APPROVAL_STATUS_OBJECT?.MODIFY?.key ; else notModifyTemplate">
+      <div class="dialog-content" *ngIf="!loading;else loadingTemplate">
+        <div class="form-wrapper">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>ស្ថាប័ន</mat-label>
+              <input cdkFocusInitial formControlName="rejectDepartment" required [matAutocomplete]="autoDepartment" matInput>
+              <mat-autocomplete [displayWith]="ds.displayFn" autoActiveFirstOption
+                #autoDepartment="matAutocomplete">
+                <mat-option *ngFor="let item of filteredDepartmentOptions | async;let i=index" [value]="item">
+                    {{item?.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error class="error-message" *ngIf="form.controls['rejectDepartment'].hasError('validKey')">
+                  <div>សូមជ្រើសរើសព័ត៌មានដែលបង្ហាញតារាង។</div>
+              </mat-error>
+              <mat-error *ngIf="form.controls['rejectDepartment'].hasError('required')">
+                  សូមបំពេញព័ត៌មានក្នុងប្រអប់។ ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>យោបល់កែតម្រូវ</mat-label>
+                <textarea rows="7" #inputRef  required matInputAutofocus formControlName="rejectComment" matInput
+                    placeholder="យោបល់កែតម្រូវ"></textarea>
+                <mat-error *ngIf="form.controls['rejectComment'].hasError('required')">
+                    សូមបំពេញព័ត៌មានក្នុងប្រអប់។ ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="drop-box-wrapper">
+            <div class="drop-box" accept="*" fileDragDrop
+            (filesChangeEmiter)="onSelectedFile($event)"
+            (click)="photoFile.click()">
+            <div class="boxNavMiddle">
+                <div class="boxNavMiddleTxt">
+                    ជ្រើសរើសឯកសារ
+                </div>
+                <div class="boxNavMiddleSmallTxt">សូមជ្រើសរើសឯកសាររបស់លោកអ្នកទម្លាក់នៅទីនេះ</div>
+            </div>
+            <input #photoFile type="file" (change)="onSelectedFile($event.target.files)" style="display:none;"
+                multiple />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="file-display-box">
+                <app-display-file [data]="selectedFiles" (onRemove)="onRemoveFile($event)">
+                </app-display-file>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <ng-template #loadingTemplate>
+        <app-skeleton-loader></app-skeleton-loader>
+      </ng-template>
+    </ng-container>
+
+    <ng-template #notModifyTemplate>
+      <div class="dialog-content">
+        <div class="form-wrapper">
+            <ng-container *ngIf="!loading else loadingTmp">
+                <h4>{{auth?.currentDepartment?.name}}</h4>
+            </ng-container>
+            <ng-template #loadingTmp>
+                <app-skeleton-loader></app-skeleton-loader>
+            </ng-template>
+        </div>
+      </div>
+    </ng-template>
+    <mat-progress-bar *ngIf="process" ></mat-progress-bar>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <a mat-button mat-dialog-close type="button" class="enbutton cancel m-r16"
+            (click)="dialogRef.close('no')">បោះបង់</a>
+        <button [disabled]=" process " class="submit-btn" mat-button type="submit" (click)="_onSave()">យល់ព្រម</button>
+    </div>
+</div>

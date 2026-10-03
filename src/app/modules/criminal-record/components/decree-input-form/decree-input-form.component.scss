@@ -1,0 +1,159 @@
+@import "/src/assets/styles/variable.scss";
+
+.form-wrapper {
+  background: $background;
+}
+
+.quill-container {
+  height: fit-content;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: $whiteColor;
+  border: 1px solid $border;
+  border-radius: $radius;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    border-color: darken($border, 8%);
+  }
+
+  &:focus-within {
+    border-color: $focus;
+    box-shadow: 0 0 0 3px rgba(52, 118, 208, 0.12);
+  }
+}
+
+.quill-title {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+  font-family: $appFontStrong;
+  font-size: 14px;
+  font-weight: 500;
+  color: $titleColor;
+  letter-spacing: 0.2px;
+
+  &::before {
+    content: "";
+    width: 3px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 2px;
+    background: $primary;
+    flex: 0 0 auto;
+  }
+}
+
+.ck-wrapper {
+  border: 1px solid $border;
+  border-radius: 6px;
+  overflow: hidden;
+  background: $whiteColor;
+
+  .ck-editor {
+    width: 100%;
+  }
+
+  ::ng-deep .ck.ck-toolbar {
+    border: none;
+    border-bottom: 1px solid $border;
+    background: $appsecendaryColor;
+    border-radius: 0;
+  }
+
+  ::ng-deep .ck.ck-editor__editable_inline {
+    border: none;
+    border-radius: 0;
+    min-height: 160px;
+    padding: 12px 14px;
+    line-height: 1.6;
+
+    &.ck-focused {
+      box-shadow: none;
+    }
+  }
+}
+
+.comment-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: $whiteColor;
+  font-family: $appFont;
+  font-size: 18px;
+  line-height: 1.6;
+  color: $titleColor;
+  resize: vertical;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $focus;
+  }
+}
+
+.font-fastHand {
+  font-family: $fastHand !important;
+  color: black !important;
+  letter-spacing: -2px;
+  line-height: normal;
+
+  ::ng-deep .ck.ck-editor__editable_inline {
+    font-family: $fastHand !important;
+    color: black !important;
+    letter-spacing: -2px;
+    font-size: 18px;
+
+    p {
+      font-family: $fastHand !important;
+      color: black !important;
+      margin-bottom: 16px !important;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    span {
+      font-family: $fastHand !important;
+      color: black !important;
+    }
+
+    strong {
+      font-family: $fastHand !important;
+      color: black !important;
+    }
+  }
+}
+
+::ng-deep .mat-dialog-actions {
+  .enbutton {
+    min-width: 104px;
+    border-radius: 6px;
+
+    + .enbutton {
+      margin-left: 8px;
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .quill-container {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .ck-wrapper ::ng-deep .ck.ck-editor__editable_inline {
+    min-height: 120px;
+  }
+
+  .comment-textarea {
+    min-height: 96px;
+  }
+}

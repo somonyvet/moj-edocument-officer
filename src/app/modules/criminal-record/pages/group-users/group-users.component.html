@@ -1,0 +1,59 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
+          <h4 (click)="create()">{{title}}</h4>
+        </div>
+        <nav mat-tab-nav-bar class="fire-tabs">
+          <a mat-tab-link [active]="true">ទាំងអស់</a>
+        </nav>
+      </div>
+      <ng-container *ngIf="!loading else loader">
+        <ng-container *ngIf="store?.data?.length>0 else emptyData">
+          <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header">
+            <div class="rows" *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+              <a mat-button class="avatar-vt-item flex1" [ngClass]="item?.status?.key===STATUS_OBJ?.VOID?.key?'warn':''"
+                [routerLink]="item?.key" routerLinkActive="active" (click)="onSelectedApp(item)">
+                <div class="avatar">
+                  <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                </div>
+                <div class="av-vt-body">
+                  <strong>{{item?.name}}</strong>
+                  <div class="rows sub-text">
+
+                  </div>
+                </div>
+              </a>
+              <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="create(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>កែសម្រួល</span>
+                </button>
+                <button mat-menu-item (click)="onDelete(item)">
+                  <mat-icon>delete</mat-icon>
+                  <span>លុប</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div class="fake"></div>
+          </virtual-scroller>
+        </ng-container>
+      </ng-container>
+      <ng-template #loader>
+        <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
+</div>

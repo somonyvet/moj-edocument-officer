@@ -1,0 +1,14 @@
+<div class="officer-avatar" *ngIf="!loading && item" [ngClass]="removeStyle?'removed':''">
+    <img [src]="item?.photoUrl" [ngClass]="imgCss" [style.border-color]="borderColor" (error)="handleImgError($event)"
+        (click)="_onEdit()">
+    <div class="officer-name" (click)="_onEdit()">
+        <span>{{item?.displayName}}</span>
+        <p *ngIf="description">{{description}}</p>
+    </div>
+    <span *ngIf="checkIcon" class="material-icons checked">
+        check_circle
+    </span>
+    <span class="material-icons" *ngIf="removeStyle && !isOwner" (click)="_onRemove()">
+        close
+    </span>
+</div>

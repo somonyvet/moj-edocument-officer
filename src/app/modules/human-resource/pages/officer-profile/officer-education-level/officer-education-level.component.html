@@ -1,0 +1,150 @@
+<div class="scrolling-container">
+  <div class="eform" [formGroup]="form">
+    <div class="body">
+      <div class="body-item">
+        <!-- <div class="title" (click)="debug(form.valid)">
+            <h3>២-កម្រិតវប្បធម៌ <span> (សូមបញ្ចូលសញ្ញាប័ត្រដែលមានកម្រិតខ្ពស់ជាងគេនៅលើ)</span></h3>
+          </div> -->
+
+        <div class="memo" style="padding-top: 40px;">
+          <div class="wrapper">
+            <span>
+              សូមភ្ជាប់មកជាមួយនូវច្បាប់ចម្លង សញ្ញាបត្រ ឬវិញ្ញាបនបត្របញ្ជាក់ការសិក្សា
+            </span>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('latestGeneralEducation')?.errors&&form.get('latestGeneralEducation')?.touched?'has-error':''">
+            <input class="f-input" type="text" formControlName="latestGeneralEducation">
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center">សញ្ញាប័ត្រទទួលបាន</th>
+                  <th class="center">រូបភាពសញ្ញាប័ត្រទទួលបាន</th>
+                  <th class="center">ជំនាញឯកទេស</th>
+                  <th class="center">កាលបរិច្ឆេទ</th>
+                  <th class="center" width="64px"></th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container formArrayName="praiseHistory"
+                  *ngFor="let item of form.get('praiseHistory')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td style="width: 240px;">
+                      <div class="ftb-input"
+                        [ngClass]="item.get('certificate')?.errors&&item.get('certificate')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="certificate">
+                      </div>
+                    </td>
+
+                    <td style="vertical-align: middle;">
+                      <div style="display:flex ;">
+                        <div class="flex1">
+                          <div class="img-view">
+                            <ng-container *ngFor="let file of commendationData[i]?.files;let ind = index;">
+                              <div class="img-container">
+                                <a class="download" target="blank" [href]="file?.downloadUrl">
+                                  <img [src]="file?.downloadUrl"  *ngIf="file?.fileType!=='application/pdf'">
+                                </a>
+                                <div class="pdf-view download" *ngIf="file?.fileType==='application/pdf'">
+                                  <a target="blank" [href]="file?.downloadUrl">{{file?.name}}</a>
+                                </div>
+                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                                  (click)="removePraiseFileDB(i,ind,file)">
+                                  <mat-icon class="mat-18">clear</mat-icon>
+                                </a>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngFor="let item of listDisplayFile[i]; let ind = index;">
+                              <div class="img-container">
+                                <img [src]="item" *ngIf="selectedPraiseFileArray[i][ind]?.type!=='application/pdf'">
+                                <div class="pdf-view" *ngIf="selectedPraiseFileArray[i][ind]?.type==='application/pdf'">
+                                  {{selectedPraiseFileArray[i][ind]?.name}}
+                                </div>
+                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                                  (click)="removePraiseFile(i,ind)">
+                                  <mat-icon class="mat-18">clear</mat-icon>
+                                </a>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                        <div class="file-select-box">
+                          <button class="mat-add-new" mat-button mat-icon-button (click)="praiseFile.click()">
+                            <mat-icon class="mat-18">attach_file</mat-icon>
+                          </button>
+                          <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border" placeholder=""
+                            style="display: none;" (change)="selectedPraiseFile($event,i)" multiple>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td style="width: 240px;">
+                      <div class="ftb-input"
+                        [ngClass]="item.get('skill')?.errors&&item.get('skill')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="skill">
+                      </div>
+                    </td>
+
+                    <td style="width: 140px;">
+                      <!-- <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
+                          (focus)="picker7.open()">
+                        <mat-datepicker #picker7></mat-datepicker>
+                      </div> -->
+
+                      <div class="ftb-input">
+                        <div class="inValid-date" *ngIf="dateInvalid" >
+                          ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                        </div>
+                        <app-khmer-date-form-picker [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' " (onSelectedItem)="onSelectedDate($event,i)" style="width:100%;"
+                        [label]="'ថ្ងៃ'"
+                        [day]="item.get('date')?.value?.day||null"
+                        [month]="item.get('date')?.value?.month||null"
+                        [year]="item.get('date')?.value?.year||null"
+                        ></app-khmer-date-form-picker>
+                      </div>
+                    </td>
+
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('praiseHistory', i)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('praiseHistory',[{field:'skill',value:null},{field:'certificate',value:null},{field:'date',value:null},{field:'files',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div class="footer"></div> -->
+    <div class="eform-action-controls">
+      <div class="action-control-container">
+        <h4>២-កម្រិតវប្បធម៌</h4>
+        <div class="flex1"></div>
+        <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave()"
+          [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+        </app-primary-button>
+      </div>
+    </div>
+  </div>
+</div>

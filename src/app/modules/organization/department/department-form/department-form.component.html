@@ -1,0 +1,271 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <a mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </a>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>លេខកូដ</mat-label>
+                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code" required matInput
+                    placeholder="លេខកូដ">
+                <mat-error *ngIf="form.controls['code'].hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="form.controls['code'].hasError('nameAvailable')">
+                    This code is already exist in system. Please try another!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះអក្សរកាត់</mat-label>
+                <input formControlName="displayName" required matInput placeholder="ឈ្មោះអក្សរកាត់">
+                <mat-error *ngIf="form.controls['displayName'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះស្ថាប័ន</mat-label>
+                <input required formControlName="name" matInput placeholder="ឈ្មោះស្ថាប័ន">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')">
+                    This name is already exist in system. Please try another!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះស្ថាប័ន (អង់គ្លេស)</mat-label>
+                <input formControlName="name_en" matInput placeholder="ឈ្មោះស្ថាប័ន (អង់គ្លេស)">
+                <mat-error *ngIf="form.controls['name_en'].hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="form.controls['name_en'].hasError('nameAvailable')">
+                    This name is already exist in system. Please try another!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>រយៈពេលបញ្ចប់ឯកសារ (គិតជាថ្ងៃ)</mat-label>
+                <input formControlName="completedDuration" type="number" matInput
+                    placeholder="រយៈពេលបញ្ចប់ឯកសារ (គិតជាថ្ងៃ)">
+                <mat-error *ngIf="form.controls['completedDuration'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>កម្រិតគ្រប់គ្រង</mat-label>
+                <input required [matAutocomplete]="autoCompleteRanking" formControlName="ranking" matInput
+                    placeholder="កម្រិតគ្រប់គ្រង">
+                <mat-autocomplete (optionSelected)="optionSelectedManagement($event)" [displayWith]="ds.displayFn"
+                    #autoCompleteRanking="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredRankingOptions | async;let i=index" [value]="item">
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message" *ngIf="form.controls['ranking'].hasError('validKey')">
+                    <div>Please select once from list to continue.</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['ranking'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="userBlockNoteDirection">ប្រើប្រាស់ (Block Note)
+                ក្នុងចរន្តឯកសារ
+            </mat-checkbox>
+        </div>
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="approveOfficerForm">អនុម័តលើសាលាកប័ត្រព័ត៌មាន
+            </mat-checkbox>
+        </div>
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="adminOffice">រដ្ឋបាលសរុប</mat-checkbox>
+        </div>
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="showInHeader">សម្រាប់បង្ហាញក្នុងក្បាលឯកសារ
+            </mat-checkbox>
+        </div>
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="verifyFromAssistant">តម្រូវឲ្យត្រួតពិនិត្យពីជំនួយការ
+            </mat-checkbox>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ស្ថិតនៅក្រោមស្ថាប័ន</mat-label>
+                <input [matAutocomplete]="autoSubOfCommittee" formControlName="subOfDepartment" matInput
+                    placeholder="ស្ថិតនៅក្រោមស្ថាប័ន">
+                <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredDepartmentOptions | async;let i=index" [value]="item">
+                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message" *ngIf="form.controls['subOfDepartment'].hasError('validKey')">
+                    <div>Please select once from list to continue.</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['subOfDepartment'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="mat-group-form">
+            <div class="mat-gf-action">
+                <span class="material-icons">
+                    draw
+                </span>
+                <div class="mat-gf-memo">
+                    <strong>ចំណារឯកភាព!</strong><span>មុខងារនិងតួនាទីដើម្បីធ្វើចំណារឯកភាពនៅលើឯកសារ</span>
+                </div>
+            </div>
+            <div class="mat-gf-items">
+                <mat-chip-list>
+                    <mat-chip class="example-box" *ngFor="let item of store?.position">
+                        {{item.name}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="គណនីថ្នាក់ដឹកនាំ">
+                <div class="mat-group-form">
+                    <div class="mat-gf-action">
+                        <span class="material-icons">
+                            people
+                        </span>
+                        <div class="mat-gf-memo">
+                            <strong>គណនីមន្ត្រីនិង គណនីថ្នាក់ដឹកនាំក្នុងនាយកដ្ឋាន!</strong><span>លោកអ្នកអាចកំណត់
+                                មន្ត្រីក្នុងនាយកដ្ឋាន</span>
+                        </div>
+                        <button mat-button type="button" (click)="create()">
+                            បញ្ចូលគណនីថ្នាក់ដឹកនាំ
+                        </button>
+                    </div>
+                </div>
+                <mat-list class="mat-pos-office">
+                    <div mat-subheader>គណនីថ្នាក់ដឹកនាំ</div>
+                    <mat-list-item *ngFor="let folder of store?.departmentOfficers;let i=index">
+                        <mat-icon mat-list-icon>perm_identity</mat-icon>
+                        <div class="flex1" style="margin-left: 10px;">
+                            <div mat-line>{{folder?.displayName}}</div>
+                        </div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="create(folder)">
+                                <mat-icon>edit</mat-icon>
+                                <span>កែប្រែ</span>
+                            </button>
+                            <button mat-menu-item (click)="delete(folder)">
+                                <mat-icon>delete</mat-icon>
+                                <span>លុប</span>
+                            </button>
+                        </mat-menu>
+                        <mat-divider *ngIf="i<store?.departmentOfficers?.length-1"></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+            </mat-tab>
+            <mat-tab label="គណនីទទួលអនុវត្ត">
+
+                <div class="mat-group-form">
+                    <div class="mat-gf-action">
+                        <span class="material-icons">
+                            people
+                        </span>
+                        <div class="mat-gf-memo">
+                            <strong>គណនីមន្ត្រីនិង គណនីថ្នាក់ដឹកនាំក្នុងនាយកដ្ឋាន!</strong><span>លោកអ្នកអាចកំណត់
+                                មន្ត្រីក្នុងនាយកដ្ឋាន</span>
+                        </div>
+                        <button mat-button type="button" (click)="createOfficeReceived()">
+                            បញ្ចូលគណនីទទួលអនុវត្ត
+                        </button>
+                    </div>
+                </div>
+                <mat-list class="mat-pos-office">
+                    <div mat-subheader>គណនីទទួលអនុវត្ត</div>
+                    <mat-list-item *ngFor="let folder of store?.departmentOfficersReceived;let i=index">
+                        <mat-icon mat-list-icon>perm_identity</mat-icon>
+                        <div class="flex1" style="margin-left: 10px;">
+                            <div mat-line>{{folder?.displayName}}</div>
+                        </div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="createOfficeReceived(folder)">
+                                <mat-icon>edit</mat-icon>
+                                <span>កែប្រែ</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteOfficeReceived(folder)">
+                                <mat-icon>delete</mat-icon>
+                                <span>លុប</span>
+                            </button>
+                        </mat-menu>
+                        <mat-divider *ngIf="i<store?.departmentOfficersReceived?.length-1"></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+
+            </mat-tab>
+            <mat-tab label="គណនីដឹងពីឯកសារ">
+                <div class="mat-group-form">
+                    <div class="mat-gf-action">
+                        <span class="material-icons">
+                            people
+                        </span>
+                        <div class="mat-gf-memo">
+                            <strong>គណនីមន្ត្រីនិង គណនីថ្នាក់ដឹកនាំក្នុងនាយកដ្ឋាន!</strong><span>លោកអ្នកអាចកំណត់
+                                មន្ត្រីក្នុងនាយកដ្ឋាន</span>
+                        </div>
+                        <button mat-button type="button" (click)="createOfficeCC()">
+                            បញ្ចូលគណនីដឹងពីឯកសារ
+                        </button>
+                    </div>
+                </div>
+                <mat-list class="mat-pos-office">
+                    <div mat-subheader>គណនីដឹងពីឯកសារ</div>
+                    <mat-list-item *ngFor="let folder of store?.departmentOfficersCC;let i=index">
+                        <mat-icon mat-list-icon>perm_identity</mat-icon>
+                        <div class="flex1" style="margin-left: 10px;">
+                            <div mat-line>{{folder?.displayName}}</div>
+                        </div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="createOfficeCC(folder)">
+                                <mat-icon>edit</mat-icon>
+                                <span>កែប្រែ</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteOfficeCC(folder)">
+                                <mat-icon>delete</mat-icon>
+                                <span>លុប</span>
+                            </button>
+                        </mat-menu>
+                        <mat-divider *ngIf="i<store?.departmentOfficersCC?.length-1"></mat-divider>
+                    </mat-list-item>
+                </mat-list>
+            </mat-tab>
+        </mat-tab-group>
+
+        <mat-divider></mat-divider>
+
+    </mat-dialog-content>
+    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+    </mat-progress-bar>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

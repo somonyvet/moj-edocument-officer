@@ -1,0 +1,35 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <div class="title">
+            <!-- {{msg?.title?msg?.title:'Delete'}} -->
+            <span style="color: #f44336">{{msg?.isDelete===true?'':'លុប'}} {{msg?.name?msg?.name:msg?.full_name}}</span>
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="onClose()">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-content">
+            <div class="aside-warning" style="flex-wrap: wrap;">
+                <i class="material-icons">warning</i>
+                <span>
+                    {{msg?.memo}}
+                </span>
+                <p *ngIf="!msg?.warning">This record
+                    <strong>{{msg?.name?msg?.name:msg?.full_name}}</strong> will be
+                    {{msg?.isDelete===true?'Restore':'Delete'}} from system.
+                </p>
+                <p *ngIf="!msg?.warning"> Are you sure, you want to {{msg?.isDelete===true?'Restore':'Delete'}}?</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <button mat-button mat-dialog-close type="button" class="enbutton cancel m-r16"
+            (click)="onClose()">Cancel</button>
+        <button mat-button type="submit" class="enbutton delete-btn" (click)="dialogRef.close('yes')"
+            color="warn">{{msg?.button?msg?.button:'Delete'}}</button>
+    </div>
+</div>

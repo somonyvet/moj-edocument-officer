@@ -1,0 +1,34 @@
+<div class="officer-profile-page">
+  <div class="header">
+    <div class="wrapper">
+      <nav mat-tab-nav-bar class="fire-tabs" style="flex:1;">
+        <a mat-tab-link [routerLink]="'certificate'" routerLinkActive (click)="childrenRoute = 'certificate'"
+          #rla1="routerLinkActive" [active]="rla1.isActive">សាលាកប័ត្រព័ត៌មាន
+        </a>
+
+        <a mat-tab-link [routerLink]="'biography'" routerLinkActive (click)="childrenRoute = 'biography'"
+          #rla2="routerLinkActive" [active]="rla2.isActive">ជីវប្រវត្តិមន្ត្រី
+        </a>
+
+        <a mat-tab-link [routerLink]="'attachment'" routerLinkActive (click)="childrenRoute = 'attachment'"
+          #rla3="routerLinkActive" [active]="rla3.isActive">ឯកសារភ្ជាប់
+        </a>
+      </nav>
+      <!-- <div style="flex:1"></div> -->
+      <a matTooltip="ធ្វើបច្ចុប្បន្នភាព" mat-button mat-icon-button class="mat-add-new"
+        [routerLink]="['/hr/officer-application-form/' + docKey]" [queryParams]="{backUrl:backUrl}">
+        <mat-icon class="mat-18">edit</mat-icon>
+      </a>
+      <button [disabled]="childrenRoute === 'attachment'" matTooltip="បោះពុម្ព" mat-button mat-icon-button
+        class="mat-add-new" (click)="print()">
+        <mat-icon class="mat-18">print</mat-icon>
+      </button>
+      <!-- <button class="btn-submit" mat-button (click)="_onApproval()" >អនុម័ត</button> -->
+    </div>
+  </div>
+  <div class="body">
+    <ng-container *ngIf="!loading">
+      <router-outlet></router-outlet>
+    </ng-container>
+  </div>
+</div>

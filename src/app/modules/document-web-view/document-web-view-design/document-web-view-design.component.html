@@ -1,0 +1,7 @@
+<div class="doc-form-template-wrapper mdoc-form-template-wrapper">
+    <mat-progress-bar mode="indeterminate"
+        *ngIf="loading || loadingHeader || loadingSection || loadingPermission ||process">
+    </mat-progress-bar>
+    <router-outlet *ngIf="!loading && !loadingHeader && !loadingSection && !loadingPermission">
+    </router-outlet>
+</div>

@@ -1,0 +1,24 @@
+.main-l{
+  background-color: white;
+}
+
+.head-bar{
+  padding: 0;
+  padding-top: 8px;
+}
+
+.side-nav-item{
+  padding: 8px 12px!important;
+  line-height: normal!important;
+  white-space: normal!important;
+  text-align: start!important;
+  .row-content{
+    display: flex;
+    .flex-none{
+      flex: none;
+    }
+  }
+}
+.tog-side-nav{
+  width: 200px!important;
+}

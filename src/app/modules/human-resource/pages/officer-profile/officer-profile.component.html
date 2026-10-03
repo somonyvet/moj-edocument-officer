@@ -1,0 +1,143 @@
+<div class="officer-profile-wrapper">
+    <div class="officer-profile-navigation-ds"></div>
+    <div class="officer-profile-navigation">
+        <div class="off-p-nav">
+            <div class="officer-profile-navigation-container">
+                <h4>ជីវប្រវត្តិមន្រ្តីនគរបាលជាតិ</h4>
+                <a mat-button class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/personal-info']"
+                    routerLinkActive="active">
+                    ១-ព័ត៌មានផ្ទាល់ខ្លួន
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/education-level']"
+                    routerLinkActive="active">
+                    ២-កម្រិតវប្បធម៌
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/foreign-language']"
+                    routerLinkActive="active">
+                    ៣-ចំណេះដឹងភាសាបរទេស
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/vocational-training-level']"
+                    routerLinkActive="active">
+                    ៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវៈ
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/work-history']"
+                    routerLinkActive="active">
+                    ៥-ប្រវត្តិការងារ
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/praise-history']"
+                    routerLinkActive="active">
+                    ៦-ការលើកសរសើរ
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/punishment-history']"
+                    routerLinkActive="active">
+                    ៧-ការដាក់ពិន័យ
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/family-info']"
+                    routerLinkActive="active">
+                    ៨-ព័ត៌មានគ្រួសារ
+                </a>
+
+
+                <!-- <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/letter-condemnation']"
+                    routerLinkActive="active">
+                    ៩-លិខិតថ្កោលទោស
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/cv-form']"
+                    routerLinkActive="active">
+                    ១០-ប្រវត្តិរូបសង្ខេប
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/first-bl-crim-kh']"
+                    routerLinkActive="active">
+                    ១១-ព្រឹត្តិបត្រថ្កោលទោសលេខ ១
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/second-bl-crim-kh']"
+                    routerLinkActive="active">
+                    ១២-ព្រឹត្តិបត្រថ្កោលទោសលេខ ២
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/thrid-bl-crim-kh']"
+                    routerLinkActive="active">
+                    ១៣-ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/thrid-bl-crim-eng']"
+                    routerLinkActive="active">
+                    ១៤-ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣ ជាភាសារអង់គ្លេស
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/thrid-bl-crim-fr']"
+                    routerLinkActive="active">
+                    ១៥-ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣ ជាភាសារបារាំង
+                </a>
+                <a mat-button [disabled]="!store?.registrationFormDoc" class="officer-profile-navigation-item"
+                    [routerLink]="['/hr/officer-application-form/'+ params?.id +'/thrid-cond-bul-kh']"
+                    routerLinkActive="active">
+                    ១៦-ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣ ខ្លី
+                </a> -->
+            </div>
+            <div class="officer-profile-submit-block" *ngIf="!store?.registrationFormDoc?.currentDepartment">
+                <div class="memo blue" *ngIf="store?.registrationFormDoc?.status?.key === STATUS_OBJ?.SUBMITTED?.key">
+                    <p>
+                        លោកអ្នកបានដាក់សំណើរស្នើសុំការអនុម័តឯកភាពរួចរាល់។
+                    </p>
+                </div>
+                <div class="memo">
+                    <mat-icon>info</mat-icon>
+                    <p>
+                        ដើម្បីអាចដំណើរការគណនីរបស់លោកអ្នកបានតម្រូវឲ្យលោកអ្នកបំពេញជីវប្រវត្តិនគរបាលជាតិ
+                        រួចរង់ចាំការអនុម័តពីអគ្គនាយកដ្ឋានអន្តោប្រវេសន៍ទើបលោកអ្នកអាចចូលទៅប្រើប្រាស់ប្រព័ន្ធបាន។
+                    </p>
+                </div>
+                <app-primary-button css="w100" (onPress)="_onSubmit()" label="ដាក់ស្នើសុំពិនិត្យ" [process]="process"
+                    [disable]="process || (store?.registrationFormDoc?.status?.key === STATUS_OBJ?.SUBMITTED?.key)">
+                </app-primary-button>
+            </div>
+
+            <div class="officer-profile-submit-block" *ngIf="store?.registrationFormDoc?.currentDepartment">
+
+                <div class="memo blue" *ngIf="store?.registrationFormDoc?.status?.key === STATUS_OBJ?.SUBMITTED?.key">
+                    <p>
+                        លោកអ្នកបានដាក់សំណើរស្នើសុំការអនុម័តឯកភាពរួចរាល់។
+                    </p>
+                </div>
+
+                <div class="memo blue" *ngIf="store?.registrationFormDoc?.status?.key === STATUS_OBJ?.PENDING?.key">
+                    <p>
+                        ដំណើរការធ្វើបច្ចុប្បន្នភាពគឺត្រូវការឆ្លងកាត់ការអនុម័តឯកភាព។
+                        សូមដាក់ស្នើពិនិត្យបន្ទាប់ពីធ្វើការកែប្រែព័ត៌មានរួចរាល់។
+                    </p>
+                </div>
+
+                <app-primary-button *ngIf="store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key"
+                    css="w100" (onPress)="_onSubmitUpdate()" label="ធ្វើបច្ចុប្បន្នភាព" [process]="process"
+                    [disable]="process">
+                </app-primary-button>
+
+                <app-primary-button *ngIf="store?.registrationFormDoc?.status?.key === STATUS_OBJ?.PENDING?.key"
+                    css="w100" (onPress)="_onSubmit()" label="ដាក់ស្នើសុំពិនិត្យ" [process]="process"
+                    [disable]="process">
+                </app-primary-button>
+
+            </div>
+        </div>
+        <div class="shadow-y"></div>
+    </div>
+    <div class="officer-profile-info-container">
+        <router-outlet *ngIf="!loading else loadingTmp"></router-outlet>
+        <ng-template #loadingTmp>
+            <app-document-skeleton-loading></app-document-skeleton-loading>
+        </ng-template>
+    </div>
+</div>

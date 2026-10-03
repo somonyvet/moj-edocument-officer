@@ -1,0 +1,170 @@
+<div class="dialog-content-wrapper">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>បោះពុម្ពព្រឹត្តិបត្រថ្កោលទោស</h2>
+    <div class="space1"></div>
+    <div mat-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="form-wrapper flex1" style="max-height:unset!important;background-color: #eff2f5;">
+    <div class="apply-form-page offi" *ngIf="!this.data?.criminalRecords[0]?.verify_status?.key">
+
+      <div class="eform small" [formGroup]="form">
+        <div class="header-ef">
+          <h2>ថ្ងៃចេញព្រឹត្តិបត្រ</h2>
+        </div>
+
+        <div class="flex-block">
+
+          <div style="margin-left: 16px">
+            <mat-form-field appearance="outline">
+              <input #ref formControlName="criminal_letter_date"
+                [disabled]="criminalStore?.selectedCriminalPrint?.do_verify" matInput [matDatepicker]="picker"
+                (dateChange)="orgValueChange(ref.value)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="revoke-btn">
+            <button mat-button class="enbutton primary" (click)="onRevoke(criminalStore?.selectedCriminalPrint)"
+              [disabled]="!criminalStore?.selectedCriminalPrint?.['verify_qr_kh'] || criminalStore?.selectedCriminalPrint?.['do_revoke_by']">
+              <span>មោឃៈព្រឹត្តិបត្រពី Verify</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="note-display">
+          <div class="col">
+            <div class="row">
+              <span class="note-star">
+                បញ្ជាក់ :
+              </span>
+            </div>
+            <div class="row">
+              <span class="note-text">
+                សូមជ្រើសរើសកាលបរិច្ឆេទចេញព្រឹត្តិបត្រ មុនពេលដាក់ព្រឹត្តិបត្រចូលប្រព័ន្ធ Verify
+                ព្រោះលោកអ្នកមិនអាចកែប្រែកាលបរិច្ឆេទចេញព្រឹត្តិបត្របានទេបន្ទាប់ពីដាក់ចូលប្រព័ន្ធ Verify រួចរាល់ ។
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="officer-profile-info-container apply-form-page offi">
+
+      <div style="margin:12px auto 0 auto">
+
+        <div class="pos-print" style="margin-bottom: 6px;">
+          <div class="btn-print row">
+            <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['do_revoke_by']; else khmerTemplate">
+              <div class="text-btn">
+                បានមោឃៈព្រឹត្តិបត្រពី Verify
+              </div>
+            </ng-container>
+            <ng-template #khmerTemplate>
+              <ng-container *ngIf="!criminalStore?.selectedCriminalPrint?.['verify_qr_kh']">
+                <button *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_kh'] === undefined"
+                  class="enbutton primary" mat-button
+                  [disabled]="(criminalStore?.selectedCriminalPrint?.['verify_qr_kh'] === undefined) ? false : true "
+                  (click)="submitToVerify(1)" matTooltipClass="tooltipClass"
+                  [matTooltip]="(criminalStore?.selectedCriminalPrint?.['verify_qr_kh'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                  Verify</button>
+                <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_kh'] === null">
+                  ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify</div>
+              </ng-container>
+              <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_kh']">បានដាក់ចូលប្រព័ន្ធ
+                Verify រួចរាល់
+              </div>
+              <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_kh']">
+                <button class="enbutton primary" mat-button (click)="printDocument('#printDkh')">
+                  <mat-icon>print</mat-icon>
+                  <span>បោះពុម្ព</span>
+                </button>
+              </ng-container>
+            </ng-template>
+          </div>
+
+          <app-criminal-record-letter-kh-print id="printDkh" [Item]="data?.criminalRecords[0]"
+            [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-kh-print>
+        </div>
+
+        <div class="pos-print" style="page-break-before: always; margin-bottom: 6px;">
+          <div class="btn-print row">
+            <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['do_revoke_by']; else englishTemplate">
+              <div class="text-btn">
+                បានមោឃៈព្រឹត្តិបត្រពី Verify
+              </div>
+            </ng-container>
+            <ng-template #englishTemplate>
+
+              <ng-container *ngIf="!criminalStore?.selectedCriminalPrint?.['verify_qr_en']">
+                <button *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_en'] === undefined"
+                  class="enbutton primary" mat-button
+                  [disabled]="(criminalStore?.selectedCriminalPrint?.['verify_qr_en'] === undefined) ? false : true "
+                  (click)="submitToVerify(3)" matTooltipClass="tooltipClass"
+                  [matTooltip]="(criminalStore?.selectedCriminalPrint?.['verify_qr_en'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                  Verify</button>
+                <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_en'] === null">
+                  ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify
+                </div>
+              </ng-container>
+              <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_en']">បានដាក់ចូលប្រព័ន្ធ
+                Verify រួចរាល់
+              </div>
+              <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_en']">
+                <button class="enbutton primary" mat-button (click)="printDocument('#printDen')">
+                  <mat-icon >print</mat-icon>
+                  <span>បោះពុម្ព</span>
+                </button>
+              </ng-container>
+
+            </ng-template>
+
+          </div>
+          <app-criminal-record-letter-en-print id="printDen" [Item]="data?.criminalRecords[0]"
+            [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-en-print>
+        </div>
+
+        <div class="pos-print" style="page-break-before: always; margin-bottom: 6px;">
+          <div class="btn-print row">
+
+            <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['do_revoke_by']; else franceTemplate">
+              <div class="text-btn">
+                បានមោឃៈព្រឹត្តិបត្រពី Verify
+              </div>
+            </ng-container>
+            <ng-template #franceTemplate>
+              <ng-container *ngIf="!criminalStore?.selectedCriminalPrint?.['verify_qr_fr']">
+                <button *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_fr'] === undefined"
+                  class="enbutton primary" mat-button
+                  [disabled]="(criminalStore?.selectedCriminalPrint?.['verify_qr_fr'] === undefined) ? false : true "
+                  (click)="submitToVerify(2)" matTooltipClass="tooltipClass"
+                  [matTooltip]="(criminalStore?.selectedCriminalPrint?.['verify_qr_fr'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                  Verify</button>
+                <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_fr'] === null">
+                  ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify
+                </div>
+              </ng-container>
+              <div class="text-btn" *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_fr']">បានដាក់ចូលប្រព័ន្ធ
+                Verify រួចរាល់
+              </div>
+              <ng-container *ngIf="criminalStore?.selectedCriminalPrint?.['verify_qr_fr']">
+                <button class="enbutton primary" mat-button (click)="printDocument('#printDfr')">
+                  <mat-icon>print</mat-icon>
+                  <span>បោះពុម្ព</span>
+                </button>
+              </ng-container>
+            </ng-template>
+
+          </div>
+          <app-criminal-record-letter-fr-print id="printDfr" [Item]="data?.criminalRecords[0]"
+            [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-fr-print>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,129 @@
+<div class="login-schoollink" *mobxAutorun>
+    <div class="schoolLink-login-form">
+        <div class="hero">
+            <div class="item">
+                <img src="../../../../assets/images/Jira Hero.svg" width="100%">
+            </div>
+            <p class="detail">ប្រព័ន្ធគ្រប់គ្រងឯកសារឌីជីថល</p>
+            <div class="version">
+                <p>©2021 រក្សាសិទ្ធិគ្រប់បែបយ៉ាងដោយ {{store?.APP_INFO?.copy_right}}</p>
+                <!-- <p>ជំនាន់ទី 1.0.0 បង្កើតឡើងដោយ នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p> -->
+            </div>
+        </div>
+        <div class="form-wrapper login-form ">
+            <div class="head-title">
+                <img [src]="store?.APP_INFO?.logo">
+                <p class="title">{{store?.APP_INFO?.name}}</p>
+            </div>
+            <div class="error" *ngIf="error">{{error |removeFirebaseText}}</div>
+            <div *ngIf="!store?.config?.loginWithOTP" class="form-group column">
+                <form [formGroup]="form">
+                    <mat-form-field appearance="outline" class="lh-normal">
+                        <mat-label>
+                            អត្តលេខ​
+                        </mat-label>
+                        <input matInput required placeholder="អត្តលេខ​" formControlName="email">
+                        <mat-error *ngIf="form.controls['email'].hasError('required')">
+                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="lh-normal">
+                        <mat-label>ពាក្យសម្ងាត់</mat-label>
+                        <input matInput type="password" required placeholder="ពាក្យសម្ងាត់" formControlName="password">
+                        <mat-error *ngIf="form.controls['password'].hasError('required')">
+                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+                        </mat-error>
+                    </mat-form-field>
+
+                    <app-primary-button class="primary-button-fill"
+                        style="width: 100%; border-radius: 30px; overflow: hidden;" (onPress)="_onSignIn(form.value)"
+                        [process]="process" label="ចូលប្រព័ន្ធ">
+                    </app-primary-button>
+                </form>
+
+                <mat-divider></mat-divider>
+
+
+                <button mat-button class="login-with-btn" (click)="openBottomSheet()">
+                    <span>
+                        ទំនាក់ទំនងក្រុមបច្ចេកទេស
+                    </span>
+                </button>
+                <div style="height: 40px;"></div>
+            </div>
+            <div *ngIf="store?.config?.loginWithOTP && !isSendCode" class="form-group column send-code-form">
+                <form [formGroup]="formPhone" style="width: 100%;">
+                    <mat-form-field appearance="outline" class="lh-normal">
+                        <mat-label>
+                            លេខទូរស័ព្ទ
+                        </mat-label>
+                        <input matInput required placeholder="លេខទូរស័ព្ទ" formControlName="phone">
+                        <mat-error *ngIf="formPhone.controls['phone'].hasError('required')">
+                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+                        </mat-error>
+                    </mat-form-field>
+                    <app-primary-button btnId="sign-in-button" class="primary-button-fill"
+                        style="width: 100%; border-radius: 30px; overflow: hidden;"
+                        (onPress)="_signInWithPhone(formPhone?.value)" [process]="process" label="ចូលប្រព័ន្ធតាម OTP">
+                    </app-primary-button>
+                </form>
+                <mat-divider></mat-divider>
+                <button mat-button *ngIf="store?.config?.loginWithUsername" class="login-with-btn"
+                    (click)="onSignInWithUsername()">
+                    <span>
+                        ចូលប្រព័ន្ធតាមគណនី
+                    </span>
+                </button>
+                <button mat-button class="login-with-btn" (click)="openBottomSheet()">
+                    <span>
+                        ទំនាក់ទំនងក្រុមបច្ចេកទេស
+                    </span>
+                </button>
+                <div style="height: 40px;"></div>
+            </div>
+
+            <div *ngIf="store?.config?.loginWithOTP && isSendCode" class="form-group column">
+                <form [formGroup]="formCode" style="width: 100%;">
+                    <div class="rows txt-code">
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code1" #code1 id="code1"
+                                (keydown.backspace)="onKeydown($event,1)" (keydown)="onKeydownCode($event,'code1')">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code2" #code2 id="code2"
+                                (keydown.backspace)="onKeydown($event,2)" (keydown)="onKeydownCode($event,'code2')">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code3" #code3 id="code3"
+                                (keydown.backspace)="onKeydown($event,3)" (keydown)="onKeydownCode($event,'code3')">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code4" #code4 id="code4"
+                                (keydown.backspace)="onKeydown($event,4)" (keydown)="onKeydownCode($event,'code4')">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code5" #code5 id="code5"
+                                (keydown.backspace)="onKeydown($event,5)" (keydown)="onKeydownCode($event,'code5')">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <input matInput required formControlName="code6" #code6 id="code6"
+                                (keydown.backspace)="onKeydown($event,6)" (keydown)="onKeydownCode($event,'code6')">
+                        </mat-form-field>
+                    </div>
+                    <p class="info-p">សូមត្រួតពិនិត្យលេខកូដនៅក្នុងប្រអប់សាររបស់លោកអ្នក ប្រព័ន្ធបានផ្ញើលេខកូតទៅកាន់លេខ
+                        <strong>{{phoneNumber}}</strong>
+                    </p>
+                    <app-primary-button class="primary-button-fill"
+                        style="width: 100%; border-radius: 30px; overflow: hidden;"
+                        (onPress)="_signInVerifyCode(formCode?.value)" [process]="process" label="យល់ព្រម">
+                    </app-primary-button>
+                </form>
+                <div style="height: 40px;"></div>
+            </div>
+
+            <div id="recaptcha-container"></div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+
+.main-devie{
+    // margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    right: 9px;
+    .device-android{
+        margin-right: 8px;
+
+    }
+    .device-ios{
+        margin-left: 8px;
+    }
+
+}

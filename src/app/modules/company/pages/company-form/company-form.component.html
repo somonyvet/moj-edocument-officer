@@ -1,0 +1,138 @@
+<div class="site-nav-container-comp add-container">
+    <div class="stMiddle">
+        <div class="stMainBox">
+            <div class="stBoxTitleHeader">
+                <mat-icon>storefront</mat-icon>
+                <span>Store - Organization Setup</span>
+            </div>
+            <div class="stProgress">
+                <mat-progress-bar mode="determinate" [value]="valueProgress"></mat-progress-bar>
+            </div>
+
+            <div class="stBoxMiddle">
+                <div class="stMTiHeader">
+                    {{titleHeader}}
+                </div>
+                <div class="stMtiSub">
+                    {{titleHeaderSub}}
+                </div>
+                <ng-container *ngIf="valueProgress == 1">
+                    <div class="stMBox">
+                        <!-- <mat-radio-group> -->
+                            <div class="stMLeft">
+                                <div class="stMBoxSmall" [ngClass]="vaformCHkFirst == 1 ? 'stMBoxSmallborder' :'' " >
+                                    <mat-radio-button (change)="radioChange($event)" value="1">I'm just starting
+                                    </mat-radio-button>
+                                </div>  
+                            </div>
+                            <div class="stMRight">
+                                <div class="stMBoxSmall" [ngClass]="vaformCHkFirst == 2 ? 'stMBoxSmallborder' :'' ">
+                                    <mat-radio-button  (change)="radioChange($event)" value="2">I'm already selling online or in person
+                                    </mat-radio-button>
+                                </div>
+
+                            </div>
+                        <!-- </mat-radio-group> -->
+                    </div>
+                </ng-container>
+                <form class="form-wrapper form-no-padding" [formGroup]="form">
+                    <ng-container *ngIf="valueProgress == 46">
+                        <!-- <h2 class="stthm stthm">
+                            <span class="stnumber">1. About Your Store</span>
+                        </h2> -->
+                        <div class="form-group ">
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Legal business name</mat-label>
+                                <input matInput placeholder="010881121" />
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group two">
+                            <mat-form-field appearance="outline">
+                                <mat-label>How long have you been in business?</mat-label>
+                                <mat-select formControlName="yearBuss" [compareWith]="compareWith">
+                                    <mat-option *ngFor="let item of YEAROFBUSS_OBJ;let j=index;" [value]="item">
+                                        {{item?.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Industry</mat-label>
+                                <mat-select formControlName="industryBuss" [compareWith]="compareWith">
+                                    <mat-option *ngFor="let item of INDUSTRY_OBJ;let j=index;" [value]="item">
+                                        {{item?.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="form-group three">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Bussiness Location</mat-label>
+                                <input matInput placeholder="Legal bussiness name" formControlName="lagalBussName"
+                                    required />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Language</mat-label>
+                                <mat-select formControlName="typeBuss" [compareWith]="compareWith">
+                                    <mat-option *ngFor="let item of LANGUAGE;let j=index;" [value]="item">
+                                        {{item?.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Currency</mat-label>
+                                <mat-select formControlName="typeBuss" [compareWith]="compareWith">
+                                    <mat-option *ngFor="let item of CURRENCY_LIST;let j=index;" [value]="item">
+                                        {{item?.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="valueProgress == 91">
+                        <!-- <h2 class="stthm stthm">
+                            <span class="stnumber">2. What’s your role at your business?
+                            </span>
+                        </h2> -->
+
+                        <div class="form-group ">
+                            <mat-form-field appearance="outline">
+                                <mat-label>What type of business do you have?</mat-label>
+                                <mat-select formControlName="roleBuss" [compareWith]="compareWith">
+                                    <mat-option *ngFor="let item of ROLEOFBUSS_OBJ;let j=index;" [value]="item">
+                                        {{item?.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+   
+                    </ng-container>
+                </form>
+
+
+            </div>
+
+            <div class="stBoxFooter">
+                <div class="stFTLeft">
+                    <ng-container *ngIf="valueProgress > 40">
+                        <button mat-button (click)="onClickBack()">
+                            <mat-icon>chevron_left</mat-icon>
+                            <span>back</span>
+                        </button>
+                    </ng-container>
+                </div>
+                <div class="stFTRight">
+                    <button mat-icon-button (click)="onClickBack()">
+                        <span>Skip</span>
+                    </button>
+                    <button (click)="onClickNext()" mat-raised-button color="primary">Next</button>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>

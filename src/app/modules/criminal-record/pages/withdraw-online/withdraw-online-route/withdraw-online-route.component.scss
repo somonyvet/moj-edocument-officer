@@ -1,0 +1,37 @@
+.btn-delete{
+    background-color: #fff2f2;
+    mat-icon{
+      color: red!important;
+    }
+  }
+  
+  ::ng-deep{
+    .btn-paid{
+      padding: 1px 12px;
+      border-radius: 25px;
+      height: fit-content;
+      width: fit-content;
+    }
+  }
+  
+  .warn-note{
+    display: flex;
+    align-items: center;
+  }
+  .warn-text{
+    padding: 8px 26px;
+    background-color: #fff3f3;
+    border-radius: 4px;
+    color: #ff7979;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .bright-text{
+    padding: 8px 26px;
+    background-color: #f3f7ff;
+    border-radius: 4px;
+    color: #3881ff;
+    font-size: 14px;
+    font-weight: bold;
+  }

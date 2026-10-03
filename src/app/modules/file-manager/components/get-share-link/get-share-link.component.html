@@ -1,0 +1,22 @@
+<div class="cs-share-link-form">
+    <mat-list role="list" class="share-detail">
+        <mat-list-item role="listitem" class="share-detail-list">
+            <div class="detail-title">
+                Get link sharing
+                <p class="desc">anyone with the link can view/download</p>
+            </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="share-detail-list">
+            <mat-form-field class="full-width">
+                <input matInput #sharedInput [value]="msg?.type?.key=='file'?msg?.downloadURL:url+'/'+msg?.key">
+            </mat-form-field>
+        </mat-list-item>
+
+        <mat-list-item role="listitem" class="share-detail-list">
+            <div class="" style="width: 100%; text-align: right;">
+                <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>Close</span></a>
+            </div>
+        </mat-list-item>
+    </mat-list>
+    <!-- <app-spinner *ngIf="store?.loading"></app-spinner> -->
+</div>

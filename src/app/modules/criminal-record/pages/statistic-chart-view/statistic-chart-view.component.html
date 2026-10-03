@@ -1,0 +1,906 @@
+<div class="doc-statistic">
+  <div class="doc-dashboard">
+
+    <div class="doc-dashboard-item a" *ngIf="summaryChartDataSource">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(1)">ស្ថិតិសង្ខេប{{chartName}}{{selectedOrganization?'':'ទូទាំងប្រទេស'}}</h4>
+
+        <!-- <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>person_outline</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនសមាជិកបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource?.totalPartyMember|number}} / ស:
+              {{summaryChartDataSource?.totalPartyMemberFemale|number}}</strong><span
+              style="margin-top: 5px;">នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>directions_walk</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនយុវជនបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource?.totalPartyGeneration|number}}</strong><span
+              style="margin-top: 5px;">នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនក្រុមបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource?.totalPartyGroup|number}}</strong><span>ក្រុម</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>person_pin</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនគ្រួសារបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource?.totalPartyFamily|number}}</strong><span>គ្រួសារ</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>how_to_vote</mat-icon>
+          </div>
+          <span class="ios-label">
+            ចំនួនសមាជិកបក្ស
+            <br />
+            បានចុះឈ្មោះ ប.ឆ:
+          </span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource?.totalPartyElectionMember|number}}</strong><span
+              style="margin-top: 5px;">នាក់</span>
+          </div>
+        </div> -->
+        <div class="ios-divider"></div>
+      </div>
+      <div class="chart" *ngIf="summaryChartDataSource">
+        <apx-chart [series]="summaryChartDataSource?.series" [chart]="chartOptions.chart"
+          [labels]="summaryChartDataSource?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+          [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="chartOptions3.colors"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions">
+        </apx-chart>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item b" *ngIf="organizationChartDataSource">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(2)">ស្ថិតិសមាជិកបក្ស ក្រុមបក្ស និង
+          គ្រួសារបក្ស{{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}</h4>
+        <div class="chart" style="display: flex;
+        align-items: center;" *ngIf="organizationChartDataSource">
+          <ngx-charts-bar-vertical-2d
+            [view]="[organizationChartDataSource?(organizationChartDataSource?.seriesData?.length===1?150:(organizationChartDataSource?.seriesData?.length*100)):500,500]"
+            [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme4" [showDataLabel]="true"
+            [legendPosition]="'below'" [results]="organizationChartDataSource?.seriesData" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+            [legendTitle]="legendTitle">
+            <ng-template #tooltipTemplate let-model="model">
+              {{ model?.name }}
+              {{ model?.value }}
+              <span>
+                នាក់
+              </span>
+            </ng-template>
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item d" *ngIf="summaryChartDataSource2">
+      <div class="doc-chart-sum">
+        <h5 (click)="openChatDetail(3)">ស្ថិតិផែនការសមាជិកបក្ស ធៀបនឹងប្រជាពលរដ្ឋ
+          {{selectedOrganization?chartName:'ទូទាំងប្រទេស'}}</h5>
+        <!-- <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <span class="ios-label">
+            ចំនួនប្រជាពលរដ្ឋ
+            <br />
+            អាយុ ១៨ ទ្បើង:
+          </span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource2?.totalCitizenE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>person_pin</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនសមាជិកបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource2?.totalMemberE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>compare</mat-icon>
+          </div>
+          <span class="ios-label">
+            អត្រាសមាជិកបក្ស
+            <br />
+            ធៀបនឹងប្រជាពលរដ្ឋ:
+          </span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource2?.totalP|number}}</strong><span>%</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>language</mat-icon>
+          </div>
+          <span class="ios-label">ផែនការបង្កើនសមាជិកបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource2?.totalElectionP|number}}</strong><span>%</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting ">
+          <div class="c-center ios-memo">
+            <span class="ios-label">
+              <strong class="c-red" [ngClass]="summaryChartDataSource2?.totalPD >= 0 ? 'green' : '' ">
+                {{ summaryChartDataSource2?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource2?.totalPD|number}} %
+              </strong>
+            </span>
+            <p>អត្រាផែនការ{{ summaryChartDataSource2?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
+          </div>
+        </div> -->
+      </div>
+      <div class="chart" *ngIf="summaryChartDataSource2 && summaryChartDataSource2?.series?.length > 0">
+        <apx-chart [series]="summaryChartDataSource2?.series" [chart]="chartOptions.chart"
+          [labels]="summaryChartDataSource2?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+          [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color1"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions">
+        </apx-chart>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item a" *ngIf="organizationChartDataSource2">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(4)">ស្ថិតិសមាជិកបក្ស
+          ធៀបនឹងប្រជាពលរដ្ឋ{{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}</h4>
+      </div>
+      <div class="chart" *ngIf="organizationChartDataSource2">
+        <ngx-charts-bar-horizontal-2d
+          [view]="[450,organizationChartDataSource2?(organizationChartDataSource2?.seriesData?.length===1?80:(organizationChartDataSource2?.seriesData?.length*70)):450]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme2" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="organizationChartDataSource2?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+          <ng-template #tooltipTemplate let-model="model">
+            {{ model?.name }}
+            {{ model?.value }}
+            <span>
+              នាក់
+            </span>
+          </ng-template>
+        </ngx-charts-bar-horizontal-2d>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item b" *ngIf="summaryChartDataSource7 && summaryChartDataSource8">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(5)">ស្ថិតិប្រៀបធៀបប្រជាពលរដ្ឋអាយុ (១៨-៣៥) នឹងសមាជិកបក្សថ្មី
+          {{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}
+        </h4>
+        <div class="d-r">
+          <div class="c-mid" *ngIf="summaryChartDataSource7">
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>group</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនប្រជាពលរដ្ឋអាយុ (១៨-៣៥):</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource7?.totalCitizenE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>person_pin</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនសមាជិកបក្សថ្មី :</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource7?.totalMemberE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+
+            <!-- <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>compare</mat-icon>
+              </div>
+              <span class="ios-label">អត្រាសមាជិកបក្សថ្មី ធៀបនឹងប្រជាពលរដ្ឋអាយុ (១៨-៣៥):</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource7?.totalP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>language</mat-icon>
+              </div>
+              <span class="ios-label">ផែនការបង្កើតសមាជិកបក្ស:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource7?.totalElectionP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div> -->
+
+            <div class="ios-setting " style=" margin-top: 50px; ">
+              <div class="c-center ios-memo">
+                <span class="ios-label">
+                  <strong class="c-red blue">
+                    {{ summaryChartDataSource7?.totalP }}%
+                  </strong>
+                </span>
+                <p>អត្រាប្រៀបធៀបជាភាគរយ</p>
+              </div>
+            </div>
+
+            <div class="chart" *ngIf="summaryChartDataSource7">
+              <apx-chart [series]="summaryChartDataSource7?.series" [chart]="chartOptions2.chart"
+                [labels]="summaryChartDataSource7?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+                [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color1"
+                [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+                [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
+              </apx-chart>
+            </div>
+          </div>
+
+          <div class="c-mid" *ngIf="summaryChartDataSource8">
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>group</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនសមាជិកបក្សចាស់:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource8?.totalCitizenE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>person_pin</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនសមាជិកបក្សថ្មី:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource8?.totalMemberE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <!-- <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>compare</mat-icon>
+              </div>
+              <span class="ios-label">
+                អត្រាសមាជិកបក្សចាស់
+                <br />
+                ធៀបនឹងសមាជិកបក្សថ្មី:
+              </span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource8?.totalP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>language</mat-icon>
+              </div>
+              <span class="ios-label">ផែនការបង្កើតសមាជិកបក្ស:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource8?.totalElectionP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div> -->
+
+            <!-- <div class="ios-setting ">
+              <div class="c-center ios-memo">
+                <span class="ios-label">
+                  <strong class="c-red" [ngClass]="summaryChartDataSource8?.totalPD >= 0 ? 'green' : '' ">
+                    {{ summaryChartDataSource8?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource8?.totalPD|number}} %
+                  </strong>
+                </span>
+                <p>អត្រាផែនការ{{ summaryChartDataSource8?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
+              </div>
+            </div> -->
+
+            <div class="ios-setting " style=" margin-top: 50px; ">
+              <div class="c-center ios-memo">
+                <span class="ios-label">
+                  <strong class="c-red blue">
+                    {{ summaryChartDataSource8?.totalP }}%
+                  </strong>
+                </span>
+                <p>អត្រាប្រៀបធៀបជាភាគរយ</p>
+              </div>
+            </div>
+
+            <div class="chart" *ngIf="summaryChartDataSource8">
+              <apx-chart [series]="summaryChartDataSource8?.series" [chart]="chartOptions2.chart"
+                [labels]="summaryChartDataSource8?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+                [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color2"
+                [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+                [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
+              </apx-chart>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <div class="doc-dashboard-item b" *ngIf="summaryChartDataSource4 && summaryChartDataSource3">
+      <div class="doc-chart-sum">
+        <h4>ស្ថិតិប្រៀបធៀបយុវជន នឹងយុវជនបក្សបានចុះឈ្មោះ ប.ឆ {{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}
+        </h4>
+        <div class="d-r">
+          <div class="c-mid" *ngIf="summaryChartDataSource4">
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>group</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនយុវជន:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource4?.totalCitizenE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>person_pin</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនយុវជនបក្ស:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource4?.totalMemberE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>compare</mat-icon>
+              </div>
+              <span class="ios-label">អត្រាយុវជនបក្ស ធៀបនឹងយុវជន:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource4?.totalP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>language</mat-icon>
+              </div>
+              <span class="ios-label">ផែនការបង្កើតយុវជនបក្ស:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource4?.totalElectionP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting ">
+              <div class="c-center ios-memo">
+                <span class="ios-label">
+                  <strong class="c-red" [ngClass]="summaryChartDataSource4?.totalPD >= 0 ? 'green' : '' ">
+                    {{ summaryChartDataSource4?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource4?.totalPD|number}} %
+                  </strong>
+                </span>
+                <p>អត្រាផែនការ{{ summaryChartDataSource4?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
+              </div>
+            </div>
+
+            <div class="chart" *ngIf="summaryChartDataSource4">
+              <apx-chart [series]="summaryChartDataSource4?.series" [chart]="chartOptions2.chart"
+                [labels]="summaryChartDataSource4?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+                [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color1"
+                [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+                [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
+              </apx-chart>
+            </div>
+          </div>
+
+          <div class="c-mid" *ngIf="summaryChartDataSource3">
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>group</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនយុវជនបានចុះឈ្មោះ ប.ឆ:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource3?.totalCitizenE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>person_pin</mat-icon>
+              </div>
+              <span class="ios-label">ចំនួនយុវជនបក្សបានចុះឈ្មោះ ប.ឆ:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource3?.totalMemberE|number}}</strong><span>នាក់</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>compare</mat-icon>
+              </div>
+              <span class="ios-label">
+                អត្រាយុវជនបក្សបានចុះឈ្មោះ ប.ឆ
+                <br />
+                ធៀបនឹងយុវជនបានចុះឈ្មោះ ប.ឆ ស្មើ:
+              </span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource3?.totalP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting">
+              <div class="ios-icon">
+                <mat-icon>language</mat-icon>
+              </div>
+              <span class="ios-label">ផែនការបង្កើតយុវជនបក្ស:</span>
+              <div class="ios-text">
+                <strong>{{summaryChartDataSource3?.totalElectionP|number}}</strong><span>%</span>
+              </div>
+            </div>
+            <div class="ios-divider"></div>
+            <div class="ios-setting ">
+              <div class="c-center ios-memo">
+                <span class="ios-label">
+                  <strong class="c-red" [ngClass]="summaryChartDataSource3?.totalPD >= 0 ? 'green' : '' ">
+                    {{ summaryChartDataSource3?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource3?.totalPD|number}} %
+                  </strong>
+                </span>
+                <p>អត្រាផែនការ{{ summaryChartDataSource3?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
+              </div>
+            </div>
+
+            <div class="chart" *ngIf="summaryChartDataSource3">
+              <apx-chart [series]="summaryChartDataSource3?.series" [chart]="chartOptions2.chart"
+                [labels]="summaryChartDataSource3?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+                [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color2"
+                [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+                [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
+              </apx-chart>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div> -->
+
+    <div class="doc-dashboard-item d" *ngIf="summaryChartDataSource5">
+      <div class="doc-chart-sum">
+        <h5 (click)="openChatDetail(6)">ស្ថិតិផែនការសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ ធៀបនឹងប្រជាពលរដ្ឋ បានចុះឈ្មោះ ប.ឆ
+          {{selectedOrganization?chartName:'ទូទាំងប្រទេស'}}</h5>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនប្រជាពលរដ្ឋបានចុះឈ្មោះ ប.ឆ:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource5?.totalCitizenE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>person_pin</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource5?.totalMemberE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>compare</mat-icon>
+          </div>
+          <span class="ios-label">អត្រាសមាជិកបក្សធៀបនឹង ប្រជាពលរដ្ឋ:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource5?.totalP|number}}</strong><span>%</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>language</mat-icon>
+          </div>
+          <span class="ios-label">ផែនការបង្កើនសមាជិកបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource5?.totalElectionP|number}}</strong><span>%</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting ">
+          <div class="c-center ios-memo">
+            <span class="ios-label">
+              <strong class="c-red" [ngClass]="summaryChartDataSource5?.totalPD >= 0 ? 'green' : '' ">
+                {{ summaryChartDataSource5?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource5?.totalPD|number}} %
+              </strong>
+            </span>
+            <p>អត្រាផែនការ{{ summaryChartDataSource5?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
+          </div>
+        </div>
+      </div>
+      <div class="chart" *ngIf="summaryChartDataSource5">
+        <apx-chart [series]="summaryChartDataSource5?.series" [chart]="chartOptions.chart"
+          [labels]="summaryChartDataSource5?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+          [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color2"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions">
+        </apx-chart>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item a" *ngIf="organizationChartDataSource4">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(7)">ស្ថិតិសមាជិកបក្សចំណាកស្រុក{{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}
+        </h4>
+      </div>
+      <div class="chart" *ngIf="organizationChartDataSource4">
+        <ngx-charts-bar-horizontal-2d
+          [view]="[450,organizationChartDataSource4?(organizationChartDataSource4?.seriesData?.length===1?80:(organizationChartDataSource4?.seriesData?.length*70)):450]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="organizationChartDataSource4?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+          <ng-template #tooltipTemplate let-model="model">
+            {{ model?.name }}
+            {{ model?.value }}
+            <span>
+              នាក់
+            </span>
+          </ng-template>
+        </ngx-charts-bar-horizontal-2d>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item b" *ngIf="organizationChartDataSource6">
+      <div class="doc-chart-sum">
+        <h4 (click)="openChatDetail(8)">ស្ថិតិសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ ធៀបនឹងប្រជាពលរដ្ឋ បានចុះឈ្មោះ ប.ឆ
+          {{selectedOrganization?chartName:'តាមបណ្ដាស្ថាប័ន'}}</h4>
+
+        <div class="d-r">
+          <div class="c-mid">
+
+            <div class="chart" *ngIf="organizationChartDataSource6">
+              <ngx-charts-bar-horizontal-2d
+                [view]="[450,organizationChartDataSource6?(organizationChartDataSource6?.seriesData?.length===1?80:(organizationChartDataSource6?.seriesData?.length*70)):450]"
+                [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme3" [showDataLabel]="true"
+                [legendPosition]="'below'" [results]="organizationChartDataSource6?.seriesData" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                [legendTitle]="legendTitle">
+                <ng-template #tooltipTemplate let-model="model">
+                  {{ model?.name }}
+                  {{ model?.value }}
+                  <span>
+                    នាក់
+                  </span>
+                </ng-template>
+              </ngx-charts-bar-horizontal-2d>
+            </div>
+          </div>
+
+          <div class="c-mid">
+            <div class="chart" *ngIf="organizationChartDataSource7">
+              <ngx-charts-bar-horizontal-2d
+                [view]="[450,organizationChartDataSource7?(organizationChartDataSource7?.seriesData?.length===1?70:(organizationChartDataSource7?.seriesData?.length*40)):450]"
+                [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme5" [showDataLabel]="true"
+                [legendPosition]="'below'" [results]="organizationChartDataSource7?.seriesData" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                [legendTitle]="legendTitle">
+                <ng-template #tooltipTemplate let-model="model">
+                  {{ model?.name }}
+                  {{ model?.value }}
+                  <span>
+                    %
+                  </span>
+                </ng-template>
+              </ngx-charts-bar-horizontal-2d>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-dashboard-item d" *ngIf="summaryChartDataSource6">
+      <div class="doc-chart-sum">
+        <h5 (click)="openChatDetail(9)">ស្ថិតិយុវជនបក្ស
+          ធៀបនឹងសមាជិកបក្ស{{selectedOrganization?chartName:'ទូទាំងប្រទេស'}}</h5>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនសមាជិកបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource6?.totalCitizenE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="ios-icon">
+            <mat-icon>person_pin</mat-icon>
+          </div>
+          <span class="ios-label">ចំនួនយុវជនបក្ស:</span>
+          <div class="ios-text">
+            <strong>{{summaryChartDataSource6?.totalMemberE|number}}</strong><span>នាក់</span>
+          </div>
+        </div>
+        <div class="ios-divider"></div>
+        <div class="ios-setting">
+          <div class="c-center ios-memo">
+            <span class="ios-label">
+              <strong class="c-red yellow">
+                {{ summaryChartDataSource6?.totalP|number}} %
+              </strong>
+            </span>
+            <p>អត្រាយុវជនបក្សធៀបនឹង សមាជិកបក្សជាភាគរយ</p>
+          </div>
+        </div>
+      </div>
+      <div class="chart" *ngIf="summaryChartDataSource6">
+        <apx-chart [series]="summaryChartDataSource6?.series" [chart]="chartOptions.chart"
+          [labels]="summaryChartDataSource6?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+          [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color3"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions">
+        </apx-chart>
+      </div>
+    </div>
+
+
+
+    <!-- <div class="doc-dashboard-item d" *ngIf="store?.committeeStatisticGF">
+      <div style="padding: 24px;">
+        <div>
+          <strong>ស្ថិតិសង្ខេប សមាជិកបក្ស ក្រុមបក្ស នឹងគ្រួសារបក្ស
+          </strong>
+        </div>
+        <div>
+          ចំនួនសមាជិកបក្ស <strong>{{store?.statisticAll?.member}}</strong> នាក់ (ស្រី
+          <strong>{{store?.statisticAll?.memberF}}</strong> នាក់)
+        </div>
+        <div>
+          ចំនួនក្រុមបក្ស <strong>{{store?.statisticAll?.group}} ក្រុម</strong>
+        </div>
+        <div>
+          ចំនួនគ្រួសារបក្ស <strong>{{store?.statisticAll?.family}} គ្រួសារ</strong>
+        </div>
+      </div>
+
+      <div class="chart" style="display: flex; justify-content: center;
+    padding: 24px;
+    align-items: center;" *ngIf="store?.committeeStatisticGF">
+        <apx-chart [series]="store?.committeeStatisticGF?.series" [chart]="chartOptions.chart"
+          [labels]="store?.committeeStatisticGF?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+          [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="chartOptions4.colors"
+          [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions">
+        </apx-chart>
+      </div>
+
+      <div class="g-att-box">
+        <button type="button" mat-button class="att-button-f" [routerLink]="['/settings/group/submitted']">
+          <div class="att-button">
+            <span class="material-icons">
+              group
+            </span>
+            <span class="g-att-text">បញ្ជីក្រុមបក្ស</span>
+          </div>
+        </button>
+        <button type="button" mat-button class="att-button-f" [routerLink]="['/party/family/submit']">
+          <div class="att-button">
+            <span class="material-icons">
+              recent_actors
+            </span>
+            <span class="g-att-text">បញ្ជី​គ្រួសារបក្ស</span>
+          </div>
+        </button>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item a" *ngIf="store?.statisticBarChartData1">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ស្ថិតិសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ តាមបន្តក្រុងស្រុក
+          </strong>
+        </div>
+        <div>
+          ពលរដ្ឋសរុបដែលបានចុះឈ្មោះ ប.ឆ <strong>{{store?.committeeStatisticData?.electorTotal}}</strong> នាក់
+        </div>
+        <div>
+          សមាជិកបក្សសរុបបក្សបានចុះឈ្មោះ ប.ឆ
+          <strong>{{store?.committeeStatisticData?.memberHasElectionNameTotal}}</strong> នាក់
+        </div>
+        <div>
+          អត្រាសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ
+          <strong>
+            {{store?.committeeStatisticData?.memberHasElectionNameTotal |
+            voterRate:store?.committeeStatisticData?.memberTotal}}
+          </strong>
+          <br />
+          ធៀបជាមួយពលរដ្ឋ
+        </div>
+      </div>
+      <div class="chart" style="display: flex;
+      align-items: center;" *ngIf="store?.statisticBarChartData1">
+        <ngx-charts-bar-horizontal-2d [view]="[450,store?.statisticBarChartData1?.seriesData?.length == 1?350:600]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme2" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="store?.statisticBarChartData1?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+        </ngx-charts-bar-horizontal-2d>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item b" *ngIf="store?.statisticBarChartData4">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ស្ថិតិសមាជិកបក្សចំណាកស្រុកតាមបន្តក្រុងស្រុក
+          </strong>
+        </div>
+        <div>
+          សរុប <strong>{{store?.committeeStatisticData?.immigration}}</strong> នាក់ (ស្រី
+          <strong>{{store?.committeeStatisticData?.immigrationF}}</strong> នាក់)
+        </div>
+      </div>
+
+      <div class="chart" style="display: flex;
+      align-items: center;" *ngIf="store?.statisticBarChartData4">
+        <ngx-charts-bar-vertical-2d [view]="[store?.statisticBarChartData4?.seriesData?.length == 1?500:950,500]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme3" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="store?.statisticBarChartData4?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+          <ng-template #tooltipTemplate let-model="model">
+            {{ model.name }}
+            {{ model.value }}
+            <span *ngIf="model?.name === 'អត្រាក្នុងបញ្ជី ប.ឆ'">
+              %
+            </span>
+            <span *ngIf="model?.name !== 'អត្រាក្នុងបញ្ជី ប.ឆ'">
+              នាក់
+            </span>
+          </ng-template>
+        </ngx-charts-bar-vertical-2d>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item d" *ngIf="store?.migrationStatisticChartData">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ស្ថិតិសមាជិកបក្សចំណាកស្រុក
+          </strong>
+        </div>
+        <div>
+          សរុប <strong>{{store?.committeeStatisticData?.immigration}}</strong> នាក់
+        </div>
+      </div>
+      <div class="chart" style="display: flex; justify-content: center;
+      padding: 24px;
+      align-items: center;" *ngIf="store?.migrationStatisticChartData">
+        <apx-chart [series]="store?.migrationStatisticChartData?.series" [chart]="chartOptions3.chart"
+          [labels]="store?.migrationStatisticChartData?.labels" [title]="chartOptions3.title"
+          [theme]="chartOptions3.theme" [fill]="chartOptions3.fill" [yaxis]="chartOptions3.yaxis"
+          [colors]="chartOptions.colors" [stroke]="chartOptions3.stroke" [tooltip]="chartOptions3.tooltip"
+          [legend]="chartOptions3.legend" [plotOptions]="chartOptions3.plotOptions">
+        </apx-chart>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item a" *ngIf="store?.statisticBarChartData3">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ស្ថិតិយុវជនបក្សបានចុះឈ្មោះ ប.ឆ (អាយុពី 18-35 ឆ្នាំ) តាមបន្តក្រុងស្រុក
+          </strong>
+        </div>
+
+        <div>
+          យុវជនសរុបដែលបានចុះឈ្មោះ ប.ឆ <strong>{{store?.committeeStatisticData?.memberIsYouth}}</strong> នាក់
+        </div>
+        <div>
+          យុវជនបក្សសរុបបក្សបានចុះឈ្មោះ ប.ឆ
+          <strong>{{store?.committeeStatisticData?.memberHasElectionNameIsYouth}}</strong> នាក់
+        </div>
+        <div>
+          អត្រាយុវជនបក្សបានចុះឈ្មោះ ប.ឆ
+          <strong>
+            {{store?.committeeStatisticData?.memberHasElectionNameIsYouth |
+            voterRate:store?.committeeStatisticData?.memberIsYouth}}
+          </strong>
+          <br />
+          ធៀបជាមួយយុវជន
+        </div>
+      </div>
+      <div class="chart" style="display: flex;
+      align-items: center;" *ngIf="store?.statisticBarChartData3">
+        <ngx-charts-bar-horizontal-2d [view]="[450,store?.statisticBarChartData3?.seriesData?.length == 1?350:600]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme3" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="store?.statisticBarChartData3?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+        </ngx-charts-bar-horizontal-2d>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item b" *ngIf="store?.statisticBarChartData4">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ស្ថិតិបណ្ណក្រីក្រតាមតំបន់
+          </strong>
+        </div>
+        <div>
+          សរុប <strong>{{store?.committeeStatisticData?.immigration}}</strong> នាក់ (ស្រី
+          <strong>{{store?.committeeStatisticData?.immigrationF}}</strong> នាក់)
+        </div>
+      </div>
+
+      <div class="chart" style="display: flex;
+      align-items: center;" *ngIf="store?.statisticBarChartData4">
+        <ngx-charts-bar-vertical-2d [view]="[store?.statisticBarChartData4?.seriesData?.length == 1?500:950,500]"
+          [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme" [showDataLabel]="true" [legendPosition]="'below'"
+          [results]="store?.statisticBarChartData4?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
+          <ng-template #tooltipTemplate let-model="model">
+            {{ model.name }}
+            {{ model.value }}
+            <span *ngIf="model?.name === 'អត្រាក្នុងបញ្ជី ប.ឆ'">
+              %
+            </span>
+            <span *ngIf="model?.name !== 'អត្រាក្នុងបញ្ជី ប.ឆ'">
+              នាក់
+            </span>
+          </ng-template>
+        </ngx-charts-bar-vertical-2d>
+      </div>
+    </div> -->
+
+    <!-- <div class="doc-dashboard-item d" *ngIf="store?.statisticBarChartData4">
+      <div style="padding: 24px;">
+        <div>
+          <strong>
+            ក្រុមបក្សថ្មីៗ
+          </strong>
+        </div>
+        <div class="recent-group-lists">
+          <a class="group-list-item" *ngFor="let item of store?.recentGroupsData">
+            <mat-icon class="mat-18">arrow_right</mat-icon>
+            <span>{{item?.name}}</span><span style="margin: 0 6px;">| ភូមិ: {{item?.village?.name}} </span><span>|
+              មេក្រុម: {{item?.groupLeader?.name}}</span>
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>

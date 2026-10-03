@@ -1,0 +1,17 @@
+<div class="dialog-wrapper" *mobxAutorun>
+  <div class="dialog-header">
+    <div class="header-text">
+      <h3 class="header-title">{{ title }}</h3>
+      <span class="header-subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+    </div>
+    <a mat-dialog-close class="close-dialog" (click)="dialogRef.close(null)">
+      <i class="material-icons">&#xE14C;</i>
+    </a>
+  </div>
+
+  <div class="dialog-content">
+    <div class="form-container">
+      <app-letter-of-condemnation-form-in-fullview></app-letter-of-condemnation-form-in-fullview>
+    </div>
+  </div>
+</div>

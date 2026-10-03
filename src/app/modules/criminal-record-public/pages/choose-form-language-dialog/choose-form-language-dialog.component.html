@@ -1,0 +1,25 @@
+<div class="dialog-wrapper">
+  <div class="dialog-header">
+    <div class="title">
+        តើលោកអ្នកជាជនជាតិខ្មែរឬជនជាតិបរទេស?
+    </div>
+  </div>
+  <div class="dialog-content">
+    <div class="choose-form cv">
+      <div class="rows">
+          <a mat-button mat-icon-button class="mat-add-new" [routerLink]="['/']">
+              <mat-icon>arrow_back</mat-icon>
+          </a>
+      </div>
+      <div class="choose-items">
+          <a class="choose-item" *ngFor="let item of items"
+              [routerLink]="['/ecosystem/criminal-record-form/' + item?.key+'/' + (auth?.profile?.criminal_record?.application_type_key|| auth?.config?.criminal_application_type?.route)+'/'+auth?.uid+'/'+(auth?.profile?.criminal_record?.key||'draft')]">
+              <div class="img-box">
+                  <img [src]="item?.icon">
+              </div>
+              <h5>{{item?.name}}</h5>
+          </a>
+      </div>
+  </div>
+  </div>
+</div>

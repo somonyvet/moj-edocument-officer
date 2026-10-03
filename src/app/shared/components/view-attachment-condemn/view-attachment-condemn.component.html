@@ -1,0 +1,41 @@
+<div class="swotify-wrap2" style="margin-bottom: 50px;overflow: auto;">
+  <div class="report-container g-box" *ngIf="auth?.canReviewApplication">
+    <span class="g-header">ភ្ជាប់ឯកសារពាក់ព័ន្ធ</span>
+    <div class="g-att-box">
+
+      <button type="button" (click)="docFile.click()" mat-button class="att-button-f"
+        *ngFor="let item of ATTACHMENTS_ARRAY">
+        <div class="att-button">
+          <span class="material-icons">
+            {{item?.icon}}
+          </span>
+          <span class="g-att-text">{{item?.name}}</span>
+        </div>
+        <input #docFile id="docFile" accept='image/*' multiple type="file" (change)="onSelectedFile(item,$event)"
+          style="display:none;" />
+      </button>
+    </div>
+
+  </div>
+
+  <div class="report-container g-box g-box-c g-c-layout" *ngFor="let row of CRfiles">
+    <h4>{{row?.name}}</h4>
+    <mat-divider></mat-divider>
+    <div class="doc-b-img-items">
+      <div class="doc-b-img" *ngFor="let file of row?.data">
+        <a mat-button mat-icon-button *ngIf="auth?.canReviewApplication" class="img-r-b"
+          (click)="removeFile(file, row?.data)">
+          <mat-icon>clear</mat-icon>
+        </a>
+        <ng-container *ngIf="file.fileType === 'application/pdf';else imgTemplate">
+          <a class="pdf-box" [href]="file?.file_uri || file?.downloadUrl" target="new">
+            <span>{{file?.name}}</span>
+          </a>
+        </ng-container>
+        <ng-template #imgTemplate>
+          <img (click)="openImg(row?.data)" [src]="file?.file_uri || file?.downloadUrl">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

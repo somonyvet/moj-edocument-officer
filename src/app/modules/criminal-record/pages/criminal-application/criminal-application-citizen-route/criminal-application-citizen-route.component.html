@@ -1,0 +1,104 @@
+<mat-progress-bar mode="indeterminate" *ngIf="process || loading" class="app-loader"></mat-progress-bar>
+<div class="full-page-container">
+    <div class="header">
+        <div class="wrapper">
+
+            <nav mat-tab-nav-bar class="fire-tabs tab-no-b flex1">
+                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.key" routerLinkActive
+                    #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+            </nav>
+
+            <ng-container *ngIf="auth?.uid == 'UyoJvGv2tlPzrSQomyDw'">
+                <app-search-filter-box 
+                    [customClass]="'custom-filter-search'"
+                    (scanQrCode)="onSearchReceipt($event)"
+                    [placeholder]="'ស្វែងរកតាមលេខវិក្កយបត្រ...'"
+                ></app-search-filter-box>
+            </ng-container>
+
+            <ng-container *ngIf="auth?.uid == 'UyoJvGv2tlPzrSQomyDw'">
+                <button (click)="togglePaymentOption()" mat-button class="mat-add-new btn-paid"
+                    matTooltipClass="tooltipClass">
+                    Toggle payment option
+                </button>
+            </ng-container>
+
+
+            <button (click)="doRemark()" mat-button class="mat-add-new btn-paid" matTooltipClass="tooltipClass">
+                Remark
+            </button>
+
+            <ng-container
+                *ngIf="auth?.recipient && (store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.PAID_UN_FILLED?.key)">
+                <button (click)="paidOnline()" mat-button class="mat-add-new btn-paid" matTooltipClass="tooltipClass">
+                    ដាក់បានបង់លុយ Online
+                </button>
+            </ng-container>
+
+            <ng-container
+                *ngIf="auth?.recipient && store?.selectedCriminalRecord?.paid_online && store?.selectedCriminalRecord?.status?.key >= STATUS_OBJ?.START_PROCESS?.key">
+                <button (click)="changeDateProcessDate()" mat-button class="mat-add-new btn-paid"
+                    matTooltipClass="tooltipClass">
+                    កាលបរិច្ឆេទដាក់ដំណើរការឯកសារ
+                </button>
+            </ng-container>
+
+            <ng-container *ngIf="!auth?.isEmbassyUser">
+                <a mat-button mat-icon-button (click)="_onEditReceipt(store?.selectedCriminalRecord)"
+                    class="mat-add-new"
+                    *ngIf="(auth | notMol) && auth?.recipient && store?.selectedCriminalRecord?.status?.key>=STATUS_OBJ?.PAID_UN_FILLED?.key"
+                    matTooltipClass="tooltipClass" matTooltip="កែបង្កាន់ដៃ">
+                    <mat-icon class="mat-18">drive_file_rename_outline</mat-icon>
+                </a>
+
+                <a mat-button mat-icon-button (click)="_onPrint(store?.selectedCriminalRecord)" class="mat-add-new"
+                    *ngIf="(auth | notMol) && store?.selectedCriminalRecord?.status?.key>=STATUS_OBJ?.PAID_UN_FILLED?.key"
+                    matTooltipClass="tooltipClass" matTooltip="បោះពុម្ពបង្កាន់ដៃ">
+                    <mat-icon class="mat-18">receipt</mat-icon>
+                </a>
+
+                <a mat-button mat-icon-button (click)="_onPrintPreview(store?.selectedCriminalRecord)"
+                    class="mat-add-new"
+                    *ngIf=" (auth | notMol) && store?.selectedCriminalRecord?.status?.key>=STATUS_OBJ?.REVIEW?.key"
+                    matTooltipClass="tooltipClass" matTooltip="បោះពុម្ព QR ស្នាមម្រាមដៃ និងឯកសារ">
+                    <mat-icon class="mat-18">fingerprint</mat-icon>
+                </a>
+            </ng-container>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.status?.key<STATUS_OBJ?.VOID?.key">
+                <a mat-button mat-icon-button class="mat-add-new"
+                    *ngIf="!store?.selectedCriminalRecord?.do_verify && ( auth?.canReviewApplication || (auth?.dataEntryOnly && store?.selectedCriminalRecord?.status?.key<=STATUS_OBJ?.APPLY.key))"
+                    matTooltipClass="tooltipClass" matTooltip="កែសម្រួល"
+                    [routerLink]="['/criminal-record/form/'+store?.selectedCriminalRecord?.national_application?.key+'/'+(store?.selectedCriminalRecord?.application_type?.route || 'application-no-iii')+'/'+ (store?.selectedCriminalRecord?.citizen_ref || 'na') +'/'+(store?.selectedCriminalRecord?.key || 'draft')]">
+                    <mat-icon class="mat-18">edit</mat-icon>
+                </a>
+                <a mat-button mat-icon-button class="mat-add-new"
+                    *ngIf="auth?.canReviewApplication && (store?.selectedCriminalRecord?.status?.key>=STATUS_OBJ?.APPROVED.key) && (!store?.selectedCriminalRecord?.criminal_input_print)"
+                    (click)="_reApply()" matTooltipClass="tooltipClass" matTooltip="ធ្វើឡើងវិញ">
+                    <mat-icon class="mat-18">content_copy</mat-icon>
+                </a>
+            </ng-container>
+
+            <button mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass" matTooltip="ពិនិត្យ"
+                (click)="fullScreenPreview()" *ngIf="auth | notMol">
+                <mat-icon class="mat-18">fullscreen</mat-icon>
+            </button>
+
+            <button mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ព"
+                (click)="print()">
+                <mat-icon class="mat-18">print</mat-icon>
+            </button>
+
+            <a mat-button mat-icon-button (click)="_onDelete()" class="mat-add-new btn-delete"
+                *ngIf="!(auth | notMol) && (store?.selectedCriminalRecord | isMolApply: MOL_workplace_key) && (store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.PAID?.key)"
+                matTooltipClass="tooltipClass" matTooltip="លុប">
+                <mat-icon class="mat-18">delete_outline</mat-icon>
+            </a>
+
+        </div>
+    </div>
+    <div class="body" style="overflow:auto">
+        <router-outlet *ngIf="!loading"></router-outlet>
+        <div class="fake"></div>
+    </div>
+</div>

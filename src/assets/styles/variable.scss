@@ -1,0 +1,96 @@
+$sidebarwidth: 256px;
+$header: #393a3d;
+$background: #eff2f5;
+
+$font: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",'auxswot',"khmer os siemreap", khmeros_siemreap;
+$googleFont: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",Roboto,'auxswot', "khmer os siemreap", khmeros_siemreap;
+$appFont: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",'auxswot',"khmer os siemreap", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial,sans-serif;
+$appFontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular","Moul",'auxswot', "khmer os siemreap", 'khmeros_siemreap';
+$googleFontTitle: "Google Sans",system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',Roboto,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif,'Moul','Siemreap', 'Battambang','khmer_os_muol_lightregular', cursive;
+
+$fontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",'auxswot-head','auxswot',"khmer os siemreap", khmeros_siemreap;
+$appFont2: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',Roboto,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif,'auxswot','Battambang','khmeros_siemreap';
+$appFontStrong: system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',Roboto,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif,'auxswot-bold','auxswot','Battambang','khmeros_siemreap';
+
+$fastHand: 'Times New Roman', 'Fasthand', cursive;
+
+$khmuol: "khmer_os_muol_light";
+$khmool1: "khmer_mool1regular";
+$khbtb: "khmeros_battambang";
+
+//side nav
+$sidebarbgcolor: #f3f2f1; //rottanak
+$sideBorder: #edebe9; //rottanak
+$sideBackgroundHover: #d5d5d5;
+$sideColor: #202124; //rottanak
+$sideExpansion: #edebe8;
+$sideColorAlpha: #202124; //rottanaks
+$sideBarActive: #1da1f2;
+$brand: rgba(255, 255, 255, 0.9);
+
+$color: #202124;
+$appprimaryColor: #1a73e8;
+$border: #dfe1e5;
+$buttonColor1: #1a6eb0;
+$buttonColor2: #1a6eb0;
+$red: #f44336;
+$link: #1a73e8;
+$primary: #1a73e8;
+$secondary: #f1f2f5;
+$green: #0b9e43;
+$primaryBackground: #039be5;
+$hoverPrimary: #00517f;
+$sidebarbgcoloractive: #f3f4fa;
+$sidebarcolor: #333;
+$blackBg: rgba(255, 255, 255, 0.9);
+$svgfillcolor: #1a73e8;
+$svgWash: #eaf3ff;
+$text-primary: #111;
+$textInfo: #111;
+$darkPrimary: rgba(0, 0, 0, 0.2);
+$darkPrimaryHover: rgba(255, 255, 255, 0.2);
+$padding: 24px;
+$radius: 8px;
+$menuItemHover: #1da1f2;
+$tabColor: #476282;
+$tabColorActive: #1a73e8;
+$headerText:#5f6368;
+$active: #1a73e8;
+
+$menuActiveColor: #e9f0fe;
+
+$piconColor: #393a3d;
+$appsecendaryColor: #f4f5f8;
+$inputBg: #f0f2f5;
+$titleColor: #393a3d;
+$descColor: #6b6c72;
+
+@mixin placeholder-color($color) {
+  &.placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder {
+    color: $color;
+  }
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
+$color1:#3476d0;
+$color2: #0c4caa;
+
+$margin: 24px;
+$radiusBig: 12px;
+$whiteColor: #fff;
+$btnBg: #e4e6eb;
+$divider: #ced0d4;
+$subtitle: #6b6c72;
+$formColor: #002060;
+$smoke: #e4e6eb;
+$placeholder: #65676b;
+$focus: $color1;
+
+$greenText: #00be7e;

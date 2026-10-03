@@ -1,0 +1,21 @@
+<div class="full-page-container">
+  <div class="header">
+    <div class="wrapper">
+      <nav mat-tab-nav-bar class="fire-tabs flex1">
+        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">{{link.label}}</a>
+      </nav>
+
+      <button mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ព"
+        (click)="onPrint()">
+        <mat-icon class="mat-18">print</mat-icon>
+      </button>
+
+    </div>
+  </div>
+  <div class="body officer-profile-info-container apply-form-page offi" *ngIf="!loading" style="overflow:auto">
+    <app-receive-application-form style="margin-top:12px" *ngIf="canSetApplicationNum"></app-receive-application-form>
+    <app-receive-hard-paper-form style="margin-top:12px" *ngIf="CanDone"></app-receive-hard-paper-form>
+    <router-outlet *ngIf="!loading"></router-outlet>
+  </div>
+</div>

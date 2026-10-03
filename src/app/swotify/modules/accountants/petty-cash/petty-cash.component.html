@@ -1,0 +1,54 @@
+<div class="main-panel">
+    <div class="main-l doc-list">
+        <div class="doc-in">
+            <div class="listing-header">
+                <h4>{{title}}</h4>
+                <app-search-filter-box [placeholder]="'Search '+title" (searchValue)="onSearch($event)">
+                </app-search-filter-box>
+                <nav mat-tab-nav-bar class="fire-tabs">
+                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+                </nav>
+            </div>
+            <ng-container *ngIf="!loading else loader">
+                <ng-container *ngIf="store?.data?.length>0 else emptyData">
+                    <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header"
+                        (vsEnd)="scrollHandler($event)">
+                        <a mat-button class="avatar-vt-item" [routerLink]="item?.key" routerLinkActive="active"
+                            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+                            <div class="avatar">
+                                <img [src]="item?.uri" (error)="handleImgError($event)">
+                            </div>
+                            <div class="av-vt-body">
+                                <strong>{{item?.officerId}} · {{item?.last_name}} {{item?.first_name}}</strong>
+                                <div class="rows sub-text" *ngIf="item?.workingOffices?.length>0 else newOfficerForm">
+                                    <span *ngFor="let pos of item?.workingOffices;let j=index">
+                                        {{pos?.office?.name}}{{(j+1)===item?.workingOffices?.length?'':', '}}
+                                    </span>
+                                </div>
+                                <ng-template #newOfficerForm>
+                                    <div class="rows sub-text">
+                                        <span>{{item?.rank?.name || item?.rank}} · {{item?.position?.name ||
+                                            item?.positionForm?.name || item?.positionForm}}</span>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </a>
+                    </virtual-scroller>
+                </ng-container>
+
+            </ng-container>
+            <ng-template #loader>
+                <app-spinner></app-spinner>
+            </ng-template>
+            <ng-template #emptyData>
+                <div class="doc-ls-items center">
+                    <app-empty className="empty-vt" name="Petty cash is empty." subtitle=""></app-empty>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="main-r">
+        <router-outlet></router-outlet>
+    </div>
+</div>

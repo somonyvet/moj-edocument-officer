@@ -1,0 +1,119 @@
+<div class="page-section full-page" *mobxAutorun>
+
+
+  <div class="panel-secondary">
+    <div class="navigation bg-w">
+      <div class="header">
+        <div class="top-title">
+          <h1>ឃុំ</h1>
+          <!-- <span>Create district, commune and village here.</span> -->
+        </div>
+      </div>
+      <div class="grid-header">
+        <div class="header-icon">
+          <div class="app-icon-app">
+            <span>{{geo.selectedDistrict?.name?.substring(0,1)}}</span>
+          </div>
+        </div>
+        <h1>{{geo?.selectedDistrict?.name}}</h1>
+      </div>
+      <div class="list-items">
+        <button [routerLink]="['/apps/geo/' + provinceKey + '/' + item.key +'/communes']"
+          [ngClass]="{active:item.key===geo.selectedDistrict?.key}" mat-button *ngFor="let item of geo?.districts">
+          {{item?.name}}
+        </button>
+      </div>
+    </div>
+
+    <div class="page-page">
+      <div class="page-content">
+        <div class="top-bar">
+          <h1>{{geo?.selectedDistrict?.name}}</h1>
+          <div class="flex1"></div>
+          <button mat-icon-button [routerLink]="['/apps/geo/' + provinceKey +'/districts']">
+            <mat-icon aria-label="close">close</mat-icon>
+          </button>
+        </div>
+        <div class="page-page-content">
+          <div class="do-more">
+
+          </div>
+          <div class="new-data">
+            <button mat-raised-button (click)="create(null)">
+              <i class="material-icons">add</i>Add New Commune</button>
+          </div>
+
+          <div class="page-section" *ngIf="geo?.communes?.length>0 && !geo.loading">
+            <div class="card-wrapper tab">
+              <div class="tb-content overview">
+                <div class="card-header">
+                  <div class="card-item">
+                    <div class="card-col10">
+                      <div class="flex-block">
+                        No
+                      </div>
+                    </div>
+                    <div class="card-col20">
+                      <div class="flex-block">
+                        Code
+                      </div>
+                    </div>
+                    <div class="card-col60">
+                      <div class="flex-block">
+                        Name
+                      </div>
+                    </div>
+                    <div class="card-col10"></div>
+                  </div>
+                </div>
+
+                <div class="card-content">
+                  <ng-container *ngFor="let item of geo?.communes;let i=index">
+                    <div class="card-item">
+                      <div class="card-col10">
+                        <div class="flex-block">
+                          {{i+1}}
+                        </div>
+                      </div>
+                      <div class="card-col20">
+                        <div class="flex-block link">
+                          <strong class="text-link"
+                            [routerLink]="['/apps/geo/' + provinceKey + '/' + item?.district?.key + '/' + item?.key + '/villages']">{{item?.id}}</strong>
+                        </div>
+                      </div>
+                      <div class="card-col60">
+                        <div class="flex-block link">
+                          <strong
+                            [routerLink]="['/apps/geo/' + provinceKey + '/' + item?.district?.key + '/' + item?.key + '/villages']">{{item?.geo_prefix ? item?.geo_prefix?.name : 'ឃុំ'}}{{item?.name}}</strong>
+                        </div>
+                      </div>
+                      <div class="card-col10">
+                        <div class="card-list-action">
+                          <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <i class="material-icons">more_vert</i>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="create(item)">
+                              <mat-icon>edit</mat-icon>
+                              <span>Edit</span>
+                            </button>
+                            <!-- <button mat-menu-item (click)="delete(item)">
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                              </button> -->
+                          </mat-menu>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-spinner *ngIf="geo?.loading"></app-spinner>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

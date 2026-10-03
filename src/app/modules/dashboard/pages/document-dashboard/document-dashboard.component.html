@@ -1,0 +1,82 @@
+<main class="document-dashboard-page" style="display: flex;">
+  <div class="doc-dashboard-page-nav-left">
+    <div style="height: 20px;"></div>
+    <div class="nav-menu-item" (click)="onClickProfile()">
+      <div class="ico-box avatar">
+        <img [src]="auth?.employee?.file?.downloadUrl || defaultAvatar">
+      </div>
+      <div class="doc-title">
+        {{auth?.employee?.displayName}}
+      </div>
+    </div>
+    <div class="nav-menu-item" *ngFor="let item of LIST_DOC_ARRAY"
+      [routerLink]="['/document-panel-lists/' + item?.link]" routerLinkActive="active">
+      <div class="ico-box">
+        <img [src]="item?.img" alt="">
+      </div>
+      <div class="doc-title">
+        {{item?.name}}
+      </div>
+    </div>
+    <div class="devider">
+      <hr>
+    </div>
+    <div class="copy-right" [routerLink]="['/apps']">
+      <span>
+        ©2021 រក្សាសិទ្ធិគ្រប់បែបយ៉ាងដោយ ដោយ{{auth?.APP_INFO?.copy_right}}
+      </span>
+      <br>
+      <span>
+        <!-- ជំនាន់ទី 1.0.0 បង្កើតឡើងដោយ នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា -->
+      </span>
+      <br>
+    </div>
+  </div>
+  <div class="doc-dashboard-page-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="doc-dashboard-page-nav">
+    <div class="doc-dashboard-page-nav-content" #fullPromote>
+      <div class="doc-dashboard-page-nav-content-heading" #headerPromote>
+        <app-document-urgent [loading]="store?.loadingUrgent" [data]="store?.documentUrgent"></app-document-urgent>
+        <app-document-pined [loading]="store?.loadingPined" [data]="store?.headerPinedDocuments"></app-document-pined>
+      </div>
+      <div class="doc-dashboard-page-nav-content-body people-chat">
+        <div class="rows" style="padding-right: 18px;">
+          <div class="people-header">គណនី</div>
+          <div class="flex1"></div>
+          <strong>{{store?.officerData?.length}}</strong>
+        </div>
+        <div class="people-online">
+          <div class="fb-item" *ngIf="store?.loadingOfficer">
+            <div class="first-section-wrapper" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">
+              <div class="gravatar">
+                <ngx-skeleton-loader appearance="circle" [theme]="{ width: '40px', height: '40px' }">
+                </ngx-skeleton-loader>
+              </div>
+              <div class="gravatar-title">
+                <div>
+                  <ngx-skeleton-loader
+                    [theme]="{width: '200px','border-radius': '0',height: '10px','margin-bottom': '4px'}">
+                  </ngx-skeleton-loader>
+                </div>
+                <div>
+                  <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '10px' }">
+                  </ngx-skeleton-loader>
+                </div>
+              </div>
+            </div>
+          </div>
+          <virtual-scroller #scrollAccount [items]="store?.officerData" (vsEnd)="fetchMoreAccounts($event)"
+            class="people-online-list" *ngIf="!store?.loadingOfficer && store?.officerData?.length > 0">
+            <ng-container *ngFor="let item of scrollAccount?.viewPortItems;let i=index">
+              <app-officer-profile-list (onChat)="_onChat($event)" [hidePhone]="true" [item]="item">
+              </app-officer-profile-list>
+            </ng-container>
+          </virtual-scroller>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

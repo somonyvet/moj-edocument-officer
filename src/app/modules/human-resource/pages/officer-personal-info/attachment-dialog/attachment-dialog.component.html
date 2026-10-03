@@ -1,0 +1,169 @@
+<div class="dialog-stepper-container">
+  <div class="header">
+    <h3>ឯកសារភ្ជាប់</h3>
+    <button mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="body">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ព័ត៌មានផ្ទាល់ខ្លួន
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="item">
+            <div class="title">
+              <h3>
+                អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ
+              </h3>
+            </div>
+            <div class="file-container">
+
+            </div>
+          </div>
+          <div class="item">
+            <div class="title">
+              <h3>
+                អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ
+              </h3>
+            </div>
+            <div class="file-container">
+
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            កម្រិតវប្បធម៌
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="item" *ngFor="let item of data?.generalEducation">
+            <div class="title">
+              <span>
+                {{item?.certificate}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវៈ
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="item" *ngFor="let item of data?.trainingLevel">
+            <div class="title">
+              <span>
+                {{item?.skill}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ប្រវត្តិការងារ
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="head-title">
+            <h3>
+              ក.មុខតំណែង
+            </h3>
+          </div>
+          <div class="item" *ngFor="let item of data?.positionHistory">
+            <div class="title">
+              <span>
+                {{item?.name?.name}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+          <div class="head-title">
+            <h3>
+              ខ.ឋានន្តរស័ក
+            </h3>
+          </div>
+          <div class="item" *ngFor="let item of data?.rankHistory">
+            <div class="title">
+              <span>
+                {{item?.name?.name}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ការលើកសរសើរ
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="item" *ngFor="let item of data?.commendation">
+            <div class="title">
+              <span>
+                {{item?.rank}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            ការដាក់ពិន័យ
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expan-content">
+          <div class="item" *ngFor="let item of data?.punishment">
+            <div class="title">
+              <span>
+                {{item?.rank}}
+              </span>
+            </div>
+            <div class="file-container">
+              <div class="file-item" *ngFor="let file of item?.files">
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+

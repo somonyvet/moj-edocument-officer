@@ -1,0 +1,101 @@
+<div class="nav-dock-header sidebar-head" [ngStyle]="setBoxShadowHead()">
+  <div class="rows doc-header-box">
+    <div class="dock-header">
+      <p>{{options?.title}}</p>
+      <h1 *ngIf="options?.dotStatus; else nomal"><span class="dot-status"
+          [style.background-color]="dotStatus"></span><span>{{options?.subTitle}}</span>
+      </h1>
+      <ng-template #nomal>
+        <h1>{{options?.subTitle}}</h1>
+      </ng-template>
+    </div>
+    <ng-container *ngIf="options?.isSetting">
+      <a mat-button mat-icon-button class="mat-btn-n" [matMenuTriggerFor]="menu" (menuOpened)="onProjectOpened()">
+        <mat-icon>notes</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <div class="filter-panel">
+          <div class="filter-panel-header">
+            <h4>ជ្រើសរើសផែនការប្រចាំឆ្នាំ</h4>
+          </div>
+          <div class="filter-panel-content">
+            <ng-template #projectTmp>
+              <virtual-scroller #scrollProjects [items]="store?.projects" style="height: calc(100vh - 300px);">
+                <div *ngFor="let item of scrollProjects.viewPortItems;let i=index">
+                  <mat-divider></mat-divider>
+                  <a mat-button class="devsite-cpwd" [ngClass]="selectedProject?.key===item?.key?'active':''"
+                    (click)="onSelectYear(item)">
+                    <div class="devsite-list-text center">
+                      <div class="icon-round" *ngIf="!item?.file?.downloadUrl">
+                        <mat-icon>turned_in_not</mat-icon>
+                      </div>
+                      <img [src]="item?.file?.downloadUrl" *ngIf="item?.file?.downloadUrl">
+                      <span [style.padding-left]="((item.level)*8)+'px'"></span>
+                      <span class="sp-name">{{item?.name}}</span>
+                      <mat-icon>
+                        {{selectedProject?.key===item?.key?'radio_button_checked':'radio_button_unchecked'}}
+                      </mat-icon>
+                    </div>
+                  </a>
+                </div>
+              </virtual-scroller>
+            </ng-template>
+            <app-skeleton-loader *ngIf="loadingProject else projectTmp"></app-skeleton-loader>
+          </div>
+        </div>
+      </mat-menu>
+      <!-- <mat-menu #menu="matMenu">
+        <a (click)="onSelectYear(item)" mat-menu-item *ngFor="let item of years">
+          <span>{{item?.name}}</span>
+        </a>
+      </mat-menu> -->
+    </ng-container>
+  </div>
+  <div class="fill-gap" [ngStyle]="setFillGap()"></div>
+  <div class="sidebar-head-search-container" [ngStyle]="setStyleSearchResult()">
+    <div class="search-box" [ngStyle]="setStyleSearchBox()">
+      <div class="wraper">
+        <input #searchSupplier type="text" class="search-box-input" [(ngModel)]="searchString" placeholder="ស្វែងរក..."
+          (focus)="onFocusSearch()" (focusout)="onOutFocusSearch()" (input)="onInput($event)">
+        <span class="material-icons clickable"
+          [ngStyle]="{'transform': focusSearch || searchString ? 'translateX(34px)' : 'translateX(0)'}"
+          (click)="onFocusSearch()">
+          search
+        </span>
+        <span class="material-icons clickable btn-cancel" [ngStyle]="setStyleBtnCancel()" (click)="onCloseSearch()">
+          close
+        </span>
+      </div>
+    </div>
+    <div *ngIf="focusSearch || searchString" class="search-result-container">
+      <div class="devider">
+        <div></div>
+      </div>
+      <div class="result-item-container">
+
+        <div class="lottie-container" *ngIf="!searchString">
+          <ng-lottie [options]="lottie" (animationCreated)="animationCreated($event)" style="height: 300px;">
+          </ng-lottie>
+          <!-- <div class="lottie-text" *ngIf="isAnimationCreated">
+            <h3>Searching will help find what're you looking for quickly.</h3>
+          </div> -->
+        </div>
+
+        <ng-container *ngIf="searchString">
+          <div class="result-item" *ngFor="let item of projectList | filterProject:searchString">
+            <a class="result-list-item" (click)="onSelectItem(item)">
+              <div><strong>{{item?.code}}.</strong> {{item?.name}}</div>
+            </a>
+            <ng-container *ngIf="setEmptyResult()"></ng-container>
+          </div>
+          <ng-container *ngIf="isEmptyResult">
+            <div class="empty-result-container">
+              <p>គ្មានលទ្ធផលសម្រាប់ការស្វែងរក <strong>{{searchString}}</strong></p>
+            </div>
+          </ng-container>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</div>

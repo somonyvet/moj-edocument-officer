@@ -1,0 +1,393 @@
+<div class="doc-preview-wrapper">
+  <div class="doc-preview-content">
+    <div class="doc-preview-content-action-top" style="padding:8px 24px">
+      <button mat-button mat-icon-button (click)="goBack()">
+        <mat-icon class="mat-18">clear</mat-icon>
+      </button>
+      <div class="doc-title">
+        <div class="doc-cover">
+          <img [src]="defaultDocImg" alt="">
+        </div>
+      </div>
+      <div class="flex1"></div>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="print('a4')" matTooltip="ពិនិត្យបោះពុម្ព">
+          <mat-icon>print</mat-icon>
+          <span>បោះពុម្ពឯកសារបញ្ឈរ</span>
+        </button>
+        <button mat-menu-item (click)="print('a4l')" matTooltip="ពិនិត្យបោះពុម្ព">
+          <mat-icon>print</mat-icon>
+          <span>បោះពុម្ពឯកសារផ្ដេក</span>
+        </button>
+        <!--<button mat-icon-button (click)="print()" matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
+                    aria-label="Print Document" style="background: #e4e6eb;">
+                    <mat-icon class="mat-18">print</mat-icon>
+                </button> -->
+      </mat-menu>
+
+
+    </div>
+
+    <div class="doc-template-wrapper print-preview" id="print">
+
+      <table style="margin: 0 auto;">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;" *ngIf="documents.length > 0">
+
+              <div class="page">
+                <ng-container *ngFor="let d of documents">
+                  <div class="doc-template-page"
+                    style="page-break-after: always; min-height: 297mm; margin-bottom: 30px; min-width: 210mm; padding: 44px 54px;">
+                    <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='gdi'">
+                      <div class="bl-title-left">
+                        <ng-container *ngFor="let item of d?.headerDocument?.workplaces|workplacesReport">
+                          <p>{{item.name}}</p>
+                        </ng-container>
+
+                        <p>លេខ៖
+                          <span>
+                            {{d?.documentDataDoc?.documentNo}}
+                          </span>
+                        </p>
+                        <p class="star">3</p>
+                      </div>
+                      <div class="bl-space"></div>
+                      <div class="bl-title-right">
+                        <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                        <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                        <p class="star">3</p>
+                      </div>
+                    </div>
+
+                    <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                      <div class="bl-title-left">
+                        <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                        <p>ទីស្តីការក្រសួងយុត្តិធម៍</p>
+                        <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                      </div>
+                      <div class="bl-space"></div>
+                      <div class="bl-title-right moj-d" >
+                        <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                        <p>លេខសំណុំឯកសារ {{d?.documentDataDoc?.documentNo}}</p>
+                      </div>
+                    </div>
+
+                    <div class="doc-template-row doc-template-block">
+                      <div class="font-size18" [innerHtml]="d?.documentDataDoc?.title | safe:'html'"></div>
+                    </div>
+
+                    <div class="doc-template-row" *ngFor="let item of d?.documentDataDoc?.header;let i = index;">
+                      <ng-container *ngIf="item?.type?.key === 0">
+                        <div [innerHtml]="item?.content??'' | safe:'html'" style="width: 100%;">
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="item?.type?.key !== 6 && item?.type?.key !== 0">
+                        <div *ngIf="item?.type?.key !== 18" class="title-content font-size18"
+                          style="width: 118px; flex:none" [innerHtml]="item?.contentTitle??'' | safe:'html'">
+                        </div>
+
+                        <div *ngIf="item?.type?.key == 18" class="title-content font-size18"
+                          style="width: 108px; flex:none" [innerHtml]="item?.contentTitle??'' | safe:'html'">
+                        </div>
+
+                        <div *ngIf="item?.type?.key !== 18" class="sign-conent font-size18"
+                          style="padding-right: 10px; line-height: 27px;">:
+                        </div>
+
+                        <div *ngIf="item?.type?.key == 18" class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 27px; font-family: 'Moul';">
+                          ✹
+                        </div>
+
+                        <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
+                          style="width: 100%;" [innerHtml]="item?.content??'' | safe:'html'">
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="item?.type?.key === 6 && item?.content">
+                        <div style="width: 118px; flex:none" [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                        </div>
+                        <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
+                          style="width: 100%;" [innerHtml]="item?.content??'' | safe:'html'"></div>
+                      </ng-container>
+                    </div>
+
+
+                    <div class="doc-template-row" *ngFor="let item of d?.groupSections;let i = index;">
+
+                      <ng-container *ngIf="(item?.type?.key === 7 || item?.type?.key === 8) && item?.content">
+                        <div class="title-content font-size18" style="width: 117px; flex:none"
+                          [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                        </div>
+                        <div class="content-container font-size18" style="width: 100%;"
+                          [innerHtml]="item?.content??'' | safe:'html'">
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.type.key === 10">
+                        <div>
+                          <div *ngIf="item?.remark" [innerHtml]="item?.remark??'' | safe:'html'">
+                          </div>
+                          <div class="doc-template-row">
+                            <div [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
+                            <div>
+                              {{item?.office?.name}}
+                            </div>
+                          </div>
+                          <p *ngIf="item?.content" [innerHtml]="item?.content??'' | safe:'html'">
+                          </p>
+
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.type.key === 11">
+                        <div [innerHtml]="item?.content | safe:'html'"></div>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.type.key === 12">
+                        <div style="white-space: nowrap;" [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                        <div>
+                          <ng-container *ngFor="let f of item?.office">
+                            {{f?.name}}
+                          </ng-container>
+                        </div>
+                      </ng-container>
+
+                    </div>
+
+                    <div class="doc-template-row doc-template-block"
+                      *ngFor="let item of d?.documentDataDoc?.footer;let i = index;">
+                      <ng-container *ngIf="item.type.key === 15">
+                        <div class="doc-template-row">
+                          <div style="width: 100%;" [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
+                        </div>
+                      </ng-container>
+                      <ng-container *ngIf="item.type.key === 14">
+                        <div class="doc-template-row">
+                          <table class="doc-table-footer">
+                            <tr>
+                              <td>
+                                <div class="tb-title-text ">
+                                  <div style="font-size: 18px;" [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                    [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="tb-title-text font-size18">
+                                  <div style="font-size: 18px;" [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                    [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.type.key === 20">
+                        <div class="doc-template-row">
+
+                          <div class="moj-doc">
+                            <div class="md-l">
+                              <div class="md-c">
+                                <div class="md-t" [innerHtml]="item?.moj_box1_contentTitleLeft??'' | safe:'html'">
+                                </div>
+                                <div class="md-approval">
+                                  <div class="tb-title-text ">
+                                    <div [innerHtml]="item?.moj_box1_contentSubTitleLeft??'' | safe:'html'">
+                                    </div>
+                                    <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                      [data]="item?.moj_box1_approvedByLeftBox"
+                                      [dataArray]="store?.userPermissionCompeted">
+                                    </app-signature-view>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="md-c">
+                                <div class="md-t" [innerHtml]="item?.moj_box2_contentTitleLeft??'' | safe:'html'">
+                                </div>
+                                <div class="md-approval">
+                                  <div class="tb-title-text ">
+                                    <div [innerHtml]="item?.moj_box2_contentSubTitleLeft??'' | safe:'html'">
+                                    </div>
+                                    <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                      [data]="item?.moj_box2_approvedByLeftBox"
+                                      [dataArray]="store?.userPermissionCompeted">
+                                    </app-signature-view>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="md-c">
+                                <div class="md-t" [innerHtml]="item?.moj_box3_contentTitleLeft??'' | safe:'html'">
+                                </div>
+                                <div class="md-approval mb">
+                                  <div class="tb-title-text ">
+                                    <div [innerHtml]="item?.moj_box3_contentSubTitleLeft??'' | safe:'html'">
+                                    </div>
+                                    <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                      [data]="item?.moj_box3_approvedByLeftBox"
+                                      [dataArray]="store?.userPermissionCompeted">
+                                    </app-signature-view>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="md-r">
+                              <div class="md-c">
+                                <div class="md-t" [innerHtml]="item?.moj_box4_contentTitleRight??'' | safe:'html'">
+                                </div>
+                                <div class="md-approval mh">
+                                  <div class="tb-title-text ">
+                                    <div [innerHtml]="item?.moj_box4_contentSubTitleRight??'' | safe:'html'">
+                                    </div>
+                                    <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                      [data]="item?.moj_box4_approvedByRightBox"
+                                      [dataArray]="store?.userPermissionCompeted">
+                                    </app-signature-view>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="md-c">
+                                <div class="md-t" [innerHtml]="item?.moj_box5_contentTitleRight??'' | safe:'html'">
+                                </div>
+                                <div class="md-approval mh mb">
+                                  <div class="tb-title-text ">
+                                    <div [innerHtml]="item?.moj_box5_contentSubTitleRight??'' | safe:'html'">
+                                    </div>
+                                    <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="d"
+                                      [data]="item?.moj_box5_approvedByRightBox"
+                                      [dataArray]="store?.userPermissionCompeted">
+                                    </app-signature-view>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="item.type.key === 13">
+                        <div class="doc-template-row">
+                          <table class="doc-table-footer">
+                            <tr>
+                              <td style="border: none;">
+                                <div class="tb-title-text font-size18">
+                                  <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="item"
+                                    [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+                              <td style="border: none;">
+                                <div class="tb-title-text font-size18">
+                                  <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted" [storeDoc]="store"
+                                    [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-container>
+
+
+                      <ng-container *ngIf="item.type.key === 17">
+                        <div class="doc-template-row">
+                          <table class="doc-table-footer">
+                            <tr>
+                              <td style="border: none;">
+                                <div class="tb-title-text font-size18">
+                                  <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                    [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+
+                              <td style="border: none;">
+                                <div class="tb-title-text font-size18">
+                                  <div [innerHtml]="item?.contentTitleCenter??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                    [data]="item?.approvedByCenterBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+
+                              <td style="border: none;">
+                                <div class="tb-title-text font-size18">
+                                  <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
+                                  </div>
+                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                    [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
+                                  </app-signature-view>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-container>
+
+
+                      <ng-container *ngIf="item.type.key === 16">
+                        <div [innerHtml]="item?.content??'' | safe:'html'"></div>
+                      </ng-container>
+
+                    </div>
+                    <div class="" style="display: flex; justify-content: flex-end;" *ngIf="d?.documentDataDoc">
+                      <ngx-kjua [text]="d?.documentDataDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+                        [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+                        [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50"
+                        [label]="'EWIS'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]=""
+                        [cssClass]="'image-auto'">
+                      </ngx-kjua>
+                    </div>
+
+                  </div>
+                </ng-container>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <div class="page-footer-space"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+</div>

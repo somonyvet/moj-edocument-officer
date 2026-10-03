@@ -1,0 +1,51 @@
+<div class="decree-card" *ngIf="decreeResult">
+    <div class="decree-header">
+        <h3 class="header-title">លទ្ធផលនិទ្ទេស</h3>
+        <span class="status-pill" *ngIf="decreeStatus"
+            [ngClass]="isValidDecreeRecord ? 'is-valid' : 'is-invalid'">
+            <span>{{ decreeStatus }}</span>
+        </span>
+    </div>
+
+    <div class="decree-info-wrapper">
+        <p class="decree-result" [innerHTML]="decreeResult"></p>
+        <div class="decree-info" *ngIf="decreeBy || decreeAt">
+            <img class="img-profile" [src]="decreeBy?.photoUrl" [attr.alt]="decreeBy?.display_name || ''"
+                (error)="handleImgError($event)">
+            <span class="decree-info-text">
+                ផ្ដល់និទ្ទេសដោយ <strong>{{ decreeBy?.display_name || '-' }}</strong>
+                <ng-container *ngIf="decreeAt"> នៅថ្ងៃទី {{ decreeAt | dateTimeKh }}</ng-container>
+            </span>
+        </div>
+        <div class="decree-comment" *ngIf="isValidDecreeRecord && (workplaceComments?.length || decreeComment)">
+            <h4 class="comment-title">
+                <mat-icon>comment</mat-icon>
+                <span>យោបល់</span>
+            </h4>
+
+            <ng-container *ngIf="workplaceComments?.length; else officerCommentOnly">
+                <div class="comment-item" *ngFor="let item of workplaceComments">
+                    <div class="comment-item-header">
+                        <img class="img-profile" [src]="item?.approved_by?.photoUrl"
+                            [attr.alt]="item?.approved_by?.display_name || ''" (error)="handleImgError($event)">
+                        <div class="comment-identity">
+                            <div class="comment-dep" *ngIf="item?.department?.name">{{ item?.department?.name }}</div>
+                            <div class="comment-meta" *ngIf="item?.approved_by || item?.approved_at">
+                                <strong>{{ item?.approved_by?.display_name || '-' }}</strong>
+                                <ng-container *ngIf="item?.approved_at"> · {{ item?.approved_at | dateTimeKh }}
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-body" [innerHTML]="item?.comment | sanitizeHtml"></div>
+                </div>
+            </ng-container>
+
+            <ng-template #officerCommentOnly>
+                <div class="comment-item">
+                    <div class="comment-body" [innerHTML]="decreeComment | sanitizeHtml"></div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

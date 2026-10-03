@@ -1,0 +1,45 @@
+.example-tree-invisible {
+    display: none;
+  }
+  
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+  
+  .example-tree .mat-nested-tree-node div[role=group] {
+    padding-left: 40px;
+  }
+
+
+  .sw-tree{
+    .sw-tree-item{
+      position: relative;
+    }
+    .l-line{
+      position: absolute;
+      top:0;
+      width: 2px;
+      height: 12px;
+      background-color: black;
+    }
+    // .l-line-no-child{
+    //   position: absolute;
+    //   top:6px;
+    //   width: 2px;
+    //   height: 20px;
+    //   background-color: black;
+    // }
+    .l-line-curve{
+      position: absolute;
+    }
+    .b-line{
+      position: absolute;
+      top: 17px;
+      width: 2px;
+      height: 12px;
+      background-color: black;
+    }
+  }

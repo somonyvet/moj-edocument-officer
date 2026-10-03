@@ -1,0 +1,423 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in new">
+      <div class="listing-header row">
+        <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+          aria-label="Example icon-button with a menu">
+          <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menuPeriod="matMenu">
+          <div class="options-lags" (click)="$event.stopPropagation();">
+            <app-report-filter-selected-month reportRoute='/criminal-record/reports/paid-monthly-report'>
+            </app-report-filter-selected-month>
+          </div>
+        </mat-menu>
+        <div class="flex1"></div>
+
+        <button mat-button class="options-dashboard primary" (click)="print()">
+          <i class="material-icons">print</i>
+          <span>បោះពុម្ពរបាយការណ៍</span>
+        </button>
+
+        <button mat-button class="options-dashboard primary" (click)="exportExcel()">
+          <i class="material-icons">get_app</i>
+          <span>ទាញយកឯកសារជា EXCEL</span>
+        </button>
+      </div>
+      <ng-container *ngIf="!loading else loader">
+        <div class="doc-ls-items center new">
+
+          <div class="report-wrapper" id="print" style="width: 1600px; max-width: unset; padding: 20px;">
+
+            <table #table>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="page">
+                      <div class="report-header">
+                        <div class="d-flex">
+                          <div class="left-tbox">
+                            <div>ក្រសួងយុត្តិធម៍</div>
+                            <div>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</div>
+                            <div>នាយកដ្ឋានកិច្ចការថ្កោលទោស</div>
+
+                            <div class="star">3</div>
+                          </div>
+                          <div class="flex-1"></div>
+                          <div class="bavacana">
+                            <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
+                            <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
+                            <div class="star">3</div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex">
+                          <div class="report-title" style="width: 100%;text-align: center;">
+                            <p>របាយការណ៍បង់ប្រាក់រូច{{store.periodText}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <table class="tb-master-print">
+                        <thead>
+                          <tr class="table-row">
+                            <th class="table-col center" style="max-width: 90px !important; width: 90px !important;" rowspan="5"></th>
+                            <th class="table-col center" colspan="12">ប្រពៃណី</th>
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center" colspan="4">ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</th>
+                            <th class="table-col center" colspan="4">សិស្ស ឬនិស្សិត</th>
+                            <th class="table-col center" colspan="4">ជនបរទេស </th>
+
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center" colspan="2">២០ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">១២ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">២០ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">១២ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">២០ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">១២ថ្ងៃ</th>
+
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                          </tr>
+                                                  <tr class="table-row">
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineNormal20Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineNormal20AmountT || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineNormal12Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineNormal12AmountT || 0}}
+                          </td>
+
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineStudent20Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineStudent20AmountT || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineStudent12Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineStudent12AmountT || 0}}
+                          </td>
+
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineForeigner20Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineForeigner20AmountT || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineForeigner12Amount || 0}}
+                          </td>
+                          <td class="table-col center">
+                            {{store?.statistic?.offlineForeigner12AmountT || 0}}
+                          </td>
+
+                        </tr>
+                        <tr class="table-row">
+                          <td class="table-col center" rowspan="2" style="text-align: center; vertical-align: middle;">
+                              សរុបទឹកប្រាក់ (៛)
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineNormal20Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineNormal20AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineNormal12Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineNormal12AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineStudent20Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineStudent20AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineStudent12Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineStudent12AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineForeigner20Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineForeigner20AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineForeigner12Amount || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                          <td class="table-col center">
+                            {{
+                              (store?.statistic?.total_offlineForeigner12AmountT || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="12" style="text-align: center!important;">
+                            {{
+                              (store?.statistic?.total_offline || 0) | number:'1.0-0'
+                            }}
+                          </td>
+                        </tr>
+                        </thead>
+                      </table>
+
+                      <div style="height: 20px;"></div>
+
+                      <table class="tb-master-print">
+                        <thead>
+                          <tr class="table-row">
+                            <th class="table-col center" style="max-width: 90px !important; width: 90px !important;" rowspan="5"></th>
+                            <th class="table-col center" colspan="8">អនឡាញ</th>
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center" colspan="4">ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</th>
+                            <th class="table-col center" colspan="4">ជនបរទេស </th>
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center" colspan="2">២០ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">១២ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">២០ថ្ងៃ</th>
+                            <th class="table-col center" colspan="2">១២ថ្ងៃ</th>
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                            <th class="table-col center">ចំនួន</th>
+                            <th class="table-col center">បកប្រែ</th>
+                          </tr>
+                          <tr class="table-row">
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineNormal20Amount || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineNormal20AmountT || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineNormal12Amount || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineNormal12AmountT || 0}}
+                            </td>
+
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineForeigner20Amount || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineForeigner20AmountT || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineForeigner12Amount || 0}}
+                            </td>
+                            <td class="table-col center">
+                              {{store?.statistic?.onlineForeigner12AmountT || 0}}
+                            </td>
+
+                          </tr>
+                          <tr class="table-row">
+                            <td class="table-col center" rowspan="2" style="text-align: center; vertical-align: middle;">
+                                សរុបទឹកប្រាក់ (៛)
+                            </td>
+
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineNormal20Amount || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineNormal20AmountT || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineNormal12Amount || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineNormal12AmountT || 0) | number:'1.0-0'
+                              }}
+                            </td>
+
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineForeigner20Amount || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineForeigner20AmountT || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineForeigner12Amount || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                            <td class="table-col center">
+                              {{
+                                (store?.statistic?.total_onlineForeigner12AmountT || 0) | number:'1.0-0'
+                              }}
+                            </td>
+
+                          </tr>
+                          <tr class="table-row">
+                            <td colspan="8" style="text-align: center!important;">
+                              {{
+                                (store?.statistic?.total_online || 0) | number:'1.0-0'
+                              }}
+                            </td>
+                          </tr>
+                        </thead>
+                      </table>
+
+                      <div class="fake-box"></div>
+                      <!-- <div class="flex-row b-r-fs">
+                        <div class="sum-statistic">
+
+                          <div class="t-travel">
+
+                            <div class="tt-d">
+                              <p class="l-text">E-payment ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</p>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">
+                                {{store?.statistic?.epaymentNormal20Amount|| 0}}ច្បាប់
+                              </span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.epaymentNormal20AmountT|| 0}}ច្បាប់
+                              </span>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">
+                                {{store?.statistic?.epaymentNormal12Amount|| 0}}ច្បាប់
+                              </span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.epaymentNormal12AmountT|| 0}}ច្បាប់
+                              </span>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text">E-payment ជនបរទេស</p>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">
+                                {{store?.statistic?.epaymentForeigner20Amount || 0}}ច្បាប់
+                              </span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.epaymentForeigner20AmountT|| 0}}ច្បាប់
+                              </span>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">
+                                {{store?.statistic?.epaymentForeigner12Amount || 0}}ច្បាប់
+                              </span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.epaymentForeigner12AmountT || 0}}ច្បាប់
+                              </span>
+                            </div>
+
+                            <div class="tt-d">
+                              <p class="l-text">ពលករសរុប</p>
+                              <span class="lf-text">{{store?.statistic?.molAmount || 0}}ច្បាប់</span>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div> -->
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tfoot>
+                <tr>
+                  <td>
+                    <div class="page-footer-space"></div>
+                  </td>
+                </tr>
+              </tfoot>
+
+            </table>
+
+            <app-spinner *ngIf="loading"></app-spinner>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+      <ng-template #loader>
+        <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <h1>EMPTY</h1>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

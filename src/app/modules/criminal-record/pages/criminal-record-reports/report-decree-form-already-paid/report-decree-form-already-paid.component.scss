@@ -1,0 +1,16 @@
+.new-print {
+    margin: 0.5cm 1cm !important;
+  }
+
+  .doc-in {
+
+    // position: relative;
+    // top: 16px;
+
+    width: calc(100% - 276px) !important;
+
+    &.new {
+      background-color: transparent !important;
+      box-shadow: none;
+    }
+  }

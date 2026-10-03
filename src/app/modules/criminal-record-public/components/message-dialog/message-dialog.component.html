@@ -1,0 +1,14 @@
+<div class="announcement-message" *mobxAutorun>
+  <div class="dialog-header">
+    <a mat-button mat-icon-button (click)="dialogRef?.close()">
+      <mat-icon>close</mat-icon>
+    </a>
+  </div>
+  <div class="lottie-container">
+    <!-- <ng-lottie [options]="lottie"></ng-lottie> -->
+  </div>
+  <div class="content">
+    <h1>{{tran?.language === 'en'?label_en:label_kh}}</h1>
+    <h3>{{tran?.language === 'en'?subLabel_en:subLabel_kh}}</h3>
+  </div>
+</div>

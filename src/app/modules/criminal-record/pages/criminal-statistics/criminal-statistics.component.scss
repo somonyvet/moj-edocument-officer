@@ -1,0 +1,54 @@
+.doc-in {
+  // position: relative;
+  // top: 16px;
+  width: calc(100% - 66px);
+
+  .new{
+    background-color: none;
+    box-shadow: none;
+  }
+}
+
+.listing-header {
+  &.row {
+    margin: 0;
+    flex-direction: row;
+    padding: 12px 18px;
+  }
+}
+
+.doc-ls-items {
+  overflow-y: auto;
+}
+
+.doc-ls-items {
+  padding-top: 72px;
+}
+
+.search-filter-box {
+  .wrapper {
+    padding-right: 20px;
+  }
+}
+
+.doc-ls-items {
+  &.new {
+    justify-content: normal;
+    height: calc(100% - 56px);
+    padding: 0;
+    padding: 24px;
+  }
+
+  .charts{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 400px);
+    // display: flex;
+  }
+
+  ngx-charts-bar-vertical,
+  ngx-charts-pie-chart,
+  ngx-charts-bar-vertical-2d {
+    width: fit-content;
+    position: relative;
+  }
+}

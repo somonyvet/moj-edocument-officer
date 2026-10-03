@@ -1,0 +1,4 @@
+<div class="spinner-container" *ngIf="!(online$ | async)">
+    <mat-spinner class="spiner"></mat-spinner>
+    <h4>You are offline. Please check your network.</h4>
+</div>

@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+    <div class="proMain" *mobxAutorun>
+        <div class="prodSub">
+            <div class="prodSubLeft">
+                <div class="psrSub">
+                    <div class="psrTitle">
+                        <div class="columns">
+                            <p>{{title}}</p>
+                        </div>
+                    </div>
+                    <div class="form-container form-controls">
+                        <div class="form-wrapper">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>ផែនការអនុម័តប្រចាំឆ្នាំ</mat-label>
+                                    <input #inputRef cdkFocusInitial matInputAutofocus formControlName="annualProject"
+                                        required [matAutocomplete]="auto" matInput
+                                        [placeholder]="'ផែនការអនុម័តប្រចាំឆ្នាំ'">
+                                    <mat-autocomplete [displayWith]="ds?.displayFn" #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of fillterAnnualProjects | async"
+                                            [value]="option">
+                                            {{option?.name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="form.controls['annualProject'].hasError('required')">
+                                        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="form.controls['annualProject'].hasError('validKey')">
+                                        សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="rows bottom">
+                                <div class="flex1"></div>
+                                <app-primary-button label="ដាក់បញ្ចូលកម្មវិធី" class="ion-secondary mr8" [disable]="process"
+                                    [process]="process" (onPress)="_onSave(form.value)">
+                                </app-primary-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,24 @@
+<div class="file-display">
+    <button *ngIf="!noEye" matTooltip="Open" style="margin-right: 12px;" (click)="onOpenItem()" mat-button mat-icon-button>
+        <mat-icon>{{file?.type?.key===DRIVE_OBJ?.folder?.key?'visibility':'launch'}}</mat-icon>
+    </button>
+    <i [ngStyle]="{'color': file?.fileTag?.color}" *ngIf="file?.type?.key===DRIVE_OBJ?.folder?.key"
+        class="material-icons">{{file|iconDrive:selectedItem}}</i>
+    <!-- <img [src]="file|iconDrive:file" *ngIf="file?.type?.key===DRIVE_OBJ?.file?.key" /> -->
+    <span>
+        {{file?.name}}
+    </span>
+    <span class="isFavorite shared" *ngIf="file?.shareRef">
+        <i class="material-icons">supervisor_account</i>
+    </span>
+    <span class="isFavorite" *ngIf="file?.isFavorite===true">
+        <i class="material-icons">
+            star
+        </i>
+    </span>
+        <span class="isFavorite" *ngIf="file?.rootLevel">
+            <i class="material-icons">
+                lock
+            </i>
+        </span>
+</div>

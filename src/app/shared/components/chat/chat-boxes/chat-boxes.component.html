@@ -1,0 +1,5 @@
+<div class="chat-boxes-container">
+  <ng-container *ngFor="let item of this.chatStore.conversations; let i = index;">
+    <app-chat-box [chatBoxData]="item" [chatBoxIndex]="i"></app-chat-box>
+  </ng-container>
+</div>

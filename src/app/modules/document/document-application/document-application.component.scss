@@ -1,0 +1,40 @@
+.doc-listing-container{
+    background-color: transparent;
+    padding: 30px;
+    .doc-listing-content{
+        display: block;
+        background-color: #fff;
+        border-radius: 6px;
+        border: 1px solid #dadce0;
+    }
+    .doc-listing-grid-row{
+        display: grid;
+        grid-template-columns: 1fr 1fr 120px 100px 60px;
+        border-bottom: 1px solid #F0F3F4;
+        &:hover{
+            .body-col{
+                background-color: #fafafa;
+            } 
+        }
+        div{
+            display: flex;
+            align-items: center;
+        }
+
+        .header-col{
+            font-weight: 500;
+            font-size: 15px;
+            padding: 8px 16px;
+        }
+        .body-col{
+            font-weight: 400;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 8px 16px;
+            .fl.mat-icon{
+                color: #1d72e7;
+                margin-right: 8px;
+            }
+        }
+    }
+}

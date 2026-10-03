@@ -1,0 +1,17 @@
+<div class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <a mat-button mat-icon-button (click)="dialogRef.close(null)">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </a>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" cdkFocusInitial mat-button type="button" (click)="_onSave()">យល់ព្រម</button>
+    </mat-dialog-actions>
+</div>

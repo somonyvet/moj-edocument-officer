@@ -1,0 +1,41 @@
+<form class="dialog-wrapper form-dialog-wrapper" *mobxAutorun>
+    <div class="dialog-header">
+        <div class="title">
+        Update <span [ngStyle]="{'color':tagcolor}">
+                {{msg?.name}}
+            </span>
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-wrapper" [formGroup]="form">
+            <div class="form-group ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input required placeholder="Folder name" aria-label="" matInput formControlName="name">
+                    <mat-error *ngIf="form.controls['name'].hasError('required')">
+                        <div>This field is required.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Color</mat-label>
+                    <input required placeholder="Ex: #333333" aria-label="" matInput formControlName="color">
+                </mat-form-field>
+            </div>
+        </div>
+
+    </div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>Cancel</span></a>
+        <app-primary-button (onPress)="onSave(form.value)" [disable]="!form.valid" [process]="store?.process"
+            label="Create">
+        </app-primary-button>
+    </div>
+    <!-- <app-spinner *ngIf="store?.loading"></app-spinner> -->
+</form>

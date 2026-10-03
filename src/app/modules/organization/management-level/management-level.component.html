@@ -1,0 +1,125 @@
+<div class="page-container" *mobxAutorun>
+    <div class="action-bar">
+        <div class="nav-content">
+            <h3 class="head-title">
+                កម្រិតគ្រប់គ្រង
+            </h3>
+            <div class="action-item">
+                <button mat-button (click)="create()" class="enbutton primary">បង្កើតកម្រិតគ្រប់គ្រង</button>
+            </div>
+        </div>
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">{{link.label}}</a>
+        </nav>
+    </div>
+
+    <div class="page-doc nav-r-container">
+        <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="store?.data" [parentScroll]="scroll.window">
+            <table class="as-table-wrapper" *ngIf="store?.data?.length>0 && !store?.loading">
+                <thead #header>
+                    <tr>
+                        <th class="center">
+                            ល.រ
+                        </th>
+                        <th class="left">
+                            ឈ្មោះ
+                        </th>
+                        <th class="left">
+                            ក្រោមស្ថាប័ន
+                        </th>
+                        <th class="left">
+                            តួនាទីថ្នាក់ដឹកនាំ
+                        </th>
+                        <th class="left">
+                            តួនាទីជំនួយការ
+                        </th>
+                        <th class="left">
+                            ផ្ទៀងផ្ទាត់ពីជំនួយការ
+                        </th>
+                        <th class="left">
+                            ស្ថាប័នទទួលការងារ
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody #container>
+                    <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
+                        <td class="center" style="width: 64px;">
+                            {{item?.index}}
+                        </td>
+                        <td>
+                            <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                            <strong>{{item?.name}}</strong>
+                        </td>
+                        <td style="width: 100px;">
+                            <span>{{item?.subOfWorkplace?.name||'-'}}</span>
+                        </td>
+                        <td>
+                            <mat-chip-list class="example-chip">
+                                <mat-chip class="example-box" *ngFor="let pos of item?.positionManager">
+                                    {{pos.name}}
+                                </mat-chip>
+                            </mat-chip-list>
+                        </td>
+                        <td>
+                            <mat-chip-list class="example-chip">
+                                <mat-chip class="example-box" *ngFor="let pos of item?.positionAssistant">
+                                    {{pos.name}}
+                                </mat-chip>
+                            </mat-chip-list>
+                        </td>
+                        <td style="width: 60px;" class="center">
+                            <mat-icon>{{item?.verifyFromAssistant?'check_box':'check_box_outline_blank'}}</mat-icon>
+                        </td>
+                        <td style="width: 60px;" class="center">
+                            <mat-icon>{{item?.isWorkplace?'check_box':'check_box_outline_blank'}}</mat-icon>
+                        </td>
+                       
+                        <td style="width: 64px;">
+                            <div class="card-list-action">
+                                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="create(item)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>កែប្រែ</span>
+                                    </button>
+                                    <!-- <button mat-menu-item (click)="delete(item)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>លុប</span>
+                                    </button> -->
+                                </mat-menu>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
+                <div class="empty-block">
+                    <div class="center-block-empty">
+                        <div class="empty-img">
+                            <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                                alt="empty">
+                        </div>
+                        <div class="empty-text">
+                            <p class="empty-state-title">
+                                ពុំមានទិន្នន័យ
+                            </p>
+                            <p class="empty-state-desc">
+                                លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់អគ្គនាយកដ្ឋានដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <app-spinner *ngIf="store?.loading"></app-spinner>
+            <app-spinner *ngIf="store?.fetching"></app-spinner>
+            <div class="fake"></div>
+
+        </virtual-scroller>
+    </div>
+</div>

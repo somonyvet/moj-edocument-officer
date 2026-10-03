@@ -1,0 +1,19 @@
+.eform {
+  &.new {
+    .row-item {
+      padding: 6px 80px;
+    }
+      input {
+        min-width: unset !important;
+    }
+  }
+}
+
+.khmer-date-picker{
+  input{
+    border-bottom: 1px dotted black;
+  }
+  label{
+    color: black;
+  }
+}

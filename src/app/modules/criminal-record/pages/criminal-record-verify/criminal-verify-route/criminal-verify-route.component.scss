@@ -1,0 +1,9 @@
+.full-page-container {
+  overflow: visible;
+
+  .header {
+    position: sticky;
+    top: -12px;
+    z-index: 100;
+  }
+}

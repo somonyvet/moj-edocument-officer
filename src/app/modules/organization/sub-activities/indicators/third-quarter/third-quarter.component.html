@@ -1,0 +1,102 @@
+<form class="dialog-content-wrapper" [formGroup]="form">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+
+    <table class="as-table-wrapper">
+      <!-- *ngIf="dataMainProgram.length > 0 && !store?.loading" -->
+      <thead #header class="border">
+        <tr>
+          <th class="border">
+            <strong style="font-family: 'auxswot-head';">ត្រីមាស</strong>
+            <!-- <button class="submit-btn" mat-button (click)="goFirst(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី១</button> -->
+          </th>
+          <th class="border">
+            ទី៣
+            <!-- <button class="submit-btn" mat-button (click)="goSecond(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី២</button> -->
+          </th>
+        </tr>
+      </thead>
+      <thead class="border" #container>
+        <tr>
+          <th class="border" style="width: 20%;">
+            <strong style="font-family: 'auxswot-head';">
+              សូចនាកររំពឹងទុក
+            </strong>
+          </th>
+          <th class="border" style="padding: 8px;">
+            <!-- <editor formControlName="first_quarter_indicators" apiKey="ffl4cf9lyc9d93nu9ezc3q46o3u4r7ahkl71ebj5cceq8f7j"
+              [init]="{
+    height: 500,
+
+    plugins: [
+      'advlist autolink lists link image charmap print',
+      'preview anchor searchreplace visualblocks code',
+      'fullscreen insertdatetime media table paste',
+      'help wordcount'
+    ],
+    toolbar:
+      'undo redo | formatselect | bold italic | \
+      alignleft aligncenter alignright alignjustify | \
+      bullist numlist outdent indent | help'
+  }">
+            </editor> -->
+            <div class="form-group container-form">
+              <div class="form-group border" style="width: 100%; margin: 0 6px;">
+                <ckeditor style="width: 100%; min-height: 70px; display: flex; align-items: center;" [config]="{
+                                        toolbar:config.toolbar,
+                                        fontSize:config.fontSize,
+                                        fontFamily:config.fontFamily,
+                                        table:config.table,
+                                        placeholder: 'សូចនាករប្រចាំត្រីមាស'
+                                        }" [editor]="Editor" [data]="" formControlName="third_quarter_indicators">
+                </ckeditor>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
+
+
+    <!-- <div class="page-doc">
+      <div class="form-group four" style="justify-content: space-evenly;">
+        <button class="submit-btn" mat-button (click)="goFirst(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី១</button>
+        <button class="submit-btn" mat-button (click)="goSecond(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី២</button>
+        <button class="submit-btn" mat-button (click)="goThird(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី៣</button>
+        <button class="submit-btn" mat-button (click)="goForth(dataMainProgram)">សូចនាករប្រចាំត្រីមាសទី៤</button>
+      </div>
+      <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
+        <div class="empty-block">
+          <div class="center-block-empty">
+            <div class="empty-img">
+              <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                alt="empty">
+            </div>
+            <div class="empty-text">
+              <p class="empty-state-title">
+                ពុំមានទិន្នន័យ
+              </p>
+              <p class="empty-state-desc">
+                លោកអ្នកអាចបញ្ចូលកម្មវិធីថ្មីដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <app-spinner *ngIf="store?.loading"></app-spinner>
+      <app-spinner *ngIf="store?.fetching"></app-spinner>
+    </div> -->
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="create(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
+</form>

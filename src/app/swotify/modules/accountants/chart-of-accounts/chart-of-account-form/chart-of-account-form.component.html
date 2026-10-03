@@ -1,0 +1,98 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <ng-container *ngIf="!loading else loadingTmp">
+      <div class="form-group two">
+        <mat-form-field appearance="outline">
+          <mat-label>Account type</mat-label>
+          <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoAccountType" required
+            formControlName="accountType" matInput placeholder="Select an account type" />
+          <mat-autocomplete (optionSelected)="_onSelectAccountType($event)" [displayWith]="ds.displayNameFn"
+            autoActiveFirstOption #autoAccountType="matAutocomplete">
+            <mat-option *ngFor="let item of filteredAccountTypeOptions | async;let i = index" [value]="item">
+              {{ item?.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error class="error-message" *ngIf="form.controls['accountType'].hasError('validKey')">
+            <div>You can only select from list</div>
+          </mat-error>
+          <mat-error *ngIf="form.controls['accountType'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Detail type</mat-label>
+          <input [matAutocomplete]="autoDetailType" required formControlName="detailAccount" matInput
+            placeholder="Select an detail type" />
+          <mat-autocomplete (optionSelected)="_onSelectedDetailType($event)" [displayWith]="ds.displayNameFn"
+            autoActiveFirstOption #autoDetailType="matAutocomplete">
+            <mat-option *ngFor="let item of filteredDetailTypeOptions | async;let i = index" [value]="item">
+              {{ item?.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error class="error-message" *ngIf="form.controls['detailAccount'].hasError('validKey')">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+          <mat-error *ngIf="form.controls['detailAccount'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input formControlName="name" required matInput placeholder="Enter account name" />
+          <mat-error *ngIf="form.controls['name'].hasError('required')">
+            This field is required.
+          </mat-error>
+          <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')">
+            This name is already exist in system. Please try another!
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Sub of account</mat-label>
+          <input [matAutocomplete]="autoSubAccount" formControlName="subOfAccount" matInput
+            placeholder="Select sub of account" />
+          <mat-autocomplete [displayWith]="ds.displayNameFn" autoActiveFirstOption #autoSubAccount="matAutocomplete">
+            <mat-option *ngFor="let item of filteredSubAccountOptions | async;let i = index" [value]="item">
+              <span [style.padding-left]="(item.level*24)+'px'">
+                {{ item?.name }}
+              </span>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error class="error-message" *ngIf="form.controls['subOfAccount'].hasError('validKey')">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+          <mat-error *ngIf="form.controls['subOfAccount'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea cdkTextareaAutosize formControlName="description" matInput></textarea>
+        </mat-form-field>
+      </div>
+    </ng-container>
+    <ng-template #loadingTmp>
+      <app-skeleton-loader></app-skeleton-loader>
+    </ng-template>
+  </mat-dialog-content>
+  <mat-progress-bar mode="indeterminate" *ngIf="process">
+  </mat-progress-bar>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">Cancel</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">Save</button>
+  </mat-dialog-actions>
+</form>

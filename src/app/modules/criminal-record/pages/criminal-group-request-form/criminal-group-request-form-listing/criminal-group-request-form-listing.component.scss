@@ -1,0 +1,28 @@
+@import '../../../../../../assets/styles/variable.scss';
+
+.pn-date{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start!important;
+  padding-top: 32px;
+  gap: 18px;
+  .date-2{
+    width: 100%;
+    p{
+      font-family: $appFont;
+      font-size: 16px;
+      color: $primary;
+      font-style: normal;
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.date-input{
+  font-family: $appFont;
+  font-size: 16px;
+  color: $primary;
+  font-weight: 500;
+  border: none;
+  border-bottom: 1px dashed $primary;
+}

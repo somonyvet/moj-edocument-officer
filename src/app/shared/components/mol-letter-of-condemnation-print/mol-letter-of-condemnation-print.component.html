@@ -1,0 +1,1363 @@
+<div class="officer-profile-info-container">
+  <div style="margin-top:10px">
+    <!-- for moj officer only -->
+    <ng-container *ngIf="!auth?.dataEntryOnly">
+
+      <!-- <ng-container
+        *ngIf="criminalStore?.selectedCriminalRecord?.status?.key && criminalStore?.selectedCriminalRecord?.status?.key!==STATUS_OBJ?.DRAFT?.key">
+        <div class="doc-form-wrapper doc-comment-form-wrapper">
+          <h3 class="header-title" (click)="cloneRanking()">
+            មតិពិភាក្សា
+          </h3>
+          <ng-container *ngIf="auth?.publicApplication;else internalTemplate">
+            <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
+          </ng-container>
+          <ng-template #internalTemplate>
+            <mat-tab-group>
+              <mat-tab label="អ្នកស្នើសុំ">
+                <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
+              </mat-tab>
+              <mat-tab label="ផ្ទៃក្នុង">
+                <app-moj-document-comment style="width:100%"></app-moj-document-comment>
+              </mat-tab>
+            </mat-tab-group>
+          </ng-template>
+        </div>
+      </ng-container> -->
+
+      <!-- <app-confirm-status-text *ngIf="criminalStore?.selectedCriminalRecord?.status?.key === STATUS_OBJ?.APPLY?.key"
+        [title]="'ព័ត៌មានពាក្យស្នើសុំព្រឹត្តិបត្រថ្កោលទោស'" [label]="'បានផ្ដល់ស្នាមម្រាមដៃនិងឯកសាររួចរាល់'">
+      </app-confirm-status-text> -->
+
+      <div class="apply-form-page offi"
+        *ngIf="criminalStore?.selectedCriminalRecord?.status?.key === STATUS_OBJ?.APPLY?.key && criminal?.firstParams?.key==='pay'">
+        <div class="eform small">
+          <div class="header-ef">
+            <h2>ព័ត៌មាន បកប្រែ និងចំនួន</h2>
+          </div>
+          <ul class="required-items">
+            <li *ngIf="criminalStore?.selectedCriminalRecord?.isStudent">
+              <div class="ef-item done">
+                <span class="ef-txt">ជាសិស្ស/និស្សិត</span>
+              </div>
+            </li>
+            <li>
+              <div class="ef-item done">
+                <span class="ef-txt">សេវា {{criminalStore?.selectedCriminalRecord?.urgent_obj?.name}}</span>
+              </div>
+            </li>
+            <li *ngFor="let item of criminalStore?.selectedCriminalRecord?.criminal_language">
+              <div class="ef-item done">
+                <span class="ef-txt">ភាសា {{item?.name}}
+                  ( {{item?.amount}} ច្បាប់ )</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="btn-pay eform" style="margin: 12px auto;background-color: #1a73e8;color:white;padding:8px"
+        *ngIf="criminalStore?.selectedCriminalRecord?.status?.key === STATUS_OBJ?.APPLY?.key && criminal?.firstParams?.key==='pay'"
+        mat-button (click)="makePayment()">
+        បង់ប្រាក់
+      </a>
+
+      <!-- <app-confirm-criminal-application-form
+        *ngIf="auth?.canReviewApplication && isTypeConfirm && criminalStore?.selectedCriminalRecord?.status?.key<=STATUS_OBJ?.APPLY?.key">
+      </app-confirm-criminal-application-form>
+
+      <app-review-criminal-application
+        *ngIf="auth?.canReviewApplication && isTypeReview && criminalStore?.selectedCriminalRecord?.status?.key<=STATUS_OBJ?.CONFIRM_APPLICATION?.key">
+      </app-review-criminal-application>
+
+      <app-criminal-application-decree
+        *ngIf="auth?.canWriteDecree && criminalStore?.selectedCriminalRecord?.status?.key===STATUS_OBJ?.PAID?.key">
+      </app-criminal-application-decree> -->
+    </ng-container>
+    <!--end for moj officer only -->
+    <div id="printD">
+      <div class="eform eform-cs"  style="margin: 0 auto; margin-top: 20px;">
+        <div class="fbl-text">
+          ហាមកោសលុប
+        </div>
+        <div class="head p-rel" style="position: relative!important;">
+
+          <div class="head-item head-item-absolute-ps">
+            <div class="profile-box container-header-input pah"
+              style="width: 160px;height: 200px; background-color: #fafafa;">
+              <div *ngIf="!criminalStore?.selectedCriminalRecord?.photoUrl">
+                <p>រូបថត</p>
+                <p>៤x៦</p>
+                <br>
+                <p></p>
+                <p></p>
+              </div>
+              <img style="object-fit: cover;" *ngIf="criminalStore?.selectedCriminalRecord?.photoUrl"
+                [src]="criminalStore?.selectedCriminalRecord?.photoUrl" />
+              <button mat-icon-button class="slp">
+                <mat-icon class="mat-18">photo_camera</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex1"></div>
+
+          <div class="head-item">
+            <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+            <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+            <p class="star">3</p>
+            <div class="img-logo" style="height:40px;"></div>
+
+            <div class="head-item1">
+              <span>ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
+              <span class="flex1">
+                <p class="f-input">
+                  {{criminalStore?.selectedCriminalRecord?.last_name + ' ' +
+                  criminalStore?.selectedCriminalRecord?.first_name}}
+                </p>
+              </span>
+            </div>
+
+            <p class="feTitle">សូមគោរពជូន</p>
+            <p class="feTitle" style="white-space: nowrap;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
+
+          </div>
+
+          <div class="flex1"></div>
+
+
+          <div class="head-item long-w head-item-absolute-ps " style="right: 80px; left: unset;">
+            <div class="f-item">
+              <span class="nor-fam">រាជធានីភ្នំពេញ,</span>
+              <span class="nor-fam">
+                <span>&nbsp;ថ្ងៃទី</span>
+                <p class="f-input w-day">{{criminalStore?.selectedCriminalRecord?.day_header?.name | pipeCut0}}</p>
+              </span>
+              <span class="nor-fam">
+                <span>ខែ</span>
+                <p class="f-input w-day">{{criminalStore?.selectedCriminalRecord?.month_header?.name}}</p>
+              </span>
+              <span class="nor-fam">
+                <span>ឆ្នាំ</span>
+                <p class="f-input w-day">{{criminalStore?.selectedCriminalRecord?.year_header?.name}}</p>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <div class="body">
+          <div class="body-item">
+            <div class="title"
+              style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
+              <p class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</p>
+              <div class="display: flex;
+                                  flex-direction: column;
+                                  justify-content: flex-start;
+                                  align-items: self-start;">
+                <div class="text-icon-wrapper">
+                  <p class="n-title">
+                    &nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ចំនួន {{criminalStore?.selectedCriminalRecord?.criminal_language|getKhmerAmount|khmerNumber}}ច្បាប់ បកប្រែជា ភាសាអង់គ្លេស&nbsp;
+                  </p>
+
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.criminal_language|getEnglishCopyCount">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+
+                  <ng-container *ngIf="!(criminalStore?.selectedCriminalRecord?.criminal_language|getEnglishCopyCount)">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                  </svg>
+                  </ng-container>
+
+                  <p class="n-title">
+                    &nbsp;  / ភាសាបារាំង &nbsp;
+                  </p>
+
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.criminal_language|getFrenchCopyCount">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+
+                  <ng-container *ngIf="!(criminalStore?.selectedCriminalRecord?.criminal_language|getFrenchCopyCount)">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                  </svg>
+                  </ng-container>
+                </div>
+                <p class="n-title">&nbsp;ខ្ញុំបាទ-នាងខ្ញុំសូមជូនកំណត់បង្ហាញផ្ទាល់ខ្លួនដូចខាងក្រោម :</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.last_name + ' ' +
+                  criminalStore?.selectedCriminalRecord?.first_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{(criminalStore?.selectedCriminalRecord?.last_name_en || '') + ' ' +
+                  (criminalStore?.selectedCriminalRecord?.first_name_en || '')}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>ឈ្មោះហៅក្រៅ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.nick_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>ភេទ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.gender?.text ||
+                  criminalStore?.selectedCriminalRecord?.gender?.name}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.before_nationality?.kh_nationality}}</p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.current_nationality?.kh_nationality}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <div class="f-item">
+                  <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                  <p style="width: 100%;" class="f-input">
+                    {{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name | pipeCut0}}
+                    {{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}
+                    {{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}
+                  </p>
+                  <!-- <p style="width: 15%;" class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name}}
+                  </p>
+                  <span>ខែ</span>
+                  <p style="width: 30%;" class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}
+                  </p>
+                  <span>ឆ្នាំ</span>
+                  <p style="width: 38%;" class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}
+                  </p> -->
+                </div>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCriminalRecord?.isTextAddress ; else foreignerAddress1">
+              <div class="row-item">
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <!-- <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCriminalRecord?.birthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCriminalRecord?.birthAddress?.street_no}}
+                    </ng-container> -->
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name">
+                      {{(criminalStore?.selectedCriminalRecord?.birthAddress?.commune | geoDisplay: 'C' )+criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.district?.name">
+                      {{(criminalStore?.selectedCriminalRecord?.birthAddress?.district | geoDisplay: 'D')+criminalStore?.selectedCriminalRecord?.birthAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name">
+                      {{(criminalStore?.selectedCriminalRecord?.birthAddress?.province | geoDisplay: 'P')+criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #foreignerAddress1>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerPlaceOfBirth }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-container *ngIf="!criminalStore?.selectedCriminalRecord?.isTextAddress ; else textAddressNow1">
+              <div class="row-item">
+                <div class="f-item" style="width: 100%;">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                  <p class="f-input">
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name">
+                      {{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name">
+                      {{criminalStore?.selectedCriminalRecord?.permanentAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name">
+                      {{criminalStore?.selectedCriminalRecord?.permanentAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+                <!-- <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name}}</p>
+                </div> -->
+              </div>
+              <!-- <div class="row-item">
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name}}</p>
+                </div>
+                <div class="f-item">
+                  <span>ផ្លូវ</span>
+                  <p class="f-input">
+                    {{criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no}}
+                  </p>
+                </div>
+                <div class="f-item">
+                  <span>ផ្ទះលេខ</span>
+                  <p class="f-input">
+                    {{criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no}}
+                  </p>
+                </div>
+              </div> -->
+            </ng-container>
+
+            <ng-template #textAddressNow1>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.permanentAddressText}}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.occupation}}</p>
+              </div>
+            </div>
+
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.father_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.father_name_en}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCriminalRecord?.fatherDob?.day?.name | pipeCut0}}
+                  {{criminalStore?.selectedCriminalRecord?.fatherDob?.month?.name}}
+                  {{criminalStore?.selectedCriminalRecord?.fatherDob?.year?.name}}
+                </p>
+
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="this.criminalStore?.selectedCriminalRecord?.fatherDob?.day||null"
+                  [month]="this.criminalStore?.selectedCriminalRecord?.fatherDob?.month||null"
+                  [year]="this.criminalStore?.selectedCriminalRecord?.fatherDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCriminalRecord?.fatherIsDead?.key ==
+                    item?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+                  <span>{{item?.name}}</span>
+
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.father_before_nationality?.kh_nationality}}
+                </p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.father_current_nationality?.kh_nationality}}
+                </p>
+              </div>
+            </div>
+            <ng-container *ngIf="!criminalStore?.selectedCriminalRecord?.isTextAddress ; else foreignerFatherAddress1">
+              <div class="row-item">
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <!-- <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.street_no}}
+                    </ng-container> -->
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name">
+                      {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name">
+                      {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name">
+                      {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+
+                <!-- <div class="f-item" style="width: 140%;">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+                  <p class="f-input">{{ isKhmerForm
+                    ?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name
+                    :criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{ isKhmerForm
+                    ?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name
+                    :criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{ isKhmerForm
+                    ?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name
+                    :criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{ isKhmerForm
+                    ?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name
+                    :criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en}}</p>
+                </div> -->
+
+              </div>
+            </ng-container>
+
+            <ng-template #foreignerFatherAddress1>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ:</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.fatherCurrentOccupation}}</p>
+              </div>
+            </div>
+
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">III</span> - ម្ដាយឈ្មោះ:</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.mother_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.mother_name_en}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCriminalRecord?.motherDob?.day?.name | pipeCut0}}
+                  {{criminalStore?.selectedCriminalRecord?.motherDob?.month?.name}}
+                  {{criminalStore?.selectedCriminalRecord?.motherDob?.year?.name}}
+                </p>
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="criminalStore?.selectedCriminalRecord?.motherDob?.day||null"
+                  [month]="criminalStore?.selectedCriminalRecord?.motherDob?.month||null"
+                  [year]="criminalStore?.selectedCriminalRecord?.motherDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCriminalRecord?.motherIsDead?.key ==
+                    criminalStore?.selectedCitizenProfile?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+
+
+                  <span>{{item?.name}}</span>
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality}}
+                </p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.mother_current_nationality?.kh_nationality}}
+                </p>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCriminalRecord?.isTextAddress ; else foreignerMotherAddress1">
+              <div class="row-item">
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <!-- <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.street_no}}
+                    </ng-container> -->
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name">
+                      {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name}}
+
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name">
+                      {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name}}
+
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name">
+                      {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name}}
+
+                    </ng-container>
+                  </p>
+                </div>
+
+
+                <!-- <div class="f-item" style="width: 140%;">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+                  <p class="f-input">{{
+                    isKhmerForm?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name
+                    :criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{
+                    isKhmerForm?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name
+                    :criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{
+                    isKhmerForm?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name
+                    :criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{
+                    isKhmerForm?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name
+                    :criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en }}</p>
+                </div> -->
+              </div>
+            </ng-container>
+
+            <ng-template #foreignerMotherAddress1>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerMotherBirthAddress }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.motherCurrentOccupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">IV</span> - ប្ដី ឬប្រពន្ធឈ្មោះ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.spouse}}</p>
+
+
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.spouse_name_en}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCriminalRecord?.spouseDob?.day?.name | pipeCut0}}
+                  {{criminalStore?.selectedCriminalRecord?.spouseDob?.month?.name}}
+                  {{criminalStore?.selectedCriminalRecord?.spouseDob?.year?.name}}
+                </p>
+
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="criminalStore?.selectedCriminalRecord?.spouseDob?.day||null"
+                  [month]="criminalStore?.selectedCriminalRecord?.spouseDob?.month||null"
+                  [year]="criminalStore?.selectedCriminalRecord?.spouseDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCriminalRecord?.spouseIsDead?.key ==
+                    criminalStore?.selectedCitizenProfile?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.spouseIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.spouseIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+
+                  <span>{{item?.name}}</span>
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.spouse_before_nationality?.kh_nationality}}
+                </p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.spouse_current_nationality?.kh_nationality}}
+                </p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ</span>
+                <p class="f-input">{{criminalStore?.selectedCriminalRecord?.spouseCurrentOccupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div style="text-indent: 40px; font-size: 20px; white-space: normal; line-height: normal;">សូមឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌
+                មេត្តាអនុញ្ញាតចេញព្រឹត្តបត្រថ្កោលទោសដល់ខ្ញុំបាទ -
+                នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</div>
+            </div>
+
+
+            <div class="row-item">
+              <div class="f-item" style="justify-content: space-between;">
+                <div class="c-item">
+                  <div>
+                    <span style="border-bottom: 1px solid #333;">សូមជូនភ្ជាប់មកជាមួយនូវ</span><span> ៖ </span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; padding: 0;" class="p-rel">
+                    <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
+                    <span class="n-title small">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
+                    <span class="n-title small">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅច្បាប់ដើម
+                      ព្រមទាំងថតចម្លង (០១ច្បាប់) មួយផង។</span>
+                    <span class="n-title small">- ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។
+                    </span>
+                  </div>
+                  <div class="f-item small">
+                    <span>ទូរស័ព្ទទំនាក់ទំនងលេខ</span>
+                    <p class="f-input" style="width: 40%;">{{criminalStore?.selectedCriminalRecord?.phoneNumber}}</p>
+                  </div>
+                </div>
+
+                <div class="c-item" style="width: 20%; text-align: end;">
+                  <div class="nor-fam" style="font-size: 20px;">ស្នាមមេដៃសាមីខ្លួន</div>
+                  <div style="height:150px;overflow:hidden"
+                    *ngIf="criminalStore?.selectedCriminalRecord?.finger_print_file">
+
+                    <!-- <img [src]="criminalStore?.selectedCriminalRecord?.finger_print_file?.downloadUrl" width="150px"
+                      height="150px" style="object-fit:cover"> -->
+
+                    <div class="fingerImgBox" [style.background-image]="'url(' + (criminalStore?.selectedCriminalRecord?.finger_print_file?.downloadUrl | removeImgWhiteSpace | async) + ')'"></div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+      </div>
+      <div style="page-break-after: always;"></div>
+      <div class="eform eform-cs" id="printD" style="margin: 0 auto;margin-top:62px!important">
+
+        <div class="head p-rel">
+
+          <div class="flex1"></div>
+          <div class="head-item">
+            <p class="moul-font" style="padding: 20px 0;">ប្រវត្តិរូបសង្ខេប</p>
+          </div>
+          <div class="flex1"></div>
+
+        </div>
+        <div class="body">
+          <div class="body-item">
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.last_name + ' ' + criminalStore?.selectedCitizenProfile?.first_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.last_name_en}} {{criminalStore?.selectedCitizenProfile?.first_name_en}}</p>
+              </div>
+              <div class="f-item" style="width: auto;">
+                <span>ភេទ</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.gender?.name}}</p>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.before_nationality?.kh_nationality}}</p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.current_nationality?.kh_nationality}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <div class="f-item">
+                  <span>ថ្ងៃ ខែ ឆ្នាំកំណើត </span>
+                  <p style="width: 100%;" class="f-input">
+                    {{criminalStore?.selectedCitizenProfile?.dateOfBirthDay?.name | pipeCut0}} {{criminalStore?.selectedCitizenProfile?.dateOfBirthMonth?.name}} {{criminalStore?.selectedCitizenProfile?.dateOfBirthYear?.name}}
+                  </p>
+                  <!-- <span>ខែ</span>
+                  <p style="width: 30%;" class="f-input">
+                  </p>
+                  <span>ឆ្នាំ</span>
+                  <p style="width: 38%;" class="f-input">
+                  </p> -->
+                </div>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCitizenProfile?.selectedCriminalRecord?.isTextAddress ; else foreignerAddress">
+              <div class="row-item">
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCitizenProfile?.birthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCitizenProfile?.birthAddress?.street_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCitizenProfile?.birthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.commune?.name">
+                      {{criminalStore?.selectedCitizenProfile?.birthAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCitizenProfile?.birthAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.district?.name">
+                      {{criminalStore?.selectedCitizenProfile?.birthAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCitizenProfile?.birthAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.birthAddress?.province?.name">
+                      {{criminalStore?.selectedCitizenProfile?.birthAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCitizenProfile?.birthAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+
+                <!-- <div class="f-item">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.birthAddress?.province?.name : criminalStore?.selectedCitizenProfile?.birthAddress?.province?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.birthAddress?.district?.name : criminalStore?.selectedCitizenProfile?.birthAddress?.district?.name_en}}</p>
+                </div> -->
+
+              </div>
+              <!-- <div class="row-item">
+                <div class="f-item" style="width: 67%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.birthAddress?.commune?.name : criminalStore?.selectedCitizenProfile?.birthAddress?.commune?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.birthAddress?.village?.name : criminalStore?.selectedCitizenProfile?.birthAddress?.village?.name_en}}</p>
+                </div>
+              </div> -->
+            </ng-container>
+
+            <ng-template #foreignerAddress>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{ criminalStore?.selectedCitizenProfile?.foreignerPlaceOfBirth }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span style="width: 100%; line-height: 2;">ចាប់តាំងពីនាំ ១៩៧៩ មកដល់បច្ចុប្បន្ន :
+                  បើមិនធ្លាប់ទៅបរទេស
+                  ត្រូវដាក់លើចំណុចបន្ទាត់ខាងក្រោមថា : នៅប្រទេសកម្ពុជា
+                  បើធ្លាប់ទៅបរទេសត្រូវបញ្ជាក់ឲ្យបានច្បាស់នូវពេលវេលា
+                  គឺពីថ្ងៃ ខែ ឆ្នាំណា ដល់ថ្ងៃខែ ឆ្នាំណា? ។</span>
+              </div>
+            </div>
+
+            <div class="row-item" *ngFor="let item of criminalStore?.selectedCitizenProfile?.liveInForeign">
+              <div class="f-item">
+                <span style="width: 100%;" class="f-input">{{criminalStore?.selectedCitizenProfile?.name?.kh_short_name}}</span>
+              </div>
+              <div style="display: flex;" *ngIf="criminalStore?.selectedCitizenProfile?.name?.alpha_2_code !== 'KH'">
+                <div class="f-item date-short">
+                  <app-display-khmer-date
+                    [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
+                    (onSelectedItem)="onSelectedFromDateArr($event,i)" style="width:100%;" [label]="'ពីថ្ងៃ'"
+                    [day]="criminalStore?.selectedCitizenProfile?.from_date?.day||null" [month]="criminalStore?.selectedCitizenProfile?.from_date?.month||null"
+                    [year]="criminalStore?.selectedCitizenProfile?.from_date?.year||null"></app-display-khmer-date>
+                </div>
+                <div class="f-item date-short">
+                  <app-display-khmer-date
+                    [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
+                    (onSelectedItem)="onSelectedToDateArr($event,i)" style="width:100%;" [label]="'ដល់ថ្ងៃ'"
+                    [day]="criminalStore?.selectedCitizenProfile?.to_date?.day||null" [month]="criminalStore?.selectedCitizenProfile?.to_date?.month||null"
+                    [year]="criminalStore?.selectedCitizenProfile?.to_date?.year||null"></app-display-khmer-date>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-item blank">
+              <div class="f-item">
+                <span style="width: 100%;" class="f-input"></span>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCitizenProfile?.isTextAddress ; else textAddressNow">
+              <div class="row-item">
+
+                <div class="f-item" style="width: 100%;">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                  <p class="f-input">
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCitizenProfile?.permanentAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCitizenProfile?.permanentAddress?.street_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCitizenProfile?.permanentAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.commune?.name">
+                      {{criminalStore?.selectedCitizenProfile?.permanentAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCitizenProfile?.permanentAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.district?.name">
+                      {{criminalStore?.selectedCitizenProfile?.permanentAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCitizenProfile?.permanentAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.permanentAddress?.province?.name">
+                      {{criminalStore?.selectedCitizenProfile?.permanentAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCitizenProfile?.permanentAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+
+                <!-- <div class="f-item" style="width: 100%;">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត</span>
+                  <p  class="f-input">{{criminalStore?.selectedCitizenProfile?.permanentAddress?.province?.name}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p  class="f-input">{{criminalStore?.selectedCitizenProfile?.permanentAddress?.district?.name}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p  class="f-input">{{criminalStore?.selectedCitizenProfile?.permanentAddress?.commune?.name}}</p>
+                </div> -->
+              </div>
+              <!-- <div class="row-item">
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p  class="f-input">{{criminalStore?.selectedCitizenProfile?.permanentAddress?.village?.name}}</p>
+                </div>
+                <div class="f-item">
+                  <span>ផ្លូវ</span>
+                  <p class="f-input">
+                    {{criminalStore?.selectedCitizenProfile?.permanentAddress?.street_no}}
+                  </p>
+                </div>
+                <div class="f-item">
+                  <span>ផ្ទះលេខ</span>
+                  <p class="f-input">
+                    {{criminalStore?.selectedCitizenProfile?.permanentAddress?.home_no}}
+                  </p>
+                </div>
+              </div> -->
+            </ng-container>
+
+            <ng-template #textAddressNow>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                  <p class="f-input">{{criminalStore?.selectedCitizenProfile?.permanentAddressText}}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ</span>
+                <p style="width: 96%;" class="f-input">{{criminalStore?.selectedCitizenProfile?.occupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.father_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.father_name_en}}</p>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="f-item">
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCitizenProfile?.fatherDob?.day?.name | pipeCut0}} {{criminalStore?.selectedCitizenProfile?.fatherDob?.month?.name}} {{criminalStore?.selectedCitizenProfile?.fatherDob?.year?.name}}
+                </p>
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="criminalStore?.selectedCitizenProfile?.fatherDob?.day||null" [month]="criminalStore?.selectedCitizenProfile?.fatherDob?.month||null"
+                  [year]="criminalStore?.selectedCitizenProfile?.fatherDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCitizenProfile?.fatherIsDead?.key == criminalStore?.selectedCitizenProfile?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <span>{{item?.name}}</span>
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.father_before_nationality?.kh_nationality}}</p>
+              </div>
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.father_current_nationality?.kh_nationality}}</p>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCitizenProfile?.isTextAddress ; else foreignerFatherAddress">
+              <div class="row-item">
+
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.street_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.commune?.name">
+                      {{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.district?.name">
+                      {{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.province?.name">
+                      {{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+
+                <!-- <div class="f-item" style="width: 140%;">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.province?.name : criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.province?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.district?.name : criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.district?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.commune?.name : criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.commune?.name_en}}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{ isKhmerForm ? criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.village?.name : criminalStore?.selectedCitizenProfile?.fatherBirthAddress?.village?.name_en}}</p>
+                </div> -->
+
+              </div>
+            </ng-container>
+
+            <ng-template #foreignerFatherAddress>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{ criminalStore?.selectedCitizenProfile?.foreignerFatherBirthAddress }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ:</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.fatherCurrentOccupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span><span class="number-order">III</span> -ម្ដាយឈ្មោះ:</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.mother_name}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.mother_name_en}}</p>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="f-item">
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCitizenProfile?.motherDob?.day?.name | pipeCut0}} {{criminalStore?.selectedCitizenProfile?.motherDob?.month?.name}} {{criminalStore?.selectedCitizenProfile?.motherDob?.year?.name}}
+                </p>
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="criminalStore?.selectedCitizenProfile?.motherDob?.day||null" [month]="criminalStore?.selectedCitizenProfile?.motherDob?.month||null"
+                  [year]="criminalStore?.selectedCitizenProfile?.motherDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCitizenProfile?.motherIsDead?.key == criminalStore?.selectedCitizenProfile?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <span>{{item?.name}}</span>
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.mother_before_nationality?.kh_nationality}}</p>
+              </div>
+
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.mother_current_nationality?.kh_nationality}}</p>
+              </div>
+            </div>
+
+            <ng-container *ngIf="!criminalStore?.selectedCitizenProfile?.isTextAddress ; else foreignerMotherAddress">
+              <div class="row-item">
+
+                <div class="f-item" style="width: 100%;">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.home_no">
+                      ផ្ទះលេខ{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.home_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.street_no">
+                      ផ្លូវលេខ{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.street_no}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.village?.name">
+                      ភូមិ{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.village?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.commune?.name">
+                      {{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.commune | geoDisplay: 'C'}}{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.commune?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.district?.name">
+                      {{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.district | geoDisplay: 'D'}}{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.district?.name}}
+                    </ng-container>
+                    <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.motherBirthAddress?.province?.name">
+                      {{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.province | geoDisplay: 'P'}}{{criminalStore?.selectedCitizenProfile?.motherBirthAddress?.province?.name}}
+                    </ng-container>
+                  </p>
+                </div>
+
+                <!-- <div class="f-item" style="width: 140%;">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+                  <p class="f-input">{{ isKhmerForm? criminalStore?.selectedCitizenProfile?.motherBirthAddress?.province?.name : criminalStore?.selectedCitizenProfile?.motherBirthAddress?.province?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{ isKhmerForm? criminalStore?.selectedCitizenProfile?.motherBirthAddress?.district?.name : criminalStore?.selectedCitizenProfile?.motherBirthAddress?.district?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{ isKhmerForm? criminalStore?.selectedCitizenProfile?.motherBirthAddress?.commune?.name : criminalStore?.selectedCitizenProfile?.motherBirthAddress?.commune?.name_en }}</p>
+                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ភូមិ</span>
+                  <p class="f-input">{{ isKhmerForm? criminalStore?.selectedCitizenProfile?.motherBirthAddress?.village?.name : criminalStore?.selectedCitizenProfile?.motherBirthAddress?.village?.name_en }}</p>
+                </div> -->
+              </div>
+            </ng-container>
+
+            <ng-template #foreignerMotherAddress>
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត</span>
+                  <p class="f-input">{{ criminalStore?.selectedCitizenProfile?.foreignerMotherBirthAddress }}</p>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ:</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.motherCurrentOccupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>IV-ប្ដី ឬប្រពន្ធឈ្មោះ</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.spouse}}</p>
+              </div>
+              <div class="f-item">
+                <span>អក្សរឡាតាំង</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.spouse_name_en}}</p>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="f-item">
+                <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                <p style="width: 100%;" class="f-input">
+                  {{criminalStore?.selectedCitizenProfile?.spouseDob?.day?.name | pipeCut0}} {{criminalStore?.selectedCitizenProfile?.spouseDob?.month?.name}} {{criminalStore?.selectedCitizenProfile?.spouseDob?.year?.name}}
+                </p>
+                <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="criminalStore?.selectedCitizenProfile?.spouseDob?.day||null" [month]="criminalStore?.selectedCitizenProfile?.spouseDob?.month||null"
+                  [year]="criminalStore?.selectedCitizenProfile?.spouseDob?.year||null">
+                </app-display-khmer-date> -->
+              </div>
+              <div class="f-item overfh" style="width: 300px;">
+                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                  style="display: flex; align-items: center; column-gap: 4px;">
+                  <!-- <i class="material-icons-sharp">
+                    {{(criminalStore?.selectedCitizenProfile?.spouseIsDead?.key == criminalStore?.selectedCitizenProfile?.key)?'check_box':'check_box_outline_blank'}}
+                  </i> -->
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.spouseIsDead?.key === item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path
+                        d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="criminalStore?.selectedCitizenProfile?.spouseIsDead?.key !== item?.key">
+                    <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                      viewBox="0 0 24 24">
+                      <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                    </svg>
+                  </ng-container>
+
+                  <span>{{item?.name}}</span>
+                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                </section>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>សញ្ជាតិដើម</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.spouse_before_nationality?.kh_nationality}}</p>
+              </div>
+
+              <div class="f-item">
+                <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.spouse_current_nationality?.kh_nationality}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item">
+                <span>មុខរបរ:</span>
+                <p class="f-input">{{criminalStore?.selectedCitizenProfile?.spouseCurrentOccupation}}</p>
+              </div>
+            </div>
+
+            <div class="row-item">
+              <div class="f-item" style="flex-direction: column;">
+                <div style="width: 100%; line-height: 2; text-indent: 40px;    font-size: 20px;">ខ្ញុំបាទ -
+                  នាងខ្ញុំសូមអះអាងថាសេចក្ដីប្រកាសប្រវត្តិរូបនេះ ពិតជាត្រឹមត្រូវប្រាកដមែន។
+                  បើសេចក្ដីរាយការណ៍ខាងលើនេះប្រាស់ចាកពីការពិត ខ្ញុំបាទ - នាងខ្ញុំសូមទទួលខុសត្រូវចំពោះមុខច្បាប់ជាធរមាន។
+                </div>
+              </div>
+            </div>
+
+            <div class="head-item long-w"
+              style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row-reverse;">
+              <span class="container-header-input" style="width: unset">
+                <div class="row-item khmer-date-picker print" style="transform: translateX(-17px)">
+                  <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                    <div class="f-item">
+                      <span class="nor-fam">រាជធានីភ្នំពេញ, </span>
+                      <span class="nor-fam">
+                        <span>&nbsp;ថ្ងៃទី</span>
+                        <p class="f-input" style="min-width: 80px">{{criminalStore?.selectedCriminalRecord?.apply_at?.toDate() | dateDayKh | pipeCut0}}</p>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span>ខែ</span>
+                        <p class="f-input" style="min-width: 80px">{{criminalStore?.selectedCriminalRecord?.apply_at?.toDate()|dateMonthKh}}</p>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span>ឆ្នាំ</span>
+                        <p class="f-input" style="min-width: 100px">{{criminalStore?.selectedCriminalRecord?.apply_at?.toDate()|dateYearKh}}</p>
+                      </span>
+                    </div>
+
+                    <div class="c-item" style=" text-align: center;">
+                      <div class="nor-fam" style="margin-bottom:20px;">ស្នាមមេដៃសាមីខ្លួន</div>
+                      <div style="height:150px;overflow:hidden"
+                      *ngIf="criminalStore?.selectedCitizenProfile?.finger_print_file">
+                      <!-- <img [src]="criminalStore?.selectedCitizenProfile?.finger_print_file?.downloadUrl" width="150px"
+                        height="150px" style="object-fit:cover"> -->
+
+                      <div class="fingerImgBox" [style.background-image]="'url(' + (criminalStore?.selectedCitizenProfile?.finger_print_file?.downloadUrl | removeImgWhiteSpace | async) + ')'"></div>
+
+                    </div>
+                    </div>
+                  </div>
+
+                </div>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>

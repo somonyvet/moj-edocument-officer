@@ -1,0 +1,56 @@
+@import "../../../../../assets/styles/variable.scss";
+.primary.cancel:hover {
+    color: $whiteColor;
+    background-color: $red;
+}
+
+.tog-side-nav {
+    width: 200px !important;
+    .side-nav-item {
+        justify-content: center;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text-content {
+    margin: 10px 0;
+}
+
+.print-preview {
+    background-color: $whiteColor;
+    height: 100%;
+}
+
+.action-item {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.center-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-bar {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    margin: 0 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 4px 3px 8px 1px #ededed;
+}
+
+thead {
+    box-shadow: 4px 3px 8px 1px #ededed;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

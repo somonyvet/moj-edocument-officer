@@ -1,0 +1,89 @@
+<div class="document-section-container">
+    <div class="page-wrapper page-container doc-noted">
+        <div class="page-doc" *ngIf="store?.headerDocuments?.length>0 && !store?.loading">
+            <virtual-scroller #scrollDocumentListing [parentScroll]="scrollDocumentListing.window"
+                [enableUnequalChildrenSizes]="45" (vsEnd)="_onScroll($event)" [items]="store?.headerDocuments">
+                <table class="as-table-wrapper">
+                    <thead #header>
+                        <tr>
+                            <th class="center">
+                                ល.រ
+                            </th>
+                            <th class="left">
+                                ស្ថានភាព
+                            </th>
+                            <th class="left">
+                                ឯកសារ
+                            </th>
+                            <th class="left">
+                                បច្ចុប្បន្នភាព
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody #container>
+                        <tr *ngFor="let item of scrollDocumentListing?.viewPortItems; let i = index">
+                            <td class="center" style="width: 64px;">
+                                {{i+1}}
+                            </td>
+                            <td>
+                                <div class="rows">
+                                    <a mat-button mat-icon-button
+                                        [routerLink]="['/documents/form/' + item?.key + '/' + item?.workplace?.key +'/design']">
+                                        <mat-icon>launch</mat-icon>
+                                    </a>
+                                    <div class="dot-status" [ngClass]="item?.doc_status|docStatus"></div>
+                                    <strong>{{item?.doc_status?.name}}</strong>
+                                </div>
+                            </td>
+                            <td>
+                                {{item?.documentNo}} ·
+                                {{item?.documentTitle?.length > 40 ?item?.documentTitle.substring(0, 40) +
+                                '...':item?.documentTitle}}
+                            </td>
+                            <td>
+                                {{item?.updated_at?.toDate()|date:'mediumDate'}}
+                            </td>
+                            <td style="width: 64px;">
+                                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="onCreateDocument(item)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>កែប្រែ</span>
+                                    </button>
+                                    <button mat-menu-item (click)="delete(item)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>លុប</span>
+                                    </button>
+                                </mat-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="height: 80px;"></div>
+            </virtual-scroller>
+        </div>
+        <ng-container *ngIf="store?.headerDocuments?.length===0 && !store?.loading">
+            <div class="empty-block">
+                <div class="center-block-empty">
+                    <div class="empty-img">
+                        <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                            alt="empty">
+                    </div>
+                    <div class="empty-text">
+                        <p class="empty-state-title">
+                            ពុំមានទិន្នន័យ
+                        </p>
+                        <p class="empty-state-desc">
+                            លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់អគ្គនាយកដ្ឋានដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

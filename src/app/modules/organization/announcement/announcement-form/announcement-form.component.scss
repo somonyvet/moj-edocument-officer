@@ -1,0 +1,222 @@
+@import '/src/assets/styles/variable.scss';
+
+.select-officer{
+  padding: 24px;
+  background-color: rgba(0,0,0,0.1);
+  margin: 0 6px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  h3{
+    margin-bottom: 0;
+  }
+}
+
+.w-100{
+  width: 100%;
+  input{
+    width: 95%;
+  }
+}
+
+.search-container{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100% ;
+  background-color: white;
+  top: 16px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+  min-height: 160px;
+  max-height: 300px;
+  border-radius: 4px;
+  padding: 32px 0;
+  overflow-y: auto;
+  .search-item{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 26px;
+    &:hover{
+      background-color: rgba(0,0,0,0.1);
+    }
+    .officer-name{
+      font-family: $appFont;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+    ion-icon{
+      width: 32px;
+      height: 32px;
+      color: #1a73e8;
+    }
+  }
+  img{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  .action{
+    cursor: pointer;
+  }
+
+}
+
+.officer-list{
+  display: flex;
+  grid-gap: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 100%;
+  .officer-item{
+    padding: 8px 10px;
+    background-color: white;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    gap: 12px;
+    &:last-child{
+      margin-bottom: 15px;
+    }
+    &:nth-last-child(2){
+      margin-bottom: 15px;
+    }
+    img{
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+    }
+    .officer-name{
+      font-family: $appFont;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+    ion-icon{
+      width: 32px;
+      height: 32px;
+      color: $red;
+    }
+    .action{
+      cursor: pointer;
+    }
+  }
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #039be5 ;
+}
+
+:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #1a73e8 ;
+}
+
+
+// .attachment{
+//   width: ;
+// }
+
+
+.boxNavAddImg {
+  min-height: 162px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .boxNavMiddle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .boxNavMiddleicon {
+    border-radius: 50%;
+    .mat-icon {
+      font-size: 22px;
+      color: #000;
+    }
+  }
+  .boxNavMiddleTxt {
+    line-height: 1.1765;
+    font-weight: 500;
+    max-width: 100%;
+    margin-top: 8px;
+  }
+}
+
+.navSub {
+  width: 100%;
+  padding: 0 6px;
+  margin-bottom: 26px;
+  .navsubtitle {
+    color: #65676b;
+    font-weight: 600;
+    line-height: 1.2308;
+    word-break: break-word;
+  }
+
+  //small image
+  .boxNavAfterAddImg {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    .boxImgSmall {
+      min-height: 113px;
+      min-width: 113px;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 104px;
+      max-height: 104px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.1);
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .boxImgSmallClose {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        padding: 1px;
+        background-color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        .mat-icon {
+          font-size: 16px;
+          color: #000;
+          position: relative;
+          top: 4px;
+          left: 3.8px;
+        }
+      }
+
+      .bISMidText {
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .bISMidIcon {
+        cursor: pointer;
+      }
+    }
+    .boxImgSmall:nth-child(3n + 3) {
+      margin-right: 0;
+    }
+  }
+}

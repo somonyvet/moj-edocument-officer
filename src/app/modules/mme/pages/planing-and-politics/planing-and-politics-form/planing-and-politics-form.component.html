@@ -1,0 +1,291 @@
+<form [formGroup]="form">
+    <div class="proMain" *mobxAutorun>
+        <div class="prodSub">
+            <div class="prodSubLeft">
+                <div class="psrSub">
+                    <div class="psrTitle">
+                        <div class="columns">
+                            <p>{{title}}</p>
+                        </div>
+                    </div>
+                    <div class="form-container form-controls">
+                        <div class="form-wrapper">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>លេខកូដ{{store?.selectedCategory?.name}}</mat-label>
+                                    <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code" required
+                                        matInput [placeholder]="'លេខកូដ'+store?.selectedCategory?.name">
+                                    <mat-error *ngIf="form.controls['code'].hasError('required')">
+                                        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="form.controls['code'].hasError('nameAvailable')">
+                                        លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>ចំណងជើង{{store?.selectedCategory?.name}}</mat-label>
+                                    <input formControlName="name" required matInput matTooltipClass="tooltipClass"
+                                        [placeholder]="'ចំណងជើង'+store?.selectedCategory?.name">
+                                    <mat-error *ngIf="form.controls['name'].hasError('required')">
+                                        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')">
+                                        ចំណងជើងនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់ចំណងជើងផ្សេងទៀត។
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-check-group" *ngIf="showBudgetOption">
+                                <label class="title">ប្រភពថវិកា</label>
+                                <mat-checkbox (change)="onChangeMMF($event)" formControlName="budgetProviderMMF">MMF
+                                </mat-checkbox>
+                                <div class="form-group">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>ច្បាប់ថវិកាប្រចាំឆ្នាំ (លានរៀល)</mat-label>
+                                        <input type="number" formControlName="budgetMMF_riel" required matInput
+                                            placeholder="ច្បាប់ថវិកាប្រចាំឆ្នាំ (លានរៀល)">
+                                        <mat-error *ngIf="form.controls['budgetMMF_riel'].hasError('required')">
+                                            ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                        </mat-error>
+                                        <mat-error *ngIf="form.controls['budgetMMF_riel'].hasError('min')">
+                                            ចំនួនថវិកាតម្រូវឲ្យលោកអ្នកបញ្ចូលឱ្យធំជាងឬស្មើសូន្យ
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <mat-checkbox (change)="onChangeMME($event)" formControlName="budgetProviderMME">MME
+                                </mat-checkbox>
+                                <div class="form-group two">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>ច្បាប់ថវិកាប្រចាំឆ្នាំ (លានរៀល)</mat-label>
+                                        <input type="number" formControlName="budgetMME_riel" required matInput
+                                            placeholder="ច្បាប់ថវិកាប្រចាំឆ្នាំ (លានរៀល)">
+                                        <mat-error *ngIf="form.controls['budgetMME_riel'].hasError('required')">
+                                            ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                        </mat-error>
+                                        <mat-error *ngIf="form.controls['budgetMME_riel'].hasError('min')">
+                                            ចំនួនថវិកាតម្រូវឲ្យលោកអ្នកបញ្ចូលឱ្យធំជាងឬស្មើសូន្យ
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>ច្បាប់ថវិកាប្រចាំឆ្នាំ (ដុល្លារ)</mat-label>
+                                        <input type="number" formControlName="budgetMME_dollar" required matInput
+                                            placeholder="ច្បាប់ថវិកាប្រចាំឆ្នាំ (ដុល្លារ)">
+                                        <mat-error *ngIf="form.controls['budgetMME_dollar'].hasError('required')">
+                                            ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                        </mat-error>
+                                        <mat-error *ngIf="form.controls['budgetMME_dollar'].hasError('min')">
+                                            ចំនួនថវិកាតម្រូវឲ្យលោកអ្នកបញ្ចូលឱ្យធំជាងសូន្យ
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="psrSub">
+                    <div class="psrTitle">
+                        <div class="columns">
+                            <p>អ្នកតាមដាន (គណនីយប្រព័ន្ធ)</p>
+                        </div>
+                    </div>
+                    <div class="form-container form-controls">
+                        <div class="form-wrapper">
+                            <div class="form-group ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>អ្នកតាមដាន <span class="error-message rq-sign"
+                                            *ngIf="arrayAuditors.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។</span><span
+                                            class="rq-sign">*</span>
+                                    </mat-label>
+                                    <mat-chip-list #chipListAuditor aria-label="selection">
+                                        <mat-chip *ngFor="let item of arrayAuditors" [selectable]="false"
+                                            [removable]="true" (removed)="removeDepartment(item,'AUDITOR')">
+                                            {{item?.displayName}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="ជ្រើសរើសអង្គភាព..." formControlName="auditor"
+                                            [matAutocomplete]="autoAuditor" [matChipInputFor]="chipListAuditor">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                                <mat-autocomplete #autoAuditor="matAutocomplete"
+                                    (optionSelected)="selectedDepartment($event,'AUDITOR')">
+                                    <mat-option *ngFor="let item of filterAuditor | async" [value]="item">
+                                        {{item?.displayName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="psrSub" formArrayName="department_officer"
+                    *ngFor="let item of form.get('department_officer')?.controls; let i = index;">
+                    <div class="psrTitle">
+                        <div class="rows justify-content-between">
+                            <p>អង្គភាព និងជនបង្គោល​​</p>
+                            <div class="action-container">
+                                <a mat-button mat-icon-button class="mat-btn-n" *ngIf="i!==0"
+                                    (click)="deleteFormArrayItem(i,'department_officer')">
+                                    <mat-icon>close</mat-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-remark" style="padding: 0 6px;">
+                        លោកអ្នកត្រូវជ្រើសរើសអង្គភាពឲ្យបានត្រឹមត្រូវជាមុន ទើបលោកអ្នកអាចជ្រើសរើសជនបង្គោល​​(អ្នកទទួលខុសត្រូវ)បាន
+                    </div>
+                    <div class="form-container form-controls" [formGroupName]="i">
+                        <div class="form-wrapper">
+                            <div class="form-group ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>អង្គភាព</mat-label>
+                                    <input required matInput type="text" placeholder="ជ្រើសរើសអង្គភាព..."
+                                        formControlName="department" [matAutocomplete]="autoDepartment" #Department>
+                                    <mat-error *ngIf="item.get('department')?.errors?.required">
+                                        សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-autocomplete (optionSelected)="onSelectDepartment($event,i)"
+                                    #autoDepartment="matAutocomplete" [displayWith]="ds.displayFn" #Department>
+                                    <mat-option *ngFor="let item of filteredDepartmentOptions[i] | async"
+                                        [value]="item">
+                                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                                        {{item?.name}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="psrTitle">
+                        <div class="columns">
+                            <p>ជនបង្គោល​​ (អ្នកទទួលខុសត្រូវ)</p>
+                        </div>
+                    </div>
+                    <div class="form-container form-controls" [formGroupName]="i">
+                        <div class="form-wrapper">
+                            <div class="form-group ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>ជនបង្គោល <span class="error-message rq-sign"
+                                            *ngIf="arrayOfficers2d[i]?.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។<span
+                                                class="rq-sign">*</span>
+                                        </span>
+                                    </mat-label>
+                                    <mat-chip-list formControlName="officers" #chipListOfficer aria-label="selection">
+                                        <mat-chip *ngFor="let item of arrayOfficers2d[i]" [selectable]="false"
+                                            [removable]="true" (removed)="removeDepartmentFormArr(item,'OFFICER',i)">
+                                            {{item?.displayName}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="ជ្រើសរើសអង្គភាព..." [matAutocomplete]="autoOfficer"
+                                            [matChipInputFor]="chipListOfficer">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                                <mat-autocomplete #autoOfficer="matAutocomplete"
+                                    (optionSelected)="selectedDepartmentFormArr($event,'OFFICER',i)">
+                                    <mat-option *ngFor="let item of filteredOfficerOptions[i] | async" [value]="item">
+                                        {{item?.displayName}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf=" i === ( form?.get('department_officer')?.controls.length - 1)"
+                        class="rows justify-content-end">
+                        <a mat-button class="mat-btn-n txt-btn-r" style="margin-right: 6px;">
+                            <span (click)="addDepartmentArrItem()">បន្ថែមអង្គភាពនិងជនបង្គោល</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="prodSubRight n-bg">
+                <div class="navBarFlex " formArrayName="remark_indicator"
+                    *ngFor="let item of form?.get('remark_indicator')?.controls,let i = index">
+                    <div class="psrTitle">
+                      <div class="rows justify-content-between">
+                          <p>សូចនាករសមត្ថកម្មប្រចាំឆ្នាំ និង គោលដៅ</p>
+                          <a mat-button mat-icon-button class="mat-btn-n" *ngIf="i!==0"
+                            (click)="deleteFormArrayItem(i,'remark_indicator')">
+                            <mat-icon>close</mat-icon>
+                          </a>
+                      </div>
+                    </div>
+                    <div class="wrap-item" *ngIf=" item?.value?.created_by || item?.value?.updated_by ">
+                        <div class="item" *ngIf="item?.value?.created_by">
+                            <div class="label">
+                                <h4>បង្កើតដោយ</h4>
+                            </div>
+                            <div class="av-item">
+                                <div class="rows av-img">
+                                    <app-swot-image size="200" [file]="item?.value?.created_by?.photoURL">
+                                    </app-swot-image>
+                                    <div class="flex1">
+                                        <strong>{{item?.value?.created_by?.displayName}}</strong>
+                                        {{item?.value?.created_at?.toDate() | dateKH}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item" *ngIf="item?.value?.updated_by">
+                            <div class="label">
+                                <h4>កែសម្រួលលើកចុងក្រោយ</h4>
+                            </div>
+                            <div class="av-item">
+                                <div class="rows av-img">
+                                    <app-swot-image size="200" [file]="item?.value?.updated_by?.photoURL">
+                                    </app-swot-image>
+                                    <div class="flex1">
+                                        <strong>{{item?.value?.updated_by?.displayName}}</strong>
+                                        {{item?.value?.updated_at?.toDate() | dateKH}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-container form-controls" [formGroupName]="i">
+                        <div class="form-wrapper">
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>
+                                        សូចនាករសមត្ថកម្មប្រចាំឆ្នាំ
+                                    </mat-label>
+                                    <textarea rows="2" cdkTextareaAutosize matInput
+                                        placeholder="សូចនាករសមត្ថកម្មប្រចាំឆ្នាំ" formControlName="remark"></textarea>
+                                    <mat-error *ngIf=" item?.get('remark')?.errors?.required">
+                                        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>គោលដៅ</mat-label>
+                                    <textarea rows="2" cdkTextareaAutosize matInput placeholder="គោលដៅ"
+                                        formControlName="indicator">
+                          </textarea>
+                                    <mat-error *ngIf=" item?.get('indicator')?.errors?.required">
+                                        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf=" i === ( form?.get('remark_indicator')?.controls.length - 1)"
+                        class="rows justify-content-end">
+                        <a mat-button class="mat-btn-n txt-btn-r" style="margin-right: 6px;">
+                            <span (click)="addFormArrayItem('remark_indicator')">បន្ថែមសូចនាករនិងគោលដៅ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="navBarFlex n-bg d-flex justify-content-end" style="padding-right: 0;">
+                    <app-primary-button label="រក្សាទុករួចធ្វើម្ដងទៀត" style="margin-right: 8px;"
+                        class="ion-secondary mr8" [disable]="process" [process]="isNew && process"
+                        (onPress)="_onSave(form.value,true)">
+                    </app-primary-button>
+                    <app-primary-button label="រក្សាទុក" class="ion-secondary mr8" [disable]="process"
+                        [process]="!isNew && process" (onPress)="_onSave(form.value,false)">
+                    </app-primary-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,28 @@
+.qr-info-pr {
+  width: 100%;
+  tr {
+    .f-input {
+      width: 100%;
+    }
+    .tlt{
+        width: 80px;
+    }
+    td{
+        border: none;
+        &.has-border-bottom{
+            border-bottom: 1px dashed #333 !important;
+        }
+    }
+  }
+
+}
+
+.abs-no{
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  font-size: 22px;
+}
+.c-note{
+  position: relative;
+}

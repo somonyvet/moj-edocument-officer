@@ -1,0 +1,339 @@
+$font: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "auxswot", "khmer os siemreap",
+  khmeros_siemreap;
+$googleFont: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, "auxswot", "khmer os siemreap",
+  khmeros_siemreap;
+$appFont: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "auxswot", "khmer os siemreap", Roboto,
+  Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+$appFontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "Moul", "auxswot", "khmer os siemreap",
+  "khmeros_siemreap";
+$googleFontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".≠SFNSText-Regular", "Moul", "auxswot",
+  "khmer os siemreap", khmeros_siemreap;
+$fontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "auxswot-head", "auxswot",
+  "khmer os siemreap", khmeros_siemreap;
+$appFont2: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue,
+  Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+$appFontStrong: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "auxswot-bold", "khmer os siemreap",
+  Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+
+$khmuol: "khmer_os_muol_light";
+$khmool1: "khmer_mool1regular";
+$khbtb: "khmeros_battambang";
+
+.scrolling-container {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  width: 100%;
+  gap: 10px;
+}
+
+.eform {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  width: 1240px;
+  // height: fit-content;
+  background-color: white;
+  margin-bottom: 60px;
+  // page-break-after: always;
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    padding-top: 80px;
+    .head-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 320px;
+      .feTitle {
+        margin: 0;
+        font-family: $appFontTitle;
+        font-size: 18px;
+        line-height: normal;
+        &.star {
+          font-family: "tacteinga";
+          font-size: 40px;
+          position: relative;
+          bottom: 8px;
+        }
+        span {
+          font-family: $font !important;
+          text-decoration-style: dotted;
+          text-decoration-line: underline;
+        }
+      }
+      .profile-box {
+        width: 160px;
+        height: 180px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .img-logo {
+        width: 180px;
+        height: 180px;
+        margin: 12px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .body-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .title {
+        // background-color: #f1f1f1; // #e7f3ff;
+        padding: 24px 80px;
+        h3 {
+          font-size: 16px;
+          font-weight: normal;
+          font-family: $appFontTitle;
+          margin: 0;
+          color: #247ef3;
+          span {
+            font-size: 14px;
+            font-weight: normal;
+            font-family: $appFont;
+          }
+        }
+      }
+      .sub-title {
+        padding: 0 100px;
+        h4 {
+          font-size: 16px;
+          font-weight: normal;
+          font-family: $appFont;
+          margin: 0;
+          color: #247ef3;
+        }
+      }
+      .row-item {
+        display: flex;
+        padding: 12px 80px;
+        .f-item {
+          display: flex;
+          flex-wrap: nowrap;
+          width: 100%;
+          &.has-error {
+            span {
+              color: red;
+            }
+            .f-input {
+              border-bottom: 1px dashed red;
+            }
+          }
+          span {
+            font-family: $appFont;
+            font-size: 14px;
+            font-weight: normal;
+            flex: none;
+          }
+          .f-input {
+            width: 100%;
+            min-width: 180px;
+            outline: none;
+            border: none;
+            border-bottom: 1px black dashed;
+            padding: 0 12px;
+            line-height: normal;
+            text-align: center;
+          }
+        }
+        .f-box {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid black;
+          border-radius: 6px;
+          padding: 24px;
+          margin-left: 16px;
+          width: 100%;
+          &:first-child {
+            margin: 0;
+          }
+          span {
+            font-family: $appFont;
+            font-size: 17px;
+            font-weight: normal;
+            flex: none;
+          }
+          .f-input {
+            width: 100%;
+            min-width: 180px;
+            outline: none;
+            border: none;
+            border-bottom: 1px black dashed;
+            padding: 0 12px;
+            line-height: normal;
+          }
+          .m-b-6 {
+            margin-bottom: 6px;
+          }
+        }
+        .f-table {
+          width: 100%;
+          .warn-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 24px 12px;
+            padding-top: 0;
+            mat-icon {
+              color: #247ef3;
+            }
+            span {
+              color: #247ef3;
+              font-family: $appFont;
+              font-size: 15px;
+              font-weight: bold;
+            }
+          }
+          table {
+            width: 100%;
+          }
+          .tb-input {
+            border-collapse: collapse;
+            thead {
+              th {
+                font-family: $appFont;
+                font-size: 14px;
+                font-weight: normal;
+                vertical-align: middle;
+              }
+            }
+            th,
+            td {
+              border: 1px solid black;
+              padding: 6px 12px;
+            }
+            tr {
+              border: 1px solid black;
+              &:first-child {
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                overflow: hidden;
+                // th{
+                //   &:first-child{
+                //     border-top-left-radius: 6px;
+                //   }
+                //   &:last-child{
+                //     border-top-right-radius: 6px;
+                //   }
+                // }
+              }
+              &:last-child {
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                overflow: hidden;
+                // td{
+                //   &:first-child{
+                //     border-bottom-left-radius: 6px;
+                //   }
+                //   &:last-child{
+                //     border-bottom-right-radius: 6px;
+                //   }
+                // }
+              }
+            }
+          }
+          .ftb-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 0;
+            &.has-error {
+              span {
+                color: red;
+              }
+              .f-input {
+                border-bottom: 1px dashed red;
+              }
+            }
+            .f-input {
+              font-family: $appFont;
+              font-size: 14px;
+              font-weight: normal;
+              width: 100%;
+              outline: none;
+              border: none;
+              border-bottom: 1px dashed black;
+              background-color: transparent;
+            }
+          }
+          .fw-box {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-top: 30px;
+            span {
+              font-size: 15px;
+              color: #247ef3;
+            }
+            .btn-text {
+              // padding: 6px 16px;
+              border-radius: 6px;
+              background-color: #e7f3ff;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    padding-bottom: 80px;
+    .body-item {
+      width: 100%;
+    }
+    .row-item {
+      display: flex;
+    }
+  }
+  .file-select-box {
+    display: flex;
+    align-items: center;
+  }
+  .img-view {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-file-select {
+    display: flex;
+    padding: 4px;
+    border-radius: 100%;
+  }
+  .eform-action-controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    // border-top: 1px solid #ccc;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    .action-control-container {
+      max-width: 1240px;
+      padding: 8px 24px;
+      margin: 0 auto;
+      display: flex;
+    }
+  }
+}

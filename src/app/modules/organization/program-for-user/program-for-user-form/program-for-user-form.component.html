@@ -1,0 +1,230 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group two">
+      <mat-form-field appearance="outline">
+        <mat-label>លេខកូដ</mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code" required matInput
+          placeholder="លេខកូដ">
+        <mat-error *ngIf="form.controls['code'].hasError('required')">
+          This field is required.
+        </mat-error>
+        <mat-error *ngIf="form.controls['code'].hasError('nameAvailable')">
+          This code is already exist in system. Please try another!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះអក្សរកាត់</mat-label>
+        <input formControlName="displayName" required matInput placeholder="ឈ្មោះអក្សរកាត់">
+        <mat-error *ngIf="form.controls['displayName'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group two">
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះកម្មវិធី</mat-label>
+        <input required formControlName="name" matInput placeholder="ឈ្មោះកម្មវិធី">
+        <mat-error *ngIf="form.controls['name'].hasError('required')">
+          This field is required.
+        </mat-error>
+        <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')">
+          This name is already exist in system. Please try another!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះកម្មវិធី (អង់គ្លេស)</mat-label>
+        <input formControlName="name_en" matInput placeholder="ឈ្មោះកម្មវិធី (អង់គ្លេស)">
+        <mat-error *ngIf="form.controls['name_en'].hasError('required')">
+          This field is required.
+        </mat-error>
+        <mat-error *ngIf="form.controls['name_en'].hasError('nameAvailable')">
+          This name is already exist in system. Please try another!
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group three">
+      <mat-form-field appearance="outline">
+        <mat-label>កម្មវិធីសម្រាប់ឆ្នាំ<span class="rq-sign">*</span></mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteYear"
+          formControlName="yearProgram" matInput placeholder="កម្មវិធីសម្រាប់ឆ្នាំ...">
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteYear="matAutocomplete">
+          <mat-option *ngFor="let item of filterYearProgram | async;let i=index" [value]="item">
+            <span [style.padding-left]="((item.level)*24)+'px'"></span>
+            {{item?.name}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error class="error-message" *ngIf="form.controls['yearProgram'].hasError('validKey')">
+          <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់។</div>
+        </mat-error>
+        <mat-error *ngIf="form.controls['yearProgram'].hasError('required')">
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ច្បាប់ថវិការប្រចាំឆ្នាំ<span class="rq-sign">*</span></mat-label>
+        <input type="number" matInput placeholder="បញ្ចូលច្បាប់ថវិការប្រចាំឆ្នាំ" formControlName="budget_for_year">
+        <mat-error *ngIf="form.controls['budget_for_year'].hasError('required')">
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-group border" style="margin-left: 7px; width: 100%; height: 4em; margin-bottom: 20px;">
+        <mat-label style="margin-left: 10px;">ប្រភពថវិការ<span class="rq-sign">*</span></mat-label>
+        <ng-container class="dialog-header" *ngFor="let item of filterSourceBudget ;let i=index">
+          <mat-checkbox style="margin-left: 10px;" class="title" (change)="budgetChange($event)"
+            [checked]="item.checked == true" [value]="item">{{item?.name}}</mat-checkbox>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>រយៈពេលបញ្ចប់ឯកសារ (គិតជាថ្ងៃ)</mat-label>
+        <input formControlName="completedDuration" type="number" required matInput
+          placeholder="រយៈពេលបញ្ចប់ឯកសារ (គិតជាថ្ងៃ)">
+        <mat-error *ngIf="form.controls['completedDuration'].hasError('required')">
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>អង្គភាព <span class="error-message rq-sign"
+            *ngIf="arrayDepartment.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។</span><span class="rq-sign">*</span>
+        </mat-label>
+        <mat-chip-list #chipListDepartment aria-label="selection">
+          <mat-chip *ngFor="let item of arrayDepartment" [selectable]="false" [removable]="true"
+            (removed)="removeDepartment(item)">
+            {{item?.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="ជ្រើសរើសអង្គភាព..." formControlName="department" [matAutocomplete]="autoDepartment"
+            #Department [matChipInputFor]="chipListDepartment">
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-autocomplete #autoDepartment="matAutocomplete" (optionSelected)="selectedDepartment($event)" #Department>
+        <mat-option *ngFor="let item of filterDepartment | async" [value]="item">
+          <span [style.padding-left]="((item.level+1)*24)+'px'"></span>
+          {{item?.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="form-group container-form">
+      <mat-form-field appearance="outline">
+        <mat-label>អ្នកតាមដាន (គណនីយប្រព័ន្ធ) <span class="error-message rq-sign"
+            *ngIf="people.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។</span><span class="rq-sign">*</span></mat-label>
+        <mat-chip-list #chipListFollower aria-label="selection">
+          <mat-chip *ngFor="let person of people" [selectable]="false" [removable]="true"
+            (removed)="removeFollower(person)">
+            {{person.last_name}} {{person?.first_name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="ជ្រើសរើសអ្នកតាមដាន..." formControlName="officer" [matAutocomplete]="auto" #Follower
+            [matChipInputFor]="chipListFollower">
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedFollower($event)" #Follower>
+        <mat-option *ngFor="let item of filterOfficer | async" [value]="item">
+          <div class="list-people-container">
+            <div class="profile-content">
+              <div class="rows">
+                <div class="avatar-tb">
+                  <img [src]="item?.file?.downloadUrl || URL">
+                </div>
+              </div>
+            </div>
+            <div class="name-content">
+              <h2 class="name-user">{{item?.displayName}}</h2>
+            </div>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="form-group container-form">
+      <mat-form-field appearance="outline">
+        <mat-label>អ្នកតំណាង (អ្នកទទួលខុសត្រូវ) <span class="error-message rq-sign"
+            *ngIf="representative.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។</span><span class="rq-sign">*</span>
+        </mat-label>
+        <mat-chip-list #chipListRepresentative aria-label="selection">
+          <mat-chip *ngFor="let person of representative" [selectable]="false" [removable]="true"
+            (removed)="removeRepresentative(person)">
+            {{person.last_name}} {{person?.first_name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="ជ្រើសរើសអ្នកតំណាង..." [matAutocomplete]="autoRepresentative" #Representative
+            [matChipInputFor]="chipListRepresentative">
+        </mat-chip-list>
+      </mat-form-field>
+      <mat-autocomplete #autoRepresentative="matAutocomplete" (optionSelected)="selectedRepresentative($event)"
+        #Representative>
+        <mat-option *ngFor="let item of filterOfficer | async" [value]="item">
+          <div class="list-people-container">
+            <div class="profile-content">
+              <div class="rows">
+                <div class="avatar-tb">
+                  <img [src]="item?.file?.downloadUrl || URL">
+                </div>
+              </div>
+            </div>
+            <div class="name-content">
+              <h2 class="name-user">{{item?.displayName}}</h2>
+            </div>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="form-group container-form" style="padding-bottom: 26px;">
+      <div class="form-group border" style="width: 100%; margin: 0 6px;">
+        <mat-label style="width: 16%; margin-left: 10px;">សូចនាករគោលប្រចាំឆ្នាំ</mat-label>
+        <span style="width: 0.1px; min-height: 70px; max-height: 170px; background-color: rgba(0, 0, 0, 0.2);"></span>
+        <ckeditor style="width: 100%; min-height: 70px; display: flex; align-items: center;" [config]="{
+                                        toolbar:config.toolbar,
+                                        fontSize:config.fontSize,
+                                        fontFamily:config.fontFamily,
+                                        table:config.table,
+                                        placeholder: 'សូចនាករគោលប្រចាំឆ្នាំ'
+                                        }" [editor]="Editor" [data]="" formControlName="indicators">
+        </ckeditor>
+      </div>
+
+    </div>
+
+    <div class="form-group container-form" style="padding-bottom: 26px;">
+      <div class="form-group border first-end-border" style="width: 100%; margin: 0 6px;">
+        <mat-label style="width: 16%; margin-left: 10px;">គោលដៅ</mat-label>
+        <span style="width: 0.1px; min-height: 70px; max-height: 170px; background-color: rgba(0, 0, 0, 0.2);"></span>
+        <ckeditor style="width: 100%; min-height: 70px; display: flex; align-items: center" [config]="{
+                                              toolbar:config.toolbar,
+                                              fontSize:config.fontSize,
+                                              fontFamily:config.fontFamily,
+                                              table:config.table,
+                                              placeholder: 'គោលដៅ'
+                                              }" [editor]="Editor" [data]="" formControlName="goal">
+        </ckeditor>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+  </mat-progress-bar>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
+</form>

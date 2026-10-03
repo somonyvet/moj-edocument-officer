@@ -1,0 +1,400 @@
+<div class="officer-profile-info-container">
+
+    <button style=" position: absolute; top: 30px; right: 30px;" matTooltip="បោះពុម្ព" mat-button mat-icon-button
+        class="mat-add-new" (click)="print()">
+        <mat-icon class="mat-18">print</mat-icon>
+    </button>
+
+    <div style="margin-top:10px">
+        <div class="eform" id="printD" style="margin: 0 auto;">
+
+            <div class="header-print" style="width:100%">
+
+                <div class="head-item" style="text-align: center; position: relative;">
+                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star" style="position: absolute;
+                  left: 0;
+                  right: 0;">3</p>
+                </div>
+
+
+                <div class="head-center">
+                    <div class="head-item">
+                        <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                            <div class="bl-title-left">
+                                <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                                <p>ក្រសួងយុត្តិធម៍</p>
+                                <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                            </div>
+
+                            <div class="bl-title-left bl-title-right moj-d">
+                                <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                                <p>លេខសំណុំឯកសារ .......................</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="flex1"></div>
+                </div>
+
+                <div class="head-item" style="text-align: center;">
+                    <p class="feTitle">កំណត់បង្ហាញ</p>
+                </div>
+            </div>
+
+            <div class="body" style="margin: 0;">
+                <div class="body-item" style="background-color: #fff; margin: 0;">
+                    <!-- <div class="title"
+                        style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
+                        <p class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</p>
+                        <span class="display: flex;
+                                  flex-direction: column;
+                                  justify-content: flex-start;
+                                  align-items: self-start;">
+                            <p class="n-title">&nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន {{criminalRecords?.length |
+                                khmerNumber}}
+                                ច្បាប់ ស្នើសុំសេវា ({{criminalGroupService?.urgent_obj?.key | khmerNumber}} ថ្ងៃ)
+                                នៃថ្ងៃធ្វើការ
+                                ដែលមានឈ្មោះ</p>
+                            <p class="n-title">&nbsp;ក្នុងបញ្ជីលេខរៀង៖ {{store?.selectedGroupDoc?.name}} ចុះថ្ងៃទី
+                                {{store?.selectedGroupDoc?.created_at?.toDate()| dateDayKh}} ខែ
+                                {{store?.selectedGroupDoc?.created_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                                {{store?.selectedGroupDoc?.created_at?.toDate()| dateYearKh}} ដូចមានឈ្មោះខាងក្រោម៖</p>
+                        </span>
+                    </div> -->
+
+                    <!-- Page 1  -->
+                    <!-- <div class="row-item-new">
+                        <div class="item-box-new  itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <h3>កំណត់បង្ហាញ</h3>
+                            </div>
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <div class="sub-txt-title">កំណត់បង្ហាញ</div>
+                            </div>
+                            <span class="sub-txt">
+                                លោកប្រធាននាយកដ្ឋានកិច្ចការថ្កោលទោស ឈ្មោះអ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោស
+                                ដែលមានឈ្មោះក្នុងបញ្ជី
+                                លេខរៀង៖ <strong>{{store?.selectedGroupDoc?.name | khmerNumber}}
+                                    ចុះថ្ងៃទី {{store?.selectedGroupDoc?.release_date?.toDate()| dateDayKh}} ខែ
+                                    {{store?.selectedGroupDoc?.release_date?.toDate()| dateMonthKh}} ឆ្នាំ
+                                    {{store?.selectedGroupDoc?.release_date?.toDate()| dateYearKh}}
+                                    ({{store?.selectedGroupDoc?.period_process_document?.name}})</strong>
+
+                                ដោយបានពិនិត្យក្នុងបញ្ជីថ្កោលទោសឈ្មោះទាំងនេះ ពុំមានកំណត់ត្រាចុះក្នុងបញ្ជីថ្កោលទោស
+                                របស់ក្រសួងយុត្តិធម៌ឡើយ។
+
+                            </span>
+
+                            <div class="itm-box-sign itm-mr-212">
+                                <h4 class="itm-sign-date">
+                                    ថ្ងៃទី ខែ ឆ្នាំ ២០២២
+                                </h4>
+                                <div class="itm-sign-box">
+
+                                </div>
+                                <div class="itm-name">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="item-box-new-2">
+                            <div class="itm-flex ">
+                                <div class="item-box-new itmbordebottom">
+                                    <div class="itm-title-box">
+                                        <h3>មិតិយោបល់ ប្រធាននាយកដ្ឋាន</h3>
+                                    </div>
+                                </div>
+                                <h3 class="sub-txt-title">
+                                    បានឃើញ & ឯកភាព តាមមិតិមន្រីជំនាញ
+                                </h3>
+                                <div class="item-pd-16">
+                                    <span class="sub-txt">
+                                        ដោយបានពិនិត្យបញ្ជីឈ្មោះ អ្នកសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣
+                                        ដែលមានឈ្មោះក្នុងបញ្ជីលេខរៀង៖
+
+                                        <strong>{{store?.selectedGroupDoc?.name | khmerNumber}}
+                                            ចុះថ្ងៃទី {{store?.selectedGroupDoc?.release_date?.toDate()| dateDayKh}} ខែ
+                                            {{store?.selectedGroupDoc?.release_date?.toDate()| dateMonthKh}} ឆ្នាំ
+                                            {{store?.selectedGroupDoc?.release_date?.toDate()| dateYearKh}}
+                                            ({{store?.selectedGroupDoc?.period_process_document?.name}})</strong>
+                                        <br />
+                                        បញ្ជាក់ថា៖ ពុំមានកំណត់ត្រាថ្តន្ធាទោស ដែលត្រូវចុះក្នុងបញ្ជីថ្កោលទោសតម្កល់
+                                        របស់ក្រសួងយុត្តិធម៌ឡើយ។
+                                        <br />
+                                        សូមឯកឧត្តម អគ្គនាយក មេត្តាពិនិត្យនិង សំរេច។
+                                    </span>
+                                </div>
+
+                                <div class="itm-box-sign itm-mr-16">
+                                    <h4 class="itm-sign-date">
+                                        ថ្ងៃទី {{signature2?.approved_at?.toDate()| dateDayKh}} ខែ
+                                        {{signature2?.approved_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                                        {{signature2?.approved_at?.toDate()| dateYearKh}}
+                                    </h4>
+                                    <div class="itm-sign-box" style="margin-right: 55px;">
+                                        <img *ngIf="signature2?.default_signatureFile?.downloadUrl"
+                                            [src]="signature2?.default_signatureFile?.downloadUrl" alt="img"
+                                            style="width: 128px;">
+                                    </div>
+                                    <div class="itm-name">
+                                        <img *ngIf="signature2?.default_stampFile?.downloadUrl"
+                                            [src]="signature2?.default_stampFile?.downloadUrl" alt="img"
+                                            style="width: 128px;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="itm-flex ">
+                                <div class="item-box-new itmbordebottom">
+                                    <div class="itm-title-box">
+                                        <h3>មិតិយោបល់ ឯកឧត្តមអគ្គនាយក</h3>
+                                    </div>
+                                </div>
+                                <div class="itm-bg-sign ">
+                                    <div class="sn-title">ឯកភាពតាមយោបល់មន្ត្រីជំនាញ</div>
+                                    <div class="sn-title">
+                                        ថ្ងៃទី {{signature3?.approved_at?.toDate()| dateDayKh}} ខែ
+                                        {{signature3?.approved_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                                        {{signature3?.approved_at?.toDate()| dateYearKh}}
+                                    </div>
+                                    <div class="sn-box">
+                                        <img *ngIf="signature3?.default_signatureFile?.downloadUrl"
+                                            [src]="signature3?.default_signatureFile?.downloadUrl" alt="img"
+                                            style="width: 128px;">
+                                    </div>
+                                    <div class="sn-name">
+                                        <img *ngIf="signature3?.default_stampFile?.downloadUrl"
+                                            [src]="signature3?.default_stampFile?.downloadUrl" alt="img"
+                                            style="width: 128px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <h3>មិតិយោបល់ ឯកឧត្តមរដ្ឋលេខាធិការ</h3>
+                            </div>
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-bg-box">
+                                <h3 class="itm-txt-blue">
+                                    - បានឃើញនិងឯកភាពផ្អែកតាម ការស្រាវជ្រាវរបស់មន្ត្រី ជំនាញ
+                                    និងការត្រួតពិនិត្យបច្ចេកទេសតាមឋានានុក្រម។
+                                </h3>
+
+                                <h3 class="itm-txt-blue">
+                                    - សូមគោរពជូនឯកឯកឧត្តមរដ្ឋមន្ត្រី មេត្តាពិនិត្យនិងសម្រេចដ៏ខ្ពង់ខ្ពស់។
+                                </h3>
+
+                                <img *ngIf="signature4?.default_signatureFile?.downloadUrl"
+                                    [src]="signature4?.default_signatureFile?.downloadUrl" alt="img"
+                                    style="width: 128px;">
+                                <img *ngIf="signature4?.default_stampFile?.downloadUrl"
+                                    [src]="signature4?.default_stampFile?.downloadUrl" alt="img" style="width: 128px;">
+                                <br />
+
+                            </div>
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <h3>មិតិយោបល់ ឯកឧត្តមរដ្ឋមន្ត្រី</h3>
+                            </div>
+                        </div>
+                        <div class="itm-box-blank itmbordebottom  ">
+
+                        </div>
+
+                    </div> -->
+
+                    <!-- Page 2 -->
+                    <div class="row-item-new">
+                        <div class="item-box-new  itmbordebottom  " >
+                            <div class="itm-title-box">
+                                <h3>មិតិយោបល់ មន្រី្តជំនាញ</h3>
+                            </div>
+                        </div>
+
+                        <div class="itm-box-blank itmbordebottom  ">
+                            <p *ngIf="store?.selectedCriminalRecord?.comment_officer" [innerHTML]="store?.selectedCriminalRecord?.comment_officer | sanitizeHtml"></p>
+                        </div>
+
+                        <!-- <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box" style="height: 220px;">
+                                <div class="sub-txt-title">កំណត់បង្ហាញ</div>
+                            </div>
+                            <span class="sub-txt">
+                                សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន ច្បាប់ ស្នើសុំសេវា ( ថ្ងៃ) នៃថ្ងៃធ្វើការ ដែលមានឈ្មោះ
+                                ក្នុងបញ្ជីលេខរៀង៖ 001,002,003 ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២
+                                ដូចមានឈ្មោះខាងក្រោម001,002,003 <b>ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២</b>
+                                ដូចមានឈ្មោះខាងក្រោម៖001,002,003 ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២
+                                ដូចមានឈ្មោះខាងក្រោម៖ក្នុងបញ្ជីលេខរៀង៖ 001,002,003 ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២
+                                ដូចមានឈ្មោះខាងក្រោម001,002,003 ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២
+                                ដូចមានឈ្មោះខាងក្រោម៖001,002,003 ចុះថ្ងៃទី ៣១ ខែ តុលា ឆ្នាំ ២០២២ ដូចមានឈ្មោះខាងក្រោម៖
+                            </span>
+                            <div class="itm-main-sign">
+                                <div class="itmflex1">
+                                    <span class="sub-txt-left">
+                                        សូមលោកប្រធាននាយក ។
+                                    </span>
+                                </div>
+                                <div class="itmflex1">
+                                    <div class="itm-box-sign itm-mr-212">
+                                        <h4 class="itm-sign-date">
+                                            ថ្ងៃទី ២២ ខែ តុលា ឆ្នាំ ២០២២
+                                        </h4>
+                                        <div class="itm-sign-box">
+        
+                                        </div>
+                                        <div class="itm-name">
+                                            ដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="item-box-new-2">
+                            <div class="itm-flex ">
+                                <div class="item-box-new itmbordebottom">
+                                    <div class="itm-title-box">
+                                        <h3>យោបល់ លោកប្រធាននាយកដ្ឋាន</h3>
+                                    </div>
+                                </div>
+                                <div class="itm-box-blank-mid">
+                                    <p *ngIf="store?.selectedCriminalRecord?.comment_hd" [innerHTML]="store?.selectedCriminalRecord?.comment_hd | sanitizeHtml"></p>
+                                </div>
+                                <!-- <h3 class="sub-txt-title">
+                                    បានឃើញ & ឯកភាព តាមមិតិមន្រីជំនាញ
+                                </h3>
+                                <div class="item-pd-16">
+                                    <span class="sub-txt">
+                                        សំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស
+                                    </span>
+                                </div>
+
+                                <div class="itm-box-sign itm-mr-16">
+                                    <h4 class="itm-sign-date">
+                                        ថ្ងៃទី ២២ ខែ តុលា ឆ្នាំ ២០២២
+                                    </h4>
+                                    <div class="itm-sign-box">
+
+                                    </div>
+                                    <div class="itm-name">
+                                        ដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+                            <div class="itm-flex ">
+                                <div class="item-box-new itmbordebottom">
+                                    <div class="itm-title-box">
+                                        <h3>យោបល់ ឯកឧត្តមអគ្គនាយក</h3>
+                                    </div>
+                                </div>
+                                <div class="itm-box-blank-mid"></div>
+
+                                <!-- <div class="itm-bg-sign ">
+                                    <div class="sn-title">ឯកភាពតាមយោបល់មន្ត្រី</div>
+                                    <div class="sn-title"> ថ្ងៃទី ២២ ខែ តុលា ឆ្នាំ ២០២២</div>
+                                    <div class="sn-box"></div>
+                                    <div class="sn-name">ជាម សត្យា</div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <h3>មតិ ឯកឧត្តមរដ្ឋលេខាធិការ</h3>
+                            </div>
+                        </div>
+                        <div class="itm-box-blank itmbordebottom  ">
+                        </div>
+                        <div class="item-box-new itmbordebottom  ">
+                            <div class="itm-title-box">
+                                <h3>មតិ ឯកឧត្តមរដ្ឋមន្ត្រី</h3>
+                            </div>
+                        </div>
+                        <div class="itm-box-blank itmbordebottom  ">
+
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="row-item">
+                        <div class="f-table">
+                            <table class="tb-input">
+
+                                <tbody>
+                                    <tr class="thead-th">
+                                        <th class="center">ល.រ</th>
+                                        <th class="center">ឈ្មោះអ្នកស្នើសុំ</th>
+                                        <th class="center">ភេទ</th>
+                                        <th class="center">ថ្ងៃ-ខែ-ឆ្នាំកំណើត</th>
+                                        <th class="center">ថ្ងៃ-ខែ-ឆ្នាំទទួល</th>
+                                        <th class="center">រយៈពេលស្នើសុំ</th>
+                                        <th class="center">ផ្សេងៗ</th>
+                                    </tr>
+                                    <ng-container *ngFor="let item of criminalRecords; let i = index">
+                                        <tr>
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{i+1}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{item?.last_name}} {{item?.first_name}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{item?.gender?.name}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{item?.dateOfBirthDay?.name}} / {{item?.dateOfBirthMonth?.name}} /
+                                                    {{item?.dateOfBirthYear?.name}}
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{item?.created_at?.toDate() | dateDayKh}} /
+                                                    {{item?.created_at?.toDate() | dateMonthKh}} /
+                                                    {{item?.created_at?.toDate() | dateYearKh}}
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="ftb-input">
+                                                    {{item?.urgent_obj?.key | khmerNumber}} ថ្ងៃ
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="ftb-input">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div> -->
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>

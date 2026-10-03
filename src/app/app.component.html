@@ -1,0 +1,5 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-loader"></mat-progress-bar>
+<router-outlet *ngIf="!loading"></router-outlet>
+<div class="floating-chat-boxes-container">
+  <app-chat-boxes></app-chat-boxes>
+</div>

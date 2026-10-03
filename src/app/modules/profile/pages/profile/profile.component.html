@@ -1,0 +1,188 @@
+<div class="profile-page-container">
+  <div class="white-blank">
+
+    <div class="main-container">
+
+        <div class="cover-container">
+        </div>
+
+        <div class="profile-container">
+          <div class="profile">
+            <img [src]="URL">
+            <div (click)="fileInput.click()" class="change-profile">
+              <mat-icon class="mat-18">photo_camera</mat-icon>
+            </div>
+          </div>
+          <input #fileInput id="fileInput" type="file" multiple accept='image/*' (change)="onSelectedFile($event)"
+          style="display:none;" />
+
+          <div class="btn-container">
+
+            <div (click)="onChangePW()" class="btn m-r-20">
+              <span class="material-icons m-r-10">
+                password
+              </span>
+              <span class="appFont">ផ្លាស់ប្ដូរពាក្យសម្ងាត់</span>
+            </div>
+
+            <div (click)="onLogOut()" class="btn">
+              <span class="material-icons m-r-10">
+                logout
+              </span>
+              <span class="appFont">ចាកចេញ</span>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="name-container">
+          <div>
+            <ng-container *ngFor="let item of auth?.employee?.title ; let i = index" >
+              <span class="text" *ngIf="i>0">, </span>
+              <span class="text">{{item?.name}}</span>
+            </ng-container>
+          </div>
+          <span class="text-name">{{auth?.employee?.displayName}}</span>
+        </div>
+
+        <div class="user-info-container">
+
+          <div class="more">
+            <button class="btn-center" mat-menu-item (click)="onEditUser()">
+              <mat-icon>edit</mat-icon>
+              <span>កែប្រែ</span>
+            </button>
+          </div>
+
+          <div class="wraper">
+            <div class="info-item-1">
+              <div class="item-label">
+                <span>អត្តលេខ</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.officerId}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper-2">
+            <div class="info-item">
+              <div class="item-label">
+                <span>នាមត្រកូល</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.last_name}}</span>
+              </div>
+            </div>
+            <div class="info-item ">
+              <div class="item-label">
+                <span>នាមខ្លួន</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.first_name}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper-2">
+            <div class="info-item">
+              <div class="item-label">
+                <span>នាមត្រកូល(អង់គ្លេស)</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.last_name_en}}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="item-label">
+                <span>នាមខ្លួន(អង់គ្លេស)</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.first_name_en}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper">
+            <div class="info-item-1">
+              <div class="item-label">
+                <span>លេខទូរស័ព្ទ</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.phoneNumber}}</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="wraper m-t-20">
+            <div class="info-item-1">
+              <div class="item-label">
+                <span>មុខងារនិងតួនាទីបច្ចុប្បន្ន</span>
+              </div>
+              <div class="item-value">
+                <span>{{auth?.employee?.currentTitle}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper m-t-20">
+            <div class="info-item-1">
+              <div class="item-label">
+                <span>ឋានៈ</span>
+              </div>
+              <div class="item-value">
+                <ng-container *ngFor="let item of auth?.employee?.title ; let i = index" >
+                  <span *ngIf="i>0">, </span>
+                  <span>{{item?.name}}</span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper m-t-20">
+            <div class="info-item-1">
+              <div class="item-label">
+                <span>កន្លែងទទួលបន្ទុកការងារ និងមុខងារតួនាទី</span>
+              </div>
+              <div class="item-value">
+                <ng-container *ngFor="let item of auth?.employee?.workingOffices ; let i = index" >
+                  <span *ngIf="i>0">, </span>
+                  <span>{{item?.position?.name}} {{item?.office?.name}}</span><br>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="wraper-2">
+            <div class="info-item no-border">
+              <div class="item-label">
+                <span>ហត្ថលេខា</span>
+              </div>
+              <div class="item-value">
+                <div class="avatar">
+                  <img [src]="SIGNATURE_URL">
+                </div>
+              </div>
+            </div>
+
+            <div class="info-item no-border">
+              <div class="item-label">
+                <span>ត្រាឈ្មោះ</span>
+              </div>
+              <div class="item-value">
+                <div class="avatar">
+                  <img [src]="STAMP_URL">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="m-t-20">&nbsp;</div>
+
+    </div>
+
+  </div>
+</div>

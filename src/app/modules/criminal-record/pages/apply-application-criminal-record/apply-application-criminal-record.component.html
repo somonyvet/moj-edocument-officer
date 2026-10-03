@@ -1,0 +1,57 @@
+<div class="apply-form-page">
+  <div class="eform small" [formGroup]="form">
+    <div class="header-ef">
+      <h2 style="margin-bottom:12px;">ដាក់ពាក្យពាក្យស្នើសុំព្រឹត្តិបត្រថ្កោលទោស</h2>
+      <p style="margin-bottom:12px;">លោកអ្នកត្រូវតែត្រួតពិនិត្យ លើព័ត៌មានសំណើប្រតិបត្តិ ប្រវត្តិរូបសង្ខេប
+        និងឯកសារភ្ជាប់មកជាមួយអោយបានត្រឹមត្រូវ។</p>
+      <div class="lottie-box">
+        <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+      </div>
+    </div>
+    <ul class="required-items">
+      <li>
+        <div class="ef-item" [ngClass]="!store?.selectedCriminalRecord?'error':'done'">
+          <span class="ef-txt">សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</span>
+          <mat-icon>{{!store?.selectedCriminalRecord?'cancel':'task_alt'}} </mat-icon>
+        </div>
+      </li>
+      <li>
+        <div class="ef-item" [ngClass]="!store?.selectedCitizenProfile?'error':'done'">
+          <span class="ef-txt">ប្រវត្តិរូបសង្ខេប</span>
+          <mat-icon>{{!store?.selectedCitizenProfile?'cancel':'task_alt'}}</mat-icon>
+        </div>
+      </li>
+      <li>
+        <div class="ef-item" [ngClass]="incomplete_attachment?'error':'done'">
+          <span class="ef-txt">ឯកសារភ្ជាប់មកជាមួយ</span>
+          <mat-icon>{{incomplete_attachment?'cancel':'task_alt'}} </mat-icon>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="att-file-req">
+      <li *ngFor="let item of DOCUMENT_ATTACHMENT_TYPES">
+        <ion-icon *ngIf="item?.required" [ngClass]="item?.completed?'done':'red'"
+          [name]="item?.completed?'checkmark-outline':'close-outline'"></ion-icon>
+        <span *ngIf="!item?.required" style="padding: 0 14px;"></span>
+        <span class="ef-txt">{{item?.name}}</span>
+      </li>
+    </ul>
+
+    <div class="form-check-list-apply">
+      <h3>ស្នើសុំព្រឹត្តិបត្រថ្កោលទោសជាភាសា :</h3>
+      <ng-container formArrayName="formArray" *ngFor="let item of form.get('formArray')?.controls;let i = index;">
+        <div class="checkbox-item" [formGroupName]="i">
+          <mat-checkbox formControlName="check">{{isKhmerForm?item?.value?.language?.name:item?.value?.language?.name_en}}</mat-checkbox>
+        </div>
+      </ng-container>
+      <div style="flex:1"></div>
+      <app-primary-button style="margin: 0 0 12px 16px;" css="w100" (onPress)="_onSubmit(form?.value)" label="ដាក់ស្នើសុំពិនិត្យ"
+        [process]="process"
+        [disable]=" !form?.valid || !canSave || !store?.selectedCriminalRecord || !store?.selectedCitizenProfile || incomplete_attachment || process">
+      </app-primary-button>
+    </div>
+
+
+  </div>
+</div>

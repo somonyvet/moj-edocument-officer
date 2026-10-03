@@ -1,0 +1,437 @@
+<div class="doc-preview-wrapper new-ui" *ngIf="isAllowRead; else noPermissionTemplate">
+  <div class="doc-preview-content">
+    <div class="doc-preview-content-action-top">
+      <div class="doc-title" matTooltipClass="tooltipClass">
+        <div class="doc-cover">
+        </div>
+        <strong>របាយការណ៍កិច្ចប្រតិបត្តិការប្រចាំថ្ងៃ</strong>
+      </div>
+      <div class="abs-tr">
+        <!-- <a mat-button mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
+          matTooltip="ចូលកែប្រែ" aria-label="Print Document">
+          <mat-icon class="mat-18">edit</mat-icon>
+        </a> -->
+        <a mat-button mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
+          matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
+          <mat-icon class="mat-18">local_printshop</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <div class="doc-template-wrapper print-preview" id="print">
+      <table #table style="margin: 0 auto;">
+        <tbody>
+          <tr>
+            <td style="padding: 10px 0;">
+              <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+                aria-label="Example icon-button with a menu">
+                <span>{{store?.periodText ? store?.periodText : 'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+                <i class="material-icons">arrow_drop_down</i>
+              </button>
+              <mat-menu #menuPeriod="matMenu">
+                <div class="options-lags" (click)="$event.stopPropagation();">
+                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="store?.fromDateNum"
+                    [toDate]="store?.toDateNum">
+                  </app-report-filter-period>
+                </div>
+              </mat-menu>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="doc-template-page new"
+                  style="page-break-after: always; min-height: 297mm; margin-bottom: 30px; min-width: 210mm; padding: 44px 54px;">
+                  <div class="doc-template-row">
+                    <div class="bl-title-left">
+                      <ng-container>
+                        <p>ក្រសួងមហាផ្ទៃ</p>
+                      </ng-container>
+                      <p>
+                        អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍
+                      </p>
+                      <p>
+                        នាយកដ្ឋានជនបរទេស
+                      </p>
+                      <p>
+                        មិនមែនអន្តោប្រវេស និងបច្ចេកទេស
+                      </p>
+                      <p>
+                        ការិយាល័យផ្ដល់ទិដ្ឋាការ
+                      </p>
+                      <strong class="f-b">ក្រុមផ្ដល់ទិដ្ឋាការប្រចាំច្រកទ្វាអាកាសយានដ្ឋានអន្តរជាតិ</strong>
+                      <div>
+                        <strong class="f-b">ខេត្តព្រះសីហនុ</strong>
+                      </div>
+                      <p class="star">3</p>
+                    </div>
+                    <div class="bl-space"></div>
+                    <div class="bl-title-right">
+                      <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                      <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                      <p class="star">3</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block">
+                    <div class="bl-title-center pdt-8">
+                      <p>របាយការណ៍</p>
+                    </div>
+                    <div class="bl-title-center pdt-8">
+                      <p>កិច្ចប្រតិបត្តិការប្រចាំថ្ងៃ</p>
+                    </div>
+                    <div class="bl-title-center pdt-8">
+                      <strong class="f-b">ប្រចាំថ្ងៃទី២២ ខែកញ្ញា ឆ្នាំ២០២២</strong>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block" style="padding: 0;">
+                    <div class="bl-title-left pdt-8" style="padding: 0;">
+                      <p class="p-start">I. ការងារគ្រប់គ្រងកម្លាំង៖</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block" style="width: 100%">
+                    <div class="doc-template-row doc-template-block w70-btw">
+                      <span>១. ចំនួនរួម ៖</span> <span class="f-b">៣៣ នាក់</span>
+                    </div>
+                    <div class="doc-template-row doc-template-block w70-btw">
+                      <span>២. ចំនួនវត្តមានធ្វើការងារ ៖</span><span class="f-b">៣៣ នាក់</span>
+                    </div>
+                    <div class="doc-template-row doc-template-block w70-btw">
+                      <span>៣. ចំនួនវត្តមាន មានមូលហេតុ ៖</span><span class="f-b">០០ នាក់</span>
+                    </div>
+                    <div class="doc-template-row doc-template-block w70-btw">
+                      <span>៤. ចំនួនវត្តមាន មិនមានមូលហេតុ ៖</span><span class="f-b">០០ នាក់</span>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block" style="padding: 0;">
+                    <div class="bl-title-left pdt-8" style="padding: 0;">
+                      <p class="p-start">II. សភាពការណ័</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block" style="width: 100%">
+                    <div class="doc-template-row doc-template-block w70-center">
+                      <span>- ការបដិសេធន៏ផ្ដល់ទិដ្ឋាការ និងបញ្ជូនបរទេសចំនួន ៖ ០០ ករណី</span>
+                    </div>
+
+                  </div>
+
+                  <div class="doc-template-row doc-template-block">
+                    <table class="tb-master-print new">
+
+                      <thead class="table-header">
+                        <tr class="table-row">
+                          <th class="table-col center" style="width: 26px;">ល.រ</th>
+                          <th class="table-col center">ឈ្មោះ</th>
+                          <th class="table-col center">ភេទ</th>
+                          <th class="table-col center">សញ្ជាតិ</th>
+                          <th class="table-col center">ឆ្នាំកំណើត</th>
+                          <th class="table-col center">លិខិតឆ្លងដែន</th>
+                          <th class="table-col center">មូលហេតុ</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-body">
+                        <tr>
+                          <td class="table-col center">1</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">2</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">3</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">4</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block" style="padding: 0;">
+                    <div class="bl-title-left pdt-8" style="padding: 0;">
+                      <p class="p-start">III. កិច្ចប្រតិបត្តិការ ៖</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block" style="width: 90%">
+                    <div class="doc-template-row doc-template-block w70-center">
+                      <span>- ការបដិសេធន៏ផ្ដល់ទិដ្ឋាការ និងបញ្ជូនបរទេសចំនួន ៖ ០០ ករណី</span>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block">
+                    <table class="tb-master-print new">
+                      <thead class="table-header">
+                        <tr class="table-row">
+                          <th class="table-col center">
+                          <div class="no-data-rotate"></div>
+                        </th>
+                          <th class="table-col center">T1</th>
+                          <th class="table-col center">T2</th>
+                          <th class="table-col center">T2</th>
+                          <th class="table-col center">E</th>
+                          <th class="table-col center">E1</th>
+                          <th class="table-col center">E2</th>
+                          <th class="table-col center">E3</th>
+                          <th class="table-col center">E4</th>
+                          <th class="table-col center">D</th>
+                          <th class="table-col center">K</th>
+                          <th class="table-col center">A</th>
+                          <th class="table-col center">B</th>
+                          <th class="table-col center">C</th>
+                          <th class="table-col center last">សរុប</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-body">
+                        <tr>
+                          <td class="table-col center">ចំនួនសល់ស្តុកថ្ងៃចាស់</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">5</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center last">5</td>
+                        </tr>
+                      </tbody>
+
+                      <tfoot>
+                        <tr>
+                          <td class="table-col center">ចំនួនបើកចូលថ្មី</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">5</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center last">5</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block" style="width: 90%">
+                    <div class="doc-template-row doc-template-block w70-center">
+                      <span>- ទិដ្ឋាការដែលបានប្រើប្រាស់រួច ៖</span>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block">
+                    <table class="tb-master-print new">
+
+                      <thead class="table-header">
+                        <tr class="table-row">
+                          <th class="table-col center" style="width: 26px;">ល.រ</th>
+                          <th class="table-col center">ប្រភេទទិដ្ឋាការ</th>
+                          <th class="table-col center">ចំនួន</th>
+                          <th class="table-col center">ចាប់ពីលេខ</th>
+                          <th class="table-col center">ដល់លេខ</th>
+                          <th class="table-col center">ផ្សេងៗ</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-body">
+                        <tr>
+                          <td class="table-col center">1</td>
+                          <td class="table-col center">T1</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">2</td>
+                          <td class="table-col center">T2</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">3</td>
+                          <td class="table-col center">T3</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">4</td>
+                          <td class="table-col center">E</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">5</td>
+                          <td class="table-col center">E1</td>
+                          <td class="table-col center">0</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div style="display: flex; margin-left: 70px;">
+                  <div class="doc-template-row doc-template-block" style="padding: 0;">
+                    <div class="bl-title-left pdt-8 start" style="padding: 0;">
+                        <p class="p-start w-100">IV. បញ្ហាប្រឈម ៖</p>
+                    </div>
+                    <div class="bl-title-left pdt-8 start" style="padding: 0;">
+                      <p class="p-start w-100">V. សំណូមពរ ៖</p>
+                    </div>
+                    <div class="bl-title-left pdt-8 start" style="padding: 0;">
+                      <p class="p-start w-100">VI. ទិសដៅបន្ត ៖</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block" style="padding: 0;">
+                    <div class="bl-title-left pdt-8" style="padding: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                      <span class="p-n-b">គ្មាន</span>
+                      <span class="p-n-b">គ្មាន</span>
+                      <span class="p-n-b">គ្មាន</span>
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-bloc" style="flex-direction: row-reverse;">
+                    <div class="bottom-dt">
+                      <div class="flex-row11">
+                        ថ្ងៃព្រហស្បតិ៍ ១២រោច ខែភត្របទ ឆ្នាំខាល ចត្វាស័ក ព.ស២៥៦៦
+                      </div>
+                      <div class="flex-row11">
+                        <span>រាជធានីភ្នំពេញ</span>
+                        <span> , ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
+                        </span>
+                      </div>
+                      <div class="title" style="margin: 0;">ប្រធានក្រុមផ្ដល់ទិដ្ឋការ</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <div class="doc-preview-comment" [ngStyle]="setStyleSidebar(openSideComment)">
+
+    <div class="doc-preview-comment-header">
+      <div class="doc-preview-comment-row doc-preview-comment-row-icon">
+
+        <button style="background-color:transparent; margin:0" (click)="openSideComment = !openSideComment"
+          type="button" mat-button mat-icon-button class="icon-container">
+          <ion-icon style="width:26px ; height: 26px" name="close-outline"></ion-icon>
+        </button>
+
+        <div style="flex:1"></div>
+
+        <div>
+
+
+
+
+
+        </div>
+
+      </div>
+      <mat-divider></mat-divider>
+
+
+
+      <div class="doc-preview-comment-row">
+        <div class="left-box-dbc" *ngIf="!loadingHeader">
+          <div class="name">
+            <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
+            <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
+            </p>
+          </div>
+          <app-avatar-officer *ngIf="!loading" [officerKey]="store?.documentDataDoc?.created_by">
+          </app-avatar-officer>
+        </div>
+        <div class="right-box-dbc">
+
+        </div>
+      </div>
+
+      <!-- <div class="doc-preview-comment-row" *ngIf="store?.statistic">
+        <div class="note-cms">
+          <span *ngIf="store?.statistic?.total_comments>0">
+            {{store?.statistic?.total_comments}} មតិ
+          </span>
+          <span *ngIf="store?.statistic?.total_visitor>0">{{store?.statistic?.total_visitor}}
+            នាក់បានឃើញ</span>
+        </div>
+        <div class="flex1"></div>
+        <div class="note-cms">
+          <span *ngIf="store?.statistic?.total_view>0">ចូលមើល: {{store?.statistic?.total_view}}
+            ដង
+          </span>
+        </div>
+      </div> -->
+    </div>
+    <nav class="cs-tab-group-nav" mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of tab" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
+    </nav>
+    <div class="doc-preview-comment-box">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- <ng-template #unselectedDoc>
+      <div class="mt-file">
+        <div class="img-container">
+          <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+        </div>
+        <div class="text-content">
+          <span>
+            សូមជ្រើសរើសឯកសារដើម្បីពិនិត្យ
+          </span>
+        </div>
+      </div>
+    </ng-template> -->
+</div>
+<ng-template #noPermissionTemplate>
+  <app-document-assess-denied></app-document-assess-denied>
+</ng-template>

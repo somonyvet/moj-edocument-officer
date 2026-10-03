@@ -1,0 +1,80 @@
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+@media print {
+  html,body {
+    background: #fff !important;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .c-header .c-h-item p {
+    text-align: center;
+    margin: 0 !important;
+  }
+  .p-header .row-item .f-item .f-input {
+    border-bottom: 1px dotted #000 !important;
+    flex: 1 !important;
+    /* background-color: red; */
+  }
+  .p-header .row-item .f-item .f-input.wM {
+    width: unset !important;
+    display: inline-flex;
+    flex: 1 !important;
+  }
+  .p-header .row-item .f-item {
+    /* background-color: red; */
+  }
+  .p-header .c-note.dfe {
+    text-align: center;
+    justify-content: center !important;
+  }
+  .qr-info-pr{
+    width: 100% !important;
+    /* background-color: #fafafa; */
+  }
+  .qr-info-pr tr td.has-border-bottom {
+    border-bottom: 1px dotted #333 !important;
+  }
+  .qr-info-pr .tlt{
+    width: 80px!important;
+
+  }
+  /* .print-page {
+        width: 100%;
+        margin: 0;
+        float: none;
+        display: block;
+    }
+    .sheet {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        page-break-after: always;
+    }
+    .sheet-content {
+        width: 100%;
+        padding: 20mm;
+        page-break-after: always;
+    }
+    .page-break {
+        height: 20px;
+        page-break-before: always;
+        margin: 0;
+        border-top: none;
+    } */
+  @page {
+    /* size: 72.07mm 199.99mm; */
+    margin: 1.5mm;
+    /* margin-top: 29px;
+    margin-bottom: 29px; */
+  }
+}

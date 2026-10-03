@@ -1,0 +1,737 @@
+<mat-progress-bar mode="determinate" [value]="storage?.uploadPercent|async" *ngIf="storage?.startUpload"
+  class="task-loading">
+</mat-progress-bar>
+<div class="doc-form-wrapper mdoc-form-wrapper" *mobxAutorun style="padding:0 40px;">
+  <div class="doc-form-wrap-content" style="overflow: hidden;">
+    <div class="doc-form-container" style="margin-top: 0;">
+      <div class="doc-form-block">
+        <div style="display: flex; overflow-y: auto; max-width: calc(100vw - 80px);">
+          <div class="doc-form-item-attachment mdoc-form-item" style="width: 100%; min-width: max-content;">
+            <div class="doc-sticky-action">
+              <ng-container *ngFor="let item of headerDocItem">
+                <button mat-button mat-icon-button (click)="addNewHeaderGroup(item)" matTooltipClass="tooltipClass"
+                  [matTooltip]="item?.name" [matTooltipPosition]="'below'">
+                  <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+                </button>
+              </ng-container>
+              <div class="line-seperator"></div>
+              <ng-container *ngFor="let item of bodyDocItem">
+                <button mat-button mat-icon-button (click)="addNewSessionGroup(item)" matTooltipClass="tooltipClass"
+                  [matTooltip]="item?.name" [matTooltipPosition]="'below'">
+                  <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+                </button>
+              </ng-container>
+              <div class="line-seperator"></div>
+              <ng-container *ngFor="let item of footerDocItem">
+                <button mat-button mat-icon-button (click)="addNewFooterGroup(item)" matTooltipClass="tooltipClass"
+                  [matTooltip]="item?.name" [matTooltipPosition]="'below'">
+                  <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; max-height: calc(100vh - 80px); overflow: auto; max-width: calc(100vw - 80px);">
+          <div class="doc-form-item form-wrapper" [formGroup]="form">
+            <div class="doc-template-wrapper" id="doc-template-wrapper">
+              <div class="doc-template-page">
+                <div class="doc-template-row">
+                  <div class="bl-title-left">
+                    <p>{{auth?.selectedCompany?.name}}</p>
+                    <ng-container
+                      *ngFor="let item of store?.headerDocument?.workplaces|filterData:'requestApproved':true;">
+                      <p>{{item.name}}</p>
+                    </ng-container>
+                    <p>លេខ៖ {{Item?.documentNo}}</p>
+                    <p class="star">3</p>
+                  </div>
+                  <div class="bl-space"></div>
+                  <div class="bl-title-right">
+                    <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star">3</p>
+                  </div>
+                </div>
+
+                <div class="doc-template-row">
+                  <div class="doc-form-content">
+                    <div class="form-group">
+                      <div class="editor">
+                        <ckeditor (blur)="onTitleBlur($event)" [config]="{
+                                                        toolbar:config.toolbar,
+                                                        fontSize:config.fontSize,
+                                                        fontFamily:config.fontFamily,
+                                                        table:config.table,
+                                                        placeholder: 'បញ្ចូលចំណងជើង.....'}" [editor]="Editor" data=""
+                          formControlName="documentTitle"></ckeditor>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="doc-template-row" #elReference
+                  *ngFor="let contentGroup of headerForm().controls;let i = index;" [formGroup]="contentGroup">
+                  <div class="doc-form-content" style="padding: 0;">
+                    <ng-container *ngIf="contentGroup.value.type.key === 0">
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key !== 0 && contentGroup.value.type.key !== 6">
+                      <div class="form-group">
+
+                        <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
+                          <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
+                                                        toolbar:lessToolConfig.toolbar,
+                                                        fontSize:lessToolConfig.fontSize,
+                                                        fontFamily:lessToolConfig.fontFamily,
+                                                        table:lessToolConfig.table,
+                                                        placeholder: contentGroup.value.type.placeholder
+                                                    }" [editor]="Editor" data="" formControlName="contentTitle">
+                          </ckeditor>
+                        </div>
+
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
+                                                        toolbar:config.toolbar,
+                                                        fontSize:config.fontSize,
+                                                        fontFamily:config.fontFamily,
+                                                        table:config.table,
+                                                        placeholder: contentGroup.value.type.placeholder
+                                                    }" [editor]="Editor" data="" formControlName="content"></ckeditor>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 6">
+
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
+                          <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
+                                                    toolbar:lessToolConfig.toolbar,
+                                                    fontSize:lessToolConfig.fontSize,
+                                                    fontFamily:lessToolConfig.fontFamily,
+                                                    table:lessToolConfig.table,
+                                                    placeholder: contentGroup.value.type.placeholder
+                                                }" [editor]="Editor" data="" formControlName="contentTitle"></ckeditor>
+                        </div>
+                        <div class="editor">
+                          <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div style="display: flex; align-items: center;">
+                          <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                            <span style="white-space: nowrap;">
+                              ស្ថាប័ន :
+                            </span>
+                          </div>
+                          <div>
+                            <span *ngFor="let item of contentGroup.value.office"
+                              style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.name}}
+                            </span>
+                          </div>
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentHeaderItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+
+
+                    </ng-container>
+
+
+
+                  </div>
+                  <div class="doc-form-action">
+                    <button mat-icon-button (click)="deleteHeaderGroup(i)">
+                      <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+
+                <div class="doc-template-row" #elReference
+                  *ngFor="let contentGroup of sessionForm().controls;let i = index;" [formGroup]="contentGroup">
+                  <div class="doc-form-content" style="padding:8px 0; background-color: #fafafa;">
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 9">
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                    toolbar:lessToolConfig.toolbar,
+                                                    fontSize:lessToolConfig.fontSize,
+                                                    fontFamily:lessToolConfig.fontFamily,
+                                                    table:lessToolConfig.table,
+                                                    placeholder: contentGroup.value.type.placeholder
+                                                }" [editor]="Editor" data="" formControlName="contentTitle"></ckeditor>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                          <div>
+                            <span *ngFor="let item of contentGroup.value.office"
+                              style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.office?.name}}
+                            </span>
+                          </div>
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 7 || contentGroup.value.type.key === 8">
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                    toolbar:lessToolConfig.toolbar,
+                                                    fontSize:lessToolConfig.fontSize,
+                                                    fontFamily:lessToolConfig.fontFamily,
+                                                    table:lessToolConfig.table,
+                                                    placeholder: contentGroup.value.type.placeholder
+                                                }" [editor]="Editor" data="" formControlName="contentTitle"></ckeditor>
+                        </div>
+                        <div class="sign-conent font-size18" style="width: 20px;line-height: 52px;">:
+                        </div>
+                        <div class="editor">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div style="display: flex; align-items: center;">
+                          <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                            <span style="white-space: nowrap;">
+                              កន្លែងអនុវត្ត :
+                            </span>
+                          </div>
+                          <div>
+                            <span *ngFor="let item of contentGroup.value.office"
+                              style="margin-right: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.office?.name}}
+                            </span>
+                          </div>
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 10">
+
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: 'កំណត់ចំណាំលើព័ត៌មានស្នើសុំ'
+                                                        }" [editor]="Editor" data="" formControlName="remark">
+                          </ckeditor>
+                        </div>
+                      </div>
+
+                      <div class="form-group" style="align-items: center;">
+                        <div class="editor" style="width: 168px; flex: none;">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                        toolbar:lessToolConfig.toolbar,
+                                                        fontSize:lessToolConfig.fontSize,
+                                                        fontFamily:lessToolConfig.fontFamily,
+                                                        table:lessToolConfig.table,
+                                                        placeholder: contentGroup.value.type.placeholder
+                                                    }" [editor]="Editor" data="" formControlName="contentTitle">
+                          </ckeditor>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                          <span
+                            style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                            {{contentGroup?.value?.office?.name}}
+                          </span>
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentSectionItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+
+                    </ng-container>
+                    <ng-container *ngIf="contentGroup.value.type.key === 11">
+                      <div class="form-group">
+                        <!-- <span style="white-space: nowrap; margin-top: 16px; margin-left: 6px;">
+                                                    {{contentGroup.value.type.name}} :
+                                                </span> -->
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 12">
+                      <div class="form-group">
+                        <div class="editor" style="width: 168px; flex: none;">
+                          <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
+                                                        toolbar:lessToolConfig.toolbar,
+                                                        fontSize:lessToolConfig.fontSize,
+                                                        fontFamily:lessToolConfig.fontFamily,
+                                                        table:lessToolConfig.table,
+                                                        placeholder: contentGroup.value.type.placeholder
+                                                    }" [editor]="Editor" data="" formControlName="contentTitle">
+                          </ckeditor>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                          <div>
+                            <span *ngFor="let item of contentGroup.value.office"
+                              style="margin-left: 8px;
+                                                        color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.office?.name}}
+                            </span>
+                          </div>
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        </div>
+
+                      </div>
+                    </ng-container>
+
+                  </div>
+                  <div class="doc-form-action">
+                    <button mat-icon-button (click)="deleteSessionGroup(contentGroup.value, i)">
+                      <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="doc-template-row" #elReference
+                  *ngFor="let contentGroup of footerForm().controls;let i = index;" [formGroup]="contentGroup">
+                  <div class="doc-form-content" style="padding: 0;">
+                    <ng-container *ngIf="contentGroup.value.type.key === 15">
+                      <div class="doc-template-row">
+                        <div class="doc-form-content" style="padding:8px 0;">
+
+                          <div class="editor" id="{{'editor'+i}}">
+                            <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: '.....'
+                                                        }" [editor]="Editor" data="" formControlName="contentTitle">
+                            </ckeditor>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="contentGroup.value.type.key === 14">
+                      <div class="doc-template-row">
+                        <table class="doc-table-footer">
+                          <tr>
+                            <td>
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleLeft">
+                                  </ckeditor>
+                                </div>
+
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </td>
+                            <td>
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleRight">
+                                  </ckeditor>
+                                </div>
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 13">
+                      <div class="doc-template-row">
+                        <table class="doc-table-footer">
+                          <tr>
+                            <td style="border:none;">
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleLeft">
+                                  </ckeditor>
+                                </div>
+
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </td>
+                            <td style="border: none;">
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleRight">
+                                  </ckeditor>
+                                </div>
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 16">
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                        toolbar:config.toolbar,
+                                                        fontSize:config.fontSize,
+                                                        fontFamily:config.fontFamily,
+                                                        table:config.table,
+                                                        placeholder: contentGroup.value.type.placeholder
+                                                    }" [editor]="Editor" data="" formControlName="content"></ckeditor>
+                        </div>
+                      </div>
+                    </ng-container>
+
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 17">
+                      <div class="doc-template-row">
+                        <table class="doc-table-footer">
+                          <tr>
+                            <td style="border:none;">
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleLeft">
+                                  </ckeditor>
+                                </div>
+
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </td>
+
+                            <td style="border:none;">
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleCenter">
+                                  </ckeditor>
+                                </div>
+
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByCenterBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByCenterBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByCenterBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+
+
+                              </div>
+                            </td>
+
+                            <td style="border: none;">
+                              <div class="tb-title-text">
+                                <div class="editor" id="{{'editor'+i}}">
+                                  <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                                        toolbar:config.toolbar,
+                                                                        fontSize:config.fontSize,
+                                                                        fontFamily:config.fontFamily,
+                                                                        table:config.table,
+                                                                        placeholder: '.....'
+                                                                    }" [editor]="Editor" data=""
+                                    formControlName="contentTitleRight">
+                                  </ckeditor>
+                                </div>
+                                <div class="form-group">
+                                  <div style="display: flex; align-items: center;">
+                                    <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                      <span style="white-space: nowrap;">
+                                        អ្នកចុះហត្ថលេខា
+                                      </span>
+                                    </div>
+                                    <div>
+                                      <span
+                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.last_name}}
+                                        {{
+                                        contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
+                                      </span>
+                                    </div>
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+
+                    </ng-container>
+
+                    <ng-container *ngIf="contentGroup.value.type.key === 18">
+                      <div class="form-group">
+                        <div class="editor" id="{{'editor'+i}}">
+                          <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                            toolbar:config.toolbar,
+                                                            fontSize:config.fontSize,
+                                                            fontFamily:config.fontFamily,
+                                                            table:config.table,
+                                                            placeholder: contentGroup.value.type.placeholder
+                                                        }" [editor]="Editor" data="" formControlName="content">
+                          </ckeditor>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                  </div>
+                  <div class="doc-form-action">
+                    <button mat-icon-button (click)="deleteFooterGroup(i)">
+                      <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="doc-template-row" *ngIf="store?.documentDataDoc"
+                  style="justify-content: flex-end; padding-right: 30px;">
+                  <ngx-kjua [text]="store?.documentDataDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+                    [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+                    [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'GDI'"
+                    [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+                  </ngx-kjua>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

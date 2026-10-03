@@ -1,0 +1,38 @@
+<form [formGroup]="form" class="dialog-wrapper">
+    <div class="dialog-header">
+        <div class="title">
+            {{title}}
+        </div>
+        <div class="flex1"></div>
+        <a mat-button mat-icon-button mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-content">
+            <div class="column" style="width: 100%;" *ngIf="!loading else loadingTmp;">
+                <strong>ត្រីមាស</strong>
+                <mat-selection-list formControlName="quater" #shoes>
+                    <mat-list-option checkboxPosition="before" [value]="item" *ngFor="let item of quaterItems">
+                        <div class="rows">
+                            <strong>{{item?.name}}</strong><span style="margin-left: 3px;">({{item?.monthText}})</span>
+                        </div>
+                    </mat-list-option>
+                </mat-selection-list>
+                <mat-error *ngIf="form.controls['quater'].hasError('required')">
+                    ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+                </mat-error>
+            </div>
+        </div>
+        <ng-template #loadingTmp>
+            <app-spinner></app-spinner>
+        </ng-template>
+    </div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <a mat-button mat-dialog-close type="button" class="enbutton cancel m-r16"
+            (click)="dialogRef.close('no')">បោះបង់</a>
+        <button mat-button type="submit" class="enbutton primary" (click)="_onSave(form?.value)"
+            color="warn">យល់ព្រម</button>
+    </div>
+</form>

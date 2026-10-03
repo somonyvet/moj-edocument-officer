@@ -1,0 +1,44 @@
+<ng-container *ngIf="!loading else treeLoading">
+    <form [formGroup]="formFilter" *ngIf="store?.quaters?.length>0 else emptyTree">
+        <div class="filter-group-form" >
+          <h5>ផែនការសកម្មភាព</h5>
+          <div class="farr-container" formArrayName="quarterPlaning">
+            <ng-container *ngFor="let item of formFilter?.get('quarterPlaning').controls; let i = index;" >
+              <ng-container [formGroupName]="i">
+                  <mat-checkbox  formControlName="isCheck">{{item?.get('name')?.value}}</mat-checkbox>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="filter-group-form">
+            <h5>ប្រភពថវិកា</h5>
+            <div class="farr-container" formArrayName="budget">
+              <ng-container *ngFor="let item of formFilter?.get('budget').controls; let i = index;" >
+                <ng-container [formGroupName]="i">
+                    <mat-checkbox formControlName="isCheck">{{item?.get('name')?.value}}</mat-checkbox>
+                </ng-container>
+              </ng-container>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="filter-group-form">
+            <h5>កម្រិតកម្មវិធី</h5>
+            <div class="farr-container col" formArrayName="programLevel">
+              <ng-container *ngFor="let item of formFilter?.get('programLevel').controls; let i = index;" >
+                <ng-container [formGroupName]="i">
+                  <mat-checkbox formControlName="isCheck">{{item?.get('name')?.value}}</mat-checkbox>
+                </ng-container>
+              </ng-container>
+            </div>
+        </div>
+    </form>
+    <ng-template #emptyTree>
+        <app-empty className="full-bx" img="../../../../../assets/images/empty-mail.svg"
+            name="ពុំមានទិន្នន័យត្រីមាសក្នុងផែនការប្រចាំឆ្នាំ"></app-empty>
+    </ng-template>
+</ng-container>
+<ng-template #treeLoading>
+    <app-skeleton-loader></app-skeleton-loader>
+</ng-template>

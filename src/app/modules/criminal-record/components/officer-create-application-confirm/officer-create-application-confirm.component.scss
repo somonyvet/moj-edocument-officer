@@ -1,0 +1,485 @@
+@import "./../../../../../assets/styles/variable.scss";
+
+.mat-checkbox-disabled.mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-disabled.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #1a73e8 !important;
+}
+
+.confirm-page {
+  padding: 40px 12px;
+}
+
+.confirm-card {
+  padding: 0 0 8px;
+}
+
+.confirm-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 28px 40px 22px !important;
+  border-bottom: 1px solid $border;
+
+  .confirm-header-icon {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $svgWash;
+    color: $primary;
+
+    .mat-icon {
+      font-size: 26px;
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .confirm-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+  }
+
+  h2 {
+    font-family: $appFontStrong;
+    font-size: 20px;
+    margin: 0;
+    color: $titleColor;
+  }
+
+  p {
+    margin: 0;
+    max-width: 620px;
+  }
+}
+
+.confirm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 24px 40px 28px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.txt-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $appFontStrong;
+  font-size: 16px;
+  font-weight: 700;
+  color: $titleColor;
+
+  .lbl-icon {
+    color: $primary;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.student-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 1.5px solid $border;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease;
+
+  &:hover {
+    border-color: $primary;
+  }
+
+  &.checked {
+    border-color: $primary;
+    background: $svgWash;
+  }
+
+  .student-toggle-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 2px;
+
+    strong {
+      font-size: 15px;
+      font-weight: 600;
+      color: $titleColor;
+      font-family: $appFontStrong;
+    }
+
+    span {
+      font-size: 13px;
+      color: $descColor;
+    }
+  }
+}
+
+.status-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: $appFontStrong;
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: $menuActiveColor;
+  color: $link;
+
+  .mat-icon {
+    flex: none;
+    font-size: 17px;
+    width: 17px;
+    height: 17px;
+  }
+
+  &.done {
+    background: rgba(11, 158, 67, 0.08);
+    color: $titleColor;
+
+    .mat-icon {
+      color: $green;
+    }
+  }
+
+  &.error {
+    background: #fdecea;
+    color: $titleColor;
+
+    .mat-icon {
+      color: $red;
+    }
+  }
+}
+
+.attachment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid $border;
+  font-size: 13.5px;
+  white-space: nowrap;
+  color: $titleColor;
+
+  ion-icon {
+    flex: none;
+    width: 17px;
+    height: 17px;
+    color: $red;
+  }
+
+  &.done {
+    border-color: rgba(11, 158, 67, 0.35);
+    background: rgba(11, 158, 67, 0.06);
+
+    ion-icon {
+      color: $green;
+    }
+  }
+}
+
+.urgency-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+::ng-deep .urgency-card.mat-radio-button {
+  flex: 1 1 160px;
+  border: 1.5px solid $border;
+  border-radius: 30px;
+  padding: 4px 18px 4px 6px;
+  transition: border-color .15s ease, background-color .15s ease;
+  cursor: pointer;
+
+  .mat-radio-label {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  &:hover {
+    border-color: $primary;
+    background: $svgWash;
+  }
+
+  &.mat-radio-checked {
+    border-color: $primary;
+    background: $svgWash;
+  }
+}
+
+.lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lang-card {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid $border;
+  border-radius: 10px;
+  padding: 10px 18px;
+  transition: border-color .15s ease, background-color .15s ease;
+
+  &.active {
+    border-color: $primary;
+    background: $svgWash;
+  }
+
+  &.locked ::ng-deep .mat-slide-toggle {
+    pointer-events: none;
+    opacity: .85;
+  }
+}
+
+.lang-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+}
+
+.lang-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  .lang-flag {
+    width: 28px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+    flex: 0 0 auto;
+  }
+
+  strong {
+    font-family: $appFontStrong;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .badge-required {
+    font-size: 11.5px;
+    color: $primary;
+    background: #fff;
+    border: 1px solid $primary;
+    border-radius: 20px;
+    padding: 2px 10px;
+    white-space: nowrap;
+  }
+}
+
+.amount-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.amount-label {
+  font-size: 14.5px;
+  color: $descColor;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid $border;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.stepper-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: $secondary;
+  color: $color;
+  cursor: pointer;
+
+  &:hover {
+    background: $menuActiveColor;
+    color: $primary;
+  }
+
+  mat-icon {
+    font-size: 17px;
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.stepper-input {
+  width: 48px;
+  border: none;
+  text-align: center;
+  font-size: 15px;
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.field-error {
+  color: $red;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.lang-hint {
+  margin: 0;
+  font-size: 13px;
+  color: $descColor;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.summary-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 13px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: $appsecendaryColor;
+  font-size: 15px;
+
+  mat-icon {
+    color: $primary;
+    flex: 0 0 auto;
+  }
+
+  strong {
+    margin-left: 4px;
+    color: $primary;
+  }
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(26, 115, 232, 0.5) !important;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: $primary !important;
+}
+
+.already-applied {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  background: rgba(11, 158, 67, 0.08);
+  color: $green;
+  font-family: $appFontStrong;
+
+  p {
+    margin: 0;
+    color: $titleColor;
+    font-size: 14.5px;
+  }
+}
+
+.confirm-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 40px;
+  border-top: 1px solid $border;
+
+  .flex1 {
+    flex: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .confirm-page {
+    padding: 20px 8px;
+  }
+
+  .confirm-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 20px 20px !important;
+
+    .confirm-header-text {
+      align-items: center;
+    }
+  }
+
+  .confirm-body {
+    padding: 20px 18px 22px;
+    gap: 22px;
+  }
+
+  .confirm-actions {
+    padding: 16px 18px;
+  }
+
+  .status-card,
+  .attachment-chip {
+    flex: 1 1 100%;
+  }
+
+  .urgency-group {
+    flex-direction: column;
+  }
+
+  ::ng-deep .urgency-card.mat-radio-button {
+    flex: 1 1 auto;
+  }
+
+  .lang-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .amount-row {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

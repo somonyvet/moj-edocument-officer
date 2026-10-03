@@ -1,0 +1,101 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+
+    <mat-dialog-content class="form-wrapper">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះបេសកកម្ម</mat-label>
+                <input formControlName="description" required matInput placeholder="ឈ្មោះបេសកកម្ម">
+                <mat-error *ngIf="form?.controls['description'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ថ្ងៃចាប់ផ្ដើម</mat-label>
+                <input formControlName="startDate" matInput required placeholder="ថ្ងៃចាប់ផ្ដើម"
+                    [max]="form?.controls['endDate']?.value" [matDatepicker]="startDatePicker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-error *ngIf="form?.controls['startDate'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>ថ្ងៃបញ្ចប់</mat-label>
+                <input formControlName="endDate" matInput placeholder="ថ្ងៃបញ្ចប់" required
+                    [min]="form?.controls['startDate']?.value" [matDatepicker]="endDatePicker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-error *ngIf="form?.controls['endDate'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>រយៈពេល</mat-label>
+                <input matInput placeholder="រយៈពេល" formControlName="duration"
+                    [value]="form?.controls['duration']+' ថ្ងៃ'">
+            </mat-form-field>
+        </div>
+        <!-- ======================================================================== -->
+
+        <div class=" doc-rows-form">
+            <div class="doc-rows-container">
+                <h1>ជ្រើសរើសមន្រ្តី</h1>
+                <form class="search-form" [formGroup]="form">
+                    <span class="material-icons">search</span>
+                    <input formControlName="search" placeholder="ស្វែងរកគណនី" type="text">
+                </form>
+                <h4>មន្រ្តី</h4>
+                <virtual-scroller #scrollAccount [items]="officer?.officers" itemSize="52" class="virtual-list">
+                    <div class="profile-avatar" *ngFor="let officer of scrollAccount?.viewPortItems">
+                        <img [src]="officer?.file?.downloadUrl||URL">
+                        <div class="pro-txt">
+                            <div>{{officer?.displayName}}</div>
+                            <div class="pro-txt-sub" *ngIf="officer?.currentTitle">{{officer?.currentTitle}}
+                                {{officer?.currentDepartment?.name}}</div>
+                        </div>
+                        <span class="material-icons" (click)="_onRemoveDocumentAccount(officer,false)"
+                            [ngClass]="checkIfOfficerExist(officer?.key,selectedOfficerArr)?'rm':'ra'">
+                            {{checkIfOfficerExist(officer?.key,selectedOfficerArr)?'remove_circle':'add_circle'}}
+                        </span>
+                    </div>
+                </virtual-scroller>
+            </div>
+        </div>
+        <div class="avatar-acc-add">
+            <div class="rows">
+                <h4 class="flex1">មន្ត្រីដែលបានជ្រើសរួច ({{selectedOfficerArr?.length}}នាក់)</h4>
+            </div>
+            <div class="avatar-list-pro">
+                <ng-container *ngFor="let user of selectedOfficerArr">
+                    <app-avatar-officer (onEdit)="_onEdit($event)" [borderColor]="true" [ownerProfile]="user"
+                        (onRemove)="_onRemoveDocumentAccount($event,true)" [removeStyle]="true">
+                    </app-avatar-officer>
+                </ng-container>
+            </div>
+            <mat-error *ngIf="selectedOfficerArr?.length===0 && showErr">
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកជ្រើសរើសយ៉ាងតិចមួយ។
+            </mat-error>
+        </div>
+
+        <!-- ======================================================================== -->
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form?.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

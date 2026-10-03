@@ -1,0 +1,25 @@
+.title-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  padding-bottom: 8px;
+  h3{
+    margin: 0;
+  }
+  .btn-add-create{
+    background-color: #eff2f5;
+  }
+}
+
+.btn-a-wrapper{
+  display: flex;
+  align-items: center;
+  .avatar-vt-item{
+    flex: 1;
+  }
+}
+
+.listing-header{
+  padding-top: 0;
+}

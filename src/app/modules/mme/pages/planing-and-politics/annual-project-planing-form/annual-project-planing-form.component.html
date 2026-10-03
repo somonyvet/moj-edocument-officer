@@ -1,0 +1,167 @@
+<form [formGroup]="form" class="dialog-wrapper">
+    <div class="dialog-header">
+        <div class="title">
+            {{title}}
+        </div>
+        <div class="flex1"></div>
+        <a mat-button mat-icon-button mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-wrapper" [ngClass]="disabledForm?'txt-color':''">
+            <ng-container *ngIf="!loading else loadingTmp">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>ត្រីមាស</mat-label>
+                        <mat-select (selectionChange)="_onOptionSelected($event)" #inputRef cdkFocusInitial
+                            matInputAutofocus formControlName="quater" required>
+                            <mat-option *ngFor="let item of store?.quaters" [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls['quater'].hasError('required')">
+                            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>អង្គភាព</mat-label>
+                        <input [matAutocomplete]="autoCommune" formControlName="department" matInput
+                            placeholder="អង្គភាព">
+                        <mat-autocomplete (optionSelected)="optionSelectedWorkplace($event)"
+                            [displayWith]="ds.displayFn" #autoCommune="matAutocomplete">
+                            <mat-option *ngFor="let item of filterDepartment | async;let i=index" [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message" *ngIf="form.controls['department'].hasError('validKey')">
+                            <div>សូមជ្រើសរើសព័ត៌មានដែលបង្ហាញតារាង។</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['department'].hasError('required')">
+                            សូមបំពេញព័ត៌មានក្នុងប្រអប់។ ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <ng-container *ngIf="!loadingForm">
+                    <!-- <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>សូចនាកររំពឹងទុក{{form?.value?.quater?.name}}</mat-label>
+                            <textarea cdkTextareaAutosize required formControlName="indicator" matInput
+                                [placeholder]="'សូចនាកររំពឹងទុក' + form?.value?.quater?.name"></textarea>
+                            <mat-error *ngIf="creds?.get('indicator')?.hasError('required')">
+                                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                            </mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+                    <div class="form-arr remark-indicator" formArrayName="remark_indicator"
+                    *ngFor="let creds of form?.get('remark_indicator')?.controls; let i = index;">
+                      <div class="form-arr-item remark-indicator" [formGroupName]="i">
+                          <div class="action-container" >
+                            <div class="title"><h3>សូចនាករ និង គោលដៅ</h3></div>
+                            <a *ngIf="i>0" (click)="removeFormArr(i)" mat-icon-button mat-button>
+                              <mat-icon >close</mat-icon>
+                            </a>
+                          </div>
+                          <div class="form-group">
+                              <mat-form-field class="example-full-width" appearance="outline">
+                                  <mat-label>សូចនាកររំពឹងទុក{{form?.value?.quater?.name}}</mat-label>
+                                  <textarea cdkTextareaAutosize required="" formControlName="remark" matInput
+                                      [placeholder]="'សូចនាកររំពឹងទុក'+form?.value?.quater?.name"></textarea>
+                                  <mat-error *ngIf="creds?.get('remark')?.hasError('required')">
+                                      ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="form-group">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>គោលដៅ{{form?.value?.quater?.name}}</mat-label>
+                                <textarea cdkTextareaAutosize required="" formControlName="indicator" matInput
+                                    [placeholder]="'គោលដៅ'+form?.value?.quater?.name"></textarea>
+                                <mat-error *ngIf="creds?.get('indicator')?.hasError('required')">
+                                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                                </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="action-container" *ngIf="i===(form.get('remark_indicator')['controls']?.length)-1">
+                            <div></div>
+                            <a class="mat-btn-n" (click)="addFormArrayItem('remark_indicator');" mat-button>
+                              <span>
+                                បន្ថែមសូចនាករនិងគោលដៅ
+                              </span>
+                            </a>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="form-arr" formArrayName="credentials"
+                        *ngFor="let creds of form.get('credentials')['controls']; let i = index;trackBy:trackFn">
+                        <div class="form-arr-item" [formGroupName]="i">
+                            <h4>{{creds?.get('name').value}}</h4>
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>បរិយាយសកម្មភាព</mat-label>
+                                    <textarea cdkTextareaAutosize required="" formControlName="remark" matInput
+                                        placeholder="បរិយាយសកម្មភាព"></textarea>
+                                    <mat-error *ngIf="creds?.get('remark')?.hasError('required')">
+                                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group" *ngIf="data?.parent?.budgetProviderMMF">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>គម្រោងចំណាយ (MMF) លានរៀល</mat-label>
+                                    <input required matInput type="number" placeholder="គម្រោងចំណាយ (MMF) លានរៀល"
+                                        formControlName="budgetMMF_riel">
+                                    <mat-error *ngIf="creds?.get('budgetMMF_riel')?.hasError('required')">
+                                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="creds?.get('budgetMMF_riel')?.hasError('min')">
+                                        ចំនួនថវិកាតម្រូវឲ្យលោកអ្នកបញ្ចូលឱ្យធំជាងឬស្មើសូន្យ
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="form-group two" *ngIf="data?.parent?.budgetProviderMME">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>គម្រោងចំណាយ (MME) លានរៀល</mat-label>
+                                    <input required matInput type="number" placeholder="គម្រោងចំណាយ (MME) លានរៀល"
+                                        formControlName="budgetMMF_riel">
+                                    <mat-error *ngIf="creds?.get('budgetMME_riel')?.hasError('required')">
+                                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="creds?.get('budgetMME_riel')?.hasError('min')">
+                                        ចំនួនថវិកាតម្រូវឲ្យលោកអ្នកបញ្ចូលឱ្យធំជាងឬស្មើសូន្យ
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>គម្រោងចំណាយ (MME) ដុល្លារ</mat-label>
+                                    <input required matInput type="number" placeholder="គម្រោងចំណាយ (MME) ដុល្លារ"
+                                        formControlName="budgetMME_dollar">
+                                    <mat-error *ngIf="creds?.get('budgetMME_dollar')?.hasError('required')">
+                                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                                    </mat-error>
+                                    <mat-error *ngIf="creds?.get('budgetMME_dollar')?.hasError('min')">
+                                        ចំនួនថវិកាត្រូវតែធំជាងសូន្យ
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-template #loadingTmp>
+                <app-skeleton-loader></app-skeleton-loader>
+            </ng-template>
+        </div>
+    </div>
+    <mat-progress-bar mode="indeterminate" *ngIf="process || loadingForm">
+    </mat-progress-bar>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <a mat-button mat-dialog-close type="button" class="enbutton cancel m-r16"
+            (click)="dialogRef.close('no')">បោះបង់</a>
+        <button class="submit-btn" *ngIf="!disabledForm" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </div>
+</form>

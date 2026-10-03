@@ -1,0 +1,36 @@
+<div class="cs-share-link-form">
+    <mat-list role="list" class="share-detail">
+        <mat-list-item role="listitem" class="share-detail-list">
+            <div class="detail-title">
+                Get link sharing
+                <p class="desc">anyone with the link can view/download</p>
+            </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="share-detail-list">
+            <mat-form-field class="full-width">
+                <ng-container *ngIf="msg?.type.key=='file'">
+                    <input matInput disabled value="{{msg?.downloadURL}}">
+                </ng-container>
+                <ng-container *ngIf="msg?.type.key=='folder'">
+                    <input matInput disabled value="{{url}}/{{msg?.key}}">
+                </ng-container>
+            </mat-form-field>
+        </mat-list-item>
+
+        <mat-divider style="margin-bottom: 24px;"></mat-divider>
+        <!-- <mat-list-item role="listitem" class="share-detail-list">
+            <button mat-button type="button" class="enbutton cancel m-r16" style="margin-bottom: 6px;"
+                (click)="addShareUser(item)">add user</button>
+        </mat-list-item> -->
+
+        <mat-divider style="margin-bottom: 24px;"></mat-divider>
+
+        <!-- <div class="search-footer" style="text-align: right;">
+            <button mat-dialog-close type="button" class="enbutton cancel m-r16" mat-button
+                (click)="onClose()">Cancel</button>
+            <app-primary-button (onPress)="onSave(form.value,true)" [process]="processNew" label="Search">
+            </app-primary-button>
+        </div> -->
+    </mat-list>
+
+</div>

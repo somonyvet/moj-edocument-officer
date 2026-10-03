@@ -1,0 +1,98 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <!-- <div class="listing-header row">
+                <h4>{{title}}</h4>
+            </div> -->
+      <div class="listing-header row">
+        <!-- <h4>{{title}}</h4> -->
+        <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+          aria-label="Example icon-button with a menu">
+          <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menuPeriod="matMenu">
+          <div class="options-lags" (click)="$event.stopPropagation();">
+            <app-report-filter-period reportType='thai-travel-in-out'>
+            </app-report-filter-period>
+          </div>
+        </mat-menu>
+
+        <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuByPost"
+          aria-label="Example icon-button with a menu">
+          <span>{{'ជ្រើសរើសប៉ុស្តិ' }}</span>
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menuByPost="matMenu">
+          <div class="options-lags" (click)="$event.stopPropagation();">
+            <app-report-filter-by-post reportType='thai-travel-in-out'>
+            </app-report-filter-by-post>
+          </div>
+        </mat-menu>
+
+        <div class="flex1"></div>
+
+        <button mat-button class="options-dashboard primary" (click)="print()">
+          <i class="material-icons">print</i>
+          <span>បោះពុម្ព</span>
+        </button>
+
+        <button mat-button class="options-dashboard primary" (click)="exportExcel()">
+          <i class="material-icons">get_app</i>
+          <span>ទាញយកឯកសារជា EXCEL</span>
+        </button>
+      </div>
+      <ng-container *ngIf="!loading else loader">
+        <ng-container>
+          <div class="doc-ls-items center new ">
+            <!-- <div class="charts">
+              <ngx-charts-pie-chart [view]="viewpie" [scheme]="colorScheme" [results]="single" [legend]="showLegend"
+                [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient">
+              </ngx-charts-pie-chart>
+              <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                (select)="onSelect($event)">
+              </ngx-charts-bar-vertical>
+              <ngx-charts-bar-vertical-2d [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient"
+                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                (select)="onSelect($event)">
+              </ngx-charts-bar-vertical-2d>
+            </div> -->
+
+
+            <app-statistic-chart-view [summaryChartDataSource]="options" [summaryChartDataSource2]="options"
+              [summaryChartDataSource3]="store?.summaryChartDataSource3"
+              [summaryChartDataSource4]="store?.summaryChartDataSource4"
+              [summaryChartDataSource5]="store?.summaryChartDataSource5"
+              [summaryChartDataSource6]="store?.summaryChartDataSource6"
+              [summaryChartDataSource7]="store?.summaryChartDataSource7"
+              [summaryChartDataSource8]="store?.summaryChartDataSource8" [organizationChartDataSource]="options"
+              [organizationChartDataSource2]="store?.organizationChartDataSource2"
+              [organizationChartDataSource3]="store?.organizationChartDataSource3"
+              [organizationChartDataSource4]="store?.organizationChartDataSource4"
+              [organizationChartDataSource5]="store?.organizationChartDataSource5"
+              [organizationChartDataSource6]="store?.organizationChartDataSource6"
+              [organizationChartDataSource7]="store?.organizationChartDataSource7" [chartName]="title"
+              [selectedOrganization]="store?.selectedOrganization" [data]="store?.statisticData">
+            </app-statistic-chart-view>
+
+          </div>
+        </ng-container>
+
+      </ng-container>
+      <ng-template #loader>
+        <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <!-- <div class="main-r">
+    <router-outlet></router-outlet>
+  </div> -->
+</div>

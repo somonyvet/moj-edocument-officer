@@ -1,0 +1,42 @@
+<div class="approval-progress-wrapper" *ngIf="steps?.length > 0; else emptyFlow">
+  <div class="header-wrapper">
+    <h3 class="header-title">ចរន្តឯកសារ</h3>
+    <app-status-pill *ngIf="isFullyApproved" [status]="APPROVED_STATUS" label="អនុម័តរួចរាល់"></app-status-pill>
+  </div>
+  <div class="approval-progress">
+    <div class="approval-step" *ngFor="let step of steps; let last = last" [ngClass]="step.status">
+      <div class="step-line">
+        <div class="step-dot">
+          <mat-icon *ngIf="step.status === 'approved'">check</mat-icon>
+          <mat-icon *ngIf="step.status === 'pending'">schedule</mat-icon>
+          <span *ngIf="step.status === 'waiting'">{{step.flowNo}}</span>
+        </div>
+        <div class="step-connector" *ngIf="!last"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title" [attr.title]="step.departmentName">{{step.departmentName || '---'}}</div>
+        <ng-container *ngIf="step.status === 'approved'">
+          <div class="step-officer">
+            <img class="officer-photo" [src]="step.approvedBy?.photoUrl"
+              [attr.alt]="step.approvedBy?.display_name || ''" (error)="handleImgError($event)">
+            <div class="officer-info">
+              <span class="officer-name" [attr.title]="step.approvedBy?.display_name">
+                {{step.approvedBy?.display_name || '---'}}
+              </span>
+              <span class="step-sub muted" *ngIf="step.approvedAt">
+                {{step.approvedAt | date:'dd/MM/yyyy HH:mm'}}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="step-badge pending" *ngIf="step.status === 'pending'">កំពុងរង់ចាំការអនុម័ត</div>
+        <div class="step-badge waiting" *ngIf="step.status === 'waiting'">មិនទាន់ដល់វេន</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyFlow>
+  <div class="approval-empty">ពុំមានចរន្តលំហូរអនុម័តឯកសារ</div>
+</ng-template>

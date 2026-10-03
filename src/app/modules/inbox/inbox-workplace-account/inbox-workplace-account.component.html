@@ -1,0 +1,17 @@
+<!-- <div class="doc-preview doc-preview-btn" style="margin-top: 16px;">
+    <button mat-icon-button class="btn-ico">
+        <mat-icon class="mat-18">person_add</mat-icon>
+    </button>
+    <div class="doc-preview-info txt">
+        លោកអ្នកអាចបន្ថែមគណនីដើម្បីផ្ដល់សិទ្ធិលើការធ្វើរបាយការណ៍
+    </div>
+    <button mat-button class="mat-add-new" (click)="_onAccount()">
+        បន្ថែមគណនី
+    </button>
+</div> -->
+<div class="list-doc-items">
+    <ng-container *ngFor="let officerKey of store?.headerDocument?.receivedWorkplaceKeys">
+        <app-avatar-officer [workplace]="auth?.currentDepartment" class="app-avatar-officer" [officerKey]="officerKey">
+        </app-avatar-officer>
+    </ng-container>
+</div>

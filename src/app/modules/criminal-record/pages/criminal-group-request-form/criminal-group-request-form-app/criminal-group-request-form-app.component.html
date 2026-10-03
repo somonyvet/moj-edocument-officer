@@ -1,0 +1,93 @@
+<div class="main-panel">
+    <div class="main-l doc-list">
+        <div class="doc-in">
+            <div class="listing-header">
+                <div class="action-item">
+                    <h4>{{title}}</h4>
+                    <!-- <button mat-icon-button (click)="addGroup()" class="enbutton primary" matTooltip="បង្កើតក្រុម"
+                        matTooltipClass="tooltipClass">
+                        <mat-icon>add</mat-icon>
+                    </button> -->
+                    <div class="flex1"></div>
+                    <a (click)="addGroup()" matTooltip="បង្កើតក្រុម" matTooltipClass="tooltipClass" mat-button
+                        mat-icon-button class="mat-b-bg" style="display:grid;place-items:center; background: #e4e6eb;
+                        color: #111; margin-right: 15px;">
+                        <mat-icon class="mat-18">add</mat-icon>
+                    </a>
+                </div>
+
+                <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
+                </app-search-filter-box>
+                <nav mat-tab-nav-bar class="fire-tabs">
+                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+                </nav>
+            </div>
+            <ng-container *ngIf="!loading else loader">
+                <ng-container *ngIf="store?.data?.length>0 else emptyData">
+                    <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header" style="height: calc(100vh - 217px);"
+                        (vsEnd)="scrollHandler($event)">
+                        <div class="rows" *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+                            <a mat-button class="flex1 avatar-vt-item" [routerLink]="item?.key"
+                                routerLinkActive="active">
+                                <div class="avatar">
+                                    <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                                </div>
+                                <div class="av-vt-body">
+                                    <strong *ngIf="!item?.name">{{item?.last_name}} {{item?.first_name}}</strong>
+                                    <strong *ngIf="item?.name">{{item?.name}}</strong>
+                                    <div class="rows sub-text">
+
+                                        <span class="ct-text" *ngIf="item?.release_date">ថ្ងៃដកឯកសារ:
+                                            {{item?.release_date_kh}}</span>
+                                        <span class="ct-text" *ngIf="item?.phoneNumber">{{item?.phoneNumber}} ·
+                                            {{item?.current_nationality?.kh_nationality}} · {{item?.occupation}}</span>
+                                        <span *ngIf="item?.permanentAddress">រាជធានី/ខេត្ត
+                                            {{item?.permanentAddress?.province?.name}} ·
+                                            {{item?.application_type?.text}}</span>
+                                        <span>
+                                          <strong>{{item?.remark}}</strong>
+                                        </span>
+                                        <div class="amTimeAgo">
+                                            <ion-icon name="calendar-outline"></ion-icon>
+                                            <span matTooltipClass="tooltipClass"
+                                                [matTooltip]="item?.created_at?.toDate()| dateTime">{{item?.amTimeAgo}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="card-list-action" *ngIf="item?.status?.key<STATUS_OBJ?.APPROVED?.key">
+                                <a mat-icon-button matTooltip="ជ្រើស" matTooltipClass="tooltipClass"
+                                    [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </a>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item type="button" (click)="addGroup(item)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>កែប្រែ</span>
+                                    </button>
+                                    <button mat-menu-item type="button" (click)="deleteGroup(item)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>លុប</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+                        </div>
+                    </virtual-scroller>
+                </ng-container>
+
+            </ng-container>
+            <ng-template #loader>
+                <app-spinner></app-spinner>
+            </ng-template>
+            <ng-template #emptyData>
+                <div class="doc-ls-items center">
+                    <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="main-r">
+        <router-outlet></router-outlet>
+    </div>
+</div>

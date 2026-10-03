@@ -1,0 +1,440 @@
+<div *mobxAutorun>
+  <div class="nav-container" *ngIf="auth?.planing else emptyPublicProject">
+    <div class="nav-site-dock">
+      <div class="nav-docks">
+        <app-project-sidebar-head style="z-index: 999;"
+          [options]="sidebarHeaderOptions"
+          [selectedProject]="store?.selectedPlaning"
+          [list]="projectProgramList"
+          (onSelectedItem)="onSelectedSearchItem($event)"
+          (onSelectedYear)="onChangePlan($event)"
+        ></app-project-sidebar-head>
+        <div class="nav-dock-body">
+          <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of tabs" [queryParams]="store?.queryParams||null" [routerLink]="link.path"
+              routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+          </nav>
+          <router-outlet *ngIf="!loading else treeLoading"></router-outlet>
+          <ng-template #treeLoading>
+            <app-skeleton-loader></app-skeleton-loader>
+          </ng-template>
+        </div>
+        <div class="nav-dock-footer" *ngIf="!loading">
+          <div class="site-nav-button">
+            <a mat-button class="mat-btn-primary"
+              [ngClass]="store?.activities?.length>0 && store?.selectedPlaning?.key && store?.planing?.projectStatus?.key !== PROJECT_STATUS_OBJECT.COMPLETED?.key?'':'disabled'"
+              (click)="_onPublicAnnualProject()">
+              ដាក់ឲ្យលើកផែនការត្រីមាស
+            </a>
+            <div class="scb9dxdrList pad16">
+              <a mat-button class="scb9dxdrBox" [ngClass]="auth?.planing?.key?'':'disabled'"
+                [routerLink]="['/planing/' + auth?.planing?.key + '/na/draft/form']">
+                <div class="boxIcon">
+                  <mat-icon>edit_calendar</mat-icon>
+                </div>
+                <div class="boxTxt">
+                  បញ្ចូលកម្មវិធីក្នុងផែនការប្រចាំឆ្នាំ
+                </div>
+              </a>
+              <a mat-button class="scb9dxdrBox" (click)="create()">
+                <div class="boxIcon">
+                  <mat-icon>source</mat-icon>
+                </div>
+                <div class="boxTxt">
+                  បង្កើតផែនការប្រចាំឆ្នាំ
+                </div>
+              </a>
+              <a mat-button class="scb9dxdrBox" [routerLink]="['/apps/year-program']">
+                <div class="boxIcon">
+                  <mat-icon>newspaper</mat-icon>
+                </div>
+                <div class="boxTxt">
+                  ផែនការប្រចាំឆ្នាំ
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shadow-nav"></div>
+    </div>
+    <div class="nav-container-fill flex-c">
+      <div class="breadcrumb sticky-0">
+        <a mat-button mat-icon-button class="mat-btn-n"
+          [routerLink]="['/planing/annual-project/na/all']">
+          <mat-icon>home</mat-icon>
+        </a>
+        <a class="breadcrumb-item" *ngIf="store?.selectedActivityPlaning else emptyActivity">
+          <span>{{store?.selectedActivityPlaning?.name}}</span>
+        </a>
+        <ng-template #emptyActivity>
+          <a class="breadcrumb-item">
+            <span>ផែនការប្រចាំឆ្នាំ{{store?.selectedPlaning?.year}}</span>
+          </a>
+        </ng-template>
+      </div>
+      <ng-container *ngIf="!loadingActivities else tableLoading">
+        <ng-container *ngIf="store?.activities?.length > 0">
+          <div #scrollingBlock class="annual-table-wrapper w-h-100">
+            <virtual-scroller class="v-scroller" #scroll [items]="store?.activities"
+            [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true">
+            <table class="annual-table">
+                <thead #header>
+                    <tr>
+                      <ng-container *ngFor="let col of ANNUAL_PROJECT_COLUMNS">
+                        <th rowspan="4" *ngIf="col?.id !== 'mme';else mmeHeaderTemplate">
+                          {{col?.name}}
+                        </th>
+                        <ng-template #mmeHeaderTemplate>
+                          <ng-container *ngIf="(col?.key === 'MME') && isShowMME">
+                            <th rowspan="4">
+                              <div class="mme-header-template">
+                                <div class="r1">
+                                  {{col?.name}}
+                                </div>
+                                <div class="r2">
+                                  <div class="c1">
+                                    រៀល
+                                  </div>
+                                  <div class="split-line"></div>
+                                  <div class="c2">
+                                    ដុល្លារ
+                                  </div>
+                                </div>
+                              </div>
+                            </th>
+                          </ng-container>
+                          <ng-container *ngIf="(col?.key === 'MEF') && isShowMEF">
+                            <th rowspan="4">
+                              {{col?.name}}
+                            </th>
+                          </ng-container>
+                        </ng-template>
+                      </ng-container>
+                    </tr>
+                    <tr>
+                        <ng-container *ngFor="let item of store?.columnsDisplay">
+                            <ng-container *ngFor="let s1 of item?.subD1">
+                                <th colspan="10">
+                                    {{s1?.name}}
+                                </th>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <ng-container *ngFor="let item of store?.columnsDisplay">
+                            <ng-container *ngFor="let s1 of item?.subD1">
+                                <ng-container *ngFor="let s2 of s1?.subD2">
+                                    <th colspan="2">
+                                        {{s2?.name}}
+                                    </th>
+                                </ng-container>
+                                <th rowspan="2">
+                                    <div>
+                                        សរុបគម្រោងចំណាយ
+                                    </div>
+                                    <div>({{s1?.name}})</div>
+                                </th>
+                                <th rowspan="2">
+                                    <div>សូចនាកររំពឹងទុក</div>
+                                    <div>({{s1?.name}})</div>
+                                </th>
+                                <th rowspan="2">
+                                  <div>គោលដៅ</div>
+                                  <div>({{s1?.name}})</div>
+                                </th>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <ng-container *ngFor="let item of store?.columnsDisplay">
+                            <ng-container *ngFor="let s1 of item?.subD1">
+                                <ng-container *ngFor="let s2 of s1?.subD2">
+                                    <th *ngFor="let s3 of s2?.subD3">
+                                        {{s3.name}}
+                                    </th>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                </thead>
+
+                <tbody #container>
+                  <ng-container *ngFor="let doc of scroll.viewPortItems|filterProgramLevel:programLevelFilter">
+                    <tr
+                        [style.background-color]="doc?.category?.backgroundColor"
+                        [style.color]="doc?.category?.color">
+                        <ng-container *ngIf="doc?.level !== 4;else level4ProgramTemplate">
+                          <ng-container *ngFor="let col of ANNUAL_PROJECT_COLUMNS">
+                            <ng-container *ngIf="col?.key !== 'remark_indicator';else remarkIndicatorTemplate">
+                              <ng-container *ngIf="col?.key==='code' else projectTemp">
+                                <td>
+                                  <div [style.width]="col?.key==='code'?'150px':col?.width" class="max6-line">
+                                    <div class="rows">
+                                      <ng-container *ngIf="currentQuarter">
+                                        <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
+                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                                        <mat-icon>add</mat-icon>
+                                        </a>
+                                      </ng-container>
+                                      <ng-container *ngIf="currentQuarter">
+                                        <mat-icon class="icon-info" [ngClass]="doc?.planingSubmitted?'done':''">
+                                          {{doc?.planingSubmitted?'check_circle':'info'}}
+                                        </mat-icon>
+                                      </ng-container>
+                                      <span>{{doc[col?.key]}}</span>
+                                    </div>
+                                  </div>
+                                </td>
+                              </ng-container>
+
+                              <ng-template #projectTemp>
+                                <ng-container *ngIf="col?.key === 'MEF';else mmeBudgetTemplate1">
+                                  <td *ngIf="isShowMEF">
+                                      <div [style.width]="col?.width" class="max6-line">
+                                        <ng-container *ngIf="doc['sumBudgetMMF_riel']">
+                                          {{doc['sumBudgetMMF_riel']}} លានរៀល
+                                        </ng-container>
+                                      </div>
+                                  </td>
+                                </ng-container>
+
+                                <ng-template #mmeBudgetTemplate1 >
+                                  <ng-container *ngIf="col?.key === 'MME';else defaultProgramTemplate1">
+                                    <td *ngIf="isShowMME">
+                                      <div class="mme-budget-template">
+                                        <div [style.width]="col?.width" class="c1">
+                                          <ng-container *ngIf="doc['sumBudgetMME_riel']">
+                                            {{doc['sumBudgetMME_riel']}} លានរៀល
+                                          </ng-container>
+                                        </div>
+                                        <div class="split-line"></div>
+                                        <div [style.width]="col?.width" class="c2">
+                                          <ng-container *ngIf="doc['sumBudgetMME_dollar']">
+                                            {{doc['sumBudgetMME_dollar']}} ដុល្លារ
+                                          </ng-container>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </ng-container>
+                                </ng-template>
+
+                                <ng-template #defaultProgramTemplate1 >
+                                  <td>
+                                    <div style="display: flex; column-gap: 10px; align-items: center;height:100%">
+                                      <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
+                                        matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
+                                        mat-button mat-icon-button>
+                                        <mat-icon>open_in_new</mat-icon>
+                                      </a>
+                                      <div [style.width]="col?.width" class="max6-line">
+                                        {{doc[col?.key]}}
+                                      </div>
+                                    </div>
+                                  </td>
+                                </ng-template>
+                              </ng-template>
+                            </ng-container>
+                            <ng-template #remarkIndicatorTemplate>
+                              <td class="padding-0">
+                                <div class="remark-indicator-display">
+                                  <div class="item-wraper" *ngFor="let item of doc[col?.key]">
+                                    <div style="width: 300px;" class="max3-line">
+                                      <ng-container *ngIf="col?.id === 'indicator';else remarkTemplate1">
+                                        <strong>{{item?.indicator}}</strong>
+                                      </ng-container>
+                                      <ng-template #remarkTemplate1>
+                                        <strong>{{item?.remark}}</strong>
+                                      </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-template>
+                          </ng-container>
+                        </ng-container>
+
+                        <ng-template #level4ProgramTemplate>
+                          <ng-container *ngFor="let col of ANNUAL_PROJECT_COLUMNS">
+                            <ng-container *ngIf="col?.key !== 'remark_indicator';else remarkIndicatorTemplate1">
+                              <ng-container *ngIf="col?.key==='code' else projectTemp1">
+                                <td>
+                                  <div [style.width]="col?.key==='code'?'150px':col?.width" class="max6-line">
+                                    <div class="rows">
+                                      <ng-container *ngIf="currentQuarter">
+                                        <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
+                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                                        <mat-icon>add</mat-icon>
+                                        </a>
+                                      </ng-container>
+                                      <ng-container *ngIf="currentQuarter">
+                                        <mat-icon class="icon-info" [ngClass]="doc?.planingSubmitted?'done':''">
+                                          {{doc?.planingSubmitted?'check_circle':'info'}}
+                                        </mat-icon>
+                                      </ng-container>
+                                      <span>{{doc[col?.key]}}</span>
+                                    </div>
+                                  </div>
+                                </td>
+                              </ng-container>
+                              <ng-template #projectTemp1>
+                                <ng-container *ngIf="col?.key === 'MEF';else mmeBudgetTemplate1">
+                                  <td *ngIf="isShowMEF">
+                                      <div [style.width]="col?.width" class="max6-line">
+                                        <ng-container *ngIf="doc['sumBudgetMMF_riel']">
+                                          {{doc['sumBudgetMMF_riel']}} លានរៀល
+                                        </ng-container>
+                                      </div>
+                                  </td>
+                                </ng-container>
+                                <ng-template #mmeBudgetTemplate1 >
+                                  <ng-container *ngIf="col?.key === 'MME';else defaultProgramTemplate1">
+                                    <td *ngIf="isShowMME">
+                                      <div class="mme-budget-template">
+                                        <div [style.width]="col?.width" class="c1">
+                                          <ng-container *ngIf="doc['sumBudgetMME_riel']">
+                                            {{doc['sumBudgetMME_riel']}} លានរៀល
+                                          </ng-container>
+                                        </div>
+                                        <div class="split-line"></div>
+                                        <div [style.width]="col?.width" class="c2">
+                                          <ng-container *ngIf="doc['sumBudgetMME_dollar']">
+                                            {{doc['sumBudgetMME_dollar']}} ដុល្លារ
+                                          </ng-container>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  </ng-container>
+                                </ng-template>
+                                <ng-template #defaultProgramTemplate1 >
+                                  <td>
+                                    <div style="display: flex; column-gap: 10px; align-items: center;height:100%">
+                                      <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
+                                        matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
+                                        mat-button mat-icon-button>
+                                        <mat-icon>open_in_new</mat-icon>
+                                      </a>
+                                      <div [style.width]="col?.width" class="max6-line">
+                                        {{doc[col?.key]}}
+                                      </div>
+                                    </div>
+                                  </td>
+                                </ng-template>
+                              </ng-template>
+                            </ng-container>
+                            <ng-template #remarkIndicatorTemplate1>
+                              <td class="padding-0">
+                                <div class="remark-indicator-display">
+                                  <div class="item-wraper" *ngFor="let item of doc[col?.key]">
+                                    <div style="width: 300px;" class="max3-line">
+                                      <ng-container *ngIf="col?.id === 'indicator';else remarkTemplate1">
+                                        <strong>{{item?.indicator}}</strong>
+                                      </ng-container>
+                                      <ng-template #remarkTemplate1>
+                                        <strong>{{item?.remark}}</strong>
+                                      </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </ng-template>
+                          </ng-container>
+                        </ng-template>
+
+                        <ng-container *ngFor="let item of doc?.projectPlaningData">
+                            <ng-container *ngFor="let s1 of item?.subD1">
+                                <ng-container *ngFor="let s2 of s1?.subD2">
+                                    <ng-container *ngFor="let s3 of s2?.subD3">
+                                        <td>
+                                            <div *ngIf="s3?.key==='name' else monthCodeTemp"
+                                                style="width: 250px;" class="max3-line">
+                                                {{doc?.category?.allowDoReport?s3?.name:''}}
+                                            </div>
+                                            <ng-template #monthCodeTemp>
+                                                <div *ngIf="doc?.category?.allowDoReport else budgetMonthDoc"
+                                                    style="width: 50px;">{{s3?.name}}</div>
+                                                <ng-template #budgetMonthDoc>
+                                                    {{s3?.totalBudgetMonth}}
+                                                </ng-template>
+                                            </ng-template>
+                                        </td>
+                                    </ng-container>
+                                </ng-container>
+                                <td>
+                                    <strong>{{s1?.budget}}</strong>
+                                </td>
+
+                                <td class="padding-0">
+                                  <div class="remark-indicator-display">
+                                    <ng-container *ngIf="doc?.category?.allowDoReport else quaterIndicatorTmp">
+                                      <div class="item-wraper" *ngFor="let item of s1?.name">
+                                        <div  style="width: 300px;"
+                                          class="max3-line">
+                                          <strong>{{item?.remark}}</strong>
+                                        </div>
+                                      </div>
+                                    </ng-container>
+                                    <ng-template #quaterIndicatorTmp>
+                                      <ng-container *ngFor="let items of doc?.planingSubmittedDisplay">
+                                        <div class="item-wraper" *ngFor="let item of items">
+                                          <div style="width: 300px;" class="max3-line">
+                                            <strong>{{item?.remark}}</strong>
+                                          </div>
+                                        </div>
+                                      </ng-container>
+                                    </ng-template>
+                                  </div>
+                                </td>
+                                <td class="padding-0">
+                                  <div class="remark-indicator-display">
+                                    <ng-container *ngIf="doc?.category?.allowDoReport else quaterIndicatorTmp">
+                                      <div class="item-wraper" *ngFor="let item of s1?.name">
+                                        <div  style="width: 300px;"
+                                          class="max3-line">
+                                          <strong>{{item?.indicator}}</strong>
+                                        </div>
+                                      </div>
+                                    </ng-container>
+                                    <ng-template #quaterIndicatorTmp>
+                                      <ng-container *ngFor="let items of doc?.planingSubmittedDisplay">
+                                        <div class="item-wraper" *ngFor="let item of items">
+                                          <div style="width: 300px;" class="max3-line">
+                                            <strong>{{item?.indicator}}</strong>
+                                          </div>
+                                        </div>
+                                      </ng-container>
+                                    </ng-template>
+                                  </div>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                  </ng-container>
+                </tbody>
+            </table>
+            <div style="height: 50px;"></div>
+            </virtual-scroller>
+          </div>
+        </ng-container>
+        <ng-template #emptyActivities>
+
+        </ng-template>
+      </ng-container>
+      <ng-template #tableLoading>
+        <app-spinner></app-spinner>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<ng-template #emptyPublicProject>
+  <div class="empty-center">
+    <img src="../../../assets/images/no_file_drive.svg">
+    <h4>ពុំមានផែនការប្រចាំឆ្នាំ ដាក់អោយលើកសំណើផែនការប្រចាំត្រីមាស</h4>
+    <p>លោកអ្នកត្រូវរង់ចាំនាយកដ្ឋានផែនការ ដាក់ផែនការប្រចាំឆ្នាំដែលបានអនុម័ត
+      ដើម្បីអោយលោកអ្នកលើកសំណើផែនការប្រចាំត្រីមាសដើម្បីអនុវត្ត</p>
+    <a mat-button class="enbutton primary" [routerLink]="['/planing/programs']"
+      *ngIf="auth?.currentDepartment?.planingOffice">
+      ផែនការប្រចាំឆ្នាំ
+    </a>
+  </div>
+</ng-template>

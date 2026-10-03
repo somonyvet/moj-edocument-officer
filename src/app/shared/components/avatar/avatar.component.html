@@ -1,0 +1,5 @@
+
+<img *ngIf="!loading else loadingImage" [src]="url" (error)="handleImgError($event, url)">
+<ng-template #loadingImage>
+    
+</ng-template>

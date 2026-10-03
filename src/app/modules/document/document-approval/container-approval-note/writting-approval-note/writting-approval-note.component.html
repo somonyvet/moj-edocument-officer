@@ -1,0 +1,69 @@
+<mat-dialog-content>
+  <div class="page-container">
+    <div class="page-doc" [formGroup]="form">
+
+      <!-- <mat-tab-group mat-align-tabs="start">
+      <mat-tab label="ជ្រើសរើស">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>ជ្រើសរើសពាក្យចំណារ</mat-label>
+            <mat-select [compareWith]="compareWithObj" formControlName="remark_officer">
+              <mat-option *ngFor="let item of remarkOfficer; let i = index" [value]="item"
+                (click)="selectedRemark(form.controls['remark_officer'])">
+                <div class="rows">
+                  <span>{{item?.remarkText}}</span>
+                </div>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls['remark_officer'].hasError('required')">
+              This field is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="សរសេរដោយដៃ">
+      </mat-tab>
+
+    </mat-tab-group> -->
+
+      <div class="form-group">
+
+        <mat-form-field appearance="outline">
+          <mat-label>ចំណារក្នុងប្រព័ន្ធ</mat-label>
+          <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteRanking"
+            formControlName="remark_officer" matInput placeholder="ជ្រើសរើសចំណារក្នុងប្រព័ន្ធ...">
+          <mat-autocomplete [displayWith]="displayName" #autoCompleteRanking="matAutocomplete"
+            (optionSelected)="selectedRemark($event)">
+            <mat-option *ngFor="let item of remarkOfficer | async;let i=index" [value]="item">
+              {{item?.remarkText}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error class="error-message" *ngIf="form.controls['remark_officer'].hasError('validKey')">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+          <mat-error *ngIf="form.controls['remark_officer'].hasError('required')">
+            This field is required.
+          </mat-error>
+        </mat-form-field>
+
+        <div style="margin-right: 6px;">
+          <button (click)="addRemarkText()" style="background-color: #e4e6eb; align-items: center; display: flex; justify-content: center;" class="mat-icon-button" mat-icon-button matTooltipClass="tooltipClass" matTooltip="បន្ដែមចំណារចូលប្រព័ន្ធ"
+            aria-label="Approvement Text">
+            <mat-icon class="mat-18">control_point</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>សរសេរចំណារ</mat-label>
+          <textarea (input)="getText(form.get('remark_text').value)" formControlName="remark_text" matInput
+            placeholder="សរសេរចំណារ..."></textarea>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+  </div>
+</mat-dialog-content>

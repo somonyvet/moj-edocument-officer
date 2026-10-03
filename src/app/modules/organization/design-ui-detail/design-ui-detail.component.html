@@ -1,0 +1,96 @@
+<!-- <mat-progress-bar class="app-loader" *ngIf="loading" mode="indeterminate"></mat-progress-bar> -->
+<div class="page-content">
+    <div class="top-bar">
+        <div class="pro-grid-header">
+            <div class="header-icon">
+                <div class="app-icon-app">
+         
+                </div>
+            </div>
+            <div class="d-info" style="min-width: 256px;">
+                <h1>
+                    ប៊ួ ហ៊
+                </h1>
+                <div>
+                    អាសយដ្ឋាន:  កំប៉ង់កើត | កន្ទឺ ២ | បាណន់ | បាត់ដំបង 
+                </div>
+                <div>
+                    <span>
+                        ក្រុមបក្សទី ៦
+                    </span>
+                </div>
+            </div>
+
+        </div>
+     
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">{{link.label}}</a>
+                <div class="flex1"></div>
+                <!-- <ng-container  *ngIf="auth?.profile | permission">
+                    <a mat-button class="enbutton flat" [routerLink]="['/families/' + store?.selectedFamily?.key+ '/form']">
+                        <mat-icon>edit</mat-icon>
+                        <span>កែព័ត៌មាន</span>
+                    </a>
+        
+                    <a class="enbutton flat" color="" mat-button (click)="onDeleteFamily(store?.selectedFamily)">
+                        <mat-icon>delete</mat-icon>
+                        <span>លុបចេញ</span>
+                    </a>
+        
+                    <a class="enbutton  flat" mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>attach_file</mat-icon>
+                        <span>ឯកសារគ្រួសារបក្ស</span>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <div class="upload-lists"
+                            style="display: flex; flex-direction: column; text-align: left; justify-content: flex-start; align-items: flex-start;">
+                            <button class="up-file" mat-button type="button" [disabled]="loading" (click)="fileInput1.click()">
+                                <mat-icon class="mat-18">book</mat-icon>
+                                <div>សៀវភៅស្នាក់នៅ</div>
+                                <input #fileInput1 #fileInput type="file" accept="image/*" multiple
+                                    (change)="onSelectedUploadFile($event, store?.selectedFamily, PARTY_DOC_TYPE.livingBook)"
+                                    style="display:none;" />
+                            </button>
+                            <button class="up-file" type="button" mat-button [disabled]="loading" (click)="fileInput2.click()">
+                                <mat-icon class="mat-18">import_contacts</mat-icon>
+                                <div>សៀវភៅគ្រួសារ</div>
+                                <input #fileInput2 #fileInput type="file" accept="image/*" multiple
+                                    (change)="onSelectedUploadFile($event, store?.selectedFamily, PARTY_DOC_TYPE.familyBook)"
+                                    style="display:none;" />
+                            </button>
+                            <button class="up-file" type="button" mat-button [disabled]="loading" (click)="fileInput3.click()">
+                                <mat-icon class="mat-18">home</mat-icon>
+                                <div>រូបថតផ្ទះ</div>
+                                <input #fileInput3 #fileInput type="file" accept="image/*" multiple
+                                    (change)="onSelectedUploadFile($event, store?.selectedFamily, PARTY_DOC_TYPE.homePhoto)"
+                                    style="display:none;" />
+                            </button>
+        
+                            <button class="up-file" type="button" mat-button [disabled]="loading" (click)="fileInput4.click()">
+                                <mat-icon class="mat-18">book</mat-icon>
+                                <div>សៀវភៅសមាជិកក្រុមបក្ស</div>
+                                <input #fileInput4 #fileInput type="file" accept="image/*" multiple
+                                    (change)="onSelectedUploadFile($event, store?.selectedFamily, PARTY_DOC_TYPE.groupPartyBook)"
+                                    style="display:none;" />
+                            </button>
+        
+                            <button class="up-file" type="button" mat-button [disabled]="loading" (click)="fileInput5.click()">
+                                <mat-icon class="mat-18">credit_card</mat-icon>
+                                <div>សៀវភៅសមាជិកគ្រួសារបក្ស</div>
+                                <input #fileInput5 #fileInput type="file" accept="image/*" multiple
+                                    (change)="onSelectedUploadFile($event, store?.selectedFamily, PARTY_DOC_TYPE.familyPartyBook)"
+                                    style="display:none;" />
+                            </button>
+                        </div>
+                    </mat-menu>
+                </ng-container> -->
+        </nav>
+    </div>
+    <!-- <div class="page-page-content doc-contenter" *ngIf="!loading">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+        <app-empty-data buttonText="" name="គ្មាន​ទិន្នន័យសមាជិកគ្រួសារបក្ស"
+            subtitle="សូមជ្រើសរើសគ្រួសារបក្សដើម្បីបង្ហាញព័ត៌មានលំអិត" *ngIf="!store?.selectedFamily && !importPage">
+        </app-empty-data>
+    </div> -->
+</div>

@@ -1,0 +1,43 @@
+<!-- <p>add-user-share works!</p>
+ <button mat-dialog-close type="button" class="enbutton cancel m-r16" mat-button
+                (click)="onClose()">Cancel</button> -->
+
+                <form [formGroup]="form" class="dialog-wrapper">
+                    <div class="dialog-header" style="   
+                    background: #F5F6F7;
+                    height: 41px;
+                    padding: 8px 16px;
+                    min-height: auto;">
+                        <div class="title" style="font-size: 14px;">
+                            Share to user
+                        </div>
+                        <div class="flex1"></div>
+                
+                    </div>
+                    <div class="dialog-content">
+                        <div class="form-wrapper">
+                                <div class="form-group">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>User</mat-label>
+                                        <input type="text" #focusInput placeholder="select user" aria-label="" matInput formControlName="user"
+                                            [matAutocomplete]="autoType">
+                                        <mat-autocomplete #autoType="matAutocomplete" [displayWith]="displayItem">
+                                            <mat-option *ngFor="let item of filteredStudentStates | async; let i=index" [value]="item">
+                                               <span>{{item?.full_name}} - {{item?.email}}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error class="error-message" *ngIf="form.controls['user'].hasError('validKey')">
+                                            <div>you can select from the list only</div>
+                                        </mat-error>
+                                    </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dialog-footer">
+                        <div class="flex1"></div>
+                        <a mat-dialog-close class="enbutton cancel m-r16" (click)="dialogRef.close('no')">Close</a>
+                        <button class="enbutton primary m-r16" [disabled]="!form.valid || store?.process"
+                            (click)="create(form.value)">Save</button>
+                    </div>
+                    <app-spinner *ngIf="store?.process"></app-spinner>
+                </form>

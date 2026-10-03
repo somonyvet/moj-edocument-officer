@@ -1,0 +1,35 @@
+<section class="probootstrap-section probootstrap-bg-white" data-section="Home">
+    <div class="container">
+        <!-- @*<div class="row"> -->
+            <!-- <div class="col-md-12 probootstrap-animate"> -->
+                <!-- <img src="/../../../assets/images/greenbit.jpg" /> -->
+            <!-- </div> -->
+        <!-- </div>*@ -->
+
+        <img [src]="dataImg" >
+
+        <div class="row">
+            <div class="col-md-6 probootstrap-animate">
+                <form method="post" class="probootstrap-form">						
+                    <!-- END row -->
+                    <div class="row">
+                        <div class="col-md-12 col-md-offset-0">
+                            <input type="button" style="background-color:blue;color:white;border:blue" name="submit" id="capture" value="Capture" class="btn btn-lg btn-primary btn-block" (click)="onCaptureFP()">
+                        </div>
+                    </div>
+                    <!-- <div class="row"> -->
+                        <!-- <div class="col-md-12" id="result"> -->
+                            
+                        <!-- </div> -->
+                    <!-- </div> -->
+                </form>
+            </div>
+        </div>
+        
+        <div class="row" id="result">
+            <div class="col-md-4 probootstrap-animate">
+                
+            </div>
+        </div>
+    </div>
+</section>

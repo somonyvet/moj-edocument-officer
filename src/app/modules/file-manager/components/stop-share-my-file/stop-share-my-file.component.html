@@ -1,0 +1,88 @@
+<form class="dialog-wrapper form-dialog-wrapper" *mobxAutorun>
+    <div class="dialog-header">
+        <div class="title">
+            Share file
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-wrapper file-form-container" [formGroup]="form">
+            <div class="file-share">
+                <div class="file-info-image">
+                    <i *ngIf="FILE?.type?.key===DRIVE_OBJ?.folder?.key" class="material-icons"
+                        [ngStyle]="{'color': FILE?.fileTag?.color?FILE?.fileTag?.color:'#1a73e8'}">folder</i>
+                    <img [src]="FILE|iconDrive:FILE" *ngIf="FILE?.type?.key===DRIVE_OBJ?.file?.key" />
+                </div>
+                <div class="file-name">
+                    <h4>{{FILE?.name}}</h4>
+                    <div class="detail-item" *ngIf="FILE?.type?.key==='file'">
+                        Size : {{FILE|fileSize}}</div>
+                    <div class="detail-item" *ngIf="FILE?.type?.key==='folder'">
+                        Size : {{totalSize|folderSize}}
+                    </div>
+                    <div class="detail-item">Last Modified: {{FILE?.updated_at?.toDate() | date:'medium'}}</div>
+                    <div class="detail-item">
+                        Modified by : {{FILE?.updated_by?.key===auth?.user?.uid?'me':FILE?.updated_by?.displayName}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group cl-fl">
+                <label class="mat-label">Permission</label>
+                <mat-radio-group class="file-mat-radio-group" aria-label="Select an option"
+                    formControlName="permission">
+                    <mat-radio-button [value]="item" *ngFor="let item of PERMISSION_OPTIONS">{{item?.text}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="form-group">
+                <mat-checkbox formControlName="pin">Pin on quick access</mat-checkbox>
+            </div>
+            <div class="form-group cl-fl">
+                <mat-checkbox (change)="onChanged($event)" formControlName="publicShare">Share as public</mat-checkbox>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Share with account</mat-label>
+                    <input [matAutocomplete]="autoBook" placeholder="Select user account" aria-label="" matInput
+                        #trigger="matAutocompleteTrigger" 
+                        formControlName="user">
+                    <mat-error *ngIf="form.controls['user'].hasError('required')">
+                        <div>This field is required.</div>
+                    </mat-error>
+                </mat-form-field>
+                <mat-autocomplete (optionSelected)="onSelectionChange($event,autoBook)" #autoBook="matAutocomplete" [displayWith]="displaySubjectName">
+                    <mat-option (click)="$event.stopPropagation(); trigger.openPanel()" *ngFor="let state of filteredUerStates | async" [value]="state">
+                        <div class="flex-box">
+                            <span class="flex1">{{state?.full_name}}</span>
+                            <span>{{state?.mobile_phone}}</span>
+                        </div>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            <div class="form-group">
+                <mat-chip-list aria-label="Fish selection" formControlName="member">
+                    <mat-chip *ngFor="let item of SELECTED_USER">
+                        {{item?.full_name}}
+                        <mat-icon matChipRemove (click)="onRemove(item)">cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <app-primary-button (onPress)="stopshare()" [disable]="!form.valid" [process]="store?.process"
+        label="Stop Share">
+    </app-primary-button>
+        <div class="flex-1"></div>
+        <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>Cancel</span></a>
+        <app-primary-button (onPress)="onSave(form.value)" [disable]="!form.valid" [process]="store?.process"
+            label="Share">
+        </app-primary-button>
+    </div>
+    <app-spinner *ngIf="store?.loading"></app-spinner>
+</form>

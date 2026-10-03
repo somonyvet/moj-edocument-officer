@@ -1,0 +1,462 @@
+<div class="scrolling-container">
+  <div class="eform-action-controls">
+    <div class="action-control-container">
+      <a mat-button mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <h4>១-ព័ត៌មានផ្ទាល់ខ្លួន</h4>
+      <div class="flex1"></div>
+      <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)"
+        [disable]="process || !form?.valid || !URL || dateOfPostOnInvalid || dateOfBirthInvalid || dateOfEntryPoliceWorkInvalid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+      </app-primary-button>
+    </div>
+  </div>
+  <div class="eform" [formGroup]="form">
+    <div class="head">
+      <div class="head-item">
+        <p class="feTitle felef  ">ក្រសួងមហាផ្ទៃ</p>
+        <p class="feTitle">អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+        <p class="feTitle felef ">នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
+      </div>
+      <div class="head-item">
+        <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+        <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+        <p class="star">3</p>
+        <div class="img-logo">
+          <img src="../../../../../assets/images/GCNP.png" alt="">
+        </div>
+        <p class="feTitle">សាលាកប័ត្រព័ត៌មាន</p>
+        <p class="feTitle">និងជីវប្រវត្តិមន្រ្តីនគរបាលជាតិ</p>
+      </div>
+      <div class="head-item">
+        <div class="profile-box" (click)="photoFile.click()">
+          <div *ngIf="!URL">
+            <p>រូបថត</p>
+            <p>៤x៦</p>
+            <br>
+            <p>ឯកសណ្ឋាន</p>
+            <p>នគរបាល‍ជាតិ</p>
+          </div>
+          <img *ngIf="URL" [src]="URL" />
+          <button mat-icon-button class="slp">
+            <mat-icon class="mat-18">photo_camera</mat-icon>
+          </button>
+
+        </div>
+        <ng-container *ngIf="!URL">
+          <div class="error-warning">
+            <span>
+              *ព័ត៌មាននេះតម្រូវឲ្យបំពេញ។
+            </span>
+          </div>
+        </ng-container>
+        <input #photoFile type="file" class="no-border" placeholder="" style="display: none;" accept='image/*'
+          (change)="onSelectedFile($event)">
+      </div>
+    </div>
+    <div class="body">
+      <div class="body-item">
+        <div class="row-item">
+
+          <div class="f-item" [ngClass]="form.get('last_name')?.errors&&form.get('last_name')?.touched?'has-error':''">
+            <span>គោត្តនាម<span class="star-req" *ngIf="form.get('last_name')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="last_name">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('first_name')?.errors&&form.get('first_name')?.touched?'has-error':''">
+            <span>នាម<span class="star-req" *ngIf="form.get('first_name')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="first_name">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('last_name_en')?.errors&&form.get('last_name_en')?.touched?'has-error':''">
+            <span>គោត្តនាម(អង់គ្លេស)<span class="star-req" *ngIf="form.get('last_name_en')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="last_name_en">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('first_name_en')?.errors&&form.get('first_name_en')?.touched?'has-error':''">
+            <span>នាម(អង់គ្លេស)<span class="star-req" *ngIf="form.get('first_name_en')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="first_name_en">
+          </div>
+        </div>
+        <div class="row-item">
+          <!-- <div class="f-item" [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
+            <span>ភេទ<span class="star-req" *ngIf="form.get('gender')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+            <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
+              <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                {{item?.text}}
+              </mat-option>
+            </mat-autocomplete>
+          </div> -->
+
+          <div class="f-item" [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
+            <span>ភេទ<span class="star-req" *ngIf="form.get('gender')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="autoGender">
+            <mat-autocomplete [displayWith]="ds?.displayTextOnly" #autoGender="matAutocomplete">
+              <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                {{item?.text}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+
+          <div class="f-item"
+            [ngClass]="form.get('nationality')?.errors&&form.get('nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិ<span class="star-req" *ngIf="form.get('nationality')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="nationality" [matAutocomplete]="autoNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <!-- <div class="f-item"
+            [ngClass]="form.get('dataOfBirth')?.errors&&form.get('dataOfBirth')?.touched?'has-error':''">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត<span class="star-req" *ngIf="form.get('dataOfBirth')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="dataOfBirth" [matDatepicker]="picker1"
+              (focus)="picker1.open()">
+            <mat-datepicker #picker1></mat-datepicker>
+          </div> -->
+          <div class="f-item">
+            <div class="inValid-date" *ngIf="dateOfBirthInvalid">
+              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+            </div>
+            <app-khmer-date-form-picker [class]="dateOfBirthInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+              (onSelectedItem)="onSelectedDateOfBirth($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត ថ្ងៃ'"
+              [day]="form.get('dateOfBirthDay')?.value||null" [month]="form.get('dateOfBirthMonth')?.value||null"
+              [year]="form.get('dateOfBirthYear')?.value||null" [disabled]="disableDate"></app-khmer-date-form-picker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('bd_province')?.errors&&form.get('bd_province')?.touched?'has-error':''">
+            <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត<span class="star-req"
+                *ngIf="form.get('bd_province')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
+            <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('bd_district')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_district"
+              [matAutocomplete]="autoGeoDistrictBD">
+            <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('bd_commune')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_commune"
+              [matAutocomplete]="autoGeoCommuneBD">
+            <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
+            <span>ភូមិ<span class="star-req" *ngIf="form.get('bd_village')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_village"
+              [matAutocomplete]="autoGeoVillageBD">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+
+          <div class="f-item">
+            <div class="inValid-date" *ngIf="dateOfEntryPoliceWorkInvalid">
+              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+            </div>
+            <app-khmer-date-form-picker
+              [class]="dateOfEntryPoliceWorkInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+              (onSelectedItem)="onSelectedDateOfEntryPoliceWork($event)" style="width:100%;"
+              [label]="'ថ្ងៃខែឆ្នាំចូលបម្រើនគរបាល ថ្ងៃ'" [day]="form.get('dateOfEntryPoliceWorkDay')?.value||null"
+              [month]="form.get('dateOfEntryPoliceWorkMonth')?.value||null"
+              [year]="form.get('dateOfEntryPoliceWorkYear')?.value||null" [disabled]="disableDate">
+            </app-khmer-date-form-picker>
+          </div>
+
+          <!-- <div class="f-item"
+            [ngClass]="form.get('dateOfEntryPoliceWork')?.errors&&form.get('dateOfEntryPoliceWork')?.touched?'has-error':''">
+            <span>ថ្ងៃខែឆ្នាំចូលបម្រើនគរបាល<span class="star-req"
+                *ngIf="form.get('dateOfEntryPoliceWork')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="dateOfEntryPoliceWork" [matDatepicker]="picker2"
+              (focus)="picker2.open()">
+            <mat-datepicker #picker2></mat-datepicker>
+          </div> -->
+          <!-- <div class="f-item"
+            [ngClass]="form.get('documentNumber')?.errors&&form.get('documentNumber')?.touched?'has-error':''">
+            <span>លេខឯកសារ<span class="star-req" *ngIf="form.get('documentNumber')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="documentNumber">
+          </div> -->
+          <!-- <div class="f-item"
+            [ngClass]="form.get('dateOfPostOn')?.errors&&form.get('dateOfPostOn')?.touched?'has-error':''">
+            <span>ថ្ងៃខែឆ្នាំចុះ<span class="star-req" *ngIf="form.get('dateOfPostOn')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="dateOfPostOn" [matDatepicker]="picker3"
+              (focus)="picker3.open()">
+            <mat-datepicker #picker3></mat-datepicker>
+          </div> -->
+          <!-- <div class="f-item">
+            <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDate($event)"
+            [label]="'ចុះថ្ងៃ'"
+            [day]="form.get('dateOfPostOn')?.value?.day||null"
+            [month]="form.get('dateOfPostOn')?.value?.month||null"
+            [year]="form.get('dateOfPostOn')?.value?.year||null"
+            ></app-khmer-date-form-picker>
+          </div> -->
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" style="width: 50%;"
+            [ngClass]="form.get('documentNumber')?.errors&&form.get('documentNumber')?.touched?'has-error':''">
+            <span>លេខឯកសារ<span class="star-req" *ngIf="form.get('documentNumber')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="documentNumber">
+          </div>
+          <div class="f-item">
+            <div class="inValid-date" *ngIf="dateOfPostOnInvalid">
+              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+            </div>
+            <app-khmer-date-form-picker [class]="dateOfPostOnInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+              (onSelectedItem)="onSelectedDateOfPostOn($event)" [label]="'ចុះ ថ្ងៃ'"
+              [day]="form.get('dateOfPostOnDay')?.value||null" [month]="form.get('dateOfPostOnMonth')?.value||null"
+              [year]="form.get('dateOfPostOnYear')?.value||null" [disabled]="disableDate"></app-khmer-date-form-picker>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('rank')?.errors&&form.get('rank')?.touched?'has-error':''">
+            <span>ឋានន្តរសក្តិ<span class="star-req" *ngIf="form.get('rank')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="rank" [matAutocomplete]="autoPosition">
+            <mat-autocomplete [displayWith]="ds?.displayName" #autoPosition="matAutocomplete">
+              <mat-option *ngFor="let item of positionList;let i=index" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+
+          <!-- <div class="f-item" [ngClass]="form.get('organization')?.errors&&form.get('organization')?.touched?'has-error':''">
+              <span>ស្ថាប័ន *</span>
+              <input class="f-input" type="text" formControlName="organization" [matAutocomplete]="autoOrganization">
+              <mat-autocomplete [displayWith]="ds.displayTextOnly" #autoOrganization="matAutocomplete">
+                  <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                      {{item?.text}}
+                  </mat-option>
+              </mat-autocomplete>
+            </div> -->
+          <div class="f-item" [ngClass]="form.get('position')?.errors&&form.get('position')?.touched?'has-error':''">
+            <span>មុខតំណែង<span class="star-req" *ngIf="form.get('position')?.invalid">*</span></span>
+            <!-- <input class="f-input" type="text" formControlName="position"> -->
+
+            <input class="f-input" type="text" formControlName="position" [matAutocomplete]="autoTitle">
+            <mat-autocomplete [displayWith]="ds?.displayName" #autoTitle="matAutocomplete">
+              <mat-option *ngFor="let item of titleList;let i=index" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('live_province')?.errors&&form.get('live_province')?.touched?'has-error':''">
+            <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត<span class="star-req"
+                *ngIf="form.get('live_province')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="live_province" [matAutocomplete]="autoGeoProvinceLive">
+            <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('live_district')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_district"
+              [matAutocomplete]="autoGeoDistrictLive">
+            <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('live_commune')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_commune"
+              [matAutocomplete]="autoGeoCommuneLive">
+            <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
+            <span>ភូមិ<span class="star-req" *ngIf="form.get('live_village')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_village"
+              [matAutocomplete]="autoGeoVillageLive">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('phoneNumber')?.errors&&form.get('phoneNumber')?.touched?'has-error':''">
+            <span>លេខទូរស័ព្ទ<span class="star-req" *ngIf="form.get('phoneNumber')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="phoneNumber">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-box">
+            <strong class="m-b-6">អត្តលេខមន្ត្រីនគរបាលជាតិ</strong>
+            <div class="f-item" [ngClass]="form.get('policeID')?.errors&&form.get('policeID')?.touched?'has-error':''">
+              <span>លេខ<span class="star-req" *ngIf="form.get('policeID')?.invalid">*</span></span>
+              <input class="f-input" type="text" formControlName="policeID">
+            </div>
+          </div>
+          <div class="f-box">
+            <strong class="m-b-6">អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ</strong>
+            <div class="f-item"
+              [ngClass]="form.get('policeCardID')?.errors&&form.get('policeCardID')?.touched?'has-error':''">
+              <span>លេខ<span class="star-req" *ngIf="form.get('policeCardID')?.invalid">*</span></span>
+              <input class="f-input" type="text" formControlName="policeCardID">
+            </div>
+          </div>
+          <div class="f-box">
+            <strong class="m-b-6">អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ</strong>
+            <div class="f-item"
+              [ngClass]="form.get(' ')?.errors&&form.get('nationalCardId')?.touched?'has-error':''">
+              <span>លេខ<span class="star-req" *ngIf="form.get('nationalCardId')?.invalid">*</span></span>
+              <input class="f-input" type="text" formControlName="nationalCardId">
+            </div>
+          </div>
+        </div>
+
+        <div class="title" style="padding: 0 80px; background-color: transparent;">
+          <h3>ឯកសារភ្ជាប់</h3>
+        </div>
+
+        <div class="row-item">
+          <div class="memo info">
+            <mat-icon>info</mat-icon>
+            <span>ឯកសារភ្ជាប់អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ
+              និងអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរតម្រូវឲ្យបញ្ចូលរូបថតពីខាងមុខនិងខាងក្រោយ។</span>
+          </div>
+        </div>
+        <div class="row-item">
+          <button mat-button class="mat-add-new btn-att" (click)="policeCartFile.click()">
+            <mat-icon>attach_file</mat-icon>
+            បញ្ចូលរូបថតអត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ
+          </button>
+          <div style="width:20px"></div>
+          <button mat-button class="mat-add-new btn-att" (click)="nationalIDFile.click()">
+            <mat-icon>attach_file</mat-icon>
+            បញ្ចូលរូបថតអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ
+          </button>
+          <input #policeCartFile type="file" class="no-border" accept='image/*,application/pdf,.pdf' placeholder=""
+            style="display: none;" (change)="onSelectedPoliceCardFile($event)" multiple>
+          <input #nationalIDFile type="file" class="no-border" accept='image/*,application/pdf,.pdf' placeholder=""
+            style="display: none;" (change)="onSelectedNationalIDFile($event)" multiple>
+        </div>
+
+        <div class="row-item cl-p" *ngIf="selectedPoliceCardFilesDB?.length>0 || selectedPoliceCardFiles?.length>0">
+          <span>រូបភាពអត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ</span>
+          <div class="g-box" style="margin-top:10px" *ngIf="selectedPoliceCardFilesDB?.length>0">
+            <div class="doc-b-img-items">
+              <div class="doc-b-img" *ngFor="let file of selectedPoliceCardFilesDB;let i = index">
+                <a mat-button mat-icon-button class="img-r-b" (click)="onRemoveFilePID_DB(file,i)">
+                  <mat-icon>close</mat-icon>
+                </a>
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+          <div class="g-box" style="margin-top:10px" *ngIf="selectedPoliceCardFiles?.length>0">
+            <div class="doc-b-img-items">
+              <div class="doc-b-img" *ngFor="let file of selectedPoliceCardFiles,let i = index">
+                <a mat-button mat-icon-button class="img-r-b" (click)="onRemoveFilePID(file,i)">
+                  <mat-icon>close</mat-icon>
+                </a>
+                <img [src]="file?.downloadUrl">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-item cl-p" *ngIf="selectedNationalIDFiles?.length>0 || selectedNationalIDFilesDB?.length>0">
+          <span>រូបភាពអត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ</span>
+          <div class="g-box" style="margin-top:10px" *ngIf="selectedNationalIDFilesDB?.length>0">
+            <div class="doc-b-img-items">
+              <div class="doc-b-img" *ngFor="let file of selectedNationalIDFilesDB;let i = index">
+                <a mat-button mat-icon-button class="img-r-b" (click)="onRemoveFileID_DB(file,i)">
+                  <mat-icon>close</mat-icon>
+                </a>
+                <img [src]="file?.downloadUrl">
+
+                <!-- <img *ngIf="file?.type === 'image'" [src]="file?.downloadUrl">
+                <a *ngIf="file?.type === 'application'" [href]="file?.downloadUrl" target="_blank">{{file?.name}}</a> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="g-box" style="margin-top:10px" *ngIf="selectedNationalIDFiles?.length>0">
+            <div class="doc-b-img-items">
+              <div class="doc-b-img" *ngFor="let file of selectedNationalIDFiles;let i = index">
+                <a mat-button mat-icon-button class="img-r-b" (click)="onRemoveFileID(file,i)">
+                  <mat-icon>close</mat-icon>
+                </a>
+                <img [src]="file?.downloadUrl">
+
+                <!-- <img *ngIf="file?.type === 'image'" [src]="file?.downloadUrl">
+                <a *ngIf="file?.type === 'application'" [href]="file?.downloadUrl" target="_blank">{{item?.name}}</a> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

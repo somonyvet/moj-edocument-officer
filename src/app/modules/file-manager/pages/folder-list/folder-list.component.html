@@ -1,0 +1,9 @@
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <app-list-items></app-list-items>
+    </mat-sidenav-content>
+    <mat-sidenav #sidenav [mode]="ismobile ? 'over' : 'side'" [position]="'end'"
+        class="content-side" [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
+        <app-file-info></app-file-info>
+    </mat-sidenav>
+</mat-sidenav-container>

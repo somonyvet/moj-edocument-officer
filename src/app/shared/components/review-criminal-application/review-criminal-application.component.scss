@@ -1,0 +1,75 @@
+@import '../../../../assets/styles/variable.scss';
+
+.form-no-padding{
+  padding: 0;
+  padding-left: 12px;
+  width: 360px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: $primary !important;
+  }
+
+  .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: $primary;
+   }
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: $primary !important;
+  }
+}
+
+
+.row-item{
+  display: flex;
+  gap: 26px;
+}
+
+.item-wrapper{
+  display: flex;
+  flex-direction: column;
+  // gap: 26px;
+  padding-left: 20px;
+  margin-top: 12px;
+}
+
+.row-item{
+  flex-direction: column;
+
+}
+.item-wrapper{
+  .row-item{
+    flex-direction: row;
+    align-items: center;
+    .item-lg{
+      padding-bottom: 1.34375em;
+      margin: .25em 0;
+      font-family: $appFont;
+      font-size: 16px;
+    }
+  }
+}
+.memo-green{
+  padding: 4px 18px;
+  width: 100%;
+  .container{
+    width: 100%;
+    color:white;
+    background-color: #1BC062;
+    border-radius: 6px;
+    font-family: $appFont;
+    font-size: 16px;
+    padding: 16px 24px;
+  }
+}
+
+.img-profile{
+  width:42px;
+  height:42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+

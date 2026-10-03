@@ -1,0 +1,221 @@
+<div class="cs-form-container">
+    <div class="form-wrapper" style="padding:33px 0;" id="print">
+        <div class="hd-row" style="padding:0 33px 16px 33px">
+            <h4 class="hd-title">{{title}}</h4>
+            <div class="flex-1"></div>
+            <ng-container *ngIf="data?.register_item_status && data?.register_item_status.order < 3 && !isHide">
+                <button mat-icon-button (click)="print()" style="margin-right: 8px;" matTooltip="Print">
+                    <mat-icon class="mat-18">print</mat-icon>
+                </button>
+                <button mat-icon-button
+                    *ngIf="data?.register_item_status && data?.register_item_status.order < 3"
+                    (click)="delete(data)" style="margin-right: 8px;" class="hideOnPrint" matTooltip="Delete">
+                    <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+                <button *ngIf="data?.register_item_status && data?.register_item_status.order < 3"
+                    mat-icon-button [routerLink]="link " style="margin-right: 8px;" class="hideOnPrint"
+                    matTooltip="Edit">
+                    <mat-icon class="mat-18">edit</mat-icon>
+                </button>
+            </ng-container>
+            <!-- <button mat-icon-button class="hideOnPrint" *ngIf="!isHide" (click)="print()"
+                style="margin-right: 8px;" matTooltip="Print">
+                <mat-icon class="mat-18">print</mat-icon>
+            </button> -->
+            <button mat-icon-button class="hideOnPrint" style="margin-right: 8px;" *ngIf="!isHide"
+                [routerLink]="link " matTooltip="Edit">
+                <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+            <!-- <button mat-icon-button class="hideOnPrint" matTooltip="app" (click)="sidenav.toggle()">
+                <mat-icon class="mat-18">insert_comment</mat-icon>
+            </button> -->
+        </div>
+        <div class="" style="padding: 33px" *ngIf="!store?.process" #content id="contentToConvert">
+            <ng-container *ngIf="collection == 'company'">
+                <div class="dl-items">
+                    <div class="dl-title"> Name (EN)</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.name_en?data?.name_en:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Name (KH)</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.name_kh?data?.name_kh:""}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dl-items">
+                    <div class="dl-title">Email</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.email?data?.email:""}}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="dl-items">
+                    <div class="dl-title">TIN No.</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.tin_no?data?.tin_no:""}}
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="dl-items">
+                    <div class="dl-title">English Address</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.address?data?.address:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Khmer Address</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.address_kh?data?.address_kh:""}}
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="dl-items">
+                    <div class="dl-title">Country</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.country | getReferenceObject:true : 'name' | async}}
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="dl-items">
+                    <div class="dl-title">Postal Code</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.postal_code?data?.postal_code:""}}
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="dl-items">
+                    <div class="dl-title">Phone Number</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.telephone_number?data?.telephone_number:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Fax Number</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.fax_number?data?.fax_number:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Status</div>
+                    <div class="dl-text">:
+                        <div class="data">{{data?.status?data?.status?.text:""}}</div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Last updated</div>
+                    <div class="dl-text">:
+                        <div class="data">{{data?.updated_at?.toDate()| date:'medium'}}</div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Updated by</div>
+                    <div class="dl-text">:
+                        <div class="data">{{data?.updated_by?.displayName}}</div>
+                    </div>
+                </div>
+                <!-- <div class="container" >
+                    <app-user-account [company]="store?.singleData">
+                    </app-user-account>
+                </div> -->
+            </ng-container>
+
+            <ng-container *ngIf="collection == 'users'">
+                <div class="dl-items">
+                    <div class="dl-title">Full name</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.full_name?data?.full_name:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Email</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.email?data?.email:""}}
+                        </div>
+                    </div>
+                </div>
+                <div class="dl-items">
+                    <div class="dl-title">Phone Number</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            {{data?.phone?data?.phone:""}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="dl-items">
+                    <div class="dl-title">Position</div>
+                    <div class="dl-text">
+                        :
+                        <div class="data">
+                            {{data?.position?data?.position:""}}
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="dl-items">
+                    <div class="dl-title">Company</div>
+                    <div class="dl-text">:
+                        <div class="data">
+                            <ng-container *ngIf="data && data?.company && data?.company?.length>0">
+
+                                <ng-container *ngFor="let f of data?.company; let i=index; let fs=first;">
+                                    <div>
+                                        {{f | getReferenceObject: fs : 'name_en'  | async}}
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div> -->
+            </ng-container>
+            <!-- <div class="dl-items">
+                <div class="dl-title">Status</div>
+                <div class="dl-text">:
+                    <div class="data">{{data?.status?data?.status?.text:""}}</div>
+                </div>
+            </div>
+            <div class="dl-items">
+                <div class="dl-title">Last updated</div>
+                <div class="dl-text">:
+                    <div class="data">{{data?.updated_at?.toDate()| date:'medium'}}</div>
+                </div>
+            </div>
+            <div class="dl-items">
+                <div class="dl-title">Updated by</div>
+                <div class="dl-text">:
+                    <div class="data">{{data?.updated_by?.displayName}}</div>
+                </div>
+            </div> -->
+            
+        </div>
+        <ng-container *ngIf="store?.process">
+            <div style="padding: 33px;">
+                <!-- <app-line-loading></app-line-loading> -->
+                <app-line-loading></app-line-loading>
+            </div>
+        </ng-container>
+    </div>
+</div>

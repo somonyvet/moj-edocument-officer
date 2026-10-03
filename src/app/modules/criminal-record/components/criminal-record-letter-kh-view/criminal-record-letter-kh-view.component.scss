@@ -1,0 +1,40 @@
+// the decree used to render inside a ckeditor editable; keep its box metrics so the
+// text lands in the same place on the pre-printed bulletin
+.decree-result-view {
+  padding: 0 10px;
+  font-size: 22px;
+  ::ng-deep p {
+    margin: 0;
+  }
+}
+
+// the number is written onto the pre-printed form: on screen it sits on a guide line,
+// on paper the line is already there
+.kh3-letter-no {
+  min-width: 160px;
+  margin: 0;
+  padding: 0 8px;
+  font-size: 22px;
+  border-bottom: 1px dotted #28803f;
+}
+
+.kh3-qr-pending {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  height: 173px;
+  width: 140px;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed #ced0d4;
+  border-radius: 6px;
+  color: #6b6c72;
+  font-size: 13px;
+  padding: 8px;
+}
+
+@media print {
+  .kh3-letter-no {
+    border-bottom: none;
+  }
+}

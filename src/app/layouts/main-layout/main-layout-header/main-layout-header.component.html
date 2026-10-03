@@ -1,0 +1,355 @@
+<nav class="app-navbar-header" aria-label="Top Toolbar" *mobxAutorun>
+  <div class="nav-left">
+    <a class="app-button brand" aria-label="GDI" [routerLink]="['/']">
+      <img [src]="auth?.APP_INFO?.system_logo" />
+      <div class="app-name">
+        <!-- <span>ប្រព័ន្ធអេកូឡូស៊ីនៃក្រសួងយុត្តិធម៌</span> -->
+        <span>{{auth?.APP_INFO?.name}}</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="center-menu-nav-big center-menu-nav" *ngIf="activeAccount && !auth?.dataEntryOnly && !auth?.recipient && !auth?.isEmbassyUser">
+    <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស"
+      (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/applications']"
+      routerLinkActive="active" #criminalTab="routerLinkActive">
+      <mat-icon [matBadge]="auth?.totalDocNotify" [matBadgeHidden]="auth?.totalDocNotify<=0" matBadgeColor="warn">
+        <ion-icon [name]="criminalTab?.isActive?'home':'home-outline'"></ion-icon>
+      </mat-icon>
+    </a>
+    <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="បញ្ជីថ្កោលទោស"
+      (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/decree-record']"
+      routerLinkActive="active" #homeTab="routerLinkActive">
+      <mat-icon [matBadge]="auth?.totalDocNotify" [matBadgeHidden]="auth?.totalDocNotify<=0" matBadgeColor="warn">
+        <ion-icon [name]="homeTab?.isActive?'duplicate':'duplicate-outline'"></ion-icon>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" #hrTab="routerLinkActive" (click)="onNotification('total_hr_notify')"
+      [routerLink]="['/criminal-record/folder']" matTooltipClass="tooltipClass" matTooltip="បញ្ជីលេខរៀង"
+      routerLinkActive="active">
+      <mat-icon [matBadge]="auth?.totalHrNotify" [matBadgeHidden]="auth?.totalHrNotify<=0" matBadgeColor="warn">
+        <ion-icon [name]="hrTab?.isActive?'folder-open':'folder-open-outline'"></ion-icon>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" [routerLink]="['/criminal-record/approval']" #planingTab="routerLinkActive"
+      routerLinkActive="active" (click)="onNotification('total_criminal_notify_read')" matTooltipClass="tooltipClass"
+      matTooltip="អនុម័តព្រឹត្តិបត្រថ្កោលទោស">
+      <mat-icon [matBadge]="auth?.totalCriminalNotify" [matBadgeHidden]="auth?.totalCriminalNotify<=0"
+        matBadgeColor="warn">
+        <ion-icon [name]="planingTab?.isActive?'receipt':'receipt-outline'"></ion-icon>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" [routerLink]="['/criminal-record/criminal-latter']" #driveTab="routerLinkActive"
+      routerLinkActive="active" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ពព្រឹត្តិបត្រថ្កោលទោស">
+      <ion-icon [name]="driveTab?.isActive?'albums':'albums-outline'"></ion-icon>
+    </a>
+
+  </div>
+
+  <div class="nav-right">
+
+    <ng-container *ngIf="!auth?.isEmbassyUser && !auth?.dataEntryOnly">
+      <a mat-icon-button class="btn-search-icon" matTooltipClass="tooltipClass" *ngIf="activeAccount">
+        <ion-icon name="search"></ion-icon>
+      </a>
+      <form *ngIf="activeAccount" [formGroup]="form" class="g-search">
+        <button type="submit" mat-button mat-icon-button>
+          <ion-icon name="search"></ion-icon>
+        </button>
+        <input formControlName="search" [placeholder]="'ស្វែងរកព្រឹត្តិបត្រថ្កោលទោស'" [matAutocomplete]="autoSearch" />
+        <mat-autocomplete #autoSearch="matAutocomplete" class="header-auto-complete" (click)="$event.stopPropagation()">
+          <ng-container *ngIf="searchData && searchData?.length > 0 && !isFileManager">
+            <mat-option *ngFor="let item of searchData" [value]=""
+              [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]" (click)="goSearchDetail(item)">
+              <div class="search-content-item two-col">
+                <div class="image-box">
+                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+                </div>
+                <div class="info-text" routerLinkActive="active">
+                  <p class="title">
+                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+                  </p>
+                  <p class="no">
+                    {{item?.documentNo}}
+                  </p>
+                </div>
+              </div>
+            </mat-option>
+          </ng-container>
+
+          <ng-container *ngIf="searchData && searchData?.length > 0 && !store?.loadingSearch && isFileManager">
+            <mat-option *ngFor="let item of searchData" [value]="" (click)="goShowDetail(item)">
+              <div class="search-content-item two-col">
+                <div class="file-display">
+                  <file-name-doc [item]="item" [noEye]="true">
+                  </file-name-doc>
+                </div>
+              </div>
+            </mat-option>
+          </ng-container>
+
+          <ng-container *ngIf="store?.loadingSearch && isFileManager">
+            <app-spinner></app-spinner>
+          </ng-container>
+
+          <ng-container
+            *ngIf="searchData && searchData?.length === 0 && store?.documentRecentSearch?.length === 0 && !searching && !store?.loadingSearch">
+            <mat-option [disabled]="true">
+              <div class="empty-block">
+                <div class="center-block-empty" style="flex-direction: row; align-items: center;">
+                  <div class="empty-text">
+                    <p class="empty-state-desc" style="margin: 0;
+                        font-size: 15px;">
+                      ពុំមានប្រវត្តិស្វែងរកឯកសារ
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </mat-option>
+          </ng-container>
+
+          <ng-container *ngIf="searchData?.length === 0  && searching">
+            <mat-option>
+              <div class="search-content-item-header">
+                ស្វែងរក
+                <span class="search-text">{{search?.value.length > 30 ?search?.value.substring(0, 30) +
+                  '...':search?.value}}</span>
+              </div>
+            </mat-option>
+          </ng-container>
+
+          <ng-container *ngIf="searchData?.length === 0 && store?.documentRecentSearch?.length > 0 && !searching">
+
+            <mat-option>
+              <div class="search-content-item-header">
+                ប្រវត្តិស្វែងរក
+              </div>
+            </mat-option>
+            <mat-option *ngFor="let item of store?.documentRecentSearch" [value]="">
+              <a class="search-content-item" [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]">
+                <div class="image-box">
+                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+                </div>
+                <div class="info-text">
+                  <p class="title">
+                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+                  </p>
+                  <p class="no">
+                    {{item?.documentNo}}
+                  </p>
+                </div>
+                <button class="remove-recent" mat-icon-button (click)="removeRecentSearch(item)">
+                  <mat-icon class="mat-18">clear</mat-icon>
+                </button>
+              </a>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </form>
+
+      <a *ngIf="auth?.profile?.isAdmin" routerLinkActive="active" mat-button
+        mat-icon-button matTooltipClass="tooltipClass" [routerLink]="['/apps']" class="btn-p-icon app-button"
+        matTooltip="ទិន្នន័យប្រព័ន្ធ">
+        <mat-icon>
+          <ion-icon name="apps"></ion-icon>
+        </mat-icon>
+      </a>
+
+    </ng-container>
+
+    <a mat-button mat-icon-button [matMenuTriggerFor]="notificationsMenu" matTooltipClass="tooltipClass"
+      (click)="onNotification('total_notify')" [matBadge]="auth?.totalNotify" [matBadgeHidden]="auth?.totalNotify<=0"
+      matBadgeColor="warn" class="btn-p-icon app-button" matTooltip="ជូនដំណឹង">
+      <mat-icon>
+        <ion-icon name="notifications"></ion-icon>
+      </mat-icon>
+    </a>
+
+    <mat-menu #notificationsMenu="matMenu">
+      <div class="notify-lists">
+        <div class="notify-lists-header">
+          <h4>ជូនដំណឹង</h4>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="noNotify" *ngIf="notify?.notifications?.length === 0">
+          មិនមានទិន្នន័យ
+        </div>
+        <virtual-scroller #scroll [items]="notify?.notifications" (vsEnd)="fetchMore($event)">
+          <div class="notify-list-item" (click)="onDocument(item,i)"
+            *ngFor="let item of scroll.viewPortItems;let i=index">
+            <div class="img-box">
+              <img *ngIf="item?.notifyBy?.photoUrl" [src]="item?.notifyBy?.photoUrl" alt="">
+              <img *ngIf="!item?.notifyBy?.photoUrl" [src]="NO_AVATAR" alt="">
+            </div>
+            <div class="list-text">
+              <strong>{{item?.body}}</strong>
+              <span>{{item?.created_at?.toDate() | amTimeAgo}}</span>
+            </div>
+          </div>
+          <app-spinner *ngIf="notify.fetching"></app-spinner>
+        </virtual-scroller>
+      </div>
+    </mat-menu>
+
+
+    <a mat-button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltipClass="tooltipClass" matTooltip="គណនី"
+      class="btn-p-icon">
+      <img [src]="photoUrl" alt="GDI" alt="user">
+    </a>
+
+    <mat-menu #userMenu="matMenu">
+      <div class="user-notify" (click)="$event.stopPropagation();">
+        <div class="notify-lists-header">
+          <ng-container *ngFor="let item of auth?.currentDepartment?.workplaceDisplayPath;let i=index;">
+            <h4 *ngIf="i===0">{{item?.name}}</h4>
+            <p *ngIf="i>0">{{item?.name}}</p>
+          </ng-container>
+        </div>
+        <div class="wellcome-user" style="text-align: center;">
+          <div class="empty-avatar" style="height: 120px; width: 120px; margin: 0 auto;">
+            <img [src]="photoUrl" alt="GDI" alt="user">
+            <div (click)="fileInput.click()" class="change-profile">
+              <mat-icon class="mat-18">photo_camera</mat-icon>
+            </div>
+          </div>
+
+          <input #fileInput id="fileInput" type="file" multiple accept='image/*' (change)="onSelectedFile($event)"
+            style="display:none;" />
+          <div class="wellcome-text k-wellcome-text" style="margin-top: 10px;">
+            <span>{{auth?.employee?.officerId}}</span>
+          </div>
+          <div class="wellcome-text k-wellcome-text" style="margin-top: 5px;">
+            <span>{{auth?.employee?.displayName}}</span>
+          </div>
+          <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
+          </mat-progress-bar>
+        </div>
+
+        <div class="nav-committee-u" *ngIf="auth?.currentDepartment">
+          <mat-icon>stay_current_portrait</mat-icon>
+          <div class="nav-committee-u-t">
+            <h5>{{auth?.employee?.currentTitle}}</h5>
+          </div>
+        </div>
+
+        <ng-container *ngIf="auth?.employee?.workplace?.length>0">
+          <button type="button" mat-button class="devsite-cpwd"
+            [ngClass]="auth?.currentDepartment?.key===item?.key?'active':''"
+            *ngFor="let item of auth?.employee?.workplace" (click)="onChangeApps(item)">
+            <div class="devsite-list-text">
+              <div class="icon-round" *ngIf="!item?.file?.downloadUrl">
+                <mat-icon>maps_home_work</mat-icon>
+              </div>
+              <img [src]="item?.file?.downloadUrl" *ngIf="item?.file?.downloadUrl">
+              <span>{{item?.name}}</span>
+              <mat-icon>{{auth?.currentDepartment?.key===item?.key?'check_circle':'keyboard_arrow_right'}}</mat-icon>
+            </div>
+          </button>
+        </ng-container>
+
+        <mat-divider></mat-divider>
+        <button type="button" mat-button class="devsite-cpwd" (click)="changePassword()">
+          <div class="devsite-list-text">
+            <div class="icon-round">
+              <mat-icon>verified_user</mat-icon>
+            </div>
+            <span>ប្ដូរពាក្យសំងាត់</span>
+          </div>
+        </button>
+        <mat-divider></mat-divider>
+        <button type="button" mat-button class="devsite-cpwd" (click)="onLogOut()">
+          <div class="devsite-list-text">
+            <div class="icon-round">
+              <mat-icon>lock</mat-icon>
+            </div>
+            <span>ចេញពីប្រព័ន្ធ</span>
+          </div>
+        </button>
+        <!-- <mat-divider></mat-divider>
+        <button type="button" mat-button class="devsite-cpwd" (click)="onCreateCompany()">
+          <div class="devsite-list-text">
+            <div class="icon-round">
+              <mat-icon>add_business</mat-icon>
+            </div>
+            <span>បង្កើតក្រុមហ៊ុន</span>
+          </div>
+        </button> -->
+      </div>
+
+    </mat-menu>
+  </div>
+
+</nav>
+
+<div class="center-menu-nav-mobile">
+  <div class="center-menu-nav">
+    <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="ស្ថិតិសង្ខេប" [routerLink]="['/']"
+      routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <mat-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path
+            d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z" />
+        </svg>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" [routerLink]="['/documents']" matTooltipClass="tooltipClass"
+      matTooltip="គ្រប់គ្រងឯកសារ" routerLinkActive="active">
+      <mat-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path
+            d="M5 8v12h14V8H5zm0-2h14V4H5v2zm15 16H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zM7 10h4v4H7v-4zm0 6h10v2H7v-2zm6-5h4v2h-4v-2z" />
+        </svg>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" [routerLink]="['/file-manager']" matTooltipClass="tooltipClass"
+      matTooltip="គ្រប់គ្រងឯកសារ" routerLinkActive="active">
+      <mat-icon>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;"
+          xml:space="preserve">
+          <g>
+            <g>
+              <path d="M448.916,118.259h-162.05c-6.578,0-13.003-2.701-17.44-7.292l-50.563-53.264c-12.154-12.115-28.783-18.443-45.625-18.346
+           H63.084C28.301,39.356,0,67.657,0,102.439v307.123c0,34.783,28.301,63.084,63.084,63.084h386.064h0.058
+           c34.764-0.154,62.949-28.59,62.794-63.277V181.342C512,146.559,483.699,118.259,448.916,118.259z M473.417,409.447
+           c0.058,13.504-10.88,24.558-24.307,24.616H63.084c-13.504,0-24.5-10.996-24.5-24.5V102.439c0-13.504,10.996-24.5,24.5-24.52
+           H173.74c0.212,0,0.424,0,0.637,0c6.443,0,12.694,2.566,16.899,6.733l50.293,53.013c11.806,12.192,28.32,19.176,45.297,19.176
+           h162.05c13.504,0,24.5,10.996,24.5,24.5V409.447z" />
+            </g>
+          </g>
+        </svg>
+      </mat-icon>
+    </a>
+
+    <a matRipple class="app-button" [routerLink]="['/reports']" matTooltipClass="tooltipClass" matTooltip="របាយការណ៍"
+      routerLinkActive="active">
+      <mat-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path
+            d="M12 22C6.477 22 2 17.523 2 12c0-4.478 2.943-8.268 7-9.542v2.124A8.003 8.003 0 0 0 12 20a8.003 8.003 0 0 0 7.418-5h2.124c-1.274 4.057-5.064 7-9.542 7zm9.95-9H11V2.05c.329-.033.663-.05 1-.05 5.523 0 10 4.477 10 10 0 .337-.017.671-.05 1zM13 4.062V11h6.938A8.004 8.004 0 0 0 13 4.062z" />
+        </svg>
+      </mat-icon>
+    </a>
+    <a matRipple class="app-button" [routerLink]="['/apps']" matTooltipClass="tooltipClass" matTooltip="គ្រប់គ្រង"
+      routerLinkActive="active">
+      <mat-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path
+            d="M3 3h8v8H3V3zm0 10h8v8H3v-8zM13 3h8v8h-8V3zm0 10h8v8h-8v-8zm2-8v4h4V5h-4zm0 10v4h4v-4h-4zM5 5v4h4V5H5zm0 10v4h4v-4H5z" />
+        </svg>
+      </mat-icon>
+    </a>
+  </div>
+</div>
+
+<div class="invisble-header"></div>
+<div class="invisble-header-mobile"></div>

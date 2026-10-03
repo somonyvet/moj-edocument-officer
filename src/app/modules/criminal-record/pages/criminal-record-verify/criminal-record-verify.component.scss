@@ -1,0 +1,65 @@
+@import "/src/assets/styles/variable.scss";
+
+.tog-side-nav {
+  ::ng-deep .side-nav-panel {
+    box-shadow: none !important;
+    border-radius: 0;
+    background: transparent;
+
+    .mat-expansion-panel-header {
+      padding: 0 16px;
+      font-family: $appFontStrong;
+      font-size: 14px;
+      color: $text-primary;
+
+      &.mat-expanded:focus,
+      &.mat-expanded:hover {
+        background: inherit;
+      }
+    }
+
+    .mat-panel-title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-right: 0;
+
+      ion-icon {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+    }
+
+    &.active .mat-panel-title {
+      ion-icon,
+      span {
+        color: $appprimaryColor;
+      }
+    }
+
+    .side-nav-caret {
+      flex: 0 0 auto;
+      font-size: 16px;
+      color: $text-primary;
+      transition: color 0.2s linear;
+    }
+
+    &.active .side-nav-caret {
+      color: $appprimaryColor;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0;
+    }
+  }
+
+  .side-nav-child {
+    width: 100%;
+    justify-content: flex-start;
+
+    &.mat-button {
+      padding-left: 32px;
+      font-size: 13px;
+    }
+  }
+}

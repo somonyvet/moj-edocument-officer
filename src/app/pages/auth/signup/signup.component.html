@@ -1,0 +1,13 @@
+<div class="rows">
+    <h1 mat-dialog-title class="txt-h1 flex1">ទំនាក់ទំនងក្រុមបច្ចេកទេស</h1>
+    <button mat-button mat-icon-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <mat-nav-list>
+        <a mat-list-item *ngFor="let item of store?.config?.contactSupports">
+            <span mat-line>{{item}}</span>
+        </a>
+    </mat-nav-list>
+</div>

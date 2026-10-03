@@ -1,0 +1,69 @@
+<ng-container *ngIf="!loading">
+    <div class="document-dashboard-page document-app-dashboard-page inbox-container" *mobxAutorun>
+        <div class="dashboard-template">
+            <div class="page-wrapper template-header">
+                <h4>{{auth?.currentDepartment?.name}}</h4>
+                <div class="action-container">
+                    <!-- <button class="action-button" [matMenuTriggerFor]="menuDocNotedStatus">
+                    <span class="button-text">{{store?.selectedFilterStatusDocNoted?.name}}</span>
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
+                <mat-menu class="period-menu" #menuDocNotedStatus="matMenu">
+                    <button mat-menu-item *ngFor="let item of DOCUMENT_NOTED_OBJECT_ARRAY"
+                        [ngClass]="store?.selectedFilterStatusDocNoted?.key===item?.key?'active':''">
+                        <div class="rows">
+                            <div class="dot-status" [style.background-color]="item?.color"></div>
+                            <div class="flex1">{{item?.name}}</div>
+                        </div>
+                    </button>
+                </mat-menu> -->
+                    <!-- <div class="seperator"></div> -->
+                    <!-- <button mat-button mat-icon-button class="round-action-button" [matMenuTriggerFor]="menuApprovalPeriod"
+                    aria-label="menu filter by period">
+                    <span class="material-icons">
+                        more_vert
+                    </span>
+                </button>
+                <mat-menu class="period-menu" #menuApprovalPeriod="matMenu">
+                    <button mat-menu-item *ngFor="let item of REPORT_PERIOD_OBJECT_ARRAY"
+                        [ngClass]="store?.selectedFilterPeriodDocNoted?.key===item?.key?'active':''">
+                        <div class="rows">
+                            <div class="flex1">{{item?.name}}</div>
+                        </div>
+                    </button>
+                </mat-menu> -->
+                </div>
+            </div>
+            <div class="page-wrapper template-cards-container"
+                [ngClass]="store?.documentNoted?.length===0?'empty-row':''">
+                <ng-container *ngIf="store?.documentNoted?.length===0">
+                    <app-empty-document headerText="ពុំមានកំណត់បង្ហាញរបស់លោកអ្នក"
+                        description="សូមចុចលើបង្កើតកំណត់បង្ហាញដើម្បីធ្វើឯកសារកំណត់បង្ហាញរបស់លោកអ្នក"
+                        image="../../../../assets/images/overview-011ee16c39645e17bb5ba2f17ca9e4dd.svg">
+                    </app-empty-document>
+                </ng-container>
+                <ng-container *ngIf="!loading">
+                    <div class="template-card-container" *ngFor="let item of store?.documentNoted">
+                        <a class="image-container" [matTooltip]="item?.documentNo + ' · ' + item?.documentTitle"
+                            matTooltipClass="tooltipClass" [queryParams]="{url:router?.url}"
+                            [routerLink]="['preview/' + item?.key + '/' + item?.workplace?.key +'/1/design']">
+                            <img [src]="item?.coverFile?.downloadURL ||'/src/assets/images/GDI-Doc-Cover-2.jpg'">
+                        </a>
+                        <div class="card-content">
+                            <h4>{{item?.documentNo}} · {{item?.documentTitle}}</h4>
+                            <p>{{item?.created_at?.toDate()|amTimeAgo}}</p>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="page-wrapper mat-doc-nav-bar">
+                <nav mat-tab-nav-bar>
+                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+                </nav>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</ng-container>
+<app-spinner *ngIf="loading"></app-spinner>

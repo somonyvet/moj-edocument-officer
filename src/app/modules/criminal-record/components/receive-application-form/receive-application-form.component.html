@@ -1,0 +1,46 @@
+<div class="apply-form-page offi">
+  <div class="eform small" [formGroup]="form">
+    <div class="header-ef">
+      <h2 style="margin-bottom:12px;">ចុះលេខព្រឹត្តិបត្ត</h2>
+      <!-- <p style="margin-bottom:12px;">លោកអ្នកត្រូវតែត្រួតពិនិត្យ លើព័ត៌មានសំណើសុំព្រឹត្តិបត្រ ប្រវត្តិរូបសង្ខេប
+        និងឯកសារភ្ជាប់មកជាមួយអោយបានត្រឹមត្រូវ។</p>
+      <div class="lottie-box">
+        <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+      </div> -->
+    </div>
+
+    <div class="form-wrapper form-no-padding">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+            <mat-label>លេខព្រឹត្តិបត្ត(ខ្មែរ)</mat-label>
+            <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_kh" required
+                matInput [placeholder]="'លេខព្រឹត្តិបត្ត(ខ្មែរ)'">
+            <mat-error *ngIf="form.controls['code_kh'].hasError('required')">
+                ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+            </mat-error>
+            <mat-error *ngIf="form.controls['code_kh'].hasError('nameAvailable')">
+                លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+            <mat-label>លេខព្រឹត្តិបត្ត(អង់គ្លេស)</mat-label>
+            <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_en" required
+                matInput [placeholder]="'លេខព្រឹត្តិបត្ត(អង់គ្លេស)'">
+            <mat-error *ngIf="form.controls['code_en'].hasError('required')">
+                ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+            </mat-error>
+            <mat-error *ngIf="form.controls['code_en'].hasError('nameAvailable')">
+                លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+            </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <app-primary-button style="margin: 0 0 12px 16px;" css="w100" (onPress)="_onSubmit(form?.value)" label="ចុះលេខ"
+      [process]="process"
+      [disable]=" !form?.valid || process">
+    </app-primary-button>
+  </div>
+</div>

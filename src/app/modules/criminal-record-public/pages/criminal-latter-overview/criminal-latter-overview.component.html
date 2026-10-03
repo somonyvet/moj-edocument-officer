@@ -1,0 +1,31 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-loader">
+</mat-progress-bar>
+<div class="doc-container">
+    <div class="eform"
+        *ngIf="auth?.profile?.criminal_record && store?.selectedCriminal?.showDraft">
+        <div class="header-item">
+            <div class="flex1">
+                <span class="icon-round">
+                    <ion-icon name="create-outline"></ion-icon>
+                </span>
+                <h4>សេចក្តីព្រៀងសំណើសុំព្រឹត្តិបត្រថ្កោលទោស</h4>
+            </div>
+            <a mat-button class="mat-puc no-round" (click)="_onNext()">
+                ធ្វើបន្ត
+            </a>
+        </div>
+    </div>
+
+    <div class="eform" style="margin-top:16px" *ngIf="showMovement">
+      <div class="header-item">
+        <div class="flex1">
+            <h4 style="margin: 8px 20px 12px 20px;">ស្ថានភាពដំណើរការឯកសារ</h4>
+        </div>
+      </div>
+      <ul class="stepper-doc">
+        <ng-container *ngFor="let item of STATUS_DISPLAY;let i = index;">
+          <li class="stepper__item" [ngClass]="i<=statusIndex?'complete':''">{{item?.name}}</li>
+        </ng-container>
+      </ul>
+    </div>
+</div>

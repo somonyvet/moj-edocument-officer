@@ -1,0 +1,66 @@
+<div class="page-section full-page">
+    <div class="panel-secondary listing-panel-secondary doc-fill">
+        <div class="navigation" style="width:353px; margin-right: 4px;">
+            <div class="header">
+                <div class="top-title" style="display: flex;">
+                    <h1>បញ្ជីសមាជិកបក្ស</h1>
+                    <!-- <a matTooltip="បង្កើតសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-button mat-icon-button
+              *ngIf="auth?.profile | permission" class="mat-b-bg" (click)="onAddPartyMember()">
+              <mat-icon class="mat-18">add</mat-icon>
+            </a>
+            <a matTooltip="ទាញចូលទិន្នន័យសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-button mat-icon-button
+              *ngIf="auth?.profile | permissionImport" class="mat-b-bg" [routerLink]="['/members/party-member/data']"
+              routerLinkActive="" [queryParams]="{import:true}">
+              <mat-icon class="mat-18">cloud_upload</mat-icon>
+            </a> -->
+                </div>
+            </div>
+            <div class="search-vr" style="margin-bottom: 3px;">
+                <div class="search-content">
+                    <mat-icon matSuffix>search</mat-icon>
+                    <input matInput placeholder="ស្វែងរកសមាជិកបក្ស">
+                </div>
+            </div>
+            <!-- <nav mat-tab-nav-bar style="top: 0;border-bottom: solid 1px #ebebeb;">
+          <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">{{link.label}}</a>
+        </nav> -->
+
+            <div class="list-items">
+
+                <div *ngFor="let item of [1,1,1];let i=index;" style="padding:0 14px;">
+                    <a mat-button routerLinkActive="active" [routerLink]="['/apps/ui-design/' + i]">
+                        <div class="btn-text">
+                            <div style="display: flex; align-items: center;">
+                                <!-- <div style="padding-left: 9px;">{{i+1}}</div> -->
+                                <div class="avatar-tblbox">
+                                    <app-swot-image
+                                        [file]="item?.files"
+                                        size="200">
+                                    </app-swot-image>
+                                </div>
+                                <div class="flex1">
+                                    <div class="rows">
+                                        <strong class="flex1">ប៊ួ ហ៊ {{i+1}}</strong>
+                                        <mat-icon class="nav-next">navigate_next</mat-icon>
+                                    </div>
+                                    <div class="rows">
+                                        <p>ក្រុមបក្សទី ៦ | គ្រួសារបក្ស ឈួម ប៉ិច</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="nav-item-divider"></div>
+                </div>
+            </div>
+            <!-- <app-empty-data style="flex:1" class="small-empty-data" buttonText="" name="គ្មាន​ទិន្នន័យសមាជិកបក្ស"
+            subtitle="សូមចុចប៊ូតុងបូកខាងលើដើម្បីបង្កើតសមាជិកបក្ស" *ngIf="!store?.loading && store?.data?.length === 0">
+          </app-empty-data> -->
+            <div class="shadow-y"></div>
+        </div>
+        <div class="page-page">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

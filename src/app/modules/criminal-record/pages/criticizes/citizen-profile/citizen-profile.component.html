@@ -1,0 +1,47 @@
+<div class="main-panel">
+    <div class="main-l doc-list">
+        <div class="doc-in">
+            <div class="listing-header">
+                <h4>{{title}}</h4>
+                <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
+                </app-search-filter-box>
+                <nav mat-tab-nav-bar class="fire-tabs">
+                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+                </nav>
+            </div>
+            <ng-container *ngIf="!loading else loader">
+                <ng-container *ngIf="store?.data?.length>0 else emptyData">
+                    <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header"
+                        (vsEnd)="scrollHandler($event)">
+                        <a mat-button class="avatar-vt-item" [routerLink]="item?.key" routerLinkActive="active"
+                            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+                            <div class="avatar">
+                                <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                            </div>
+                            <div class="av-vt-body">
+                                <strong>{{item?.last_name}} {{item?.first_name}}</strong>
+                                    <div class="rows sub-text">
+                                        <span>{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}}  · {{item?.occupation}}</span>
+                                        <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}}</span>
+                                    </div>
+                            </div>
+                        </a>
+                    </virtual-scroller>
+                </ng-container>
+
+            </ng-container>
+            <ng-template #loader>
+                <app-spinner></app-spinner>
+            </ng-template>
+            <ng-template #emptyData>
+                <div class="doc-ls-items center">
+                    <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="main-r">
+        <router-outlet></router-outlet>
+    </div>
+</div>

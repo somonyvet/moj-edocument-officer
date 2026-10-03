@@ -1,0 +1,26 @@
+<div class="dialog-wrapper">
+  <div class="dialog-header">
+    <div class="title">
+      {{data?.title}}
+    </div>
+    <div class="flex1"></div>
+    <a mat-dialog-close class="close-dialog" (click)="onClose()">
+      <i class="material-icons">&#xE14C;</i>
+    </a>
+  </div>
+  <div class="dialog-content">
+    <div class="form-content">
+      <div class="aside-warning info">
+        <i class="material-icons">warning</i>
+        <span> {{data?.subtitle}}</span>
+      </div>
+      <p> {{data?.memo}}</p>
+    </div>
+  </div>
+  <div class="dialog-footer">
+    <div class="flex1"></div>
+    <a mat-dialog-close class="enbutton cancel m-r16" mat-button (click)="onClose()">Cancel</a>
+    <button type="submit" cdkFocusInitial class="enbutton primary m-r16" mat-raised-button
+      (click)="dialogRef.close('yes')" color="warn">OK</button>
+  </div>
+</div>

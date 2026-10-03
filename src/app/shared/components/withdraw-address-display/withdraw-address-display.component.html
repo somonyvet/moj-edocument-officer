@@ -1,0 +1,37 @@
+<div class="apply-form-page offi">
+  <div class="receipt-card">
+    <div class="receipt-banner">
+      <div class="receipt-banner-icon">
+        <i class="material-icons">location_on</i>
+      </div>
+      <div class="receipt-banner-text">
+        <span class="receipt-banner-label">ទីតាំងដែលត្រូវមកដកព្រឹត្តិបត្រថ្កោលទោស</span>
+        <span class="receipt-banner-amount">{{embassy?.name}}</span>
+      </div>
+    </div>
+
+    <div class="receipt-body">
+      <div class="receipt-col">
+        <div class="receipt-rows">
+          <div class="receipt-row">
+            <span class="row-label"><i class="material-icons row-icon">flag</i>ប្រទេស</span>
+            <span class="row-value">{{embassy?.country?.kh_short_name}}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="row-label"><i class="material-icons row-icon">home</i>អាសយដ្ឋាន</span>
+            <span class="row-value">{{embassy?.address}}</span>
+          </div>
+          <div class="receipt-row">
+            <span class="row-label"><i class="material-icons row-icon">call</i>លេខទូរស័ព្ទ</span>
+            <span class="row-value">{{embassy?.contact}}</span>
+          </div>
+        </div>
+
+        <div class="receipt-error" *ngIf="auth?.isEmbassyUser && (criminalStore?.selectedCriminalRecord?.application_embassy?.key !== auth?.selected_application_embassy?.key)">
+          <i class="material-icons">warning</i>
+          <span>ទីតាំងដកព្រឹត្តិបត្រមិនត្រឹមត្រូវ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

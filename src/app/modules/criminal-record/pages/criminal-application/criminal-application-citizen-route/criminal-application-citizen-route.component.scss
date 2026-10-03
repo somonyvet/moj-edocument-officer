@@ -1,0 +1,40 @@
+.btn-delete{
+  background-color: #fff2f2;
+  mat-icon{
+    color: red!important;
+  }
+}
+
+::ng-deep{
+  .btn-paid{
+    padding: 1px 12px;
+    border-radius: 25px;
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+::ng-deep{
+  .custom-filter-search{
+    padding: 0!important;
+    .wraper{
+      .search-box-input{
+        width: 86%!important;
+      }
+    }
+  }
+}
+
+// the global .full-page-container sets overflow-y:hidden, which makes it its own
+// scrollport: the header's sticky then resolves against a box that never scrolls, so
+// it scrolled away with the form. Letting overflow through pins it to .main-r, the
+// column that actually scrolls.
+.full-page-container {
+  overflow: visible;
+  padding-top: 12px;
+
+  .header {
+    top: 0;
+    z-index: 100;
+  }
+}

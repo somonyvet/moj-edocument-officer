@@ -1,0 +1,106 @@
+<div class="page-container" *mobxAutorun>
+  <div class="action-bar">
+    <div class="nav-content">
+      <h3 class="head-title">
+        រចនាសម្ព័ន្ធកម្មវិធី
+      </h3>
+      <div class="action-item">
+        <button mat-button (click)="create()" class="enbutton primary">បង្កើតកម្មវិធី</button>
+      </div>
+    </div>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+    </nav>
+  </div>
+
+  <div class="page-doc">
+    <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="store?.data" class="as-tb-wrap vt-doc">
+      <table class="as-table-wrapper" *ngIf="store?.data?.length>0 && !store?.loading">
+        <thead #header>
+          <tr>
+            <th class="center">
+              ល.រ
+            </th>
+            <th class="left">
+              ឈ្មោះ
+            </th>
+            <th class="left">
+              រយៈពេល
+            </th>
+            <th class="left">
+              កម្រិតគ្រប់គ្រង
+            </th>
+            <th class="left">
+              ឯកសារសម្រាប់បញ្ចូលទិន្នន័យ
+            </th>
+            <th>
+
+            </th>
+          </tr>
+        </thead>
+        <tbody #container>
+          <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
+            <td class="center" style="width: 64px;">
+              {{item?.index}}
+            </td>
+
+            <td>
+              <div class="rows">
+                <span [style.padding-left]="((item.level+1)*24)+'px'"></span>
+                <span>{{item?.name}}</span>
+              </div>
+            </td>
+            <td>
+              {{item?.completedDuration||'-'}} {{item?.completedDuration?'ថ្ងៃ':''}}
+            </td>
+            <td>
+              {{item?.ranking?.name}}
+            </td>
+            <td style="width: 200px;">
+              <mat-icon>{{item?.ranking?.key === 5?'check_box':'check_box_outline_blank'}}</mat-icon>
+            </td>
+
+            <td style="width: 64px;">
+              <div class="card-list-action">
+                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="create(item)">
+                    <mat-icon>edit</mat-icon>
+                    <span>កែប្រែ</span>
+                  </button>
+                  <!-- <button mat-menu-item (click)="delete(item)">
+                                        <mat-icon>delete</mat-icon>
+                                        <span>លុប</span>
+                                    </button> -->
+                </mat-menu>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
+        <div class="empty-block">
+          <div class="center-block-empty">
+            <div class="empty-img">
+              <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                alt="empty">
+            </div>
+            <div class="empty-text">
+              <p class="empty-state-title">
+                ពុំមានទិន្នន័យ
+              </p>
+              <p class="empty-state-desc">
+                សូមរៀបចំទិន្នន័យរបស់លោកអ្នកដើម្បីបញ្ចូលទៅក្នុងប្រព័ន្ធ
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <app-spinner *ngIf="store?.loading"></app-spinner>
+      <app-spinner *ngIf="store?.fetching"></app-spinner>
+    </virtual-scroller>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<!-- <div class="hashtags" *ngIf="store?.headerDocument?.hashtag && store?.headerDocument?.hashtag?.length>0">
+    <span class="hashtag-item" *ngFor="let item of store?.headerDocument?.hashtag">
+        #{{item}}
+    </span>
+</div> -->
+
+<div class="doc-detail">
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        លេខឯកសារ
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.documentNo}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        ឈ្មោះឯកសារ
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.documentTitle}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        លេខឯកសារយោង
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.refNo}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        ប្រភេទឯកសារ
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.category?.name}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        ប្រភពឯកសារ
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.organizationRef?.name}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        កាលបរិច្ឆេទបញ្ចប់ឯកសារ
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.deadline.toDate() | dateTime}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        រយៈពេល(គិតជាថ្ងៃ)
+      </span>
+    </div>
+
+    <div class="item">
+      <span>
+        {{store?.headerDocument?.duration}}
+      </span>
+    </div>
+  </div>
+
+  <div class="item-container">
+    <div class="label">
+      <span>
+        ពាក្យគន្លឹះស្វែងរក
+      </span>
+    </div>
+
+    <div class="item">
+      <span *ngFor="let item of store?.headerDocument?.hashtag ; let i = index;">
+        <span *ngIf="i>0">, </span>{{item}}
+      </span>
+    </div>
+  </div>
+
+</div>

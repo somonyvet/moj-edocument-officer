@@ -1,0 +1,31 @@
+<div class="signature-view-box">
+
+  <div *ngIf="Item?.remark_officer" style="font-style: italic; color: #498aec">
+    {{Item?.remark_officer?.name}}
+  </div>
+
+  <span style="color: #498aec; margin: 8px 0 8px 0; font-size: 16px;" *ngIf="Item?.remarkText && !Item?.remarkFile">
+    {{Item?.remarkText}}</span>
+
+  <ng-container *ngIf="Item && Item?.remarkFile">
+    <img style="width: 180px;" [src]="Item?.remarkFile?.downloadUrl" alt="">
+  </ng-container>
+
+  <ng-container *ngIf="Item && Item?.signatureFile; else defaultSignature">
+    <img style="width: 180px;" [src]="Item?.signatureFile?.downloadUrl" alt="">
+  </ng-container>
+
+  <ng-template #defaultSignature>
+    <img style="width: 180px;" *ngIf="Item && Item?.default_signatureFile"
+      [src]="Item?.default_signatureFile?.downloadUrl" alt="">
+  </ng-template>
+
+  <span style="color: #498aec; margin: 8px 0 0 0; font-size: 16px;" *ngIf="data?.isApprove_date === true">
+    {{Item?.approvedAt.toDate() | date:'dd/MM/YYYY'}}</span>
+
+  <ng-container *ngIf="Item && Item?.default_stampFile">
+    <img style="width: 250px;" *ngIf="Item && Item?.default_stampFile" [src]="Item?.default_stampFile?.downloadUrl"
+      alt="">
+  </ng-container>
+
+</div>

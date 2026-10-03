@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { STATUS_OBJ } from 'src/app/dummy/appinfo';
+import { CriminalStore } from '../../../stores/criminal.store';
+
+@Component({
+  selector: 'app-criminal-group-request-form-route',
+  templateUrl: './criminal-group-request-form-route.component.html',
+  styleUrls: ['./criminal-group-request-form-route.component.scss']
+})
+export class CriminalGroupRequestFormRouteComponent implements OnInit {
+  loading:boolean=true;
+
+  constructor(private store: CriminalStore,
+    private router: Router,
+    private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.loading=true;
+      let item: any = null;
+      let urgent = false;
+      if (params?.statusKey === 'urgent') {
+        item = STATUS_OBJ.REVIEW;
+        urgent = true;
+      } else {
+        const statusKey = `${params?.statusKey}`.toUpperCase();
+        item = STATUS_OBJ[statusKey];
+      }
+      // if (!item) {
+      //   this.router.navigate([`/page-not-found`])
+      //   return;
+      // }
+      this.store.displayStatus = item;
+      this.store.urgent = urgent;
+      this.loading=false;
+    })
+  }
+
+}

@@ -1,0 +1,595 @@
+<div class="scrolling-container">
+  <div class="eform-action-controls">
+    <div class="action-control-container">
+      <a mat-button mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <h4>១២-ព្រឹត្តិបត្រថ្កោលទោសលេខ ២</h4>
+      <div class="flex1"></div>
+      <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)"
+        [disable]="process || !form.valid">
+      </app-primary-button>
+    </div>
+  </div>
+  <div class="eform new" [formGroup]="form">
+    <div class="head p-rel">
+      <div class="head-item" style="align-items: flex-start;">
+        <div class="profile-box container-header-input" style="border: none;">
+          <img
+            src="data:image/jpeg;base64,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" />
+          <span class="feTitle">
+            ក្រសួងយុត្តិធម៌
+          </span>
+        </div>
+        <div class="row-item khmer-date-picker ds-f"
+          style="margin-top: 20px; padding: 0; transform: translateX(-14px);">
+          <div class="f-item" style="display: flex;">
+            <span class="nor-fam">លេខ:</span>
+            <span class="nor-fam">
+              <input formControlName="code_header">
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="flex1"></div>
+
+      <div class="head-item" style="transform: translateX(56px);">
+        <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+        <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+        <p class="star">3</p>
+        <div class="img-logo" style="height: 110px;">
+          <!-- <img src="../../../../../assets/images/GCNP.png" alt=""> -->
+        </div>
+
+        <p class="feTitle">ព្រឹត្តិបត្រថ្កោលទោសលេខ ២</p>
+      </div>
+      <div class="flex1"></div>
+
+
+      <div class="head-item long-w">
+      </div>
+
+    </div>
+    <div class="body">
+      <div class="body-item">
+
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('full_name')?.errors&&form.get('full_name')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>នាមត្រកូលនិងនាមខ្លួន</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="full_name">
+          </div>
+          <div class="f-item" style="width: unset;"
+            [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
+            <span>ភេទ<span class="star-req" *ngIf="form.get('gender')?.invalid">*</span></span>
+            <input style="width: 70px;" class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+            <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
+              <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                {{item?.text}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="display: contents;"
+            [ngClass]="form.get('before_nationality')?.errors&&form.get('before_nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិដើម<span class="star-req" *ngIf="form.get('before_nationality')?.invalid">*</span></span>
+            <input style="width: 24%;" class="f-input" type="text" formControlName="before_nationality"
+              [matAutocomplete]="autoBeforeNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoBeforeNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="display: contents;"
+            [ngClass]="form.get('current_nationality')?.errors&&form.get('current_nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
+                *ngIf="form.get('current_nationality')?.invalid">*</span></span>
+            <input style="width: 24%;" class="f-input" type="text" formControlName="current_nationality"
+              [matAutocomplete]="autoCurrentNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoCurrentNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row-item">
+
+          <div class="f-item" [ngClass]="form.get('nick_name')?.errors&&form.get('nick_name')?.touched?'has-error':''">
+            <!-- <span><span class="star-req" *ngIf="form.get('nick_name')?.invalid">*</span></span> -->
+            <span class="container-title-fom">
+              <span>ឈ្មោះហៅក្រៅ</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="nick_name">
+          </div>
+
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item">
+            <div class="inValid-date" *ngIf="dateOfBirthInvalid">
+              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+            </div>
+
+            <span class="container-title-fom">
+              <span>ថ្ងៃ ខែ ឆ្នាំកំណើត </span>
+              <span>:</span>
+            </span>
+            <app-khmer-date-form-picker [class]="dateOfBirthInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+              (onSelectedItem)="onSelectedDateOfBirth($event)" style="width:100%;"
+              [day]="form.get('dateOfBirthDay')?.value||null" [month]="form.get('dateOfBirthMonth')?.value||null"
+              [year]="form.get('dateOfBirthYear')?.value||null" [disabled]="disableDate"></app-khmer-date-form-picker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('bd_province')?.errors&&form.get('bd_province')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>ទីកន្លែងកំណើត</span>
+              <span>:</span>
+            </span>
+            <span style="margin-left: 4px;">រាជធានី/ខេត្ត</span>
+            <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
+            <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('bd_district')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_district"
+              [matAutocomplete]="autoGeoDistrictBD">
+            <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('bd_commune')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_commune"
+              [matAutocomplete]="autoGeoCommuneBD">
+            <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
+            <span>ភូមិ<span class="star-req" *ngIf="form.get('bd_village')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_village"
+              [matAutocomplete]="autoGeoVillageBD">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('live_province')?.errors&&form.get('live_province')?.touched?'has-error':''">
+            <!-- <span><span class="star-req"
+                *ngIf="form.get('live_province')?.invalid">*</span></span> -->
+
+            <span class="container-title-fom">
+              <span>អាសយដ្ឋានបច្ចុប្បន្ន </span>
+              <span>:</span>
+            </span>
+            <span style="margin-left: 4px;">រាជធានី/ខេត្ត</span>
+            <input class="f-input" type="text" formControlName="live_province" [matAutocomplete]="autoGeoProvinceLive">
+            <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('live_district')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_district"
+              [matAutocomplete]="autoGeoDistrictLive">
+            <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('live_commune')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_commune"
+              [matAutocomplete]="autoGeoCommuneLive">
+            <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" style="width: 60%;"
+            [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
+            <span>ភូមិ<span class="star-req" *ngIf="form.get('live_village')?.invalid">*</span></span>
+            <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_village"
+              [matAutocomplete]="autoGeoVillageLive">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('occupation')?.errors&&form.get('occupation')?.touched?'has-error':''">
+            <!-- <span><span class="star-req" *ngIf="form.get('occupation')?.invalid">*</span></span> -->
+            <span class="container-title-fom">
+              <span>មុខរបរ</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="occupation">
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('father_name')?.errors&&form.get('father_name')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>ឪពុកឈ្មោះ</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="father_name">
+          </div>
+
+          <div class="f-item">
+            <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateFatherDob($event)"
+              style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'" [day]="form.get('fatherDob')?.value?.day||null"
+              [month]="form.get('fatherDob')?.value?.month||null" [year]="form.get('fatherDob')?.value?.year||null">
+            </app-khmer-date-form-picker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('father_before_nationality')?.errors&&form.get('father_before_nationality')?.touched?'has-error':''">
+            <!-- <span><span class="star-req"
+                *ngIf="form.get('father_before_nationality')?.invalid">*</span></span> -->
+            <span class="container-title-fom">
+              <span>សញ្ជាតិដើម</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="father_before_nationality"
+              [matAutocomplete]="autoFatherBeforeNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoFatherBeforeNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('father_current_nationality')?.errors&&form.get('father_current_nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
+                *ngIf="form.get('father_current_nationality')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="father_current_nationality"
+              [matAutocomplete]="autoNowNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoNowNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>ទីកន្លែងកំណើត</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
+          </div>
+          <!-- <div class="f-item"
+            [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
+            <span>មុខរបរ:</span>
+            <input class="f-input" type="text" formControlName="fatherCurrentOccupation"> -->
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('mother_name')?.errors&&form.get('mother_name')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>ម្ដាយឈ្មោះ</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="mother_name">
+          </div>
+
+          <div class="f-item">
+            <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateMotherDob($event)"
+              style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'" [day]="form.get('motherDob')?.value?.day||null"
+              [month]="form.get('motherDob')?.value?.month||null" [year]="form.get('motherDob')?.value?.year||null">
+            </app-khmer-date-form-picker>
+          </div>
+
+          <!-- <div class="f-item overfh" style="width: 300px;">
+            <mat-radio-group style="display: flex;" formControlName="motherIsDead">
+              <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                [checked]="motherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div> -->
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('mother_before_nationality')?.errors&&form.get('mother_before_nationality')?.touched?'has-error':''">
+            <!-- <span>សញ្ជាតិដើម<span class="star-req"
+                *ngIf="form.get('mother_before_nationality')?.invalid">*</span></span> -->
+            <span class="container-title-fom">
+              <span>សញ្ជាតិដើម</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="mother_before_nationality"
+              [matAutocomplete]="autoMotherBeforeNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoMotherBeforeNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('mother_current_nationality')?.errors&&form.get('mother_current_nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
+                *ngIf="form.get('mother_current_nationality')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="mother_current_nationality"
+              [matAutocomplete]="autoMotherCurrentNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoMotherCurrentNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
+            <!-- <span>ទីកន្លែងកំណើត:</span> -->
+            <span class="container-title-fom">
+              <span>ទីកន្លែងកំណើត</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
+          </div>
+          <!-- <div class="f-item"
+            [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
+            <span>មុខរបរ:</span>
+            <input class="f-input" type="text" formControlName="motherCurrentOccupation">
+          </div> -->
+        </div>
+
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
+            <span class="container-title-fom">
+              <span>ឈ្មោះប្ដីឬប្រពន្ធ</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="spouse">
+          </div>
+          <!-- <div class="f-item overfh" style="width: 300px;">
+            <mat-radio-group style="display: flex;" formControlName="spouseIsDead">
+              <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+                [checked]="spouseDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div> -->
+          <div class="f-item">
+            <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateSpouse($event)"
+              style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'" [day]="form.get('spouseDob')?.value?.day||null"
+              [month]="form.get('spouseDob')?.value?.month||null" [year]="form.get('spouseDob')?.value?.year||null">
+            </app-khmer-date-form-picker>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('spouse_before_nationality')?.errors&&form.get('spouse_before_nationality')?.touched?'has-error':''">
+            <!-- <span>សញ្ជាតិដើម<span class="star-req"
+                *ngIf="form.get('spouse_before_nationality')?.invalid">*</span></span> -->
+            <span class="container-title-fom">
+              <span>សញ្ជាតិដើម</span>
+              <span>:</span>
+            </span>
+            <input class="f-input" type="text" formControlName="spouse_before_nationality"
+              [matAutocomplete]="autoSpouseBeforeNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseBeforeNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('spouse_current_nationality')?.errors&&form.get('spouse_current_nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
+                *ngIf="form.get('spouse_current_nationality')?.invalid">*</span></span>
+            <input class="f-input" type="text" formControlName="spouse_current_nationality"
+              [matAutocomplete]="autoSpouseCurrentNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseCurrentNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
+            <span>មុខរបរ:</span>
+            <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item">
+            <span class="feTitle new" style="text-decoration: underline;">សេចក្ដីបញ្ជាក់ :</span>
+            <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+          </div>
+        </div>
+        <div class="row-item" style="flex-direction: column; ">
+          <div class="f-item" style="border-top: solid 1px">
+            <span class="title" style="font-size: 14px; padding: 0;">*
+              ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
+          </div>
+        </div>
+
+
+        <div class="row-item" style="height: 20rem;">
+          <div class="f-item" style="justify-content: space-between;">
+
+            <div class="head-item long-w"
+              style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+              <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
+                <span
+                  style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                  class="p-rel">
+                  <span class="n-title">បានឃើញ</span>
+                </span>
+                <span class="feTitle new"
+                  style="display: flex; justify-content: center; line-height: 2; font-size: 16px;">រដ្ឋមន្រ្តី</span>
+              </div>
+
+              <span class="container-header-input" style="width: unset">
+                <div class="row-item khmer-date-picker" style="padding-right: 0;">
+                  <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                    <div class="f-item">
+                      <span class="nor-fam">ធ្វើនៅរាជធានីភ្នំពេញ, </span>
+                      <span class="nor-fam">
+                        <span>&nbsp;ថ្ងៃទី</span>
+                        <input [matAutocomplete]="autoFooterCompleteDay" formControlName="day_footer" class="w-day">
+                        <mat-autocomplete [displayWith]="ds.displayName" (optionSelected)="optionSelected()"
+                          #autoFooterCompleteDay="matAutocomplete">
+                          <mat-option *ngFor="let item of filteredDay | async;let i=index" [value]="item">
+                            {{item?.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span>ខែ</span>
+                        <input [matAutocomplete]="autoFooterCompleteMonth" formControlName="month_footer" class="w-day">
+                        <mat-autocomplete [displayWith]="ds.displayName" (optionSelected)="optionSelected()"
+                          #autoFooterCompleteMonth="matAutocomplete">
+                          <mat-option *ngFor="let item of filteredMonth | async;let i=index" [value]="item">
+                            {{item?.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span>ឆ្នាំ</span>
+                        <input [matAutocomplete]="autoFooterCompleteYear" formControlName="year_footer" class="w-day">
+                        <mat-autocomplete [displayWith]="ds.displayName" (optionSelected)="optionSelected()"
+                          #autoFooterCompleteYear="matAutocomplete">
+                          <mat-option *ngFor="let item of filteredYear | async;let i=index" [value]="item">
+                            {{item?.name}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </span>
+                    </div>
+
+                    <div class="c-item">
+                      <span class="feTitle new">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ</span>
+                    </div>
+                  </div>
+
+                </div>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row-item" style="flex-direction: column; align-items: center;">
+          <div class="f-item" style="border-top: solid 1px; width: fit-content;">
+            <span class="n-title" style="font-size: 14px;">មហាវិថីសម្ដេចសុធារស.ខ័ណ្ឌដូនពេញ.រាជធានីធ្នំពេញ ទូរស័ព្ទ : 023
+              216 322, 023 217 841, 023 212 693។</span>
+          </div>
+        </div>
+
+        <!-- <div class="row-item">
+          <div class="f-item" style="justify-content: space-between;">
+            <div class="c-item">
+              <span style="text-decoration: underline;">សូមជូនភ្ជាប់មកជាមួយនូវ ៖</span>
+              <span style="margin-left: 20px; display: flex; flex-direction: column; padding: 0;" class="p-rel">
+                <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
+                <span class="n-title">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
+                <span class="n-title">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅ ឬសៀវភៅគ្រួសារច្បាប់ដើម ព្រមទាំងថតចម្លង
+                  (១ច្បាប់) មួយផង។</span>
+                <span class="n-title">- ចំពោះជនបរទេសត្រូវមានលិខិតបញ្ជាក់ទីលំនៅពិតប្រាកដ ចេញដោយអញ្ញាធរ ឃុំ. សង្កាត់
+                  (ច្បាប់ដើម ១ច្បាប់) ព្រមទាំងថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព (១ ច្បាប់)។</span>
+                <span class="n-title">ទូរស័ព្ទទំនាក់ទំនងលេខ <input style="width: 50%;" class="f-input" type="text"
+                    formControlName="footer_phone"></span>
+              </span>
+            </div>
+            <div class="c-item" style="width: 30%; text-align: end;">
+              <span class="nor-fam">ស្នាមមេដៃសាមីខ្លួន</span>
+
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+  </div>

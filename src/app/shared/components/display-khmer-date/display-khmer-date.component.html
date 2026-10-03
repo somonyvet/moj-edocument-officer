@@ -1,0 +1,14 @@
+<div [class]="class" [formGroup]="form">
+  <div class="item">
+    <label>{{label}} {{title?title?.day:'ថ្ងៃ'}}</label>
+    <p class="f-input">{{isKhmer?day?.name:day?.name_en}}</p>
+  </div>
+  <div class="item">
+    <label>{{title?title?.month:'ខែ'}}</label>
+    <p class="f-input">{{isKhmer?month?.name:month?.name_en}}</p>
+  </div>
+  <div class="item">
+    <label>{{title?title?.year:'ឆ្នាំ'}}</label>
+    <p class="f-input">{{isKhmer?year?.name:year?.name_en}}</p>
+  </div>
+</div>

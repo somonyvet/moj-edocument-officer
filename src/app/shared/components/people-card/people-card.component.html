@@ -1,0 +1,30 @@
+<div class="people-card-container">
+  <div class="people-card">
+    <div class="officerId-container"><div class="officerId">{{item?.officerId}}</div></div>
+    <div class="rows">
+      <div class="avatar-tb">
+          <img [src]="item?.file?.downloadUrl?item?.file?.downloadUrl:defaultImg">
+      </div>
+      <div class="name-container">
+        <h4 class="p-0">{{item?.last_name}} {{item?.first_name}}</h4>
+        <h3>{{item?.last_name_en}} {{item?.first_name_en}}</h3>
+      </div>
+    </div>
+    <div class="pos-container">
+      <span class="m-r-46">ឋានៈ</span>
+      <div class="pos-wraper">
+        <div class="pos-div" *ngFor="let title of item?.title">
+          <span class="nowrap">{{title.name}}</span>&nbsp;
+       </div>
+      </div>
+    </div>
+    <div class="pos-container">
+      <span class="m-r-10 nowrap">មុខងារតួនាទី</span>
+      <div class="pos-wraper">
+        <div class="pos-div" *ngFor="let pos of item?.position">
+          <span class="nowrap">{{pos.name}}</span>&nbsp;
+       </div>
+      </div>
+    </div>
+  </div>
+</div>

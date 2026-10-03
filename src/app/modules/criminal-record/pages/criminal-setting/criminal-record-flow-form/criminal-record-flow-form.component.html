@@ -1,0 +1,56 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>លេខកូដ</mat-label>
+                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="flowNo" type="number" required matInput
+                    placeholder="លេខកូដ">
+                <mat-error *ngIf="form.controls['flowNo'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['flowNo'].hasError('nameAvailable')" class="error-message">
+                    លេខកម្រិតគ្រប់គ្រងនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>ស្ថាប័នពិនិត្យនិងអនុម័ត</mat-label>
+                <input required type="text" matInput [matAutocomplete]="autoCategory"
+                    formControlName="department">
+                <mat-autocomplete
+                    [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                    #autoCategory="matAutocomplete">
+                    <mat-option *ngFor="let option of filterDepartments | async" [value]="option">
+                        {{option?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message"
+                    *ngIf="form.controls['department'].hasError('validKey')">
+                    <div>Please select once from list to continue.</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['department'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-checkbox formControlName="canSkipByCategory">
+                អាចរំលងស្ថាប័ននេះបាន ប្រសិនបើជាប្រភេទឯកសាររបស់ពលករ
+        </mat-checkbox>
+        </div>
+       
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

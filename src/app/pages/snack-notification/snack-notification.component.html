@@ -1,0 +1,22 @@
+<!-- [routerLink]="link" -->
+<div class="notify-container">
+    <div class="r-container">
+        <div class="img-container">
+            <img [src]="data?.profileImage || 'https://firebasestorage.googleapis.com/v0/b/sysanotta.appspot.com/o/no_image.svg?alt=media&token=f25af902-6c62-47e6-bdf3-48e3b0c6fe8c'">
+        </div>
+    </div>
+    <div class="l-container">
+        <div class="list-item title">
+            <h3>{{data?.title}}</h3>
+            <a class="abs-btn" mat-button mat-icon-button (click)="snackBarRef.dismiss()">
+                <mat-icon>close</mat-icon>
+            </a>
+        </div>
+        <div class="list-item body">
+            <p>{{data?.body | removeStringPip:'null'}}</p>
+        </div>
+        <div class="list-item time">
+            1 ម៉ោងមុន
+        </div>
+    </div>
+</div>

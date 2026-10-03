@@ -1,0 +1,188 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{titleForm}}</h2>
+    <div class="space1"></div>
+    <div mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="form-wrapper" style="flex: 1;">
+    <div class="dialog-content-wrapper">
+      <div class="form-wrapper">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>ឈ្មោះ</mat-label>
+            <input #inputRef formControlName="name" required matInput placeholder="ឈ្មោះម៉ោងធ្វើការ">
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+            </mat-error>
+            <mat-hint>ឈ្មោះម៉ោងធ្វើការសម្រាប់ផ្ដល់ភាពងាយស្រួលក្នុងការចំណាំ</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="mat-group-form">
+          <div class="mat-gf-action">
+            <span class="material-icons">
+              today
+            </span>
+            <div class="mat-gf-memo">
+              <strong>ថ្ងៃធ្វើការ!</strong><span>លោកអ្នកអាចកំណត់យកថ្ងៃធ្វើការក្នុងសប្ដាហ៍</span>
+            </div>
+          </div>
+          <div class="mat-gf-chips">
+            <div class="form-group column" style="margin: 0 8px;">
+              <ng-container *ngFor="let item of weekDays;let i=index">
+                <section style="margin-bottom: 8px;">
+                  <mat-checkbox class="example-margin" [formControlName]="item"
+                    [aria-checked]="this.form.get(item)?.value">{{weekDaysKH[i]}}</mat-checkbox>
+                </section>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="mat-group-form">
+          <div class="mat-gf-action">
+            <span class="material-icons">
+              fact_check
+            </span>
+            <div class="mat-gf-memo">
+              <strong>ការកំណត់របស់វេណ!</strong>
+            </div>
+          </div>
+          <div class="form-group two">
+            <mat-form-field appearance="outline">
+              <mat-label>រយៈពេលអនុញ្ញាតមុនម៉ោងចូល(គិតជានាទី)</mat-label>
+              <input #inputRef formControlName="durationMinuteBeforeStartTime" type='number' min="0" max="720"
+                onkeydown="return event.keyCode !== 190" required matInput placeholder="រយៈពេល">
+              <mat-error *ngIf="form.controls['durationMinuteBeforeStartTime'].hasError('required')">
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>រយៈពេលអនុគ្រោះក្រោយម៉ោងចូល(គិតជានាទី)</mat-label>
+              <input #inputRef formControlName="durationMinuteAfterStartTime" type='number' min="0" max="720"
+                onkeydown="return event.keyCode !== 190" required matInput placeholder="រយៈពេល">
+              <mat-error *ngIf="form.controls['durationMinuteAfterStartTime'].hasError('required')">
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>រយៈពេលអនុគ្រោះមុនម៉ោងចេញ(គិតជានាទី)</mat-label>
+              <input #inputRef formControlName="durationMinuteBeforeEndTime" type='number' min="0" max="720"
+                onkeydown="return event.keyCode !== 190" required matInput placeholder="រយៈពេល">
+              <mat-error *ngIf="form.controls['durationMinuteBeforeEndTime'].hasError('required')">
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>ស្ថានភាពវត្តមានពេលមិនបានបិទម៉ោងធ្វើការ</mat-label>
+              <input [matAutocomplete]="autoComplete" required formControlName="missingCheckoutStatus" matInput
+                placeholder="ជ្រើសរើសស្ថានភាពវត្តមាន">
+              <mat-autocomplete #autoComplete="matAutocomplete" [displayWith]="displayMissingCheckOutStatus">
+                <mat-option *ngFor="let item of attendanceStatusArr" [value]="item">
+                  {{item?.text_kh}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error class="error-message" *ngIf="form.controls['missingCheckoutStatus'].hasError('validKey')">
+                <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+              </mat-error>
+
+              <mat-error *ngIf="form.controls['missingCheckoutStatus'].hasError('required')">
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <ng-container *ngFor="let contentGroup of this.workingShifts.controls;let i=index">
+          <ng-container [formGroup]="contentGroup">
+            <div class="mat-group-form">
+              <div class="mat-gf-action">
+                <div class="mat-gf-memo">
+                  <strong>វេនធ្វើការ</strong>
+                </div>
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>ឈ្មោះវេន</mat-label>
+                  <input [matAutocomplete]="autoComplete" required formControlName="name" matInput
+                    placeholder="ឈ្មោះវេន">
+                  <mat-autocomplete #autoComplete="matAutocomplete" [displayWith]="displayShift">
+                    <mat-option *ngFor="let item of shiftObjs" [value]="item" (mousedown)="selectShift(i)">
+                      {{item?.text}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('name').hasError('validKey')">
+                    <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+                  </mat-error>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('name').hasError('duplicate')">
+                    <div>ឈ្មោះវេនមិនអាចដូចគ្នាបានទេ</div>
+                  </mat-error>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('name').hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                  </mat-error>
+                </mat-form-field>
+                <a mat-button mat-icon-button (click)="removeShift(i)" matTooltipClass="tooltipClass"
+                  class="btn-p-icon app-button" matTooltip="លុប" *ngIf="i!==0">
+                  <mat-icon>
+                    <ion-icon name="trash"></ion-icon>
+                  </mat-icon>
+                </a>
+              </div>
+              <div class="form-group two" (mousedown)="setCurrentShiftSelectIndex(i)">
+                <div class="container">
+                  <mat-label>ម៉ោងចូល*</mat-label>
+                  <ngb-timepicker class="ng-boot-time" [meridian]="true" formControlName="startTime" required matInput>
+                  </ngb-timepicker>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('startTime').hasError('timeRangeErr')">
+                    <div>ម៉ោងចូលមិនអាចនៅចន្លោះម៉ោងរបស់វេនដទៃបានទេ</div>
+                  </mat-error>
+                  <mat-error class="error-message"
+                    *ngIf="contentGroup.get('startTime').hasError('compareTimeErr') || contentGroup.get('endTime').hasError('compareTimeErr')">
+                    <div>ម៉ោងចូលមិនអាចធំជាងម៉ោងចេញបានទេ</div>
+                  </mat-error>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('startTime').hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                  </mat-error>
+                </div>
+                <div class="container">
+                  <mat-label>ម៉ោងចេញ*</mat-label>
+                  <ngb-timepicker class="ng-boot-time" [meridian]="true" formControlName="endTime" required matInput>
+                  </ngb-timepicker>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('endTime').hasError('timeRangeErr')">
+                    <div>ម៉ោងចេញមិនអាចនៅចន្លោះម៉ោងរបស់វេនដទៃបានទេ</div>
+                  </mat-error>
+                  <mat-error class="error-message"
+                    *ngIf="contentGroup.get('endTime').hasError('compareTimeErr')||contentGroup.get('startTime').hasError('compareTimeErr')">
+                    <div>ម៉ោងចេញមិនអាចតូចជាងម៉ោងចូលបានទេ</div>
+                  </mat-error>
+                  <mat-error class="error-message" *ngIf="contentGroup.get('endTime').hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div class="nav-right" *ngIf="this.workingShifts.controls.length < shiftKeys.length">
+          <button mat-icon-button matTooltipClass="tooltipClass" matTooltip="បន្ថែមវេន" type="button"
+            (click)="addShift()" class="btn-p-icon">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit"
+      (click)="_onSave(form?.value)">{{this.store.workingHour?'រក្សាទុក':'បង្កើត'}}</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,39 @@
+@import "./../../../../../assets/styles/variable.scss";
+
+.btn-a-wrapper{
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  gap: 12px;
+  .avatar-vt-item{
+    flex: 1;
+  }
+  ion-icon{
+    font-size: 22px;
+  }
+}
+.row-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 16px;
+  padding-top: 0;
+  h4{
+    margin: 0!important;
+  }
+}
+.btn-add-form-array {
+  color: $appprimaryColor;
+  cursor: pointer;
+  font-family: $appFont;
+  font-size: 16px;
+  background-color: #e8f0fe;
+  padding: 6px 16px;
+  border-radius: 30px;
+}
+.no-margin{
+  margin-bottom: 0!important;
+}
+.search-result-container{
+  top: 120px
+}

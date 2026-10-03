@@ -1,0 +1,66 @@
+@import "/src/assets/styles/variable.scss";
+
+.dialog-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #EFF2F5;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background-color: $whiteColor;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+
+  .header-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .header-title {
+    font-family: $appFont;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin: 0;
+  }
+
+  .header-subtitle {
+    font-family: $appFont;
+    font-size: 14px;
+    color: $subtitle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.close-dialog {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  background-color: #EFF2F5;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgb(0 0 0 / 10%);
+  color: black;
+  cursor: pointer;
+}
+
+.dialog-content {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}
+
+.form-container {
+  width: fit-content;
+  margin: 0 auto;
+}

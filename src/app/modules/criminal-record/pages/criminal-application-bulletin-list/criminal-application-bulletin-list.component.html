@@ -1,0 +1,126 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <div class="action-item">
+          <h4>{{title}}</h4>
+          <button mat-button class="enbutton primary" *ngIf="auth?.dataEntryOnly" (click)="openExcelImport()">
+            <div class="rows">
+              <ion-icon name="cloud-upload-outline"></ion-icon>
+              <span style="margin-left: 5px;">Import Excel</span>
+            </div>
+          </button>
+        </div>
+        <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (focusIn)="focusSearch = true"
+          (focusOut)="focusSearch = false" (closeSearch)="focusSearch = false"
+          (searchValue)="onSearch($event)" (scanQrCode)="onScanQrCode($event)">
+        </app-search-filter-box>
+        <div *ngIf="(searchString || focusSearch) && !isScanQrCode" class="search-result-container criminal">
+          <div class="devider">
+            <div></div>
+          </div>
+          <div class="result-item-container">
+            <div class="lottie-container" *ngIf="!searchString">
+            </div>
+            <ng-container *ngIf="searchString">
+              <ng-container *ngIf="!store?.searching">
+                <div class="btn-a-wrapper" *ngFor="let item of store?.searchResult ;let i=index; trackBy: trackByIdx">
+                  <a mat-button class="avatar-vt-item" [routerLink]="item?.key" routerLinkActive="active">
+                    <div class="avatar">
+                      <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                    </div>
+                    <div class="av-vt-body">
+                      <strong>{{item?.last_name}} {{item?.first_name}}</strong>
+                      <div class="rows sub-text">
+                        <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
+                          {{item?.occupation}}</span>
+                        <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
+                          {{item?.application_type?.text}}</span>
+                        <span>ស្ថានភាពឯកសារ: {{item?.status?.name}}</span>
+                        <div class="amTimeAgo">
+                          <ion-icon name="calendar-outline"></ion-icon>
+                          <span matTooltipClass="tooltipClass"
+                            [matTooltip]="item?.created_at?.toDate()| dateTime">{{item?.amTimeAgo}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <button mat-button mat-icon-button (click)="printLetter3(item)" matTooltip="បោះពុម្ពព្រឹត្តិបត្រលេខ ៣"  *ngIf="(auth | notMol) && !auth?.isEmbassyUser">
+                    <mat-icon>print</mat-icon>
+                  </button>
+                </div>
+                <ng-container *ngIf="store?.emptySearch">
+                  <div class="empty-result-container">
+                    <p>គ្មានលទ្ធផលសម្រាប់ការស្វែងរក <strong>{{searchString}}</strong></p>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <div style="width:100%; display: flex; justify-content: center;">
+                <mat-spinner *ngIf="store?.searching" class="spinner"></mat-spinner>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- <nav mat-tab-nav-bar class="fire-tabs">
+          <a mat-tab-link [active]="true">{{auth?.recipient?'ចេញបង្កាន់ដៃ':'ទាំងអស់'}}</a>
+        </nav> -->
+
+        <nav mat-tab-nav-bar class="fire-tabs">
+          <a mat-tab-link *ngFor="let link of tab" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">{{link.label}}</a>
+        </nav>
+
+      </div>
+      <ng-container *ngIf="!loading else loader1">
+        <ng-container *ngIf="store?.data?.length>0 else emptyData">
+          <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header"
+            (vsEnd)="scrollHandler($event)">
+            <div class="btn-a-wrapper" *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+              <a mat-button class="avatar-vt-item" [ngClass]="item?.status?.key===STATUS_OBJ?.VOID?.key?'warn':''" [routerLink]="item?.key" routerLinkActive="active">
+                <div class="avatar">
+                  <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                </div>
+                <div class="av-vt-body">
+                  <strong>{{item?.last_name}} {{item?.first_name}}</strong>
+                  <div class="rows sub-text">
+                    <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
+                      {{item?.occupation}}</span>
+                    <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
+                      {{item?.application_type?.text}}</span>
+                    <span>ស្ថានភាពឯកសារ: {{item?.status?.name}}</span>
+                    <div class="amTimeAgo">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <span matTooltipClass="tooltipClass"
+                        [matTooltip]="item?.created_at?.toDate()| dateTime">{{item?.amTimeAgo}}</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="item-checkbox" *ngIf="canBatchApply(item)" matTooltip="ជ្រើសរើសសម្រាប់ដាក់ស្នើសុំជាក្រុម">
+                <mat-checkbox [checked]="isSelected(item)" (change)="toggleSelect(item, $event.checked)"></mat-checkbox>
+              </div>
+              <button mat-button mat-icon-button (click)="printLetter3(item)" matTooltip="បោះពុម្ពព្រឹត្តិបត្រលេខ ៣"  *ngIf="(auth | notMol) && !auth?.isEmbassyUser">
+                <mat-icon>print</mat-icon>
+              </button>
+            </div>
+
+            <div class="fake"></div>
+          </virtual-scroller>
+        </ng-container>
+
+      </ng-container>
+      <ng-template #loader1>
+        <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
+</div>

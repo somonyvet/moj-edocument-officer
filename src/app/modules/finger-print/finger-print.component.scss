@@ -1,0 +1,40 @@
+.probootstrap-section {
+  padding: 7em 0;
+
+  select[multiple],
+  select[size] {
+    height: auto;
+    width: 100%;
+  }
+  .form-group {
+    text-align: center;
+    width: 100%;
+  }
+
+  .fg-img-capture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .text-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .left-hand {
+    margin: 8px;
+  }
+  .right-hand {
+    margin: 8px;
+  }
+
+  .probootstrap-right-bx {
+    p {
+      margin-bottom: 17px;
+    }
+    label {
+        margin-right: 8px;
+    }
+  }
+}

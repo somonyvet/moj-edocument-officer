@@ -1,0 +1,14 @@
+<div class="profile-item" matRipple (click)="onOpenChart(item)">
+  <div class="g-avt">
+    <img class="avatar" [src]="item?.file?item?.file?.downloadUrl:NO_AVATAR" />
+    <div class="profile-status" *ngIf="presence$ | async as presence">
+      <span [ngClass]="{'is-success':  presence.status  === 'online' || presence.status  === 'away'}"></span>
+    </div>
+  </div>
+
+  <div class="columns flex1">
+    <span style="text-transform: capitalize;">{{item?.displayName}}</span>
+    <span *ngIf="!hidePhone" style="margin-top: 4px; display: flex;">{{item?.mobile_phone}}</span>
+  </div>
+
+</div>

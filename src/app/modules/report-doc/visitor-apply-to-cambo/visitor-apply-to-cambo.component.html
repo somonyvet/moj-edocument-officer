@@ -1,0 +1,315 @@
+<div class="doc-preview-wrapper new-ui">
+  <div class="doc-preview-content">
+    <div class="doc-preview-content-action-top">
+      <div class="doc-title">
+        <div class="doc-cover">
+        </div>
+        <strong>ស្ថិតិភ្ញៀវសុំទិដ្ឋាការចូលព្រះរាជាណាចក្រកម្ពុជា</strong>
+      </div>
+      <div class="abs-tr">
+        <!-- <a mat-button mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
+          matTooltip="ចូលកែប្រែ" aria-label="Print Document">
+          <mat-icon class="mat-18">edit</mat-icon>
+        </a> -->
+        <a mat-button mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
+          matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
+          <mat-icon class="mat-18">local_printshop</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <div class="doc-template-wrapper print-preview lh-2" id="print">
+      <table #table style="margin: 0 auto;">
+        <tbody>
+          <tr>
+            <td style="padding: 10px 0;">
+              <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+                aria-label="Example icon-button with a menu">
+                <span>{{store?.periodText ? store?.periodText : 'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+                <i class="material-icons">arrow_drop_down</i>
+              </button>
+              <mat-menu #menuPeriod="matMenu">
+                <div class="options-lags" (click)="$event.stopPropagation();">
+                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="store?.fromDateNum"
+                    [toDate]="store?.toDateNum">
+                  </app-report-filter-period>
+                </div>
+              </mat-menu>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="doc-template-page new"
+                  style="page-break-after: always; min-height: 297mm; margin-bottom: 30px; min-width: 210mm; padding: 44px 54px;">
+                  <div class="doc-template-row">
+                    <div class="bl-title-left">
+                      <ng-container>
+                        <p>ក្រសួងមហាផ្ទៃ</p>
+                      </ng-container>
+                      <p>
+                        អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍
+                      </p>
+                      <p>
+                        នាយកដ្ឋានជនបរទេស
+                      </p>
+                      <p>
+                        មិនមែនអន្តោប្រវេស និងបច្ចេកទេស
+                      </p>
+                      <p>
+                        ការិយាល័យផ្ដល់ទិដ្ឋាការ
+                      </p>
+                      <p class="star">3</p>
+                      <strong class="f-b">លេខ៖..................../២២ ក២</strong>
+                    </div>
+                    <div class="bl-space"></div>
+                    <div class="bl-title-right">
+                      <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                      <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                      <p class="star">3</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block">
+                    <div class="bl-title-center pdt-8">
+                      <p>ស្ថិតិភ្ញៀវសុំទិដ្ឋាការចូលព្រះរាជាណាចក្រកម្ពុជា</p>
+                    </div>
+                    <div class="bl-title-center">
+                      <p>តាមបណ្តាច្រកទ្វារព្រំដែនអន្តរជាតិនានា ប្រចាំខែ សីហា ឆ្នាំ ២០២២</p>
+                    </div>
+                  </div>
+
+
+                  <div class="doc-template-row doc-template-block">
+                    <table class="tb-master-print new">
+
+                      <thead class="table-header color">
+                        <tr class="table-row">
+                          <th class="table-col center" style="width: 26px;">ល.រ</th>
+                          <th class="table-col center" style="width: 130px;">ក្រុមផ្តល់ទិដ្ឋាការ</th>
+                          <th class="table-col center w-60px">T</th>
+                          <th class="table-col center w-60px">T1</th>
+                          <th class="table-col center w-60px">T2</th>
+                          <th class="table-col center w-60px">T2</th>
+                          <th class="table-col center w-60px">E</th>
+                          <th class="table-col center w-60px">E1</th>
+                          <th class="table-col center w-60px">E2</th>
+                          <th class="table-col center w-60px">E3</th>
+                          <th class="table-col center w-60px">D</th>
+                          <th class="table-col center w-60px">K</th>
+                          <th class="table-col center w-60px">A</th>
+                          <th class="table-col center w-60px">B</th>
+                          <th class="table-col center w-60px">C</th>
+                          <th class="table-col center" style="width: 90px;">Toatal</th>
+                          <th class="table-col center" style="width: 90px;">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-body">
+                        <tr>
+                          <td class="table-col center">1</td>
+                          <td class="table-col center">អាកាស. ភ្នំពេញ</td>
+                          <td class="table-col center">8,054</td>
+                          <td class="table-col center">59</td>
+                          <td class="table-col center">11</td>
+                          <td class="table-col center">14</td>
+                          <td class="table-col center">11,110</td>
+                          <td class="table-col center">81</td>
+                          <td class="table-col center">12</td>
+                          <td class="table-col center">33</td>
+                          <td class="table-col center">50</td>
+                          <td class="table-col center">2,065</td>
+                          <td class="table-col center">63</td>
+                          <td class="table-col center">90</td>
+                          <td class="table-col center">45</td>
+                          <td class="table-col center">21,687</td>
+                          <td class="table-col center">$643,610</td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">1</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">2</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">3</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">5</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                        <tr>
+                          <td class="table-col center">6</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td class="table-col center" colspan="2">សរុប</td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                          <td class="table-col center"></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  <div class="doc-template-row doc-template-bloc" style="width: 80%; margin: 0 auto;">
+                    <div class="bottom-dt">
+                      <div class="flex-row11" style="text-align: start; font-size: 12px;">
+                        ★ បើប្រៀបធៀបនឹងខែកក្កដា ឆ្នាំ២០២២ ភ្ញៀវសុំទិដ្ឋាការកើនឡើងចំនួន 4,528 នាក់ លើ 37,447 នាក់ ស្មើនឹង 12.09%
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-bloc" style="flex-direction: row; justify-content: space-between;">
+                    <div class="bottom-dt">
+                      <div class="flex-row11 small font-normal">
+                        ថ្ងៃព្រហស្បតិ៍ ១២រោច ខែភត្របទ ឆ្នាំខាល ចត្វាស័ក ព.ស២៥៦៦
+                      </div>
+                      <div class="flex-row11 small">
+                        <span class="font-normal">រាជធានីភ្នំពេញ</span>
+                        <span class="font-normal"> , ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
+                        </span>
+                      </div>
+                      <div class="title" style="margin: 0; font-size: 12px;">អគ្គនាយករង</div>
+                      <div class="title" style="margin: 0; font-size: 12px;">និងជា ប្រធាននាយកដ្ឋានជនបរទេស</div>
+                      <div class="title" style="margin: 0; font-size: 12px;">មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</div>
+                    </div>
+                    <div class="bottom-dt">
+                      <div class="flex-row11 small font-normal">
+                        ថ្ងៃព្រហស្បតិ៍ ១២រោច ខែភត្របទ ឆ្នាំខាល ចត្វាស័ក ព.ស២៥៦៦
+                      </div>
+                      <div class="flex-row11 small font-normal">
+                        <span class="font-normal">រាជធានីភ្នំពេញ</span>
+                        <span class="font-normal"> , ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
+                        </span>
+                      </div>
+                      <div class="title" style="margin: 0; font-size: 12px;">អនុប្រធាននាយកដ្ឋាន</div>
+                    </div>
+                    <div class="bottom-dt">
+                      <div class="flex-row11 small font-normal">
+                        ថ្ងៃព្រហស្បតិ៍ ១២រោច ខែភត្របទ ឆ្នាំខាល ចត្វាស័ក ព.ស២៥៦៦
+                      </div>
+                      <div class="flex-row11 small font-normal">
+                        <span class="font-normal">រាជធានីភ្នំពេញ</span>
+                        <span class="font-normal"> , ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
+                        </span>
+                      </div>
+                      <div class="title" style="margin: 0;">នាយការិយាល័យ</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <!-- <ng-template #unselectedDoc>
+      <div class="mt-file">
+        <div class="img-container">
+          <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+        </div>
+        <div class="text-content">
+          <span>
+            សូមជ្រើសរើសឯកសារដើម្បីពិនិត្យ
+          </span>
+        </div>
+      </div>
+    </ng-template> -->
+</div>
+<ng-template #noPermissionTemplate>
+  <app-document-assess-denied></app-document-assess-denied>
+</ng-template>

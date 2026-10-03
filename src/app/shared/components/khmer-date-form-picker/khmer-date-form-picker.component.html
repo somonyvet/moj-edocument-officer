@@ -1,0 +1,32 @@
+<div [class]="class" [formGroup]="form">
+  <div class="item">
+    <label>{{label}} {{title?title?.day:'ទី'}} <span class="star-req" *ngIf="form.get('day')?.invalid">*</span></label>
+    <input [matAutocomplete]="autoCompleteDay" formControlName="day">
+    <mat-autocomplete [displayWith]="displayNameAndNameEn" (optionSelected)="optionSelected()"
+      #autoCompleteDay="matAutocomplete">
+      <mat-option *ngFor="let item of filteredDay | async;let i=index" [value]="item">
+        {{isKhmer?item?.name:item?.name_en}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="item">
+    <label>{{title?title?.month:'ខែ'}} <span class="star-req" *ngIf="form.get('month')?.invalid">*</span></label>
+    <input [matAutocomplete]="autoCompleteMonth" formControlName="month">
+    <mat-autocomplete [displayWith]="displayNameAndNameEn" (optionSelected)="optionSelected()"
+      #autoCompleteMonth="matAutocomplete">
+      <mat-option *ngFor="let item of filteredMonth | async;let i=index" [value]="item">
+        {{isKhmer?item?.name:item?.name_en}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="item">
+    <label>{{title?title?.year:'ឆ្នាំ'}} <span class="star-req" *ngIf="form.get('year')?.invalid">*</span></label>
+    <input [matAutocomplete]="autoCompleteYear" formControlName="year">
+    <mat-autocomplete [displayWith]="displayNameAndNameEn" (optionSelected)="optionSelected()"
+      #autoCompleteYear="matAutocomplete">
+      <mat-option *ngFor="let item of filteredYear | async;let i=index" [value]="item">
+        {{isKhmer?item?.name:item?.name_en}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+</div>

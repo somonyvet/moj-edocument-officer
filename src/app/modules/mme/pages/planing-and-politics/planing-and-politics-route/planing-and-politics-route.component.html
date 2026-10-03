@@ -1,0 +1,96 @@
+<div class="nav-container" *mobxAutorun>
+    <div class="nav-site-dock">
+        <div class="nav-docks">
+            <app-project-sidebar-head style="z-index: 999;"
+              [options]="sidebarHeaderOptions"
+              [selectedProject]="store?.selectedPlaning"
+              [list]="projectProgramList"
+              (onSelectedItem)="onSelectedSearchItem($event)"
+              (onSelectedYear)="onChangePlan($event)"
+            ></app-project-sidebar-head>
+            <div class="nav-dock-body">
+                <ng-container *ngIf="!loading else treeLoading">
+                    <mat-list role="list" class="nav-list-items-pro" *ngIf="store?.data?.length>0 else emptyTree;">
+                        <mat-list-item role="listitem" *ngFor="let item of store?.data | filterProject:searchFilter">
+                            <a *ngIf="store?.nextCategory else endList" class="nav-list-item"
+                                [routerLink]="['/planing/'+item?.project?.key+'/'+ item?.key +'/draft/form']">
+                                <div><strong>{{item?.code}}.</strong> {{item?.name}}</div>
+                            </a>
+                            <ng-template #endList>
+                                <a class="nav-list-item no-link-doc">
+                                    <div><strong>{{item?.code}}.</strong> {{item?.name}}</div>
+                                </a>
+                            </ng-template>
+                            <a mat-button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </a>
+                            <mat-menu #menu="matMenu">
+                                <a mat-menu-item
+                                    [routerLink]="['/planing/'+item?.project?.key+'/'+ (item?.subOfProgram?.key || 'na') +'/'+ item?.key +'/form']">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>កែប្រែ</span>
+                                </a>
+                                <a mat-menu-item (click)="_onDelete(item)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>លុប</span>
+                                </a>
+                            </mat-menu>
+                        </mat-list-item>
+                    </mat-list>
+                    <ng-template #emptyTree>
+                        <app-empty className="full-bx" img="../../../../../assets/images/empty-mail.svg"
+                            [name]="'ពុំមានទិន្នន័យ'+store?.selectedCategory?.name+'ក្នុងផែនការប្រចាំឆ្នាំ'">
+                        </app-empty>
+                    </ng-template>
+                </ng-container>
+                <ng-template #treeLoading>
+                    <app-skeleton-loader></app-skeleton-loader>
+                </ng-template>
+              <ng-template #treeLoading>
+                  <app-skeleton-loader></app-skeleton-loader>
+              </ng-template>
+            </div>
+            <div class="nav-dock-footer">
+                <div class="site-nav-button">
+                    <a mat-button class="mat-btn-primary"
+                        [routerLink]="[auth?.planing?('/planing/'+ auth?.planing?.key+ '/'+ (store?.selectedParent?.key||'na')+'/draft/form'):'']">
+                        បង្កើត{{store?.selectedCategory?.name}}
+                    </a>
+                    <div class="scb9dxdrList pad16">
+                        <a mat-button class="scb9dxdrBox" (click)="create('auditor')">
+                            <div class="boxIcon">
+                                <mat-icon>manage_accounts</mat-icon>
+                            </div>
+                            <div class="boxTxt">
+                                បង្កើតអ្នកតាមដាន
+                            </div>
+                        </a>
+                        <a mat-button class="scb9dxdrBox" (click)="create('officer')">
+                            <div class="boxIcon">
+                                <mat-icon>people_alt</mat-icon>
+                            </div>
+                            <div class="boxTxt">
+                                បង្កើតជនបង្គោល
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="shadow-nav"></div>
+    </div>
+    <div class="nav-container-fill">
+        <div class="breadcrumb">
+            <a mat-button mat-icon-button class="mat-btn-n" [routerLink]="['/planing/annual-project/na/all']">
+                <mat-icon>home</mat-icon>
+            </a>
+            <a [routerLink]="[item?.uri]" class="breadcrumb-item" *ngFor="let item of store?.breadcrumbMap;let j=index"
+                [ngClass]="j<(store?.breadcrumbMap?.length-1)?'link':''">
+                <span>{{item?.name}}</span>
+            </a>
+        </div>
+        <router-outlet *ngIf="!loading"></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>អ្នកចុះហត្ថលេខា</h2>
+    <div class="space1"></div>
+    <a mat-button mat-icon-button (click)="dialogRef.close('no')">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>អ្នកចុះហត្ថលេខា</mat-label>
+        <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
+          placeholder="ជ្រើសរើសអ្នកចុះហត្ថលេខា">
+        <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFnName"
+          #autoCompleteManagementLevel="matAutocomplete">
+          <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
+            {{item?.profile?.last_name}}
+            {{item?.profile?.first_name}}
+            <!-- <app-avatar-officer [officerKey]="item?.accountKey">
+                        </app-avatar-officer> -->
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
+          <div>Please select once from list to continue.</div>
+        </mat-error>
+        <mat-error *ngIf="form.controls['office'].hasError('required')">
+          This field is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-container class="dialog-header">
+      <mat-checkbox formControlName="isApprove_date" style="margin-left: 10px;" class="title">
+        បង្ហាញកាលបរិច្ឆេទចុះហត្ថលេខា</mat-checkbox>
+    </ng-container>
+
+
+  </mat-dialog-content>
+  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+  </mat-progress-bar>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn" (click)="dialogRef.close('no')">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
+</form>

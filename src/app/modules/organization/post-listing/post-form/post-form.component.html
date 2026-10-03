@@ -1,0 +1,93 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>លេខកូដ</mat-label>
+                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code" required matInput
+                    placeholder="លេខកូដ">
+                <mat-error *ngIf="form.controls['code'].hasError('required')">
+                    This field is required.
+                </mat-error>
+                <mat-error *ngIf="form.controls['code'].hasError('nameAvailable')">
+                    This code is already exist in system. Please try another!
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះអក្សរកាត់</mat-label>
+                <input formControlName="displayName" required matInput placeholder="ឈ្មោះអក្សរកាត់">
+                <mat-error *ngIf="form.controls['displayName'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input formControlName="name" required matInput placeholder="ឈ្មោះ">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
+                    ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>រាជធានី/ខេត្ត</mat-label>
+                <input [matAutocomplete]="autoCompleteRole" formControlName="province" matInput
+                    placeholder="Select province">
+                <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRole="matAutocomplete">
+                    <mat-option *ngFor="let item of filterProvince | async;let i=index" [value]="item">
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message" *ngIf="form.controls['province'].hasError('validKey')">
+                    <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['province'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-checkbox class="mat-check-form" formControlName="adminOffice">រដ្ឋបាលសរុប</mat-checkbox>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ស្ថិតនៅក្រោមស្ថាប័ន</mat-label>
+                <input [matAutocomplete]="autoSubOfCommittee" formControlName="subOfDepartment" matInput
+                    placeholder="ស្ថិតនៅក្រោមស្ថាប័ន">
+                <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
+                    <mat-option *ngFor="let item of filteredStockVisaOptions | async;let i=index" [value]="item">
+                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message" *ngIf="form.controls['subOfDepartment'].hasError('validKey')">
+                    <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['subOfDepartment'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

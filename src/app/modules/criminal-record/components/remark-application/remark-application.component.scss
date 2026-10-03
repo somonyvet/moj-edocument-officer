@@ -1,0 +1,23 @@
+@import "/src/assets/styles/variable.scss";
+
+.preset-reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.preset-reason-btn {
+    line-height: 30px;
+    height: 30px;
+    padding: 0 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+
+    &.active {
+        background-color: $appprimaryColor;
+        border-color: $appprimaryColor;
+        color: #fff;
+    }
+}

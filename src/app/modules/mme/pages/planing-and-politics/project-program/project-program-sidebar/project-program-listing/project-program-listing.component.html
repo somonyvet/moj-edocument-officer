@@ -1,0 +1,32 @@
+<ng-container *ngIf="!loading else treeLoading">
+    <mat-tree *ngIf="(store?.selectedPlaning?.key && store?.rootLevelNodes?.length>0) else emptyTree" #treeProject
+        class="nav-tree" [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <button mat-button type="button" mat-icon-button disabled></button>
+            <a [routerLink]="['/planing/programs/'+node?.item?.project?.key+'/activities']"
+                [queryParams]="{budget:store?.queryParams?.budget,activityKey:node.item?.key,programLevel:store?.queryParams?.programLevel,quarterPlaningKey:store?.queryParams?.quarterPlaningKey}"
+                routerLinkActive="active" class="nav-tree-text">
+                <strong>{{node?.item?.code}}</strong>. <span>{{node.item?.name}}</span>
+            </a>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+            <a mat-button type="button" mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </a>
+            <a [routerLink]="['/planing/programs/'+node?.item?.project?.key+'/activities']"
+                [queryParams]="{budget:store?.queryParams?.budget,activityKey:node.item?.key,programLevel:store?.queryParams?.programLevel,quarterPlaningKey:store?.queryParams?.quarterPlaningKey}"
+                routerLinkActive="active" class="nav-tree-text">
+                <strong>{{node?.item?.code}}</strong>. <span>{{node.item?.name}}</span>
+            </a>
+        </mat-tree-node>
+    </mat-tree>
+    <ng-template #emptyTree>
+        <app-empty className="full-bx" img="../../../../../assets/images/empty-mail.svg"
+            name="ពុំមានកម្មវិធីផែនការប្រចាំឆ្នាំ"></app-empty>
+    </ng-template>
+</ng-container>
+<ng-template #treeLoading>
+    <app-skeleton-loader></app-skeleton-loader>
+</ng-template>

@@ -1,0 +1,64 @@
+<div class="main-panel">
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
+          <h4>{{title}}</h4>
+          <div class="nav-right">
+            <a style="width: 30px; height: 30px; display: flex;" routerLinkActive="active" mat-button mat-icon-button
+              matTooltipClass="tooltipClass" class="btn-p-icon app-button" [matTooltip]="'បង្កើត'+title"
+              (click)="cri?.onCreate()">
+              <mat-icon>
+                <ion-icon name="add-outline"></ion-icon>
+              </mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+      <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
+      </app-search-filter-box>
+      <nav mat-tab-nav-bar class="fire-tabs">
+        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">{{link.label}}</a>
+      </nav>
+      <ng-container *ngIf="!loading else loader">
+        <ng-container *ngIf="store?.crimeReCate?.length>0 else emptyData">
+          <virtual-scroller #scroll [items]="store?.crimeReCate" class="doc-ls-items seach-header"
+            (vsEnd)="scrollHandler($event)">
+            <a mat-button class="avatar-vt-item"
+              *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+              <a class="av-vt-body" routerLinkActive="active">
+                <div class="render-item" [innerHTML]="item?.name"></div>
+              </a>
+              <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="criminal.onCreate(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>កែសម្រួល</span>
+                </button>
+                <button mat-menu-item (click)="onDelete(item)">
+                  <mat-icon>delete</mat-icon>
+                  <span>លុប</span>
+                </button>
+              </mat-menu>
+            </a>
+            <div class="fake"></div>
+          </virtual-scroller>
+        </ng-container>
+      </ng-container>
+      <ng-template #loader>
+        <app-spinner></app-spinner>
+      </ng-template>
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានសញ្ជាតិ" subtitle=""></app-empty>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
+</div>

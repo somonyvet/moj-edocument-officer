@@ -1,0 +1,258 @@
+<div class="page-container" *mobxAutorun>
+    <div class="action-bar sticky-tools">
+        <div class="nav-content">
+            <h3 class="head-title">
+                ការកំណត់
+            </h3>
+        </div>
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+                [active]="rla.isActive">
+                {{link.label}}
+            </a>
+        </nav>
+    </div>
+
+    <div class="page-doc nav-r-container">
+        <div class="form-tab-doc" style="border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;">
+            <form [formGroup]="form" class="form-wrapper">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>កម្រិតស្ថាប័នកំពូល</mat-label>
+                        <input [matAutocomplete]="autoCompleteTopManagement" formControlName="startFromLevel" matInput
+                            placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedPositionChanged($event,'startFromLevel')"
+                            [displayWith]="ds.displayFn" #autoCompleteTopManagement="matAutocomplete">
+                            <mat-option *ngFor="let item of filterStartFromLevel | async;let i=index" [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message" *ngIf="form.controls['startFromLevel'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['startFromLevel'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                <!-- <div class="form-group two">
+                    <mat-form-field appearance="outline">
+                        <mat-label>មុខងាររដ្ឋលេខាធិការ</mat-label>
+                        <input [matAutocomplete]="autoCompleteSecretaryOfState"
+                            formControlName="secretaryOfStatePosition" matInput placeholder="">
+                        <mat-autocomplete
+                            (optionSelected)="optionSelectedPositionChanged($event,'secretaryOfStatePosition')"
+                            [displayWith]="ds.displayFn" #autoCompleteSecretaryOfState="matAutocomplete">
+                            <mat-option *ngFor="let item of filterSecretaryOfStatePosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['secretaryOfStatePosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['secretaryOfStatePosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>មុខងារជំនួយការរដ្ឋលេខាធិការ</mat-label>
+                        <input [matAutocomplete]="autoCompleteAssistantSecretaryOfState"
+                            formControlName="secretaryOfStateAssistantPosition" matInput placeholder="">
+                        <mat-autocomplete
+                            (optionSelected)="optionSelectedPositionChanged($event,'secretaryOfStateAssistantPosition')"
+                            [displayWith]="ds.displayFn" #autoCompleteAssistantSecretaryOfState="matAutocomplete">
+                            <mat-option *ngFor="let item of filterSecretaryOfStateAssistantPosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['secretaryOfStateAssistantPosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['secretaryOfStateAssistantPosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div> -->
+                <!-- <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>ខុទ្ទកាល័យរដ្ឋលេខាធិការ</mat-label>
+                        <input [matAutocomplete]="autoCompleteSecretaryOfStateOffice"
+                            formControlName="secretaryOfStateOfficePosition" matInput placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedPositionChanged($event,'secretaryOfStateOfficePosition')"
+                            [displayWith]="ds.displayFn" #autoCompleteSecretaryOfStateOffice="matAutocomplete">
+                            <mat-option *ngFor="let item of filterSecretaryOfStateOfficePosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['secretaryOfStateOfficePosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['secretaryOfStateOfficePosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div> -->
+                <!-- <div class="form-group two">
+                    <mat-form-field appearance="outline">
+                        <mat-label>កម្រិតអគ្គនាយក</mat-label>
+                        <input [matAutocomplete]="autoCompleteGeneral" formControlName="generalDepartmentLevel" matInput
+                            placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedGeneral($event)" [displayWith]="ds.displayFn"
+                            #autoCompleteGeneral="matAutocomplete">
+                            <mat-option *ngFor="let item of filterGeneralDepartmentLevel | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['generalDepartmentLevel'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['generalDepartmentLevel'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>មុខងារជំនួយការអគ្គនាយក</mat-label>
+                        <input [matAutocomplete]="autoCompleteAssistantGeneral"
+                            formControlName="assistantGeneralPosition" matInput placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedAssistantGeneral($event)"
+                            [displayWith]="ds.displayFn" #autoCompleteAssistantGeneral="matAutocomplete">
+                            <mat-option *ngFor="let item of filterAssistantGeneralPosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['assistantGeneralPosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['assistantGeneralPosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="form-group two">
+                    <mat-form-field appearance="outline">
+                        <mat-label>កម្រិតប្រធាននាយកដ្ឋាន</mat-label>
+                        <input [matAutocomplete]="autoCompleteDepartment" formControlName="departmentLevel" matInput
+                            placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedDepartment($event)"
+                            [displayWith]="ds.displayFn" #autoCompleteDepartment="matAutocomplete">
+                            <mat-option *ngFor="let item of filterDepartmentLevel | async;let i=index" [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message" *ngIf="form.controls['departmentLevel'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['departmentLevel'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>មុខងារជំនួយការប្រធាននាយកដ្ឋាន</mat-label>
+                        <input [matAutocomplete]="autoCompleteAssistantDepartment"
+                            formControlName="assistantDepartmentPosition" matInput placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedAssistantDepartment($event)"
+                            [displayWith]="ds.displayFn" #autoCompleteAssistantDepartment="matAutocomplete">
+                            <mat-option *ngFor="let item of filterAssistantDepartmentPosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['assistantDepartmentPosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['assistantDepartmentPosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>មុខងារប្រធានការិយាល័យ</mat-label>
+                        <input [matAutocomplete]="autoCompleteHeadOfficer" formControlName="headOfficerPosition"
+                            matInput placeholder="">
+                        <mat-autocomplete (optionSelected)="optionSelectedHeadOfficerPosition($event)"
+                            [displayWith]="ds.displayFn" #autoCompleteHeadOfficer="matAutocomplete">
+                            <mat-option *ngFor="let item of filterHeadOfficerPosition | async;let i=index"
+                                [value]="item">
+                                {{item?.name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error class="error-message"
+                            *ngIf="form.controls['headOfficerPosition'].hasError('validKey')">
+                            <div>Please select once from list to continue.</div>
+                        </mat-error>
+                        <mat-error *ngIf="form.controls['headOfficerPosition'].hasError('required')">
+                            This field is required.
+                        </mat-error>
+                    </mat-form-field>
+                </div> -->
+                <div class="form-group" style="margin-left: 10px;">
+                    <mat-checkbox (change)="_onCheckChanged($event,'loginWithUsername')" class="example-margin"
+                        formControlName="loginWithUsername">ចូលប្រើប្រាស់ប្រព័ន្ធដោយ លេខគណនី
+                    </mat-checkbox>
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    <mat-checkbox (change)="_onCheckChanged($event,'loginWithOTP')" class="example-margin"
+                        formControlName="loginWithOTP">ចូលប្រើប្រាស់ប្រព័ន្ធដោយ OTP
+                    </mat-checkbox>
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    <mat-checkbox (change)="_onCheckChanged($event,'googleSMS')" class="example-margin"
+                        formControlName="googleSMS">ប្រើប្រាស់ OTP របស់ Google
+                    </mat-checkbox>
+                </div>
+
+                <!-- <div class="form-group" style="margin-left: 10px;">
+                    <mat-checkbox (change)="_onCheckChanged($event,'verifyFromAssistantGeneral')" class="example-margin"
+                        formControlName="verifyFromAssistantGeneral">តម្រូវឲ្យត្រួតពិនិត្យពីជំនួយការអគ្គនាយក
+                    </mat-checkbox>
+                </div>
+                <div class="form-group" style="margin-left: 10px;">
+                    <mat-checkbox (change)="_onCheckChanged($event,'verifyFromAssistantDepartment')"
+                        class="example-margin" formControlName="verifyFromAssistantDepartment">
+                        តម្រូវឲ្យត្រួតពិនិត្យពីជំនួយការប្រធាននាយកដ្ឋាន
+                    </mat-checkbox>
+                </div> -->
+
+                <div class="form-hashtag" style="margin:20px 0;">
+                    <h4>ទំនាក់ទំនងក្រុមបច្ចេកទេស</h4>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>លេខទូរស័ព្ទ</mat-label>
+                            <input formControlName="contactSupport" matInput placeholder="លេខទូរស័ព្ទ">
+                            <button *ngIf="form?.value?.contactSupport" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="addTag(form?.value?.contactSupport)" type="submit">
+                                <mat-icon>add_circle</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <mat-chip-list class="example-chip">
+                        <mat-chip class="example-box" *ngFor="let tag of contactSupports" (removed)="removeTag(tag)">
+                            {{tag}}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<form [formGroup]="form" class="dialog-wrapper form-dialog-wrapper" *mobxAutorun>
+    <div class="dialog-header">
+        <div class="title">
+            {{title}}
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-wrapper">
+            <div class="form-group ">
+                <mat-form-field appearance="outline">
+                    <mat-label>ឈ្មោះ</mat-label>
+                    <input required placeholder="Folder name" aria-label="" matInput formControlName="name">
+                    <mat-error *ngIf="form.controls['name'].hasError('required')">
+                        <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-group two">
+                <mat-form-field appearance="outline">
+                    <mat-label>អ្នកចុះហត្ថលេខា</mat-label>
+                    <input [matAutocomplete]="autoCompleteSigner" formControlName="signer" matInput
+                        placeholder="អ្នកចុះហត្ថលេខា">
+                    <mat-autocomplete [displayWith]="ds?.displayNameFn" #autoCompleteSigner="matAutocomplete">
+                        <mat-option *ngFor="let item of filteredSignerOptions | async;let i=index" [value]="item">
+                            {{item?.displayName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error class="error-message" *ngIf="form.controls['signer'].hasError('validKey')">
+                        <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['signer'].hasError('required')">
+                        ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>ស្ថាប័ន</mat-label>
+                    <input [matAutocomplete]="autoCompleteRanking" formControlName="organization" matInput
+                        placeholder="ស្ថាប័ន">
+                    <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteRanking="matAutocomplete">
+                        <mat-option *ngFor="let item of filteredOrganizationOptions | async;let i=index" [value]="item">
+                            {{item?.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error class="error-message" *ngIf="form.controls['organization'].hasError('validKey')">
+                        <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['organization'].hasError('required')">
+                        ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="form-group two">
+                <mat-form-field appearance="outline">
+                    <mat-label>ប្រភេទឯកសារ</mat-label>
+                    <input [matAutocomplete]="autoCompleteCategory" formControlName="category" matInput
+                        placeholder="ប្រភេទឯកសារ">
+                    <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteCategory="matAutocomplete">
+                        <mat-option *ngFor="let item of filteredCategoryOptions | async;let i=index" [value]="item">
+                            {{item?.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error class="error-message" *ngIf="form.controls['category'].hasError('validKey')">
+                        <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['category'].hasError('required')">
+                        ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+                    </mat-error>
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline">
+                    <mat-label>វិស័យ</mat-label>
+                    <input [matAutocomplete]="autoCompleteSector" formControlName="sector" matInput placeholder="វិស័យ">
+                    <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteSector="matAutocomplete">
+                        <mat-option *ngFor="let item of filteredSectorsOptions | async;let i=index" [value]="item">
+                            {{item?.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error class="error-message" *ngIf="form.controls['sector'].hasError('validKey')">
+                        <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+                    </mat-error>
+                    <mat-error *ngIf="form.controls['sector'].hasError('required')">
+                        ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+                    </mat-error>
+                </mat-form-field> -->
+            </div>
+            <div class="form-group two">
+                <mat-form-field appearance="outline">
+                    <mat-label>លេខយោង</mat-label>
+                    <input placeholder="លេខយោង" aria-label="" matInput formControlName="refNo">
+                    <mat-error *ngIf="form.controls['refNo'].hasError('required')">
+                        <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>កាលបរិចេ្ឆទចុះហត្ថលេខា</mat-label>
+                    <input placeholder="កាលបរិចេ្ឆទចុះហត្ថលេខា" aria-label="" matInput formControlName="issueDate"
+                        [matDatepicker]="picker">
+                    <mat-error *ngIf="form.controls['issueDate'].hasError('required')">
+                        <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- <div class="form-group column" style="margin: 20px 0 0 16px;">
+                <mat-checkbox class="example-margin" style="margin-bottom: 6px;" formControlName="rootLevel">
+                    សម្រាប់ថ្នាក់ជាតិ</mat-checkbox>
+                <mat-checkbox class="example-margin" style="margin-bottom: 6px;" formControlName="allowUpload">
+                    អនុញ្ញាតឱ្យបញ្ចូលឯកសារ</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="yearFolder">ទូឯកសារជាឆ្នាំ</mat-checkbox>
+            </div> -->
+
+            <div class="form-hashtag" style="margin-bottom: 0; margin-top: 16px;">
+                <h4>ពាក្យគន្លឹះស្វែងរក</h4>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>ពាក្យគន្លឹះ</mat-label>
+                        <input formControlName="hashtag" matInput placeholder="ពាក្យគន្លឹះ">
+                        <button *ngIf="form?.value?.hashtag" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="addTag(form?.value?.hashtag)" type="submit">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <mat-chip-list class="example-chip">
+                    <mat-chip class="example-box" *ngFor="let tag of hashtagItems" (removed)="removeTag(tag)">
+                        {{tag}}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>បោះបង់</span></a>
+        <app-primary-button (onPress)="onSave(form.value)" [disable]="!form.valid" [process]="store?.process"
+            label="រក្សាទុក">
+        </app-primary-button>
+    </div>
+    <app-spinner *ngIf="store?.loading"></app-spinner>
+</form>

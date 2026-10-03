@@ -1,0 +1,32 @@
+.eform {
+  &.new {
+    .row-item {
+      padding: 6px 80px;
+    }
+    p:has(.f-input) {
+      min-width: unset !important;
+    }
+  }
+}
+
+.f-input{
+  min-width: 68px !important;
+  font-weight: normal;
+  font-weight: bold;
+  color: black;
+    font-family: system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    ".SFNSText-Regular",
+    Roboto,
+    Open Sans,
+    Helvetica Neue,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "auxswot",
+    "Battambang",
+    "khmeros_siemreap";
+
+}
+

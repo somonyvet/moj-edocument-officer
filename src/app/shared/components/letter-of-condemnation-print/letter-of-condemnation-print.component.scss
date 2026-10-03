@@ -1,0 +1,512 @@
+@import "/src/assets/styles/variable.scss";
+
+
+p {
+  color: black !important;
+}
+
+span {
+  color: black !important;
+  font-weight: normal;
+}
+
+.f-input {
+  font-family: $appFont !important;
+  border-color: black !important;
+}
+
+h3 {
+  color: black !important;
+}
+
+.khmer-date-picker {
+  label {
+    color: black !important;
+  }
+
+  input {
+    font-family: $appFont !important;
+    font-weight: normal !important;
+    border-color: black !important;
+  }
+
+  span {
+    font-family: $appFont !important;
+    font-weight: normal !important;
+    border-color: black !important;
+  }
+}
+
+.scrolling-container {
+  .p-rel {
+    line-height: 1.5;
+
+    .title {
+      font-family: $font;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+}
+
+.head-item {
+
+  .feTitle {
+    // color: #77867B !important;
+
+    &.b {
+      font-weight: 800;
+    }
+  }
+
+  &.long-w {
+    max-width: 500px;
+    min-width: 400px;
+    display: flex;
+    // position: absolute;
+  }
+
+  .container-header-input {
+    display: flex;
+    // position: absolute;
+    // width: 440px;
+
+    .f-item {
+      display: flex;
+
+      .w-day {
+        min-width: 60px;
+        width: 87px;
+      }
+    }
+
+    .ds-f {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .nor-fam {
+      // width: 100%;
+      font-family: $font;
+      font-size: 18px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .f-input {
+      width: 100%;
+      min-width: 180px;
+      outline: none;
+      border: none;
+      border-bottom: 1px #01579b dashed;
+      padding: 0 12px;
+      line-height: normal;
+      text-align: center;
+      font-family: $appFontStrong;
+      font-size: 16px;
+      // pointer-events: none;
+
+      &.w-20 {
+        min-width: 20%;
+        width: 20%;
+      }
+    }
+  }
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.body-item {
+  .f-input {
+    width: 100%;
+    min-width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px rgba(0,0,0,0.1) dashed;
+    padding: 0 12px;
+    line-height: normal;
+    text-align: center;
+    font-family: $appFontStrong;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+  }
+
+  .n-title {
+    font-family: $font;
+    font-size: 20px;
+    line-height: 2;
+  }
+
+  .feTitle{
+        margin: 0;
+        font-family: $appFontTitle;
+        font-size: 18px;
+        line-height: normal;
+  }
+}
+.row-item {
+  padding: 6px 80px;
+
+  .c-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feTitle {
+    font-weight: 800;
+
+    &.new {
+      font-family: $appFontTitle !important;
+      font-size: 20px;
+    }
+
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+  }
+
+  .container-title-fom {
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+
+    .mg-r {
+      margin-right: 30px;
+    }
+  }
+}
+
+.eform {
+  &.new {
+    .row-item {
+      padding: 6px 80px;
+    }
+
+    .f-input {
+      min-width: unset !important;
+      // pointer-events: none;
+    }
+  }
+}
+
+.star {
+  &.small {
+    font-size: 16px !important;
+  }
+}
+
+
+.form-hashtag {
+  background: transparent;
+  border-radius: 6px;
+  padding: 0;
+  margin: 0;
+
+}
+
+.mat-standard-chip {
+  font-family: $appFont;
+}
+
+.no-lsc {
+  margin: 0 10px;
+
+  &.two {
+    display: none;
+  }
+}
+
+.eform {
+  &.new {
+    .row-item {
+      padding: 6px 80px;
+    }
+
+    p:has(.f-input) {
+      min-width: unset !important;
+    }
+  }
+
+  p:has(.f-input) {
+    min-width: 68px !important;
+  }
+}
+
+.doc-comment-form-wrapper{
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+  margin: 0 auto;
+  // margin-bottom: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  height:fit-content!important;
+  overflow:hidden;
+  padding-top:20px;
+  width: 1240px;
+  margin-bottom: 12px;
+  .header-title{
+    font-family: $appFont;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+  }
+}
+
+
+::ng-deep.mat-tab-label.mat-tab-label-active {
+  color: $link !important;
+  opacity: 1 !important;
+}
+
+
+::ng-deep .mat-tab-labels {
+  div {
+    &.mat-tab-label-active {
+      .mat-tab-label-content{
+        color: $link !important;
+        opacity: 1 !important;
+      }
+    }
+    .mat-tab-label-content {
+      color: #202124;
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: $appFontStrong;
+    }
+  }
+}
+
+.eform{
+  .btn-wrapper{
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    .btn-pay{
+      background-color: #1a73e8;
+      color: white;
+      font-family: $appFont;
+      font-size: 16px;
+      border-radius: 40px;
+    }
+  }
+}
+
+
+.form-no-padding{
+  padding: 0;
+  padding-left: 12px;
+  width: 360px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: #1A73E8 !important;
+  }
+
+  .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: #1A73E8;
+   }
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: #1A73E8 !important;
+  }
+}
+
+.ef-txt{
+  color:#1A73E8 !important;
+}
+
+.text-icon-wrapper{
+  display:flex;
+  align-items: center;
+  ion-icon{
+    font-size: 22px;
+  }
+}
+
+.btn-pay{
+  &.done{
+    background-color: #5bc75f
+  }
+  font-family: $appFont;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 20px auto;
+  margin-bottom:0;
+  background-color: #1a73e8;
+  color:white;
+  padding:8px;
+  .btn-content-wrapper{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.application-service-detail{
+  padding: 12px 80px;
+  p{
+    font-family: $appFont;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+}
+
+.rejected-correction-card {
+  width: 1240px;
+  max-width: 1240px;
+  margin: 0 auto 12px;
+  padding: 20px 36px;
+  border-radius: 6px;
+  background-color: $whiteColor;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  // border-left: 4px solid #C62828;
+  box-sizing: border-box;
+
+  .correction-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 16px;
+
+    .header-title {
+      font-family: $appFont;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: black;
+      margin: 0;
+    }
+  }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $appFont;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.6;
+    padding: 2px 12px;
+    border-radius: 999px;
+    color: #C62828;
+    background-color: rgba(198, 40, 40, 0.08);
+    border: 1px solid rgba(198, 40, 40, 0.24);
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+
+  .reject-reason {
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-family: $appFont;
+
+    .reason-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      color: $titleColor;
+      margin: 0 0 10px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        color: $subtitle;
+      }
+    }
+
+    .reason-body {
+      padding: 12px 14px;
+      border: 1px solid $divider;
+      border-radius: 6px;
+      background: #fafbfc;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(0, 0, 0, 0.8);
+
+      ::ng-deep p {
+        margin: 0 0 4px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .reject-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 12px;
+    font-family: $appFont;
+    font-size: 14px;
+    color: $subtitle;
+
+    .reject-info-text {
+      line-height: 1.4;
+    }
+
+    strong {
+      font-weight: 500;
+      color: $titleColor;
+    }
+
+    .img-profile {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex: none;
+      box-sizing: border-box;
+      background: $whiteColor;
+      border: 1px solid $divider;
+    }
+  }
+
+  // same shape and weight as the បោះពុម្ព button of the record header
+  .btn-correct {
+    margin-top: 16px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+}
+
+@media print {
+  .rejected-correction-card {
+    display: none;
+  }
+}

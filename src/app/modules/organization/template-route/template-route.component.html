@@ -1,0 +1,24 @@
+<div class="two-side-wrapper">
+    <section class="right-side-container">
+        <div class="page-container" *mobxAutorun>
+            <div class="action-bar">
+                <div class="nav-content">
+                    <h3 class="head-title">
+                        គំរូឯកសារ
+                    </h3>
+                    <div class="action-item">
+                        <button type="button" mat-button (click)="onCreateTemplateDocument(null)"
+                            class="enbutton primary">បង្កើតគំរូឯកសារ</button>
+                    </div>
+                </div>
+                <nav mat-tab-nav-bar>
+                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+                </nav>
+            </div>
+            <div class="page-doc nav-r-container">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,405 @@
+@import "/src/assets/styles/variable.scss";
+
+// .eform{
+//   display: flex;
+//   flex-direction: column;
+//   width: 1240px;
+//   align-items: flex-start;
+//   justify-content: flex-start;
+//   background-color: #fff;
+//   box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+//   border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999))/8px;
+//   padding: 16px;
+//   grid-gap: 16px;
+//   height: fit-content;
+// }
+
+.scrolling-container {
+  .p-rel {
+    line-height: 1.5;
+
+    // position: relative;
+    .title {
+      font-family: $font;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+}
+
+.head-item {
+  width: 356px !important;
+
+  .feTitle {
+    color: #28803f;
+
+    &.b {
+      font-size: 24px;
+      font-weight: normal;
+    }
+  }
+
+  &.head-item-print {
+    .feTitle {
+      font-family: $khmuol;
+    }
+  }
+
+  &.long-w {
+    max-width: 500px;
+    min-width: 400px;
+    display: flex;
+    // position: absolute;
+  }
+
+  .container-header-input {
+    display: flex;
+    // position: absolute;
+    width: 440px;
+
+    .f-item {
+      display: flex;
+
+      .w-day {
+        min-width: 60px;
+        width: 87px;
+      }
+    }
+
+    .ds-f {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .nor-fam {
+      // width: 100%;
+      font-family: $font;
+      font-size: 18px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .f-input {
+      width: 100%;
+      min-width: 180px;
+      outline: none;
+      border: none;
+      border-bottom: 1px #28803f dashed;
+      padding: 0 12px;
+      line-height: 1;
+      text-align: center;
+      font-size: 16px;
+
+      &.w-20 {
+        min-width: 20%;
+        width: 20%;
+      }
+    }
+  }
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.body-item {
+  .f-input {
+    width: 100%;
+    min-width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px #28803f dashed;
+    padding: 0;
+    line-height: 1;
+    text-align: center;
+    font-size: 16px;
+
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+  }
+
+  .n-title {
+    font-family: $font;
+    font-size: 18px;
+    line-height: 2;
+  }
+}
+
+.row-item {
+  padding:3px 16px;
+
+  .c-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feTitle {
+    // font-weight: bold;
+
+    &.new {
+      font-family: $appFontTitle  !important;
+      font-size: 20px;
+    }
+
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+
+    .cr{
+      font-family: $appFontTitle  !important;
+      color: #007bff !important;
+      font-size: 15px !important;
+      position: relative;
+      top: 4px;
+      margin-right: 5px;
+    }
+  }
+
+  .container-title-fom {
+    display: flex;
+    justify-content: space-between;
+    min-width: 170px;
+    .mg-r {
+      margin-right: 30px;
+    }
+  }
+}
+
+.eform {
+  &.new {
+    .row-item {
+      padding: 6px 20px 6px 92px;
+      min-height: 28.07px;
+    }
+
+    .f-input {
+      min-width: unset !important;
+    }
+    .head{
+      padding: 0 40px;
+      padding-top: 6px;
+    }
+  }
+}
+
+.star {
+  &.small {
+    font-size: 16px !important;
+  }
+}
+
+
+.f-1 {
+  flex: 1;
+  display: flex;
+
+  &.small {
+    width: 380px;
+    flex: unset;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  .label-title {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: $googleFont;
+    color: #28803f;
+    letter-spacing: -1px;
+  }
+
+  .f-input {
+    font-size: 22px;
+    color: black !important;
+    border-color: #28803f !important;
+  }
+}
+
+.nor-fam {
+  font-size: 17px;
+  font-weight: bold;
+  font-family: $googleFont;
+  color: #28803f !important
+}
+
+.nor-fam-field {
+  font-size: 17px;
+  font-weight: bold !important;
+  font-family: $googleFont;
+  margin-left: 12px;
+}
+
+.no-underline{
+  border-bottom: none !important;
+  text-decoration: none !important;
+  text-align: start !important;
+  padding: 0!important;
+
+  p{
+    border-bottom: 1px dashed #28803f;
+  }
+}
+
+
+.expire-date {
+  justify-content: flex-end;
+  display: flex;
+
+  span {
+    font-size: 17px !important;
+    font-weight: bold !important;
+    font-family: $googleFont;
+    line-height: 1.8 !important;
+    text-align: start !important;
+    color: black !important;
+  }
+}
+
+.space30 {
+  padding: 0 8px;
+}
+
+
+.signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 180px;
+    max-height: 150px;
+    object-fit: contain;
+  }
+
+  .stam-name {
+    max-height: 30px;
+  }
+}
+
+
+.apply-form-page .eform {
+  padding: 0;
+}
+
+.font-fastHand {
+  font-family: $fastHand !important;
+  color: black !important;
+  // letter-spacing: -2px;
+  p {
+    font-family: $fastHand !important;
+    color: black !important;
+    margin-bottom: 16px !important;
+    line-height: 1;
+    &:first-child {
+      padding-left: 130px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  span {
+    font-family: $fastHand !important;
+    color: black !important;
+  }
+
+  strong {
+    font-family: $fastHand !important;
+    color: black !important;
+
+  }
+}
+
+
+
+.feTitle {
+  color: #28803f;
+}
+
+.title{
+  color: #28803f !important;
+}
+
+.n-title{
+  color: #28803f !important;
+}
+
+
+.ali-start{
+  .f-input{
+    text-align: start !important;
+    padding-left: 16px;
+  }
+  .ali-ce{
+    text-align: center !important;
+  }
+}
+
+.kh3-pd1{
+  padding-left: 195px !important;
+  text-align: start!important;
+}
+
+// .kh3-input-n{
+//   width: 143px!important;
+// }
+.kh3-f1-1{
+  flex: none!important;
+  width: 200px;
+}
+.kh3-f1-2{
+  flex: none!important;
+  width: 254px;
+}
+.kh3-f1-3{
+  flex: none!important;
+  width: 107px;
+}
+
+.result-font-fastHand{
+  font-size: 22px!important;
+  color: black;
+  text-align: start!important;
+  text-indent: 170px;
+  border: none!important;
+}
+
+.sp2-line{
+  line-height: 1.7!important;
+  margin: -7px 0;
+  margin-bottom: -8px;
+}
+
+.abs-print-date{
+  position: absolute;
+  top: 218px;
+  right: 46px;
+  display: none;
+}
+.kh3-date{
+  font-size: 22px!important;
+  color: black;
+}
+.kh3-date1{
+  font-size: 22px!important;
+  color: black;
+  margin-right: 90px;
+}
+.kh3-date2{
+  font-size: 22px!important;
+  color: black;
+  margin-right: 76px;
+}
+
+.abs-div-btn{
+  position: absolute;
+  top: -30px;
+  left: 90px;
+}

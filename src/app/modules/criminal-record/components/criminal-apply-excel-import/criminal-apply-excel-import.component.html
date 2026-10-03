@@ -1,0 +1,240 @@
+<div class="chooser-cat excel-import-dialog" *mobxAutorun>
+  <div class="form-choose">
+    <div class="dialog-head">
+      <div class="dialog-head-icon">
+        <mat-icon>description</mat-icon>
+      </div>
+      <div class="dialog-head-text">
+        <h4>បញ្ចូលទិន្នន័យ Excel ស្នើរសុំជាក្រុម</h4>
+        <p>សូមកំណត់ព័ត៌មានទូទៅ រួចនាំចូល និងផ្ទៀងផ្ទាត់បញ្ជីសំណើសុំពីឯកសារ Excel</p>
+      </div>
+      <div class="flex1"></div>
+      <a mat-button mat-icon-button class="mat-add-new" (click)="close(result?.success > 0)">
+        <mat-icon>clear</mat-icon>
+      </a>
+    </div>
+
+    <!-- STEP 2: upload + preview -->
+    <div class="form-choose-item">
+      <div class="step-body">
+      <div class="section step-body-narrow" *ngIf="!fileName">
+        <span class="txt-label"><mat-icon class="lbl-icon">upload_file</mat-icon>បញ្ចូលទិន្នន័យ Excel ស្នើរសុំជាក្រុម</span>
+        <div class="upload-card">
+          <div class="upload-card-icon">
+            <ion-icon name="document-attach-outline"></ion-icon>
+          </div>
+          <div class="upload-card-body">
+            <strong>{{fileName || 'មិនទាន់ជ្រើសរើសឯកសារ'}}</strong>
+            <span>ទាញយកគំរូបញ្ចូលពាក្យស្នើរសុំ ហើយបំពេញទិន្នន័យតាមតារាង Excel (មិនឲ្យលើសពី {{maxImportRows}} ជួរ)</span>
+          </div>
+          <div class="upload-card-actions">
+            <button class="enbutton primary" mat-button type="button"(click)="downloadTemplateExcelImport()">
+              <ion-icon name="download-outline"></ion-icon>
+              <span>ទាញយកគំរូបញ្ចូលពាក្យស្នើរសុំ</span>
+            </button>
+            <label class="enbutton primary upload-btn">
+              <ion-icon name="cloud-upload-outline"></ion-icon>
+              <span>{{fileName ? 'ប្តូរឯកសារ' : 'ជ្រើសរើសឯកសារ'}}</span>
+              <input type="file" accept=".xlsx,.xls,.csv" (change)="onSelectedFile($event)" hidden>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loadingFile" class="row-item">
+        <mat-spinner diameter="24"></mat-spinner>
+        <span style="margin-left:8px;">កំពុងផ្ទៀងផ្ទាត់ទិន្នន័យ...</span>
+      </div>
+
+      <div class="section step-body-narrow" *ngIf="!loadingFile && importLimitCount">
+        <div class="limit-alert">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <div>
+            <strong>ឯកសារនេះមានចំនួន {{importLimitCount}} ជួរ ដែលលើសកំណត់</strong>
+            <span>ប្រព័ន្ធអនុញ្ញាតឲ្យបញ្ចូលទិន្នន័យម្តងមិនឲ្យលើសពី {{maxImportRows}} ជួរ សូមកែសម្រួលឯកសារ Excel ឲ្យមានចំនួនជួរតិចជាង ឬស្មើ {{maxImportRows}} រួចផ្ទុកឡើងវិញ</span>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="!loadingFile && rows?.length">
+        <div class="section section-fill" *ngIf="!submitting && !result">
+          <div class="row-item summary-row">
+            <span class="stat-chip valid"><ion-icon name="checkmark-circle"></ion-icon>ចំនួនស្នើរសុំពាក្យសរុបត្រឹមត្រូវ {{validRows?.length}}</span>
+            <span class="stat-chip invalid" *ngIf="invalidRows?.length"><ion-icon name="close-circle"></ion-icon>ចំនួនស្នើរសុំពាក្យសរុបមិនត្រឹមត្រូវ {{invalidRows?.length}}</span>
+            <label class="enbutton primary upload-btn" *ngIf="fileName">
+              <ion-icon name="cloud-upload-outline"></ion-icon>
+              <span>{{fileName ? 'ប្តូរឯកសារ' : 'ជ្រើសរើសឯកសារ'}}</span>
+              <input type="file" accept=".xlsx,.xls,.csv" (change)="onSelectedFile($event)" hidden>
+            </label>
+          </div>
+          <div class="preview-table-wrapper">
+            <table class="preview-table">
+              <thead>
+                <tr>
+                  <th>ល.រ</th>
+                  <th>ស្ថានភាព</th>
+                  <th>នាមត្រកូល (ខ្មែរ)</th>
+                  <th>នាមខ្លួន (ខ្មែរ)</th>
+                  <th>នាមត្រកូល (ឡាតាំង)</th>
+                  <th>នាមខ្លួន (ឡាតាំង)</th>
+                  <th>ភេទ</th>
+                  <th>ថ្ងៃខែឆ្នាំកំណើត</th>
+                  <th>សញ្ជាតិបច្ចុប្បន្ន</th>
+                  <th>សញ្ជាតិដើម</th>
+                  <th>មុខរបរ</th>
+                  <th>ទីកន្លែងកំណើត</th>
+                  <th>លេខទូរស័ព្ទ</th>
+                  <th *ngIf="invalidRows?.length">បំពេញទិន្នន័យមិនត្រឹមត្រូវ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let r of rows" [ngClass]="r.valid ? 'ok' : 'error'">
+                  <td>{{r.excelRowNumber}}</td>
+                  <td>
+                    <span class="status-pill ok" *ngIf="r.valid"><ion-icon name="checkmark-circle"></ion-icon>ពត៍មានត្រឹមត្រូវ</span>
+                    <span class="status-pill error" *ngIf="!r.valid"><ion-icon name="close-circle"></ion-icon>ពត៍មានមិនត្រឹមត្រូវ</span>
+                  </td>
+                  <td>{{r.resolved?.last_name_kh}}</td>
+                  <td>{{r.resolved?.first_name_kh}}</td>
+                  <td>{{r.resolved?.last_name_en}}</td>
+                  <td>{{r.resolved?.first_name_en}}</td>
+                  <td>{{r.resolved?.gender?.name}}</td>
+                  <td>{{r.resolved?.dob?.day ? (r.resolved.dob.day.key + '/' + r.resolved.dob.month.key + '/' + r.resolved.dob.year.key) : r.raw?.dob}}</td>
+                  <td>{{r.resolved?.current_nationality?.kh_nationality}}</td>
+                  <td>{{r.resolved?.before_nationality?.kh_nationality}}</td>
+                  <td>{{r.resolved?.occupation_kh}}</td>
+                  <td class="col-wide">{{r.resolved?.foreignerPlaceOfBirth}}</td>
+                  <td>{{r.resolved?.phone || '-'}}</td>
+                  <td class="col-wide" *ngIf="invalidRows?.length">
+                    <span class="err-item" *ngFor="let e of r.errors">{{e}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section step-body-narrow" *ngIf="submitting">
+          <div class="result-card submitting-card">
+            <div class="result-hero">
+              <div class="result-hero-icon spinner-icon">
+                <mat-spinner diameter="52"></mat-spinner>
+              </div>
+              <h3 class="result-hero-title">កំពុងរក្សាទុកទិន្នន័យ</h3>
+              <p class="result-hero-desc">សូមរង់ចាំបន្តិច ប្រព័ន្ធកំពុងផ្ទុកទិន្នន័យរបស់អ្នកម្តងមួយៗ...</p>
+            </div>
+
+            <div class="result-rate">
+              <div class="rate-bar">
+                <div class="rate-fill submitting" [style.width.%]="submitPercent"></div>
+              </div>
+              <span class="rate-label">កំពុងរក្សាទុក <strong>{{submitProgress}} / {{validRows?.length}}</strong> ({{submitPercent}}%)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section step-body-narrow" *ngIf="result">
+          <div class="row-item result-row">
+            <div class="result-card" [class.warn]="result?.failed">
+              <div class="result-hero" [class.warn]="result?.failed">
+                <div class="result-hero-icon">
+                  <svg class="check-anim" [class.warn]="result?.failed" viewBox="0 0 52 52">
+                    <circle class="check-anim-circle" cx="26" cy="26" r="24" fill="none"/>
+                    <ng-container *ngIf="!result?.failed">
+                      <path class="check-anim-check" fill="none" d="M14 27l7.5 7.5L38 18"/>
+                    </ng-container>
+                    <ng-container *ngIf="result?.failed">
+                      <line class="check-anim-check" x1="26" y1="15" x2="26" y2="29"/>
+                      <circle class="check-anim-dot" cx="26" cy="37" r="1.6" fill="currentColor" stroke="none"/>
+                    </ng-container>
+                  </svg>
+                </div>
+                <h3 class="result-hero-title">{{ result?.failed ? 'បានបញ្ចូលទិន្នន័យជោគជ័យមួយផ្នែក' : 'បញ្ចូលទិន្នន័យទិន្នន័យបានជោគជ័យ' }}</h3>
+                <p class="result-hero-desc">ប្រព័ន្ធបានបញ្ចប់ដំណើរការស្នើរសុំពាក្យ និងរក្សាទុកទិន្នន័យរបស់អ្នករួចរាល់ហើយ</p>
+              </div>
+
+              <div class="result-rate" *ngIf="result?.failed">
+                <div class="rate-bar">
+                  <div class="rate-fill" [style.width.%]="successRate"></div>
+                </div>
+                <span class="rate-label"><strong>{{successRate}}%</strong> ជោគជ័យ ({{result?.success}}/{{result?.success + result?.failed}})</span>
+              </div>
+
+              <div class="result-stats">
+                <div class="stat-card total">
+                  <ion-icon name="documents-outline"></ion-icon>
+                  <div>
+                    <strong>{{result?.success + result?.failed}}</strong>
+                    <span>សរុបចំនួនស្នើសុំ</span>
+                  </div>
+                </div>
+                <div class="stat-card success">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  <div>
+                    <strong>{{result?.success}}</strong>
+                    <span>បានរក្សាទុកដោយជោគជ័យ</span>
+                  </div>
+                </div>
+                <div class="stat-card failed" *ngIf="result?.failed">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                  <div>
+                    <strong>{{result?.failed}}</strong>
+                    <span>បរាជ័យ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="result?.failedRows?.length" class="failed-section fade-in-up">
+              <div class="failed-header">
+                <div class="failed-header-title">
+                  <ion-icon name="alert-circle-outline"></ion-icon>
+                  <span>ជួរដែលបរាជ័យក្នុងការបញ្ចូលទិន្នន័យ ({{result?.failedRows?.length}})</span>
+                </div>
+                <button class="enbutton ghost" mat-button type="button" (click)="exportFailedRows()">
+                  <ion-icon name="download-outline"></ion-icon>
+                  <span>ទាញយកបញ្ជីបរាជ័យ</span>
+                </button>
+              </div>
+              <div class="preview-table-wrapper">
+                <table class="preview-table">
+                  <thead>
+                    <tr>
+                      <th>ល.រ</th>
+                      <th>ឈ្មោះ</th>
+                      <th>មូលហេតុ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let r of result?.failedRows" class="error">
+                      <td>{{r.excelRowNumber}}</td>
+                      <td>{{r.resolved?.last_name_kh}} {{r.resolved?.first_name_kh}}</td>
+                      <td>{{r.saveError}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      </div>
+
+      <mat-dialog-actions align="end" *ngIf="!result">
+        <div class="flex1"></div>
+        <button class="enbutton primary" mat-button type="button" [disabled]="!validRows?.length || submitting" (click)="confirmSubmit(true)">
+          <ng-container *ngIf="!submitting">រក្សាទុក ({{validRows?.length || 0}})</ng-container>
+          <ng-container *ngIf="submitting">កំពុងរក្សាទុក...</ng-container>
+        </button>
+        <button class="enbutton primary" mat-button type="button" [disabled]="!validRows?.length || submitting" (click)="confirmSubmit()">
+          <ng-container *ngIf="!submitting">រក្សាទុក & ដាក់ស្នើ ({{validRows?.length || 0}})</ng-container>
+          <ng-container *ngIf="submitting">កំពុងរក្សាទុក...</ng-container>
+        </button>
+      </mat-dialog-actions>
+      <mat-dialog-actions align="end" *ngIf="result">
+        <div class="flex1"></div>
+        <button class="enbutton primary" mat-button type="button" (click)="close(result?.success > 0)">បិទ</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>

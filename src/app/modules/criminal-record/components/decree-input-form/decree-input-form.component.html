@@ -1,0 +1,50 @@
+<form [formGroup]="form" class="dialog-content-wrapper" *mobxAutorun>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>កំណត់ត្រាផ្ដន្ទាទោស</h2>
+    <div class="space1"></div>
+    <button mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="quill-container">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (ជាភាសាខ្មែរ)</p>
+      <div class="ck-wrapper">
+        <div class="font-fastHand">
+          <ckeditor [config]="configDecree" [editor]="Editor" data="" formControlName="decree"></ckeditor>
+        </div>
+      </div>
+    </div>
+
+    <div class="quill-container" *ngIf="english">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (ជាភាសាអង់គ្លេស)</p>
+      <div class="ck-wrapper">
+        <div class="font-fastHand">
+          <ckeditor [config]="configDecreeEn" [editor]="Editor" data="" formControlName="decree_en"></ckeditor>
+        </div>
+      </div>
+    </div>
+
+    <div class="quill-container" *ngIf="french">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (ជាភាសាបារាំង)</p>
+      <div class="ck-wrapper">
+        <div class="font-fastHand">
+          <ckeditor [config]="configDecreeFr" [editor]="Editor" data="" formControlName="decree_fr"></ckeditor>
+        </div>
+      </div>
+    </div>
+
+    <div class="quill-container">
+      <p class="quill-title">យោបល់ មន្ត្រីជំនាញ</p>
+      <textarea class="comment-textarea" rows="5" formControlName="comment_officer"
+        placeholder="សូមបញ្ចូលយោបល់ មន្ត្រីជំនាញ"></textarea>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
+    <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
+      (click)="create(form.value)">យល់ព្រម</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,57 @@
+<div class="filter-penal" style="width: 360px;">
+  <h4>របាយការណ៍តាមកាលបរិច្ឆេទ</h4>
+  <label class="label-date">ចាប់ពីថ្ងៃទី</label>
+  <div class="from-date-to-date form-grid three">
+    <div class="date-bl">
+      <mat-select [formControl]="dayOfPeriod">
+        <mat-option *ngFor="let item of days" [value]="item">
+          {{item?.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div class="date-bl">
+      <mat-select [formControl]="monthOfPeriod">
+        <mat-option *ngFor="let item of months" [value]="item">
+          {{item?.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div class="date-bl">
+      <mat-select [formControl]="yearOfPeriod">
+        <mat-option *ngFor="let item of years" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </div>
+
+  </div>
+  <label class="label-date">មកដល់ថ្ងៃទី</label>
+  <div class="from-date-to-date form-grid three">
+    <div class="date-bl">
+      <mat-select [formControl]="toDayOfPeriod">
+        <mat-option *ngFor="let item of days" [value]="item">
+          {{item?.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="date-bl">
+      <mat-select [compareWith]="compareWith" [formControl]="toMonthOfPeriod">
+        <mat-option *ngFor="let mon of months" [value]="mon">
+          {{mon?.name}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="date-bl">
+      <mat-select [compareWith]="compareWithYear" [formControl]="toYearOfPeriod">
+        <mat-option *ngFor="let item of years" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div class="price-footer">
+    <button mat-button (click)="_onPress(false)" class="btn-apply">បង្ហាញទិន្នន័យ</button>
+  </div>
+</div>

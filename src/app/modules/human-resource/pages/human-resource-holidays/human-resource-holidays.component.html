@@ -1,0 +1,107 @@
+<div class="main-panel">
+    <div class="main-r">
+        <div class="page-container">
+            <div class="action-bar">
+                <div class="nav-content">
+                    <h3 class="head-title">
+                        {{title}}
+                    </h3>
+                    <div class="action-item">
+                        <button mat-button class="enbutton primary" (click)="createOrUpdate()">{{'បង្កើត'}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page-doc">
+
+                <virtual-scroller #scroll [items]="store?.data" class="as-tb-wrap vt-doc" style="overflow-x: hidden;"
+                    *ngIf="!store?.fetching && !store?.empty" (vsEnd)="fetchMore($event)" id="tableWrapper">
+
+                    <table class="as-table-wrapper">
+                        <thead #header>
+                            <tr class="sticky-head">
+                                <th class="left">
+                                    ល.រ
+                                </th>
+                                <th class="left">
+                                    ឈ្មោះ
+                                </th>
+                                <th class="left">
+                                    ថ្ងៃចាប់ផ្ដើម
+                                </th>
+                                <th class="left">
+                                    ថ្ងៃបញ្ចប់
+                                </th>
+                                <th class="left">
+                                    រយៈពេល
+                                </th>
+                                <th class="right">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody #container>
+                            <ng-container *ngFor="let item of scroll.viewPortItems">
+                                <tr>
+                                    <td class="left">
+                                        {{item.rowIndex}}
+                                    </td>
+                                    <td class="left">
+                                        {{ item?.nameKh }}
+                                    </td>
+                                    <td class="left">
+                                        {{ item?.startDate.toDate() | dateKh }}
+                                    </td>
+                                    <td class="left">
+                                        {{ item?.endDate.toDate() | dateKh }}
+                                    </td>
+                                    <td class="left">
+                                        {{ (item?.duration)+' ថ្ងៃ' }}
+                                    </td>
+                                    <td class="right">
+                                        <div class="card-list-action">
+                                            <button mat-icon-button [matMenuTriggerFor]="menu" class="option-button">
+                                                <i class="material-icons">more_vert</i>
+                                            </button>
+                                            <mat-menu #menu="matMenu">
+                                                <button mat-menu-item type="button" (click)="createOrUpdate(item)">
+                                                    <mat-icon>edit</mat-icon>
+                                                    <span>កែសម្រួល</span>
+                                                </button>
+                                                <button mat-menu-item type="button" (click)="_onDelete(item)">
+                                                    <mat-icon>delete</mat-icon>
+                                                    <span>លុប</span>
+                                                </button>
+                                            </mat-menu>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+
+                        </tbody>
+                    </table>
+
+                    <div class="empty-block" *ngIf="store?.fetching">
+                        <div class="center-block-empty">
+                            <app-spinner></app-spinner>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="store?.empty && !store?.fetching">
+                        <div class="empty-block">
+                            <div class="center-block-empty">
+                                <div class="empty-img">
+                                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                                        alt="empty">
+                                </div>
+                                <div class="empty-text">
+                                    <p class="empty-state-title">
+                                        ពុំមានទិន្នន័យ
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </virtual-scroller>
+
+            </div>
+        </div>
+    </div>
+</div>

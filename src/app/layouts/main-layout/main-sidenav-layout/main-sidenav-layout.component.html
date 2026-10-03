@@ -1,0 +1,309 @@
+<div class="navigation exp-doc">
+    <div class="ac-ln-background"></div>
+    <div class="sticky-content">
+        <ul class="navigation-menu nav-exp" style="margin-bottom: 16px;">
+            <li class="navigation-menu-item">
+                <a class="m-content" [routerLink]="['/apps/templates']" routerLinkActive="active">
+                    <mat-icon>pending_actions</mat-icon>
+                    <span class="m-text">
+                        គំរូឯកសារ
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <div class="sdivider" style="margin: 0px;"></div>
+        <mat-accordion class="mat-nav-bar">
+            <!-- <mat-expansion-panel [expanded]="expansions.two" (closed)="onClosed(2)" (opened)="onOpened(2)">
+            <mat-expansion-panel-header collapsedHeight="58" expandedHeight="68" [class.active]="expansions.two">
+              <mat-panel-title>
+                <strong>កម្មវិធី</strong>
+              </mat-panel-title>
+              <mat-panel-description *ngIf="!expansions.two">
+                ...
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ul class="navigation-menu" style="padding: 0;">
+              <li class="navigation-menu-item" *ngFor="let item of Application">
+                <div class="m-content" [routerLink]="[item?.path]" routerLinkActive="active">
+                  <mat-icon>
+                    {{item?.icon}}
+                  </mat-icon>
+                  <span class="m-text">
+                    {{item?.title_kh}}
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </mat-expansion-panel> -->
+            <ng-container *ngIf="isMME;else notMMETemplate">
+                <mat-expansion-panel [expanded]="expansions.one" (closed)="onClosed(1)" (opened)="onOpened(1)">
+                    <mat-expansion-panel-header collapsedHeight="58" expandedHeight="68"
+                        [class.active]="expansions.one">
+                        <mat-panel-title>
+                            <strong>រៀបចំទិន្នន័យ</strong>
+                        </mat-panel-title>
+                        <mat-panel-description *ngIf="!expansions.one">
+                            ...
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ul class="navigation-menu" style="padding: 0;">
+                        <li class="navigation-menu-item" *ngFor="let item of mmeApplications">
+                            <a class="m-content" [routerLink]="[item?.path]" routerLinkActive="active">
+                                <mat-icon>
+                                    {{item?.icon}}
+                                </mat-icon>
+                                <span class="m-text">
+                                    {{item?.title_kh}}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+            </ng-container>
+
+            <ng-template #notMMETemplate>
+                <mat-expansion-panel [expanded]="expansions.one" (closed)="onClosed(1)" (opened)="onOpened(1)">
+                    <mat-expansion-panel-header collapsedHeight="58" expandedHeight="68"
+                        [class.active]="expansions.one">
+                        <mat-panel-title>
+                            <strong>រៀបចំទិន្នន័យ</strong>
+                        </mat-panel-title>
+                        <mat-panel-description *ngIf="!expansions.one">
+                            មន្ត្រី, ប្រភេទអាជីវកម្ម, តួនាទី, ទិន្នន័យខេត្ត/ក្រុង, សញ្ជាតិ, ប្រភេទទិដ្ឋការ
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ul class="navigation-menu" style="padding: 0;">
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/officers']" routerLinkActive="active">
+                                <mat-icon>
+                                    group
+                                </mat-icon>
+                                <span class="m-text">
+                                    មន្ត្រី
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <a class="m-content" [routerLink]="['/apps/department']" routerLinkActive="active">
+                                <mat-icon>
+                                    maps_home_work
+                                </mat-icon>
+                                <span class="m-text">
+                                    រចនាសម្ព័ន្ធចរន្តឯកសារ
+                                </span>
+                            </a>
+                        </li>
+                        <!-- <li class="navigation-menu-item">
+                        <div class="m-content" [routerLink]="['/apps/general-department']"
+                            routerLinkActive="active">
+                            <mat-icon>
+                                maps_home_work
+                            </mat-icon>
+                            <span class="m-text">
+                                ស្ថាប័នកំពូល
+                            </span>
+                        </div>
+                    </li> -->
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/remark']" routerLinkActive="active">
+                                <mat-icon>
+                                    notes
+                                </mat-icon>
+                                <span class="m-text">
+                                    ចំណារឯកភាព
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/institutions']" routerLinkActive="active">
+                                <mat-icon>
+                                    dashboard_customize
+                                </mat-icon>
+                                <span class="m-text">
+                                    ស្ថាប័ន
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/positions']" routerLinkActive="active">
+                                <mat-icon>
+                                    stream
+                                </mat-icon>
+                                <span class="m-text">
+                                    ឋានៈ
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/visa_types']" routerLinkActive="active">
+                                <mat-icon>
+                                    sim_card
+                                </mat-icon>
+                                <span class="m-text">
+                                    ប្រភេទទិដ្ឋាការ
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/supplier']" routerLinkActive="active">
+                                <mat-icon>
+                                    inventory
+                                </mat-icon>
+                                <span class="m-text">
+                                    អ្នកផ្គត់ផ្គង់
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/post']" routerLinkActive="active">
+                                <mat-icon>
+                                    home_work
+                                </mat-icon>
+                                <span class="m-text">
+                                    ក្រុមផ្តល់ទិដ្ឋាការ
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/category']" routerLinkActive="active">
+                                <mat-icon>
+                                    category
+                                </mat-icon>
+                                <span class="m-text">
+                                    ប្រភេទឯកសារ
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/sectors']" routerLinkActive="active">
+                                <mat-icon>
+                                    source
+                                </mat-icon>
+                                <span class="m-text">
+                                    វិស័យ
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <a class="m-content" [routerLink]="['/apps/announcement']" routerLinkActive="active">
+                                <mat-icon>
+                                    campaign
+                                </mat-icon>
+                                <span class="m-text">
+                                    សេចក្តីប្រកាស
+                                </span>
+                            </a>
+                        </li>
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <a class="m-content" [routerLink]="['/apps/management-level']" routerLinkActive="active">
+                                <mat-icon>
+                                    business_center
+                                </mat-icon>
+                                <span class="m-text">
+                                    កម្រិតគ្រប់គ្រង
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <a class="m-content" [routerLink]="['/apps/ranking']" routerLinkActive="active">
+                                <mat-icon>
+                                    perm_contact_calendar
+                                </mat-icon>
+                                <span class="m-text">
+                                    កម្រិតមុខងារតួនាទី
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <a class="m-content" [routerLink]="['/apps/document-reporting']" routerLinkActive="active">
+                                <mat-icon>
+                                    summarize
+                                </mat-icon>
+                                <span class="m-text">
+                                    របាយការណ៏
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <a class="m-content" [routerLink]="['/apps/ecosystem']" routerLinkActive="active">
+                                <mat-icon>
+                                    apps
+                                </mat-icon>
+                                <span class="m-text">
+                                    គ្រប់គ្រងប្រព័ន្ធ
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="navigation-menu-item">
+                            <div class="m-content" [routerLink]="['/apps/geo']" routerLinkActive="active">
+                                <mat-icon>
+                                    map
+                                </mat-icon>
+                                <span class="m-text">
+                                    ទិន្នន័យខេត្ត/ក្រុង
+                                </span>
+                            </div>
+                        </li>
+                        <li class="navigation-menu-item" *ngIf="auth?.root">
+                            <div class="m-content" [routerLink]="['/apps/settings']" routerLinkActive="active">
+                                <mat-icon>
+                                    settings
+                                </mat-icon>
+                                <span class="m-text">
+                                    ការកំណត់
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </mat-expansion-panel>
+
+                <!-- <mat-expansion-panel [expanded]="expansions.two" (closed)="onClosed(2)" (opened)="onOpened(2)">
+                    <mat-expansion-panel-header collapsedHeight="58" expandedHeight="68"
+                        [class.active]="expansions.two">
+                        <mat-panel-title>
+                            <strong>គ្រប់គ្រងទិន្នន័យទិដ្ឋការ</strong>
+                        </mat-panel-title>
+                        <mat-panel-description *ngIf="!expansions.two">
+                            គ្រប់គ្រងទិន្នន័យទិដ្ឋការ, ប្រភេទទិដ្ឋការ
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ul class="navigation-menu" style="padding: 0;">
+                        <li class="navigation-menu-item">
+                            <div class="m-content" [routerLink]="['/apps/stock-adjustment/all']" routerLinkActive="active">
+                                <mat-icon>
+                                    group
+                                </mat-icon>
+                                <span class="m-text">
+                                    ការកែតម្រូវទិន្នន័យទិដ្ឋការ
+                                </span>
+                            </div>
+                        </li>
+                        <li class="navigation-menu-item">
+                            <div class="m-content" [routerLink]="['/apps/stock-transfer/all']" routerLinkActive="active">
+                                <mat-icon>
+                                    group
+                                </mat-icon>
+                                <span class="m-text">
+                                    ការកែតម្រូវទិន្នន័យទិដ្ឋការ
+                                </span>
+                            </div>
+                        </li>
+
+                    </ul>
+                </mat-expansion-panel> -->
+
+            </ng-template>
+        </mat-accordion>
+    </div>
+</div>
+
+<!-- main-dashboard-a -->
+<main class="main-dashboard">
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</main>

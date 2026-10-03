@@ -1,0 +1,242 @@
+@import "/src/assets/styles/variable.scss";
+
+.scrolling-container {
+  .p-rel {
+    line-height: 1.5;
+
+    // position: relative;
+    .title {
+      font-family: 'Times New Roman', Times, serif !important;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+}
+
+.head-item {
+  width: 356px !important;
+
+  .feTitle {
+    color: #28803f !important;
+
+    &.b {
+      font-weight: bold;
+      font-size: 26px;
+    }
+  }
+
+  &.long-w {
+    max-width: 500px;
+    min-width: 400px;
+    display: flex;
+    // position: absolute;
+  }
+
+  .container-header-input {
+    display: flex;
+    // position: absolute;
+    width: 440px;
+
+    .f-item {
+      display: flex;
+
+      .w-day {
+        min-width: 60px;
+        width: 87px;
+      }
+    }
+
+    .ds-f {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .nor-fam {
+      // width: 100%;
+      font-family: 'Times New Roman', Times, serif !important;
+      font-size: 24px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .f-input {
+      width: 100%;
+      min-width: 180px;
+      outline: none;
+      border: none;
+      border-bottom: 1px #28803f dashed;
+      padding: 0 12px;
+      line-height: normal;
+      text-align: center;
+      font-size: 16px;
+      color: black;
+      font-family: 'Times New Roman', Times, serif !important;
+      &.w-20 {
+        min-width: 20%;
+        width: 20%;
+      }
+    }
+  }
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.body-item {
+  .f-input {
+    width: 100%;
+    min-width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px #28803f dashed;
+    padding: 0 12px;
+    line-height: normal;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: black;
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+    &.ali-start{
+      text-align: start;
+    }
+    &.pd-start{
+      padding-left: 55px;
+    }
+  }
+
+  .n-title {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 24px!important;
+    line-height: 1.2;
+  }
+}s
+
+.row-item {
+  padding: 6px 80px;
+
+  .c-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feTitle {
+    font-weight: 800;
+
+    &.new {
+      font-family: 'Times New Roman', Times, serif !important;
+      font-size: 20px;
+    }
+
+    &.w-20 {
+      min-width: 20%;
+      width: 20%;
+    }
+  }
+
+  .container-title-fom {
+    display: flex;
+    justify-content: space-between;
+    min-width: 180px;
+    .mg-r {
+      margin-right: 30px;
+    }
+  }
+}
+
+.eform {
+  &.new {
+    .row-item {
+      padding: 2px 80px;
+    }
+
+    .f-input {
+      min-width: unset !important;
+    }
+  }
+}
+
+.star {
+  &.small {
+    font-size: 16px !important;
+  }
+}
+
+
+.f-1{
+  flex: 1;
+  display: flex;
+  &.small{
+    width: 330px;
+    flex: unset;
+  }
+  span{
+    white-space: nowrap;
+  }
+  .label-title{
+    font-size: 24px;
+    // font-weight: bold;
+    font-family: 'Times New Roman', Times, serif !important;
+    color:black !important
+  }
+  .f-input{
+    font-size: 24px;
+    // font-weight: bold!important;
+    color: black!important;
+    font-family: 'Times New Roman', Times, serif !important;
+    border-color: black !important;
+  }
+}
+
+.nor-fam{
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif !important;
+  color:#28803f !important
+}
+
+.nor-fam-field{
+  font-size: 17px;
+  font-weight: bold!important;
+  font-family: 'Times New Roman', Times, serif !important;
+  margin-left: 12px;
+}
+
+.no-underline{
+  border-bottom: none !important;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+  text-underline-position: under;
+  font-size: 17px!important;
+  font-weight: 400!important;
+  font-family: 'Times New Roman', Times, serif !important;
+  line-height: 1.8!important;
+  text-align: start!important;
+  color: #28803f!important;
+}
+
+.expire-date{
+  justify-content: flex-end;
+  display: flex;
+  p{
+    font-size: 17px!important;
+    font-weight: bold!important;
+    font-family: 'Times New Roman', Times, serif !important;
+    line-height: 1.8!important;
+    text-align: start!important;
+    color: #28803f!important;
+  }
+}
+
+.space30{
+  padding:0 15px;
+}
+
+
+.tb-moj-pb td{
+  padding: 3px 0 !important;
+}

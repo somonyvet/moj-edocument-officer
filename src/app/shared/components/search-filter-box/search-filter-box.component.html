@@ -1,0 +1,15 @@
+<div class="search-filter-box" [formGroup]="form" [ngClass]="customClass">
+  <div class="wraper">
+    <input #searchFilter type="text" class="search-box-input" formControlName="searchFilter"
+      [placeholder]="placeholder"  (focus)="onFocusSearch()"
+      (focusout)="onOutFocusSearch()" (keydown)="onKeydownMain($event)">
+    <span class="material-icons clickable"
+      [ngStyle]="{'transform': focusSearch || searchFilter.value ? 'translateX(44px)' : 'translateX(0)'}"
+      (click)="onFocusSearch()">
+      search
+    </span>
+    <span class="material-icons clickable btn-cancel" [ngStyle]="setStyleBtnCancel()" (click)="onCloseSearch()">
+      close
+    </span>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.floating-btn{
+  position: fixed;
+  right: 40px;
+  bottom: 32px;
+  z-index: 99;
+  a{
+    background-color: white;
+    box-shadow: 0 0 6px 1px rgb(0 0 0 / 20%);
+  }
+}

@@ -1,0 +1,12 @@
+<div id="page-wrapper" class="page-wrapper" [ngClass]="isMobile?'mobile-app':'toggled-sidebar'">
+  <!-- <app-header></app-header> -->
+  <app-sidebar></app-sidebar>
+  <app-comment-chart></app-comment-chart>
+
+  <main id="main" [ngClass]="isMobile?'mobile':''" >
+      <app-command-bar></app-command-bar>
+      <router-outlet></router-outlet>
+  </main>
+</div>
+
+<app-net-info></app-net-info>

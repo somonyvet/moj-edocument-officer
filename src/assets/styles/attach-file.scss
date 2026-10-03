@@ -1,0 +1,129 @@
+.attach-file {
+    max-width: 100%;
+    height: 75px;
+    padding: 25px 50px;
+    .attach-file-content {
+        position: relative;
+        overflow: hidden;
+        max-width: 100%;
+        height: 100%;
+        border: 2px dashed #ABABAB;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: row;
+        .att-flex1 {
+            flex: 1;
+            text-align: right;
+            min-width: calc(100% / 2 - 20px);
+            >mat-icon {
+                font-size: 60px;
+                height: 100%;
+                width: 100%;
+                line-height: 1.3;
+            }
+        }
+        .att-flex2 {
+            flex: 2;
+            text-align: left;
+            min-width: calc(100% / 2 + 20px);
+            >p {
+                font-size: 20px;
+                line-height: 1.7;
+            }
+        }
+        .att-file {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            min-height: 100%;
+            opacity: 0;
+        }
+    }
+}
+
+.attach-file-list {
+    min-width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    .attach-file-item {
+        &:hover {
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
+            .att-file-delete {
+                transition: .3s;
+                opacity: 1;
+            }
+        }
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        padding: 15px 0;
+        border-radius: 10px;
+        >.icon {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            mat-icon {
+                font-size: 60px;
+                width: 100%;
+                color: #3c8dbc;
+            }
+        }
+        .name {
+            text-align: center;
+            p {
+                margin: 5px 0;
+            }
+        }
+        .att-file-delete {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: crimson;
+            border-radius: 50%;
+            text-align: center;
+            opacity: 0;
+            mat-icon {
+                width: 100%;
+                color: #fff;
+            }
+        }
+    }
+    .att-flex {
+        min-width: calc( 100% / 3);
+        max-width: calc( 100% / 3);
+        margin: 5px 0px;
+    }
+}
+
+// table {
+//     thead {
+//         tr {
+//             &:hover {
+//                 background: white;
+//                 th {
+//                     background-color: white!important;
+//                 }
+//             }
+//             &:last-child {
+//                 // &:not(:first-child) {
+//                 // border-left: 1px solid #e8eaed;
+//                 // }
+//             }
+//             th {
+//                 text-align: center!important;
+//             }
+//         }
+//     }
+// }
+.mat-hint{
+    font-family: $appFont;
+    line-height: normal;
+}

@@ -1,0 +1,1066 @@
+<div class="scrolling-container" *ngIf="store?.selectedOfficer else emptySelected">
+  <div class="breadcrumb sticky-0">
+    <button mat-button mat-icon-button class="mat-btn-n" (click)="_onApproval()">
+        <mat-icon>home</mat-icon>
+    </button>
+    <!-- <a class="breadcrumb-item" *ngIf="store?.selectedActivityPlaning else emptyActivity">
+        <span>{{store?.selectedActivityPlaning?.name}}</span>
+    </a> -->
+</div>
+
+  <div class="eform" [formGroup]="form" id="print">
+    <div class="head">
+      <div class="head-item">
+        <p class="feTitle felef" (click)="print()">ក្រសួងមហាផ្ទៃ</p>
+        <p class="feTitle">អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+        <!-- <p class="feTitle">អគ្គស្នងការដ្ឋាននគរបាលជាតិ</p> -->
+        <!-- <p class="feTitle felef ">សេនាធិការដ្ឋាន</p> -->
+        <!-- <p class="feTitle">អង្គភាព
+          <span>
+            &nbsp;
+            នាយកដ្ឋានជនបរទេស
+            <br />
+            <span style="margin-left: 10px;">មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</span>
+          </span>
+        </p> -->
+      </div>
+      <div class="head-item">
+        <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+        <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+        <p class="star">3</p>
+        <div class="img-logo">
+          <img src="../../../../../assets/images/GCNP.png" alt="">
+        </div>
+        <p class="feTitle">សាលាកប័ត្រព័ត៌មាន</p>
+        <p class="feTitle">របស់មន្ត្រីនគរបាលជាតិ</p>
+      </div>
+      <div class="head-item">
+        <div class="profile-box" (click)="profile.click()">
+          <p>រូបថត</p>
+          <p>៤x៦</p>
+          <p>ចំនួន ០២សន្លឹក</p>
+          <br>
+          <p>ឯកសណ្ឋាន</p>
+          <p>នគរបាល‍ជាតិ</p>
+        </div>
+        <input #profile type="file" class="no-border" placeholder="" style="display: none;">
+      </div>
+    </div>
+    <div class="body">
+      <div class="body-item">
+        <div class="title">
+          <h3>១-ព័ត៌មានផ្ទាល់ខ្លួន</h3>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('lastNameKh')?.errors&&form.get('lastNameKh')?.touched?'has-error':''">
+            <span>គោត្តនាម *</span>
+            <input class="f-input" type="text" formControlName="lastNameKh">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('firstNameKh')?.errors&&form.get('firstNameKh')?.touched?'has-error':''">
+            <span>នាម *</span>
+            <input class="f-input" type="text" formControlName="firstNameKh">
+          </div>
+
+          <div class="f-item"
+            [ngClass]="form.get('lastNameEn')?.errors&&form.get('lastNameEn')?.touched?'has-error':''">
+            <span>គោត្តនាម(អង់គ្លេស) *</span>
+            <input class="f-input" type="text" formControlName="lastNameEn">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('firstNameEn')?.errors&&form.get('firstNameEn')?.touched?'has-error':''">
+            <span>នាម(អង់គ្លេស) *</span>
+            <input class="f-input" type="text" formControlName="firstNameEn">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
+            <span>ភេទ *</span>
+            <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+            <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
+              <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                {{item?.text}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item" [ngClass]="form.get('dob')?.errors&&form.get('dob')?.touched?'has-error':''">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត *</span>
+            <input class="f-input" type="text" formControlName="dob" [matDatepicker]="picker1" (focus)="picker1.open()">
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('nationality')?.errors&&form.get('nationality')?.touched?'has-error':''">
+            <span>សញ្ជាតិ *</span>
+            <input class="f-input" type="text" formControlName="nationality" [matAutocomplete]="autoNation">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoNation="matAutocomplete">
+              <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('bd_province')?.errors&&form.get('bd_province')?.touched?'has-error':''">
+            <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត *</span>
+            <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
+            <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ *</span>
+            <input class="f-input" type="text" formControlName="bd_district" [matAutocomplete]="autoGeoDistrictBD">
+            <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់ *</span>
+            <input class="f-input" type="text" formControlName="bd_commune" [matAutocomplete]="autoGeoCommuneBD">
+            <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
+            <span>ភូមិ *</span>
+            <input class="f-input" type="text" formControlName="bd_village" [matAutocomplete]="autoGeoVillageBD">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageBD="matAutocomplete">
+              <mat-option *ngFor="let row of bdVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('dateJoinPolice')?.errors&&form.get('dateJoinPolice')?.touched?'has-error':''">
+            <span>ថ្ងៃខែឆ្នាំចូលបម្រើនគរបាល *</span>
+            <input class="f-input" type="text" formControlName="dateJoinPolice" [matDatepicker]="picker2"
+              (focus)="picker2.open()">
+            <mat-datepicker #picker2></mat-datepicker>
+          </div>
+          <div class="f-item" [ngClass]="form.get('fileID')?.errors&&form.get('fileID')?.touched?'has-error':''">
+            <span>លេខឯកសារ *</span>
+            <input class="f-input" type="text" formControlName="fileID">
+          </div>
+          <div class="f-item" [ngClass]="form.get('dateFile')?.errors&&form.get('dateFile')?.touched?'has-error':''">
+            <span>ថ្ងៃខែឆ្នាំចុះ *</span>
+            <input class="f-input" type="text" formControlName="dateFile" [matDatepicker]="picker3"
+              (focus)="picker3.open()">
+            <mat-datepicker #picker3></mat-datepicker>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('ranking')?.errors&&form.get('ranking')?.touched?'has-error':''">
+            <span>ឋានន្តរសក្តិ *</span>
+            <!-- <input class="f-input" type="text" formControlName="ranking"> -->
+            <mat-autocomplete [displayWith]="ds?.displayName" #autoPosition="matAutocomplete">
+              <mat-option *ngFor="let item of positionList;let i=index" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+
+          <div class="f-item" [ngClass]="form.get('organization')?.errors&&form.get('organization')?.touched?'has-error':''">
+            <span>ស្ថាប័ន *</span>
+            <input class="f-input" type="text" formControlName="organization">
+          </div>
+
+          <div class="f-item" [ngClass]="form.get('position')?.errors&&form.get('position')?.touched?'has-error':''">
+            <span>មុខតំណែង *</span>
+            <!-- <input class="f-input" type="text" formControlName="position"> -->
+            <input class="f-input" type="text" formControlName="position" [matAutocomplete]="autoTitle">
+            <mat-autocomplete [displayWith]="ds?.displayName" #autoTitle="matAutocomplete">
+              <mat-option *ngFor="let item of titleList;let i=index" [value]="item">
+                {{item?.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+
+        </div>
+        <div class="row-item">
+          <div class="f-item" style="width: 140%;"
+            [ngClass]="form.get('live_province')?.errors&&form.get('live_province')?.touched?'has-error':''">
+            <span>អាសយដ្ឋានបច្ចុប្បន្ -រាជធានី/ខេត្ត *</span>
+            <input class="f-input" type="text" formControlName="live_province" [matAutocomplete]="autoGeoProvinceLive">
+            <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="ds.displayName"
+              #autoGeoProvinceLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveProvince|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
+            <span>ស្រុក/ខណ្ឌ *</span>
+            <input class="f-input" type="text" formControlName="live_district" [matAutocomplete]="autoGeoDistrictLive">
+            <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="ds.displayName"
+              #autoGeoDistrictLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveDistrict|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
+            <span>ឃុំ/សង្កាត់ *</span>
+            <input class="f-input" type="text" formControlName="live_commune" [matAutocomplete]="autoGeoCommuneLive">
+            <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="ds.displayName"
+              #autoGeoCommuneLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveCommune|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
+            <span>ភូមិ *</span>
+            <input class="f-input" type="text" formControlName="live_village" [matAutocomplete]="autoGeoVillageLive">
+            <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageLive="matAutocomplete">
+              <mat-option *ngFor="let row of liveVillage|async;let i=index" [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('phoneNumber')?.errors&&form.get('phoneNumber')?.touched?'has-error':''">
+            <span>លេខទូរស័ព្ទ *</span>
+            <input class="f-input" type="text" formControlName="phoneNumber">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-box">
+            <span class="m-b-6">អត្តលេខមន្ត្រីនគរបាលជាតិ</span>
+            <div class="f-item" [ngClass]="form.get('policeNo')?.errors&&form.get('policeNo')?.touched?'has-error':''">
+              <span>លេខ *</span>
+              <input class="f-input" type="text" formControlName="policeNo">
+            </div>
+          </div>
+          <div class="f-box">
+            <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ</span>
+            <div class="f-item" [ngClass]="form.get('policeID')?.errors&&form.get('policeID')?.touched?'has-error':''">
+              <span>លេខ *</span>
+              <input class="f-input" type="text" formControlName="policeID">
+            </div>
+          </div>
+          <div class="f-box">
+            <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ</span>
+            <div class="f-item"
+              [ngClass]="form.get('personalID')?.errors&&form.get('personalID')?.touched?'has-error':''">
+              <span>លេខ *</span>
+              <input class="f-input" type="text" formControlName="personalID">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-item">
+        <div class="title">
+          <h3>២-កម្រិតវប្បធម៌ <span> (សូមភ្ជាប់មកជាមួយនូវច្បាប់ចម្លង សញ្ញាបត្រ ឬវិញ្ញាបនបត្របញ្ជាក់ការសិក្សា)</span></h3>
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('educationLevel')?.errors&&form.get('educationLevel')?.touched?'has-error':''">
+            <input class="f-input" type="text" formControlName="educationLevel">
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div class="f-table">
+
+            <!-- <div class="warn-box">
+              <mat-icon>star</mat-icon>
+              <span>សូមបញ្ចូលសញ្ញាប័ត្រដែលមានកម្រិតខ្ពស់ជាងគេនៅលើ។</span>
+            </div> -->
+
+
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center">សញ្ញាប័ត្រនៅទទួលបាន</th>
+                  <th class="center">ជំនាញឯកទេស</th>
+                  <th class="center">កាលបរិច្ឆេទ</th>
+                  <th width="64px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="educationLevels"
+                  *ngFor="let item of form.get('educationLevels')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('specialization')?.errors&&item.get('specialization')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="specialization">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker4"
+                          (focus)="picker4.open()">
+                        <mat-datepicker #picker4></mat-datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('educationLevels')">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('educationLevels',[{field:'name',value:null},{field:'specialization',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-item">
+        <div class="title">
+          <h3>៣-ចំណេះដឹងភាសាបរទេស</h3>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('foreignLanguages')?.errors&&form.get('foreignLanguages')?.touched?'has-error':''">
+            <span>ចំណេះដឹងភាសាបរទេស *</span>
+            <input class="f-input" type="text" formControlName="foreignLanguages">
+          </div>
+        </div>
+      </div>
+      <div class="body-item">
+        <div class="title">
+          <h3>៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវៈ <span>(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាលទាំងក្នុង និងក្រៅក្របខ័ណ្ឌរដ្ឋ)</span>
+          </h3>
+        </div>
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center">ជំនាញ និងវគ្គបណ្ដុះបណ្ដាល</th>
+                  <th class="center">គ្រឹះស្ថានសិក្សា</th>
+                  <th class="center">រយៈពេលសិក្សា</th>
+                  <th class="center">កាលបរិច្ឆេទ</th>
+                  <th width="64px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="vocationalTrainingLevel"
+                  *ngFor="let item of form.get('vocationalTrainingLevel')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('school')?.errors&&item.get('school')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="school">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('duration')?.errors&&item.get('duration')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="duration">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker5"
+                          (focus)="picker5.open()">
+
+                        <mat-datepicker #picker5></mat-datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0"
+                        (click)="removeFormArrayWithField('vocationalTrainingLevel')">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="this.addFormArrayWithFields('vocationalTrainingLevel',[{field:'name',value:null},{field:'school',value:null},{field:'duration',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-item">
+        <div class="title">
+          <h3>៥-ប្រវត្តិការងារ</h3>
+        </div>
+        <div class="sub-title">
+          <h4>ក.មុខតំណែង (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
+        </div>
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center">លេខរៀង</th>
+                  <th class="center">មុខតំណែងនីមួយៗ</th>
+                  <th class="center">លេខឯកសារ</th>
+                  <th class="center">កាលបរិច្ឆេទ</th>
+                  <th width="64px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="positionHistory"
+                  *ngFor="let item of form.get('positionHistory')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('fileId')?.errors&&item.get('fileId')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="fileId">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker6"
+                          (focus)="picker6.open()">
+
+                        <mat-datepicker #picker6></mat-datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('positionHistory')">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('positionHistory',[{field:'name',value:null},{field:'fileId',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-title">
+          <h4>ខ.ឋានន្តរស័ក (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
+        </div>
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center">លេខរៀង</th>
+                  <th class="center">ឋានន្តរស័កនីមួយៗ</th>
+                  <th class="center">លេខឯកសារ</th>
+                  <th class="center">កាលបរិច្ឆេទ</th>
+                  <th width="64px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="rankingHistory"
+                  *ngFor="let item of form.get('rankingHistory')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('fileId')?.errors&&item.get('fileId')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="fileId">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <span>*</span>
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
+                          (focus)="picker7.open()">
+                        <mat-datepicker #picker7></mat-datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('rankingHistory')">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="this.addFormArrayWithFields('rankingHistory',[{field:'name',value:null},{field:'fileId',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="body-item">
+        <div class="title">
+          <h3>៦-ការលើកសរសើរៈ <span>(លិខិតសរសើរ-ប័ណ្ណសរសើរ-ឥស្សរិយយស)</span></h3>
+        </div>
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                  <th rowspan="2" class="center">រូបភាពលើកសរសើរ</th>
+                  <th rowspan="2" class="center" width="64px"></th>
+                </tr>
+                <tr>
+                  <th class="center">លេខ</th>
+                  <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container formArrayName="praiseHistory"
+                  *ngFor="let item of form.get('praiseHistory')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td style="width: 160px;">{{i+1}}</td>
+                    <td style="width: 160px;">
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
+                          (focus)="picker7.open()">
+                        <mat-datepicker #picker7></mat-datepicker>
+                      </div>
+                    </td>
+                    <td style="vertical-align: middle;">
+                      <div style="display:flex ;">
+                        <div class="flex1">
+                          <div class="img-view">
+                            {{selectedPraiseFileArray[i]?.name}}
+                            <button mat-icon-button *ngIf="selectedPraiseFileArray[i]?.name"
+                              (click)="removePraiseFile(i)">
+                              <mat-icon class="mat-18">clear</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="file-select-box">
+                          <button (click)="praiseFile.click()" class="form-file-select">
+                            <mat-icon class="mat-18">attach_file</mat-icon>
+                          </button>
+                          <input #praiseFile type="file" class="no-border" placeholder="" style="display: none;"
+                            (change)="selectedPraiseFile($event,i)">
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('praiseHistory', i)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('praiseHistory',[{field:'name',value:null},{field:'fileId',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="body-item">
+        <div class="title">
+          <h3>៧-ការដាក់ពិន័យៈ</h3>
+        </div>
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                  <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល</th>
+                  <th rowspan="2" class="center">មូលហេតុ</th>
+                  <th rowspan="2" class="center" width="64px"></th>
+                </tr>
+                <tr>
+                  <th class="center">លេខ</th>
+                  <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container formArrayName="penaltyHistory"
+                  *ngFor="let item of form.get('penaltyHistory')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td style="width: 160px;">{{i+1}}</td>
+                    <td style="width: 160px;">
+                      <div class="ftb-input"
+                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
+                          (focus)="picker7.open()">
+                        <mat-datepicker #picker7></mat-datepicker>
+                      </div>
+                    </td>
+                    <td style="vertical-align: middle;">
+                      <div style="display:flex ;">
+                        <div class="flex1">
+                          <div class="img-view" *ngIf="selectedPenaltyFileArray?.length>0">
+                            {{selectedPenaltyFileArray[i]?.name}}
+                            <button mat-icon-button *ngIf="selectedPenaltyFileArray[i]?.name"
+                              (click)="removePenaltyFile(i)">
+                              <mat-icon class="mat-18">clear</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="file-select-box">
+                          <button (click)="penaltyFile.click()" class="form-file-select">
+                            <mat-icon class="mat-18">attach_file</mat-icon>
+                          </button>
+                          <input #penaltyFile type="file" class="no-border" placeholder="" style="display: none;"
+                            (change)="selectedPenaltyFile($event,i)">
+                        </div>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('reason')?.errors&&item.get('reason')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="reason">
+                      </div>
+                    </td>
+
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('penaltyHistory', i)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('penaltyHistory',[{field:'name',value:null},{field:'reason',value:null},{field:'date',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="body-item">
+        <div class="title">
+          <h3>៨-ព័ត៌មានគ្រួសារៈ</h3>
+        </div>
+
+
+        <div class="row-item">
+          <div class="f-item" [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
+            <span><strong>ក-ប្ដី ឬប្រពន្ធឈ្មោះ :</strong></span>
+            <input class="f-input" type="text" formControlName="spouse">
+          </div>
+          <div class="f-item" style="width: 300px;">
+            <mat-radio-group>
+              <mat-radio-button value="រស់" style="margin-right: 16px;">រស់</mat-radio-button>
+              <mat-radio-button value="ស្លាប់">ស្លាប់</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="f-item" [ngClass]="form.get('spouseDob')?.errors&&form.get('spouseDob')?.touched?'has-error':''">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+            <input class="f-input" type="text" formControlName="spouseDob" [matDatepicker]="pickerspouseDob"
+              (focus)="pickerspouseDob.open()">
+            <mat-datepicker #pickerspouseDob></mat-datepicker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('spousePlaceOfBirth')?.errors&&form.get('spousePlaceOfBirth')?.touched?'has-error':''">
+            <span>- ទីកន្លែងកំណើត:</span>
+            <input class="f-input" type="text" formControlName="spousePlaceOfBirth">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
+            <span>- មុខរបរបច្ចុប្បន្ន:</span>
+            <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('spouseCurrentAddress')?.errors&&form.get('spouseCurrentAddress')?.touched?'has-error':''">
+            <span>- អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+            <input class="f-input" type="text" formControlName="spouseCurrentAddress">
+          </div>
+        </div>
+
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('childrenNumber')?.errors&&form.get('childrenNumber')?.touched?'has-error':''">
+            <span><strong>ខ-មានកូនចំនួន :</strong></span>
+            <input class="f-input" type="text" formControlName="childrenNumber">
+            <span>នាក់, </span>
+          </div>
+
+          <div class="f-item"
+            [ngClass]="form.get('childrenFemaleNumber')?.errors&&form.get('childrenFemaleNumber')?.touched?'has-error':''">
+            <span> ស្រី</span>
+            <input class="f-input" type="text" formControlName="childrenFemaleNumber">
+            <span>នាក់, </span>
+          </div>
+
+          <div class="f-item"
+            [ngClass]="form.get('childrenMaleNumber')?.errors&&form.get('childrenMaleNumber')?.touched?'has-error':''">
+            <span> ប្រុស</span>
+            <input class="f-input" type="text" formControlName="childrenMaleNumber">
+            <span>នាក់ </span>
+          </div>
+
+        </div>
+
+
+        <div class="row-item">
+          <div class="f-table">
+            <table class="tb-input">
+              <thead>
+                <tr>
+                  <th class="center"></th>
+                  <th class="center">ឈ្មោះ</th>
+                  <th class="center">ភេទ</th>
+                  <th class="center">ឆ្នាំកំណើត</th>
+                  <th class="center">មុខរបរ</th>
+                  <th class="center" width="64px"></th>
+                </tr>
+
+              </thead>
+              <tbody>
+                <ng-container formArrayName="childrenInfo"
+                  *ngFor="let item of form.get('childrenInfo')?.controls;let i = index;">
+                  <tr [formGroupName]="i">
+                    <td>{{i+1}}</td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="name">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('gender')?.errors&&item.get('gender')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+                        <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
+                          <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
+                            {{item?.text}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('dob')?.errors&&item.get('dob')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="dob" [matDatepicker]="pickerdob"
+                          (focus)="pickerdob.open()">
+                        <mat-datepicker #pickerdob></mat-datepicker>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="ftb-input"
+                        [ngClass]="item.get('occupation')?.errors&&item.get('occupation')?.touched?'has-error':''">
+                        <input class="f-input" type="text" formControlName="occupation">
+                      </div>
+                    </td>
+                    <td>
+                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('childrenInfo')">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </td>
+
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <div class="fw-box">
+              <a mat-button class="btn-text"
+                (click)="addFormArrayWithFields('childrenInfo',[{field:'name',value:null},{field:'gender',value:null},{field:'dob',value:null},{field:'occupation',value:null}])">
+                <span>បន្ថែមប្រអប់បញ្ចូល</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('fatherName')?.errors&&form.get('fatherName')?.touched?'has-error':''">
+            <span><strong>គ-ឪពុកឈ្មោះ:</strong></span>
+            <input class="f-input" type="text" formControlName="fatherName">
+          </div>
+          <div class="f-item" style="width: 300px;">
+            <mat-radio-group>
+              <mat-radio-button value="រស់" style="margin-right: 16px;">រស់</mat-radio-button>
+              <mat-radio-button value="ស្លាប់">ស្លាប់</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="f-item" [ngClass]="form.get('fatherDob')?.errors&&form.get('fatherDob')?.touched?'has-error':''">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+            <input class="f-input" type="text" formControlName="fatherDob" [matDatepicker]="pickerfatherDob"
+              (focus)="pickerfatherDob.open()">
+            <mat-datepicker #pickerfatherDob></mat-datepicker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
+            <span>ស្រុកកំណើត:</span>
+            <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
+            <span>មុខរបរ:</span>
+            <input class="f-input" type="text" formControlName="fatherCurrentOccupation">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('fatherCurrentAddress')?.errors&&form.get('fatherCurrentAddress')?.touched?'has-error':''">
+            <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+            <input class="f-input" type="text" formControlName="fatherCurrentAddress">
+          </div>
+        </div>
+
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('motherName')?.errors&&form.get('motherName')?.touched?'has-error':''">
+            <span><strong>ឃ-ម្ដាយឈ្មោះ:</strong></span>
+            <input class="f-input" type="text" formControlName="motherName">
+          </div>
+          <div class="f-item" style="width: 300px;">
+            <mat-radio-group>
+              <mat-radio-button value="រស់" style="margin-right: 16px;">រស់</mat-radio-button>
+              <mat-radio-button value="ស្លាប់">ស្លាប់</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="f-item" [ngClass]="form.get('motherDob')?.errors&&form.get('motherDob')?.touched?'has-error':''">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+            <input class="f-input" type="text" formControlName="motherDob" [matDatepicker]="pickermotherDob"
+              (focus)="pickermotherDob.open()">
+            <mat-datepicker #pickermotherDob></mat-datepicker>
+          </div>
+
+        </div>
+
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
+            <span>ស្រុកកំណើត:</span>
+            <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
+          </div>
+          <div class="f-item"
+            [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
+            <span>មុខរបរ:</span>
+            <input class="f-input" type="text" formControlName="motherCurrentOccupation">
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="f-item"
+            [ngClass]="form.get('motherCurrentAddress')?.errors&&form.get('motherCurrentAddress')?.touched?'has-error':''">
+            <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+            <input class="f-input" type="text" formControlName="motherCurrentAddress">
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+    <div class="footer">
+
+      <div class="body-item">
+        <div class="row-item">
+          <div class="flex1"></div>
+          <div style="text-align: right;">ខ្ញុំសូមធានាអះអាងចំពោះមុខច្បាប់ថា សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ
+            សុទ្ធតែពិតប្រាកដទាំងអស់។</div>
+        </div>
+
+        <div class="row-item">
+          <div class="flex1"></div>
+          <div style="text-align: center;">
+            <div class="f-item">
+              ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស ២៥៦...
+            </div>
+            <div class="f-item">
+              .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ ២០........
+            </div>
+
+            <div class="f-item">
+              <strong>ហត្ថលេខា និងឈ្មោះសាម៉ីខ្លួន</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-item">
+          <div style="text-align: center;">
+            <div class="f-item">
+              <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
+              <p>
+                <b>
+                  ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
+                </b>
+              </p>
+            </div>
+            <div class="f-item">
+              របស់..........................................................ពិតប្រាកដមែន។
+            </div>
+            <div class="f-item">
+              ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស ២៥៦...
+            </div>
+            <div class="f-item">
+              .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ ២០........
+            </div>
+
+            <div class="f-item">
+              <strong>ប្រធានអង្គភាព</strong>
+            </div>
+          </div>
+
+          <div class="flex1"></div>
+
+        </div>
+
+
+
+        <div class="row-item">
+
+          <div class="flex1"></div>
+
+          <div style="text-align: center;">
+            <div class="f-item">
+              <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
+              <p>
+                <b>
+                  ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
+                </b>
+              </p>
+            </div>
+            <div class="f-item">
+              របស់..........................................................ពិតប្រាកដមែន។
+            </div>
+            <div class="f-item">
+              ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស ២៥៦...
+            </div>
+            <div class="f-item">
+              .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ ២០........
+            </div>
+
+            <div class="f-item">
+              <strong>ប្រធាននាយកដ្ឋានបុគ្គលិក</strong>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<ng-template #emptySelected>
+
+</ng-template>

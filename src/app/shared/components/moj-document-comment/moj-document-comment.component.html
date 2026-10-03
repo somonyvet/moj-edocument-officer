@@ -1,0 +1,225 @@
+<div class="cm-content">
+  <div *ngIf="!store?.loadingCommentInternal && store?.documentCommentsHeaderInternalData?.length>0" style="flex: 1; overflow-y: auto;" #scrollMe>
+    <div class="comment-list-item"
+      *ngFor="let item of store?.documentCommentsHeaderInternalData; let i = index; trackBy: trackByIdx">
+      <div class="comment-avatar">
+        <img [src]="defaultImg" alt="">
+      </div>
+      <div>
+        <div class="comment-info">
+          <ng-container>
+            <div class="comment-user">
+              <strong>{{item?.displayName}}</strong>
+              <!-- <span class="ac-comment-section" *ngIf="auth?.profile?.key == item?.created_by?.key">
+                <span class="material-icons ac-comment" [matMenuTriggerFor]="menu">more_vert</span>
+                <mat-menu #menu="matMenu" id="delete-menu">
+                  <button class="button-menu-container"
+                    style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
+                    (click)="onEditComment(item)">
+                    <span>កែប្រែ</span>
+                  </button>
+                  <button class="button-menu-container"
+                    style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
+                    (click)="deleteComment(item)">
+                    <span>លុប</span>
+                  </button>
+                </mat-menu>
+              </span> -->
+            </div>
+            <p>{{item?.text}}</p>
+            <div class="file-container">
+              <ng-container *ngFor="let file of item?.files">
+                <a [href]="file?.downloadUrl" target="new" class="img-box-item" [class.two-side]="item?.files | fileLength:'image'"
+                  *ngIf="file?.type === 'image'">
+                  <img [src]="file?.downloadUrl" alt="" >
+                </a>
+                <div class="audio-box-item" *ngIf="file?.type === 'audio'">
+                  <audio #audioOption controls>
+                    <source [src]='file?.downloadUrl' [type]="file?.fileType">
+                  </audio>
+                </div>
+                <div class="application-box-item" *ngIf="file?.type === 'application'">
+                  <a [href]="file?.downloadUrl" target="_blank">{{file?.name}}</a>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        <div class="cm-action">
+          <div class="action">
+            <span (click)="onReply(item)">ឆ្លើយតប</span>
+          </div>
+          <div class="cm-dt">
+            <span>{{item?.updated_at?.toDate()| dateTime}}</span>
+          </div>
+        </div>
+        <app-comment-listing [data]="store?.documentCommentsChildInternalData" [header]="item"
+          (EditReplyComment)="onEditReplyComment($event)" (DeleteReplyComment)="deleteComment($event)">
+        </app-comment-listing>
+      </div>
+    </div>
+
+  </div>
+  <app-placeholder-card *ngIf="store?.loadingCommentInternal"></app-placeholder-card>
+  <div class="reply-to-container" *ngIf="replyData">
+    <button mat-icon-button (click)="null">
+      <mat-icon class="mat-18">reply</mat-icon>
+    </button>
+    <div class="reply-to-text">
+      <p class="title">
+        ឆ្លើយតបទៅកាន់ <strong>{{replyData?.displayName}}</strong>
+      </p>
+      <p *ngIf="replyData?.text">{{replyData?.text}}</p>
+      <p *ngIf="!replyData?.text && replyData?.files.length > 0">ឯកសារភ្ជាប់</p>
+    </div>
+    <button mat-icon-button (click)="onCancelReply()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </button>
+  </div>
+  <div class="fileComment">
+
+    <div class="fileDisplay" *ngFor="let file of SELECTED_FILES_EDIT">
+      <span *ngIf="file.type !== 'audio/wav'" class="f-display">
+        <div class="filename">{{file?.name}}</div>
+        <a mat-button mat-icon-button (click)="_removeEditFile(file)">
+          <mat-icon>delete</mat-icon>
+        </a>
+      </span>
+    </div>
+
+    <div class="fileDisplay column">
+      <div class="padding-message20" style="width: 100%; display: flex;" *ngFor="let file of dataFileComment">
+        <span style="width: 100%; display: flex; align-items: center; justify-content: space-between;"
+          *ngIf="file?.type == 'image' && file?.downloadUrl">
+          <div class="filename">{{file?.name}}</div>
+          <a mat-button mat-icon-button (click)="_deleteEditFile(file)">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </span>
+        <span style="width: 100%; display: flex; align-items: center; justify-content: space-between;"
+          *ngIf="file?.type == 'audio' && file?.downloadUrl">
+          <audio class="audio-comment" controls="">
+            <source [src]="file?.downloadUrl" type="audio/wav">
+          </audio>
+          <a mat-button mat-icon-button (click)="_deleteEditFile(file)">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </span>
+      </div>
+    </div>
+
+    <div class="ls-items-cl" *ngFor="let file of SELECTED_FILES_EDIT">
+      <div class="file-item" *ngIf="files_voiceEdit && file.type =='audio/wav'">
+        <audio class="audio-comment" controls="">
+          <source [src]="sanitizeEdit(urlAudioEdit)" type="audio/wav">
+        </audio>
+        <div class="ls-items-cl">
+          <div class="file-item">
+            <button mat-button mat-icon-button (click)="removeAudioFileEdit(file)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-preview-comment-box-form no-pd-rl" *ngIf="edit == true">
+      <div class="user-comment-form" [formGroup]="commentForm">
+
+        <div class="user-comment-avatar flex" (click)="cancelEdit()">
+          <img class="width65" [src]="editImg" alt="">
+        </div>
+        <div class="ucm-box">
+
+          <!-- <div class="user-comment-avatar flex w44 absalute-btn-left">
+            <div ng-app="app" ng-controller="sample" class="button-fp-container bg-grey"
+              (click)="initiateRecordingEdit()" *ngIf="!recordingEdit">
+              <span class="material-icons" style="color: #3985F3;">
+                mic
+              </span>
+            </div>
+
+            <div ng-app="app" ng-controller="sample" class="button-fp-container" (click)="stopRecordingEdit()"
+              *ngIf="recordingEdit">
+              <span class="material-icons recording" style="color: #f52642;">
+                mic
+              </span>
+            </div>
+          </div> -->
+
+          <textarea class="textarea-edit" #focusInput floatLabel="never" cdkTextareaAutosize
+            (input)="textChange($event.target.value)" #autosize="cdkTextareaAutosize" cdkAutosizeMinRows=""
+            placeholder="សូមកែប្រែយោបល់នៅទីនេះ" formControlName="text"></textarea>
+          <div class="comment-loading" *ngIf="store?.process_edit">
+            <mat-spinner diameter='20'></mat-spinner>
+          </div>
+
+          <div class="commentFile" (click)="fileUpdateComment.click()">
+            <mat-icon matSuffix>attach_file</mat-icon>
+            <input #fileUpdateComment type="file" (change)="onSelectedUpdateFile($event)" style="display:none;" />
+          </div>
+        </div>
+        <div class="send-btn" (click)="onSendEdit(commentForm.value)">
+          <mat-icon class="mat-18">send</mat-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="fileDisplay" *ngFor="let file of SELECTED_FILES">
+      <span *ngIf="file.type !== 'audio/wav'" class="f-display">
+        <div class="filename">{{file?.name}}</div>
+        <a mat-button mat-icon-button (click)="_removeFile(file)">
+          <mat-icon>delete</mat-icon>
+        </a>
+      </span>
+    </div>
+
+    <div class="ls-items-cl" *ngFor="let file of SELECTED_FILES">
+      <div class="file-item" *ngIf="files_voice && file.type =='audio/wav'">
+        <audio class="audio-comment" controls="">
+          <source [src]="sanitize(urlAudio)" type="audio/wav">
+        </audio>
+        <div class="ls-items-cl">
+          <div class="file-item">
+            <button mat-button mat-icon-button (click)="removeAudioFile(file)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="doc-preview-comment-box-form" *ngIf="edit === false">
+    <!-- <div class="user-comment-avatar flex">
+      <div ng-app="app" ng-controller="sample" class="button-fp-container bg-grey" (click)="initiateRecording($event)"
+        *ngIf="!recording">
+        <span class="material-icons" style="color: #3985F3;">
+          mic
+        </span>
+      </div>
+
+      <div ng-app="app" ng-controller="sample" class="button-fp-container" (click)="stopRecording()" *ngIf="recording">
+        <span class="material-icons recording" style="color: #f52642;">
+          mic
+        </span>
+      </div>
+    </div> -->
+
+    <div class="user-comment-form" [formGroup]="commentForm">
+      <div class="ucm-box">
+        <textarea floatLabel="never" cdkTextareaAutosize class="" #autosize="cdkTextareaAutosize" cdkAutosizeMinRows=""
+          placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="comment"></textarea>
+        <div class="commentFile" (click)="fileComment.click()">
+          <mat-icon matSuffix>attach_file</mat-icon>
+          <input #fileComment type="file" (change)="onSelectedFile($event)" style="display:none;" />
+        </div>
+      </div>
+      <div class="send-btn" (click)="onComment(commentForm.value)">
+        <mat-icon class="mat-18">send</mat-icon>
+      </div>
+    </div>
+  </div>
+
+</div>

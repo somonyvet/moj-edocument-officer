@@ -1,0 +1,56 @@
+<form [formGroup]="form" class="dialog-content-wrapper" *mobxAutorun>
+    <div class="dialog-header">
+        <h2 mat-dialog-title>បានដាក់ដំណើរការឯកសារ</h2>
+        <div class="space1"></div>
+        <a mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </a>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+
+        <div class="form-group">
+            <aside class="special-memo asm-ma" style="margin: 5px 0;width: 100%;">
+                <strong class="memo" style="font-size: 19px;">កាលបរិច្ឆេទរបាយការណ៍: {{report_date}}</strong>
+            </aside>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>កាលបរិច្ឆេទរបាយការណ៍</mat-label>
+                <input formControlName="report_date" required matInput date="true" (click)="picker1.open()"
+                    [matDatepicker]="picker1" (dateInput)="_onSelectedCalendar($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <aside class="special-memo asm-ma" style="margin: 5px 0;width: 100%;">
+                <strong class="memo" style="font-size: 19px;">សេវា: {{data?.selectedCriminal?.urgent_obj?.key}}ថ្ងៃ</strong>
+            </aside>
+        </div>
+
+        <div class="form-group">
+            <aside class="special-memo asm-ma" style="margin: 5px 0;width: 100%;">
+                <strong class="memo" style="font-size: 19px;">ថ្ងៃដកព្រឹត្តិបត្រ: {{withdraw_date}}</strong>
+            </aside>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ថ្ងៃដកព្រឹត្តិបត្រ</mat-label>
+                <input formControlName="withdraw_date" required matInput date="true" (click)="picker2.open()"
+                    [matDatepicker]="picker2" (dateInput)="_onSelectedCalendarWithdraw($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
+        <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
+            (click)="save()">យល់ព្រម</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,38 @@
+.new-print {
+    margin: 0.5cm 1cm !important;
+  }
+
+  .doc-in {
+    // position: relative;
+    // top: 16px;
+    width: calc(100% - 276px) !important;
+
+    &.new {
+      background-color: transparent !important;
+      box-shadow: none;
+    }
+  }
+
+.sum-statistic{
+  width: 60%;
+  font-size: 16px;
+  .t-travel{
+    width: 100%;
+  }
+}
+
+thead{
+  display: table-header-group!important;
+}
+
+.bg-blue{
+  td{
+    background-color: #cee7ff;
+
+  }
+}
+
+.lf-text{
+  width: unset!important;
+  margin-right: 6px;
+}

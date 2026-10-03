@@ -1,0 +1,29 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+        <div class="title">
+            {{msg?.title}}
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="onClose()">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    <div class="dialog-content">
+        <div class="form-content">
+            <div class="aside-warning" style="flex-wrap: wrap;">
+                <i class="material-icons">warning</i>
+                <span>
+                    {{msg?.memo}}
+                </span>
+                <!-- <p> Are you sure, you want to process it?</p> -->
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <button mat-button mat-dialog-close type="button" class="enbutton cancel m-r16"
+            (click)="onClose()">បោះបង់</button>
+        <button mat-button type="submit" class="enbutton delete-btn" (click)="dialogRef.close('yes')"
+            color="warn">យល់ព្រម</button>
+    </div>
+</div>

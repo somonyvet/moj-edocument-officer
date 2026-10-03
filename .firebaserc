@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "criminal-letter",
+    "y": "criminal-letter-test"
+  },
+  "targets": {
+    "criminal-letter-test": {
+      "hosting": {
+        "officer-criminal-letter-dev": [
+          "officer-criminal-letter-dev"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

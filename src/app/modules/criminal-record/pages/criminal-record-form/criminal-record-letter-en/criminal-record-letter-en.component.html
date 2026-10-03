@@ -1,0 +1,443 @@
+<div class="eform new" style="margin:12px auto 0 auto" id="printD">
+  <div class="head p-rel">
+    <div class="head-item" style="align-items: flex-start;">
+      <div class="profile-box container-header-input" style="border: none;">
+        <img src="../../../../../../assets/images/moj.png">
+        <span class="feTitle">
+          Ministry of Justice
+        </span>
+
+        <span class="feTitle">
+          ******
+        </span>
+      </div>
+      <div class="row-item khmer-date-picker ds-f" style="margin-top: 20px; padding: 0;">
+        <div class="f-item" style="display: flex;">
+          <span class="nor-fam">No. </span>
+          <span class="nor-fam-field">
+            {{store?.selectedCriminalRecord?.code_en}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="flex1"></div>
+    <div class="head-item">
+      <p class="feTitle">KINGDOM OF CAMBODIA</p>
+      <p class="feTitle">Nation Religion King</p>
+      <p class="star" style="color:#77867B">3</p>
+      <div class="img-logo" style="height: 12px;">
+      </div>
+      <p class="feTitle" style="font-size:18px">BULLETIN OF CRIMINAL RECORD No 3</p>
+    </div>
+    <div class="flex1"></div>
+    <div class="head-item long-w">
+    </div>
+  </div>
+  <div class="body" style="width:100%">
+    <div class="body-item">
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Surname and name</span>
+            <span>:</span>
+          </span>
+          <span class="f-input" style="padding: 0 40px;">
+            {{store?.selectedCriminalRecord?.last_name_en+" "+store?.selectedCriminalRecord?.first_name_en}}
+          </span>
+        </div>
+        <div class="f-1">
+          <span class="label-title">Gender</span>
+          <span class="f-input">{{store?.selectedCriminalRecord?.gender?.name_en}} </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Nationality</span>
+            <span>:</span>
+          </span>
+          <span class="label-title"> Origin</span>
+          <span class="f-input">{{store?.selectedCriminalRecord?.before_nationality?.en_nationality}} </span>
+        </div>
+        <div class="f-1">
+          <span class="label-title">Current</span>
+          <span class="f-input">{{store?.selectedCriminalRecord?.current_nationality?.en_nationality}} </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Alias(es)</span>
+            <span>:</span>
+          </span>
+          <span class="f-input">{{store?.selectedCriminalRecord?.nick_name}} </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Date of birth </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">{{store?.selectedCriminalRecord?.dateOfBirthDay?.name_en + '-' +
+            store?.selectedCriminalRecord?.dateOfBirthMonth?.name_en + "-" +
+            store?.selectedCriminalRecord?.dateOfBirthYear?.name_en}} </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Place of birth </span>
+            <span>:</span>
+          </span>
+          <span class="f-input text-a-s">
+            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.village?.name_en">
+              Capital / Province {{store?.selectedCriminalRecord?.birthAddress?.village?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.commune?.name_en">
+              District {{store?.selectedCriminalRecord?.birthAddress?.commune?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.district?.name_en">
+              Commune {{store?.selectedCriminalRecord?.birthAddress?.district?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.province?.name_en">
+              Village {{store?.selectedCriminalRecord?.birthAddress?.province?.name_en}}
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Current address </span>
+            <span>:</span>
+          </span>
+          <span class="f-input text-a-s">
+            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.village?.name_en">
+              Capital / Province {{store?.selectedCriminalRecord?.permanentAddress?.village?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.commune?.name_en">
+              District {{store?.selectedCriminalRecord?.permanentAddress?.commune?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.district?.name_en">
+              Commune {{store?.selectedCriminalRecord?.permanentAddress?.district?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.province?.name_en">
+              Village {{store?.selectedCriminalRecord?.permanentAddress?.province?.name_en}}
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Occupation </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.occupation}}
+          </span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Father's name </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.father_name}}
+          </span>
+        </div>
+        <div class="f-1 small">
+          <span class="label-title">Date of birth</span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.fatherDob?.day?.name_en}}-{{store?.selectedCriminalRecord?.fatherDob?.month?.name_en}}-{{store?.selectedCriminalRecord?.fatherDob?.year?.name_en}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Nationality </span>
+            <span>:</span>
+          </span>
+          <span class="label-title">Origin </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.father_before_nationality?.en_nationality}}
+          </span>
+        </div>
+        <div class="f-1">
+          <span class="label-title">Current </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.father_current_nationality?.en_nationality}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Place of birth </span>
+            <span>:</span>
+          </span>
+          <span class="f-input text-a-s">
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en">
+              Capital / Province {{store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en">
+              District {{store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en">
+              Commune {{store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en">
+              Village {{store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en}}
+            </ng-container>
+
+          </span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Mother's name </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.mother_name}}
+          </span>
+        </div>
+        <div class="f-1 small">
+          <span class="label-title">Date of birth</span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.motherDob?.day?.name_en}}-{{store?.selectedCriminalRecord?.motherDob?.month?.name_en}}-{{store?.selectedCriminalRecord?.motherDob?.year?.name_en}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Nationality </span>
+            <span>:</span>
+          </span>
+          <span class="label-title">Origin </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.mother_before_nationality?.en_nationality}}
+          </span>
+        </div>
+        <div class="f-1">
+          <span class="label-title">Current </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.mother_current_nationality?.en_nationality}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Place of birth </span>
+            <span>:</span>
+          </span>
+          <span class="f-input text-a-s">
+            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en">
+              Capital / Province {{store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en">
+              District {{store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en">
+              Commune {{store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en}}
+            </ng-container>
+
+            <span class="space30"></span>
+
+            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en">
+              Village {{store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en}}
+            </ng-container>
+          </span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Spouse's name </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.spouse}}
+          </span>
+        </div>
+        <div class="f-1 small">
+          <span class="label-title">Date of birth</span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.spouseDob?.day?.name_en}}-{{store?.selectedCriminalRecord?.spouseDob?.month?.name_en}}-{{store?.selectedCriminalRecord?.spouseDob?.year?.name_en}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Nationality </span>
+            <span>:</span>
+          </span>
+          <span class="label-title">Origin </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.mother_before_nationality?.en_nationality}}
+          </span>
+        </div>
+        <div class="f-1">
+          <span class="label-title">Current </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.mother_current_nationality?.en_nationality}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-1">
+          <span class="container-title-fom">
+            <span class="label-title">Occupation </span>
+            <span>:</span>
+          </span>
+          <span class="f-input">
+            {{store?.selectedCriminalRecord?.spouseCurrentOccupation}}
+          </span>
+        </div>
+      </div>
+
+      <div class="row-item">
+        <div class="f-item">
+          <span class="feTitle new"
+            style="font-weight: bold;text-decoration: underline;text-underline-position: under;color:black">NOTE
+            :</span>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-item">
+          <span class="f-input no-underline" style="text-decoration: none;">
+            The above-mentioned person (<strong> {{store?.selectedCriminalRecord?.last_name_en+"
+              "+store?.selectedCriminalRecord?.first_name_en}} </strong>)
+            {{store?.selectedCriminalRecord?.decree_remark?.decree_result?.name_en}}
+          </span>
+        </div>
+      </div>
+      <div class="row-item" style="flex-direction: column; border-top: solid 1px">
+        <div class="f-item">
+          <span class="title" style="font-size: 14px; padding: 0;color:black">*
+            *The Ministry of Justice is responsible for only the translation of this document made by the
+            Ministry</span>
+        </div>
+        <div class="f-item expire-date" *ngIf="store?.selectedCriminalRecord?.expired_date">
+          <span>
+            This bulletin is valid within 3months. Invalid on date :
+            {{store?.selectedCriminalRecord?.expired_date?.toDate()|dateOnly}}
+          </span>
+        </div>
+      </div>
+
+      <div class="row-item" style="height: 16rem;">
+        <div class="f-item" style="justify-content: space-between;">
+
+          <div class="head-item long-w"
+            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+            <div class="c-item" style="justify-content: flex-start;">
+              <span
+                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                class="p-rel">
+                <span class="n-title" style="color:black">
+                  Seen
+                </span>
+                <span class="n-title" style="color:black">
+                  For the Minister
+                </span>
+                <span class="n-title" style="color:black">
+                  Secretary of State
+                </span>
+                <span class="n-title" style="color:black">
+                  {{"<<"+"Signature and seal>>"}}
+                </span>
+              </span>
+            </div>
+
+            <span class="container-header-input" style="width: unset">
+              <div class="row-item khmer-date-picker" style="padding-right: 0;">
+                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                  <div class="c-item">
+                    <span
+                      style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                      class="p-rel">
+                      <span class="n-title" style="color:black">
+                        Phnom Penh, {{today|dateOnly}}
+                      </span>
+                      <span class="n-title" style="color:black">
+                        Director-General of Criminal Penalty Affairs
+                      </span>
+                      <span class="n-title" style="color:black">
+                        {{"<<"+"Signature>>"}}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="" style="display: flex; justify-content: flex-end;margin-right: 40px"
+        *ngIf="store?.selectedCriminalRecord?.key">
+        <ngx-kjua [text]="store?.selectedCriminalRecord?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+          [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+          [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'"
+          [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+        </ngx-kjua>
+      </div>
+
+      <div class="row-item" style="flex-direction: column; align-items: center;">
+        <div class="f-item" style="border-top: solid 1px; width: fit-content;">
+          <span class="n-title" style="font-size: 14px;color:#77867B;">
+            Samdech Sotheaross Boulevard, Daun Penh district, Phnom Penh Capital(in front of the Royal Palace)
+            Telephone: 023 216 322 ,023 217 841</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="page-container" *ngIf="this.store.activeKey;else unselect">
+
+  <div class="action-bar">
+    <div class="nav-content">
+      <h3 class="head-title">
+        មន្ត្រី
+      </h3>
+      <div class="action-item">
+        <div style="margin-right: 10px;">
+          <a mat-button mat-icon-button class="mat-add-new" (click)="_onDelete()" matTooltipClass="tooltipClass"
+            matTooltip="លុបបេសកកម្ម" aria-label="លុបបេសកកម្ម">
+            <mat-icon class="mat-18">delete</mat-icon>
+          </a>
+        </div>
+
+
+        <button mat-button (click)="_editMission()" class="enbutton primary">កែប្រែ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-doc">
+    <virtual-scroller #scroll [items]="store?.officersMission" class="as-tb-wrap vt-doc">
+      <table class="as-table-wrapper" *ngIf="store?.officersMission?.length>0 && !store?.loading">
+        <thead #header>
+          <tr>
+            <th class="center">
+              ល.រ
+            </th>
+            <th class="left">
+              អត្តលេខ
+            </th>
+            <th class="left">
+              ឈ្មោះ
+            </th>
+            <th class="left">
+              លេខទូរស័ព្ទ
+            </th>
+            <th class="left">
+              មុខងារតួនាទី
+            </th>
+
+          </tr>
+        </thead>
+        <tbody #container>
+          <tr *ngFor="let item of scroll.viewPortItems;let i = index;">
+            <td class="center" style="width: 64px;">
+              {{i+1}}
+            </td>
+            <td>
+              <div class="rows">
+                <div class="avatar-tb">
+                  <img [src]="item?.file?.downloadUrl || URL" (error)="handleImgError($event)">
+                </div>
+                <strong>{{item?.officerId}}</strong>
+              </div>
+            </td>
+            <td>
+              <div class="rows" style="white-space: normal; max-width: 260px;">
+                <span style="margin-right: 6px;" *ngFor="let title of item?.title;let j=index">
+                  {{title?.name}}{{(j+1)===item?.title?.length?'':' '}}
+                </span>
+                <span>{{item?.last_name}} {{item?.first_name}}</span>
+              </div>
+            </td>
+            <td>
+              {{item?.phoneNumber ||'-'}}
+            </td>
+            <td>
+              <span *ngFor="let pos of item?.positions;let j=index">
+                {{pos?.name}}{{(j+1)===item?.positions?.length?'':', '}}
+              </span>
+            </td>
+            <!-- <td style="width: 64px;">
+              <div class="card-list-action">
+                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item type="button" (click)="removeOfficer(item)">
+                    <mat-icon>cancel</mat-icon>
+                    <span>ដកចេញ</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </td> -->
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="empty-block" *ngIf="store?.loading">
+        <div class="center-block-empty">
+          <app-spinner></app-spinner>
+        </div>
+      </div>
+      <ng-container *ngIf="store?.emptyOfficers && !store?.loading">
+        <div class="empty-block">
+          <div class="center-block-empty">
+            <div class="empty-img">
+              <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                alt="empty">
+            </div>
+            <div class="empty-text">
+              <p class="empty-state-title">
+                ពុំមានទិន្នន័យ
+              </p>
+              <p class="empty-state-desc">
+                លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់មន្ត្រីសមត្ថកិច្ចដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </virtual-scroller>
+
+  </div>
+</div>
+
+<ng-template #unselect>
+  <div class="doc-preview-wrapper new-ui">
+    <div class="mt-file">
+      <div class="img-container">
+        <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+      </div>
+      <div class="text-content">
+        <span>
+          សូមជ្រើសរើសបេសកកម្មដើម្បីពិនិត្យ
+        </span>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

@@ -1,0 +1,88 @@
+@import '../../../../../assets/styles/variable.scss';
+.annual-table-wrapper{
+  margin: 16px;
+  border-radius: 6px;
+  box-shadow: $boxShadow;
+  margin-top: 73px;
+  margin-bottom: 50px;
+}
+.annual-table{
+  width: 100%;
+  tr{
+      td,th{
+          text-align: start;
+          vertical-align: middle;
+          font-family: $appFont;
+      }
+  }
+
+  thead {
+    vertical-align: middle;
+    background-color: #fff;
+    position: sticky;
+    z-index: 99;
+
+    tr {
+      &:first-child{
+        th{
+          &:first-child{
+            border-left: none;
+            border-top-left-radius: 6px;
+          }
+          &:last-child{
+            border-right: none;
+            border-top-right-radius: 6px;
+          }
+        }
+      }
+      th{
+        border-top: none;
+        text-align: center;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  tbody {
+    vertical-align: middle;
+    td{
+      vertical-align: center;
+      &:first-child{
+        border-left: none;
+        text-align: center;
+      }
+      &:last-child{
+        border-right: none;
+      }
+    }
+    tr{
+      &:last-child{
+        td{
+          border-bottom: none;
+          &:first-child{
+            border-bottom-left-radius: 6px;
+          }
+          &:last-child{
+            border-bottom-right-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+
+  tr{
+    th {
+      font-family: $appFontStrong;
+    }
+    th,
+    td {
+      border: 1px solid $divider;
+      height: 36px;
+      padding: 6px 16px;
+      white-space: normal;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+}

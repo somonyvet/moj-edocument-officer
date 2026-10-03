@@ -1,0 +1,9 @@
+
+<ng-container *mobxAutorun>
+    <mat-selection-list [disabled]="store?.headerDocument?.final"  #workplacesJobList (selectionChange)="selectionChangeHeader($event)">
+        <mat-list-option [disabled]="store?.headerDocument?.final" [value]="item" [selected]="item?.showInHeader"
+            checkboxPosition="before" *ngFor="let item of headerData">
+            {{item?.name}}
+        </mat-list-option>
+    </mat-selection-list>
+</ng-container>

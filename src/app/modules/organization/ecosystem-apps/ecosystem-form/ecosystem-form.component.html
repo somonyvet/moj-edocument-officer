@@ -1,0 +1,134 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="photo-pro">
+            <div class="avatar">
+                <img [src]="URL" />
+                <div (click)="photoFile.click()" class="change-profile">
+                    <mat-icon class="mat-icon" role="img">
+                        photo_camera
+                    </mat-icon>
+                </div>
+            </div>
+            <input #photoFile type="file" accept='image/*' (change)="onSelectedFile($event)" style="display:none;" />
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Name (Khmer)</mat-label>
+                <input #inputRef formControlName="name" required matInput placeholder="ឈ្មោះ">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
+                    ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>No</mat-label>
+                <input formControlName="app_no" type="number" required matInput placeholder="No">
+                <mat-error *ngIf="form.controls['app_no'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Name (English</mat-label>
+                <input formControlName="name_en" matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
+                <mat-error *ngIf="form.controls['name_en'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Sub of</mat-label>
+                <input [matAutocomplete]="autoSubOfCommittee" formControlName="subOfWorkplace" matInput
+                    placeholder="Select sub of">
+                <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
+                    <mat-option *ngFor="let item of filterSubOfWorkplace | async;let i=index" [value]="item">
+                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                        {{item?.name}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="error-message" *ngIf="form.controls['subOfWorkplace'].hasError('validKey')">
+                    <div>Please select once from list to continue.</div>
+                </mat-error>
+                <mat-error *ngIf="form.controls['subOfWorkplace'].hasError('required')">
+                    This field is required.
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>App Icon</mat-label>
+                <input formControlName="icon_app" required matInput placeholder="Feather Icon">
+                <mat-error *ngIf="form.controls['icon_app'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Web Icon</mat-label>
+                <input formControlName="icon_web" matInput placeholder="Ionic Icon">
+                <mat-error *ngIf="form.controls['icon_web'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group two">
+            <mat-form-field appearance="outline">
+                <mat-label>App Route</mat-label>
+                <input formControlName="route_app" required matInput placeholder="App Route">
+                <mat-error *ngIf="form.controls['route_app'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Web Route</mat-label>
+                <input formControlName="route_web" matInput placeholder="Web Route">
+                <mat-error *ngIf="form.controls['route_web'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+      
+        <div class="form-group" style="margin-left: 10px;">
+            <mat-checkbox class="example-margin" formControlName="isDefault">
+                Default
+            </mat-checkbox>
+        </div>
+        <div class="form-group" style="margin-left: 10px;">
+            <mat-checkbox class="example-margin" formControlName="isPrimary">
+                Primary
+            </mat-checkbox>
+        </div>
+
+        <div class="form-group">
+            <mat-selection-list #shoes formControlName="defaultApp" [compareWith]="ds?.compareWith">
+                <mat-list-option checkboxPosition="before" *ngFor="let item of DOC_CATEGORY_APP_ARRAY" [value]="item">
+                    {{item?.name}}
+                </mat-list-option>
+              </mat-selection-list>
+        </div>
+    </mat-dialog-content>
+    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+    </mat-progress-bar>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

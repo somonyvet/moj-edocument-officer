@@ -1,0 +1,43 @@
+@import '../../../../assets/styles/variable.scss';
+
+.status-pill {
+  display      : inline-flex;
+  align-items  : center;
+  gap          : 4px;
+  font-family  : $appFont;
+  font-size    : 13px;
+  font-weight  : 600;
+  line-height  : 1.6;
+  padding      : 1px 10px;
+  border-radius: 999px;
+  color        : var(--pill-color);
+  background   : color-mix(in srgb, var(--pill-color) 12%, transparent);
+  border       : 1px solid color-mix(in srgb, var(--pill-color) 24%, transparent);
+
+  mat-icon {
+    font-size  : 18px;
+    width      : 18px;
+    height     : 18px;
+    line-height: 18px;
+    color      : var(--pill-color);
+  }
+
+  &.sm {
+    font-size: 12px;
+    padding  : 1px 8px;
+    gap      : 3px;
+
+    mat-icon {
+      font-size  : 13px;
+      width      : 13px;
+      height     : 13px;
+      line-height: 13px;
+    }
+  }
+
+  &.flat {
+    padding   : 0;
+    background: none;
+    border    : none;
+  }
+}

@@ -1,0 +1,245 @@
+@import "/src/assets/styles/variable.scss";
+
+.form-wrapper {
+  background: $background;
+  padding: 16px !important;
+}
+
+.section-card {
+  padding: 16px;
+  margin-bottom: 16px;
+  background: $whiteColor;
+  border: 1px solid $border;
+  border-radius: $radius;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: darken($border, 8%);
+  }
+
+  &:focus-within {
+    border-color: $focus;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin: 0 0 12px;
+  font-family: $appFontStrong;
+  font-size: 14px;
+  font-weight: 500;
+  color: $titleColor;
+  letter-spacing: 0.2px;
+
+  &::before {
+    content: "";
+    width: 3px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 2px;
+    background: $primary;
+    flex: 0 0 auto;
+  }
+}
+
+.required {
+  margin-left: 4px;
+  color: $red;
+}
+
+.field-error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: $red;
+}
+
+/* ---------- reminder ---------- */
+.reminder-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(244, 67, 54, 0.28);
+  border-radius: $radius;
+  background: rgba(244, 67, 54, 0.06);
+
+  .reminder-icon {
+    flex: 0 0 auto;
+    color: $red;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.reminder-content {
+  min-width: 0;
+}
+
+.reminder-title {
+  margin: 0;
+  font-family: $appFontStrong;
+  font-size: 13px;
+  font-weight: 500;
+  color: $red;
+}
+
+.reminder-desc {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: $titleColor;
+}
+
+.reminder-decree {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: $descColor;
+  overflow-y: auto;
+}
+
+/* ---------- signature ---------- */
+.signature-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 12px;
+  cursor: pointer;
+  border: 1px dashed $border;
+  border-radius: 6px;
+  background: $appsecendaryColor;
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    border-color: $primary;
+    background: $svgWash;
+  }
+}
+
+.signature-preview {
+  max-height: 116px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.signature-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: $descColor;
+  font-size: 13px;
+
+  mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+    color: $primary;
+  }
+}
+
+.signature-action {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  background: $whiteColor;
+  border: 1px solid $border;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    color: $primary;
+  }
+}
+
+/* ---------- comment ---------- */
+.comment-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: $whiteColor;
+  font-family: $appFont;
+  font-size: 18px;
+  line-height: 1.6;
+  color: $titleColor;
+  resize: vertical;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $focus;
+  }
+}
+
+/* ---------- actions ---------- */
+::ng-deep .mat-dialog-actions {
+  .cancel-btn,
+  .submit-btn,
+  .reject-btn {
+    min-width: 104px;
+    border-radius: 6px;
+  }
+
+  .submit-btn + .cancel-btn,
+  .cancel-btn + .submit-btn,
+  .cancel-btn + .reject-btn {
+    margin-left: 8px;
+  }
+
+  .reject-btn {
+    background: $red;
+    color: $whiteColor;
+
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* ---------- reject ---------- */
+.reject-target-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reject-target-option {
+  font-size: 14px;
+  color: $titleColor;
+}
+
+@media (max-width: 599px) {
+  .form-wrapper {
+    padding: 12px !important;
+  }
+
+  .section-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .signature-box {
+    min-height: 112px;
+  }
+
+  .comment-textarea {
+    min-height: 96px;
+  }
+}

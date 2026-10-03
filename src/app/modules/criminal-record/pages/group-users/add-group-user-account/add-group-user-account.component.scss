@@ -1,0 +1,42 @@
+@import "../../../../../../assets/styles/variable.scss";
+
+.profile-photo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 160px;
+    border-radius: 50%;
+  }
+}
+
+.embassy-menu-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  .title {
+    font-family: $appFontStrong;
+    font-weight: bold;
+    font-size: 16px;
+    white-space: normal;
+  }
+  .address {
+    font-family: $appFont;
+    font-size: 14px;
+    white-space: normal;
+  }
+}
+
+::ng-deep {
+  .custom-option {
+    height: unset !important;
+  }
+}
+
+.pd-gap{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 6px 12px;
+}

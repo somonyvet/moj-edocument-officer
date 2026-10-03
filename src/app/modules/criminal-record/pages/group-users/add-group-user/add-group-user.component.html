@@ -1,0 +1,127 @@
+<div class="dialog-wrapper">
+  <div class="dialog-header">
+    <div class="title">
+      {{ TITLE }}
+    </div>
+    <div class="flex1"></div>
+    <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+      <i class="material-icons">&#xE14C;</i>
+    </a>
+  </div>
+  <div class="dialog-content">
+    <mat-vertical-stepper [linear]="true" #stepper>
+      <mat-step [stepControl]="form">
+        <form [formGroup]="form">
+          <ng-template matStepLabel>ព័ត៌មានក្រុម</ng-template>
+          <div class="form-wrapper" style="padding: 0 0 24px">
+            <div class="ui form">
+              <div class="field">
+                <label>ឈ្មោះក្រុម<span class="rq-sign">*</span> </label>
+                <input #focusInput class="lg-input" matInput placeholder="Enter valid group name"
+                  formControlName="name" />
+                <div *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched"
+                  class="error-message">
+                  This field is required.
+                </div>
+                <div *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
+                  This group name is already exist.
+                </div>
+              </div>
+              <div class="field">
+                <mat-checkbox formControlName="isAdmin">Administrator
+                  <mat-icon style="margin-left: 4px;font-size: 16px;"
+                    matTooltip="Check this box to allow full permission to all systems." aria-label="admin">info
+                  </mat-icon>
+                </mat-checkbox>
+              </div>
+              <div class="field">
+                <mat-checkbox formControlName="isCompletedApplicationOnly">បំពេញពាក្យតែប៉ុណ្ណោះ
+                  <mat-icon style="margin-left: 4px;font-size: 16px;"
+                    matTooltip="Check this box to allow full permission to all systems." aria-label="admin">info
+                  </mat-icon>
+                </mat-checkbox>
+              </div>
+              <div class="field">
+                <mat-checkbox formControlName="isEmbassy">គណនីស្ថានទូត
+                  <mat-icon style="margin-left: 4px;font-size: 16px;"
+                    matTooltip="Check this box to allow full permission to all systems." aria-label="admin">info
+                  </mat-icon>
+                </mat-checkbox>
+              </div>
+
+              <div class="field">
+                <mat-checkbox formControlName="isAdminMOL">គ្រប់គ្រងពាក្យស្នើសុំក្រសួងការងារ
+                  <mat-icon style="margin-left: 4px;font-size: 16px;"
+                    matTooltip="Check this box to allow full permission to all systems." aria-label="admin">info
+                  </mat-icon>
+                </mat-checkbox>
+              </div>
+              <div class="field">
+                <mat-checkbox formControlName="isAdminMOD">គ្រប់គ្រងពាក្យស្នើសុំក្រសួងការពារជាតិ
+                  <mat-icon style="margin-left: 4px;font-size: 16px;"
+                    matTooltip="Check this box to allow full permission to all systems." aria-label="admin">info
+                  </mat-icon>
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="rows">
+            <button type="submit" class="enbutton primary m-r16" [disabled]="!form.valid || store?.process"
+              (click)="create(form.value, true, stepper)">
+              Save & Next
+            </button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="formProgram">
+        <ng-template matStepLabel>ស្ថាប័នទទួលបន្ទុក</ng-template>
+        <form [formGroup]="formProgram">
+          <div class="form-wrapper" style="padding: 0 0 24px">
+            <div class="ui form">
+              <mat-selection-list [compareWith]="ds?.compareObject" #shoes formControlName="program"
+                (selectionChange)="selectionChangeProgram($event)">
+                <mat-list-option [value]="program" checkboxPosition="before" *ngFor="let program of schoolPrograms">
+                  {{program?.text}}
+                </mat-list-option>
+              </mat-selection-list>
+            </div>
+          </div>  
+        </form>
+      </mat-step>
+
+      <!-- <mat-step>
+        <ng-template matStepLabel>សិទ្ធិប្រើប្រាស់</ng-template>
+        <div class="form-wrapper" style="padding: 0 0 24px">
+          <div class="ui form">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="!ITEM?.isAdmin">
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                {{node.name}}
+              </mat-tree-node>
+              <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                  <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                  </mat-icon>
+                </button>
+                {{node.name}}
+              </mat-tree-node>
+            </mat-tree>
+            <app-empty-data *ngIf="ITEM?.isAdmin" name="Administrator"
+              subtitle="Allow all group member access full control in system.">
+            </app-empty-data>
+          </div>
+        </div>
+      </mat-step> -->
+    </mat-vertical-stepper>
+  </div>
+  <div class="dialog-footer">
+    <button type="submit" *ngIf="ITEM && !ITEM.isAdmin" class="enbutton primary m-r16" [disabled]="process"
+      (click)="onSave()">
+      បន្ថែមសិទ្ធិប្រើប្រាស់
+    </button>
+    <div class="flex1"></div>
+    <a mat-dialog-close class="enbutton cancel" (click)="dialogRef.close('no')">បិទ</a>
+  </div>
+  <app-spinner *ngIf="process || loading"></app-spinner>
+</div>

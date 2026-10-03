@@ -1,0 +1,210 @@
+<div class="main-panel">
+    <div class="main-l doc-list">
+        <div class="doc-in">
+            <div class="listing-header">
+                <h4>ការកំណត់</h4>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="form-settings">
+                <form [formGroup]="form">
+
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ជនជាតិខ្មែរ</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoNationality"
+                                formControlName="country_khmer">
+                            <mat-autocomplete (optionSelected)="_onNationalitySelected($event)"
+                                [displayWith]="displayNationality" autoActiveFirstOption
+                                #autoNationality="matAutocomplete">
+                                <mat-option *ngFor="let option of filterNationalities | async" [value]="option">
+                                    {{option?.nationality}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['country_khmer'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['country_khmer'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ប្រភេទឯកសាររបស់ពលករ</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoCategory"
+                                formControlName="criminal_record_category_labor">
+                            <mat-autocomplete
+                                (optionSelected)="_onCategorySelected($event,'criminal_record_category_labor')"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoCategory="matAutocomplete">
+                                <mat-option *ngFor="let option of filterCategoryLabor | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_record_category_labor'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_record_category_labor'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ប្រភេទឯកសារ</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoCategory"
+                                formControlName="criminal_record_category">
+                            <mat-autocomplete (optionSelected)="_onCategorySelected($event,'criminal_record_category')"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoCategory="matAutocomplete">
+                                <mat-option *ngFor="let option of filterCategory | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_record_category'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_record_category'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>មជ្ឈមណ្ឌលផ្ដល់ព័ត៌មាន</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoSupport"
+                                formControlName="criminal_record_support">
+                            <mat-autocomplete (optionSelected)="_onDepartmentSelected($event,'criminal_record_support')"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoSupport="matAutocomplete">
+                                <mat-option *ngFor="let option of filterSupport | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_record_support'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_record_support'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ការិយាល័យផ្ដល់និទ្ទេស</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoDepartment"
+                                formControlName="criminal_storyboard_office">
+                            <mat-autocomplete
+                                (optionSelected)="_onDepartmentSelected($event,'criminal_storyboard_office')"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoDepartment="matAutocomplete">
+                                <mat-option *ngFor="let option of filterDepartments | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_storyboard_office'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_storyboard_office'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ចំណារនិទ្ទេស</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoDecree"
+                                formControlName="criminal_decree_noted">
+                            <mat-autocomplete (optionSelected)="_onDecreeSelected($event)"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoDecree="matAutocomplete">
+                                <mat-option *ngFor="let option of filterDecreeNoted | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_decree_noted'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_decree_noted'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>ចំណារពាក្យស្នើសុំត្រឹមត្រូវ</mat-label>
+                            <input required type="text" matInput [matAutocomplete]="autoConfirm"
+                                formControlName="criminal_confirm_noted">
+                            <mat-autocomplete (optionSelected)="_onConfirmNoteSelected($event)"
+                                [displayWith]="displayNameAndNameEn" autoActiveFirstOption
+                                #autoConfirm="matAutocomplete">
+                                <mat-option *ngFor="let option of filterConfirmNoted | async" [value]="option">
+                                    {{option?.name || option?.name_en}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error class="error-message"
+                                *ngIf="form.controls['criminal_confirm_noted'].hasError('validKey')">
+                                <div>Please select once from list to continue.</div>
+                            </mat-error>
+                            <mat-error *ngIf="form.controls['criminal_confirm_noted'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="form-group">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>អាស័យដ្ឋានមកដកព្រឹត្តិបត្រថ្កោលទោស</mat-label>
+                          <input required type="text" matInput
+                              formControlName="retrieve_document_address">
+                      </mat-form-field>
+                    </div> -->
+
+                    <!-- <div class="form-group">
+                        <mat-checkbox formControlName="isAutoCriminalRecordLatterNo"
+                            (change)="onChangeCriminalRecord($event)">
+                            កំណត់លេខព្រឹត្តិបត្រថ្កោលទោសដោយស្វ័យប្រវត្តិ</mat-checkbox>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>លេខចាប់ផ្ដើម</mat-label>
+                            <input type="number" required matInput formControlName="startNumberId"
+                                placeholder="លេខចាប់ផ្ដើម">
+                            <mat-error *ngIf="form.controls['startNumberId'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>ប្រវែងលេខព្រឹត្តិបត្រ</mat-label>
+                            <input type="number" required matInput formControlName="lengthOfId"
+                                placeholder="ប្រវែងលេខព្រឹត្តិបត្រ">
+                            <mat-error *ngIf="form.controls['lengthOfId'].hasError('required')">
+                                This field is required.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button mat-button class="enbutton primary" (click)="_onSave(form?.value)">រក្សាទុក</button>
+                    </div> -->
+                </form>
+            </div>
+            <ng-template #loader>
+                <app-spinner></app-spinner>
+            </ng-template>
+        </div>
+    </div>
+    <div class="main-r">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>{{titleForm}}</h2>
+      <div class="space1"></div>
+      <div mat-button mat-icon-button (click)="dialogRef.close()">
+        <mat-icon class="mat-18">clear</mat-icon>
+      </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+      
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>ឯកសារ</mat-label>
+          <input [matAutocomplete]="autoSubOfCommittee" formControlName="document" matInput
+            placeholder="ឯកសារ">
+          <mat-autocomplete [displayWith]="displayFullName" #autoSubOfCommittee="matAutocomplete">
+            <mat-option *ngFor="let item of filteredStockVisaOptions | async;let i=index" [value]="item">
+              {{item?.last_name}} {{item?.first_name}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error class="error-message" *ngIf="form.controls['document'].hasError('validKey')">
+            <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+          </mat-error>
+          <mat-error *ngIf="form.controls['document'].hasError('required')">
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        </mat-form-field>
+      </div>
+  
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <div class="flex1"></div>
+      <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+      <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+  </form>

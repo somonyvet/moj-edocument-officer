@@ -1,0 +1,262 @@
+<div class="officer-profile-info-container doc-preview-wrapper new-ui" style="height:fit-content;padding-top: 0;">
+  <div class="sticky-action-head" style="position: relative; top: 0;width: fit-content;margin: 12px auto;" *ngIf="!topMApproval">
+    <div class="wrapper" style="width: 1240px">
+      <div class="memo">
+        <aside class="special-memo asm-ma m15">
+          <ng-container *ngIf="!store?.selectedGroupDoc?.is_owner_approved">
+            <strong class="name">កំណត់សម្គាល់:</strong>
+            <span class="memo">សូមត្រួយពិនិត្យទិន្នន័យអោយបានត្រឹមត្រូវ មុនពិនិត្យ និងឯកភាព</span>
+          </ng-container>
+          <ng-container *ngIf="store?.selectedGroupDoc?.is_owner_approved">
+            <strong class="name">កំណត់សម្គាល់:</strong>
+            <span class="memo">បានពិនិត្យ និងឯកភាពរួចរាល់</span>
+          </ng-container>
+        </aside>
+      </div>
+      <div></div>
+      <div class="action-btn">
+        <ng-container>
+          <div class="doc-btn-action" style="margin: 0;">
+            <button mat-button class="enbutton primary" (click)="approvalDoc()"
+              [disabled]="store?.selectedGroupDoc?.is_owner_approved">
+              <span>
+                <span>ពិនិត្យនិងឯកភាព</span>
+              </span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-action-head" style="position: relative; top: 0;" *ngIf="criminal.firstParams && canApproveFolder">
+    <div class="wrapper" style="width: 1240px">
+      <div class="memo">
+        <aside class="special-memo asm-ma m15">
+          <strong class="name">កំណត់សម្គាល់:</strong>
+          <span class="memo">សូមត្រួយពិនិត្យទិន្នន័យអោយបានត្រឹមត្រូវ មុនពិនិត្យ និងឯកភាព</span>
+        </aside>
+      </div>
+      <div></div>
+      <div class="action-btn">
+        <ng-container>
+          <div class="doc-btn-action" style="margin: 0;">
+            <button mat-button class="enbutton primary" (click)="approveFolder()"
+              [disabled]="store?.selectedGroupDoc?.is_owner_approved">
+              <span>
+                <span>ពិនិត្យនិងឯកភាព</span>
+              </span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px">
+    <div class="eform ps-eform"  style="margin: 0 auto;">
+      <table style="width:100%" id="printD">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="header-print" style="width:100%; padding:0;position: relative">
+                  <div class="head-item" style="text-align: center; position: relative;position: absolute;width: 100%;">
+                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star" style="position: absolute;
+                    left: 0;
+                    right: 0;">3</p>
+                  </div>
+
+
+                  <div class="head-center">
+                    <div class="head-item">
+                      <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                        <div class="bl-title-left">
+                          <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                          <p>ក្រសួងយុត្តិធម៍</p>
+                          <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                        </div>
+
+                        <div class="bl-title-left bl-title-right moj-d">
+                          <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                          <p>បញ្ចីលេខរៀង៖ {{store?.selectedGroupDoc?.name | khmerNumber}}</p>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="flex1"></div>
+
+                    <div class="pn-date">
+                      <div class="date-1">
+                        <p>
+                          រាជធានីភ្នំពេញ ថ្ងៃទី {{ printDate | khmerDateOnly:'day'}} ខែ {{ printDate | khmerDateOnly:'month'}} ឆ្នាំ
+                          {{ printDate | khmerDateOnly:'year'}}
+                        </p>
+                      </div>
+                      <div class="date-2" [formGroup]="form">
+                        <p>ដល់ថ្ងៃអតិថិជនមកទទួលព្រឹត្តិករទោស</p>
+                        <p>ថ្ងៃទី <input class="date-input" type="text" (change)="change($event)" formControlName="date_string"></p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="head-item" style="text-align: center;">
+                    <p class="feTitle">កំណត់បង្ហាញ</p>
+                    <p class="feTitle" style="margin-bottom: 16px;">គោរពជូន</p>
+                    <p class="feTitle" style="margin-bottom: 24px;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
+
+                  </div>
+
+                  <div class="pn-title-note" style="font-size:16px; padding-top: 0; margin-bottom: 24px;">
+                      <p class="n-title"> <span class="feTitle" style="text-decoration: underline;"> កម្មវត្ថុ :</span>
+                        សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន {{criminalRecordsAmount | khmerNumber}}
+                        ច្បាប់ ស្នើសុំសេវា ({{store?.selectedGroupDoc?.period_process_document?.name}}) នៃថ្ងៃធ្វើការ
+                        ដែលមានឈ្មោះ
+                      </p>
+                      <p class="n-title">ក្នុងបញ្ជីលេខរៀង៖ {{store?.selectedGroupDoc?.name | khmerNumber}} ចុះថ្ងៃទី
+                        {{store?.selectedGroupDoc?.folder_date?.toDate()| dateDayKh}} ខែ
+                        {{store?.selectedGroupDoc?.folder_date?.toDate()| dateMonthKh}} ឆ្នាំ
+                        {{store?.selectedGroupDoc?.folder_date?.toDate()| dateYearKh}} ដូចមានឈ្មោះខាងក្រោម៖
+                      </p>
+                  </div>
+                </div>
+
+                <table class="tb-input-cs">
+                  <tbody>
+                    <tr class="thead-th">
+                      <th class="center" rowspan="2">ល.រ</th>
+                      <th class="center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
+                      <th class="center" rowspan="2">ភេទ</th>
+                      <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំកំណើត</th>
+                      <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំទទួល</th>
+                      <th class="center" colspan="3">រយៈពេលស្នើសុំ</th>
+                      <th class="center" rowspan="2">ផ្សេងៗ</th>
+                      <th class="center  hide-on-print" rowspan="2" *ngIf="!topMApproval"></th>
+                    </tr>
+                    <tr class="thead-th">
+                      <th class="center">
+                        ២០ ថ្ងៃ
+                        <br />
+                        នៃថ្ងៃធ្វើការ
+                      </th>
+                      <th class="center">
+                        ១២ ថ្ងៃ
+                        <br />
+                        នៃថ្ងៃធ្វើការ
+                      </th>
+                      <th class="center">បកប្រែ</th>
+                    </tr>
+
+                    <ng-container *ngFor="let item of criminalRecords; let i = index">
+
+
+                      <tr [class.break-page]="i+1===9">
+                        <td class="center">
+                          {{i+1}}
+                        </td>
+                        <td>
+                          {{item?.last_name}} {{item?.first_name}}
+                        </td>
+                        <td>
+                          {{item?.gender?.name}}
+
+                        </td>
+                        <td>
+                          {{item?.dateOfBirthDay?.name}} <span *ngIf="item?.dateOfBirthMonth?.name">/</span>
+                          {{item?.dateOfBirthMonth?.name}} <span *ngIf="item?.dateOfBirthYear?.name">/</span>
+                          {{item?.dateOfBirthYear?.name}}
+                        </td>
+
+                        <td>
+                          <span *ngIf="item?.created_at">
+                            {{item?.paid_at?.toDate() | dateDayKh}} / {{item?.paid_at?.toDate() | dateMonthKh}} /
+                            {{item?.paid_at?.toDate() | dateYearKh}}
+                          </span>
+                        </td>
+
+                        <td>
+                          {{item?.urgent_obj?.key === 20 ? (item?.urgent_obj?.key | khmerNumber) : '' }}
+                          {{item?.urgent_obj?.key === 20 ? 'ថ្ងៃ' : ''}}
+                        </td>
+
+                        <td>
+                          {{item?.urgent_obj?.key === 12 ? (item?.urgent_obj?.key | khmerNumber) : '' }}
+                          {{item?.urgent_obj?.key === 12 ? 'ថ្ងៃ' : ''}}
+                        </td>
+
+                        <td>
+                          {{item?.criminal_language | checkHaveTranslate}}
+                        </td>
+
+                        <td>
+                          <div class="ftb-input">
+                          </div>
+                        </td>
+                        <td class="hide-on-print" *ngIf="!topMApproval">
+                          <ng-container  *ngIf="item && item?.key">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                              <button *ngIf="!topMApproval" mat-menu-item (click)="openPrintDialog(item)">
+                            <mat-icon>print</mat-icon>
+                            <span>បោះពុម្ពព្រឹត្តិបត្រ</span>
+                          </button>
+                          <button *ngIf="!topMApproval" mat-menu-item (click)="deleteGroup(item)">
+                                <mat-icon>delete</mat-icon>
+                                <span>លុប</span>
+                              </button>
+                            </mat-menu>
+                          </ng-container>
+
+                        </td>
+                      </tr>
+                    </ng-container>
+
+                  </tbody>
+                </table>
+                <div class="pn-footer">
+                  <div class="flex1"></div>
+                  <div class="sign-box">
+                    <p class="sg">
+                      <strong>
+                        ហត្ថលេខា
+                      </strong>
+                    </p>
+
+                    <p class="ssg">
+                      មន្ត្រីទទួលបន្ទុករៀបចំ នឹងបញ្ជូនព្រឹត្តិបត្រថ្កោលទោស
+                    </p>
+
+                    <div style="min-height: 90px;" *ngIf="store?.selectedGroupDoc?.classification_signatureFile">
+                      <img [src]="store?.selectedGroupDoc?.classification_signatureFile?.downloadUrl" alt="img"
+                        style="width: 200px;">
+                    </div>
+
+                    <p style="text-align: right;width: 80%;">
+                      <strong>សួន សុវណ្ណ</strong>
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <div class="page-footer-space"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+  </div>

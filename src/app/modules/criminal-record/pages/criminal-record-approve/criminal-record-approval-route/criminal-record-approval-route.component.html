@@ -1,0 +1,43 @@
+<div class="full-page-container">
+  <div class="header">
+    <div class="wrapper">
+      <nav mat-tab-nav-bar class="fire-tabs flex1">
+        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">{{link.label}}</a>
+      </nav>
+      <button mat-button class="enbutton cancel" (click)="onPrint()">
+        <span>បោះពុម្ព</span>
+      </button>
+      <!-- <app-primary-button (onPress)="_approve()" label="អនុម័ត" [disable]="!store?.selectedCriminalRecord && loading">
+      </app-primary-button> -->
+    </div>
+  </div>
+  <div class="body officer-profile-info-container apply-form-page offi" *ngIf="!loading">
+    <div class="eform small" style="margin-top:12px;">
+      <div class="header-ef">
+        <h2 style="margin-bottom:12px;">អនុម័តព្រឹត្តិបត្រថ្កោលទោស</h2>
+        <p style="margin-bottom:12px;">លោកអ្នកត្រូវតែត្រួតពិនិត្យ លើព័ត៌មានព្រឹត្តិបត្រថ្កោលទោសអោយបានត្រឹមត្រូវ</p>
+        <div class="lottie-box">
+          <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+        </div>
+        <app-primary-button (onPress)="_approve()" label="អនុម័ត"></app-primary-button>
+      </div>
+      <ul class="required-items">
+        <li *ngFor="let item of decree_options">
+          <button mat-button class="ef-item" (click)="_onSubmit(item)">
+            <span class="ef-txt">
+              <div class="ef-t">
+                {{item?.name}}
+              </div>
+              <mat-progress-spinner *ngIf="process && _result?.key===item?.key" class="small-spinner"
+                mode="indeterminate">
+              </mat-progress-spinner>
+            </span>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <router-outlet *ngIf="!loading"></router-outlet>
+  </div>
+</div>

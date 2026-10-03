@@ -1,0 +1,55 @@
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000px 0;
+  }
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  margin: 15px;
+  background-image: linear-gradient(
+    90deg,
+    #e4e4e4 0%,
+    #f1f1f1 40%,
+    #ededed 60%,
+    #e4e4e4 100%
+  );
+  background-position: 0px 0px;
+  background-repeat: repeat;
+  animation: animatedBackground 10s linear infinite;
+}
+
+.circle {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.rainbow {
+  width: 500px;
+  height: 100px;
+  margin: 15px;
+  background-image: linear-gradient(
+    90deg,
+    red 0%,
+    orange 7%,
+    yellow 21%,
+    green 35%,
+    blue 49%,
+    indigo 63%,
+    violet 77%, 
+    red 91%
+  );
+  background-position: 0px 0px;
+  background-repeat: repeat;
+  animation: animatedBackground 5s linear infinite;
+}
+
+.container {
+  display: flex;
+}
+

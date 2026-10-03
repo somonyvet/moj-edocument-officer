@@ -1,0 +1,70 @@
+@import "/src/assets/styles/variable.scss";
+
+
+.search-result-container.criminal{
+  width: 438px;
+  top: unset;
+  left: 37px;
+  max-height: 500px;
+  height: fit-content;
+  min-height: unset;
+  overflow-x: hidden;
+}
+
+.avatar-vt-item-wrapper{
+  margin-bottom: 8px;
+  position: relative;
+  .avatar-vt-item{
+    background-color: #cee7ff;
+    border-radius: 4px;
+  }
+  .abs-cancel{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+  }
+}
+
+.memo{
+  background-color: #fce8e6;
+  padding: 24px;
+  margin-top: 20px;
+  border-radius: 4px;
+  span{
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+.search-head-container{
+  width: 460px;
+  margin: 20px 0;
+}
+.box-container{
+  display: flex;
+  height: 100%;
+  gap: 12px;
+  .box-item{
+    flex: 1;
+    padding: 12px;
+    padding-top: 0;
+    height: 83vh;
+    overflow: auto;
+    background-color: #eff2f5;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    .box-item-title{
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: #eff2f5;
+      font-family: $appFont;
+      margin: 18px 12px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
+
+

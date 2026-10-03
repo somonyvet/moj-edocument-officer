@@ -1,0 +1,399 @@
+<div class="doc-preview-wrapper doc-p-c" *ngIf="!loadingHeader" style="height: calc(100% - 60px);">
+  <div class="doc-preview-content">
+    <div class="doc-preview-content-action-top">
+      <button mat-button mat-icon-button (click)="goBack()">
+        <mat-icon class="mat-18">clear</mat-icon>
+      </button>
+      <div class="doc-title" matTooltipClass="tooltipClass"
+        [matTooltip]="store?.headerDocument?.documentNo + ' · ' + store?.headerDocument?.documentTitle">
+        <div class="doc-cover">
+          <img [src]="store?.headerDocument?.photoUrl">
+        </div>
+        <strong>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentTitle}}</strong>
+      </div>
+      <nav mat-tab-nav-bar class="step-navigation-container" disableRipple>
+        <a mat-tab-link>
+          <div class="step-navigation">
+            <ul class="steps" *ngIf="workPlaces?.length > 0">
+              <li [ngClass]="'step-nav'+(i+1)" [class.active]="item?.completed===true"
+                *ngFor="let item of workPlaces;let i=index">
+                <span>
+                  <strong>{{item?.name}}</strong>
+                </span><i></i>
+              </li>
+            </ul>
+          </div>
+        </a>
+      </nav>
+    </div>
+
+    <div class="doc-form-template-wrapper no-height">
+      <div class="doc-template-wrapper print-preview no-top-bt">
+        <div class="doc-form-wrap-content">
+          <div class="doc-form-container nm">
+            <div class="doc-form-block">
+              <div class="doc-form-item" style="margin: 30px 0 0;"
+                *ngIf="imageAttachments?.length>0 || docAttachments?.length>0">
+                <h3>ឯកសារយោង</h3>
+                <div class="attachments-wrap" *ngIf="imageAttachments?.length>0">
+                  <ng-container *ngFor="let item of imageAttachments">
+                    <div class="img-box">
+                      <img [src]="item?.downloadUrl" alt="">
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="attachments-wrap" *ngIf="docAttachments?.length>0">
+                  <ng-container *ngFor="let item of docAttachments">
+                    <div class="doc-box">
+                      <a [href]="item?.downloadUrl" target="_blank">{{item?.name}}</a>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-template-wrapper print-preview" id="print">
+      <table style="margin: 0 auto;">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="doc-template-page">
+                  <div class="doc-template-row">
+                    <div class="bl-title-left">
+                      <ng-container *ngFor="let item of store?.headerDocument?.workplaces|workplacesReport">
+                        <p>{{item.name}}</p>
+                      </ng-container>
+                      <p>លេខ៖
+                        <span>
+                          {{store?.documentDataDoc?.documentNo}}
+                        </span>
+                      </p>
+                      <p class="star">3</p>
+                    </div>
+                    <div class="bl-space"></div>
+                    <div class="bl-title-right">
+                      <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                      <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                      <p class="star">3</p>
+                    </div>
+                  </div>
+
+                  <div class="doc-template-row doc-template-block">
+                    <div [innerHtml]="store?.documentDataDoc?.title | safe:'html'"></div>
+                  </div>
+
+                  <div class="doc-template-row" *ngFor="let item of store?.documentDataDoc?.header;let i = index;">
+                    <ng-container *ngIf="item?.type?.key === 0">
+                      <div [innerHtml]="item?.content | safe:'html'" style="width: 100%;"></div>
+                    </ng-container>
+                    <ng-container *ngIf="item?.type?.key !== 6 && item?.type?.key !== 0">
+                      <!-- <div style="width: 98px; flex:none"
+                                                [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                                            <div [innerHtml]="item?.content | safe:'html'"></div> -->
+
+                      <div *ngIf="item?.type?.key !== 18" style="width: 118px; flex:none"
+                        [innerHtml]="item?.contentTitle | safe:'html'"></div>
+
+                      <div *ngIf="item?.type?.key === 18" style="width: 108px; flex:none"
+                        [innerHtml]="item?.contentTitle | safe:'html'"></div>
+
+                      <div *ngIf="item?.type?.key !== 18" class="sign-conent font-size18"
+                        style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                      </div>
+
+                      <div *ngIf="item?.type?.key == 18" class="sign-conent font-size18"
+                        style="padding-right: 10px; max-height: 30px; line-height: 27px; font-family: 'Moul';">
+                        ✹
+                      </div>
+
+                      <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
+                        style="width: 100%;" [innerHtml]="item?.content | safe:'html'"></div>
+                    </ng-container>
+                    <ng-container *ngIf="item?.type?.key === 6 && item?.content">
+                      <div style="width: 118px; flex:none" [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                      <div class="sign-conent font-size18"
+                        style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                      </div>
+                      <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
+                        style="width: 100%;" [innerHtml]="item?.content | safe:'html'"></div>
+                    </ng-container>
+                  </div>
+
+
+                  <div class="doc-template-row" *ngFor="let item of groupSections;let i = index;">
+
+                    <ng-container *ngIf="item?.type?.key === 7 || item?.type?.key === 8">
+                      <div style="width: 118px; flex:none" [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                      <div class="sign-conent font-size18"
+                        style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                      </div>
+                      <div [innerHtml]="item?.content | safe:'html'"></div>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.type.key === 10">
+                      <div>
+                        <div *ngIf="item?.remark" [innerHtml]="item?.remark | safe:'html'">
+                        </div>
+                        <div class="doc-template-row">
+                          <div [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                          <div>
+                            {{item?.office?.name}}
+                          </div>
+                        </div>
+                        <p *ngIf="item?.content" [innerHtml]="item?.content| safe:'html'"></p>
+
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.type.key === 11">
+                      <div [innerHtml]="item?.content | safe:'html'"></div>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.type.key === 12">
+                      <div style="white-space: nowrap;" [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                      <div>
+                        <ng-container *ngFor="let f of item?.office">
+                          {{f?.name}}
+                        </ng-container>
+                      </div>
+                    </ng-container>
+
+                  </div>
+
+                  <div class="doc-template-row doc-template-block"
+                    *ngFor="let item of store?.documentDataDoc?.footer;let i = index;">
+                    <ng-container *ngIf="item.type.key === 15">
+                      <div class="doc-template-row">
+                        <div style="width: 100%;" [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.type.key === 14">
+                      <div class="doc-template-row">
+                        <table class="doc-table-footer">
+                          <tr>
+                            <td>
+                              <div class="tb-title-text">
+                                <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
+                                </div>
+                                <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                  [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
+                                </app-signature-view>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="tb-title-text">
+                                <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
+                                </div>
+                                <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                  [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
+                                </app-signature-view>
+
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.type.key === 13">
+                      <div class="doc-template-row">
+                        <table class="doc-table-footer">
+                          <tr>
+                            <td style="border: none;">
+                              <div class="tb-title-text">
+                                <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
+                                </div>
+                                <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                  [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
+                                </app-signature-view>
+
+                              </div>
+                            </td>
+                            <td style="border: none;">
+                              <div class="tb-title-text">
+                                <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
+                                </div>
+                                <app-signature-view *ngIf="store?.userPermissionCompeted"
+                                  [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
+                                </app-signature-view>
+
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.type.key === 16">
+                      <div [innerHtml]="item?.content??'' | safe:'html'"></div>
+                    </ng-container>
+
+                  </div>
+
+                  <div class="" style="display: flex; justify-content: flex-end;" *ngIf="store?.documentDataDoc">
+                    <ngx-kjua [text]="store?.documentDataDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+                      [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+                      [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50"
+                      [label]="'EWIS'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]=""
+                      [cssClass]="'image-auto'">
+                    </ngx-kjua>
+                  </div>
+
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <div class="page-footer-space"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+  <div class="doc-preview-comment" style="height: calc(100vh - 60px);top: 60px;">
+    <div class="doc-preview-comment-header">
+      <div class="doc-preview-comment-row doc-preview-comment-row-icon">
+        <button mat-icon-button [matMenuTriggerFor]="menuA" matTooltipClass="tooltipClass" matTooltip="មតិឯកភាព"
+          aria-label="Approver listing">
+          <mat-icon class="mat-18">people</mat-icon>
+        </button>
+        <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
+          <div class="cmat-menu-content">
+            <ng-container *ngFor="let item of store?.documentStreamOfficers">
+              <div class="cmat-menu-item">
+                <app-avatar-officer [description]="item?.permission?.name" [checkIcon]="item?.completedTask"
+                  style="width: 100%;" [officerKey]="item?.accountKey"></app-avatar-officer>
+              </div>
+            </ng-container>
+            <mat-divider style="margin-top: 12px; margin-bottom: 12px;"></mat-divider>
+            <ng-container *ngFor="let item of workPlacesParentDoc">
+              <div class="cmat-menu-item">
+                <div class="info">
+                  <p class="name">
+                    {{item?.name}}
+                  </p>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="menuB" matTooltipClass="tooltipClass" matTooltip="បានចូលមើលឯកសារ"
+          aria-label="Viewer listing">
+          <mat-icon class="mat-18">visibility</mat-icon>
+        </button>
+        <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
+          <div class="cmat-menu-content">
+            <ng-container *ngFor="let item of store?.documentViewersData">
+              <div class="cmat-menu-item">
+                <app-avatar-officer [officerKey]="item?.key"></app-avatar-officer>
+              </div>
+            </ng-container>
+          </div>
+        </mat-menu>
+
+        <!-- <button mat-icon-button [matMenuTriggerFor]="menuB" matTooltipClass="tooltipClass"
+                    matTooltip="បានចូលមើលឯកសារ" aria-label="Viewer listing">
+                    <mat-icon class="mat-18">visibility</mat-icon>
+                </button>
+                <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
+                    <div class="cmat-menu-content">
+                        <ng-container *ngFor="let item of store?.documentViewersData">
+                            <div class="cmat-menu-item">
+                                <div class="cmat-menu-item-avatar">
+                                    <img [src]="defaultImg" alt="">
+                                </div>
+                                <div class="info">
+                                    <p class="name">
+                                        {{item?.full_name}}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </mat-menu> -->
+
+        <button mat-icon-button (click)="print()" matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
+          aria-label="Print Document">
+          <mat-icon class="mat-18">print</mat-icon>
+        </button>
+        <!--
+                <button *ngIf="!userOption?.disabledBtn" mat-icon-button (click)="onEdit()"
+                    matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព" aria-label="Print Document">
+                    <mat-icon class="mat-18">edit</mat-icon>
+                </button> -->
+
+      </div>
+      <mat-divider></mat-divider>
+      <div class="doc-preview-comment-row">
+        <div class="left-box-dbc" *ngIf="!loadingHeader">
+          <div class="name">
+            <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
+            <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
+            </p>
+          </div>
+          <app-avatar-officer *ngIf="!loading" [officerKey]="store?.documentDataDoc?.created_by">
+          </app-avatar-officer>
+        </div>
+      </div>
+
+      <div class="doc-preview doc-preview-btn" *ngIf="store?.selectedDocument && this.backUrl?.length===0">
+        <a mat-icon-button class="btn-ico">
+          <mat-icon class="mat-18">history_edu</mat-icon>
+        </a>
+        <div class="doc-preview-info">
+          <span>{{store?.selectedDocument?.documentNo}} . </span>
+          <span>{{store?.selectedDocument?.documentTitle}}</span>
+          <p class="ct">
+            បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.selectedDocument?.created_at?.toDate()|date:'mediumDate'}}
+          </p>
+        </div>
+        <a mat-button
+          [routerLink]="['/documents/form/'+ store?.selectedDocument?.key +'/'+ store?.selectedDocument?.workplace?.key +'/design/']">
+          មើលឯកសារឆ្លើយតប
+        </a>
+      </div>
+
+      <div class="doc-btn-action" *ngIf="userOption">
+        <button [disabled]="userOption?.hideButton" mat-button class="enbutton primary"
+          [ngClass]="checkDocRef?'disabled':''" (click)="receivedMemo()">
+          កំណត់បង្ហាញឯកសារចូល
+        </button>
+      </div>
+      <div class="doc-preview-comment-row"
+        *ngIf="store?.statistic?.total_comments>0 || store?.statistic?.total_comments>0">
+        <div class="note-cms">
+          <span *ngIf="store?.statistic?.total_comments>0">
+            {{store?.statistic?.total_comments}} មតិ
+          </span>
+          <span *ngIf="store?.statistic?.total_visitor>0">{{store?.statistic?.total_visitor}}
+            នាក់បានឃើញ</span>
+        </div>
+        <div class="flex1"></div>
+        <div class="note-cms">
+          <span *ngIf="store?.statistic?.total_view>0">ចូលមើល: {{store?.statistic?.total_view}}
+            ដង
+          </span>
+        </div>
+      </div>
+    </div>
+    <nav class="cs-tab-group-nav" mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of store?.tabsInbox" [routerLink]="link.path" routerLinkActive
+        [queryParams]="{backUrl: queryParams?.backUrl}" #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+    </nav>
+    <div class="doc-preview-comment-box">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

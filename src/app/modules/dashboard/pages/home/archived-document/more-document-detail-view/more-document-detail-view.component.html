@@ -1,0 +1,50 @@
+<div class="doc-card-department" *ngFor="let item of this.headerDocumentData" style="border-top-left-radius:0;border-top-right-radius:0;box-shadow:none;">
+  <div class="name-card">
+    <h3>
+      ឯកសារឆ្លើយតប
+    </h3>
+    <div class="action-container">
+      <a (click)="print(item?.key)" mat-button mat-icon-button class="mat-add-new">
+        <mat-icon>print</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="doc-form-item" style="padding: 0; background-color: transparent!important;" *ngIf="item?.files?.length > 0">
+    <h3 style="padding: 0 40px;">-ឯកសារយោង</h3>
+    <div class="attachments-wrap flex-col"  *ngIf="item?.files|checkListFileDoc">
+      <ng-container *ngFor="let j of item?.files|filterDocFiles">
+        <div class="doc-box" style="margin-left:40px;">
+          <a [href]="j?.downloadUrl" target="_blank">{{j?.name}}</a>
+        </div>
+        <div class="pdf-view-container">
+            <pdf-viewer
+            [src]="j?.downloadUrl"
+            [rotation]="0"
+            [original-size]="false"
+            [show-all]="true"
+            [fit-to-page]="false"
+            [zoom]="1"
+            [zoom-scale]="'page-width'"
+            [stick-to-page]="false"
+            [render-text]="true"
+            [external-link-target]="'blank'"
+            [autoresize]="true"
+            [show-borders]="false"
+            style="width: 100%; height: 90vh; overflow-x: hidden;"
+          ></pdf-viewer>
+        </div>
+      </ng-container>
+    </div>
+    <div class="attachments-wrap" style="padding: 0 40px;" *ngIf="item?.files|checkListFileImg">
+      <ng-container *ngFor="let j of item?.files|filterImgFiles">
+        <div class="img-box">
+          <img [src]="j?.downloadUrl" alt="">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <app-document-view [id]="item?.key" [headerDocument]="item" [docKey]="item?.key||null">
+  </app-document-view>
+</div>

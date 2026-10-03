@@ -1,0 +1,56 @@
+@import "/src/assets/styles/variable.scss";
+
+$sheet: 1240px;
+$gutter: 28px;
+
+.full-page-container {
+  position: sticky;
+  top: -12px;
+  z-index: 100;
+  .header {
+    position: static;
+  }
+}
+
+app-primary-button + app-primary-button {
+  margin-left: 8px;
+}
+
+.reject-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid $red;
+  border-radius: $radius;
+  background: #fce8e6;
+  width: $sheet;
+  max-width: $sheet;
+  margin: 0 auto;
+  margin-top: 12px;
+
+  .reject-banner-icon {
+    color: $red;
+    flex: 0 0 auto;
+  }
+
+  .reject-banner-title {
+    margin: 0;
+    font-family: $appFontStrong;
+    font-size: 14px;
+    color: $red;
+  }
+
+  .reject-banner-reason {
+    margin: 4px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: $titleColor;
+    white-space: pre-wrap;
+  }
+}
+
+.print-btn {
+  font-family: $appFont;
+  margin-right: 8px;
+}

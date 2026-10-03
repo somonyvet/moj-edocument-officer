@@ -1,0 +1,7 @@
+.no-grab {
+    user-select: text;  /* Allow text to be selected */
+    -webkit-user-select: text;  /* For Safari */
+    -moz-user-select: text;  /* For Firefox */
+    -ms-user-select: text;  /* For Internet Explorer */
+    -webkit-user-drag: none;  /* Prevent drag events (grab) */
+}

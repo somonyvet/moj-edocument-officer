@@ -1,0 +1,31 @@
+<mat-progress-bar mode="indeterminate" *ngIf="process || loading" class="app-loader"></mat-progress-bar>
+<div class="full-page-container">
+    <div class="header">
+        <div class="wrapper">
+            <nav mat-tab-nav-bar class="fire-tabs tab-no-b flex1">
+                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.key" routerLinkActive
+                    #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+            </nav>
+            <ng-container *ngIf="store.selectedCriminalRecord?.do_expire_at && !store?.selectedCriminalRecord?.['do_revoke_by']">
+                <div class="warn-note">
+                    <span class="bright-text">
+                        ថ្ងៃផុតកំណត់: {{store.selectedCriminalRecord?.expired_date?.toDate()|dateDayKh | pipeCut0}} -
+                        {{store.selectedCriminalRecord?.expired_date?.toDate()|dateMonthKh}} -
+                        {{store.selectedCriminalRecord?.expired_date?.toDate()|dateYearKh}}
+                    </span>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="store?.selectedCriminalRecord?.['do_revoke_by']">
+                <div class="warn-note">
+                    <span class="warn-text">
+                        បានមោឃៈព្រឹត្តិបត្រពី Verify
+                    </span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="body" style="overflow:auto">
+        <router-outlet *ngIf="!loading"></router-outlet>
+        <div class="fake"></div>
+    </div>
+</div>

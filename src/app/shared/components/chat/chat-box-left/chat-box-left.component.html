@@ -1,0 +1,32 @@
+<div class="chat left" (click)="chatClicked()">
+  <div class="image-container">
+    <img [src]="photoURL">
+  </div>
+
+  <div class="content">
+    <label for="dateTime-toggle">
+      <ng-container *ngIf="value">
+        <p class="text" *ngIf="!(value|validateUrl)">{{ value }}</p>
+        <a class="text" *ngIf="(value|validateUrl)" [href]="value" target="blank">{{ value }}</a>
+      </ng-container>
+
+      <ng-container *ngIf="fileAudio?.length>0">
+        <ngx-audio-player class="audio-swot" [playlist]="msaapPlaylist" [displayTitle]="false" [autoPlay]="false"
+          muted="muted" [displayPlaylist]="false" [pageSizeOptions]="false" [displayArtist]="false"
+          [displayDuration]="true" [expanded]="true" (trackEnded)="onEnded($event)" [displayVolumeControls]="false"
+          [displayRepeatControls]="false" [disablePositionSlider]="msaapDisablePositionSlider"></ngx-audio-player>
+      </ng-container>
+
+      <div class="img-gride" [ngClass]="'grid' + fileImages.length" *ngIf="fileImages?.length>0">
+        <img [src]="item?.downloadURL || item?.downloadUrl" *ngFor="let item of fileImages">
+      </div>
+
+    </label>
+
+    <ng-container *ngIf="isClicked">
+      <p class="time-seen">
+        <span class="time">{{ dateTime | amTimeAgo }}</span>
+      </p>
+    </ng-container>
+  </div>
+</div>

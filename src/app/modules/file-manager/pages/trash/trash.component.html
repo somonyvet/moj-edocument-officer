@@ -1,0 +1,97 @@
+<div class="page-section" *mobxAutorun>
+  <div class="cs-container file-content">
+    <!-- (contextmenu)="rightMenu($event, store?.selectedItem); $event. preventDefault();" -->
+
+    <ng-container *ngIf="!store?.loading && !loading">
+
+      <div class="scrollable-table">
+        <table class="table-wrapper" *ngIf="!store?.empty">
+          <thead class="table-header">
+            <tr class="table-row">
+              <th class="table-col ">No</th>
+              <th class="table-col width24"></th>
+              <th class="table-col ">Name</th>
+              <th class="table-col ">Owner</th>
+              <th class="table-col ">Last Modified</th>
+              <th class="table-col ">Size</th>
+            </tr>
+          </thead>
+
+          <tbody class="table-body">
+            <tr [ngClass]="store?.selectedItem?.key===item?.key?'active':''"
+              *ngFor="let item of store?.data; let i=index;" (click)="onSelectedItem(item)">
+              <!-- (contextmenu)="rightMenu($event, item); $event. preventDefault();" -->
+
+              <td class="table-col " style="width: 12px;">{{i+1}}
+              </td>
+
+              <td class="table-col width24" *ngIf="ismobile">
+                <button matTooltip="menu" [matMenuTriggerFor]="contextMenu" mat-button mat-icon-button
+                  aria-label="contextMenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </td>
+
+              <td class="table-col width24" *ngIf="!ismobile">
+                <button matTooltip='restore "{{item?.name}}"' (click)="restore(item)" mat-button mat-icon-button>
+                  <mat-icon>restore</mat-icon>
+                </button>
+              </td>
+
+              <td class="table-col ">
+                <div class="file-display">
+                  <i *ngIf="item?.type?.key===DRIVE_OBJ?.folder?.key"
+                    class="material-icons">{{item|iconDrive:store?.selectedItem}}</i>
+                  <img [src]="item|iconDrive:store?.selectedItem" *ngIf="item?.type?.key===DRIVE_OBJ?.file?.key" />
+                  <span>{{item?.name}}</span>
+                  <span class="isFavorite" *ngIf="item?.isFavorite===true">
+                    <i class="material-icons">
+                      star
+                    </i>
+                  </span>
+                </div>
+              </td>
+
+              <td class="table-col ">{{item?.created_by?.key===auth?.user?.uid?'me':item?.created_by?.displayName}}</td>
+              <td class="table-col ">{{item?.updated_at?.toDate() | date:'medium'}}</td>
+              <td class="table-col ">{{item|fileSize}}</td>
+
+              <!-- <td class="table-col" [matMenuTriggerFor]="contextMenu" style="width: 24px;" *ngIf="!ismobile">
+                <button class="menu" matTooltip="Menu" mat-button mat-icon-button aria-label="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <app-empty *ngIf="store?.empty" [subtitle]="APP_SUBTITLE" [name]="APP_INFO" [img]="APP_IMG">
+      </app-empty>
+
+    </ng-container>
+    <app-placeholder *ngIf="store?.loading || loading"></app-placeholder>
+  </div>
+</div>
+
+<mat-sidenav-container>
+  <mat-sidenav-content>
+  </mat-sidenav-content>
+  <mat-sidenav #sidenav [mode]="ismobile ? 'over' : 'side'" [position]="'end'" class="content-side"
+    [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
+    <app-file-info></app-file-info>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<ng-container>
+  <div class="mobile-menu">
+    <mat-menu #contextMenu="matMenu" class="nopadding">
+      <app-right-click-menu></app-right-click-menu>
+    </mat-menu>
+  </div>
+  <ng-template #userMenu let-item>
+    <section>
+      <app-right-click-menu (onClose)="closeEvent($event)"></app-right-click-menu>
+    </section>
+  </ng-template>
+</ng-container>

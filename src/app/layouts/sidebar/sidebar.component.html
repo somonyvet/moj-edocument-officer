@@ -1,0 +1,306 @@
+<aside class="sidebar" [ngClass]="ismobile?'mobile':''">
+  <div class="ac-ln-background"></div>
+
+  <!-- <div class="sidebar-brand" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']">
+        <div class="sbar-brand-name center">
+            <img src="../../../assets/images/GDI_Logo.png" />
+            <span>ប្រព័ន្ធគ្រប់គ្រងវត្តមាន</span>
+            <span>ជនបរទេស</span>
+        </div>
+    </div> -->
+
+  <!-- <div class="sidebar-header">
+        <div class="header-content center">
+            <button mat-button class="mat-new-file" [matMenuTriggerFor]="menu">
+                <img src="../../../assets/images/plus.svg" class="i-svg" />
+                <span>New</span>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="store?.newFolder(NEW_FOLDER_DIALOG)">
+                    <mat-icon>create_new_folder</mat-icon>
+                    <span>Folder</span>
+                </button>
+                <button mat-menu-item (click)="fileInput.click(file)">
+                    <mat-icon>cloud_upload</mat-icon>
+                    <span>File upload</span>
+                </button>
+                <input #fileInput type="file" multiple accept='image/*,application/*' #file
+                    (change)="store?.fetchSelectedFile(file,NEW_FILE_DIALOG,auth?.user,auth?.selectedCompany)"
+                    style="display:none;" />
+            </mat-menu>
+        </div>
+    </div> -->
+
+  <div class="sidebar-list-wrapper">
+    <div class="list-content" id="btn-menu-toggle" (click)="togglesidebar()">
+      <div class="list-item">
+        <a class="list-item-row">
+          <div class="icon">
+            <i class="material-icons">menu</i>
+          </div>
+          <div class="item-name">
+            បិទផ្ទាំងមីនុយ
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="list-content">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/my_files']">
+          <div class="icon">
+            <i class="material-icons">cloud_queue</i>
+          </div>
+          <div class="item-name">
+            បណ្ណសារដ្ឋាន
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- <div class="list-content">
+                <div class="list-item">
+                    <div class="list-item-row" routerLinkActive="active" [routerLink]="['/recent']">
+                        <div class="icon">
+                            <i class="material-icons">access_time</i>
+                        </div>
+                        <div class="item-name">
+                            Recent
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+    <!-- <div class="list-content">
+                <div class="list-item">
+                    <div class="list-item-row" routerLinkActive="active" [routerLink]="['/shared-with-me']">
+                        <div class="icon">
+                            <i class="material-icons">share</i>
+                        </div>
+                        <div class="item-name">
+                            Shared with me
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+    <div class="list-content">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/filter-documents']">
+          <div class="icon">
+            <i class="material-icons">filter_list</i>
+          </div>
+          <div class="item-name">ច្រោះឯកសារ</div>
+        </a>
+      </div>
+    </div>
+    <div class="list-content">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/my_files/iUpG6bwTnF9WYZyn2bxH']">
+          <!-- <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/public-shared']"> -->
+          <div class="icon">
+            <i class="material-icons">public</i>
+          </div>
+          <div class="item-name">សេចក្តីសម្រេច</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="list-content">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/my_files/AtZDvFZKvcHtoG26zKAf']">
+          <!-- <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/shared-with-other']"> -->
+          <div class="icon">
+            <i class="material-icons"> folder_shared </i>
+          </div>
+          <div class="item-name">
+            លក្ខន្តិកៈ និងបទបញ្ជាផ្ទៃក្នុង
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="list-content">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/favorite']">
+          <div class="icon">
+            <i class="material-icons">star_border</i>
+          </div>
+          <div class="item-name">
+            ឯកសារសំខាន់
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="list-content" *ngIf="auth?.root">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/trash']">
+          <div class="icon">
+            <i class="material-icons">
+              delete
+            </i>
+          </div>
+          <div class="item-name">
+            ធុងសំរាម
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="list-content last-item-job" *ngIf="auth?.root">
+      <div class="list-item">
+        <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/tags']">
+          <div class="icon">
+            <i class="material-icons">
+              color_lens
+            </i>
+          </div>
+          <div class="item-name">
+            ពណ៌ស្លាក
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <mat-accordion [multi]="true" *ngIf="auth?.root">
+      <mat-expansion-panel class="mat-file-accordion" [expanded]="expansions.two" (closed)="onClosed(2)"
+        (opened)="onOpened(2)">
+        <mat-expansion-panel-header expandedHeight="58px" collapsedHeight="58px" [class.active]="expansions?.two">
+          <mat-panel-title>
+            រាជធានី/ខេត្ត
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="list-content" *ngFor="let item of store?.provinces; let i=index;">
+          <div class="list-item">
+            <div class="list-item-row folder" [ngClass]="provinceKey===item?.key?'active':''"
+              (click)="onOpenItem(item)">
+              <div class="icon">
+                <i class="material-icons" [ngStyle]="{'color': item?.fileTag?.color}">folder</i>
+              </div>
+              <div class="item-name sidebar-folder">
+                {{item?.name}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- <mat-expansion-panel [expanded]="expansions.eight" (closed)="onClosed(7)" (opened)="onOpened(7)">
+        <mat-expansion-panel-header expandedHeight="58px" collapsedHeight="58px" [class.active]="expansions?.eight">
+          <mat-panel-title>
+            រដ្ឋបាល
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="list-content">
+          <div class="list-item">
+            <div class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/users']">
+              <div class="icon">
+                <i class="material-icons">person_outline</i>
+              </div>
+              <div class="item-name">
+                គណនី
+              </div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="list-item-row" routerLinkActive="active" [routerLink]="['/view-and-register/company']">
+              <div class="icon">
+                <i class="material-icons">account_balance</i>
+              </div>
+              <div class="item-name">
+                ភូមិសាស្ត្រតំបន់
+              </div>
+            </div>
+          </div>
+          <div class="list-content">
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/offices']">
+                <div class="icon">
+                  <i class="material-icons">assignment_ind</i>
+                </div>
+                <div class="item-name">
+                  ការិយាល័យ
+                </div>
+              </a>
+            </div>
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/departments']">
+                <div class="icon">
+                  <i class="material-icons">supervised_user_circle</i>
+                </div>
+                <div class="item-name">
+                  នាយកដ្ឋាន
+                </div>
+              </a>
+            </div>
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/tags']">
+                <div class="icon">
+                  <i class="material-icons">color_lens</i>
+                </div>
+                <div class="item-name">
+                  ពណ៌ស្លាក
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel> -->
+
+      <mat-expansion-panel [expanded]="expansions.ten" (closed)="onClosed(9)" (opened)="onOpened(9)">
+        <mat-expansion-panel-header expandedHeight="58px" collapsedHeight="58px" [class.active]="expansions?.ten">
+          <mat-panel-title>
+            ផ្សព្វផ្សាយនិងអប់រំ
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="list-content">
+          <div class="list-content">
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/post-banner']">
+                <div class="icon">
+                  <i class="material-icons">image</i>
+                </div>
+                <div class="item-name">
+                  ផ្ទាំងផ្សព្វផ្សាយ
+                </div>
+              </a>
+            </div>
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/book-documentation']">
+                <div class="icon">
+                  <i class="material-icons">local_library</i>
+                </div>
+                <div class="item-name">
+                  ឯកសារជាសៀវភៅ
+                </div>
+              </a>
+            </div>
+            <div class="list-item">
+              <a class="list-item-row" routerLinkActive="active" [routerLink]="['/file-manager/video-documentation']">
+                <div class="icon">
+                  <i class="material-icons">play_circle_outline</i>
+                </div>
+                <div class="item-name">
+                  ឯកសារជាវីដេអូ
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <!-- <div class="sidebar-footer">
+    <div class="signout" (click)="onLogOut()">
+      <div class="icon">
+        <i class="material-icons"> lock_open </i>
+      </div>
+      <div class="item-name">
+        ចេញពីប្រព័ន្ធ
+      </div>
+    </div>
+    <div class="sidebar-toggle-button" (click)="togglesidebar($event)">
+      <div class="arrow-icon"></div>
+    </div>
+  </div> -->
+</aside>

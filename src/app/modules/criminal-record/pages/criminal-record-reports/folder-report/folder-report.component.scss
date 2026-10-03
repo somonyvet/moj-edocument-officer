@@ -1,0 +1,80 @@
+@import '/src/assets/styles/variable.scss';
+.new-print {
+  margin: 0.5cm 1cm !important;
+}
+.doc-in {
+  width: calc(100% - 276px) !important;
+  &.new {
+    background-color: transparent !important;
+    box-shadow: none;
+  }
+}
+.daily-report{
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 110px;
+  .daily-report-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+.page{
+  padding: 26px 40px;
+  .header-print{
+    padding: 0;
+  }
+}
+.eform{
+  &.ps-eform{
+    background-color: white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+}
+.itm-box-sign{
+  &.itm-mr-212{
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.col-center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sub-txt-title{
+  font-family: $appFont;
+  font-size: 16px;
+  margin: 0;
+  text-align: center;
+}
+.itm-title-box{
+  font-family: $appFont;
+  font-size: 16px;
+  margin: 0;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.sub-txt{
+  p{
+    font-family: $appFont;
+    font-size: 16px;
+    margin: 0;
+    text-indent: 36px;
+  }
+}
+.n-title{
+  font-family: $appFont;
+  font-size: 16px;
+  margin: 0;
+}
+.itm-sign-date{
+  font-family: $appFont;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.itm-sign-box{
+  height: 70px;
+}

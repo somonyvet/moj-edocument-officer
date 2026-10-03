@@ -1,0 +1,25 @@
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    padding-right: 256px;
+    .qrcode{
+        flex: 1;
+    }
+    .c-image{
+        max-width: 500px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        margin-top: 10px;
+        a{
+            .img{
+                width: 100%;
+            }
+        }
+    }
+}

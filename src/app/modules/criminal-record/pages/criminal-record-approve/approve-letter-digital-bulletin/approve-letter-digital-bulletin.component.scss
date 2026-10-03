@@ -1,0 +1,17 @@
+@import "/src/assets/styles/variable.scss";
+
+.bulletin-page {
+  padding: 12px 0;
+  overflow-x: auto;
+}
+
+::ng-deep{
+  .signature{
+    img{
+      height: 150px!important;
+    }
+  }
+  .kh3-print-qr{
+    padding-bottom: 6px!important
+  }
+}

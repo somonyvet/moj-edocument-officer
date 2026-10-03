@@ -1,0 +1,982 @@
+@page {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.sheet {
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+/** Paper sizes **/
+body.A3 .sheet {
+  width: 297mm;
+  height: 419mm;
+}
+
+body .sheet {
+  width: 80mm;
+  height: auto;
+}
+
+body.A3.landscape .sheet {
+  width: 420mm;
+  height: 296mm;
+}
+
+body.A4 .sheet {
+  width: 210mm;
+  height: 297mm;
+}
+
+body.A4.landscape .sheet {
+  width: 297mm;
+  height: 209mm;
+}
+
+body.A5 .sheet {
+  width: 148mm;
+  height: 209mm;
+}
+
+body.A5.landscape .sheet {
+  width: 210mm;
+  height: 147mm;
+}
+
+body.letter .sheet {
+  width: 216mm;
+  height: 279mm;
+}
+
+body.letter.landscape .sheet {
+  width: 280mm;
+  height: 215mm;
+}
+
+body.legal .sheet {
+  width: 216mm;
+  height: 356mm;
+}
+
+body.legal.landscape .sheet {
+  width: 357mm;
+  height: 215mm;
+}
+
+/** Padding area **/
+.sheet.padding-10mm {
+  padding: 10mm;
+}
+
+.sheet.padding-15mm {
+  padding: 15mm;
+}
+
+.sheet.padding-20mm {
+  padding: 20mm;
+}
+
+.sheet.padding-25mm {
+  padding: 25mm;
+}
+
+/** For screen preview **/
+@media screen {
+  html,body {
+    background: #fff !important;
+  }
+  .sheet {
+    background: white;
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, 0.3);
+    margin: 5mm auto;
+  }
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+  html,body {
+    background: #fff !important;
+  }
+  body{
+    width: 80mm;
+  }
+  body.A3.landscape {
+    width: 420mm;
+  }
+
+  body.A3,
+  body.A4.landscape {
+    width: 297mm;
+  }
+
+  body.A4,
+  body.A5.landscape {
+    width: 210mm;
+  }
+
+  body.A5 {
+    width: 148mm;
+  }
+
+  body.letter,
+  body.legal {
+    width: 216mm;
+  }
+
+  body.letter.landscape {
+    width: 280mm;
+  }
+
+  body.legal.landscape {
+    width: 357mm;
+  }
+
+  .scrolling-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 60px);
+    width: 100%;
+    overflow: auto;
+    padding: 40px;
+    padding-top: 76px;
+  }
+
+  .p-0 {
+    padding: 0;
+    gap: 11px;
+  }
+
+  .sub-main {
+    height: 100%;
+  }
+
+  .eform-action-controls {
+    position: fixed;
+    top: 60px;
+    left: 320px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 8px 1px 2px 0 rgba(0, 0, 0, 0.1);
+    z-index: 99;
+  }
+
+  .eform-action-controls .action-control-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    max-width: 1200px;
+    width: 100%;
+    padding: 8px 0px;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 11px;
+    align-items: center;
+  }
+
+  .eform-action-controls .action-control-container h4 {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,"khmer os siemreap", khmeros_siemreap !important;
+    font-size: 16px;
+  }
+
+  .eform {
+    padding: 0!important;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 1200px;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: white;
+    /* margin-bottom: 16px; */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-radius: max(0px, min(8px, (100vw - 4px - 100%) * 9999))/8px;
+  }
+
+  .eform .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    /* padding-top: 40px; */
+  }
+
+  .eform  .c-head-print{
+    padding: 0 80px;
+
+  }
+
+  .eform .head .head-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 356px;
+    text-align: center;
+  }
+
+  .eform .head .head-item .long-w {
+    max-width: 500px;
+    min-width: 400px;
+  }
+
+  .eform .head .head-item .feTitle {
+    margin: 0;
+    font-family: system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      ".SFNSText-Regular",
+      "Moul",
+      'auxswot',
+      "khmer os siemreap",
+      'khmeros_siemreap' !important;
+    font-size: 18px;
+    line-height: normal;
+    color: #002060;
+  }
+
+  .eform .head .head-item .feTitle.star {
+    font-family: "tacteinga";
+    font-size: 40px;
+    position: relative;
+    bottom: 8px;
+  }
+
+  .eform .head .head-item .feTitle span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,"khmer os siemreap", khmeros_siemreap !important;
+    -webkit-text-decoration-style: dotted;
+    text-decoration-style: dotted;
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+  }
+
+  .eform .head .head-item .profile-box {
+    width: 160px;
+    /* height: 180px; */
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* overflow: hidden; */
+    cursor: pointer;
+  }
+
+  .eform .head .head-item .profile-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .eform .head .head-item .profile-box .slp {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    z-index: 2;
+  }
+
+  .eform .head .head-item .profile-box .profile-cover-full img{
+    object-fit: cover;
+  }
+
+  .eform .head .head-item .error-warning {
+    margin-top: 12px;
+  }
+
+  .eform .head .head-item .error-warning span {
+    color: red;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 14px;
+  }
+
+  .eform .head .head-item .img-logo {
+    width: 180px;
+    height: 180px;
+    margin: 12px;
+  }
+
+  .eform .head .head-item .img-logo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .eform .body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .eform .body .body-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+  }
+
+  .eform .body .body-item .title {
+    padding: 24px 80px;
+    padding-bottom: 0;
+  }
+
+  .eform .body .body-item .title h3 {
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap" Title;
+    margin: 0;
+    color: #002060;
+  }
+
+  .eform .body .body-item .title span {
+    font-size: 14px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    color: #002060;
+  }
+
+  .eform .body .body-item .memo {
+    padding: 12px 80px;
+    padding-bottom: 0;
+    font-size: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap" Strong;
+  }
+
+  .eform .body .body-item .memo .wrapper {
+    background-color: #e7f3ff;
+    color: #002060;
+    padding: 16px 24px;
+    border-radius: 4px;
+    font-size: 15px;
+  }
+
+  .eform .body .body-item .memo .wrapper span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap" Strong;
+  }
+
+  .eform .body .body-item .memo .wrapper .sub-title {
+    padding: 0;
+  }
+
+  .eform .body .body-item .memo .wrapper .sub-title h4 {
+    font-weight: bold;
+    font-size: 17px;
+  }
+
+  .eform .body .body-item .sub-title {
+    padding: 0 100px;
+  }
+
+  .eform .body .body-item .sub-title h4 {
+    font-size: 16px;
+    font-weight: normal;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    margin: 0;
+    color: #002060;
+  }
+
+  .eform .body .body-item .row-item {
+    display: flex;
+    padding: 2px 80px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+  }
+
+  .eform .body .body-item .row-item.cl-p {
+    flex-direction: column;
+  }
+
+  .eform .body .body-item .row-item .btn-att {
+    padding: 6px 8px;
+  }
+
+  .eform .body .body-item .row-item .btn-add-form-array {
+    color: #1a73e8;
+    cursor: pointer;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 16px;
+    background-color: #e8f0fe;
+    padding: 6px 16px;
+    border-radius: 30px;
+  }
+
+  .eform .body .body-item .row-item .btn-remove-form-array {
+    position: relative;
+    width: 90px;
+    height: 22px;
+  }
+
+  .eform .body .body-item .row-item .btn-remove-form-array button {
+    position: absolute;
+    top: -8px;
+    left: 8px;
+    background-color: #eff2f5;
+  }
+
+  .eform .body .body-item .row-item .f-item {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    line-height: 22px;
+    position: relative;
+  }
+
+  .eform .body .body-item .row-item .f-item.overfh {
+    overflow: unset;
+  }
+
+  .eform .body .body-item .row-item .f-item.has-error span {
+    color: red;
+  }
+
+  .eform .body .body-item .row-item .f-item.has-error .f-input {
+    border-bottom: 1px dashed#6b6c72;
+  }
+
+  .eform .body .body-item .row-item .f-item.date-short .khmer-date-picker .item:first-child {
+    width: 130%;
+  }
+
+  .eform .body .body-item .row-item .f-item.date-short .khmer-date-picker input {
+    min-width: 60px;
+    padding: 0 3px;
+  }
+
+  .eform .body .body-item .row-item .f-item .inValid-date {
+    position: absolute;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-weight: 400;
+    color: red;
+    bottom: -30px;
+    left: 39%;
+  }
+
+  .eform .body .body-item .row-item .f-item span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 17px;
+    flex: none;
+    color: #002060;
+  }
+
+  .eform .body .body-item .row-item .f-item span.star-req {
+    color: #f44336;
+    padding-left: 2px;
+  }
+
+  .eform .body .body-item .row-item .f-item .f-input {
+    width: 100%;
+    min-width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px #6b6c72 dashed;
+
+    padding: 0 12px;
+    line-height: normal;
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap" Strong;
+    font-size: 16px;
+    color: #000000;
+  }
+  .eform .body .body-item .blank {
+    padding: 12px 80px;
+  }
+
+
+  .eform .body .body-item .row-item .memo {
+    background-color: #f0f2f5;
+    padding: 12px 16px;
+    color: #002060;
+    border-radius: 4px;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    position: relative;
+  }
+
+  .eform .body .body-item .row-item .memo mat-icon {
+    margin-right: 6px;
+  }
+
+  .eform .body .body-item .row-item .memo.info {
+    background-color: #e1f5fe;
+    color: #002060;
+  }
+
+  .eform .body .body-item .row-item .memo span {
+    font-size: 17px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-weight: 400;
+    line-height: 1.7;
+  }
+
+  .eform .body .body-item .row-item .f-box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #6b6c72;
+    border-radius: 6px;
+    padding: 24px;
+    margin-left: 16px;
+    width: 100%;
+  }
+
+  .eform .body .body-item .row-item .f-box:first-child {
+    margin: 0;
+  }
+
+  .eform .body .body-item .row-item .f-box span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 14px;
+    font-weight: normal;
+    flex: none;
+    color: #002060;
+  }
+
+  .eform .body .body-item .row-item .f-box .f-input {
+    width: 100%;
+    min-width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px #6b6c72 dashed;
+    padding: 0 12px;
+    line-height: normal;
+    color: #000;
+  }
+
+  .eform .body .body-item .row-item .f-box .m-b-6 {
+    margin-bottom: 6px;
+  }
+
+  .eform .body .body-item .row-item .f-table {
+    width: 100%;
+  }
+
+  .eform .body .body-item .row-item .f-table .warn-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 24px 12px;
+    padding-top: 0;
+  }
+
+  .eform .body .body-item .row-item .f-table .warn-box mat-icon {
+    color: #247ef3;
+  }
+
+  .eform .body .body-item .row-item .f-table .warn-box span {
+    color: #002060;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .eform .body .body-item .row-item .f-table table {
+    width: 100%;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input {
+    border-collapse: collapse;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input thead th {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 15px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #002060;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input th,
+  .eform .body .body-item .row-item .f-table .tb-input td {
+    border: 1px solid #002060;
+    padding: 6px 12px;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input tr {
+    border: 1px solid #002060;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input tr:first-child {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    overflow: hidden;
+  }
+
+  .eform .body .body-item .row-item .f-table .tb-input tr:last-child {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    overflow: hidden;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    position: relative;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input.has-error span {
+    color: red;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input.has-error .f-input {
+    border-bottom: 1px dashed #6b6c72;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input .inValid-date {
+    position: absolute;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-weight: 400;
+    color: red;
+    bottom: -30px;
+    left: 39%;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input .khmer-date-picker input {
+    min-width: 60px;
+    max-width: 60px;
+    padding: 0 3px;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-input .f-input {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px #6b6c72 dashed;
+    background-color: transparent;
+    text-align: center;
+    color: #000;
+  }
+
+  .eform .body .body-item .row-item .f-table .ftb-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 15px;
+    /* font-weight: bold; */
+    line-height: normal;
+    display: grid;
+    place-items: center;
+  }
+
+  .eform .body .body-item .row-item .f-table .fw-box {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 30px;
+  }
+
+  .eform .body .body-item .row-item .f-table .fw-box span {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, "auxswot", "Battambang", "khmeros_siemreap";
+    font-size: 15px;
+    color: #002060;
+    line-height: normal;
+  }
+
+  .eform .body .body-item .row-item .f-table .fw-box .btn-text {
+    border-radius: 6px;
+    background-color: #e7f3ff;
+    cursor: pointer;
+  }
+
+  .eform .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+    padding-bottom: 80px;
+  }
+
+  .eform .footer .body-item {
+    width: 100%;
+  }
+
+  .eform .footer .row-item {
+    display: flex;
+  }
+
+  .eform .file-select-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .eform .img-view {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .eform .img-view .img-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .eform .img-view .img-container .download {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .eform .img-view .img-container img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  .eform .img-view .img-container img.download {
+    cursor: pointer;
+  }
+
+  .eform .img-view .img-container .abs-tr {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+
+  .eform .form-file-select {
+    display: flex;
+    padding: 4px;
+    border-radius: 100%;
+  }
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    /* print-color-adjust: exact; */
+    color-adjust: exact;
+  }
+
+
+}
+
+@page {
+  size: A4;
+  /* size: 148mm  210mm; */
+  /* size: auto; */
+  /* position: absolute; */
+  margin: 0;
+  padding: 0;
+  /* margin-left: 0; */
+  /* margin-right: 1cm;  */
+  margin-top: 0.5cm;
+  margin-bottom: 0.5cm;
+}
+
+@media print {
+  @page :first {
+    /* margin-top: -20px; */
+  }
+
+  .hide-on-print {
+    display: none !important;
+  }
+
+  * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    background-color: #fff;
+  }
+
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    margin-top: 0 !important;
+  }
+
+  html,
+  body,
+  .print-page {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grade-report-wrapper,
+  .print-preview {
+    margin: 0;
+  }
+
+  .page {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0 30px;
+    page-break-after: always;
+  }
+
+  .page {
+    width: initial;
+    /* height: 100%; */
+    border-radius: 0;
+    padding: 0;
+    /* position: relative; */
+    /* page-break-after: always; */
+
+
+  }
+
+  .doc-template-wrapper .doc-template-page {
+    margin: 0 !important;
+    border: none;
+    width: 100%;
+    height: 100%;
+    /* padding: 30px; */
+    padding: 44px 54px;
+    position: relative;
+    margin-bottom: 30px;
+  }
+
+  .cell {
+    display: table-cell;
+    border: 2px solid #000;
+    width: 120px;
+    height: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 4px;
+  }
+  .cell .center {
+    text-align: center;
+  }
+
+  .cell .w-600 {
+    width: 600px;
+  }
+    .tb-master-print {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+
+    .tb-master-print td,
+    .tb-master-print th {
+      border: 1px solid #333;
+      font-size: 17px;
+      padding: 3px !important;
+    }
+    .lh-2 td, .lh-2 span, .lh-2 .flex-row11{
+      line-height: 1.5;
+      font-size: 17px;
+    }
+    .lh-2 .font-normal {
+      font-size: 17px !important;
+    }
+    .p-start{
+      font-size: 17px;
+    }
+
+    .body-item-hw{
+      margin-top: 100px;
+    }
+
+
+    .eform .head .head-item .feTitle.moul-font{
+      /* color: red !important; */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "Moul", "auxswot", "khmer os siemreap", "khmeros_siemreap" !important;
+    }
+
+    .eform .head .head-item .profile-box .slp{
+      display: none !important;
+    }
+
+    .eform .head .head-item .profile-box{
+      border: none !important;
+    }
+    .eform.eform-cs {
+      margin: 0 !important;
+    }
+    .eform.eform-cs .body .body-item .row-item .f-item span {
+      font-size: 20px !important;
+
+    }
+    .eform.eform-cs .body .body-item .row-item {
+      padding: 2px 126px;
+    }
+    .eform.eform-cs .body .body-item .row-item .f-item span.small {
+      font-size: 20px !important;
+      line-height: normal !important;
+    }
+    .eform.eform-cs .body .body-item .row-item .f-item .f-input {
+      font-size: 20px !important;
+      height: 22px;
+      margin-top: -3px;
+      font-weight: normal;
+    }
+
+    .eform.eform-cs .head-item-absolute-ps{
+      left: 126px;
+    }
+    .eform.eform-cs .head .head-item .profile-box{
+      border: 1px solid #333!important;
+    }
+    .eform.eform-cs .fbl-text {
+      padding: 30px 126px;
+      font-size: 20px;
+      text-align: right;
+      font-weight: normal;
+    }
+    .eform.eform-cs .head-item-absolute-ps{
+      right: 126px !important;
+    }
+
+}
+
+.title-content {
+  flex: none;
+}
+
+.sign-conent {
+  max-height: 30px;
+  line-height: 34px;
+}
+
+.content-container {
+  width: 100%;
+}
+
+/* .font-size18 {
+  font-size: 18px;
+} */
+
+.head-item-abs-print{
+  display: none !important;
+}
+
+.itm-box-blank {
+  height: 220px;
+}
+.itm-box-blank-mid {
+  height: 380px;
+}
+.itm-box-blank-mid p {
+  padding: 0px 32px;
+  line-height: 25px;
+  margin-top: -10px;
+}
+.itm-box-blank p {
+  padding: 0px 32px;
+  line-height: 25px;
+  margin-top: -10px;
+}

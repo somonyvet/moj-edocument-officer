@@ -1,0 +1,56 @@
+<div class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>ជ្រើសរើសគំរូ និងចរន្តឯកសារ</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <div class="doc-rows-form">
+        <div class="doc-rows-container">
+            <h1>ជ្រើសរើសគំរូ និងចរន្តឯកសារ</h1>
+            <form class="search-form" [formGroup]="form">
+                <span class="material-icons">search</span>
+                <input formControlName="search" placeholder="ស្វែងរកគំរូ និងចរន្តឯកសារ" type="text">
+            </form>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper vt-wrapper" #parentScroll>
+        <div class="cl-vt">
+            <h4>គំរូ និងចរន្តឯកសារ</h4>
+            <virtual-scroller #scrollAccount [items]="store?.data" [parentScroll]="parentScroll" (vsEnd)="_onScroll($event)">
+                <a (click)="onSelectTemplate(item)" class="profile-avatar" *ngFor="let item of scrollAccount?.viewPortItems">
+                    <div class="letter" [ngStyle]="{
+                                'width':'60px',
+                                'background-image': 'linear-gradient(-225deg, '+(item?.selectedChatBoxColor?.length>1?  item?.selectedChatBoxColor[0] + ', ' + item?.selectedChatBoxColor[1]:chatBoxColor[0]+', ' + chatBoxColor[1]) + ')'
+                              }">
+                        <h4 [ngStyle]="{'font-size': '26px'}">{{ item?.chatAvatar }}</h4>
+                    </div>
+                    <div class="pro-txt">
+                        <div>{{item?.documentNo}}</div>
+                        <div class="pro-txt-sub">{{item?.documentName}}</div>
+                    </div>
+
+                </a>
+            </virtual-scroller>
+        </div>
+
+        <!-- <mat-selection-list [multiple]="false" class="template-listing" (selectionChange)="onSelectTemplate($event)">
+            <mat-list-option *ngFor="let item of store?.data" [value]="item">
+                <div class="template-listing-content">
+                    <div class="template-listing-file">
+                        <img [src]="item?.coverFile?.downloadURL??'../../../../assets/images/template_thumbnails/thumbnail_1.png'" alt="">
+                    </div>
+                    <div class="template-listing-info">
+                        <b>
+                            {{item?.documentNo}}
+                        </b>
+                        <p>
+                            {{item?.documentName}}
+                        </p>
+                    </div>
+                </div>
+            </mat-list-option>
+        </mat-selection-list> -->
+    </mat-dialog-content>
+</div>

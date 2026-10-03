@@ -1,0 +1,377 @@
+
+@import "_fonts.css";
+
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+  html,body {
+    background: #fff !important;
+  }
+  .print-wrapper {
+    width: 100%;
+    margin: 0;
+    float: none;
+    display: block;
+  }
+  .sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    page-break-after: always;
+  }
+  .sheet.bg:after {
+    content: "";
+    background: url("../../../assets//images/logo.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center 130px !important;
+    background-size: 50% !important;
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
+    width: 100%;
+    opacity: 0.1 !important;
+  }
+  .sheet-content {
+    width: 100%;
+    padding: 29px 32px;
+    page-break-after: always;
+    position: relative;
+    display: block;
+    z-index: 1;
+  }
+  .page-break {
+    height: 20px;
+    page-break-before: always;
+    margin: 0;
+    border-top: none;
+  }
+  @page {
+    size: A5 portrait;
+    margin: 0;
+
+  }
+  .print-wrapper {
+    position: relative;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 32px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+  }
+  .print-wrapper .flex-row {
+    display: flex;
+    margin-bottom: 18px;
+  }
+  .print-wrapper .info {
+    text-align: center;
+    margin-left: 32px;
+  }
+  .print-wrapper .info h1 {
+    margin: 0;
+    font-size: 18pt;
+  }
+  .print-wrapper .info .t-kh {
+    font-family: "Moul", cursive;
+    line-height: normal;
+    font-weight: normal;
+  }
+  .print-wrapper .info .t-en {
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+  }
+  .print-wrapper .info p {
+    margin: 0;
+  }
+  .print-wrapper .ar {
+    text-align: right;
+  }
+  .print-wrapper .al {
+    text-align: left;
+  }
+  .print-logo {
+    width: 126px;
+    height: 126px;
+    overflow: hidden;
+  }
+  .print-logo img {
+    height: 100%;
+  }
+  .table-head {
+    width: 100%;
+  }
+  .table-head td {
+    padding: 4px 16px;
+    width: calc(100% / 3);
+    vertical-align: top;
+    white-space: nowrap;
+  }
+  .content-padding-in {
+    padding: 0 32px;
+  }
+  .table-body {
+    width: 100%;
+  }
+  .d-note {
+    display: none;
+  }
+  .table-body td,
+  .table-body th {
+    padding: 4px 16px;
+  }
+  .receipt-no {
+    margin-top: 32px;
+    display: block;
+    position: relative;
+  }
+}
+
+
+
+
+@import 'fonts.scss';
+
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+@media print and (color) {
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+    }
+}
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+    }
+    .print-wrapper {
+        width: 100%;
+        margin: 0;
+        float: none;
+        display: block;
+        height: 100%;
+    }
+    .hideOnPrint{
+        display: none !important;
+    }
+    .sheet {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        page-break-after: always;
+    }
+    /* .sheet.bg:after {
+        content: '';
+        background: url('../../../assets/images/puc_logo.png') !important;
+        background-repeat: no-repeat !important;
+        background-position: center 130px !important;
+        background-size: 50% !important;
+        top: 0;
+        position: absolute;
+        bottom: 0;
+        z-index: 0;
+        width: 100%;
+        opacity: 0.1 !important;
+    } */
+    .sheet-content {
+        width: 100%;
+        padding: 29px 32px;
+        page-break-after: always;
+        position: relative;
+        display: block;
+        z-index: 1;
+    }
+    .page-break {
+        height: 20px;
+        page-break-before: always;
+        margin: 0;
+        border-top: none;
+    }
+    @page {
+        size: A5 portrait;
+        margin: 0;
+        margin-top: 1.5cm;
+        margin-top: 1.5cm;
+        margin-left: 1.5cm;
+        margin-right: 1.5cm;
+        background-color: #fff;
+        padding: 0;
+
+    }
+    .print-wrapper {
+        position: relative;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 32px;
+
+        box-shadow:none;
+        border-radius: 0;
+
+    }
+    .print-wrapper .ar{
+    }
+    .print-wrapper .flex-row {
+        display: flex;
+        margin-bottom: 18px;
+    }
+    .print-wrapper .info {
+        text-align: center;
+        width: 100%;
+        padding:0 126px;
+    }
+    .print-wrapper .info h1 {
+        margin: 10px 0 0;
+        font-size: 26px;
+        font-weight: 600;
+    }
+    .print-wrapper .info .t-kh {
+        font-family: 'Moul', cursive;
+        line-height: normal;
+        font-weight: normal;
+        /* display: none; */
+
+    }
+    .print-wrapper .info .t-en {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        /* display: none; */
+        margin-bottom: 10px;
+
+    }
+    .print-wrapper .info p {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .print-wrapper .info .campus {
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+    .print-wrapper .info .no-refund {
+        border: 2px solid #000;
+        display: flex;
+        justify-content: center;
+        padding: 2px;
+        border-radius: 5px;
+        position: absolute;
+        top: 110px;
+        right: 50px;
+    }
+    .print-wrapper .info .campus .text {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 800;
+        font-family: serif;
+        border-radius: 3px;
+        padding: 6px 12px;
+    }
+    .print-wrapper .ca-s {
+        display: flex;
+    }
+    .print-wrapper  .ca-s .dot-dot {
+        border-bottom: 1px dotted #333;
+        width: 200px;
+    }
+    .print-wrapper .ar {
+        text-align: right;
+    }
+    .print-wrapper .al {
+        text-align: left;
+    }
+    .print-logo {
+        width: 126px;
+        height: 126px;
+        position: absolute;
+        margin-left: 10px;
+        /* display: none; */
+    }
+    .print-logo img {
+        height: 100%;
+        margin-top: 20px;
+    }
+    .table-head {
+        width: 100%;
+    }
+    .table-head td {
+        /* padding: 4px 16px; */
+        width: calc(100% / 3);
+        vertical-align: top;
+        white-space: nowrap;
+    }
+    .content-padding-in {
+        padding: 0 32px;
+        padding-right: 168px;
+    }
+    .table-body {
+        width: 100%;
+    }
+    .d-note{
+        display: none;
+    }
+    .table-body td,
+    .table-body th {
+        /* padding: 4px 16px; */
+    }
+    .receipt-no {
+        display: block;
+        position: relative;
+        margin: 10px 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .row-body{
+      max-width: 800px!important;
+      width: 800px!important;
+      margin: 0 24px!important;
+      margin-top: 0!important;
+      max-width: unset!important;
+    }
+}

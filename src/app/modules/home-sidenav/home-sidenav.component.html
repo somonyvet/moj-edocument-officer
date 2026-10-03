@@ -1,0 +1,47 @@
+<div class="page-full">
+  <div class="nav-col">
+
+    <div class="nav-list-item" routerLink="/home-sidenav" routerLinkActive="active">
+      <div class="active-space"></div>
+      <div class="icon-container">
+        <ion-icon name="home-outline"></ion-icon>
+      </div>
+    </div>
+
+    <div class="nav-list-item" *ngFor="let item of dummyIonicons" >
+      <div class="active-space"></div>
+      <div class="icon-container">
+        <ion-icon [name]="item"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div class="main-panel">
+    <div class="head-bar">
+      <ion-icon (click)="toggleBar=!toggleBar" name="menu-outline"></ion-icon>
+    </div>
+    <div class="main-body">
+      <div class="tog-side-nav"  [ngStyle]="{'width': toggleBar ? '0' : '200px' }">
+        <div class="side-nav-item">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>Inbox</span>
+        </div>
+        <div class="side-nav-item active">
+          <ion-icon name="create-outline"></ion-icon>
+          <span>Draft</span>
+        </div>
+        <div class="side-nav-item">
+          <ion-icon name="text-outline"></ion-icon>
+          <span>Message</span>
+        </div>
+        <div class="side-nav-item">
+          <ion-icon name="trash-outline"></ion-icon>
+          <span>Trash</span>
+        </div>
+      </div>
+      <div class="content-box">
+        <div class="side-list"></div>
+        <div class="content-view"></div>
+      </div>
+    </div>
+  </div>
+</div>

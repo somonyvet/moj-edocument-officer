@@ -1,0 +1,147 @@
+<div class="dialog-content-wrapper">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>បោះពុម្ពព្រឹត្តិបត្រថ្កោលទោស</h2>
+    <div class="space1"></div>
+    <div mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <mat-dialog-content class="form-wrapper flex1" style="max-height:unset!important;background-color: #eff2f5;">
+    <div class="apply-form-page offi">
+      <div class="eform small">
+        <div class="header-ef">
+          <h2>ព័ត៌មាន បកប្រែ ចំនួនច្បាប់ និងថ្ងៃចេញព្រឹត្តិបត្រ</h2>
+        </div>
+        <ul class="required-items">
+          <li *ngFor="let item of data?.criminalRecords[0]?.criminal_language">
+            <div class="ef-item done">
+              <span class="ef-txt">ភាសា {{item?.name}}
+                ( {{item?.amount}} ច្បាប់ )</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="officer-profile-info-container apply-form-page offi">
+
+      <div style="margin:12px auto 0 auto">
+        <ng-container *ngFor="let item of data?.criminalRecords">
+          <ng-container *ngFor="let cri of item?.criminal_language">
+
+            <ng-container *ngIf="cri.key === CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key">
+              <div class="pos-print" style="margin-bottom: 6px;">
+                <div class="btn-print row">
+                  <ng-container *ngIf="data?.selectedCriminalPrint?.['do_revoke_by']; else khmerTemplate">
+                    <div class="text-btn">
+                      បានមោឃៈព្រឹត្តិបត្រពី Verify
+                    </div>
+                  </ng-container>
+                  <ng-template #khmerTemplate>
+                    <ng-container *ngIf="!data?.selectedCriminalPrint?.['verify_qr_kh']">
+                      <button *ngIf="data?.selectedCriminalPrint?.['verify_qr_kh'] === undefined"
+                        class="enbutton primary" mat-button
+                        [disabled]="(data?.selectedCriminalPrint?.['verify_qr_kh'] === undefined) ? false : true "
+                        (click)="submitToVerify(1)" matTooltipClass="tooltipClass"
+                        [matTooltip]="(data?.selectedCriminalPrint?.['verify_qr_kh'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                        Verify</button>
+                      <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_kh'] === null">
+                        ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify
+                      </div>
+                    </ng-container>
+
+                    <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_kh']">
+                      បានដាក់ចូលប្រព័ន្ធ Verify រួចរាល់</div>
+
+                    <ng-container *ngIf="data?.selectedCriminalPrint?.['verify_qr_kh']">
+                      <button mat-button class="enbutton primary" (click)="printDocument('#printDkh')">
+                        <mat-icon>print</mat-icon>
+                        <span>បោះពុម្ព</span>
+                      </button>
+                    </ng-container>
+
+                  </ng-template>
+
+                </div>
+                <app-criminal-record-letter-kh-print id="printDkh" [Item]="item"
+                  [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-kh-print>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="cri.key === CRIMINAL_APPLICATION_LANGUAGE?.english?.key">
+              <div class="pos-print" style="page-break-before: always; margin-bottom: 6px;">
+                <div class="btn-print row">
+
+                  <ng-container *ngIf="data?.selectedCriminalPrint?.['do_revoke_by']; else englishTemplate">
+                    <div class="text-btn">
+                      បានមោឃៈព្រឹត្តិបត្រពី Verify
+                    </div>
+                  </ng-container>
+                  <ng-template #englishTemplate>
+                    <ng-container *ngIf="!data?.selectedCriminalPrint?.['verify_qr_en']">
+                      <button *ngIf="data?.selectedCriminalPrint?.['verify_qr_en'] === undefined"
+                        class="enbutton primary" mat-button
+                        [disabled]="(data?.selectedCriminalPrint?.['verify_qr_en'] === undefined) ? false : true "
+                        (click)="submitToVerify(3)" matTooltipClass="tooltipClass"
+                        [matTooltip]="(data?.selectedCriminalPrint?.['verify_qr_en'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                        Verify</button>
+                      <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_en'] === null">
+                        ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify
+                      </div>
+                    </ng-container>
+                    <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_en']">
+                      បានដាក់ចូលប្រព័ន្ធ Verify រួចរាល់
+                    </div>
+                  </ng-template>
+
+                </div>
+                <app-criminal-record-letter-en-print id="printDen" [Item]="item"
+                  [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-en-print>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="cri.key === CRIMINAL_APPLICATION_LANGUAGE?.france?.key">
+              <div class="pos-print" style="page-break-before: always; margin-bottom: 6px;">
+                <div class="btn-print row">
+
+                  <ng-container *ngIf="data?.selectedCriminalPrint?.['do_revoke_by']; else franceTemplate">
+                    <div class="text-btn">
+                      បានមោឃៈព្រឹត្តិបត្រពី Verify
+                    </div>
+                  </ng-container>
+                  <ng-template #franceTemplate>
+                    <ng-container *ngIf="!data?.selectedCriminalPrint?.['verify_qr_fr']">
+                      <button *ngIf="data?.selectedCriminalPrint?.['verify_qr_fr'] === undefined"
+                        class="enbutton primary" mat-button
+                        [disabled]="(data?.selectedCriminalPrint?.['verify_qr_fr'] === undefined) ? false : true "
+                        (click)="submitToVerify(2)" matTooltipClass="tooltipClass"
+                        [matTooltip]="(data?.selectedCriminalPrint?.['verify_qr_fr'] === null) ? 'ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify' : ''">ដាក់ចូលប្រព័ន្ធ
+                        Verify</button>
+                      <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_fr'] === null">
+                        ឯកសារកំពុងដាក់ចូលប្រព័ន្ធ Verify
+                      </div>
+                    </ng-container>
+                    <div class="text-btn" *ngIf="data?.selectedCriminalPrint?.['verify_qr_fr']">
+                      បានដាក់ចូលប្រព័ន្ធ Verify រួចរាល់
+                    </div>
+                    <ng-container *ngIf="data?.selectedCriminalPrint?.['verify_qr_fr']">
+                      <button mat-button class="enbutton primary" (click)="printDocument('#printDfr')">
+                        <mat-icon>print</mat-icon>
+                        <span>បោះពុម្ព</span>
+                      </button>
+                    </ng-container>
+                  </ng-template>
+
+                </div>
+                <app-criminal-record-letter-fr-print id="printDfr" [Item]="item"
+                  [criminalLetterDate]="criminalLetterDate"></app-criminal-record-letter-fr-print>
+              </div>
+            </ng-container>
+
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

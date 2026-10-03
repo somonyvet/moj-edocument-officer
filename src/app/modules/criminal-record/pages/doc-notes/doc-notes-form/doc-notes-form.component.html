@@ -1,0 +1,64 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <button mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ប្រភេទចំណារ</mat-label>
+        <input formControlName="type" [matAutocomplete]="type" matInput>
+        <mat-autocomplete [displayWith]="ds.displayName" #type="matAutocomplete">
+          <mat-option *ngFor="let item of note_type;let i=index" [value]="item">
+            {{item?.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="quill-container">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (Khmer)</p>
+      <div class="ck-wrapper">
+        <ckeditor [config]="{
+          toolbar:config.toolbar,
+          fontSize:config.fontSize,
+          fontFamily:config.fontFamily,
+          placeholder: 'សូមបញ្ចូលចំណារនៅទីនេះ'
+        }" [editor]="Editor" data="" formControlName="name"></ckeditor>
+      </div>
+    </div>
+
+    <div class="quill-container">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (English)</p>
+      <div class="ck-wrapper">
+        <ckeditor [config]="{
+          toolbar:config.toolbar,
+          fontSize:config.fontSize,
+          fontFamily:config.fontFamily,
+          placeholder: 'សូមបញ្ចូលចំណារនៅទីនេះ (English)'
+        }" [editor]="Editor" data="" formControlName="name_en"></ckeditor>
+      </div>
+    </div>
+
+    <div class="quill-container">
+      <p class="quill-title">កំណត់ត្រាផ្ដន្ទាទោស (French)</p>
+      <div class="ck-wrapper">
+        <ckeditor [config]="{
+          toolbar:config.toolbar,
+          fontSize:config.fontSize,
+          fontFamily:config.fontFamily,
+          placeholder: 'សូមបញ្ចូលចំណារនៅទីនេះ (French)'
+        }" [editor]="Editor" data="" formControlName="name_fr"></ckeditor>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
+    <button class="enbutton primary" mat-button type="submit" (click)="create(form.value, false)">រក្សាទុក</button>
+  </mat-dialog-actions>
+</form>

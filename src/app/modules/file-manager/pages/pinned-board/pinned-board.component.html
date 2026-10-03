@@ -1,0 +1,78 @@
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <div class="page-section" *mobxAutorun>
+            <div class="cs-container file-content">
+                <app-empty *ngIf="store?.empty" [subtitle]="APP_SUBTITLE" [name]="APP_INFO" [img]="APP_IMG">
+                </app-empty>
+                <ng-container *ngIf="!store?.loading">
+                    <div class="scrollable-table" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+                        (scrolled)="onScroll()">
+                        <table class="table-wrapper" *ngIf="!store?.empty">
+                            <thead class="table-header">
+                                <tr class="table-row" >
+                                    <th class="table-col ">No</th>
+                                    <th class="table-col ">Name</th>
+                                    <th class="table-col ">Owner</th>
+                                    <th class="table-col ">Last Modified</th>
+                                    <th class="table-col ">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                <ng-container >
+                                    <tr [ngClass]="store?.selectedItem?.key===item?.key?'active':''"
+                                        *ngFor="let item of store?.data; let i=index;" (click)="onSelectedItem(item)"
+                                        (dblclick)="onOpenItem(item)" (contextmenu)="rightMenu($event, item); $event. preventDefault()">
+                                        <td class="table-col " style="width: 12px;">{{i+1}}</td>
+                                        <td class="table-col ">
+                                            <div class="file-display">
+                                                <file-name-doc [parentFolder]="parentFolder" [selectedItem]="store?.selectedItem" [item]="item"></file-name-doc>
+                                            </div>
+                                        </td>
+                                        <td class="table-col ">
+                                            {{item?.created_by?.key===auth?.user?.uid?'me':item?.created_by?.displayName}}
+                                        </td>
+                                        <td class="table-col ">
+                                            {{item?.updated_at?.toDate() | date:'medium'}}
+                                        </td>
+                                        <td class="table-col ">{{item|fileSize}}</td>
+                                    </tr>
+                                </ng-container>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="no-item" (contextmenu)="rightMenu($event, store.selectedItem); $event. preventDefault();">
+                    </div>
+                </ng-container>
+                <app-placeholder *ngIf="store?.loading"></app-placeholder>
+                <app-spinner *ngIf="store?.fetching"></app-spinner>
+            </div>
+        </div>
+        <ng-container>
+            <div class="mobile-menu">
+                <mat-menu #contextMenu="matMenu" class="nopadding">
+                    <app-right-click-menu></app-right-click-menu>
+                </mat-menu>
+            </div>
+            <ng-template #userMenu let-item>
+                <section>
+                    <app-right-click-menu (onClose)="closeEvent($event)"></app-right-click-menu>
+                </section>
+            </ng-template>
+        </ng-container>
+    </mat-sidenav-content>
+    <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [position]="'end'"
+        class="content-side" [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
+        <app-file-info *mobxAutorun [selectedItem]="store?.selectedItem"></app-file-info>
+    </mat-sidenav>
+</mat-sidenav-container>
+
+<!-- <mat-sidenav-container>
+    <mat-sidenav-content>
+        <app-list-items></app-list-items>
+    </mat-sidenav-content>
+    <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [position]="'end'"
+        class="content-side" [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
+        <app-file-info></app-file-info>
+    </mat-sidenav>
+</mat-sidenav-container> -->

@@ -1,0 +1,25 @@
+.loading-conatiner{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .loadingSkeletonTemplate{
+    display: flex;
+    padding: 0 8px;
+    gap: 12px;
+    .left{
+      width: 80px;
+    }
+    .right{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding-top: 12px;
+      .w-90{
+        width: 90%;
+      }
+      .w-20{
+        width: 30%;
+      }
+    }
+  }
+}

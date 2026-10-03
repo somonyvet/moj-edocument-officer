@@ -1,0 +1,339 @@
+$--shadow-1: rgba(0, 0, 0, 0.1);
+$--shadow-2: rgba(0, 0, 0, 0.2);
+
+$fontcompany: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+$heightProgress: 8px;
+
+.progress {
+    position: relative;
+    z-index: 12;
+    top: 12px;
+    color: #3c7abc;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #3c7abc !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: #3c7abc !important;
+    background-color: #3c7abc !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: #3c7abc !important;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #1e457c;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #e4e8eb;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 4px;
+    height: 8px;
+}
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+.site-nav-container-comp {
+    z-index: 2;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top left, #99ffcc 31%, #33ccff 86%);
+}
+
+.progress_on {
+    z-index: 14;
+    width: 100vw;
+    height: 8px;
+    border-top: 0.9px solid #5c9039;
+    border-bottom: 0.9px solid #5c9039;
+    .progress_sub {
+        height: 8px;
+        // border-top-right-radius: 2px;
+        // border-bottom-right-radius: 2px;
+        background-color: #94c13d;
+        animation: none;
+        transform-origin: top left;
+        transform: scale3d(0.5, 1, 1);
+        transition: transform 250ms ease;
+    }
+    .progress_sub::after {
+        animation: none;
+        content: "";
+        display: inline-block;
+        left: 0;
+    }
+}
+.progress_on::after {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background-color: #1e457c;
+}
+
+.stForm {
+    width: 100%;
+}
+.stformmr {
+    margin-top: 16px;
+}
+
+.stfrom {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    .stTitle {
+        margin: 32px 0 16px 0;
+        font-weight: 600;
+        font-size: 1.0625rem;
+        line-height: 1.1765;
+    }
+    .stSubInput {
+        margin-bottom: 16px;
+    }
+    .lrn {
+        color: #78abf8;
+    }
+}
+.bMBox {
+    width: 972px;
+    background-color: red;
+    // padding: 32px 16px;
+}
+.stMiddle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+}
+
+.stMainBox {
+    width: 1108px;
+    min-height: 700px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-family: $fontcompany !important;
+    .stBoxTitleHeader {
+        margin: 24px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        .mat-icon {
+            position: relative;
+            top: 6px;
+            color: #3c7abc;
+        }
+        span {  
+            margin-left: 8px;
+        }
+    }
+    .stProgress {
+        padding: 0 24px;
+    }
+
+    .stBoxMiddle {
+        min-height: 170px;
+        padding: 24px 24px 0 24px;
+        padding-top: 24px;
+        display: flex;
+        flex-direction: column;
+        .stMTiHeader {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .stMtiSub {
+            font-weight: 600;
+            font-size: 1.0625rem;
+            line-height: 1.1765;
+            color: rgba(109, 113, 117, 1);
+            margin-bottom: 24px;
+        }
+
+        .stMBox {
+            display: flex;
+            flex-direction: row;
+        }
+        .stMLeft {
+            flex: 1;
+            margin-right: 8px;
+        }
+        .stMRight {
+            flex: 1;
+            margin-left: 8px;
+        }
+        .stMBoxSmall {
+            width: 100%;
+            min-height: 92px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 24px;
+            padding-top: 8px;
+        }
+        .stMBoxSmallborder {
+            border: 1px solid #3c7abc !important;
+        }
+    }
+
+    .stBoxFooter {
+        padding: 24px 24px 0 24px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 50px;
+        
+        .stFTLeft {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            span, .mat-icon {
+                font-size: 18px;
+                position: relative;
+                right: 16px;
+            }
+            .mat-icon{
+                top: -1px;
+                font-size: 26px;
+            }
+        }
+        .stFTRight {
+            display: flex;
+            align-items: center;
+            span {
+                cursor: pointer;
+                font-size: 1em;
+                font-weight: 500;
+                color: rgba(109, 113, 117, 1);
+                margin-right: 20px;
+                line-height: 2rem;
+                text-transform: none;
+                letter-spacing: normal;
+                position: relative;  
+                right: 8px;
+            }
+        }
+        button{
+            line-height: 1;
+            padding: 1.1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+    }
+    .stBoxFooterTerm {
+        display: flex;
+        position: relative;
+        bottom: 50px;
+        justify-content: center;
+        span {
+            margin-top: 24px;
+        }
+    }
+}
+
+.stmtm {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 24px;
+    background-color: #f3f8fd;
+    border-top-right-radius: 32px;
+    border-top-left-radius: 32px;
+    margin: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    span {
+        margin-left: 8px;
+        font-size: 16px;
+    }
+    .mat-icon {
+        color: #3c7abc;
+        position: relative;
+        top: 6px;
+    }
+}
+
+//body head
+.stbhead {
+    margin: 24px;
+}
+.stthm {
+    margin-bottom: 8px;
+}
+
+.stHeaderPage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 16px 0 0 0;
+    border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+    overflow: auto;
+}
+
+// .stCoverImages{
+//     background-image: url(https://www.facebook.com/images/pages/page_creation/page-default-cover-photo-4x.png);
+//     background-repeat: no-repeat;
+//     background-size: auto;
+//     height: 347.5px;
+// }
+.stImage {
+    width: 100%;
+    height: auto;
+    border-radius: max(0px, min(8px, (100vw - 4px - 100%) * 9999)) / 8px;
+}
+.stHeadProfile {
+    .stHeadProfileImage {
+        margin: 0 16px 0 32px;
+        position: relative;
+        top: -17px;
+        border: 2px solid #ffffff;
+        width: 140px;
+        height: 140px;
+        background-color: #ebe9e5;
+        border-radius: 50%;
+    }
+    .stHNameNCate {
+        flex: 1;
+        margin-top: 16px;
+    }
+}
+.stHNameNCate {
+    .stHNameNCatet {
+        margin-top: 16px;
+    }
+}
+
+.stNleft {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    margin: 0;
+    li {
+        list-style-type: none;
+        padding: 16px;
+        color: #64676b;
+        font-weight: 500;
+    }
+}
+
+.divider {
+    padding: 0 16px;
+}
+.form-no-padding {
+    padding: 0 !important;
+}

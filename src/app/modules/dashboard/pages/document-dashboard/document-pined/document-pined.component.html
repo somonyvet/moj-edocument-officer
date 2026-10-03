@@ -1,0 +1,37 @@
+<div class="pin-box-card mt20" *ngIf="!loading">
+    <div class="pin-box-header">
+        <h3>ឯកសារទុកចំណាំ</h3>
+    </div>
+    <mat-divider *ngIf="data?.length > 0"></mat-divider>
+    <div class="pin-box-content" *ngIf="data?.length > 0">
+        <swiper [config]="config">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"  *ngFor="let item of data"
+                [routerLink]="['/documents/form/'+ item?.key +'/'+ item?.workplace?.key +'/design']">
+                    <div class="pin-box-content-item">
+                        <div class="pin-box-icon">
+                            <!-- <img *ngIf="item?.coverFile?.downloadURL" [src]="item?.coverFile?.downloadURL" alt="">
+                            <img *ngIf="!item?.coverFile?.downloadURL" [src]="img" alt=""> -->
+                        </div>
+                        <div class="pin-box-info">
+                            <div class="doc-title">
+                                {{item?.documentTitle?.length > 35 ?item?.documentTitle.substring(0, 35) +
+                                '...':item?.documentTitle}}
+                            </div>
+                            <div class="doc-number">
+                                {{item?.documentNo?.length > 35 ?item?.documentNo.substring(0, 35) +
+                                '...':item?.documentNo}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </swiper>
+    </div>
+    <div class="empty-nav-box" *ngIf="data?.length === 0">
+        <img [src]="'../../assets/images/indoc.png'">
+        <h4>ពុំមានឯកសារទុកចំណាំ</h4>
+    </div>
+</div>

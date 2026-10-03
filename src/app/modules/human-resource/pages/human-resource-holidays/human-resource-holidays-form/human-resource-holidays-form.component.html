@@ -1,0 +1,68 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input formControlName="nameKh" required matInput placeholder="ឈ្មោះ">
+                <mat-error *ngIf="form.controls['nameKh'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះជាភាសាអង់គ្លេស</mat-label>
+                <input formControlName="nameEng" matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ថ្ងៃចាប់ផ្ដើម</mat-label>
+                <input formControlName="startDate" matInput required placeholder="ថ្ងៃចាប់ផ្ដើម"
+                    [max]="form.controls['endDate']?.value" [matDatepicker]="startDatePicker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-error *ngIf="form.controls['startDate'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>ថ្ងៃបញ្ចប់</mat-label>
+                <input formControlName="endDate" matInput placeholder="ថ្ងៃបញ្ចប់" required
+                    [min]="form.controls['startDate']?.value" [matDatepicker]="endDatePicker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-error *ngIf="form.controls['endDate'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>រយៈពេល</mat-label>
+                <input matInput placeholder="រយៈពេល" formControlName="duration"
+                    [value]="form.controls['duration']+' ថ្ងៃ'">
+            </mat-form-field>
+        </div>
+
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,191 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+/* Importing Bootstrap SCSS file. */
+@use "~@angular/material" as mat;
+// Plus imports for other components in your app.
+$my-custom-typography-config: mat.define-typography-config(
+  $font-family: khmeros_siemreap,
+);
+// $font-family: khmeros_siemreap,
+@include mat.core($my-custom-typography-config);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$edocument-primary: mat.define-palette(mat.$indigo-palette);
+$edocument-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$edocument-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$edocument-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $edocument-primary,
+      accent: $edocument-accent,
+      warn: $edocument-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($edocument-theme);
+@import "~bootstrap/scss/bootstrap";
+
+/* You can add global styles to this file, and also import other style files */
+@import "material-icons/iconfont/material-icons.css";
+@import "~perfect-scrollbar/css/perfect-scrollbar.css"; /* You can add global styles to this file, and also import other style files */
+@import "../src/assets/styles/app.scss";
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~quill/dist/quill.snow.css";
+@import "~video.js/dist/video-js.css";
+@import "~ngx-org-chart/_theming.scss";
+@import '~swiper/swiper.scss';
+ 
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  caret-color: $primary !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: $primary;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $primary;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $primary;
+  height: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* Adjust the headings dropdown to host some larger heading styles. */
+.document-editor .ck-heading-dropdown .ck-list .ck-button__label {
+  line-height: calc(
+    1.7 * var(--ck-line-height-base) * var(--ck-font-size-base)
+  );
+  min-width: 6em;
+}
+
+/* Scale down all heading previews because they are way too big to be presented in the UI.
+Preserve the relative scale, though. */
+.document-editor
+  .ck-heading-dropdown
+  .ck-list
+  .ck-button:not(.ck-heading_paragraph)
+  .ck-button__label {
+  transform: scale(0.8);
+  transform-origin: left;
+}
+
+/* Set the styles for "Heading 1". */
+.document-editor .ck-content h2,
+.document-editor .ck-heading-dropdown .ck-heading_heading1 .ck-button__label {
+  font-size: 2.18em;
+  font-weight: normal;
+}
+
+.document-editor .ck-content h2 {
+  line-height: 1.37em;
+  padding-top: 0.342em;
+  margin-bottom: 0.142em;
+}
+
+/* Set the styles for "Heading 2". */
+.document-editor .ck-content h3,
+.document-editor .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
+  font-size: 1.75em;
+  font-weight: normal;
+  color: hsl(203, 100%, 50%);
+}
+
+.document-editor
+  .ck-heading-dropdown
+  .ck-heading_heading2.ck-on
+  .ck-button__label {
+  color: var(--ck-color-list-button-on-text);
+}
+
+/* Set the styles for "Heading 2". */
+.document-editor .ck-content h3 {
+  line-height: 1.86em;
+  padding-top: 0.171em;
+  margin-bottom: 0.357em;
+}
+
+/* Set the styles for "Heading 3". */
+.document-editor .ck-content h4,
+.document-editor .ck-heading-dropdown .ck-heading_heading3 .ck-button__label {
+  font-size: 1.31em;
+  font-weight: bold;
+}
+
+.document-editor .ck-content h4 {
+  line-height: 1.24em;
+  padding-top: 0.286em;
+  margin-bottom: 0.952em;
+}
+
+/* Set the styles for "Paragraph". */
+.document-editor .ck-content p {
+  font-size: 1em;
+  line-height: 1.63em;
+  padding-top: 0.5em;
+  margin-bottom: 1.13em;
+}
+
+svg {
+  overflow: hidden;
+  vertical-align: baseline;
+}
+a:hover {
+  text-decoration: none !important;
+}
+#delete-menu {
+  width: 40px;
+  min-width: 0;
+  background: none !important;
+}
+
+.icon-delete {
+  // margin: 0 !important;
+  // right: 8px;
+  // position: absolute;
+  // top: 12px;
+  color: #f44435 !important;
+}
+.tox .tox-statusbar {
+  display: none;
+}
+.ck.ck-editor__editable_inline[dir=ltr]{
+  padding: 0;
+}
+
+.card-info{
+  padding: 12px 24px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: $appFont;
+}

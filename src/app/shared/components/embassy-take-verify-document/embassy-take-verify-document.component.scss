@@ -1,0 +1,266 @@
+@import '../../../../assets/styles/variable.scss';
+
+.form-no-padding{
+  padding: 0;
+  padding-left: 12px;
+  width: 360px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: $primary !important;
+  }
+
+  .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: $primary;
+   }
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+      background-color: $primary !important;
+  }
+}
+
+
+.row-item{
+  display: flex;
+  gap: 26px;
+}
+
+.item-wrapper{
+  display: flex;
+  flex-direction: column;
+  // gap: 26px;
+  padding-left: 20px;
+  margin-top: 12px;
+}
+
+.row-item{
+  flex-direction: column;
+
+}
+.item-wrapper{
+  .row-item{
+    flex-direction: row;
+    align-items: center;
+    .item-lg{
+      padding-bottom: 1.34375em;
+      margin: .25em 0;
+      font-family: $appFont;
+      font-size: 16px;
+    }
+  }
+}
+.memo-green{
+  padding: 4px 18px;
+  width: 100%;
+  .container{
+    width: 100%;
+    color:white;
+    background-color: #1BC062;
+    border-radius: 6px;
+    font-family: $appFont;
+    font-size: 16px;
+    padding: 16px 24px;
+  }
+}
+
+.img-profile{
+  width:42px;
+  height:42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.add-attachment-container{
+  width: 740px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .title{
+    font-family: $appFont;
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.attach-button{
+  background-color: $background;
+  font-family: $appFont;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  padding: 8px 12px;
+  border-radius: 26px;
+}
+
+.doc-file-p{
+  position: relative;
+  width: 200px;
+  height: 260px;
+  border-radius: 6px;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .attach-file-img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    .ref-img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .attach-file-pdf{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: $background;
+    padding: 12px;
+    p{
+      font-family: $appFont;
+      font-size: 15px;
+      line-height: normal;
+      display: -webkit-box;
+      max-width: 100%;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      &:hover{
+        cursor: pointer;
+        color: $primary;
+      }
+    }
+  }
+
+  .mat-add-new{
+    position: absolute!important;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    background-color: white;
+    mat-icon{
+      width: 28px;
+      height: 28px;
+      font-size: 18px;
+      line-height: 15px!important;
+    }
+  }
+}
+
+.row-box{
+  display: flex;
+  gap: 46px;
+}
+
+.col-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error{
+  width: 760px;
+  margin: 8px 0;
+  margin-bottom: 16px;
+  justify-content: center;
+  .error-text{
+    font-family: $appFont;
+    font-size: 18px;
+    color: red;
+  }
+}
+
+.lottie-box{
+  height: 160px!important;
+}
+
+.btn-done{
+  width: 760px;
+  margin: 8px 0;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  align-items: center;
+  background-color: #00de0029;
+  padding: 16px 20px;
+  border-radius: 4px;
+  p{
+    font-family: $appFont;
+    font-size: 18px;
+    color: $greenText;
+    margin: 0;
+    font-weight: bold;
+  }
+  mat-icon{
+    color: $greenText;
+  }
+}
+
+.btn-withdraw{
+  width: 760px;
+  margin: 8px 0;
+  margin-bottom: 16px;
+  background-color: $link;
+  padding: 8px 20px;
+  border-radius: 4px;
+  .wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    margin: 0;
+    font-family: $appFont;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.doc-file-p{
+  position: relative;
+  width: 760px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .attach-file-img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    .ref-img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .attach-file-pdf{
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: $background;
+    padding: 12px;
+    p{
+      font-family: $appFont;
+      font-size: 15px;
+      line-height: normal;
+      display: -webkit-box;
+      max-width: 100%;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

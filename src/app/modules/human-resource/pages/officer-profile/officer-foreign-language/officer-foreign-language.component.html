@@ -1,0 +1,41 @@
+
+<div class="scrolling-container">
+    <div class="eform" [formGroup]="form">
+
+      <div class="body">
+
+        <div class="body-item">
+          <!-- <div class="title">
+            <h3>៣-ចំណេះដឹងភាសាបរទេស</h3>
+          </div> -->
+          <div class="row-item" style="margin-top:20px;">
+            <div class="f-item" [ngClass]="form.get('foreignLanguageLevel')?.errors&&form.get('foreignLanguageLevel')?.touched?'has-error':''">
+              <span>ចំណេះដឹងភាសាបរទេស</span>
+              <input class="f-input" type="text" formControlName="foreignLanguageLevel">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="footer">
+      </div> -->
+
+      <!-- <div class="eform-action-controls">
+          <div class="action-control-container">
+            <div class="flex1"></div>
+            <button class="submit-btn"  mat-button type="button" (click)="_onSave(form?.value)">រក្សាទុក</button>
+          </div>
+      </div> -->
+      <div class="eform-action-controls">
+        <div class="action-control-container">
+          <h4>៣-ចំណេះដឹងភាសាបរទេស</h4>
+          <div class="flex1"></div>
+          <!-- <a mat-button mat-dialog-close class="cancel-btn" style="margin-right: 12px;">បោះបង់</a> -->
+          <!-- <button class="submit-btn" mat-button type="button" (click)="_onSave()">រក្សាទុក</button> -->
+          <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)" [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+
+          </app-primary-button>
+        </div>
+      </div>
+    </div>
+  </div>
+

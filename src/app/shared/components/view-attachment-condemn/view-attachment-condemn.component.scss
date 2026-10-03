@@ -1,0 +1,15 @@
+.pdf-box{
+  display:grid;place-items:center;
+  padding: 22px;
+  height: 100%;
+  width: 100%;
+  span{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}

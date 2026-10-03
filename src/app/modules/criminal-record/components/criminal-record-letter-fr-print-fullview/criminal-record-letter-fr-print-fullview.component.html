@@ -1,0 +1,472 @@
+<div class="eform new" style="margin:0 auto 0 auto;position:relative;    transform: scale(0.92);
+transform-origin: top left;" id="printD">
+
+  <div class="head p-rel c-head-print head-item-abs-print" style="width: 100%!important;">
+
+    <div class="head-item head-item-print" style="align-items: flex-start; font-family: initial;">
+
+      <div class="profile-box container-header-input" style="border: none; margin: 0 auto;">
+        <img src="../../../../../../assets/images/moj.png">
+      </div>
+
+
+      <span class="feTitle b" style="white-space:nowrap; font-family: initial;">
+        Ministère de la Justice
+      </span>
+
+      <span class="feTitle" style="letter-spacing: 4px;">
+        ******
+      </span>
+
+      <div class="f-item" style="display: flex;">
+        <span class="nor-fam b" style="font-family: initial; font-size: 25px;">Nº. </span>
+        <p class="nor-fam-field" style="width: 180px; border-bottom: 1px dotted #28803f!important;"></p>
+      </div>
+    </div>
+
+    <div class="flex1"></div>
+
+    <div class="head-item" style="font-family: initial; color:#28803f; line-height: normal;font-weight: bold;white-space: nowrap;">
+      <p class="b" style="font-size:26px;letter-spacing: 2px;">ROYAUME DU CAMBODGE</p>
+      <p class="b" style="font-size:20px;text-transform: uppercase;letter-spacing: 1px;">Nation Religion Roi</p>
+      <p class="star" style="color:#28803f">3</p>
+      <div class="img-logo" style="height: 26px;"></div>
+      <p class="b" style="font-size:26px;">BULLETIN DE CASIER JUDICIAIRE Nº 3</p>
+    </div>
+
+    <div class="flex1"></div>
+
+  </div>
+  <div class="head-item-space" style="height: 270px;"></div>
+  <div class="body" style="width:100%">
+    <div class="body-item" style="height:1320px">
+
+      <div class="pb-data">
+
+        <table class="tb-moj-pb">
+          <tr>
+            <td class="t-col">
+              Nom et Prènom
+            </td>
+            <td class="t-col-space">:</td>
+
+            <td>
+              <span *ngIf="Item?.last_name_en && Item?.first_name_en">
+                <b [innerHTML]="(Item?.last_name_en|stringUpperCase)+'&ensp;'+(Item?.first_name_en|stringUpperCase)"></b>
+              </span>
+              <p class="f-input" *ngIf="!(Item?.last_name_en && Item?.first_name_en)" style="height: fit-content;">/</p>
+
+            </td>
+
+            <td>
+              sexe :&ensp;
+              <!-- <span *ngIf="Item?.gender?.name_en || Item?.gender?.name_fr">{{Item?.gender?.name_fr || Item?.gender?.name_en}}</span>
+              <p class="f-input" *ngIf="!(Item?.gender?.name_en || Item?.gender?.name_fr)">/</p> -->
+              <span *ngIf="Item?.gender?.name_en || Item?.gender?.name_fr">{{(Item?.gender?.name_fr || Item?.gender?.name_en)|genderFr}}</span>
+              <p class="f-input" *ngIf="!(Item?.gender?.name_en || Item?.gender?.name_fr)" style="height: fit-content;">/</p>
+
+            </td>
+
+          </tr>
+          <tr>
+            <td class="t-col">
+              <!-- Nationality -->
+            </td>
+            <td class="t-col-space">
+              <!-- : -->
+            </td>
+            <td>
+              <span>d'origine&ensp;</span>
+              <span *ngIf="Item?.before_nationality?.fr_nationality">
+                <span [innerHTML]="Item?.before_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.before_nationality?.fr_nationality|stringDoubleSpace)"></span>
+              </span>
+              <p class="f-input" *ngIf="!Item?.before_nationality?.fr_nationality" style="height: fit-content;">/</p>
+
+            </td>
+            <td>
+              <span>de nationalité&ensp;</span>
+              <span *ngIf="Item?.current_nationality?.fr_nationality">
+                <span [innerHTML]="Item?.current_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.current_nationality?.fr_nationality|stringDoubleSpace)"></span>
+              </span>
+              <p class="f-input" *ngIf="!Item?.current_nationality?.fr_nationality" style="height: fit-content;">/</p>
+
+            </td>
+
+          </tr>
+          <tr>
+            <td class="t-col">
+              Surnom
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.nick_name_en">
+                {{Item?.nick_name_en}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.nick_name_en">/</p>
+
+            </td>
+          </tr>
+
+          <tr>
+            <td class="t-col">
+              Date de naissance
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="(Item?.dateOfBirthDay?.name_en | validDob:Item?.dateOfBirthMonth?.name_en:Item?.dateOfBirthYear?.name_en)">
+                {{Item?.dateOfBirthDay?.name_en}} {{Item?.dateOfBirthMonth?.name_en}} {{Item?.dateOfBirthYear?.name_en}}
+              </span>
+              <p class="f-input" *ngIf="!(Item?.dateOfBirthDay?.name_en | validDob:Item?.dateOfBirthMonth?.name_en:Item?.dateOfBirthYear?.name_en)">/</p>
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="t-col">
+              Lieu de naissance
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.foreignerPlaceOfBirth_fr">
+                {{Item?.foreignerPlaceOfBirth_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.foreignerPlaceOfBirth_fr">/</p>
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="t-col">
+              Adresse actuelle
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.permanentAddressText_fr">
+                {{Item?.permanentAddressText_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.permanentAddressText_fr">/</p>
+
+            </td>
+          </tr>
+
+          <tr>
+            <td class="t-col">
+              Profession
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.occupation_fr">
+                {{Item?.occupation_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.occupation_fr">/</p>
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="t-col">
+              Nom du père
+            </td>
+            <td class="t-col-space">:</td>
+            <td>
+              <span *ngIf="Item?.father_name_en">
+                <b>{{Item?.father_name_en}}</b>
+              </span>
+              <p class="f-input" *ngIf="!Item?.father_name_en">/</p>
+
+            </td>
+            <td>
+              <span>Date de naissance : </span>
+              <span *ngIf="(Item?.fatherDob?.day?.name_en | validDob:Item?.fatherDob?.month?.name_en:Item?.fatherDob?.year?.name_en)">
+                {{Item?.fatherDob?.day?.name_en}} {{Item?.fatherDob?.month?.name_en}} {{Item?.fatherDob?.year?.name_en}}
+              </span>
+              <p class="f-input" *ngIf="!(Item?.fatherDob?.day?.name_en | validDob:Item?.fatherDob?.month?.name_en:Item?.fatherDob?.year?.name_en)">/</p>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="t-col">
+              <!-- Nationality -->
+            </td>
+            <td class="t-col-space">
+              <!-- : -->
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.father_before_nationality?.en_nationality">
+                <span> d'origine&ensp;</span>
+                <span>
+                  <span [innerHTML]="Item?.father_before_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.father_before_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+
+              <div style="display:flex;" *ngIf="!Item?.father_before_nationality?.en_nationality">
+                <span> d'origine&ensp;</span>
+                <p class="f-input" style="flex:1;height: fit-content;">/</p>
+              </div>
+
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.father_current_nationality?.en_nationality">
+                <span> de nationalité&ensp;</span>
+                <span>
+                  <span [innerHTML]="Item?.father_current_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.father_current_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+
+
+              <div style="display:flex;" *ngIf="!Item?.father_current_nationality?.fr_nationality">
+                <span> de nationalité&ensp;</span>
+                <p class="f-input" style="flex:1;height: fit-content;">/</p>
+              </div>
+            </td>
+
+          </tr>
+          <tr>
+            <td class="t-col">
+              Lieu de naissance
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.foreignerFatherBirthAddress_fr">
+                {{Item?.foreignerFatherBirthAddress_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.foreignerFatherBirthAddress_fr">/</p>
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td class="t-col">
+              Nom de la mère
+            </td>
+            <td class="t-col-space">:</td>
+            <td>
+              <span *ngIf="Item?.mother_name_en">
+                <b>{{Item?.mother_name_en}}</b>
+              </span>
+              <p class="f-input" *ngIf="!Item?.mother_name_en">/</p>
+            </td>
+            <td>
+              <span>Date de naissance : </span>
+              <span *ngIf="(Item?.motherDob?.day?.name_en | validDob:Item?.motherDob?.month?.name_en:Item?.motherDob?.year?.name_en)">
+                {{Item?.motherDob?.day?.name_en}} {{Item?.motherDob?.month?.name_en}} {{Item?.motherDob?.year?.name_en}}
+              </span>
+              <p class="f-input" *ngIf="!(Item?.motherDob?.day?.name_en | validDob:Item?.motherDob?.month?.name_en:Item?.motherDob?.year?.name_en)">/</p>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="t-col">
+              <!-- Nationality -->
+            </td>
+            <td class="t-col-space">
+              <!-- : -->
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.mother_before_nationality?.en_nationality">
+                <span> d'origine&ensp;</span>
+                <span>
+                  <span [innerHTML]="Item?.mother_before_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.mother_before_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+
+              <div style="display:flex;" *ngIf="!Item?.mother_before_nationality?.en_nationality">
+                <span> d'origine&ensp;</span>
+                <p class="f-input" style="flex:1;height: fit-content;">/</p>
+              </div>
+
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.mother_current_nationality?.en_nationality">
+                <span> de nationalité&ensp;</span>
+                <span >
+                  <span [innerHTML]="Item?.mother_current_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.mother_current_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+
+              <div style="display:flex;" *ngIf="!Item?.mother_current_nationality?.en_nationality">
+                <span> de nationalité&ensp;</span>
+                <p class="f-input" style="flex:1;height: fit-content;">/</p>
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="t-col">
+              Lieu de naissance
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.foreignerMotherBirthAddress_fr">
+                {{Item?.foreignerMotherBirthAddress_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.foreignerMotherBirthAddress_fr">/</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="t-col">
+              Nom du conjoint
+            </td>
+            <td class="t-col-space">:</td>
+            <td>
+              <span  *ngIf="Item?.spouse_en">
+                {{Item?.spouse_en}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.spouse_en">/</p>
+
+            </td>
+            <td>
+              <span>Date de naissance : </span>
+              <span *ngIf="(Item?.spouseDob?.day?.name_en | validDob:Item?.spouseDob?.month?.name_en:Item?.spouseDob?.year?.name_en)">
+                {{Item?.spouseDob?.day?.name_en}} {{Item?.spouseDob?.month?.name_en}} {{Item?.spouseDob?.year?.name_en}}
+              </span>
+              <p class="f-input" *ngIf="!(Item?.spouseDob?.day?.name_en | validDob:Item?.spouseDob?.month?.name_en:Item?.spouseDob?.year?.name_en)">/</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="t-col">
+              <!-- Nationality -->
+            </td>
+            <td class="t-col-space">
+              <!-- : -->
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.spouse_before_nationality?.en_nationality">
+                <span> d'origine&ensp;</span>
+                <span>
+                  <span [innerHTML]="Item?.spouse_before_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.spouse_before_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+              <div *ngIf="!Item?.spouse_before_nationality?.en_nationality" style="display: flex;">
+                <span> d'origine&ensp;</span>
+                <p class="f-input" style="height: fit-content;">/</p>
+              </div>
+
+            </td>
+            <td>
+              <ng-container *ngIf="Item?.spouse_current_nationality?.en_nationality">
+                <span> de nationalité&ensp;</span>
+                <span>
+                  <span [innerHTML]="Item?.spouse_current_nationality?.fr_nationality==='Cambodgien'?'Khmère':(Item?.spouse_current_nationality?.fr_nationality|stringDoubleSpace)"></span>
+                </span>
+              </ng-container>
+              <div *ngIf="!Item?.spouse_current_nationality?.en_nationality" style="display: flex;">
+                <span> de nationalité&ensp;</span>
+                <p class="f-input" style="flex:1;height: fit-content;">/</p>
+              </div>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="t-col">
+              Profession
+            </td>
+            <td class="t-col-space">:</td>
+            <td colspan="2">
+              <span *ngIf="Item?.spouseCurrentOccupation_fr">
+                {{Item?.spouseCurrentOccupation_fr}}
+              </span>
+              <p class="f-input" *ngIf="!Item?.spouseCurrentOccupation_fr">/</p>
+            </td>
+          </tr>
+
+        </table>
+
+
+
+        <div class="f-item">
+          <span class="feTitle new" style="font-size: 25px; font-weight: bold;text-decoration: underline;text-underline-position: under;color:black; font-family: initial;">Mention:</span>
+        </div>
+        <div class="f-item">
+          <div class="f-input no-underline" style="text-decoration: none;padding:0">
+            <div class="decree-result-print-en decree-result-print-fr" [innerHTML]="Item?.decree_result?.name_fr"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row-item"
+        style="flex-direction: column; border-top: solid 1px black;padding: 6px 0;margin: 0 80px;">
+        <div class="f-item">
+
+          <div style="display:flex;">
+            <div class="title" style="font-size: 13px; padding: 0;color:#333">
+
+              *Le  ministère  de  la  Justice  ne  prend  ses  responsabilités  que  si  la traduction  en  langue
+              étrangère  du bulletin  de casier  judicaire est  réalisée  par  le  ministère de  la  Justice.
+
+            </div>
+            <!-- *ngIf="Item?.expired_date" -->
+            <div class="title" style="font-size: 13px; padding: 0;color:#333;padding-left: 100px; white-space: nowrap; display: flex;" >
+              <p>
+                * Ce bulletin est  valable  pendant 3 mois. Expire le
+              </p>
+              {{Item?.expired_date?.toDate()|dateOnly}}
+              <p class="f-input" *ngIf="!Item?.expired_date" style="width: 100px; height: 18px"></p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="row-item" style="height:100%">
+        <div class="f-item" style="justify-content: space-between;">
+
+          <div class="head-item long-w"
+            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+            <div class="c-item" style="justify-content: flex-start; padding-left:40px; padding-top: 30px;">
+              <span style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;" class="p-rel">
+
+                <span class="n-title" style="color:black">
+                  Vu
+                </span>
+                <span class="n-title" style="color:black">
+                  PP Le Ministre
+                </span>
+                <span class="n-title" style="color:black">
+                  Le Secrétaire d' Etat
+                </span>
+                <span class="n-title" style="color:black">
+                  <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"> </span> Signature et Cachet <span> <img src="../../../../../assets/images/Right.svg" alt="" style="width: 11px;"> </span>
+                </span>
+              </span>
+            </div>
+
+            <span class="container-header-input" style="width: unset">
+              <div class="row-item khmer-date-picker" style="padding-right: 0;">
+                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                  <div class="c-item">
+                    <span
+                      style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                      class="p-rel">
+
+                      <span class="n-title" style="color:black">
+                        Phnom Penh, le ..........., ............, ...........
+                      </span>
+                      <span class="n-title" style="color:black">
+                        Directeur général des affaires de la peine pénale
+                      </span>
+                      <span class="n-title" style="color:black">
+                        <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"> </span> Signature <span> <img src="../../../../../assets/images/Right.svg" alt="" style="width: 11px;"> </span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

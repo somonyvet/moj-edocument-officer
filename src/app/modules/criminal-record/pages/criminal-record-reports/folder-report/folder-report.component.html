@@ -1,0 +1,322 @@
+<div style="page-break-after: always;">
+  <div class="eform ps-eform">
+    <table style="width:100%">
+      <tbody>
+        <tr>
+          <td style="padding: 0; margin: 0;">
+            <div class="page print-no-padding">
+              <div class="header-print" style="width:100%">
+                <div class="head-item" style="text-align: center; position: relative;">
+                  <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                  <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                  <p class="star" style="position: absolute;
+                  left: 0;
+                  right: 0;">3</p>
+                </div>
+                <div class="head-center">
+                  <div class="head-item">
+                    <div class="doc-template-row">
+                      <div class="bl-title-left">
+                        <img [src]="auth?.APP_INFO?.logo" width="100px" />
+                        <p>ក្រសួងយុត្តិធម៍</p>
+                        <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                      </div>
+                      <div class="bl-title-left bl-title-right moj-d">
+                        <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                        <p>បញ្ចីលេខរៀង៖ <b>{{folderData?.folder_no_items | arrNumberToStr:true}}</b></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex1"></div>
+                  <div class="pn-date">
+                    រាជធានីភ្នំពេញ ថ្ងៃទី {{ folderData?.created_at?.toDate() | dateDayKh}} ខែ {{ folderData?.created_at?.toDate() | dateMonthKh}} ឆ្នាំ
+                    {{ folderData?.created_at?.toDate() | dateYearKh}}
+                  </div>
+                </div>
+                <div class="head-item" style="text-align: center;">
+                  <p class="feTitle">កំណត់បង្ហាញ</p>
+                  <p class="feTitle" style="margin-bottom: 14px;">សូមគោរពជូន</p>
+                  <p class="feTitle" style="margin-bottom: 14px;">ឯកឧត្តម រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
+                </div>
+                <div class="pn-title-note" style="font-size:16px; padding-top: 0; margin-bottom: 14px;">
+                    <p class="n-title"> <span class="feTitle" style="text-decoration: underline;"> កម្មវត្ថុ :</span>
+                      សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន {{folderData?.recordsData?.length | khmerNumber}}
+                      ច្បាប់ ស្នើសុំសេវា ({{folderData?.period_process_document?.name}}) នៃថ្ងៃធ្វើការ
+                      ដែលមានឈ្មោះ
+                    </p>
+                    <p class="n-title">ក្នុងបញ្ជីលេខរៀង៖ <strong>{{folderData?.folder_no_items | arrNumberToStr:true}}</strong> ចុះថ្ងៃទី
+                      {{folderData?.created_at?.toDate()| dateDayKh}} ខែ
+                      {{folderData?.created_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                      {{folderData?.created_at?.toDate()| dateYearKh}} ដូចមានឈ្មោះខាងក្រោម៖
+                    </p>
+                </div>
+              </div>
+
+              <table class="tb-input-cs">
+                <tbody>
+                  <tr class="thead-th">
+                    <th class="center" rowspan="2">ល.រ</th>
+                    <th class="center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
+                    <th class="center" rowspan="2">ភេទ</th>
+                    <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំកំណើត</th>
+                    <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំទទួល</th>
+                    <th class="center" colspan="3">រយៈពេលស្នើសុំ</th>
+                    <th class="center" rowspan="2">ផ្សេងៗ</th>
+                  </tr>
+                  <tr class="thead-th">
+                    <th class="center">
+                      ២០ ថ្ងៃ
+                      <br />
+                      នៃថ្ងៃធ្វើការ
+                    </th>
+                    <th class="center">
+                      ១២ ថ្ងៃ
+                      <br />
+                      នៃថ្ងៃធ្វើការ
+                    </th>
+                    <th class="center">បកប្រែ</th>
+                  </tr>
+                  <ng-container *ngFor="let item of folderData?.recordsData; let i = index">
+                    <tr [class.break-page]="i+1===9">
+                      <td class="center">
+                        {{i+1}}
+                      </td>
+                      <td>
+                        {{item?.last_name}} {{item?.first_name}}
+                      </td>
+                      <td>
+                        {{item?.gender?.name}}
+
+                      </td>
+                      <td>
+                        {{item?.dateOfBirthDay?.name}} <span *ngIf="item?.dateOfBirthMonth?.name">/</span>
+                        {{item?.dateOfBirthMonth?.name}} <span *ngIf="item?.dateOfBirthYear?.name">/</span>
+                        {{item?.dateOfBirthYear?.name}}
+                      </td>
+
+                      <td>
+                        <span *ngIf="item?.created_at">
+                          {{item?.paid_at?.toDate() | dateDayKh}} / {{item?.paid_at?.toDate() | dateMonthKh}} /
+                          {{item?.paid_at?.toDate() | dateYearKh}}
+                        </span>
+                      </td>
+
+                      <td>
+                        {{item?.urgent_obj?.key === 20 ? (item?.urgent_obj?.key | khmerNumber) : '' }}
+                        {{item?.urgent_obj?.key === 20 ? 'ថ្ងៃ' : ''}}
+                      </td>
+
+                      <td>
+                        {{item?.urgent_obj?.key === 12 ? (item?.urgent_obj?.key | khmerNumber) : '' }}
+                        {{item?.urgent_obj?.key === 12 ? 'ថ្ងៃ' : ''}}
+                      </td>
+
+                      <td>
+                        {{item?.criminal_language | checkHaveTranslate}}
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+
+                </tbody>
+              </table>
+
+              <div class="pn-footer">
+                <div class="flex1"></div>
+                <div class="">
+                  <p class="sg">
+                    <strong>
+                      ហត្ថលេខា
+                    </strong>
+                  </p>
+                  <p class="ssg">
+                    មន្ត្រីទទួលបន្ទុករៀបចំ នឹងបញ្ជូនព្រឹត្តិបត្រថ្កោលទោស
+                  </p>
+                  <p style="text-align: right;margin-top: 70px;width: 80%;">
+                    <strong>សួន សុវណ្ណ</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<div style="margin-top:10px;margin-bottom:10px;page-break-after: always;">
+  <div class="eform ps-eform ps-eform2">
+      <table style="width:100%">
+          <tbody>
+              <tr>
+                  <td style="padding: 0; margin: 0;">
+                      <div class="page print-no-padding">
+                          <div class="header-print" style="width:100%">
+                              <!-- <div class="head-item" style="text-align: center; position: relative;">
+                                  <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                                  <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                                  <p class="star" style="position: absolute;
+                                left: 0;
+                                right: 0;">3</p>
+                              </div> -->
+                              <div class="head-center">
+                                  <div class="head-item">
+                                      <div class="doc-template-row">
+                                          <div class="bl-title-left">
+                                              <img [src]="auth?.APP_INFO?.logo" width="100px" />
+                                              <p>ក្រសួងយុត្តិធម៍</p>
+                                              <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                                  <div class="flex1"></div>
+                                  <div class="pn-date">
+                                    <div class="bl-title-left">
+                                      <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                                      <p>លេខសំណុំឯកសារ ៖ <b>{{folderData?.folder_no_items | arrNumberToStr:true}}</b></p>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="head-item" style="text-align: center;">
+                                  <p class="feTitle">កំណត់បង្ហាញ</p>
+                              </div>
+                          </div>
+                          <table class="tb-input-cs tb-input-cs2">
+                              <tr>
+                                  <td class="center" colspan="2">
+                                      <h3 class="ps-eform-title">យោបល់ មន្រ្ដីជំនាញ</h3>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td colspan="2">
+                                      <div class="item-box-new itmbordebottom  ">
+                                          <div class="itm-title-box">
+                                              <div class="sub-txt-title" style="text-align: center;">
+                                                សូមគោរពជូន
+                                              </div>
+                                          </div>
+                                          <div class="sub-txt">
+                                              លោកប្រធាននាយកដ្ឋានកិច្ចការថ្កោលទោស ឈ្មោះអ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោស
+                                              ដែលមានឈ្មោះក្នុងបញ្ជី
+                                              លេខរៀង៖ <strong>{{folderData?.folder_no_items | arrNumberToStr:true}}
+                                                  ចុះថ្ងៃទី {{folderData?.created_at?.toDate()| dateDayKh}} ខែ
+                                                  {{folderData?.created_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                                                  {{folderData?.created_at?.toDate()| dateYearKh}}
+                                                  ({{folderData?.period_process_document?.name}})</strong>
+
+                                              ដោយបានពិនិត្យក្នុងបញ្ជីថ្កោលទោសឈ្មោះទាំងនេះ ពុំមានកំណត់ត្រាចុះក្នុងបញ្ជីថ្កោលទោស
+                                              របស់ក្រសួងយុត្តិធម៌ឡើយ។
+
+                                          </div>
+
+                                          <div class="itm-box-sign itm-mr-212">
+                                            <div class="col-center">
+                                              <h4 class="itm-sign-date">
+                                                ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                                                <span style="min-width: 40px;"></span> ឆ្នាំ
+                                                <span style="min-width: 80px;"></span>
+                                            </h4>
+                                            <div class="itm-sign-box">
+
+                                            </div>
+                                            <div class="itm-name">
+                                              ម៉ៅ រស្មី
+                                            </div>
+                                            </div>
+                                          </div>
+
+                                      </div>
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td class="center" style="width: 50%;">
+                                      <h3 class="ps-eform-title">មិតិយោបល់ ប្រធាននាយកដ្ឋាន</h3>
+                                  </td>
+                                  <td class="center" style="width: 50%;">
+                                      <h3 class="ps-eform-title">មិតិយោបល់ ឯកឧត្តមអគ្គនាយក</h3>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      <h3 class="sub-txt-title">
+                                          បានឃើញ & ឯកភាព តាមមិតិមន្រីជំនាញ
+                                      </h3>
+                                      <div class="item-pd-16">
+                                          <div class="sub-txt">
+                                            <p>
+                                              ដោយបានពិនិត្យបញ្ជីឈ្មោះ អ្នកសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣
+                                              ដែលមានឈ្មោះក្នុងបញ្ជីលេខរៀង៖
+                                              <strong>{{folderData?.folder_no_items | arrNumberToStr:true}}
+                                                  ចុះថ្ងៃទី {{folderData?.created_at?.toDate()| dateDayKh}} ខែ
+                                                  {{folderData?.created_at?.toDate()| dateMonthKh}} ឆ្នាំ
+                                                  {{folderData?.created_at?.toDate()| dateYearKh}}
+                                                  ({{folderData?.period_process_document?.name}})</strong>
+                                            </p>
+                                            <p>
+                                              បញ្ជាក់ថា៖ ពុំមានកំណត់ត្រាថ្តន្ធាទោស ដែលត្រូវចុះក្នុងបញ្ជីថ្កោលទោសតម្កល់
+                                              របស់ក្រសួងយុត្តិធម៌ឡើយ។
+                                            </p>
+                                            <p>
+                                              សូមឯកឧត្តម អគ្គនាយក មេត្តាពិនិត្យនិង សំរេច។
+                                            </p>
+                                          </div>
+                                      </div>
+                                      <div class="itm-box-sign itm-mr-16" style="display: flex;justify-content: flex-end;">
+                                        <div>
+                                          <h4 class="itm-sign-date">
+                                            ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                                            <span style="min-width: 40px;"></span> ឆ្នាំ
+                                            <span style="min-width: 80px;"></span>
+                                        </h4>
+                                        <div class="itm-sign-box" style="margin-right: 55px;">
+                                        </div>
+                                        <div class="itm-name">
+                                        </div>
+                                        </div>
+                                      </div>
+                                  </td>
+                                  <td>
+
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                  <td class="center" colspan="2">
+                                      <h3 class="ps-eform-title">មិតិយោបល់ ឯកឧត្តមរដ្ឋលេខាធិការ</h3>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td colspan="2">
+                                    <div style="height: 168px;"></div>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="center" colspan="2">
+                                      <h3 class="ps-eform-title">មិតិយោបល់ ឯកឧត្តមរដ្ឋមន្ត្រី</h3>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td colspan="2">
+                                      <div style="height: 168px;"></div>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

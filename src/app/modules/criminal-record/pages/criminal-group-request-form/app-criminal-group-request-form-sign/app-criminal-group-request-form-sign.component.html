@@ -1,0 +1,564 @@
+<div class="officer-profile-info-container">
+  <div style="margin-top:10px">
+    <div class="eform ps-eform ps-eform2" id="printD" style="margin: 0 auto;">
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="printable header-print">
+                  <div class="head-item" style="text-align: center; position: absolute;width: 100%;">
+                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star" style="position: absolute;
+                                      left: 0;
+                                      right: 0;">3</p>
+                  </div>
+                  <div class="head-item">
+                    <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                      <div class="bl-title-left">
+                        <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                        <table style="width: 100%;">
+                          <tr>
+                            <td style="width: 30%;">
+                              <p class="p-title">ក្រសួងយុត្តិធម៍</p>
+                            </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;">
+                              <p  class="p-title">អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;">
+                              <p class="font-normal">នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <table style="width: 100%;margin-bottom: 20px;">
+                      <tr>
+                        <td style="width: 20%;">
+                        </td>
+                        <td style="text-align: center;width: 60%;">
+                          <p class="ps-eform-title">កំណត់បង្ហាញរឿង</p>
+                        </td>
+                        <td  style="width: 20%;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 20%;">
+                        </td>
+                        <td style="text-align: center;width: 60%;">
+                          <p class="ps-eform-title">សូមគោរពជូន</p>
+                        </td>
+                        <td  style="width: 20%;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 20%;">
+                        </td>
+                        <td style="text-align: center;width: 60%;">
+                          <p class="ps-eform-title">ឯកឧត្តមបណ្ឌិត គឹម សន្តិភាព រដ្ឋលេខាធិការទទួលបន្ទុក</p>
+                        </td>
+                        <td  style="width: 20%;">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <table>
+                    <tr>
+                      <td class="label-title">
+                        កម្មវត្ថុ<span style="margin-left: 12px;">៖</span>
+                      </td>
+                      <td class="text-content">
+                        <p>
+                          ឈ្មោះអ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ចំនួន {{criminalRecordsAmount | khmerNumber}} ច្បាប់ ({{store?.selectedGroupDoc?.period_process_document?.name}})។
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="label-title">
+                        យោង<span style="margin-left: 22px;">៖</span>
+                      </td>
+                      <td class="text-content">
+                        <p>
+                          តាមសំណើរសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ដែលមានក្នុងបញ្ជីលេខរៀង: {{store?.selectedGroupDoc?.name | khmerNumber}} ចុះថ្ងៃទី {{store?.selectedGroupDoc?.folder_date?.toDate() | dateDayKh}} ខែ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateMonthKh}} ឆ្នាំ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateYearKh}} ({{store?.selectedGroupDoc?.period_process_document?.name}}) ។
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="text-row">
+                    សេចក្តីដូចមានចែងក្នុងកម្មវត្ថុ និងយោងខាងលើ ខ្ញុំបាទសូមគោរពជម្រាបជូន <span class="bold-title">ឯកឧត្ដមរដ្ឋលេខាធិការទទួលបន្ទុក</span>មេត្តាជ្រាបដ៏ខ្ពង់ខ្ពស់ថា  ឈ្មោះអ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ដែលមាន
+                    ដែលមាន ឈ្មោះក្នុងបញ្ជីលេខរៀងៈ {{store?.selectedGroupDoc?.name | khmerNumber}} ចុះថ្ងៃទី {{store?.selectedGroupDoc?.folder_date?.toDate() | dateDayKh}} ខែ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateMonthKh}} ឆ្នាំ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateYearKh}} ({{store?.selectedGroupDoc?.period_process_document?.name}}) ដោយបានពិនិត្យក្នុងបញ្ជីថ្កោលទោសឈ្មោះទាំងនេះពុំមានកំណត់ត្រាចុះក្នុងបញ្ជីថ្កោលទោសរបស់ក្រសួងយុត្តិធម៌ឡើយ ។
+                  </div>
+                  <div class="text-row">
+                    សូម <span class="bold-title">ឯកឧត្តម  រដ្ឋលេខាធិការទទួលបន្ទុក</span> មេត្តាទទួលនូវសេចក្តីគោរពដ៏ខ្ពង់ខ្ពស់បំផុតអំពីខ្ញុំបាទ ។
+                  </div>
+
+                  <div class="date-sign">
+                    <div class="col-center">
+                      <h4 class="itm-sign-date">
+                        ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                        <span style="min-width: 40px;"></span> ឆ្នាំ
+                        <span style="min-width: 80px;">{{yearNumber | khmerNumber}}</span>
+                      </h4>
+
+                      <h4 class="itm-sign-date">
+                        រាជធានីភ្នំពេញ  ថ្ងៃទី {{printDate | dateDayKh}} ខែ {{printDate | dateMonthKh}} ឆ្នាំ {{printDate | dateYearKh}}
+                      </h4>
+
+                      <h4 class="itm-sign-date">
+                        <span class="font-bold">
+                          មន្ត្រីទទួលបន្ទុកពិនិត្យបញ្ជីថ្កោលទោស
+                        </span>
+                      </h4>
+
+                      <h4 class="itm-sign-date officer-name">
+                        <span class="font-bold">
+                          ម៉ៅ រស្មី
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table style="width:100%;page-break-before: always;">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="printable header-print">
+                  <div class="head-item" style="text-align: center; position: absolute;width: 100%;">
+                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star" style="position: absolute;
+                                      left: 0;
+                                      right: 0;">3</p>
+                  </div>
+                  <div class="head-item">
+                    <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                      <div class="bl-title-left">
+                        <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                        <table style="width: 100%;">
+                          <tr>
+                            <td style="width: 30%;">
+                              <p class="p-title">ក្រសួងយុត្តិធម៍</p>
+                            </td>
+                            <td></td>
+                            <td class="pd-100">
+                              <p  class="p-title"></p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;">
+                              <p  class="p-title">អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                            </td>
+                            <td style="text-align: center;width: 40%;">
+                            </td>
+                            <td class="pd-100 p-title">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;">
+                              <p class="font-normal">នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                            </td>
+                            <td></td>
+                            <td class="pd-100">
+                              <p class="font-normal">លេខសំណុំឯកសារ៖ {{store?.selectedGroupDoc?.name | khmerNumber}}</p>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td style="width: 30%;">
+                              <p  class="p-title"></p>
+                            </td>
+                            <td style="text-align: center;width: 40%;">
+                              <p class="ps-eform-title">កំណត់បង្ហាញ</p>
+                            </td>
+                            <td class="pd-100 p-title">
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <table>
+                    <tr>
+                      <td class="label-title">
+
+                      </td>
+                      <td class="text-content">
+
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="row-container">
+                    <div class="label-title">
+                      កម្មវត្ថុ<span style="margin: 0 12px;">៖</span>
+                    </div>
+                    <div>
+                      <p class="text-17">
+                        ឈ្មោះអ្នកសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ចំនួន {{criminalRecordsAmount | khmerNumber}} ច្បាប់ ដែលមានឈ្មោះក្នុងបញ្ជីលេខរៀង : {{store?.selectedGroupDoc?.name | khmerNumber}} ចុះថ្ងៃទី {{store?.selectedGroupDoc?.folder_date?.toDate() | dateDayKh}} ខែ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateMonthKh}} ឆ្នាំ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateYearKh}} ស្នើសុំសេវា {{store?.selectedGroupDoc?.period_process_document?.name}} ។
+                      </p>
+                    </div>
+                  </div>
+
+                  <table class="body-table">
+                    <tr>
+                      <td rowspan="2" class="width-small">
+                        <div class="date-sign pd-0">
+                          <div class="col-center">
+                            <h4 class="itm-sign-date">
+                              បានឃើញ និងឯកភាព
+                            </h4>
+                            <h4 class="itm-sign-date">
+                              <span class="font-bold">
+                                ឯកឧត្តមបណ្ឌិតរដ្ឋលេខាធិការទទួលបន្ទុក
+                              </span>
+                            </h4>
+                          <h4 class="itm-sign-date">
+                              ថ្ងៃទី {{signature4?.approved_at ? (signature4?.approved_at?.toDate() | dateDayKh) :
+                              '...........'}}
+                              ខែ {{signature4?.approved_at ? (signature4?.approved_at?.toDate() | dateMonthKh) :
+                              (printDate | dateMonthKh)}}
+                              ឆ្នាំ {{signature4?.approved_at ? (signature4?.approved_at?.toDate() | dateYearKh) :
+                              (printDate | dateYearKh)}}
+                            </h4>
+                          <div style="min-height: 90px;" *ngIf="signature4">
+                            <img [src]="signature4?.default_signatureFile?.downloadUrl" alt="img"
+                              style="width: 200px;">
+                          </div>
+                          <h4 class="itm-sign-date officer-name font-title">
+                              <span class="font-bold">
+                                {{signature4?.approved_by?.display_name}}
+                              </span>
+                          </h4>
+
+                          </div>
+                        </div>
+                      </td>
+                      <td >
+                        <div class="col-container">
+                          <p class="ps-eform-title">ប្រធាននាយកដ្ឋានជំនាញ៖ <span class="font-normal">(ចូលថ្ងៃទី............ខែ {{printDate | dateMonthKh}}  ឆ្នាំ {{printDate | dateYearKh}} ម៉ោង.................)</span></p>
+                          <div class="w-100 center">
+                            <p class="text-17 m-6 font-bold">បានឃើញ & ឯកភាព តាមមតិមន្ត្រីជំនាញ</p>
+                          </div>
+                          <div class="w-100">
+                            <p class="text-17 indent-24">
+                              ដោយបានពិនិត្យបញ្ជីឈ្មោះ អ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ដែលមានឈ្មោះ ក្នុងបញ្ជីលេរៀង: {{store?.selectedGroupDoc?.name | khmerNumber}} ចុះថ្ងៃទី {{store?.selectedGroupDoc?.folder_date?.toDate() | dateDayKh}} ខែ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateMonthKh}} ឆ្នាំ {{store?.selectedGroupDoc?.folder_date?.toDate() | dateYearKh}} ({{store?.selectedGroupDoc?.period_process_document?.name}})
+                            </p>
+                          </div>
+                          <div class="w-100">
+                            <p class="text-17 indent-24">
+                              <span class="font-bold">បញ្ជាក់ថាៈ</span>    ពុំមានកំណត់ត្រាផ្តន្ទាទោស     ដែលត្រូវចុះក្នុងបញ្ជីថ្កោលទោស  តម្កល់នៅក្រសួងយុត្តិធម៌ឡើយ ។
+                            </p>
+                          </div>
+                          <div class="w-100">
+                            <p class="indent-24 text-17 font-bold font-underline">
+                              យោបល់នាយកដ្ឋាន ៖
+                            </p>
+                          </div>
+                          <div class="w-100">
+                            <p class="indent-24 text-17">
+                              - ដោយបានពិនិត្យក្នុងបញ្ជីថ្កោលទោស   ឈ្មោះទាំងនេះពុំមាន​កំណត់ត្រាចុះក្នុង
+                              បញ្ជីថ្កោលទោស   របស់ក្រសួងយុត្តិធម៌ឡើយ។
+                            </p>
+                          </div>
+                          <div class="w-100 center">
+                            <p  class="text-17">
+                              សូមឯកឧត្តមអគ្គនាយក មេត្តាពិនិត្យ និង សំរេច ។
+                            </p>
+                          </div>
+                          <div class="date-sign" style="padding: 0 120px; margin-top: 20px;">
+                            <div class="col-center">
+                              <h4 class="itm-sign-date">
+                                ថ្ងៃទី {{signature2?.approved_at ? (signature2?.approved_at?.toDate() | dateDayKh) :
+                                '...........'}}
+                                ខែ {{signature2?.approved_at ? (signature2?.approved_at?.toDate() | dateMonthKh) :
+                                (printDate | dateMonthKh)}}
+                                ឆ្នាំ {{signature2?.approved_at ? (signature2?.approved_at?.toDate() | dateYearKh) :
+                                (printDate | dateYearKh)}}
+                              </h4>
+                              <div style="min-height: 90px;" *ngIf="signature2">
+                                <img [src]="signature2?.default_signatureFile?.downloadUrl" alt="img"
+                                  style="width: 200px;">
+                              </div>
+                              <h4 class="itm-sign-date officer-name">
+                                <span class="font-bold">
+                                  ហេង សេង
+                                </span>
+                              </h4>
+                            </div>
+                          </div>
+
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="height: 550px;">
+                        <div class="col-container">
+                          <p class="ps-eform-title">យោបល់ ឯកឧត្តមអគ្គនាយក៖<span class="font-normal">(ចូលថ្ងៃទី............ខែ {{printDate | dateMonthKh}}  ឆ្នាំ {{printDate | dateYearKh}} ម៉ោង.................)</span></p>
+                          <div class="w-100 center">
+                            <p class="text-17">បានឃើញ</p>
+                          </div>
+                          <h4 class="itm-sign-date">
+                            <span class="text-17">សូមគោរពជូន</span>
+                            <span class="ps-eform-title">
+                              ឯកឧត្តមបណ្ឌិត រដ្ឋលេខាធិការទទួលបន្ទុក
+                            </span>
+                          </h4>
+                          <div class="w-100 center">
+                            <p  class="text-17">មេត្តាពិនិត្យ និងសម្រេចដ៍ខ្ពង់ខ្ពស់។</p>
+                          </div>
+                          <h4 class="itm-sign-date">
+                              ថ្ងៃទី {{signature3?.approved_at ? (signature3?.approved_at?.toDate() | dateDayKh) :
+                              '...........'}}
+                              ខែ {{signature3?.approved_at ? (signature3?.approved_at?.toDate() | dateMonthKh) :
+                              (printDate | dateMonthKh)}}
+                              ឆ្នាំ {{signature3?.approved_at ? (signature3?.approved_at?.toDate() | dateYearKh) :
+                              (printDate | dateYearKh)}}
+                            </h4>
+                          <div style="min-height: 90px;" *ngIf="signature3">
+                            <img [src]="signature3?.default_signatureFile?.downloadUrl" alt="img"
+                              style="width: 200px;">
+                          </div>
+                          <h4 class="itm-sign-date officer-name font-title">
+                              <span class="font-bold">
+                                {{signature3?.approved_by?.display_name}}
+                              </span>
+                          </h4>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="row-container space-around mt-12">
+                    <p class="text-17">
+                      មហាវិថីសម្ដេចសុធារស ខណ្ឌដូនពេញ រាជធានីភ្នំពេញ
+                    </p>
+                    <p class="text-17">
+                      ទូរស័ព្ទ : 023 216 322, 023 217 841, 023 212 693
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="officer-profile-info-container">
+  <div style="margin-top:10px">
+    <div class="eform ps-eform ps-eform2" id="printD" style="margin: 0 auto;">
+      <table style="width:100%">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="header-print" style="width:100%;padding: 24px 0px 0 0px;position: relative;">
+                  <div class="head-item" style="text-align: center; position: absolute;width: 97%;">
+                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                    <p class="star" style="position: absolute;
+                                      left: 0;
+                                      right: 0;">3</p>
+                  </div>
+                  <div class="head-item">
+                    <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+                      <div class="bl-title-left">
+                        <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                        <table style="width: 100%;">
+                          <tr>
+                            <td style="width: 30%;">
+                              <p class="p-title">ក្រសួងយុត្តិធម៍</p>
+                            </td>
+                            <td></td>
+                            <td class="pd-100">
+                              <p  class="p-title">នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="width: 30%;">
+                              <p  class="p-title">អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                            </td>
+                            <td style="text-align: center;width: 40%;">
+                              <p class="ps-eform-title">កំណត់បង្ហាញ</p>
+                            </td>
+                            <td class="pd-100 p-title">
+                              <p>លេខសំណុំឯកសារ៖ {{store?.selectedGroupDoc?.name | khmerNumber}}</p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <table class="tb-input-cs tb-input-cs2">
+                  <tr>
+                    <td class="center bg-td" style="width: 50%;">
+                      <h3 class="ps-eform-title">យោបល់ ប្រធាននាយកដ្ឋាន</h3>
+                    </td>
+                    <td class="center bg-td" style="width: 50%;">
+                      <h3 class="ps-eform-title">យោបល់ ប្រធាននាយកដ្ឋាន</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: baseline!important;" class="pd-12">
+                      <div class="item-box-new">
+                        <div class="itm-title-box">
+                          <div class="sub-txt-title">សូមគោរពជូន</div>
+                        </div>
+                        <div class="sub-txt indent-22">
+                          លោកប្រធាននាយកដ្ឋានកិច្ចការថ្កោលទោស ឈ្មោះអ្នកស្នើសុំព្រឹត្តិបត្រថ្កោលទោស
+                          ដែលមានឈ្មោះក្នុងបញ្ជី
+                          លេខរៀង៖ <strong>{{store?.selectedGroupDoc?.name | khmerNumber}}
+                            ចុះថ្ងៃទី {{store?.selectedGroupDoc?.release_date?.toDate()| dateDayKh}} ខែ
+                            {{store?.selectedGroupDoc?.release_date?.toDate()| dateMonthKh}} ឆ្នាំ
+                            {{store?.selectedGroupDoc?.release_date?.toDate()| dateYearKh}}
+                            ({{store?.selectedGroupDoc?.period_process_document?.name}})</strong>
+
+                          ដោយបានពិនិត្យក្នុងបញ្ជីថ្កោលទោសឈ្មោះទាំងនេះ ពុំមានកំណត់ត្រាចុះក្នុងបញ្ជីថ្កោលទោស
+                          របស់ក្រសួងយុត្តិធម៌ឡើយ។
+
+                        </div>
+
+                        <div class="itm-box-sign text-center">
+                          <h4 class="itm-sign-date">
+                            ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                            <span style="min-width: 40px;"></span> ឆ្នាំ
+                            <span style="min-width: 80px;">{{yearNumber | khmerNumber}}</span>
+                          </h4>
+                          <div class="itm-sign-box">
+
+                          </div>
+                          <div class="itm-name">
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </td>
+                    <td class="pd-12">
+                      <h3 class="sub-txt-title">
+                        បានឃើញ & ឯកភាពតាមមិតិមន្រីជំនាញ
+                      </h3>
+                      <p class="sub-txt indent-22">
+                        ដោយបានពិនិត្យបញ្ជីឈ្មោះ អ្នកសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣
+                        ដែលមានឈ្មោះក្នុងបញ្ជីលេខរៀង៖
+                        <strong>{{store?.selectedGroupDoc?.name | khmerNumber}}
+                          ចុះថ្ងៃទី {{store?.selectedGroupDoc?.release_date?.toDate()| dateDayKh}} ខែ
+                          {{store?.selectedGroupDoc?.release_date?.toDate()| dateMonthKh}} ឆ្នាំ
+                          {{store?.selectedGroupDoc?.release_date?.toDate()| dateYearKh}}
+                          ({{store?.selectedGroupDoc?.period_process_document?.name}})</strong>
+                        <br />
+                      </p>
+                      <p class="sub-txt indent-22">
+                        <strong>
+                          បញ្ជាក់ថា:
+                        </strong> ពុំមានកំណត់ត្រាថ្តន្ធាទោស ដែលត្រូវចុះក្នុងបញ្ជីថ្កោលទោសតម្កល់
+                        របស់ក្រសួងយុត្តិធម៌ឡើយ។
+                        <br />
+                      </p>
+                      <p class="sub-txt indent-22">
+                        សូមឯកឧត្តម អគ្គនាយក មេត្តាពិនិត្យនិង សំរេច។
+                      </p>
+                      <div class="itm-box-sign text-center">
+                        <h4 class="itm-sign-date">
+                          ថ្ងៃទី <span style="min-width: 40px;">{{signature2?.approved_at?.toDate()| dateDayKh}}</span>
+                          ខែ
+                          <span style="min-width: 40px;">{{signature2?.approved_at?.toDate()| dateMonthKh}}</span> ឆ្នាំ
+                          <span style="min-width: 80px;">{{signature2?.approved_at ? (signature2?.approved_at?.toDate()|
+                            dateYearKh) : (yearNumber | khmerNumber)}}</span>
+                        </h4>
+                        <div class="itm-sign-box" style="margin-right: 55px;">
+                          <img *ngIf="signature2?.default_signatureFile?.downloadUrl"
+                            [src]="signature2?.default_signatureFile?.downloadUrl" alt="img" style="width: 128px;">
+                        </div>
+                        <div class="itm-name">
+                          <img *ngIf="signature2?.default_stampFile?.downloadUrl"
+                            [src]="signature2?.default_stampFile?.downloadUrl" alt="img" style="width: 128px;">
+                        </div>
+                        <div style="height: 70px;"
+                          *ngIf="!signature2?.default_signatureFile?.downloadUrl && !signature2?.default_stampFile?.downloadUrl">
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="center bg-td" colspan="2">
+                      <h3 class="ps-eform-title">យោបល់ ឯកឧត្តមអគ្គនាយក</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="pd-12">
+                      <div class="itm-bg-box">
+                        <h3 class="itm-txt">
+                          បានឃើញ & ឯកភាពយោបល់មន្ត្រីជំនាញ
+                        </h3>
+                        <h3 class="itm-txt">
+                          សូមគោរពជូន <span class="font-title">ឯកឧត្តមរដ្ឋលេខាធិការ ទទួលបន្ទុក</span>
+                        </h3>
+                        <h3 class="itm-txt">
+                          មេត្តាពិនិត្យ និងសម្រេចដ៏ខ្ពង់ខ្ពស់ ។
+                        </h3>
+                        <h4 class="itm-sign-date">
+                          ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                          <span style="min-width: 40px;"></span> ឆ្នាំ
+                          <span style="min-width: 80px;">{{yearNumber | khmerNumber}}</span>
+                        </h4>
+                        <div style="height: 100px;"
+                          *ngIf="!signature4?.default_signatureFile?.downloadUrl && !signature4?.default_stampFile?.downloadUrl">
+                        </div>
+                        <img *ngIf="signature4?.default_signatureFile?.downloadUrl"
+                          [src]="signature4?.default_signatureFile?.downloadUrl" alt="img" style="width: 128px;">
+                        <img *ngIf="signature4?.default_stampFile?.downloadUrl"
+                          [src]="signature4?.default_stampFile?.downloadUrl" alt="img" style="width: 128px;">
+                        <br />
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="center bg-td" colspan="2">
+                      <h3 class="ps-eform-title">ជ. ឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</h3>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="pd-12">
+                      <div class="itm-bg-box">
+                        <h3 class="itm-txt">
+                          បានឃើញ និងឯកភាព
+                        </h3>
+                        <h3 class="itm-txt">
+                          <span class="font-title">រដ្ឋលេខាធិការទទួលបន្ទុក</span>
+                        </h3>
+                        <h4 class="itm-sign-date">
+                          ថ្ងៃទី <span style="min-width: 40px;"></span> ខែ
+                          <span style="min-width: 40px;"></span> ឆ្នាំ
+                          <span style="min-width: 80px;">{{yearNumber | khmerNumber}}</span>
+                        </h4>
+                        <div style="height: 100px;"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->

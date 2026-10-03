@@ -1,0 +1,15 @@
+.charbar {
+//   position: absolute;
+  z-index: 9999;
+
+  .charContent {
+    background-color: #ffffff;
+    width: 388px;
+    padding: 32px;
+    border: 1px solid #fafafa;
+    box-shadow: -5px 7px 12px rgba(0, 0, 0, 0.1);
+    .mat-drawer-content {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,288 @@
+$extra-small-breakpoint-width: 720px;
+$small-breakpoint-width: 959px;
+$content-padding-side: 70px;
+
+$content-padding-side-xs: 15px;
+$appFont: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif,'auxswot-bold', "Battambang","Khmer OS Battambang", "Kh Siemreap";
+$appFontTitle: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",Roboto, Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif, cursive,"Moul", "Khmer OS Moul", "Battambang", "Khmer OS Battambang";
+$googleFontTitle: "Google Sans",system-ui, -apple-system, BlinkMacSystemFont, '.SFNSText-Regular',Roboto,Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif,'Moul','Siemreap', 'Battambang','khmer_os_muol_lightregular', cursive;
+
+
+$lightText: #202124;
+$subtitle:#65676b;
+$lightBorder:#dfe1e5;
+$lightDivider: #ced0d4;
+$lightBackground: #EFF2F5;
+$lightInput:#eff2f5;
+$light: #fff;
+$lightShadow1: rgba(0, 0, 0, 0.1);
+$placeholder:#65676b;
+$btnBg: #e4e6eb;
+$svg:#5f6368;
+$btnDisabled: #012d2d;
+$lightShadow: 0 12px 28px 0 rgba(0,0,0, 0.2),0 2px 4px 0 rgba(0,0,0, 0.1),inset 0 0 0 1px rgba(255,255,255, .5);
+$boxShadow: 0 1px 2px rgba(0,0,0, 0.2);
+$borderRadius:max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
+
+$link: #008060;
+$primary: #008060;
+$shadowPrimary: #00806098;
+$fill:#e4e6eb;
+$warning: #D71C3B;
+$success:#05a357;
+$btnDisabled:#064A49;
+$headerHight: 69px;
+$size8: 8px;
+$size16: 16px;
+$text:#202124;
+
+
+
+.site-nav-container {
+    display: flex;
+    flex-direction: row;
+    font-family: inherit;
+    &.add-container {
+      position: fixed;
+      top: $headerHight;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 2;
+      overflow: hidden;
+      &.z4{
+        z-index: 4;
+      }
+      .site-nav {
+        background-color: $light;
+        .nav-bar {
+          display: flex;
+          flex-direction: column;
+          .boxSearchRecent{
+            display: flex;
+            flex-direction: column;
+          }
+          .recentItem{
+            flex: 1;
+            overflow-y: auto;
+          }
+        }
+      }
+    }
+    .site-nav {
+      flex: 0 0 360px;
+      position: relative;
+      .nav-bar {
+        background-color: $light;
+        height: calc(100vh - 69px);
+      }
+    }
+    .site-container {
+      position: relative;
+      flex: 0 1 auto;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      height: calc(100vh - 69px);
+      overflow: auto;
+      .postop{
+        position: relative;
+        bottom: 8px;
+        width: 100%;
+      }
+      .siteContainerCenter{
+  
+      }
+    }
+  }
+
+
+
+  .overSide {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .overBLockListAllStore {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      .st-list {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+      .oBLASMain {
+        margin-top: 16px;
+        font-size: 1rem;
+        padding: $size8 $size8;
+        border-radius: $size8;
+        font-weight: 600;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+        text-decoration: none;
+        color: $lightText;
+        &.active{
+          background-color: #eff2f5;
+          .oBLASMainL {
+            background-color: #008060;
+            .mat-icon {
+              color: #eff2f5;
+            }
+          }
+        }
+        .mat-button-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex: 1;
+          .oBLASMainR {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        .oBLASMainL {
+          margin-right: $size8;
+          padding: 6px;
+          background-color: #eff2f5;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 38px;
+          height: 38px;
+          color: $text;
+          .mat-icon {
+            color: $text;
+            font-size: 20px;
+            position: relative;
+          }
+        }
+        .oBLASMainM {
+          flex: 1;
+          display: flex;
+          align-items: center;
+        }
+      }
+      .oBLASSub {
+        display: flex;
+        flex-direction: column;
+        padding: 0 $size8 $size8 $size8;
+        .oBLASSubBox {
+          padding: $size8;
+          border-radius: $size8;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          margin-bottom: $size8;
+          .oBLASSubBoxIcon {
+            margin-right: $size8;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            img {
+              width: auto;
+              height: 24px;
+              border-radius: 50%;
+            }
+          }
+        }
+        .oBLASSubBox:hover {
+          background-color: #f2f2f2;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .oBLASMBCreate {
+    &.mat-button {
+      cursor: pointer;
+      font-size: 15px;
+      padding: $size8 $size8;
+      border-radius: $size8;
+      background-color: #008060;
+      font-weight: 500;
+      display: flex;
+      text-decoration: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      line-height: normal;
+      .mat-button-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .mat-icon {
+        margin-right: $size8;
+      }
+    }
+  }
+  .divider {
+    margin-top: 16px;
+  }
+
+
+.scb9dxdrList {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    .scb9dxdrBox {
+      font-size: 1rem;
+      padding: $size8 $size8;
+      border-radius: $size8;
+      font-weight: 600;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      .mat-button-wrapper {
+        flex-direction: row;
+        align-items: center;
+        display: flex;
+        flex: 1;
+        justify-content: flex-start;
+        text-align: left;
+        .mat-icon{
+          font-size: 24px;
+        }
+      }
+      .boxIcon {
+        margin-right: $size8;
+        padding: 6px;
+        background-color: #e3e6ea;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .mat-icon{
+          color: #000;
+          font-size: 26px;
+        }
+      }
+      .boxTxt {
+        color: $text;
+        font-weight: 500;
+        font-size: 15px;
+        flex: 1;
+      }
+    }
+    .scb9dxdrBox:hover{
+        background-color: #f2f2f2;
+        border-radius: 8px;
+    }
+  }

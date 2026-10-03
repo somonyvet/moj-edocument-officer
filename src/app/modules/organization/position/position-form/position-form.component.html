@@ -1,0 +1,50 @@
+<form [formGroup]="form" class="dialog-content-wrapper">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>{{title}}</h2>
+        <div class="space1"></div>
+        <div mat-button mat-icon-button (click)="dialogRef.close()">
+            <mat-icon class="mat-18">clear</mat-icon>
+        </div>
+    </div>
+    <mat-dialog-content class="form-wrapper">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>លេខកម្រិត</mat-label>
+                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="order" type="number" required matInput
+                    placeholder="លេខកម្រិត">
+                <mat-error *ngIf="form.controls['order'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['order'].hasError('nameAvailable')" class="error-message">
+                    លេខកម្រិតគ្រប់គ្រងនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះ</mat-label>
+                <input  formControlName="name" required matInput placeholder="ឈ្មោះ">
+                <mat-error *ngIf="form.controls['name'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+                <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
+                    ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>ឈ្មោះជាភាសាអង់គ្លេស</mat-label>
+                <input formControlName="name_en" matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
+                <mat-error *ngIf="form.controls['name_en'].hasError('required')">
+                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div class="flex1"></div>
+        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+</form>

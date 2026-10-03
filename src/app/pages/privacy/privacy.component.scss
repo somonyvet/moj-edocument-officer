@@ -1,0 +1,28 @@
+@import '../../../assets/styles/variable.scss';
+
+
+.pri-content{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
+  line-height: normal;
+  .content-item{
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.pri-head{
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  // font-family: $app-font;
+  h3{
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+
+
+}

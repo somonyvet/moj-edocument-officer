@@ -1,0 +1,17 @@
+<div class="loading-conatiner">
+  <ng-container *ngFor="let i of dummyArr">
+    <div class="loadingSkeletonTemplate">
+      <div class="left">
+        <ngx-skeleton-loader [theme]="{height:'65px',width:'65px'}" count="1" appearance="circle"></ngx-skeleton-loader>
+      </div>
+      <div class="right">
+        <div class="w-90">
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height:'16px'}"></ngx-skeleton-loader>
+        </div>
+        <div class="w-20">
+          <ngx-skeleton-loader count="1" appearance="line" [theme]="{height:'14px'}"></ngx-skeleton-loader>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

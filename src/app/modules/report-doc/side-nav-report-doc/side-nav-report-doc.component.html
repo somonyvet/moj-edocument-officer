@@ -1,0 +1,47 @@
+<div class="navigation exp-doc">
+  <div class="ac-ln-background"></div>
+  <div class="sticky-content">
+    <!-- <ul class="navigation-menu nav-exp" style="margin-bottom: 16px;">
+      <li class="navigation-menu-item">
+        <a class="m-content" [routerLink]="['/apps/templates']" routerLinkActive="active">
+          <mat-icon>pending_actions</mat-icon>
+          <span class="m-text">
+            គំរូ និងចរន្តឯកសារ
+          </span>
+        </a>
+      </li>
+    </ul> -->
+    <div class="sdivider" style="margin: 0px;"></div>
+    <mat-accordion class="mat-nav-bar">
+      <ng-container>
+        <mat-expansion-panel [expanded]="expansions.one" (closed)="onClosed(1)" (opened)="onOpened(1)">
+          <mat-expansion-panel-header collapsedHeight="58" expandedHeight="68" [class.active]="expansions.one">
+            <mat-panel-title>
+              <strong>របាយការណ៍</strong>
+            </mat-panel-title>
+            <mat-panel-description *ngIf="!expansions.one">
+              ...
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul class="navigation-menu" style="padding: 0;">
+            <li class="navigation-menu-item" *ngFor="let item of reportApplications">
+              <div class="m-content" [routerLink]="[item?.path]" routerLinkActive="active">
+                <span class="m-text">
+                  {{item?.title_kh}}
+                </span>
+              </div>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </ng-container>
+
+    </mat-accordion>
+  </div>
+</div>
+
+<!-- main-dashboard-a -->
+<main class="main-dashboard">
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</main>

@@ -1,0 +1,23 @@
+<div class="page-container" *mobxAutorun>
+  <!-- <div class="action-bar">
+    <div class="nav-content">
+      <div>
+        ចំណារឯកភាព
+      </div>
+     
+    </div>
+  </div> -->
+
+  <div class="page-doc" [formGroup]="form">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="យកពីថត" [disabled]="remarkWrited">
+        <app-select-approval-note [remarkFile]="remarkFile" [stamp_link]="STAMP_URL" (selected_stamp)="onSelectedStampFile($event)">
+        </app-select-approval-note>
+      </mat-tab>
+      <mat-tab [disabled]="fileSelected" label="សរសេរចំណារ">
+        <app-writting-approval-note [compareWithObj]="compareWithObj" [uid]="uid" [remarkOfficer]="remarkOfficer"
+          (outputRemark)="selectedRemark($event)" [remarkText]="remarkText"></app-writting-approval-note>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

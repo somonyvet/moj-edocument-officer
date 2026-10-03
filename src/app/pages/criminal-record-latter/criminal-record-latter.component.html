@@ -1,0 +1,169 @@
+<app-criminal-record-latter-head></app-criminal-record-latter-head>
+<router-outlet></router-outlet>
+<!-- <div class="app-body">
+    <div class="app-content-noti-box">
+
+    </div>
+    <span class="app-txt-title">
+        <strong>
+            {{vTitlefirstTop}}
+        </strong>
+        <span>{{vSubTitlefirstTop}}</span>
+
+    </span>
+
+    <div class="app-tab-lan">
+        <div class="tabs-lan">
+            <ng-container *ngFor="let item of LANGAUGE_BUTTON">
+                <button mat-button [class]="vAppName == item?.key_lang ?'active': ''"
+                    (click)="checkActive(item?.key)">{{ vAppName == 'en'? item?.en_name : vAppName == 'kh' ?
+                    item?.kh_name : vAppName == 'fr' ? item?.fr_name : '' }}</button>
+            </ng-container>
+
+        </div>
+    </div>
+    <div class="main-section">
+        <div class="app-section">
+            <div class="app-main-card" [class]="vAppName == 'kh'? 'activeSlideup':''">
+                <div class="app-card-left">
+                    <div class="media">
+                        <div class="media-mini">ច្រើនឧបករណ៍</div>
+                        <span class="media-title">
+                            អ្នកប្រើប្រាស់អាចនៅលើ<br>
+                            អេក្រង់គ្រប់ប្រភេទ
+                        </span>
+                        <span class="media-sub-title">
+                            យើងបានដាក់ទៅឧបករណ៍ជាច្រើនពីមូលដ្ឋានកូដតែមួយ៖ <br>
+                            ទូរសព្ទចល័ត គេហទំព័រ កុំព្យូទ័រលើតុ និងឧបករណ៍ដែលបានបង្កប់។
+                        </span>
+                        <button mat-button class="app-btn-scroll-top" mat-button (click)="onScroll(0)">
+                            {{vFrisBtnLoginForm}}
+                        </button>
+                    </div>
+                </div>
+                <div class="app-card-right">
+                    <img [src]="vFirstImagePath" alt="" class="app-media">
+                </div>
+            </div>
+            <div class="app-main-card" [class]="vAppName == 'en'? 'activeSlideup':''">
+                <div class="app-card-left">
+                    <div class="media">
+                        <div class="media-mini">Muti Device</div>
+                        <span class="media-title" [class]="vAppName == 'en'? 'lh12':''">
+                            Reach users on<br>
+                            every screen
+                        </span>
+                        <span class="media-sub-title">
+                            Deploy to multiple devices from a single codebase:<br>
+                            mobile, web, desktop, and embedded devices.
+                        </span>
+                        <button mat-button class="app-btn-scroll-top" mat-button (click)="onScroll(0)">
+                            Click here to login system
+                        </button>
+                    </div>
+                </div>
+                <div class="app-card-right">
+                    <img [src]="vFirstImagePath" alt="" class="app-media">
+                </div>
+            </div>
+
+        </div>
+        <svg class="curve-container__curve curve-five" viewBox="10 -20 1870 210" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <path class="plain fill-" fill="#eeeeee" d="M977.9,76.2 C475.2,-17.4 0.2,132.5 0.2,132.5 L0.2,275.5 L1891.3,275.5 L1891.3,0.7 C1891.3,0.7 1480.6,169.8 977.9,76.2 Z" id="Path"></path> </svg>
+        <div id="mrz" class="app-data-protection reveal">
+            <div class="app-main-max-width">
+                <ng-container *ngFor="let item of LISTC_MRZ">
+                    <div class="app-pro-left">
+                        <img [src]="item?.url" alt="" class="pro-image">
+                    </div>
+                    <div class="app-pro-right">
+                        <h4 class="pro-mini-txt">{{item?.sub_title}}</h4>
+                        <span class="pro-title">
+                            {{item?.en_name}}
+                        </span>
+                        <div class="pro-sub-title">
+                            {{item?.des}}
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+        </div>
+
+        <div class="app-data-listc">
+            <div class="app-main-max-width app-f">
+                <div class="per-card" *ngFor="let item of LISTC_CARD">
+                    <div class="data-ai-top">
+                        <div class="data-icon">
+                            <img [src]="item?.icon" alt="" class="lic">
+                        </div>
+                        <div class="data-ai-title">
+                            {{item?.text}}
+                        </div>
+                    </div>
+                    <div class="data-ai-bottom">
+                        {{item?.discription}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="app-data-tutorial">
+            <div class="app-main-max-width tu-col">
+                <div class="tu-title">
+                    {{vTitleTor}}
+                </div>
+                <div class="tu-sub-title">
+                    {{vSubTitleTor}}
+                </div>
+                <div class="tu-swaper">
+                    <div class="tu-sub-left">
+                        <ul>
+                            <li>A</li>
+                            <li>B</li>
+                            <li>C</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="app-data-qa">
+            <div class="app-main-max-width tu-col">
+                <h1 class="qa-title">
+                    សំណួរ​ដែលសួរញឹកញាប់
+                </h1>
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle *ngFor="let item of LISTC_QA">
+                        <mat-expansion-panel-header [collapsedHeight]="'80px'" [expandedHeight]="'80px'">
+                            <mat-panel-title>
+                                <h2 class="qa-title-col">
+                                    {{item?.title}}
+                                </h2>
+                            </mat-panel-title>
+                            <div class="icon-end">
+                                <mat-icon>{{item?.icon}}</mat-icon>
+                            </div>
+                        </mat-expansion-panel-header>
+                        <span class="qa-sub-title">
+                            {{item?.discription}}
+                        </span>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+            </div>
+        </div>
+
+
+        <div class="app-footer">
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div> -->

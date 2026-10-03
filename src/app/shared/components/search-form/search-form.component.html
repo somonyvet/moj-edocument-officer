@@ -1,0 +1,83 @@
+<!-- <div class="dialog-wrapper">
+    <div class="dialog-header">
+        <div class="title">
+            Filter
+        </div>
+        <div class="flex1"></div>
+        <a mat-dialog-close class="close-dialog" (click)="onClose()">
+            <i class="material-icons">&#xE14C;</i>
+        </a>
+    </div>
+    
+<div class="search-form">
+    <mat-list role="list" class="file-info-detail">
+        <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Item name</div>
+            <div class="detail-item">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Enter a file name" >
+                  </mat-form-field>
+            </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">File types</div>
+            <div class="detail-item">
+                <mat-form-field>
+                    <mat-label>File types</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let filetype of fileType_list" [value]="filetype.key">
+                            {{filetype.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-list-item>
+
+        <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Date modified</div>
+            <div class="detail-item">
+                <mat-form-field>
+                    <mat-label>Date modified</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of dateModified_list" [value]="food.key">
+                            {{food.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Owned by</div>
+            <div class="detail-item">
+                <mat-form-field>
+                    <mat-label>Owned by</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of fileOwner_list" [value]="food.key">
+                            {{food.text}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-list-item>
+        <mat-divider style="margin-bottom: 24px;"></mat-divider>
+        <div class="search-footer">
+            <button mat-dialog-close type="button" class="enbutton cancel m-r16" mat-button
+            (click)="onClose()">Cancel</button>
+            <app-primary-button (onPress)="onSave(form.value,true)" 
+            [process]="processNew"
+                label="Search">
+            </app-primary-button>
+        </div>
+    </mat-list>
+</div>
+    <div class="dialog-footer">
+        <div class="flex-1"></div>
+        <button mat-dialog-close type="button" class="enbutton cancel m-r16" mat-button
+            (click)="onClose()">Cancel</button>
+        <button type="submit" class="enbutton delete-btn" mat-raised-button (click)="dialogRef.close('yes')"
+            color="warn">{{msg?.button?msg?.button:'Delete Forever'}}</button>
+    </div>
+</div>
+
+
+ -->

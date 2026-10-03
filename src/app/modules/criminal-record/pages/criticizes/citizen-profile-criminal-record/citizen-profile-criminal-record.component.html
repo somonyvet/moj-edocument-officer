@@ -1,0 +1,17 @@
+<div class="full-page-container">
+    <div class="header">
+        <div class="wrapper">
+            <nav mat-tab-nav-bar class="fire-tabs flex1">
+                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                    #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+            </nav>
+            <app-primary-button (onPress)="onPrint()" label="បោះពុម្ព">
+            </app-primary-button>
+            <app-primary-button (onPress)="_onSubmit()" label="បញ្ចូលសង្ខេបសាច់រឿង" [disable]="!store?.selectedCriminalRecord && loading">
+            </app-primary-button>
+        </div>
+    </div>
+    <div class="body">
+        <router-outlet *ngIf="!loading"></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="print-wrapper no-shadow p-0" *mobxAutorun [formGroup]="form">
+    <div class="row-header">
+        <div class="title">
+            QR បានផ្ដល់ស្នាមម្រាមដៃ និងឯកសារ
+        </div>
+        <div class="btn-print">
+            <button mat-icon-button (click)="print()" class="print-btn"><i class="material-icons">&#xE8AD;</i></button>
+        </div>
+        <div class="close-btn-report ml-5" (click)="dialogRef.close('yes')">
+            <i class="material-icons">&#xE14C;</i>
+        </div>
+    </div>
+
+    <div class="row-body p-header p-short" id="printDD">
+
+        <div class="c-header tc">
+            <div class="c-h-item mt m-w">
+                <p>ក្រសួងយុត្តិធម៌</p>
+                <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+            </div>
+        </div>
+
+        <table class="qr-info-pr">
+            <tr>
+                <td class="tlt">
+                    <span>ឈ្មោះ</span>
+                </td>
+                <td class="has-border-bottom">
+                    <div class=""> {{(selectionDoc?.last_name||'')}} {{(selectionDoc?.first_name||'')}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tlt">
+                    <span>លេខទូរស័ព្ទ</span>
+                </td>
+                <td class="has-border-bottom">
+                    <div class=""> {{selectionDoc?.phoneNumber}}</div>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+          <span>{{data?.selectedCriminalRecord?.urgent_obj?.name}}{{ (data?.selectedCriminalRecord?.criminal_language?.length>1) ? ', បកប្រែ':'' }}</span>
+        </div>
+
+        <div class="c-note dfe" style="position:relative">
+          <div class="abs-no" style="position: absolute!important;
+          right: 40px!important;
+          bottom: 40px!important;
+          font-size: 22px!important;">
+            <span>{{data?.selectedCriminalRecord?.criminal_payment_no}}</span>
+          </div>
+            <ng-container *ngIf="selectionDoc?.key">
+                <ngx-kjua [text]="selectionDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+                    [minVersion]="1" [ecLevel]="'H'" [size]="100" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+                    [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'"
+                    [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+                </ngx-kjua>
+            </ng-container>
+        </div>
+    </div>
+</div>

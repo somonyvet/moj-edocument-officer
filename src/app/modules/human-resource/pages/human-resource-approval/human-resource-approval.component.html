@@ -1,0 +1,143 @@
+<div class="dialog-content-wrapper" [formGroup]="form">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>មុខងារតួនាទី</h2>
+    <div class="space1"></div>
+    <div mat-button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </div>
+  </div>
+  <div class="form-wrapper">
+    <div class="workplace-memo memo-container">
+      <div class="officer-card">
+        <div class="profile-container">
+          <div class="img-container">
+            <ng-container *ngIf="data?.item?.photo?.downloadUrl">
+              <img [src]="data?.item?.photo?.downloadUrl">
+            </ng-container>
+          </div>
+        </div>
+        <div class="detail-container">
+          <div class="title">
+            <h3>
+              ព័ត៌មានមន្រ្តី
+            </h3>
+          </div>
+          <table>
+              <tr>
+                <td style="width:100px">- ឈ្មោះ</td>
+                <td> : {{hr?.selectedOfficer?.last_name + ' ' + hr?.selectedOfficer?.first_name}}</td>
+              </tr>
+              <tr>
+                <td>- អត្តលេខមន្ត្រី</td>
+                <td> : {{hr?.selectedOfficer?.officerId}}</td>
+
+              </tr>
+              <tr>
+                <td>- ឋានន្តរសក្តិ</td>
+                <td> : {{hr?.selectedOfficer?.positionForm?.name}}</td>
+              </tr>
+              <tr>
+                <td>- មុខតំណែង</td>
+                <td> : {{hr?.selectedOfficer?.rank?.name}}</td>
+              </tr>
+          </table>
+          <!-- <div class="item">
+            <span>
+              - ឈ្មោះ: {{hr?.selectedOfficer?.last_name + ' ' + hr?.selectedOfficer?.first_name}}
+            </span>
+          </div>
+          <div class="item">
+            <span>
+              - អត្តលេខមន្ត្រី: {{hr?.selectedOfficer?.officerId}}
+            </span>
+          </div>
+          <div class="item">
+            <span>
+              - ឋានន្តរសក្តិ: {{hr?.selectedOfficer?.positionForm}}
+            </span>
+          </div>
+          <div class="item">
+            <span>
+              - មុខតំណែង: {{hr?.selectedOfficer?.rank}}
+            </span>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="workplace-memo memo-container">
+      <div class="wrapper" style="align-items: center">
+        <mat-icon>star</mat-icon>
+        <span>
+          សូមបញ្ចូលព័ត៌មានមុខងារតួនាទីជាមុនសិន។
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>មុខងារតួនាទី</mat-label>
+        <input [matAutocomplete]="autoCompleteRole" formControlName="position" matInput placeholder="មុខងារតួនាទី">
+
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRole="matAutocomplete">
+          <mat-option *ngFor="let item of filterPosition | async;let i=index" [value]="item">
+                <span>{{item?.name}}</span>
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.controls['position'].hasError('required')">
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+        <mat-error class="error-message" *ngIf="form.controls['position'].hasError('validKey')">
+          <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-tree #treeProject class="nav-tree" [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="!loading">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <button mat-button type="button" mat-icon-button disabled></button>
+          <a mat-button mat-icon-button class="mat-add-link" (click)="addItem(node?.item,form?.value)">
+            <span class="material-icons" [ngClass]="(Office|validData:'key':node?.item?.key)?'rm':'ra'">
+              {{(Office|validData:'key':Office:node?.item?.key)?'remove_circle':'add_circle'}}
+            </span>
+          </a>
+          <a class="nav-tree-text">
+            <span>{{node.item?.name}}</span>
+          </a>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <a mat-button type="button" mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </a>
+          <a mat-button mat-icon-button class="mat-add-link" (click)="addItem(node?.item,form?.value)">
+            <span class="material-icons" [ngClass]="(Office|validData:'key':node?.item?.key)?'rm':'ra'">
+              {{(Office|validData:'key':Office:node?.item?.key)?'remove_circle':'add_circle'}}
+            </span>
+          </a>
+          <a class="nav-tree-text">
+            <span>{{node.item?.name}}</span>
+          </a>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+
+
+    <div class="wp-pos-container">
+      <div class="wp-pos-item" *ngFor="let item of selectedItem">
+        <div>
+          {{item?.workplace?.name}} . {{item?.position?.name}}
+        </div>
+        <a mat-button mat-icon-button class="action-delete" (click)="unSelectedWorkplace(item)">
+          <ion-icon name="close"></ion-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn p-btn">បោះបង់</a>
+    <app-primary-button label="រក្សាទុក" (onPress)="_onSave(form.value)" [process]="process" [disable]="process">
+    </app-primary-button>
+  </mat-dialog-actions>
+</div>

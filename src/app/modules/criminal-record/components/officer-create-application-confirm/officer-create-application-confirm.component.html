@@ -1,0 +1,203 @@
+<div class="apply-form-page offi confirm-page">
+  <div class="eform small confirm-card" [formGroup]="form">
+    <div class="header-ef confirm-header">
+      <div class="confirm-header-icon">
+        <mat-icon>fact_check</mat-icon>
+      </div>
+      <div class="confirm-header-text">
+        <h2>{{(auth?.dataEntryOnly?'ដាក់':'ទទួល')}}ពាក្យស្នើសុំព្រឹត្តិបត្រថ្កោលទោស</h2>
+        <p>លោកអ្នកត្រូវតែត្រួតពិនិត្យ លើព័ត៌មានសំណើសុំព្រឹត្តិបត្រ ប្រវត្តិរូបសង្ខេប
+          និងឯកសារភ្ជាប់មកជាមួយអោយបានត្រឹមត្រូវ។</p>
+      </div>
+      <!-- <div class="lottie-box">
+        <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+      </div> -->
+    </div>
+
+    <div class="confirm-body">
+
+      <label class="student-toggle" [class.checked]="form?.value?.isStudent">
+        <mat-checkbox formControlName="isStudent"></mat-checkbox>
+        <div class="student-toggle-text">
+          <strong>ជាសិស្ស/និស្សិត</strong>
+          <span>(សូមគ្រីសនៅលើប្រអប់នេះចំពោះព្រឹត្តិបត្រថ្កោលទោសស្នើដោយ សិស្ស ឬនិស្សិត)</span>
+        </div>
+      </label>
+
+      <div class="section">
+        <div class="txt-label"><mat-icon class="lbl-icon">checklist</mat-icon>លក្ខខណ្ឌត្រូវពិនិត្យ</div>
+        <div class="status-grid">
+          <div class="status-card" [ngClass]="!criminalStore?.selectedCriminalRecord?'error':'done'">
+            <mat-icon>{{!criminalStore?.selectedCriminalRecord?'cancel':'task_alt'}}</mat-icon>
+            <span>សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</span>
+          </div>
+          <div class="status-card" [ngClass]="!criminalStore?.selectedCitizenProfile?'error':'done'">
+            <mat-icon>{{!criminalStore?.selectedCitizenProfile?'cancel':'task_alt'}}</mat-icon>
+            <span>ប្រវត្តិរូបសង្ខេប</span>
+          </div>
+          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_status?.key === 2;else AttachmentNeed">
+            <div class="status-card done">
+              <mat-icon>task_alt</mat-icon>
+              <span>បញ្ជូនឯកសារដើមមកទីកន្លែងផ្ទាល់</span>
+            </div>
+          </ng-container>
+          <ng-template #AttachmentNeed>
+            <div class="status-card" [ngClass]="incomplete_attachment?'error':'done'">
+              <mat-icon>{{incomplete_attachment?'cancel':'task_alt'}}</mat-icon>
+              <span>ឯកសារភ្ជាប់មកជាមួយ</span>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_status?.key === 2;else RequiredAttachmentTemplate">
+
+      </ng-container>
+
+      <ng-template #RequiredAttachmentTemplate>
+        <div class="section">
+          <div class="txt-label"><mat-icon class="lbl-icon">attach_file</mat-icon>ឯកសារភ្ជាប់មកជាមួយ</div>
+          <div class="attachment-grid">
+            <div class="attachment-chip" *ngFor="let item of DOCUMENT_ATTACHMENT_TYPES" [class.done]="item?.completed">
+              <ion-icon [name]="item?.completed?'checkmark-outline':'close-outline'"></ion-icon>
+              <span>{{item?.name}}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="section">
+        <div class="txt-label"><mat-icon class="lbl-icon">bolt</mat-icon>កម្រិតបន្ទាន់</div>
+        <mat-radio-group aria-label="Select an option" class="urgency-group" formControlName="urgent_obj">
+          <mat-radio-button class="urgency-card" [value]="item"
+            [checked]="item?.key===(criminalStore?.selectedCriminalRecord?.urgent_obj?.key || auth?.profile?.criminal_application?.duration?.key )"
+            *ngFor="let item of URGENT_OBJ_ARRAY">
+            {{item?.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="section">
+        <div class="txt-label"><mat-icon class="lbl-icon">translate</mat-icon>ភាសា និងចំនួនច្បាប់</div>
+
+        <div class="lang-list">
+          <div class="lang-card active locked">
+            <div class="lang-row">
+              <div class="lang-title">
+                <img class="lang-flag" src="/assets/logo/cambodia_flag.svg" alt="ភាសាខ្មែរ">
+                <mat-slide-toggle formControlName="khmer_form" color="primary"></mat-slide-toggle>
+                <strong>ភាសាខ្មែរ</strong>
+                <span class="badge-required">តម្រូវជាចាំបាច់</span>
+              </div>
+              <div class="amount-row">
+                <span class="amount-label">ចំនួនច្បាប់</span>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', -1)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <input type="number" required formControlName="khmer_amount" class="stepper-input">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', 1)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="field-error" *ngIf="form.controls['khmer_amount'].hasError('required')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+            </div>
+            <div class="field-error" *ngIf="form.controls['khmer_amount'].hasError('min')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+            </div>
+          </div>
+
+          <div class="lang-card" [class.active]="form?.value?.france_form">
+            <div class="lang-row">
+              <div class="lang-title">
+                <img class="lang-flag" src="/assets/logo/france_flag.svg" alt="ភាសាបារាំង">
+                <mat-slide-toggle formControlName="france_form" color="primary"
+                  (change)="onChangeLanguage($event,'france_amount')"></mat-slide-toggle>
+                <strong>ភាសាបារាំង</strong>
+              </div>
+              <div class="amount-row" *ngIf="form?.value?.france_form">
+                <span class="amount-label">ចំនួនច្បាប់</span>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', -1)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <input type="number" required formControlName="france_amount" class="stepper-input">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', 1)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <span class="lang-hint" *ngIf="!form?.value?.france_form">ជ្រើសរើសដើម្បីស្នើសុំច្បាប់ភាសាបារាំង</span>
+            </div>
+            <div class="field-error" *ngIf="form?.value?.france_form && form.controls['france_amount'].hasError('required')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+            </div>
+            <div class="field-error" *ngIf="form?.value?.france_form && form.controls['france_amount'].hasError('min')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+            </div>
+          </div>
+
+          <div class="lang-card" [class.active]="form?.value?.english_form">
+            <div class="lang-row">
+              <div class="lang-title">
+                <img class="lang-flag" src="/assets/logo/english_flag.svg" alt="ភាសាអង់គ្លេស">
+                <mat-slide-toggle formControlName="english_form" color="primary"
+                  (change)="onChangeLanguage($event,'english_amount')"></mat-slide-toggle>
+                <strong>ភាសាអង់គ្លេស</strong>
+              </div>
+              <div class="amount-row" *ngIf="form?.value?.english_form">
+                <span class="amount-label">ចំនួនច្បាប់</span>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', -1)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <input type="number" required formControlName="english_amount" class="stepper-input">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', 1)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <span class="lang-hint" *ngIf="!form?.value?.english_form">ជ្រើសរើសដើម្បីស្នើសុំច្បាប់ភាសាអង់គ្លេស</span>
+            </div>
+            <div class="field-error" *ngIf="form?.value?.english_form && form.controls['english_amount'].hasError('required')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+            </div>
+            <div class="field-error" *ngIf="form?.value?.english_form && form.controls['english_amount'].hasError('min')">
+              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-bar">
+          <mat-icon>summarize</mat-icon>
+          <span>សរុបចំនួនព្រឹត្តិបត្រថ្កោលទោស៖</span>
+          <strong>{{totalCopies}} ច្បាប់</strong>
+        </div>
+      </div>
+
+      <div class="already-applied" *ngIf="criminalStore?.selectedCriminalRecord?.status?.key >= STATUS_OBJ?.APPLY?.key">
+        <mat-icon>task_alt</mat-icon>
+        <p>ពាក្យស្នើសុំព្រឹត្តិបត្រថ្កោលទោសបានដាក់ស្នើរួចរាល់។</p>
+      </div>
+
+    </div>
+
+    <div class="confirm-actions">
+      <div class="flex1"></div>
+      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_status?.key === 2">
+        <app-primary-button css="w100" (onPress)="_onSubmit(form?.value)" [label]="'យល់ព្រម'" [process]="process"
+          [disable]="(criminalStore?.selectedCriminalRecord?.status?.key >= STATUS_OBJ?.APPLY?.key) || !criminalStore?.selectedCriminalRecord || !criminalStore?.selectedCitizenProfile || process || !form?.valid">
+        </app-primary-button>
+      </ng-container>
+      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_status?.key !== 2">
+        <app-primary-button css="w100" (onPress)="_onSubmit(form?.value)" [label]="'យល់ព្រម'" [process]="process"
+          [disable]="(criminalStore?.selectedCriminalRecord?.status?.key >= STATUS_OBJ?.APPLY?.key) || !criminalStore?.selectedCriminalRecord || !criminalStore?.selectedCitizenProfile || incomplete_attachment || process || !form?.valid">
+        </app-primary-button>
+      </ng-container>
+      <!-- [label]="(auth?.dataEntryOnly?'ដាក់':'ទទួល')+'ពាក្យស្នើសុំ'" -->
+    </div>
+  </div>
+</div>

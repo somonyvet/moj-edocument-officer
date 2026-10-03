@@ -1,0 +1,89 @@
+@import "../../../../../assets/styles/variable.scss";
+
+// .sticky-head {
+//     // position: -webkit-sticky;
+//     // position: sticky;
+//     // top: 0;
+// }
+
+.first-table {
+    width: max-content;
+    position: absolute;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    z-index: 1;
+}
+// .second-table {
+// }
+
+.third-table {
+    width: max-content;
+    position: absolute;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    right: 0px;
+    top: 0px;
+
+    .option-button,
+    .card-list-action {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+}
+
+.noRightBorder {
+    border-right: none !important;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.attendance-box {
+    border-right: 1px solid #dfe1e5;
+    margin: 5px;
+}
+
+.text-content {
+    margin: 10px 0;
+}
+
+.print-preview {
+    background-color: $whiteColor;
+    height: 100%;
+}
+
+.action-item {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.center-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-bar {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    margin: 0 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 4px 3px 8px 1px #ededed;
+}
+
+thead {
+    box-shadow: 4px 3px 8px 1px #ededed;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.attendance-box {
+    overflow-x: auto;
+    width: 70px;
+    padding: 2px 36px;
+}

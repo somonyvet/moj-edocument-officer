@@ -1,0 +1,236 @@
+.master-container {
+  display: flex;
+  font-family: $appFont;
+  background-color: $secondary;
+  padding-left: 360px;
+
+  .mas-header {
+    width: 360px;
+    position: fixed;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12);
+    height: calc(100vh - 56px);
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+
+    .mas-cancel {
+      padding: 12px 18px 0;
+      justify-content: flex-end;
+      align-items: flex-end;
+      display: flex;
+
+      .mat-icon-button {
+        opacity: 0.56;
+      }
+    }
+
+    .mas-head {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 24px 6px 0 12px;
+
+      .mat-icon-button {
+        opacity: 0.56;
+      }
+
+      .mas-title {
+        .site-map {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 13px;
+          color: $placeholder;
+          font-family: $appFont;
+          font-weight: normal;
+
+          a {
+            color: $placeholder;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        flex: 1;
+
+        h4 {
+          font-family: $appFont;
+          font-size: 25px;
+          font-weight: 700;
+          margin-top: 3px;
+        }
+      }
+    }
+
+    .mas-head-form {
+      flex: 1;
+      overflow: auto;
+      padding: 18px;
+
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+
+    .mas-footer-form {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 18px;
+      box-shadow: 0 -1px 12px rgba(0, 0, 0, 0.1);
+
+      .mat-button {
+        width: 100%;
+
+        &.mat-default {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+
+  .mas-viewer {
+    width: 1140px;
+    margin: 0 auto;
+    margin-top: 32px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 40px;
+
+    .mas-tools {
+      position: sticky;
+      background-color: #fff;
+      padding: 12px 12px 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      left: 0;
+      right: 0;
+      top: 56px;
+
+      .mat-tool-option {
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+    }
+
+    .mas-tb-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 18px;
+      margin-bottom: 16px;
+
+      .mat-icon-button {
+        background-color: $smoke;
+      }
+    }
+
+    h4 {
+      font-size: 25px;
+      font-weight: 600;
+      font-family: $appFont;
+      padding: 0 18px;
+      margin: 0;
+    }
+
+    .mas-tb {
+      background-color: #fff;
+      padding-top: 30px;
+
+      .as-table-wrapper {
+        box-shadow: none;
+        border-radius: 0;
+
+        .empty-block {
+          margin: 24px;
+        }
+      }
+    }
+  }
+}
+
+.mas-add-new {
+  &.mat-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 12px 28px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    background: linear-gradient(to right, #ff6f00, #ff9100);
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    color: #fff;
+  }
+}
+
+.status {
+  background: #f1c40f;
+  user-select: none;
+  border-radius: 100vw;
+  height: 10px;
+  width: 10px;
+  margin: 0 3px;
+
+  &.disabled {
+    background: #fff3e0;
+    color: #dd2c00;
+  }
+
+  &.active {
+    color: #fff;
+    background: #76d472;
+  }
+
+  &.expired {
+    color: #fff;
+    background: #e64f3e;
+  }
+
+  &.blue {
+    color: rgba(0, 0, 0, 0.9);
+    background: #54c5f8;
+  }
+
+  &.complete {
+    background: #0078d7;
+    color: #fff;
+  }
+
+  &.approve {
+    background: #00c853;
+    color: #fff;
+  }
+
+  &.pending {
+    background: #f1c40f;
+    color: #111;
+  }
+
+  &.green {
+    background: #b4e123;
+    color: #111;
+  }
+
+  &.memo-red {
+    background: #ff7c7c;
+    padding: 3px;
+    border: solid 1px #d65454;
+    min-width: 25px;
+  }
+
+  &.memo-green {
+    background: #b4e123;
+    padding: 3px;
+    border: solid 1px #a8be59;
+    min-width: 25px;
+  }
+}

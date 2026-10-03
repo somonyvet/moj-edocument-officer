@@ -1,0 +1,3148 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "book-documents",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateKey",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "category",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "chatPersonal",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chatToKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "chatPersonal",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chatToKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "citizens",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "current_nationality.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "citizens",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "current_nationality.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "comments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "headerKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "comments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isHeader",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contact_room_chat",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "contactKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "hasChats",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "last_message_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contact_room_chat",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "contactKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "last_message_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contact_room_chat",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "hasChats",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "last_message_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contact_room_chat",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "hasChats",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "last_message_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "application_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "application_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "application_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "urgent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "citizen_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "criminal_record_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "urgent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "urgent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "departmentStatus.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "code",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "departmentStatus.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "departmentStatus.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "code",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "generalDepartment.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "generalDepartment.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ranking.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ranking.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ranking.order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "parent",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "adminOffice",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ranking.order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "department",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ranking.order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documentComments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isHeader",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documentComments",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "accountKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "approvedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organizationRef.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organizationRef.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organizationRef.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ccKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "completedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "completedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "completedByKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "created_by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "created_by",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "department.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "doc_parent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "doc_parent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "office.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "documentNo",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "final",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "final",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "peopleKeys",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "organizationRef.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "final",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "peopleKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "receivedWorkplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_parent",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "final",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_header",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "priority.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "doc_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_template",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "documentNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_template",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workplace.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "documentNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "documents_template",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "documentNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "issueDateKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organization.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "sector.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signer.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "companyKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isFavorite",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "companyKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isParentDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rootLevel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "filename",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "organization.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signer.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "signer.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keywords",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "announcement",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keywords",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keywords",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "shareStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keywords",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "announcement",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "announcement",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rootLevel",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "currentPath.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "file_folder",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "sharedWith",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "updated_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "geo_communes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "district.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "geo_districts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "province.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "geo_provinces",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "geo_provinces",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "geo_villages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "commune.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "institution",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "management_level",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "management_level",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "node",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mme_main_program",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mme_main_program",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "level.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mme_main_program",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "level.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "parentKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mme_year_program",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "notifications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "notifications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "notifyTo",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nameKey",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "officerId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "officerIdNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "position.order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "workingHourKey",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "officerId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "officerIdNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "officeKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "officeKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "officerId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "officeKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "officerIdNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "workplaceKeys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "officerIdNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "positions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "poster",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateKey",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "poster",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateKey",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "province",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "public_shared",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "publicShare",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "public_shared",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "viewer",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "publicShare",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "page_key",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "ranking",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "recent_search",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "recentSearchFromDepartment",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "remark_officers",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "sectors",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "user_permission_reports",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "officerWorkplaces",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDelete",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "profile.position.order",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "video-documents",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dateKey",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "working_hours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "working_hours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "working_hours",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "keyword",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "isDeleted",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "request_approval_workplace_keys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "internal_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "last_approved_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "criminal_record",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "request_approval_workplace_keys",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "internal_status.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "application_type.key",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "last_approved_at",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "officer-attendances",
+      "fieldPath": "key",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "arrayConfig": "CONTAINS",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}

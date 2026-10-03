@@ -1,0 +1,161 @@
+$fontTitleitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "Moul", "auxswot", "khmer os siemreap",
+    "khmeros_siemreap";
+$colorBlue: #002060;
+$fontSubitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue,
+    Helvetica, Arial, sans-serif, "auxswot-bold", "auxswot", "Battambang", "khmeros_siemreap";
+
+.row-item-new {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 80px;
+    margin-bottom: 26px;
+    border-top: 0;
+    border: 1px solid $colorBlue;
+    //     .itmborderight {
+    //     border-right: 1px solid $colorBlue;
+    // }
+    // .itmbordeleft {
+    //     border-left: 1px solid $colorBlue;
+    // }
+    // .itmbordetop {
+    //     border-top: 1px solid $colorBlue;
+    // }
+    .itmbordebottom {
+        border-bottom: 1px solid $colorBlue;
+    }
+    .itmflex1 {
+        flex: 1;
+    }
+    .item-box-new {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.item-box-new-2 {
+    display: flex;
+    .itm-flex {
+        flex: 1;
+        border-bottom: 1px solid $colorBlue;
+    }
+    .itm-flex:first-child {
+        border-right: 1px solid #002060;
+    }
+}
+
+.itm-title-box {
+    padding: 4px 0;
+    display: flex;
+    justify-content: center;
+    h3 {
+        margin: 0;
+        font-family: $fontTitleitm;
+        font-size: 18px;
+        line-height: normal;
+        color: $colorBlue;
+    }
+}
+span.sub-txt {
+    padding: 0 16px;
+    text-indent: 12%;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.sub-txt-title {
+    font-size: 18px;
+    font-family: $fontSubitm;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+.itm-mr-212 {
+    margin-right: 212px;
+}
+.itm-mr-16 {
+    margin-right: 16px;
+}
+
+.itm-box-sign {
+    // margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .itm-sign-date {
+        font-weight: bold;
+        margin: 0;
+        font-family: $fontSubitm;
+        font-size: 18px;
+    }
+    .itm-sign-box {
+        width: 100px;
+        // height: 100px;
+    }
+    .itm-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 32px 12px 0;
+    }
+}
+.item-pd-16 {
+    padding: 0 16px;
+}
+
+.itm-main-sign {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 12px;
+    .sub-txt-left {
+        padding: 0 16px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .itmflex1 {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.itm-bg-sign {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    .sn-title {
+        font-size: 18px;
+        font-family: $fontSubitm;
+        color: #1a73e8;
+        margin-bottom: 8px;
+    }
+    .sn-box {
+        width: 120px;
+        // height: 120px;
+    }
+    .sn-name {
+        font-size: 18px;
+        font-family: $fontSubitm;
+        color: red;
+    }
+}
+
+.itm-bg-box {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    // max-width: 420px;
+    .itm-txt-blue {
+        font-size: 19px;
+        color: #1a73e8;
+        line-height: 1.5;
+        max-width: 420px;
+        margin-bottom: 32px;
+    }
+}
+
+.itm-box-blank {
+    height: 220px;
+}

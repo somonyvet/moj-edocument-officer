@@ -1,0 +1,77 @@
+<div class="document-dashboard-page dock-fill document-app-dashboard-page">
+    <div class="dashboard-template">
+        <div class="page-wrapper template-header">
+            <h4>{{auth?.currentDepartment?.name}}</h4>
+            <!-- <div class="action-container">
+                <button class="action-button" [matMenuTriggerFor]="menuDocNotedStatus">
+                    <span class="button-text">{{store?.selectedFilterStatusDocNoted?.name}}</span>
+                    <span class="material-icons">arrow_drop_down</span>
+                </button>
+                <mat-menu class="period-menu" #menuDocNotedStatus="matMenu">
+                    <button (click)="_onSelectedDocStatus(item)" mat-menu-item
+                        *ngFor="let item of WORKPLACE_FEATURES_ARRAY"
+                        [ngClass]="store?.selectedFilterStatusDocNoted?.key===item?.key?'active':''">
+                        <div class="rows">
+                            <div class="flex1">{{item?.name}}</div>
+                        </div>
+                    </button>
+                </mat-menu>
+                <button mat-button mat-icon-button class="round-action-button" [matMenuTriggerFor]="menuApprovalPeriod"
+                    aria-label="menu filter by period">
+                    <span class="material-icons">
+                        more_vert
+                    </span>
+                </button>
+                <mat-menu class="period-menu" #menuApprovalPeriod="matMenu">
+                    <button (click)="_onSelectedPeriod(item)" mat-menu-item
+                        *ngFor="let item of REPORT_PERIOD_OBJECT_ARRAY"
+                        [ngClass]="store?.selectedFilterPeriodDocNoted?.key===item?.key?'active':''">
+                        <div class="rows">
+                            <div class="flex1">{{item?.name}}</div>
+                        </div>
+                    </button>
+                </mat-menu>
+            </div> -->
+        </div>
+
+        <div class="page-wrapper template-cards-container" [ngClass]="store?.documentNoted?.length===0?'empty-add':''">
+            <div class="template-card-container" (click)="onCreateDocument()">
+                <div class="image-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h4>បង្កើតឯកសារឌីជីថល</h4>
+                    <p>រៀបចំកំណត់បង្ហាញ ឬរបាយការណ៍</p>
+                </div>
+            </div>
+            <ng-container *ngIf="store?.documentNoted?.length===0">
+                <app-empty-document headerText="ពុំមានកំណត់បង្ហាញរបស់លោកអ្នក"
+                    description="សូមចុចលើបង្កើតកំណត់បង្ហាញដើម្បីធ្វើឯកសារកំណត់បង្ហាញរបស់លោកអ្នក"
+                    image="../../../../assets/images/overview-011ee16c39645e17bb5ba2f17ca9e4dd.svg">
+                </app-empty-document>
+            </ng-container>
+            <div class="template-card-container" *ngFor="let item of store?.documentNoted">
+                <a class="image-container"
+                    [routerLink]="['/documents/form/' + item?.key + '/' + item?.workplace?.key + '/design']">
+                    <img [src]="item?.coverFile?.downloadURL ||'/assets/images/GDI-Doc-Cover-2.jpg'">
+                </a>
+                <div class="card-content" (click)="onCreateDocument(item)">
+                    <h4>{{item?.documentNo}} · {{item?.documentTitle}}</h4>
+                    <p>{{item?.created_at?.toDate()|amTimeAgo}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-wrapper mat-doc-nav-bar">
+            <nav mat-tab-nav-bar>
+                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
+                    [queryParams]="{periodKey:queryParams?.periodKey ||'all'}" #rla="routerLinkActive"
+                    [active]="rla.isActive">{{link.label}}</a>
+            </nav>
+        </div>
+    </div>
+    <router-outlet *ngIf="!loading"></router-outlet>
+</div>
