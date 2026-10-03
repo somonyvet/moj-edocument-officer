@@ -60,7 +60,6 @@
     "ngx-moment": "^5.0.0",
     "ngx-quill": "^14.3.0",
     "ngx-skeleton-loader": "^4.0.0",
-    "ngx-swiper-wrapper": "^10.0.0",
     "ngx-useful-swiper": "^10.0.1",
     "ngx-virtual-scroller": "^4.0.3",
     "pdfmake": "^0.2.7",

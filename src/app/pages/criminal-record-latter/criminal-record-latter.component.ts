@@ -10,10 +10,6 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AnimationOptions } from 'ngx-lottie';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { SignupComponent } from '../auth/signup/signup.component';
-import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface,
-  SwiperScrollbarInterface, SwiperPaginationInterface
-} from 'ngx-swiper-wrapper';
 import { SwiperOptions } from 'swiper';
 
 @Component({
