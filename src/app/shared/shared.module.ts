@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MaterialModule } from '../modules/material.module';
-import { HttpModule } from '@angular/http';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -389,7 +388,6 @@ const modules = [
   ReactiveFormsModule,
   MaterialModule,
   MobxAngularModule,
-  HttpModule,
   HttpClientModule,
   HttpClientJsonpModule,
   ReactiveFormsModule,

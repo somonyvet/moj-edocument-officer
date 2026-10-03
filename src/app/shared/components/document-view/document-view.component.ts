@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs-compat';
+import { Subscription } from 'rxjs';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 import { orderBy, pushToArray, pushToObject } from '../../services/convert.service';

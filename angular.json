@@ -180,30 +180,6 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
-        },
-        "ionic-cordova-serve": {
-          "builder": "@ionic/angular-toolkit:cordova-serve",
-          "options": {
-            "cordovaBuildTarget": "edocument:ionic-cordova-build",
-            "devServerTarget": "edocument:serve"
-          },
-          "configurations": {
-            "production": {
-              "cordovaBuildTarget": "edocument:ionic-cordova-build:production",
-              "devServerTarget": "edocument:serve:production"
-            }
-          }
-        },
-        "ionic-cordova-build": {
-          "builder": "@ionic/angular-toolkit:cordova-build",
-          "options": {
-            "browserTarget": "edocument:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "edocument:build:production"
-            }
-          }
         }
       }
     }

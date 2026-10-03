@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { action, observable } from "mobx";
-import { Subscription } from "rxjs-compat";
+import { Subscription } from "rxjs";
 import { pushToArray } from "src/app/shared/services/convert.service";
 import { DataService } from "src/app/shared/services/data.service";
 
