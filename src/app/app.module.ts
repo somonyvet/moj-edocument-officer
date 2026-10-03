@@ -4,9 +4,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { ResponsiveModule } from 'ngx-responsive'
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule, CONFIG, ScreenTrackingService, UserTrackingService } from '@angular/fire/compat/analytics';
@@ -44,7 +41,6 @@ import { CriminalHeaderComponent } from './layouts/criminal-layout/criminal-head
 import { CriminalRecordLatterHeadComponent } from './pages/criminal-record-latter/pages/criminal-record-latter-head/criminal-record-latter-head.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = { wheelPropagation: true };
 export function playerFactory() {
   return player;
 }
@@ -86,7 +82,6 @@ export function playerFactory() {
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     ContextMenuModule.forRoot(),
-    ResponsiveModule.forRoot(),
     SharedModule,
     NgbModule,
     NgxAudioPlayerModule,
@@ -101,10 +96,6 @@ export function playerFactory() {
   ],
   providers: [
     BnNgIdleService,
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    },
     { provide: REGION, useValue: 'asia-east2' },
     {
       provide: CONFIG, useValue: {

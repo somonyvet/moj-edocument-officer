@@ -6,7 +6,6 @@ import { pushToArray, pushToObject, ConvertService, toLatinNumber, covertNumKhme
 import { DOC_CATEGORY_OBJ, GENDER_OPTIONS } from "../dummy/status";
 import { STATUS_OBJ } from "../dummy/appinfo";
 import { generateKeywords, toCompany, toNameKey, toNumber, toRanking } from "../shared/services/mapping.service";
-import { Position } from "ngx-perfect-scrollbar";
 type AOA = any[];
 
 @Injectable({ providedIn: 'root' })

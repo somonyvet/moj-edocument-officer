@@ -1,0 +1,58 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ngx-org-self-vertical {
+  display: flex;
+  justify-content: center;
+}
+
+.ngx-org-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5em 1em;
+  border-radius: 0.2em;
+  box-shadow: 0.05em 0.05em 0.2em 0.05em #0000002b;
+}
+
+.ngx-org-border {
+  border: 1px solid darkgrey;
+}
+
+.ngx-org-image {
+  background-repeat: no-repeat;
+  width: 2em;
+  height: 2em;
+  margin-bottom: 0.5em;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.25em;
+}
+
+.ngx-org-name {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.ngx-org-title {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.ngx-org-container-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ngx-org-connector-vertical {
+  width: 1px;
+  background-color: darkgrey;
+}
+
+.ngx-org-childs-vertical {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}

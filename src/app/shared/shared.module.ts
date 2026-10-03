@@ -8,9 +8,9 @@ import { MaterialModule } from '../modules/material.module';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { ResponsiveModule } from 'ngx-responsive';
 import { DeleteComponent } from './components/delete/delete.component';
+import { OrgChartComponent } from './components/org-chart/org-chart.component';
+import { OrgChartNodeComponent } from './components/org-chart/org-chart-node.component';
 import { getCompanyPipe } from './pipes/getcompany.pipe';
 import { coStatusPipe } from './pipes/getcostatus.pipe';
 import { CancelComponent } from './components/cancel/cancel.component';
@@ -72,11 +72,9 @@ import { SidebarComponent } from '../layouts/sidebar/sidebar.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgAudioRecorderModule } from 'ng-audio-recorder';
-import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
 import { ConfirmSuccessComponent } from './components/confirm-success/confirm-success.component';
 import { PeopleCardComponent } from './components/people-card/people-card.component';
 import { RemoveFirebaseTextPipe, SafePipe } from './pipes/safeHtml.pipe';
-import { MatSelectFilterModule } from 'mat-select-filter';
 import { PinDocPipe } from './pipes/pin-doc.pipe';
 import { EmptyDocumentComponent } from './components/empty-document/empty-document.component';
 import { AvatarOfficerComponent } from './components/avatar-officer/avatar-officer.component';
@@ -380,6 +378,8 @@ const components = [
   DigitalApprovalFormComponent,
   DecreeResultViewComponent,
   StatusPillComponent,
+  OrgChartComponent,
+  OrgChartNodeComponent,
 ];
 const modules = [
   CommonModule,
@@ -393,15 +393,11 @@ const modules = [
   ReactiveFormsModule,
   MobxAngularModule,
   MaterialModule,
-  PerfectScrollbarModule,
   NgxDocViewerModule,
   InfiniteScrollModule,
   ContextMenuModule,
-  ResponsiveModule,
   VirtualScrollerModule,
   CKEditorModule,
-  AngularStickyThingsModule,
-  MatSelectFilterModule,
   NgxKjuaModule,
   // NgbModule,
   NgbTimepickerModule,

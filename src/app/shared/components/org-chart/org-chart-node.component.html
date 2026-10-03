@@ -1,0 +1,16 @@
+<div class="ngx-org">
+  <div class="ngx-org-self ngx-org-self-vertical">
+    <div class="ngx-org-box ngx-org-border" [ngClass]="node?.cssClass">
+      <img class="ngx-org-image" *ngIf="node?.image" [src]="node.image">
+      <div class="ngx-org-name">{{ node?.name }}</div>
+      <div class="ngx-org-title" *ngIf="node?.title">{{ node?.title }}</div>
+    </div>
+  </div>
+
+  <div class="ngx-org-container-vertical ngx-org-org-container-vertical" *ngIf="node?.childs?.length">
+    <div class="ngx-org-connector ngx-org-connector-vertical"></div>
+    <div class="ngx-org-childs ngx-org-childs-vertical">
+      <app-org-chart-node *ngFor="let child of node.childs" [node]="child"></app-org-chart-node>
+    </div>
+  </div>
+</div>

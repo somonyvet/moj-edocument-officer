@@ -23,7 +23,6 @@ import { InstitutionComponent } from './institution/institution.component';
 import { InstitutionFormComponent } from './institution/institution-form/institution-form.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DepartmentHierarchyComponent } from './department/department-hierarchy/department-hierarchy.component';
-import { NgxOrgChartModule } from 'ngx-org-chart';
 import { CategoryComponent } from './category/category.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { OfficeInDepartmentComponent } from './department/office-in-department/office-in-department.component';
@@ -154,7 +153,6 @@ import { EcosystemFormComponent } from './ecosystem-apps/ecosystem-form/ecosyste
     CommonModule,
     SharedModule,
     OrganizationRoutingModule,
-    NgxOrgChartModule
   ]
 })
 export class OrganizationModule { }

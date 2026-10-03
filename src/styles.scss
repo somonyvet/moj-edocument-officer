@@ -42,13 +42,12 @@ $edocument-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 @import "material-icons/iconfont/material-icons.css";
-@import "~perfect-scrollbar/css/perfect-scrollbar.css"; /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
 @import "../src/assets/styles/app.scss";
 @import "~quill/dist/quill.core.css";
 @import "~quill/dist/quill.bubble.css";
 @import "~quill/dist/quill.snow.css";
 @import "~video.js/dist/video-js.css";
-@import "~ngx-org-chart/_theming.scss";
 @import '~swiper/swiper.scss';
  
 html,
