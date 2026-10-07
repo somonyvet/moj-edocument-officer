@@ -1,0 +1,26 @@
+<div class="lightbox-container" [class.center-vertically]="data.options?.centerVertically">
+  <button type="button" class="lightbox-close" mat-icon-button (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <button type="button" class="lightbox-nav lightbox-prev" mat-icon-button *ngIf="albums.length > 1" [disabled]="!canPrev" (click)="prev()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <div class="lightbox-image-wrap">
+    <img [src]="current?.src" [alt]="current?.caption" [style.transform]="'rotate(' + rotation + 'deg)'" />
+    <div class="lightbox-caption" *ngIf="current?.caption">{{ current.caption }}</div>
+  </div>
+
+  <button type="button" class="lightbox-nav lightbox-next" mat-icon-button *ngIf="albums.length > 1" [disabled]="!canNext" (click)="next()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+
+  <button type="button" class="lightbox-rotate" mat-icon-button *ngIf="data.options?.showRotate" (click)="rotate()">
+    <mat-icon>rotate_right</mat-icon>
+  </button>
+
+  <div class="lightbox-counter" *ngIf="data.options?.showImageNumberLabel && albums.length > 1">
+    {{ index + 1 }} / {{ albums.length }}
+  </div>
+</div>

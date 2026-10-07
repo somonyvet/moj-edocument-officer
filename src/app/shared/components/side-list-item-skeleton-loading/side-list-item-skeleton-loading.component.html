@@ -1,5 +1,5 @@
 <div class="loading-conatiner">
-  <ng-container *ngFor="let i of dummyArr">
+  @for (i of dummyArr; track i) {
     <div class="loadingSkeletonTemplate">
       <div class="left">
         <ngx-skeleton-loader [theme]="{height:'65px',width:'65px'}" count="1" appearance="circle"></ngx-skeleton-loader>
@@ -13,5 +13,5 @@
         </div>
       </div>
     </div>
-  </ng-container>
+  }
 </div>

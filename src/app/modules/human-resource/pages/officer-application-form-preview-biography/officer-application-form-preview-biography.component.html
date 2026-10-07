@@ -1,440 +1,391 @@
 <div class="officer-profile-info-container" id="print">
-  <div class="scrolling-container p-0 sub-main" *ngIf="store?.selectedOfficer else emptySelected">
-
-    <div class="doc-template-wrapper">
-
-      <table style="margin: 0 auto;">
-        <tbody>
-          <tr>
-            <td style="padding: 0; margin: 0;">
-
-              <div class="page">
-
-                <div class="eform">
-                  <div class="head">
-                    <div class="head-item left-head">
-                      <p class="feTitle felef">ក្រសួងមហាផ្ទៃ</p>
-                      <!-- <p class="feTitle">អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
-                      <p class="feTitle">នាយកដ្ឋានជនបរទេសមិនមែន</p>
-                      <p class="feTitle">អន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p> -->
-                      <p class="feTitle">............................................................................
-                      </p>
-                      <p class="feTitle">............................................................................
-                      </p>
-                      <p class="feTitle">............................................................................
-                      </p>
-                      <p class="star">3</p>
-                    </div>
-                    <div class="head-item">
-                      <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
-                      <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                      <p class="star">3</p>
-                      <div class="img-logo">
-                      </div>
-                      <p class="feTitle">ជីវប្រវត្តិមន្ត្រីនគរបាលជាតិ</p>
-                      <p class="star">3</p>
-                    </div>
-                    <div class="head-item">
-                      <div class="profile-box" (click)="profile.click()">
-                        <div *ngIf="!profileUrl">
-                          <p>រូបថត</p>
-                          <p>៤x៦</p>
-                          <p>ចំនួន ០២សន្លឹក</p>
-                          <br>
-                          <p>ឯកសណ្ឋាន</p>
-                          <p>នគរបាល‍ជាតិ</p>
-                        </div>
-                        <ng-container *ngIf="profileUrl">
-                          <img [src]="profileUrl">
-                        </ng-container>
-                      </div>
-                      <input #profile type="file" class="no-border" placeholder="" style="display: none;">
-                    </div>
-                  </div>
-                  <div class="body">
-                    <div class="body-item">
-                      <div class="title">
-                        <h3>១-ព័ត៌មានផ្ទាល់ខ្លួនៈ</h3>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
-                          <span>- នាមត្រកូលនិងនាមខ្លួន</span>
-                          <span>:</span>
-                        </div>
-                        <div class="f-item">
-                          <div class="f-input">{{store?.selectedOfficer?.last_name}}
-                            {{store?.selectedOfficer?.first_name}}</div>
-                        </div>
-
-
-
-                      </div>
-
-                      <div class="row-item">
-
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
-                        </div>
-                        <div class="f-item">
-                          <span>អក្សរឡាតាំង</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.last_name_en}} {{store?.selectedOfficer?.first_name_en}}</div>
-                        </div>
-
-                        <div class="f-item">
-                          <span>ភេទ </span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.gender?.text}}
-                          </div>
-                        </div>
-                      </div>
-
-
-
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
-                          <span>- ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                          <span>:</span>
-
-                        </div>
-                        <div class="f-item">
-                          <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateDayKh}} -->
-                            {{store?.selectedOfficer?.dateOfBirthDay?.name}}
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>ខែ</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateMonthKh}} -->
-                            {{store?.selectedOfficer?.dateOfBirthMonth?.name}}
-
-                          </div>
-                        </div>
-
-                        <div class="f-item">
-                          <span>ឆ្នាំ</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateYearKh}} -->
-                            {{store?.selectedOfficer?.dateOfBirthYear?.name}}
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>សញ្ជាតិ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.nationality?.name}}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px;flex: none; justify-content: space-between;">
-                          <span>- ទីកន្លែងកំណើត</span>
-                          <span>:</span>
-
-                        </div>
-
-                        <div class="f-item" style="margin-left: 6px;">
-                          <span>នៅភូមិ</span>
-                          <div class="f-input">
-
-                            {{store?.selectedOfficer?.birthAddress?.village?.name}}
-
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>ឃុំ/សង្កាត់</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.birthAddress?.commune?.name}}
-
-                          </div>
-                        </div>
-
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;"></div>
-                        <div class="f-item">
-                          <span>ស្រុក/ខណ្ឌ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.birthAddress?.district?.name}}
-
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>រាជធានី/ខេត្ត</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.birthAddress?.province?.name}}
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px;flex: none; justify-content: space-between;">
-                          <span>- អាសយដ្ឋានបច្ចុប្បន្ន</span>
-                          <span>:</span>
-
-                        </div>
-
-                        <div class="f-item" style="margin-left: 6px;">
-                          <span>នៅភូមិ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.permanentAddress?.village?.name}}
-
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>ឃុំ/សង្កាត់</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.permanentAddress?.commune?.name}}
-
-                          </div>
-                        </div>
-
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;"></div>
-                        <div class="f-item">
-                          <span>ស្រុក/ខណ្ឌ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.permanentAddress?.district?.name}}
-
-                          </div>
-                        </div>
-                        <div class="f-item">
-                          <span>រាជធានី/ខេត្ត</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.permanentAddress?.province?.name}}
-
-                          </div>
-                        </div>
-                      </div>
-
-
-
-                      <div class="row-item">
-                        <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
-                          <span>- លេខទូរស័ព្ទ</span>
-                          <span>:</span>
-
-                        </div>
-
-                        <div class="f-item">
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.phoneNumber}}
-
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-box">
-                          <span class="m-b-6">អត្តលេខមន្ត្រីនគរបាលជាតិ</span>
-                          <div class="f-item">
-                            <span>លេខ</span>
-                            <div class="f-input">
-                              {{store?.selectedOfficer?.officerId}}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="f-box">
-                          <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ</span>
-                          <div class="f-item">
-                            <span>លេខ</span>
-                            <div class="f-input">
-                              {{store?.selectedOfficer?.policeCardID}}
-                            </div>
-                          </div>
-                        </div>
-                        <div class="f-box">
-                          <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ</span>
-                          <div class="f-item">
-                            <span>លេខ </span>
-                            <div class="f-input">
-                              {{store?.selectedOfficer?.nationalCardId}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="body-item">
-                      <div class="title">
-                        <h3>២-កម្រិតវប្បធម៌ទូទៅៈ <span> (បំពេញយកតែចុងក្រោយ)</span></h3>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.latestGeneralEducation}}
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="body-item">
-                      <div class="row-item">
-                        <div class="f-item">
-                          <div class="title" style="padding: 0; white-space: nowrap;">
-                            <h3>៣-ចំណេះដឹងភាសាបរទេសៈ</h3>
-                          </div>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.foreignLanguageLevel}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="body-item">
-                      <div class="title">
-                        <h3>៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវៈ (ជំនាញ បច្ចេកទេស ឯកទេស)
-                        </h3>
-                        <p>
-                          <span>(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំ ដែលបានសិក្សាកន្លងមកៈ)</span>
+  @if (store?.selectedOfficer) {
+    <div class="scrolling-container p-0 sub-main">
+      <div class="doc-template-wrapper">
+        <table style="margin: 0 auto;">
+          <tbody>
+            <tr>
+              <td style="padding: 0; margin: 0;">
+                <div class="page">
+                  <div class="eform">
+                    <div class="head">
+                      <div class="head-item left-head">
+                        <p class="feTitle felef">ក្រសួងមហាផ្ទៃ</p>
+                        <!-- <p class="feTitle">អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+                        <p class="feTitle">នាយកដ្ឋានជនបរទេសមិនមែន</p>
+                        <p class="feTitle">អន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p> -->
+                        <p class="feTitle">............................................................................
                         </p>
+                        <p class="feTitle">............................................................................
+                        </p>
+                        <p class="feTitle">............................................................................
+                        </p>
+                        <p class="star">3</p>
                       </div>
-                      <div class="row-item">
-                        <div class="f-table">
-                          <table class="tb-input">
-
-                            <!-- <thead>
-                              <tr>
-                                <th class="center">ជំនាញ និងវគ្គបណ្ដុះបណ្ដាល</th>
-                                <th class="center">គ្រឹះស្ថានសិក្សា</th>
-                                <th class="center">រយៈពេលសិក្សា</th>
-                                <th class="center">កាលបរិច្ឆេទ</th>
-                              </tr>
-                            </thead> -->
-                            <tbody>
-                              <tr class="thead-th">
-                                <th class="center">ជំនាញ និងវគ្គបណ្ដុះបណ្ដាល</th>
-                                <th class="center">គ្រឹះស្ថានសិក្សា</th>
-                                <th class="center">រយៈពេលសិក្សា</th>
-                                <th class="center">កាលបរិច្ឆេទ</th>
-                              </tr>
-                              <ng-container *ngFor="let item of trainingLevelArray">
+                      <div class="head-item">
+                        <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                        <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                        <p class="star">3</p>
+                        <div class="img-logo">
+                        </div>
+                        <p class="feTitle">ជីវប្រវត្តិមន្ត្រីនគរបាលជាតិ</p>
+                        <p class="star">3</p>
+                      </div>
+                      <div class="head-item">
+                        <div class="profile-box" (click)="profile.click()">
+                          @if (!profileUrl) {
+                            <div>
+                              <p>រូបថត</p>
+                              <p>៤x៦</p>
+                              <p>ចំនួន ០២សន្លឹក</p>
+                              <br>
+                                <p>ឯកសណ្ឋាន</p>
+                                <p>នគរបាល‍ជាតិ</p>
+                              </div>
+                            }
+                            @if (profileUrl) {
+                              <img [src]="profileUrl">
+                            }
+                          </div>
+                          <input #profile type="file" class="no-border" placeholder="" style="display: none;">
+                        </div>
+                      </div>
+                      <div class="body">
+                        <div class="body-item">
+                          <div class="title">
+                            <h3>១-ព័ត៌មានផ្ទាល់ខ្លួនៈ</h3>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
+                              <span>- នាមត្រកូលនិងនាមខ្លួន</span>
+                              <span>:</span>
+                            </div>
+                            <div class="f-item">
+                              <div class="f-input">{{store?.selectedOfficer?.last_name}}
+                              {{store?.selectedOfficer?.first_name}}</div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
+                            </div>
+                            <div class="f-item">
+                              <span>អក្សរឡាតាំង</span>
+                              <div class="f-input">
+                              {{store?.selectedOfficer?.last_name_en}} {{store?.selectedOfficer?.first_name_en}}</div>
+                            </div>
+                            <div class="f-item">
+                              <span>ភេទ </span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.gender?.text}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
+                              <span>- ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                              <span>:</span>
+                            </div>
+                            <div class="f-item">
+                              <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                              <div class="f-input">
+                                <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateDayKh}} -->
+                                {{store?.selectedOfficer?.dateOfBirthDay?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>ខែ</span>
+                              <div class="f-input">
+                                <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateMonthKh}} -->
+                                {{store?.selectedOfficer?.dateOfBirthMonth?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>ឆ្នាំ</span>
+                              <div class="f-input">
+                                <!-- {{store?.selectedOfficer?.dataOfBirth?.toDate() | dateYearKh}} -->
+                                {{store?.selectedOfficer?.dateOfBirthYear?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>សញ្ជាតិ</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.nationality?.name}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px;flex: none; justify-content: space-between;">
+                              <span>- ទីកន្លែងកំណើត</span>
+                              <span>:</span>
+                            </div>
+                            <div class="f-item" style="margin-left: 6px;">
+                              <span>នៅភូមិ</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.birthAddress?.village?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>ឃុំ/សង្កាត់</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.birthAddress?.commune?.name}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;"></div>
+                            <div class="f-item">
+                              <span>ស្រុក/ខណ្ឌ</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.birthAddress?.district?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>រាជធានី/ខេត្ត</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.birthAddress?.province?.name}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px;flex: none; justify-content: space-between;">
+                              <span>- អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                              <span>:</span>
+                            </div>
+                            <div class="f-item" style="margin-left: 6px;">
+                              <span>នៅភូមិ</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.permanentAddress?.village?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>ឃុំ/សង្កាត់</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.permanentAddress?.commune?.name}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;"></div>
+                            <div class="f-item">
+                              <span>ស្រុក/ខណ្ឌ</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.permanentAddress?.district?.name}}
+                              </div>
+                            </div>
+                            <div class="f-item">
+                              <span>រាជធានី/ខេត្ត</span>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.permanentAddress?.province?.name}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item" style="width: 128px; flex: none; justify-content: space-between;">
+                              <span>- លេខទូរស័ព្ទ</span>
+                              <span>:</span>
+                            </div>
+                            <div class="f-item">
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.phoneNumber}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-box">
+                              <span class="m-b-6">អត្តលេខមន្ត្រីនគរបាលជាតិ</span>
+                              <div class="f-item">
+                                <span>លេខ</span>
+                                <div class="f-input">
+                                  {{store?.selectedOfficer?.officerId}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="f-box">
+                              <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណមន្ត្រីនគរបាលជាតិ</span>
+                              <div class="f-item">
+                                <span>លេខ</span>
+                                <div class="f-input">
+                                  {{store?.selectedOfficer?.policeCardID}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="f-box">
+                              <span class="m-b-6">អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ</span>
+                              <div class="f-item">
+                                <span>លេខ </span>
+                                <div class="f-input">
+                                  {{store?.selectedOfficer?.nationalCardId}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="body-item">
+                          <div class="title">
+                            <h3>២-កម្រិតវប្បធម៌ទូទៅៈ <span> (បំពេញយកតែចុងក្រោយ)</span></h3>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-item">
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.latestGeneralEducation}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="body-item">
+                          <div class="row-item">
+                            <div class="f-item">
+                              <div class="title" style="padding: 0; white-space: nowrap;">
+                                <h3>៣-ចំណេះដឹងភាសាបរទេសៈ</h3>
+                              </div>
+                              <div class="f-input">
+                                {{store?.selectedOfficer?.foreignLanguageLevel}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="body-item">
+                          <div class="title">
+                            <h3>៤-កម្រិតបណ្ដុះបណ្ដាលវិជ្ជាជីវៈ (ជំនាញ បច្ចេកទេស ឯកទេស)
+                            </h3>
+                            <p>
+                              <span>(សូមរៀបរាប់វគ្គបណ្ដុះបណ្ដាល និងថ្ងៃ ខែ ឆ្នាំ ដែលបានសិក្សាកន្លងមកៈ)</span>
+                            </p>
+                          </div>
+                          <div class="row-item">
+                            <div class="f-table">
+                              <table class="tb-input">
+                                <!-- <thead>
                                 <tr>
-                                  <td>
-                                    <div class="ftb-input">
-                                      {{item?.skill}}
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input">
-                                      {{item?.location}}
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input">
-                                      {{item?.duration}}
-
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input">
-                                      <!-- {{item?.date?.toDate() | dateKh}} -->
-                                      <ng-container *ngIf="item?.date?.day?.name">{{item?.date?.day?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.month?.name">{{item?.date?.month?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.year?.name">{{item?.date?.year?.name}}
-                                      </ng-container>
-                                    </div>
-                                  </td>
-
+                                  <th class="center">ជំនាញ និងវគ្គបណ្ដុះបណ្ដាល</th>
+                                  <th class="center">គ្រឹះស្ថានសិក្សា</th>
+                                  <th class="center">រយៈពេលសិក្សា</th>
+                                  <th class="center">កាលបរិច្ឆេទ</th>
                                 </tr>
-                              </ng-container>
-                            </tbody>
-                          </table>
-
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <!-- <div class="body-item body-item-hw"> -->
-                    <table>
-
-                    </table>
-                    <div class="body-item ">
-                      <div class="title">
-                        <h3>៥-ប្រវត្តិការងារៈ</h3>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្របខណ្ឌរដ្ឋៈ</span>
-                          <div class="f-input">
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryStateWork?.day?.name">
-                              {{store?.selectedOfficer?.dateOfEntryStateWork?.day?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryStateWork?.month?.name">
-                              {{store?.selectedOfficer?.dateOfEntryStateWork?.month?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryStateWork?.year?.name">
-                              {{store?.selectedOfficer?.dateOfEntryStateWork?.year?.name}}</ng-container>
-
+                              </thead> -->
+                              <tbody>
+                                <tr class="thead-th">
+                                  <th class="center">ជំនាញ និងវគ្គបណ្ដុះបណ្ដាល</th>
+                                  <th class="center">គ្រឹះស្ថានសិក្សា</th>
+                                  <th class="center">រយៈពេលសិក្សា</th>
+                                  <th class="center">កាលបរិច្ឆេទ</th>
+                                </tr>
+                                @for (item of trainingLevelArray; track item) {
+                                  <tr>
+                                    <td>
+                                      <div class="ftb-input">
+                                        {{item?.skill}}
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ftb-input">
+                                        {{item?.location}}
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ftb-input">
+                                        {{item?.duration}}
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ftb-input">
+                                        <!-- {{item?.date?.toDate() | dateKh}} -->
+                                        @if (item?.date?.day?.name) {
+                                          {{item?.date?.day?.name + '-'}}
+                                        }
+                                        @if (item?.date?.month?.name) {
+                                          {{item?.date?.month?.name + '-'}}
+                                        }
+                                        @if (item?.date?.year?.name) {
+                                          {{item?.date?.year?.name}}
+                                        }
+                                      </div>
+                                    </td>
+                                  </tr>
+                                }
+                              </tbody>
+                            </table>
                           </div>
                         </div>
                       </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្នុងក្របខណ្ឌនគរបាលជាតិៈ</span>
-                          <div class="f-input">
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryPoliceWorkDay?.name">
-                              {{store?.selectedOfficer?.dateOfEntryPoliceWorkDay?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryPoliceWorkMonth?.name">
-                              {{store?.selectedOfficer?.dateOfEntryPoliceWorkMonth?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.dateOfEntryPoliceWorkYear?.name">
-                              {{store?.selectedOfficer?.dateOfEntryPoliceWorkYear?.name}}</ng-container>
+                      <!-- <div class="body-item body-item-hw"> -->
+                      <table>
+                      </table>
+                      <div class="body-item ">
+                        <div class="title">
+                          <h3>៥-ប្រវត្តិការងារៈ</h3>
+                        </div>
+                        <div class="row-item">
+                          <div class="f-item">
+                            <span>- ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្របខណ្ឌរដ្ឋៈ</span>
+                            <div class="f-input">
+                              @if (store?.selectedOfficer?.dateOfEntryStateWork?.day?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryStateWork?.day?.name + '-'}}
+                              }
+                              @if (store?.selectedOfficer?.dateOfEntryStateWork?.month?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryStateWork?.month?.name + '-'}}
+                              }
+                              @if (store?.selectedOfficer?.dateOfEntryStateWork?.year?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryStateWork?.year?.name}}
+                              }
+                            </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- ឋានន្តរស័ក្តិៈ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.rank?.name}}
+                        <div class="row-item">
+                          <div class="f-item">
+                            <span>- ថ្ងៃ ខែ ឆ្នាំចូលបម្រើការងារក្នុងក្របខណ្ឌនគរបាលជាតិៈ</span>
+                            <div class="f-input">
+                              @if (store?.selectedOfficer?.dateOfEntryPoliceWorkDay?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryPoliceWorkDay?.name + '-'}}
+                              }
+                              @if (store?.selectedOfficer?.dateOfEntryPoliceWorkMonth?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryPoliceWorkMonth?.name + '-'}}
+                              }
+                              @if (store?.selectedOfficer?.dateOfEntryPoliceWorkYear?.name) {
+                                {{store?.selectedOfficer?.dateOfEntryPoliceWorkYear?.name}}
+                              }
+                            </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- មុខតំណែងៈ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.positionForm?.name || store?.selectedOfficer?.position?.name ||
-                            store?.selectedOfficer?.position || ''}}
-
+                        <div class="row-item">
+                          <div class="f-item">
+                            <span>- ឋានន្តរស័ក្តិៈ</span>
+                            <div class="f-input">
+                              {{store?.selectedOfficer?.rank?.name}}
+                            </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- អង្គភាពៈ</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.unit}}
+                        <div class="row-item">
+                          <div class="f-item">
+                            <span>- មុខតំណែងៈ</span>
+                            <div class="f-input">
+                              {{store?.selectedOfficer?.positionForm?.name || store?.selectedOfficer?.position?.name ||
+                              store?.selectedOfficer?.position || ''}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row-item">
+                          <div class="f-item">
+                            <span>- អង្គភាពៈ</span>
+                            <div class="f-input">
+                              {{store?.selectedOfficer?.unit}}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="eform">
-                  <div class="body">
-                    <div class="body-item">
-                      <div class="title">
-                        <h3> <span>សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក (ឆ្នាំ១៩៧៩
-                            ដល់បច្ចុប្បន្ន)</span></h3>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-table">
-                          <table class="tb-input">
-                            <!-- <thead>
+                  <div class="eform">
+                    <div class="body">
+                      <div class="body-item">
+                        <div class="title">
+                          <h3> <span>សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក (ឆ្នាំ១៩៧៩
+                          ដល់បច្ចុប្បន្ន)</span></h3>
+                        </div>
+                        <div class="row-item">
+                          <div class="f-table">
+                            <table class="tb-input">
+                              <!-- <thead>
                               <tr>
                                 <th class="center">កាលបរិច្ឆេទ</th>
                                 <th rowspan="2" class="center">សកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក</th>
@@ -443,10 +394,8 @@
                               <tr>
                                 <th class="center">ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ</th>
                               </tr>
-
                             </thead> -->
                             <tbody>
-
                               <tr class="thead-th">
                                 <th class="center">កាលបរិច្ឆេទ</th>
                                 <th rowspan="2" class="center">សកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក</th>
@@ -455,27 +404,34 @@
                               <tr class="thead-th">
                                 <th class="center">ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ</th>
                               </tr>
-
-
-                              <ng-container *ngFor="let item of occupationHistoryArray">
+                              @for (item of occupationHistoryArray; track item) {
                                 <tr>
                                   <td>
                                     <div class="ftb-input one-line">
-                                      <ng-container *ngIf="item?.fromDate">
-                                        <ng-container *ngIf="item?.fromDate?.day?.name">{{item?.fromDate?.day?.name +
-                                          '-'}}</ng-container>
-                                        <ng-container *ngIf="item?.fromDate?.month?.name">{{item?.fromDate?.month?.name
-                                          + '-'}}</ng-container>
-                                        <ng-container *ngIf="item?.fromDate?.year?.name">{{item?.fromDate?.year?.name}}
-                                        </ng-container>
+                                      @if (item?.fromDate) {
+                                        @if (item?.fromDate?.day?.name) {
+                                          {{item?.fromDate?.day?.name +
+                                          '-'}}
+                                        }
+                                        @if (item?.fromDate?.month?.name) {
+                                          {{item?.fromDate?.month?.name
+                                          + '-'}}
+                                        }
+                                        @if (item?.fromDate?.year?.name) {
+                                          {{item?.fromDate?.year?.name}}
+                                        }
                                         -
-                                        <ng-container *ngIf="item?.toDate?.day?.name">{{item?.toDate?.day?.name + '-'}}
-                                        </ng-container>
-                                        <ng-container *ngIf="item?.toDate?.month?.name">{{item?.toDate?.month?.name +
-                                          '-'}}</ng-container>
-                                        <ng-container *ngIf="item?.toDate?.year?.name">{{item?.toDate?.year?.name}}
-                                        </ng-container>
-                                      </ng-container>
+                                        @if (item?.toDate?.day?.name) {
+                                          {{item?.toDate?.day?.name + '-'}}
+                                        }
+                                        @if (item?.toDate?.month?.name) {
+                                          {{item?.toDate?.month?.name +
+                                          '-'}}
+                                        }
+                                        @if (item?.toDate?.year?.name) {
+                                          {{item?.toDate?.year?.name}}
+                                        }
+                                      }
                                       <!-- {{item?.fromDate?.toDate() | dateKh}} - {{item?.toDate?.toDate() | dateKh}} -->
                                     </div>
                                   </td>
@@ -489,18 +445,13 @@
                                       {{item?.unit}}
                                     </div>
                                   </td>
-
                                 </tr>
-                              </ng-container>
+                              }
                             </tbody>
                           </table>
-
                         </div>
                       </div>
-
                     </div>
-
-
                     <div class="body-item">
                       <div class="title">
                         <h3>៦-ការលើកសរសើរៈ <span>(លិខិតសរសើរ-ប័ណ្ណសរសើរ-ឥស្សរិយយស)</span></h3>
@@ -509,512 +460,454 @@
                         <div class="f-table">
                           <table class="tb-input">
                             <!-- <thead>
+                            <tr>
+                              <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                              <th rowspan="2" class="center">រូបភាពលើកសរសើរ</th>
+                            </tr>
+                            <tr>
+                              <th class="center">លេខ</th>
+                              <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                            </tr>
+                          </thead> -->
+                          <tbody>
+                            <tr class="thead-th">
+                              <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                              <th rowspan="2" class="center">រូបភាពលើកសរសើរ</th>
+                            </tr>
+                            <tr class="thead-th">
+                              <th class="center">លេខ</th>
+                              <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                            </tr>
+                            @for (item of commendationDataArray; track item) {
                               <tr>
-                                <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
-                                <th rowspan="2" class="center">រូបភាពលើកសរសើរ</th>
-                              </tr>
-                              <tr>
-                                <th class="center">លេខ</th>
-                                <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
-                              </tr>
-
-                            </thead> -->
-                            <tbody>
-
-                              <tr class="thead-th">
-                                <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
-                                <th rowspan="2" class="center">រូបភាពលើកសរសើរ</th>
-                              </tr>
-                              <tr class="thead-th">
-                                <th class="center">លេខ</th>
-                                <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
-                              </tr>
-
-
-                              <ng-container *ngFor="let item of commendationDataArray">
-                                <tr>
-                                  <td style="width: 160px;">
-                                    <div class="ftb-input">
-                                      {{item?.rank}}
-                                    </div>
-                                  </td>
-                                  <td style="width: 160px;">
-                                    <div class="ftb-input">
-                                      <!-- {{item?.date?.toDate() | dateKh}} -->
-                                      <ng-container *ngIf="item?.date?.day?.name">{{item?.date?.day?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.month?.name">{{item?.date?.month?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.year?.name">{{item?.date?.year?.name}}
-                                      </ng-container>
-                                    </div>
-                                  </td>
-                                  <td style="vertical-align: middle;">
-                                    <div class="ftb-input">
-                                      {{item?.imageTitle}}
-                                    </div>
-                                    <!-- <div class="ftb-input" *ngIf="item?.files" >
-                                                                        <a *ngFor="let file of item?.files ; let i = index;" [href]="file?.downloadUrl" target="new">តំណភ្ជាប់({{i+1}})</a>
-                                                                      </div> -->
-                                  </td>
-
-                                </tr>
-                              </ng-container>
-                            </tbody>
-                          </table>
-
-                        </div>
-                      </div>
-
-                    </div>
-
-
-                    <div class="body-item">
-                      <div class="title">
-                        <h3>៧-ការដាក់ពិន័យៈ</h3>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-table">
-                          <table class="tb-input">
-                            <!-- <thead>
-                              <tr>
-                                <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
-                                <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល
-                                </th>
-                                <th rowspan="2" class="center">មូលហេតុ</th>
-                              </tr>
-                              <tr>
-                                <th class="center">លេខ</th>
-                                <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
-                              </tr>
-
-                            </thead> -->
-                            <tbody>
-                              <tr class="thead-th">
-                                <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
-                                <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល
-                                </th>
-                                <th rowspan="2" class="center">មូលហេតុ</th>
-                              </tr>
-                              <tr class="thead-th">
-                                <th class="center">លេខ</th>
-                                <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
-                              </tr>
-
-                              <ng-container *ngFor="let item of punishmentArray">
-                                <tr>
-                                  <td style="width: 160px;">
-                                    <div class="ftb-input">
-                                      {{item?.rank}}
-                                    </div>
-                                  </td>
-                                  <td style="width: 160px;">
-                                    <div class="ftb-input">
-                                      <!-- {{item?.date?.toDate() | dateKh}} -->
-                                      <ng-container *ngIf="item?.date?.day?.name">{{item?.date?.day?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.month?.name">{{item?.date?.month?.name + '-'}}
-                                      </ng-container>
-                                      <ng-container *ngIf="item?.date?.year?.name">{{item?.date?.year?.name}}
-                                      </ng-container>
-                                    </div>
-                                  </td>
-                                  <td style="vertical-align: middle;">
-
-                                  </td>
-
-                                  <td>
-                                    <div class="ftb-input">
-                                      {{item?.reason}}
-                                    </div>
-                                  </td>
-
-                                </tr>
-                              </ng-container>
-                            </tbody>
-                          </table>
-
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <div class="body-item">
-                      <div class="title">
-                        <h3>៨-ព័ត៌មានគ្រួសារៈ</h3>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span><strong>ក-ប្ដី ឬប្រពន្ធឈ្មោះ :</strong></span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.spouse?.name}}
-                          </div>
-                        </div>
-                        <div class="f-item" style="width: 300px;">
-                          <ng-container *ngFor="let item of STATUS_LIVES_ARRAY_DATA">
-                            <mat-checkbox style="margin-right: 8px;"
-                              [checked]="item?.key === store?.selectedOfficer?.spouse?.isDead?.key">{{item?.text}}
-                            </mat-checkbox>
-                          </ng-container>
-
-                        </div>
-                        <div class="f-item">
-                          <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.spouse?.dob?.toDate() | dateKh}} -->
-                            <ng-container *ngIf="store?.selectedOfficer?.spouse?.dob?.day?.name">
-                              {{store?.selectedOfficer?.spouse?.dob?.day?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.spouse?.dob?.month?.name">
-                              {{store?.selectedOfficer?.spouse?.dob?.month?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.spouse?.dob?.year?.name">
-                              {{store?.selectedOfficer?.spouse?.dob?.year?.name}}</ng-container>
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- ទីកន្លែងកំណើត:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.spouse?.birthAddress}}
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- មុខរបរបច្ចុប្បន្ន:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.spouse?.occupation}}
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>- អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.spouse?.permanentAddress}}
-
-                          </div>
-                        </div>
-                      </div>
+                                <td style="width: 160px;">
+                                  <div class="ftb-input">
+                                    {{item?.rank}}
+                                  </div>
+                                </td>
+                                <td style="width: 160px;">
+                                  <div class="ftb-input">
+                                    <!-- {{item?.date?.toDate() | dateKh}} -->
+                                    @if (item?.date?.day?.name) {
+                                      {{item?.date?.day?.name + '-'}}
+                                    }
+                                    @if (item?.date?.month?.name) {
+                                      {{item?.date?.month?.name + '-'}}
+                                    }
+                                    @if (item?.date?.year?.name) {
+                                      {{item?.date?.year?.name}}
+                                    }
+                                  </div>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                  <div class="ftb-input">
+                                    {{item?.imageTitle}}
+                                  </div>
+                                  <!-- <div class="ftb-input" *ngIf="item?.files" >
+                                  <a *ngFor="let file of item?.files ; let i = index;" [href]="file?.downloadUrl" target="new">តំណភ្ជាប់({{i+1}})</a>
+                                </div> -->
+                              </td>
+                            </tr>
+                          }
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
-
-                <div class="eform">
-                  <div class="body">
-                    <div class="body-item">
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span><strong>ខ-មានកូនចំនួន :</strong></span>
-                          <div class="f-input">{{store?.selectedOfficer?.childrenNumber}}</div>
-                          <span>នាក់, </span>
-                        </div>
-
-                        <div class="f-item">
-                          <span> ស្រី</span>
-                          <div class="f-input">{{store?.selectedOfficer?.childrenFemaleNumber}}</div>
-                          <span>នាក់, </span>
-                        </div>
-
-                        <div class="f-item">
-                          <span> ប្រុស</span>
-                          <div class="f-input">{{store?.selectedOfficer?.childrenMaleNumber}}</div>
-                          <span>នាក់ </span>
-                        </div>
-
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-table" style="padding-left: 72px;">
-                          <table class="">
-                            <tbody>
-                              <ng-container *ngFor="let item of childrenInfoArray; let i = index">
-                                <tr>
-                                  <td>
-                                    <div class="ftb-input one-line">
-                                      <span>{{i+1}}-ឈ្មោះ</span>
-                                      <div class="f-input center">
-                                        {{item?.name}}
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input  one-line">
-                                      <span>ភេទ</span>
-                                      <div class="f-input center">
-                                        {{item?.gender?.text}}
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input one-line">
-                                      <span>ឆ្នាំកំណើត</span>
-                                      <div class="f-input center">
-                                        <!-- {{item?.dob?.toDate() | dateKh}} -->
-                                        <ng-container *ngIf="item?.dob?.day?.name">{{item?.dob?.day?.name + '-'}}
-                                        </ng-container>
-                                        <ng-container *ngIf="item?.dob?.month?.name">{{item?.dob?.month?.name + '-'}}
-                                        </ng-container>
-                                        <ng-container *ngIf="item?.dob?.year?.name">{{item?.dob?.year?.name}}
-                                        </ng-container>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="ftb-input one-line">
-                                      <span>មុខរបរ</span>
-                                      <div class="f-input center">
-                                        {{item?.occupation}}
-                                      </div>
-                                    </div>
-                                  </td>
-
-
-                                </tr>
-                              </ng-container>
-                            </tbody>
-                          </table>
-
-                        </div>
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span><strong>គ-ឪពុកឈ្មោះ:</strong></span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.fatherInfo?.name}}
-
-                          </div>
-                        </div>
-                        <div class="f-item" style="width: 300px;">
-                          <ng-container *ngFor="let item of STATUS_LIVES_ARRAY_DATA">
-                            <mat-checkbox style="margin-right: 8px;"
-                              [checked]="item?.key === store?.selectedOfficer?.fatherInfo?.isDead?.key">{{item?.text}}
-                            </mat-checkbox>
-                          </ng-container>
-                        </div>
-                        <div class="f-item">
-                          <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.fatherInfo?.dob?.toDate() | dateKh}} -->
-                            <ng-container *ngIf="store?.selectedOfficer?.fatherInfo?.dob?.day?.name">
-                              {{store?.selectedOfficer?.fatherInfo?.dob?.day?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.fatherInfo?.dob?.month?.name">
-                              {{store?.selectedOfficer?.fatherInfo?.dob?.month?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.fatherInfo?.dob?.year?.name">
-                              {{store?.selectedOfficer?.fatherInfo?.dob?.year?.name}}</ng-container>
-                          </div>
-                        </div>
-
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>ស្រុកកំណើត:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.fatherInfo?.birthAddress}}
-
-                          </div>
-
-                        </div>
-                        <div class="f-item">
-                          <span>មុខរបរ:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.fatherInfo?.occupation}}
-
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.fatherInfo?.permanentAddress}}
-
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span><strong>ឃ-ម្ដាយឈ្មោះ:</strong></span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.motherInfo?.name}}
-                          </div>
-
-                        </div>
-                        <div class="f-item" style="width: 300px;">
-                          <ng-container *ngFor="let item of STATUS_LIVES_ARRAY_DATA">
-                            <mat-checkbox style="margin-right: 8px;"
-                              [checked]="item?.key === store?.selectedOfficer?.motherInfo?.isDead?.key">{{item?.text}}
-                            </mat-checkbox>
-                          </ng-container>
-                        </div>
-                        <div class="f-item">
-                          <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                          <div class="f-input">
-                            <!-- {{store?.selectedOfficer?.motherInfo?.dob?.toDate() | dateKh}} -->
-                            <ng-container *ngIf="store?.selectedOfficer?.motherInfo?.dob?.day?.name">
-                              {{store?.selectedOfficer?.motherInfo?.dob?.day?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.motherInfo?.dob?.month?.name">
-                              {{store?.selectedOfficer?.motherInfo?.dob?.month?.name + '-'}}</ng-container>
-                            <ng-container *ngIf="store?.selectedOfficer?.motherInfo?.dob?.year?.name">
-                              {{store?.selectedOfficer?.motherInfo?.dob?.year?.name}}</ng-container>
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>ស្រុកកំណើត:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.motherInfo?.birthAddress}}
-                          </div>
-
-                        </div>
-                        <div class="f-item">
-                          <span>មុខរបរ:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.motherInfo?.occupation}}
-                          </div>
-
-                        </div>
-                      </div>
-                      <div class="row-item">
-                        <div class="f-item">
-                          <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-                          <div class="f-input">
-                            {{store?.selectedOfficer?.motherInfo?.permanentAddress}}
-                          </div>
-
-                        </div>
-                      </div>
-
-
-                    </div>
-
+                <div class="body-item">
+                  <div class="title">
+                    <h3>៧-ការដាក់ពិន័យៈ</h3>
                   </div>
-                  <div class="footer">
-
-                    <div class="body-item">
-                      <div class="row-item">
-                        <div class="flex1"></div>
-                        <div style="text-align: right;">ខ្ញុំសូមធានាអះអាងចំពោះមុខច្បាប់ថា
-                          សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ
-                          សុទ្ធតែពិតប្រាកដទាំងអស់។</div>
-                      </div>
-
-                      <div class="row-item">
-                        <div class="flex1"></div>
-                        <div style="text-align: center;">
-                          <div class="f-item">
-                            ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
-                            ២៥៦...
-                          </div>
-                          <div class="f-item">
-                            .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
-                            ២០........
-                          </div>
-
-                          <div class="f-item">
-                            <strong>ហត្ថលេខា និងឈ្មោះសាម៉ីខ្លួន</strong>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row-item">
-                        <div style="text-align: center;">
-                          <div class="f-item">
-                            <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
-                            <p>
-                              <b>
-                                ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
-                              </b>
-                            </p>
-                          </div>
-                          <div class="f-item">
-                            របស់..........................................................ពិតប្រាកដមែន។
-                          </div>
-                          <div class="f-item">
-                            ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
-                            ២៥៦...
-                          </div>
-                          <div class="f-item">
-                            .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
-                            ២០........
-                          </div>
-
-                          <div class="f-item">
-                            <strong>ប្រធានអង្គភាព</strong>
-                          </div>
-                        </div>
-
-                        <div class="flex1"></div>
-
-                      </div>
-
-
-
-                      <div class="row-item">
-
-                        <div class="flex1"></div>
-
-                        <div style="text-align: center;">
-                          <div class="f-item">
-                            <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
-                            <p>
-                              <b>
-                                ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
-                              </b>
-                            </p>
-                          </div>
-                          <div class="f-item">
-                            របស់..........................................................ពិតប្រាកដមែន។
-                          </div>
-                          <div class="f-item">
-                            ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
-                            ២៥៦...
-                          </div>
-                          <div class="f-item">
-                            .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
-                            ២០........
-                          </div>
-
-                          <div class="f-item">
-                            <strong>ប្រធាននាយកដ្ឋានបុគ្គលិក</strong>
-                          </div>
-                        </div>
-
-
-                      </div>
-
-                    </div>
-
+                  <div class="row-item">
+                    <div class="f-table">
+                      <table class="tb-input">
+                        <!-- <thead>
+                        <tr>
+                          <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                          <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល
+                          </th>
+                          <th rowspan="2" class="center">មូលហេតុ</th>
+                        </tr>
+                        <tr>
+                          <th class="center">លេខ</th>
+                          <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                        </tr>
+                      </thead> -->
+                      <tbody>
+                        <tr class="thead-th">
+                          <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                          <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល
+                          </th>
+                          <th rowspan="2" class="center">មូលហេតុ</th>
+                        </tr>
+                        <tr class="thead-th">
+                          <th class="center">លេខ</th>
+                          <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+                        </tr>
+                        @for (item of punishmentArray; track item) {
+                          <tr>
+                            <td style="width: 160px;">
+                              <div class="ftb-input">
+                                {{item?.rank}}
+                              </div>
+                            </td>
+                            <td style="width: 160px;">
+                              <div class="ftb-input">
+                                <!-- {{item?.date?.toDate() | dateKh}} -->
+                                @if (item?.date?.day?.name) {
+                                  {{item?.date?.day?.name + '-'}}
+                                }
+                                @if (item?.date?.month?.name) {
+                                  {{item?.date?.month?.name + '-'}}
+                                }
+                                @if (item?.date?.year?.name) {
+                                  {{item?.date?.year?.name}}
+                                }
+                              </div>
+                            </td>
+                            <td style="vertical-align: middle;">
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{item?.reason}}
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-
-
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
+              <div class="body-item">
+                <div class="title">
+                  <h3>៨-ព័ត៌មានគ្រួសារៈ</h3>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span><strong>ក-ប្ដី ឬប្រពន្ធឈ្មោះ :</strong></span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.spouse?.name}}
+                    </div>
+                  </div>
+                  <div class="f-item" style="width: 300px;">
+                    @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                      <mat-checkbox style="margin-right: 8px;"
+                        [checked]="item?.key === store?.selectedOfficer?.spouse?.isDead?.key">{{item?.text}}
+                      </mat-checkbox>
+                    }
+                  </div>
+                  <div class="f-item">
+                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                    <div class="f-input">
+                      <!-- {{store?.selectedOfficer?.spouse?.dob?.toDate() | dateKh}} -->
+                      @if (store?.selectedOfficer?.spouse?.dob?.day?.name) {
+                        {{store?.selectedOfficer?.spouse?.dob?.day?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.spouse?.dob?.month?.name) {
+                        {{store?.selectedOfficer?.spouse?.dob?.month?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.spouse?.dob?.year?.name) {
+                        {{store?.selectedOfficer?.spouse?.dob?.year?.name}}
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>- ទីកន្លែងកំណើត:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.spouse?.birthAddress}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>- មុខរបរបច្ចុប្បន្ន:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.spouse?.occupation}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>- អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.spouse?.permanentAddress}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="eform">
+            <div class="body">
+              <div class="body-item">
+                <div class="row-item">
+                  <div class="f-item">
+                    <span><strong>ខ-មានកូនចំនួន :</strong></span>
+                    <div class="f-input">{{store?.selectedOfficer?.childrenNumber}}</div>
+                    <span>នាក់, </span>
+                  </div>
+                  <div class="f-item">
+                    <span> ស្រី</span>
+                    <div class="f-input">{{store?.selectedOfficer?.childrenFemaleNumber}}</div>
+                    <span>នាក់, </span>
+                  </div>
+                  <div class="f-item">
+                    <span> ប្រុស</span>
+                    <div class="f-input">{{store?.selectedOfficer?.childrenMaleNumber}}</div>
+                    <span>នាក់ </span>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-table" style="padding-left: 72px;">
+                    <table class="">
+                      <tbody>
+                        @for (item of childrenInfoArray; track item; let i = $index) {
+                          <tr>
+                            <td>
+                              <div class="ftb-input one-line">
+                                <span>{{i+1}}-ឈ្មោះ</span>
+                                <div class="f-input center">
+                                  {{item?.name}}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input  one-line">
+                                <span>ភេទ</span>
+                                <div class="f-input center">
+                                  {{item?.gender?.text}}
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input one-line">
+                                <span>ឆ្នាំកំណើត</span>
+                                <div class="f-input center">
+                                  <!-- {{item?.dob?.toDate() | dateKh}} -->
+                                  @if (item?.dob?.day?.name) {
+                                    {{item?.dob?.day?.name + '-'}}
+                                  }
+                                  @if (item?.dob?.month?.name) {
+                                    {{item?.dob?.month?.name + '-'}}
+                                  }
+                                  @if (item?.dob?.year?.name) {
+                                    {{item?.dob?.year?.name}}
+                                  }
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input one-line">
+                                <span>មុខរបរ</span>
+                                <div class="f-input center">
+                                  {{item?.occupation}}
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span><strong>គ-ឪពុកឈ្មោះ:</strong></span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.fatherInfo?.name}}
+                    </div>
+                  </div>
+                  <div class="f-item" style="width: 300px;">
+                    @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                      <mat-checkbox style="margin-right: 8px;"
+                        [checked]="item?.key === store?.selectedOfficer?.fatherInfo?.isDead?.key">{{item?.text}}
+                      </mat-checkbox>
+                    }
+                  </div>
+                  <div class="f-item">
+                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                    <div class="f-input">
+                      <!-- {{store?.selectedOfficer?.fatherInfo?.dob?.toDate() | dateKh}} -->
+                      @if (store?.selectedOfficer?.fatherInfo?.dob?.day?.name) {
+                        {{store?.selectedOfficer?.fatherInfo?.dob?.day?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.fatherInfo?.dob?.month?.name) {
+                        {{store?.selectedOfficer?.fatherInfo?.dob?.month?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.fatherInfo?.dob?.year?.name) {
+                        {{store?.selectedOfficer?.fatherInfo?.dob?.year?.name}}
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>ស្រុកកំណើត:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.fatherInfo?.birthAddress}}
+                    </div>
+                  </div>
+                  <div class="f-item">
+                    <span>មុខរបរ:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.fatherInfo?.occupation}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.fatherInfo?.permanentAddress}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span><strong>ឃ-ម្ដាយឈ្មោះ:</strong></span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.motherInfo?.name}}
+                    </div>
+                  </div>
+                  <div class="f-item" style="width: 300px;">
+                    @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                      <mat-checkbox style="margin-right: 8px;"
+                        [checked]="item?.key === store?.selectedOfficer?.motherInfo?.isDead?.key">{{item?.text}}
+                      </mat-checkbox>
+                    }
+                  </div>
+                  <div class="f-item">
+                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                    <div class="f-input">
+                      <!-- {{store?.selectedOfficer?.motherInfo?.dob?.toDate() | dateKh}} -->
+                      @if (store?.selectedOfficer?.motherInfo?.dob?.day?.name) {
+                        {{store?.selectedOfficer?.motherInfo?.dob?.day?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.motherInfo?.dob?.month?.name) {
+                        {{store?.selectedOfficer?.motherInfo?.dob?.month?.name + '-'}}
+                      }
+                      @if (store?.selectedOfficer?.motherInfo?.dob?.year?.name) {
+                        {{store?.selectedOfficer?.motherInfo?.dob?.year?.name}}
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>ស្រុកកំណើត:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.motherInfo?.birthAddress}}
+                    </div>
+                  </div>
+                  <div class="f-item">
+                    <span>មុខរបរ:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.motherInfo?.occupation}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div class="f-item">
+                    <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+                    <div class="f-input">
+                      {{store?.selectedOfficer?.motherInfo?.permanentAddress}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer">
+              <div class="body-item">
+                <div class="row-item">
+                  <div class="flex1"></div>
+                  <div style="text-align: right;">ខ្ញុំសូមធានាអះអាងចំពោះមុខច្បាប់ថា
+                    សេចក្ដីរាយការណ៍ក្នុងជីវប្រវត្តិនេះ
+                  សុទ្ធតែពិតប្រាកដទាំងអស់។</div>
+                </div>
+                <div class="row-item">
+                  <div class="flex1"></div>
+                  <div style="text-align: center;">
+                    <div class="f-item">
+                      ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
+                      ២៥៦...
+                    </div>
+                    <div class="f-item">
+                      .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
+                      ២០........
+                    </div>
+                    <div class="f-item">
+                      <strong>ហត្ថលេខា និងឈ្មោះសាម៉ីខ្លួន</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-item">
+                  <div style="text-align: center;">
+                    <div class="f-item">
+                      <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
+                      <p>
+                        <b>
+                          ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
+                        </b>
+                      </p>
+                    </div>
+                    <div class="f-item">
+                      របស់..........................................................ពិតប្រាកដមែន។
+                    </div>
+                    <div class="f-item">
+                      ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
+                      ២៥៦...
+                    </div>
+                    <div class="f-item">
+                      .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
+                      ២០........
+                    </div>
+                    <div class="f-item">
+                      <strong>ប្រធានអង្គភាព</strong>
+                    </div>
+                  </div>
+                  <div class="flex1"></div>
+                </div>
+                <div class="row-item">
+                  <div class="flex1"></div>
+                  <div style="text-align: center;">
+                    <div class="f-item">
+                      <strong>បានឃើញ និងបញ្ជាក់ថា</strong>
+                      <p>
+                        <b>
+                          ហត្ថលេខាខាងស្ដាំ ពិតជាហត្ថលេខា
+                        </b>
+                      </p>
+                    </div>
+                    <div class="f-item">
+                      របស់..........................................................ពិតប្រាកដមែន។
+                    </div>
+                    <div class="f-item">
+                      ថ្ងៃ.......................ខែ..............ឆ្នាំ......................ព.ស
+                      ២៥៦...
+                    </div>
+                    <div class="f-item">
+                      .....................ថ្ងៃទី...........ខែ...........ឆ្នាំ
+                      ២០........
+                    </div>
+                    <div class="f-item">
+                      <strong>ប្រធាននាយកដ្ឋានបុគ្គលិក</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+} @else {
+}
 </div>
 
-<ng-template #emptySelected>
-
-</ng-template>

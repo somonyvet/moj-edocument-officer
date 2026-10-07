@@ -8,7 +8,7 @@
   <form class="scrolling-container" *ngIf="!loading" [formGroup]="form">
     <div class="eform-action-controls">
       <div class="action-control-container">
-        <a mat-button mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
+        <a mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
           <mat-icon>arrow_back</mat-icon>
         </a>
         <h4>សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</h4>
@@ -922,13 +922,13 @@
                   <a class="ref-img" target="_blank" [href]="item?.downloadUrl">
                     <img [src]="item?.photoUrl">
                   </a>
-                  <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
+                  <a mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
                     <mat-icon>close</mat-icon>
                   </a>
                 </div>
                 <div class="attach-file-pdf" *ngIf="!item?.image">
                   <a target="_blank" [href]="item?.downloadUrl">{{item?.name}}</a>
-                  <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
+                  <a mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
                     <mat-icon>close</mat-icon>
                   </a>
                 </div>
@@ -947,13 +947,13 @@
             <div class="doc-file-p" *ngFor="let row of item?.data">
               <div class="attach-file-img" *ngIf="row?.image">
                 <img [src]="row?.url">
-                <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
+                <a mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
                   <mat-icon>close</mat-icon>
                 </a>
               </div>
               <div class="attach-file-pdf" *ngIf="!row?.image">
                 <p>{{row?.file?.name}}</p>
-                <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
+                <a mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
                   <mat-icon>close</mat-icon>
                 </a>
               </div>

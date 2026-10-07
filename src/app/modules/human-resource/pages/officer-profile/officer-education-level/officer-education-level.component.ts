@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,13 +14,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-officer-education-level',
-  templateUrl: './officer-education-level.component.html',
-  styleUrls: ['./officer-education-level.component.scss']
+    selector: 'app-officer-education-level',
+    templateUrl: './officer-education-level.component.html',
+    styleUrls: ['./officer-education-level.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerEducationLevelComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -45,7 +47,7 @@ export class OfficerEducationLevelComponent implements OnInit {
   @ViewChild('penaltyFile') penaltyFile: ElementRef;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -58,7 +60,7 @@ export class OfficerEducationLevelComponent implements OnInit {
   async ngOnInit() {
     this.form = this.fb.group({
       latestGeneralEducation:[null],
-      praiseHistory: new FormArray([]),
+      praiseHistory: new UntypedFormArray([]),
     })
 
     const { registrationFormDoc } = this.store;
@@ -96,7 +98,7 @@ export class OfficerEducationLevelComponent implements OnInit {
   // }
 
   selectedPraiseFile(event,index) {
-    const formArr = this.form.get('praiseHistory') as FormArray;
+    const formArr = this.form.get('praiseHistory') as UntypedFormArray;
     if (event && event.target.files.length > 0) {
 
       const files = event.target.files;
@@ -129,7 +131,7 @@ export class OfficerEducationLevelComponent implements OnInit {
 
 
   removePraiseFile(index, i) {
-    const formArr = this.form.get('praiseHistory') as FormArray;
+    const formArr = this.form.get('praiseHistory') as UntypedFormArray;
 
     const listFile = this.selectedPraiseFileArray[index];
     const listFile1 = this.listDisplayFile[index];
@@ -144,7 +146,7 @@ export class OfficerEducationLevelComponent implements OnInit {
 
   //multiform
   removeFormArrayWithField(name: string, index?: number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
     if (formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
     if (name === 'praiseHistory') {
@@ -162,7 +164,7 @@ export class OfficerEducationLevelComponent implements OnInit {
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -237,7 +239,7 @@ export class OfficerEducationLevelComponent implements OnInit {
   }
 
   onSelectedDate(event,index){
-    const form = this.form.get('praiseHistory') as FormArray;
+    const form = this.form.get('praiseHistory') as UntypedFormArray;
     form.at(index).get('date').patchValue(event)
   }
 }

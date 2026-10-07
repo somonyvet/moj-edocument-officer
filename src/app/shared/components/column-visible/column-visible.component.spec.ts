@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ColumnVisibleComponent } from './column-visible.component';
 
@@ -6,7 +6,7 @@ describe('ColumnVisibleComponent', () => {
   let component: ColumnVisibleComponent;
   let fixture: ComponentFixture<ColumnVisibleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ColumnVisibleComponent ]
     })

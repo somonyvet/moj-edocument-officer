@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,15 +19,17 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { getYearsList, toCodeKey, toDateKey, todayDate, } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 @Component({
-  selector: 'app-officer-create-application-confirm',
-  templateUrl: './officer-create-application-confirm.component.html',
-  styleUrls: ['./officer-create-application-confirm.component.scss']
+    selector: 'app-officer-create-application-confirm',
+    templateUrl: './officer-create-application-confirm.component.html',
+    styleUrls: ['./officer-create-application-confirm.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerCreateApplicationConfirmComponent implements OnInit, OnDestroy {
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/61718-install.json',
   };
-  form: FormGroup;
+  form: UntypedFormGroup;
   DOCUMENT_ATTACHMENT_TYPES: any[] = DOCUMENT_ATTACHMENT_TYPES
   incomplete_criminal_record: boolean = false;
   incomplete_profile: boolean = false;
@@ -52,7 +54,7 @@ export class OfficerCreateApplicationConfirmComponent implements OnInit, OnDestr
     public criminalStore: CriminalApplicationStore,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
   ) {
     this.isEntryOnly = this.auth?.dataEntryOnly
@@ -232,7 +234,7 @@ export class OfficerCreateApplicationConfirmComponent implements OnInit, OnDestr
     if (Array.isArray(this.criminalStore?.selectedCriminalRecord?.criminal_language)) {
       selectedLanguages = this.criminalStore?.selectedCriminalRecord?.criminal_language
     }
-    const formArray = this.form.get('formArray') as FormArray;
+    const formArray = this.form.get('formArray') as UntypedFormArray;
     while (formArray.length > 0) {
       formArray.removeAt(0)
     }
@@ -291,7 +293,7 @@ export class OfficerCreateApplicationConfirmComponent implements OnInit, OnDestr
 }
 
 function minSelectedCheckboxes(min = 1) {
-  const validator: ValidatorFn = (formArray: FormArray) => {
+  const validator: ValidatorFn = (formArray: UntypedFormArray) => {
     const totalSelected = formArray.controls
       .filter(control => control.value?.check)
     return totalSelected?.length >= min ? null : { required: true };

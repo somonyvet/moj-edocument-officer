@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router, ActivatedRoute } from '@angular/router';
 import { toNumber } from 'lodash';
@@ -8,9 +8,11 @@ import { days, monthOfYear, periodData } from 'src/app/dummy/report';
 import { toMonthKh, toYearOfPeriod, ConvertService, toMonthOfYear, toDayOfMonth, getDateReport } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-report-filter-period',
-  templateUrl: './report-filter-period.component.html',
-  styleUrls: ['./report-filter-period.component.scss']
+    selector: 'app-report-filter-period',
+    templateUrl: './report-filter-period.component.html',
+    styleUrls: ['./report-filter-period.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportFilterPeriodComponent implements OnInit {
   @Input() reportType: any;
@@ -22,13 +24,13 @@ export class ReportFilterPeriodComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   periodData = periodData;
-  periodOption = new FormControl(periodData[6], Validators.required);
-  dayOfPeriod = new FormControl(20, Validators.required);
-  monthOfPeriod = new FormControl(toMonthKh(new Date()), Validators.required);
-  yearOfPeriod = new FormControl(toYearOfPeriod(new Date()), Validators.required);
-  toDayOfPeriod = new FormControl(20, Validators.required);
-  toMonthOfPeriod = new FormControl(toMonthKh(new Date()), Validators.required);
-  toYearOfPeriod = new FormControl(toYearOfPeriod(new Date()), Validators.required);
+  periodOption = new UntypedFormControl(periodData[6], Validators.required);
+  dayOfPeriod = new UntypedFormControl(20, Validators.required);
+  monthOfPeriod = new UntypedFormControl(toMonthKh(new Date()), Validators.required);
+  yearOfPeriod = new UntypedFormControl(toYearOfPeriod(new Date()), Validators.required);
+  toDayOfPeriod = new UntypedFormControl(20, Validators.required);
+  toMonthOfPeriod = new UntypedFormControl(toMonthKh(new Date()), Validators.required);
+  toYearOfPeriod = new UntypedFormControl(toYearOfPeriod(new Date()), Validators.required);
 
   days = days;
   months = monthOfYear;

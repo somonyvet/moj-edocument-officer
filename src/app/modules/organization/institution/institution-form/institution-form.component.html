@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{titleForm}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
@@ -22,42 +22,52 @@
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះជាភាសាខ្មែរ</mat-label>
         <input #inputRef formControlName="name" required matInput placeholder="ឈ្មោះជាភាសាខ្មែរ">
-        <mat-error *ngIf="form.controls['name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះជាភាសាអង់គ្លេស</mat-label>
         <input #inputRef formControlName="name_en" required matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
-        <mat-error *ngIf="form.controls['name_en'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
         <mat-label>អ៊ីមែល</mat-label>
         <input #inputRef formControlName="email" matInput placeholder="អ៊ីមែល">
-        <mat-error *ngIf="form.controls['email'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['email'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
         <mat-label>គេហទំព័រ</mat-label>
         <input #inputRef formControlName="website" matInput placeholder="គេហទំព័រ">
-        <mat-error *ngIf="form.controls['website'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['website'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
   </mat-dialog-content>
-  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
-  </mat-progress-bar>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+    </mat-progress-bar>
+  }
   <mat-dialog-actions align="end">
     <div class="flex1"></div>
     <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>

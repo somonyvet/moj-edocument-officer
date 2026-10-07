@@ -1,48 +1,52 @@
 <div class="page-container" *mobxAutorun>
   <div class="action-bar">
     <div class="nav-content">
-        <h3 class="head-title">
-          ទិន្នន័យខេត្ត/ក្រុង
-        </h3>
-        <div class="action-item">
-            <button mat-button (click)="create()" class="enbutton primary">បង្កើតទិន្នន័យខេត្ត/ក្រុង</button>
-        </div>
+      <h3 class="head-title">
+        ទិន្នន័យខេត្ត/ក្រុង
+      </h3>
+      <div class="action-item">
+        <button mat-button (click)="create()" class="enbutton primary">បង្កើតទិន្នន័យខេត្ត/ក្រុង</button>
+      </div>
     </div>
-    <nav mat-tab-nav-bar>
-        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-            [active]="rla.isActive">{{link.label}}</a>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      @for (link of tabs; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+      }
     </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
   </div>
 
   <div class="page-doc">
-    <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="geo?.provinces" class="as-tb-wrap vt-doc">
-        <table class="as-table-wrapper" *ngIf="geo?.provinces?.length>0 && !geo?.loading" style="margin-top: 105px;">
-            <thead #header>
-                <tr>
-                    <th class="center">
-                        ល.រ
-                    </th>
-                    <th class="left">
-                      លេខកូដ
-                    </th>
-                    <th class="left">
-                      ឈ្មោះ
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody #container>
-              <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
+    <div #scroll (vsEnd)="_onScroll($event)" [appScrollEnd]="$safeNavigationMigration(geo?.provinces)" class="as-tb-wrap vt-doc">
+      @if (geo?.provinces?.length>0 && !geo?.loading) {
+        <table class="as-table-wrapper" style="margin-top: 105px;">
+          <thead #header>
+            <tr>
+              <th class="center">
+                ល.រ
+              </th>
+              <th class="left">
+                លេខកូដ
+              </th>
+              <th class="left">
+                ឈ្មោះ
+              </th>
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody #container>
+            @for (item of geo?.provinces; track item; let i = $index) {
+              <tr>
                 <td class="center" style="width: 80px;">
                   {{i+1}}
                 </td>
                 <td style="width: 120px;">
-                  <strong class="text-link" [routerLink]="['/apps/geo/' + item?.key +'/districts']">{{item?.id}}</strong>
+                  <strong class="text-link" [routerLink]="['/apps/geo/' + $safeNavigationMigration(item?.key) +'/districts']">{{item?.id}}</strong>
                 </td>
                 <td>
-                  <strong class="text-link" [routerLink]="['/apps/geo/' + item?.key +'/districts']">{{item?.geo_prefix ? item?.geo_prefix?.name : 'ខេត្ត'}}{{item?.name}}</strong>
+                  <strong class="text-link" [routerLink]="['/apps/geo/' + $safeNavigationMigration(item?.key) +'/districts']">{{item?.geo_prefix ? item?.geo_prefix?.name : 'ខេត្ត'}}{{item?.name}}</strong>
                 </td>
                 <td style="width: 64px;">
                   <div class="card-list-action">
@@ -58,30 +62,38 @@
                   </div>
                 </td>
               </tr>
-            </tbody>
+            }
+          </tbody>
         </table>
-        <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
-            <div class="empty-block">
-                <div class="center-block-empty">
-                    <div class="empty-img">
-                        <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                            alt="empty">
-                    </div>
-                    <div class="empty-text">
-                        <p class="empty-state-title">
-                            ពុំមានទិន្នន័យ
-                        </p>
-                        <p class="empty-state-desc">
-                            លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់មន្ត្រីសមត្ថកិច្ចដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
-                        </p>
-                    </div>
-                </div>
+      }
+      @if (store?.data?.length===0 && !store?.loading) {
+        <div class="empty-block">
+          <div class="center-block-empty">
+            <div class="empty-img">
+              <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                alt="empty">
             </div>
-        </ng-container>
-        <app-spinner *ngIf="store?.loading"></app-spinner>
-        <app-spinner *ngIf="store?.fetching"></app-spinner>
-    </virtual-scroller>
+            <div class="empty-text">
+              <p class="empty-state-title">
+                ពុំមានទិន្នន័យ
+              </p>
+              <p class="empty-state-desc">
+                លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់មន្ត្រីសមត្ថកិច្ចដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+      @if (store?.loading) {
+        <app-spinner></app-spinner>
+      }
+      @if (store?.fetching) {
+        <app-spinner></app-spinner>
+      }
+    </div>
   </div>
 
-  <app-spinner *ngIf="geo?.loading || loading"></app-spinner>
+  @if (geo?.loading || loading) {
+    <app-spinner></app-spinner>
+  }
 </div>

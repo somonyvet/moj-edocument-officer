@@ -22,7 +22,7 @@ import { HomeDocumentComponent } from './pages/home/home-document/home-document.
 import { HomeDocumentNavComponent } from './pages/home/home-document-nav/home-document-nav.component';
 import { HomeDocumentListingComponent } from './pages/home/home-document-listing/home-document-listing.component';
 import { ReceivedDocumentComponent } from './pages/home/received-document/received-document.component';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { InboxApplicationPreviewComponent } from './pages/inbox-application-preview/inbox-application-preview.component';
 import { ArchivedDocumentComponent } from './pages/home/archived-document/archived-document.component';
@@ -66,10 +66,12 @@ export function playerFactory() {
     CommonModule,
     SharedModule,
     DashboardRoutingModule,
-    LottieModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
     // IonicModule.forRoot(),
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [
+    provideLottieOptions({ player: playerFactory }),
+  ],
 })
 export class DashboardModule { }

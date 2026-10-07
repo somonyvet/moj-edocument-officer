@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { MASTER_PAGES } from 'src/app/dummy/status';
 import { tabs } from 'src/app/dummy/tabs';
 import { IVisaType } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { BaseStore } from 'src/app/stores/base.store';
 
 @Component({
-  selector: 'app-stock-adjustment',
-  templateUrl: './stock-adjustment.component.html',
-  styleUrls: ['./stock-adjustment.component.scss']
+    selector: 'app-stock-adjustment',
+    templateUrl: './stock-adjustment.component.html',
+    styleUrls: ['./stock-adjustment.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StockAdjustmentComponent implements OnInit, OnDestroy {
   tabs = tabs.stockAdjustment

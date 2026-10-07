@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
@@ -13,9 +13,11 @@ import { CitizenStore } from '../../../stores/citizen.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-print-verified-application',
-  templateUrl: './print-verified-application.component.html',
-  styleUrls: ['./print-verified-application.component.scss']
+    selector: 'app-print-verified-application',
+    templateUrl: './print-verified-application.component.html',
+    styleUrls: ['./print-verified-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PrintVerifiedApplicationComponent implements OnInit {
   STATUS_OBJ = STATUS_OBJ

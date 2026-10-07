@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-latter',
-  templateUrl: './criminal-latter.component.html',
-  styleUrls: ['./criminal-latter.component.scss']
+    selector: 'app-criminal-latter',
+    templateUrl: './criminal-latter.component.html',
+    styleUrls: ['./criminal-latter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterComponent implements OnInit, OnDestroy {
   tabs = criminal_tabs.criminal_latter_input_number;

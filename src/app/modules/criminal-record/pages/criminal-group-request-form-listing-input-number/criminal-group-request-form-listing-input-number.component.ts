@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -19,9 +19,11 @@ import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-succe
 import { DataService } from 'src/app/shared/services/data.service';
 import { addMonth, ConvertService } from 'src/app/shared/services/convert.service';
 @Component({
-  selector: 'app-criminal-group-request-form-listing-input-number',
-  templateUrl: './criminal-group-request-form-listing-input-number.component.html',
-  styleUrls: ['./criminal-group-request-form-listing-input-number.component.scss']
+    selector: 'app-criminal-group-request-form-listing-input-number',
+    templateUrl: './criminal-group-request-form-listing-input-number.component.html',
+    styleUrls: ['./criminal-group-request-form-listing-input-number.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormListingInputNumberComponent implements OnInit, OnDestroy {
   tabs = tabs.officers;
@@ -29,7 +31,7 @@ export class CriminalGroupRequestFormListingInputNumberComponent implements OnIn
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',

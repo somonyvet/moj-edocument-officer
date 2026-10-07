@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +11,11 @@ import { GeoStore } from '../../../stores/geo.store';
 import { GeoVillagesFormComponent } from '../geo-villages-form/geo-villages-form.component';
 
 @Component({
-  selector: 'app-geo-villages',
-  templateUrl: './geo-villages.component.html',
-  styleUrls: ['./geo-villages.component.scss']
+    selector: 'app-geo-villages',
+    templateUrl: './geo-villages.component.html',
+    styleUrls: ['./geo-villages.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoVillagesComponent implements OnInit {
   tabs = criminal_tabs.geo_village;

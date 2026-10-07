@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { driveObj } from '../../dummy/status';
 
 @Pipe({
-  name: 'fileSize'
+    name: 'fileSize',
+    standalone: false
 })
 export class FileSizePipe implements PipeTransform {
 
@@ -24,7 +25,8 @@ export class FileSizePipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'fileLength'
+    name: 'fileLength',
+    standalone: false
 })
 export class fileLengthPipe implements PipeTransform {
   transform(item: any, type): any {

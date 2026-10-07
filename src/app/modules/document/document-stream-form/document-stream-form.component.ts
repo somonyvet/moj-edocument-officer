@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -15,14 +15,16 @@ import { toOfficer } from 'src/app/shared/services/mapping.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-document-stream-form',
-  templateUrl: './document-stream-form.component.html',
-  styleUrls: ['./document-stream-form.component.scss']
+    selector: 'app-document-stream-form',
+    templateUrl: './document-stream-form.component.html',
+    styleUrls: ['./document-stream-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentStreamFormComponent implements OnInit {
   title: any = "ចរន្តឯកសារ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   loading: boolean = true;
 
@@ -32,7 +34,7 @@ export class DocumentStreamFormComponent implements OnInit {
     public dialogRef: MatDialogRef<DocumentStreamFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: DocumentStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private auth: AuthStore,
     private officer: OfficerStore,
     private dialog: MatDialog,

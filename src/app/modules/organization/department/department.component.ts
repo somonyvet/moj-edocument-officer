@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { toJS } from 'mobx';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IDepartment } from 'src/app/interfaces/document/document.interface';
@@ -13,9 +13,11 @@ import { DepartmentStore } from 'src/app/stores/document/department.store';
 import { DepartmentFormComponent } from './department-form/department-form.component';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.scss']
+    selector: 'app-department',
+    templateUrl: './department.component.html',
+    styleUrls: ['./department.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DepartmentComponent implements OnInit, OnDestroy {
   tabs = tabs.department

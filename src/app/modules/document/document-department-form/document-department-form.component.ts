@@ -1,5 +1,5 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MappingService } from 'src/app/shared/services/mapping.service';
@@ -14,16 +14,18 @@ import { ConvertService, pushObjArray } from 'src/app/shared/services/convert.se
 import { FLOW_TYPE_OBJECT, OFFICE_OR_OFFICER_OBJECT } from 'src/app/dummy/config';
 
 @Component({
-  selector: 'app-document-department-form',
-  templateUrl: './document-department-form.component.html',
-  styleUrls: ['./document-department-form.component.scss']
+    selector: 'app-document-department-form',
+    templateUrl: './document-department-form.component.html',
+    styleUrls: ['./document-department-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentDepartmentFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "";
-  form: FormGroup;
+  form: UntypedFormGroup;
   workplace: AbstractControl;
   filteredWorkplace: Observable<IDepartment[]>;
 
@@ -31,7 +33,7 @@ export class DocumentDepartmentFormComponent implements OnInit, OnDestroy, After
   constructor(
     public dialogRef: MatDialogRef<DocumentDepartmentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public department: DepartmentStore,
     public store: DocumentStore,
     public auth: AuthStore,

@@ -1,6 +1,6 @@
 
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService } from 'src/app/shared/services/convert.service';
@@ -17,16 +17,18 @@ import { IYearProgram } from 'src/app/modules/mme/interfaces/document.interface'
 import { PROJECT_STATUS_OBJECT } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-year-program-form',
-  templateUrl: './year-program-form.component.html',
-  styleUrls: ['./year-program-form.component.scss']
+    selector: 'app-year-program-form',
+    templateUrl: './year-program-form.component.html',
+    styleUrls: ['./year-program-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class YearProgramFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('attachmentFile') attachmentFile: ElementRef;
 
   title: any = "បង្កើតឆ្នាំសម្រាប់កម្មវិធី";
-  form: FormGroup;
+  form: UntypedFormGroup;
   uploadedAttachment: any[] = [];
   selectedFiles: any[] = [];
   // filterFiles = ATTACHMENT_FILTER;
@@ -37,7 +39,7 @@ export class YearProgramFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<YearProgramFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: MmeProgramStore,
     private ds: DataService,
     private auth: AuthStore,

@@ -1,14 +1,22 @@
-<div class="officer-avatar" *ngIf="!loading && item" [ngClass]="removeStyle?'removed':''">
-    <img [src]="item?.photoUrl" [ngClass]="imgCss" [style.border-color]="borderColor" (error)="handleImgError($event)"
-        (click)="_onEdit()">
+@if (!loading && item) {
+  <div class="officer-avatar" [ngClass]="removeStyle?'removed':''">
+    <img [src]="$safeNavigationMigration(item?.photoUrl)" [ngClass]="imgCss" [style.border-color]="borderColor" (error)="handleImgError($event)"
+      (click)="_onEdit()">
     <div class="officer-name" (click)="_onEdit()">
-        <span>{{item?.displayName}}</span>
-        <p *ngIf="description">{{description}}</p>
+      <span>{{item?.displayName}}</span>
+      @if (description) {
+        <p>{{description}}</p>
+      }
     </div>
-    <span *ngIf="checkIcon" class="material-icons checked">
+    @if (checkIcon) {
+      <span class="material-icons checked">
         check_circle
-    </span>
-    <span class="material-icons" *ngIf="removeStyle && !isOwner" (click)="_onRemove()">
+      </span>
+    }
+    @if (removeStyle && !isOwner) {
+      <span class="material-icons" (click)="_onRemove()">
         close
-    </span>
-</div>
+      </span>
+    }
+  </div>
+}

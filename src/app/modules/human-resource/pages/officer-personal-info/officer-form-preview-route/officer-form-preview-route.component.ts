@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
@@ -6,9 +6,11 @@ import { PrintService } from 'src/app/shared/services/print.service';
 import { HrStore } from '../../../stores/hr.store';
 
 @Component({
-  selector: 'app-officer-form-preview-route',
-  templateUrl: './officer-form-preview-route.component.html',
-  styleUrls: ['./officer-form-preview-route.component.scss']
+    selector: 'app-officer-form-preview-route',
+    templateUrl: './officer-form-preview-route.component.html',
+    styleUrls: ['./officer-form-preview-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerFormPreviewRouteComponent implements OnInit {
 

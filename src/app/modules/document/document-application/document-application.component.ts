@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,9 +10,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentFormComponent } from '../document-form/document-form.component';
 
 @Component({
-  selector: 'app-document-application',
-  templateUrl: './document-application.component.html',
-  styleUrls: ['./document-application.component.scss']
+    selector: 'app-document-application',
+    templateUrl: './document-application.component.html',
+    styleUrls: ['./document-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationComponent implements OnInit, OnDestroy, AfterViewChecked {
   REPORT_PERIOD_OBJECT_ARRAY = REPORT_PERIOD_OBJECT_ARRAY;

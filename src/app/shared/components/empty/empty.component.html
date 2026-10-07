@@ -1,16 +1,18 @@
 <div class="empty-block" [ngClass]="className">
-    <div class="center-block-empty">
-        <div class="empty-img">
-            <img src="../../../assets/images/no_file_drive.svg" alt="empty">
-        </div>
-        <div class="empty-text">
-            <p class="empty-state-title">
-                {{name}}
-            </p>
-            <p class="empty-state-desc">
-                {{subtitle}}
-            </p>
-            <button mat-button *ngIf="buttonText" class="add-button" (click)="create()">{{buttonText}}</button>
-        </div>
+  <div class="center-block-empty">
+    <div class="empty-img">
+      <img src="../../../assets/images/no_file_drive.svg" alt="empty">
     </div>
+    <div class="empty-text">
+      <p class="empty-state-title">
+        {{name}}
+      </p>
+      <p class="empty-state-desc">
+        {{subtitle}}
+      </p>
+      @if (buttonText) {
+        <button mat-button class="add-button" (click)="create()">{{buttonText}}</button>
+      }
+    </div>
+  </div>
 </div>

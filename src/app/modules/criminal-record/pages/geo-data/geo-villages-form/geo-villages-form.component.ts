@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -14,16 +14,18 @@ import { GeoStore } from '../../../stores/geo.store';
 import firebase from 'firebase/compat/app';
 
 @Component({
-  selector: 'app-geo-villages-form',
-  templateUrl: './geo-villages-form.component.html',
-  styleUrls: ['./geo-villages-form.component.scss']
+    selector: 'app-geo-villages-form',
+    templateUrl: './geo-villages-form.component.html',
+    styleUrls: ['./geo-villages-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoVillagesFormComponent implements OnInit {
   title: any = "បង្កើតភូមិ";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -36,7 +38,7 @@ export class GeoVillagesFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GeoVillagesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

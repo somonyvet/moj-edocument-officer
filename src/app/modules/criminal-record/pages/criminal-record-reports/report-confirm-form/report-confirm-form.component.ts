@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -8,9 +8,11 @@ import * as XLSX from 'xlsx';
 import { ReportConfirmForm } from 'src/app/stores/report-confirm-form.store';
 
 @Component({
-  selector: 'app-report-confirm-form',
-  templateUrl: './report-confirm-form.component.html',
-  styleUrls: ['./report-confirm-form.component.scss']
+    selector: 'app-report-confirm-form',
+    templateUrl: './report-confirm-form.component.html',
+    styleUrls: ['./report-confirm-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportConfirmFormComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

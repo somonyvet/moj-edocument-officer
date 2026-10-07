@@ -1,30 +1,22 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 /* Importing Bootstrap SCSS file. */
-@use "~@angular/material" as mat;
+@use "@angular/material" as mat;
+@use "./assets/styles/variable.scss" as *;
 // Plus imports for other components in your app.
-$my-custom-typography-config: mat.define-typography-config(
+$my-custom-typography-config: mat.m2-define-typography-config(
   $font-family: khmeros_siemreap,
 );
-// $font-family: khmeros_siemreap,
-@include mat.core($my-custom-typography-config);
+@include mat.all-component-typographies($my-custom-typography-config);
+@include mat.elevation-classes();
+@include mat.app-background();
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+$edocument-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$edocument-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$edocument-primary: mat.define-palette(mat.$indigo-palette);
-$edocument-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$edocument-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-// The warn palette is optional (defaults to red).
-$edocument-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$edocument-theme: mat.define-light-theme(
+$edocument-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $edocument-primary,
@@ -34,11 +26,24 @@ $edocument-theme: mat.define-light-theme(
   )
 );
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($edocument-theme);
-@import "~bootstrap/scss/bootstrap";
+
+html {
+  --mat-button-text-horizontal-padding: 16px;
+}
+
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button[color="primary"],
+.mat-mdc-raised-button[color="primary"] {
+  --mdc-filled-button-label-text-color: #fff;
+  --mat-filled-button-label-text-color: #fff;
+  --mdc-protected-button-label-text-color: #fff;
+  --mat-protected-button-label-text-color: #fff;
+  color: #fff;
+}
+
+@import "bootstrap/scss/bootstrap";
 
 /* You can add global styles to this file, and also import other style files */
 @import "material-icons/iconfont/material-icons.css";
@@ -48,8 +53,7 @@ $edocument-theme: mat.define-light-theme(
 @import "~quill/dist/quill.bubble.css";
 @import "~quill/dist/quill.snow.css";
 @import "~video.js/dist/video-js.css";
-@import '~swiper/swiper.scss';
- 
+
 html,
 body {
   height: 100%;
@@ -58,25 +62,150 @@ body {
   min-height: 100vh;
 }
 
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-focused input,
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-focused textarea {
   caret-color: $primary !important;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+.mat-mdc-form-field.mat-form-field-appearance-outline .mdc-notched-outline {
   color: $primary;
 }
 
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,
-.mat-form-field.mat-focused .mat-form-field-label {
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-focused .mdc-notched-outline,
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
   color: $primary;
 }
 
-.mat-tab-group.mat-primary .mat-ink-bar,
-.mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: $primary;
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
+  --mat-tab-active-indicator-color: #{$primary};
+  --mat-tab-active-label-text-color: #{$primary};
+  --mat-tab-active-hover-label-text-color: #{$primary};
+  --mat-tab-active-focus-label-text-color: #{$primary};
+  --mat-tab-active-hover-indicator-color: #{$primary};
+  --mat-tab-active-focus-indicator-color: #{$primary};
+  --mat-tab-active-ripple-color: #{$primary};
+
+  .mat-mdc-tab-header-pagination {
+    display: none !important;
+  }
+}
+.mat-mdc-tab-link, .mat-mdc-tab {
+  min-width: 160px;
+}
+
+.mat-mdc-tab-links,
+.mat-mdc-tab-list {
+  a, .mat-mdc-tab {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: $appFont;
+    &.mat-mdc-tab-link {
+      position: relative;
+      min-width: unset !important;
+      margin: 0 !important;
+      margin-left: 10px !important;
+      padding: 10px 5px !important;
+      opacity: 1;
+      // Inactive nav-link color -- scoped here (not shared with tab-group)
+      // since tab-group's inactive label should keep Material's own default
+      // gray instead of inheriting this dark nav-link color.
+      color: $color;
+    }
+
+    &.mdc-tab--active {
+      color: $primary;
+      opacity: 1;
+    }
+  }
+}
+
+// The real MDC indicator (.mdc-tab-indicator) depends on positioning context
+// that turned out unreliable across this app's tab usages (no position:relative
+// ancestor close by in Material's own CSS, confirmed by grepping the compiled
+// tabs stylesheet). Legacy's own ink-bar was a separate sibling element
+// positioned via JS-computed left/width -- MDC's per-tab indicator has no
+// equivalent, it just toggles opacity, which wasn't rendering reliably.
+// Drawing the underline ourselves instead: fully within our control, and
+// anchors correctly now that .mat-mdc-tab-link/.mdc-tab have position: relative.
+.mdc-tab-indicator {
+  display: none !important;
+}
+
+.mdc-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 3px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  background: $primary;
+  border-radius: 3px 3px 0 0;
+}
+
+// Label lift only for nav-link tabs -- they get padding: 10px 5px and
+// margin-bottom: -3px (see the .mat-mdc-tab-link rule above), and the -6px
+// compensates for that layout. Tab-group tabs no longer get that padding/
+// margin (removed earlier to fix the tab-group squeeze bug), so they don't
+// need the compensating lift either -- applying it unscoped made tab-group
+// labels (e.g. "អ្នកស្នើសុំ / ផ្ទៃក្នុង") float ~6px too high.
+.mat-mdc-tab-links .mat-mdc-tab-link .mdc-tab__content {
+  position: relative;
+  top: -6px;
+}
+
+.mat-mdc-tab-group .mat-mdc-tab .mdc-tab__content {
+  position: relative;
+  top: 0;
+}
+
+.mat-mdc-tab.cdk-program-focused .mdc-tab__ripple::before,
+.mat-mdc-tab-link.cdk-program-focused .mdc-tab__ripple::before {
+  opacity: 0 !important;
+}
+
+.mat-typography, .mat-typography .mat-body, .mat-typography .mat-body-1, .mat-typography .mat-body-2,
+.mat-typography p, .mat-body, .mat-body-1, .mat-body-2,
+.mat-mdc-list-item, .mdc-list-item__primary-text, .mdc-list-item__secondary-text,
+.mat-mdc-button, .mat-mdc-unelevated-button, .mat-mdc-raised-button, .mat-mdc-outlined-button,
+.mdc-button__label, .mat-mdc-tab, .mdc-tab__text-label, .mat-mdc-tab-link,
+.mat-mdc-form-field, .mat-mdc-input-element, .mat-mdc-select, .mat-mdc-menu-item,
+.mat-mdc-option, .mat-mdc-card, .mat-mdc-dialog-content, .mat-mdc-chip {
+  letter-spacing: normal !important;
+}
+
+.mat-mdc-radio-button.mat-accent {
+  --mat-radio-selected-icon-color: #{$primary};
+  --mat-radio-selected-hover-icon-color: #{$primary};
+  --mat-radio-selected-focus-icon-color: #{$primary};
+  --mat-radio-selected-pressed-icon-color: #{$primary};
+  --mat-radio-checked-ripple-color: #{$primary};
+  --mat-radio-ripple-color: #{$primary};
+}
+
+.mat-mdc-checkbox.mat-accent {
+  --mat-checkbox-selected-icon-color: #{$primary};
+  --mat-checkbox-selected-hover-icon-color: #{$primary};
+  --mat-checkbox-selected-focus-icon-color: #{$primary};
+  --mat-checkbox-selected-focus-state-layer-color: #{$primary};
+}
+
+.mat-mdc-checkbox .mdc-checkbox {
+  padding: 0;
+  margin: 0 8px 0 0;
+  --mat-checkbox-state-layer-size: 18px;
+}
+
+.mat-mdc-checkbox .mat-mdc-checkbox-touch-target {
+  display: none;
+}
+
+.mat-mdc-icon-button.cdk-mouse-focused .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-icon-button.cdk-program-focused .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-icon-button.cdk-touch-focused .mat-mdc-button-persistent-ripple::before,
+.mat-mdc-icon-button.cdk-focused .mat-focus-indicator::before {
+  opacity: 0 !important;
 }
 
 /* Adjust the headings dropdown to host some larger heading styles. */

@@ -1,8 +1,8 @@
-::ng-deep .filter-container.mat-menu-panel {
+::ng-deep .filter-container.mat-mdc-menu-panel {
     max-width: none !important;
   }
 
-::ng-deep .no-line .mat-form-field-underline {
+::ng-deep .no-line .mdc-line-ripple {
     display: none;
   }
   .no-line{
@@ -31,7 +31,7 @@
 //   .search-filter{
 //       display: flex;
 // .filter-container{
-//     .mat-menu-content{
+//     .mat-mdc-menu-content{
 //     }
 // }
 //   }

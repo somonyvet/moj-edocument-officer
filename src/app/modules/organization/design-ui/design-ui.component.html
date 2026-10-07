@@ -4,11 +4,11 @@
             <div class="header">
                 <div class="top-title" style="display: flex;">
                     <h1>បញ្ជីសមាជិកបក្ស</h1>
-                    <!-- <a matTooltip="បង្កើតសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-button mat-icon-button
+                    <!-- <a matTooltip="បង្កើតសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-icon-button
               *ngIf="auth?.profile | permission" class="mat-b-bg" (click)="onAddPartyMember()">
               <mat-icon class="mat-18">add</mat-icon>
             </a>
-            <a matTooltip="ទាញចូលទិន្នន័យសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-button mat-icon-button
+            <a matTooltip="ទាញចូលទិន្នន័យសមាជិកបក្ស" matTooltipClass="tooltipClass" mat-icon-button
               *ngIf="auth?.profile | permissionImport" class="mat-b-bg" [routerLink]="['/members/party-member/data']"
               routerLinkActive="" [queryParams]="{import:true}">
               <mat-icon class="mat-18">cloud_upload</mat-icon>
@@ -21,10 +21,11 @@
                     <input matInput placeholder="ស្វែងរកសមាជិកបក្ស">
                 </div>
             </div>
-            <!-- <nav mat-tab-nav-bar style="top: 0;border-bottom: solid 1px #ebebeb;">
+            <!-- <nav mat-tab-nav-bar [tabPanel]="tabPanel" style="top: 0;border-bottom: solid 1px #ebebeb;">
           <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
             [active]="rla.isActive">{{link.label}}</a>
-        </nav> -->
+        </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel> -->
 
             <div class="list-items">
 

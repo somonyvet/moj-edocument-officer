@@ -1,12 +1,14 @@
 import { HrPermissionStore } from './../../stores/hr-permission.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HrPermissionFormComponent } from './human-resource-permission-form/human-resource-permission-form.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-human-resource-permission',
-  templateUrl: './human-resource-permission.component.html',
-  styleUrls: ['./human-resource-permission.component.scss']
+    selector: 'app-human-resource-permission',
+    templateUrl: './human-resource-permission.component.html',
+    styleUrls: ['./human-resource-permission.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourcePermissionComponent implements OnInit {
   title = "បញ្ជីមន្ត្រីសុំអនុញ្ញាតច្បាប់ឈប់សម្រាក";

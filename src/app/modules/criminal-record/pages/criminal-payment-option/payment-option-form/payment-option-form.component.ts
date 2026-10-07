@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -12,9 +12,11 @@ import { paymentOptionStore } from '../../../stores/paymentOption.store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-payment-option-form',
-  templateUrl: './payment-option-form.component.html',
-  styleUrls: ['./payment-option-form.component.scss']
+    selector: 'app-payment-option-form',
+    templateUrl: './payment-option-form.component.html',
+    styleUrls: ['./payment-option-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PaymentOptionFormComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class PaymentOptionFormComponent implements OnInit {
   duration = URGENT_OBJ_ARRAY;
   APPLY_OBJECT_ARRAY = APPLY_OBJECT_ARRAY;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   title = "បង្កើតជម្រើសបង់ប្រាក់";
   item: any;
   totalPrice: number = 0;
@@ -31,7 +33,7 @@ export class PaymentOptionFormComponent implements OnInit {
     public dialogRef: MatDialogRef<PaymentOptionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public formData: any,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     public tran: LanguageStore,
     public ds: DataService,

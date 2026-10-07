@@ -1,8 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { DOCUMENT_TYPE_OBJECT } from 'src/app/dummy/config';
 import { IHeaderInformation } from 'src/app/interfaces/document/document.interface';
 import { InboxFormComponent } from 'src/app/modules/inbox/inbox-form/inbox-form.component';
@@ -10,12 +10,14 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentFormComponent } from '../../document-form/document-form.component';
-import { DOCUMENT } from "@angular/common";
+
 
 @Component({
-  selector: 'app-document-noted',
-  templateUrl: './document-noted.component.html',
-  styleUrls: ['./document-noted.component.scss']
+    selector: 'app-document-noted',
+    templateUrl: './document-noted.component.html',
+    styleUrls: ['./document-noted.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentNotedComponent implements OnInit, OnDestroy {
   params: any;

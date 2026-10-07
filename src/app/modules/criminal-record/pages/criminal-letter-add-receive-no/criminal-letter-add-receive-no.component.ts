@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, take, map } from 'rxjs/operators';
@@ -16,16 +16,18 @@ import { CitizenStore } from '../../stores/citizen.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-letter-add-receive-no',
-  templateUrl: './criminal-letter-add-receive-no.component.html',
-  styleUrls: ['./criminal-letter-add-receive-no.component.scss']
+    selector: 'app-criminal-letter-add-receive-no',
+    templateUrl: './criminal-letter-add-receive-no.component.html',
+    styleUrls: ['./criminal-letter-add-receive-no.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLetterAddReceiveNoComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "ចុះលេខព្រឹត្តិបត្រ";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   isKhmerForm: boolean = false;
   selectedCitizenProfile;
@@ -33,7 +35,7 @@ export class CriminalLetterAddReceiveNoComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CriminalLetterAddReceiveNoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private auth: AuthStore,
     private snackBar: MatSnackBar,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FLOW_TYPE_OBJECT } from 'src/app/dummy/config';
 import { IRanking } from 'src/app/interfaces/document/document.interface';
@@ -7,9 +7,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentDepartmentFormComponent } from '../document-department-form/document-department-form.component';
 
 @Component({
-  selector: 'app-document-flow',
-  templateUrl: './document-flow.component.html',
-  styleUrls: ['./document-flow.component.scss']
+    selector: 'app-document-flow',
+    templateUrl: './document-flow.component.html',
+    styleUrls: ['./document-flow.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentFlowComponent implements OnInit {
   managementLevel: any[] = [];

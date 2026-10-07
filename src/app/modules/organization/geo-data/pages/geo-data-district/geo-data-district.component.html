@@ -16,10 +16,12 @@
         <h1>{{geo?.selectedProvince?.name}}</h1>
       </div>
       <div class="list-items">
-        <button [routerLink]="['/apps/geo/' + item?.key+'/districts']"
-          [ngClass]="{active:item?.key===geo.selectedProvince?.key}" mat-button *ngFor="let item of geo?.provinces">
-          {{item?.name}}
-        </button>
+        @for (item of geo?.provinces; track item) {
+          <button [routerLink]="['/apps/geo/' + $safeNavigationMigration(item?.key)+'/districts']"
+            [ngClass]="{active:item?.key===geo.selectedProvince?.key}" mat-button>
+            {{item?.name}}
+          </button>
+        }
       </div>
     </div>
 
@@ -35,81 +37,83 @@
         <div class="page-page-content">
           <div class="do-more">
 
-        </div>
+          </div>
           <div class="new-data">
             <button mat-raised-button (click)="create(null)">
               <i class="material-icons">add</i>Add New District</button>
-          </div>
+            </div>
 
-          <div class="page-section" *ngIf="geo.districts?.length>0 && !geo.loading">
-            <div class="card-wrapper tab">
-              <div class="tb-content overview">
-                <div class="card-header">
-                  <div class="card-item">
-                    <div class="card-col10">
-                      <div class="flex-block">
-                        No
+            @if (geo.districts?.length>0 && !geo.loading) {
+              <div class="page-section">
+                <div class="card-wrapper tab">
+                  <div class="tb-content overview">
+                    <div class="card-header">
+                      <div class="card-item">
+                        <div class="card-col10">
+                          <div class="flex-block">
+                            No
+                          </div>
+                        </div>
+                        <div class="card-col20">
+                          <div class="flex-block">
+                            Code
+                          </div>
+                        </div>
+                        <div class="card-col60">
+                          <div class="flex-block">
+                            Name
+                          </div>
+                        </div>
+                        <div class="card-col10"></div>
                       </div>
                     </div>
-                    <div class="card-col20">
-                      <div class="flex-block">
-                        Code
-                      </div>
-                    </div>
-                    <div class="card-col60">
-                      <div class="flex-block">
-                        Name
-                      </div>
-                    </div>
-                    <div class="card-col10"></div>
-                  </div>
-                </div>
-
-                <div class="card-content">
-                  <ng-container *ngFor="let item of geo?.districts;let i=index">
-                    <div class="card-item">
-                      <div class="card-col10">
-                        <div class="flex-block">
-                          {{i+1}}
-                        </div>
-                      </div>
-                      <div class="card-col20">
-                        <div class="flex-block link">
-                          <strong class="text-link"
-                            [routerLink]="['/apps/geo/'+ item?.province?.key + '/' + item?.key + '/communes']">{{item?.id}}</strong>
-                        </div>
-                      </div>
-                      <div class="card-col60">
-                        <div class="flex-block link">
-                          <strong class="text-link"
-                            [routerLink]="['/apps/geo/'+ item?.province?.key + '/' + item?.key + '/communes']">{{item?.geo_prefix ? item?.geo_prefix?.name : 'ស្រុក'}}{{item?.name}}</strong>
-                        </div>
-                      </div>
-                      <div class="card-col10">
-                        <div class="card-list-action">
-                            <button mat-icon-button [matMenuTriggerFor]="menu">
-                              <i class="material-icons">more_vert</i>
-                            </button>
-                            <mat-menu #menu="matMenu">
+                    <div class="card-content">
+                      @for (item of geo?.districts; track item; let i = $index) {
+                        <div class="card-item">
+                          <div class="card-col10">
+                            <div class="flex-block">
+                              {{i+1}}
+                            </div>
+                          </div>
+                          <div class="card-col20">
+                            <div class="flex-block link">
+                              <strong class="text-link"
+                              [routerLink]="['/apps/geo/'+ $safeNavigationMigration(item?.province?.key) + '/' + $safeNavigationMigration(item?.key) + '/communes']">{{item?.id}}</strong>
+                            </div>
+                          </div>
+                          <div class="card-col60">
+                            <div class="flex-block link">
+                              <strong class="text-link"
+                              [routerLink]="['/apps/geo/'+ $safeNavigationMigration(item?.province?.key) + '/' + $safeNavigationMigration(item?.key) + '/communes']">{{item?.geo_prefix ? item?.geo_prefix?.name : 'ស្រុក'}}{{item?.name}}</strong>
+                            </div>
+                          </div>
+                          <div class="card-col10">
+                            <div class="card-list-action">
+                              <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <i class="material-icons">more_vert</i>
+                              </button>
+                              <mat-menu #menu="matMenu">
                                 <button mat-menu-item (click)="create(item)">
-                                    <mat-icon>edit</mat-icon>
-                                    <span>Edit</span>
-                                  </button>
-                              <!-- <button mat-menu-item (click)="delete(item)">
+                                  <mat-icon>edit</mat-icon>
+                                  <span>Edit</span>
+                                </button>
+                                <!-- <button mat-menu-item (click)="delete(item)">
                                 <mat-icon>delete</mat-icon>
                                 <span>Delete</span>
                               </button> -->
-
                             </mat-menu>
                           </div>
+                        </div>
                       </div>
-                    </div>
-                  </ng-container>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <app-spinner *ngIf="geo?.loading"></app-spinner>
+          }
+          @if (geo?.loading) {
+            <app-spinner></app-spinner>
+          }
         </div>
       </div>
     </div>

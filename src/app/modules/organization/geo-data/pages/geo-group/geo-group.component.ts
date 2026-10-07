@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -8,9 +8,11 @@ import { Geo } from '../../stores/geo.store';
 import { GeoGroupFormComponent } from '../geo-group-form/geo-group-form.component';
 
 @Component({
-  selector: 'app-geo-group',
-  templateUrl: './geo-group.component.html',
-  styleUrls: ['./geo-group.component.scss']
+    selector: 'app-geo-group',
+    templateUrl: './geo-group.component.html',
+    styleUrls: ['./geo-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoGroupComponent implements OnInit {
   communeKey: string;

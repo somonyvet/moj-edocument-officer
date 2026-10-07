@@ -1,48 +1,57 @@
 <div class="officer-profile-info-container">
-    <div style="margin-top:10px">
-      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.status?.key && criminalStore?.selectedCriminalRecord?.status?.key!==STATUS_OBJ?.DRAFT?.key">
-        <div class="doc-form-wrapper doc-comment-form-wrapper">
-          <h3 class="header-title">
-            មតិពិភាក្សា
-          </h3>
-          <ng-container *ngIf="auth?.publicApplication;else internalTemplate">
-            <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
-          </ng-container>
-          <ng-template #internalTemplate>
-            <mat-tab-group>
-              <mat-tab label="អ្នកស្នើសុំ">
-                1
-                <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
-              </mat-tab>
-              <mat-tab label="ផ្ទៃក្នុង">
-                2
-                <app-moj-document-comment style="width:100%"></app-moj-document-comment>
-              </mat-tab>
-            </mat-tab-group>
-          </ng-template>
-        </div>
-      </ng-container>
+  <div style="margin-top:10px">
+    @if (criminalStore?.selectedCriminalRecord?.status?.key && criminalStore?.selectedCriminalRecord?.status?.key!==STATUS_OBJ?.DRAFT?.key) {
+      <div class="doc-form-wrapper doc-comment-form-wrapper">
+        <h3 class="header-title">
+          មតិពិភាក្សា
+        </h3>
+        @if (auth?.publicApplication) {
+          <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
+        } @else {
+          <mat-tab-group>
+            <mat-tab label="អ្នកស្នើសុំ">
+              1
+              <app-moj-document-comment-public style="width:100%"></app-moj-document-comment-public>
+            </mat-tab>
+            <mat-tab label="ផ្ទៃក្នុង">
+              2
+              <app-moj-document-comment style="width:100%"></app-moj-document-comment>
+            </mat-tab>
+          </mat-tab-group>
+        }
+      </div>
+    }
 
-      <app-confirm-criminal-application-form *ngIf="isTypeConfirm"></app-confirm-criminal-application-form>
-      <app-review-criminal-application *ngIf="isTypeReview"></app-review-criminal-application>
+    @if (isTypeConfirm) {
+      <app-confirm-criminal-application-form></app-confirm-criminal-application-form>
+    }
+    @if (isTypeReview) {
+      <app-review-criminal-application></app-review-criminal-application>
+    }
 
+    @if ((auth?.canWriteDecree || auth?.root) && criminalStore?.selectedCriminalRecord?.status?.key===STATUS_OBJ?.REVIEW?.key) {
       <app-criminal-application-decree
-        *ngIf="(auth?.canWriteDecree || auth?.root) && criminalStore?.selectedCriminalRecord?.status?.key===STATUS_OBJ?.REVIEW?.key">
+        >
       </app-criminal-application-decree>
+    }
 
-      <div class="eform" id="printD" #printD style="margin: 0 auto;">
-        <div class="head p-rel">
-          <div class="head-item">
-            <div class="profile-box container-header-input pah" style="width: 160px;height: 180px;">
-              <div *ngIf="!criminalStore?.selectedCriminalRecord?.photoUrl">
+    <div class="eform" id="printD" #printD style="margin: 0 auto;">
+      <div class="head p-rel">
+        <div class="head-item">
+          <div class="profile-box container-header-input pah" style="width: 160px;height: 180px;">
+            @if (!criminalStore?.selectedCriminalRecord?.photoUrl) {
+              <div>
                 <p>រូបថត</p>
                 <p>៤x៦</p>
                 <br>
-                <p></p>
-                <p></p>
-              </div>
-              <img *ngIf="criminalStore?.selectedCriminalRecord?.photoUrl"
-                [src]="criminalStore?.selectedCriminalRecord?.photoUrl" />
+                  <p></p>
+                  <p></p>
+                </div>
+              }
+              @if (criminalStore?.selectedCriminalRecord?.photoUrl) {
+                <img
+                  [src]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.photoUrl)" />
+              }
               <button mat-icon-button class="slp">
                 <mat-icon class="mat-18">photo_camera</mat-icon>
               </button>
@@ -64,7 +73,7 @@
                     <span class="nor-fam">ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
                     <span class="nor-fam">
                       <p class="f-input">{{(criminalStore?.selectedCriminalRecord?.last_name||'') + ' ' +
-                        (criminalStore?.selectedCriminalRecord?.first_name||'')}}</p>
+                      (criminalStore?.selectedCriminalRecord?.first_name||'')}}</p>
                     </span>
                   </div>
                 </div>
@@ -127,7 +136,7 @@
               <div class="f-item">
                 <span>I-នាមត្រកូល និង នាមខ្លួន</span>
                 <p class="f-input">{{(criminalStore?.selectedCriminalRecord?.last_name||'') + ' ' +
-                  (criminalStore?.selectedCriminalRecord?.first_name||'')}}</p>
+                (criminalStore?.selectedCriminalRecord?.first_name||'')}}</p>
               </div>
 
               <div class="f-item">
@@ -158,19 +167,19 @@
                 <div class="f-item">
                   <span>ថ្ងៃ ខែ ឆ្នាំកំណើត ថ្ងៃ</span>
                   <p style="width: 15%;"
-                    class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name}}</p>
+                  class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name}}</p>
                   <span>ខែ</span>
                   <p style="width: 30%;"
-                    class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}</p>
+                  class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}</p>
                   <span>ឆ្នាំ</span>
                   <p style="width: 38%;"
-                    class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}</p>
+                  class="f-input">{{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}</p>
                 </div>
               </div>
 
             </div>
 
-            <ng-container *ngIf="isKhmerForm ; else foreignerAddress">
+            @if (isKhmerForm ) {
               <div class="row-item">
                 <div class="f-item">
                   <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
@@ -189,16 +198,15 @@
                   <p class="f-input">{{ isKhmerForm ?criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name :criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name_en}}</p>
                 </div>
               </div>
-            </ng-container>
-
-            <ng-template #foreignerAddress>
+            } @else {
               <div class="row-item">
                 <div class="f-item">
                   <span>ទីកន្លែងកំណើត</span>
                   <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerPlaceOfBirth }}</p>
                 </div>
               </div>
-            </ng-template>
+            }
+
 
             <div class="row-item">
               <div class="f-item" style="width: 140%;">
@@ -260,15 +268,17 @@
                 </app-display-khmer-date>
               </div>
               <div class="f-item overfh" style="width: 300px;">
-                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                  style="display: flex; align-items: center; column-gap: 4px;">
-                  <i class="material-icons-sharp">
-                    {{(criminalStore?.selectedCriminalRecord?.fatherIsDead?.key ==
-                    item?.key)?'check_box':'check_box_outline_blank'}}
-                  </i>
-                  <span>{{item?.text}}</span>
-                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                </section>
+                @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                  <section
+                    style="display: flex; align-items: center; column-gap: 4px;">
+                    <i class="material-icons-sharp">
+                      {{(criminalStore?.selectedCriminalRecord?.fatherIsDead?.key ==
+                      item?.key)?'check_box':'check_box_outline_blank'}}
+                    </i>
+                    <span>{{item?.text}}</span>
+                    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                  </section>
+                }
               </div>
             </div>
 
@@ -284,7 +294,7 @@
                 </p>
               </div>
             </div>
-            <ng-container *ngIf="isKhmerForm ; else foreignerFatherAddress">
+            @if (isKhmerForm ) {
               <div class="row-item">
                 <div class="f-item" style="width: 140%;">
                   <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
@@ -302,18 +312,16 @@
                   <span>ភូមិ</span>
                   <p class="f-input">{{ isKhmerForm ?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name :criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en}}</p>
                 </div>
-
               </div>
-            </ng-container>
-
-            <ng-template #foreignerFatherAddress>
+            } @else {
               <div class="row-item">
                 <div class="f-item">
                   <span>ទីកន្លែងកំណើត</span>
                   <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress }}</p>
                 </div>
               </div>
-            </ng-template>
+            }
+
 
             <div class="row-item">
               <div class="f-item">
@@ -344,15 +352,17 @@
               </div>
 
               <div class="f-item overfh" style="width: 300px;">
-                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                  style="display: flex; align-items: center; column-gap: 4px;">
-                  <i class="material-icons-sharp">
-                    {{(criminalStore?.selectedCriminalRecord?.motherIsDead?.key ==
-                    item?.key)?'check_box':'check_box_outline_blank'}}
-                  </i>
-                  <span>{{item?.text}}</span>
-                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                </section>
+                @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                  <section
+                    style="display: flex; align-items: center; column-gap: 4px;">
+                    <i class="material-icons-sharp">
+                      {{(criminalStore?.selectedCriminalRecord?.motherIsDead?.key ==
+                      item?.key)?'check_box':'check_box_outline_blank'}}
+                    </i>
+                    <span>{{item?.text}}</span>
+                    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                  </section>
+                }
               </div>
 
             </div>
@@ -370,7 +380,7 @@
               </div>
             </div>
 
-            <ng-container *ngIf="isKhmerForm ; else foreignerMotherAddress">
+            @if (isKhmerForm ) {
               <div class="row-item">
                 <div class="f-item" style="width: 140%;">
                   <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
@@ -389,16 +399,15 @@
                   <p class="f-input">{{ isKhmerForm?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name :criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en }}</p>
                 </div>
               </div>
-            </ng-container>
-
-            <ng-template #foreignerMotherAddress>
+            } @else {
               <div class="row-item">
                 <div class="f-item">
                   <span>ទីកន្លែងកំណើត</span>
                   <p class="f-input">{{criminalStore?.selectedCriminalRecord?.foreignerMotherBirthAddress }}</p>
                 </div>
               </div>
-            </ng-template>
+            }
+
 
             <div class="row-item">
               <div class="f-item">
@@ -427,15 +436,17 @@
                 </app-display-khmer-date>
               </div>
               <div class="f-item overfh" style="width: 300px;">
-                <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                  style="display: flex; align-items: center; column-gap: 4px;">
-                  <i class="material-icons-sharp">
-                    {{(criminalStore?.selectedCriminalRecord?.spouseIsDead?.key ==
-                    item?.key)?'check_box':'check_box_outline_blank'}}
-                  </i>
-                  <span>{{item?.text}}</span>
-                  <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                </section>
+                @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                  <section
+                    style="display: flex; align-items: center; column-gap: 4px;">
+                    <i class="material-icons-sharp">
+                      {{(criminalStore?.selectedCriminalRecord?.spouseIsDead?.key ==
+                      item?.key)?'check_box':'check_box_outline_blank'}}
+                    </i>
+                    <span>{{item?.text}}</span>
+                    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+                  </section>
+                }
               </div>
             </div>
 
@@ -462,7 +473,7 @@
             <div class="row-item">
               <div class="f-item">
                 <span style="margin-left: 40px;">សូមឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌ មេត្តាអនុញ្ញាតចេញព្រឹត្តបត្រថ្កោលទោសដល់ខ្ញុំបាទ -
-                  នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</span>
+                នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</span>
               </div>
             </div>
 
@@ -474,7 +485,7 @@
                     <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
                     <span class="n-title">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
                     <span class="n-title">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅ ឬសៀវភៅគ្រួសារច្បាប់ដើម ព្រមទាំងថតចម្លង
-                      (១ច្បាប់) មួយផង។</span>
+                    (១ច្បាប់) មួយផង។</span>
                     <span class="n-title">- ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។</span>
                   </span>
                   <div class="f-item">

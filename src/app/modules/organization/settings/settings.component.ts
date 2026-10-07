@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { tabs } from 'src/app/dummy/tabs';
@@ -11,13 +11,15 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { SettingsStore } from 'src/app/stores/document/settings.store';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   tabs = tabs.settings
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   generalDepartmentLevel: AbstractControl;
   filterGeneralDepartmentLevel: Observable<IRanking[]>;
@@ -46,7 +48,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   contactSupports: string[] = [];
   constructor(public store: SettingsStore,
     private department: OfficerStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     public ds: DatabaseService,
     private snackBar: MatSnackBar,

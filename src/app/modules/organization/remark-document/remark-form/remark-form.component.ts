@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -14,22 +14,24 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { RemarkStore } from 'src/app/stores/document/remark.store';
 
 @Component({
-  selector: 'app-remark-form',
-  templateUrl: './remark-form.component.html',
-  styleUrls: ['./remark-form.component.scss']
+    selector: 'app-remark-form',
+    templateUrl: './remark-form.component.html',
+    styleUrls: ['./remark-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RemarkFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតចំណារឯកភាព";
-  form: FormGroup;
+  form: UntypedFormGroup;
   remarkText: AbstractControl;
   filteredOptionsOfficer: any;
 
   constructor(
     public dialogRef: MatDialogRef<RemarkFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: OfficerStore,
     private ds: DatabaseService,
     private auth: AuthStore,

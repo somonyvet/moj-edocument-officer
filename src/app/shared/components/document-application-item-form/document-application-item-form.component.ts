@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { pushObjArray, toUniq, updateObjArray } from 'src/app/shared/services/convert.service';
@@ -11,15 +11,17 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-document-application-item-form',
-  templateUrl: './document-application-item-form.component.html',
-  styleUrls: ['./document-application-item-form.component.scss']
+    selector: 'app-document-application-item-form',
+    templateUrl: './document-application-item-form.component.html',
+    styleUrls: ['./document-application-item-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationItemFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "បង្កើតឯកសារ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[];
   filteredOfficeList;
   officeLists = [];
@@ -38,7 +40,7 @@ export class DocumentApplicationItemFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<DocumentApplicationItemFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

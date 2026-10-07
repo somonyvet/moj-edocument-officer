@@ -1,12 +1,14 @@
 import { HrAttendanceStore } from './../../stores/hr-attendance.store';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { KHMER_MONTH_ARRAY } from 'src/app/dummy/report';
 import { ConvertService, toLocaleNumber } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-human-resource-attendances',
-  templateUrl: './human-resource-attendances.component.html',
-  styleUrls: ['./human-resource-attendances.component.scss']
+    selector: 'app-human-resource-attendances',
+    templateUrl: './human-resource-attendances.component.html',
+    styleUrls: ['./human-resource-attendances.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceAttendancesComponent implements OnInit {
   daysInMonth = 0;

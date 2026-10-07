@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -11,9 +11,11 @@ import { KHMER_MONTH_ARRAY } from 'src/app/dummy/report';
 import { toLocaleNumber } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-mod-submit-report',
-  templateUrl: './mod-submit-report.component.html',
-  styleUrls: ['./mod-submit-report.component.scss']
+    selector: 'app-mod-submit-report',
+    templateUrl: './mod-submit-report.component.html',
+    styleUrls: ['./mod-submit-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ModSubmitReportComponent implements OnInit {
   tabs = criminal_tabs.request_latter;

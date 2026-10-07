@@ -1,35 +1,37 @@
 <form [formGroup]="form" class="dialog-content-wrapper" *mobxAutorun>
-    <div class="dialog-header">
-        <h2 mat-dialog-title>ចុះថ្ងៃផុតកំណត់</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>ចុះថ្ងៃផុតកំណត់</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  @if (process) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <mat-dialog-content class="form-wrapper">
+    <div class="col">
+      <div class="row">
+        <span class="bright-text">
+          ថ្ងៃផុតកំណត់ : {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateDayKh | pipeCut0}} -
+          {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateMonthKh}} -
+          {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateYearKh}}
+        </span>
+      </div>
+      <div class="row" style="margin-top: 18px;">
+        <mat-form-field appearance="outline">
+          <mat-label>ថ្ងៃផុតកំណត់</mat-label>
+          <input formControlName="expired_date" matInput [matDatepicker]="picker" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
-    <mat-progress-bar *ngIf="process" mode="indeterminate"></mat-progress-bar>
-    <mat-dialog-content class="form-wrapper">
-        <div class="col">
-            <div class="row">
-                <span class="bright-text">
-                    ថ្ងៃផុតកំណត់ : {{form?.get('expired_date')?.value|dateDayKh | pipeCut0}} -
-                    {{form?.get('expired_date')?.value|dateMonthKh}} -
-                    {{form?.get('expired_date')?.value|dateYearKh}}
-                </span>
-            </div>
-            <div class="row" style="margin-top: 18px;">
-                <mat-form-field appearance="outline">
-                    <mat-label>ថ្ងៃផុតកំណត់</mat-label>
-                    <input formControlName="expired_date" matInput [matDatepicker]="picker" readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-        </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
-        <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
-            (click)="save()">យល់ព្រម</button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
+    <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
+    (click)="save()">យល់ព្រម</button>
+  </mat-dialog-actions>
 </form>

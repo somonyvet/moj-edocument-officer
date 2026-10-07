@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ, COMMUNE_ARRAY_PREFIX } from 'src/app/dummy/appinfo';
@@ -14,16 +14,18 @@ import { GeoService } from '../../services/geo.service';
 import { Geo } from '../../stores/geo.store';
 
 @Component({
-  selector: 'app-village-change-commune-form',
-  templateUrl: './village-change-commune-form.component.html',
-  styleUrls: ['./village-change-commune-form.component.scss']
+    selector: 'app-village-change-commune-form',
+    templateUrl: './village-change-commune-form.component.html',
+    styleUrls: ['./village-change-commune-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VillageChangeCommuneFormComponent implements OnInit {
   title: any = "ភូមិផ្លាស់ប្តូរ ឃុំ/សង្កាត់";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   commune: AbstractControl
 
   process: boolean = false;
@@ -32,7 +34,7 @@ export class VillageChangeCommuneFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<VillageChangeCommuneFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

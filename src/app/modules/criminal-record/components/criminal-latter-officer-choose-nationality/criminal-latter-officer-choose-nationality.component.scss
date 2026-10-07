@@ -1,4 +1,4 @@
-@import "./../.././../../../assets/styles/variable.scss";
+@use "./../.././../../../assets/styles/variable.scss" as *;
 
 .chooser-cat {
   height: fit-content !important;
@@ -92,7 +92,7 @@
   gap: 13px;
 }
 
-::ng-deep .choice-card.mat-radio-button {
+::ng-deep .choice-card.mat-mdc-radio-button {
   flex: 1 1 200px;
   border: 1.5px solid $border;
   border-radius: 12px;
@@ -100,7 +100,18 @@
   transition: border-color .15s ease, background-color .15s ease;
   cursor: pointer;
 
-  .mat-radio-label {
+  // MDC sizes the radio's clickable area via an invisible touch-target padding
+  // (`.mdc-radio`'s own padding is `calc((--mat-radio-state-layer-size - 20px) / 2)`,
+  // 40px by default), which legacy's bare 20px circle never had -- that's what was
+  // inflating this card's height from ~36px to ~48px. Shrinking the state-layer size
+  // to match the visible circle collapses that padding back to 0.
+  --mat-radio-state-layer-size: 20px;
+
+  .mat-mdc-radio-touch-target {
+    display: none;
+  }
+
+  .mdc-label {
     width: 100%;
     white-space: normal;
   }
@@ -110,7 +121,7 @@
     background: $svgWash;
   }
 
-  &.mat-radio-checked {
+  &.mat-mdc-radio-checked {
     border-color: $primary;
     background: $svgWash;
   }
@@ -152,7 +163,7 @@
     background: $svgWash;
   }
 
-  &.locked ::ng-deep .mat-slide-toggle {
+  &.locked ::ng-deep .mat-mdc-slide-toggle {
     pointer-events: none;
     opacity: .85;
   }
@@ -307,22 +318,24 @@
   to { transform: rotate(360deg); }
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent.mat-checkbox-disabled .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+::ng-deep .mat-mdc-checkbox-checked.mat-accent.mat-mdc-checkbox-disabled .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
   background-color: #1a73e8 !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+::ng-deep .mat-mdc-checkbox-checked.mat-accent .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
   background-color: #1a73e8 !important;
 }
 
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-  background-color: rgba(26, 115, 232, 0.5) !important;
-}
-
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-  background-color: $primary !important;
+// The checked track/handle colors are painted by ::after/::before pseudo-elements
+// layered on top of .mdc-switch__track/.mdc-switch__handle (confirmed in the compiled
+// component CSS), so setting background-color on those real elements directly is
+// invisible -- it's covered by the pseudo-elements. These CSS variables are what the
+// pseudo-elements actually read their color from.
+::ng-deep .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked {
+  --mat-slide-toggle-selected-track-color: rgba(26, 115, 232, 0.5);
+  --mat-slide-toggle-selected-handle-color: #{$primary};
 }
 
 @media (max-width: 560px) {
@@ -334,7 +347,7 @@
     flex-direction: column;
   }
 
-  ::ng-deep .choice-card.mat-radio-button {
+  ::ng-deep .choice-card.mat-mdc-radio-button {
     flex: 1 1 auto;
   }
 }

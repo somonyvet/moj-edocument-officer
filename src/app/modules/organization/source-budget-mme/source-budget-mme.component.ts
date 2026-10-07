@@ -1,9 +1,9 @@
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { SourceBudgetFormComponent } from './source-budget-form/source-budget-form.component';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { tabs } from 'src/app/dummy/tabs';
 import { IRemarkOfficer, IYearProgram } from 'src/app/interfaces/document/document.interface';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -13,9 +13,11 @@ import { MmeProgramStore } from 'src/app/stores/document/mme-program.store';
 import { RemarkStore } from 'src/app/stores/document/remark.store';
 
 @Component({
-  selector: 'app-source-budget-mme',
-  templateUrl: './source-budget-mme.component.html',
-  styleUrls: ['./source-budget-mme.component.scss']
+    selector: 'app-source-budget-mme',
+    templateUrl: './source-budget-mme.component.html',
+    styleUrls: ['./source-budget-mme.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SourceBudgetMmeComponent implements OnInit {
   tabs = tabs.mmeSourceBudget

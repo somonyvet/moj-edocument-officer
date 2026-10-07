@@ -1,103 +1,116 @@
 <div class="dialog-content-wrapper" *mobxAutorun>
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close(null)">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close(null)">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper form-doc-full">
+    <div class="doc-rows-form">
+      <div class="doc-rows-nav">
+        <ul>
+          @for (item of store?.workplaces; track item) {
+            <li>
+              <mat-checkbox [value]="item" (change)="_onSaveCheckedChange($event)" class="example-margin"
+              [checked]="$safeNavigationMigration(item?.isActive)"></mat-checkbox>
+              <a [ngClass]="store?.selectedWorkplace?.key===item?.key?'active':item?.hasApproved?'':'incomplete'"
+              (click)="_onSelectedWorkplace(item)">{{item?.name}}</a>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="doc-rows-container">
+        <h1>ជ្រើសរើសគណនី</h1>
+        <form class="search-form" [formGroup]="form">
+          <span class="material-icons">search</span>
+          <input formControlName="search" placeholder="ស្វែងរកគណនី" type="text">
+        </form>
+        <h4>គណនី</h4>
+        <cdk-virtual-scroll-viewport #scrollAccount autosize itemSize="52" class="virtual-list">
+          <div class="profile-avatar" *cdkVirtualFor="let officer of $safeNavigationMigration(officer?.officers)">
+            <img [src]="officer?.file?.downloadUrl||URL">
+            <div class="pro-txt">
+              <div>{{officer?.displayName}}</div>
+              @if (officer?.currentTitle) {
+                <div class="pro-txt-sub">{{officer?.currentTitle}}
+                {{officer?.currentDepartment?.name}}</div>
+              }
+            </div>
+            @if (store?.headerDocument?.created_by!==officer?.key) {
+              <span class="material-icons"
+                (click)="_onRemoveDocumentAccount(officer,false)"
+                [ngClass]="($safeNavigationMigration(officer?.key)|findDocumentAccount:$safeNavigationMigration(store?.userPermission))?'rm':'ra'">
+                {{($safeNavigationMigration(officer?.key)|findDocumentAccount:$safeNavigationMigration(store?.userPermission))?'remove_circle':'add_circle'}}
+              </span>
+            }
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
     </div>
-    <mat-dialog-content class="form-wrapper form-doc-full">
-        <div class="doc-rows-form">
-            <div class="doc-rows-nav">
-                <ul>
-                    <li *ngFor="let item of store?.workplaces">
-                        <mat-checkbox [value]="item" (change)="_onSaveCheckedChange($event)" class="example-margin"
-                            [checked]="item?.isActive"></mat-checkbox>
-                        <a [ngClass]="store?.selectedWorkplace?.key===item?.key?'active':item?.hasApproved?'':'incomplete'"
-                            (click)="_onSelectedWorkplace(item)">{{item?.name}}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="doc-rows-container">
-                <h1>ជ្រើសរើសគណនី</h1>
-                <form class="search-form" [formGroup]="form">
-                    <span class="material-icons">search</span>
-                    <input formControlName="search" placeholder="ស្វែងរកគណនី" type="text">
-                </form>
-                <h4>គណនី</h4>
-                <virtual-scroller #scrollAccount [items]="officer?.officers" itemSize="52" class="virtual-list">
-                    <div class="profile-avatar" *ngFor="let officer of scrollAccount?.viewPortItems">
-                        <img [src]="officer?.file?.downloadUrl||URL">
-                        <div class="pro-txt">
-                            <div>{{officer?.displayName}}</div>
-                            <div class="pro-txt-sub" *ngIf="officer?.currentTitle">{{officer?.currentTitle}}
-                                {{officer?.currentDepartment?.name}}</div>
-                        </div>
-                        <span class="material-icons" *ngIf="store?.headerDocument?.created_by!==officer?.key"
-                            (click)="_onRemoveDocumentAccount(officer,false)"
-                            [ngClass]="(officer?.key|findDocumentAccount:store?.userPermission)?'rm':'ra'">
-                            {{(officer?.key|findDocumentAccount:store?.userPermission)?'remove_circle':'add_circle'}}
-                        </span>
-                    </div>
-                </virtual-scroller>
-            </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="dialog-options">
+    <mat-tab-group>
+      <mat-tab label="សិទ្ធិប្រើប្រាស់ឯកសារ">
+        <div class="avatar-acc-add">
+          <div class="rows">
+            <h4 class="flex1" style="margin-top: 10px;">គណនីមានសិទ្ធិប្រើប្រាស់ឯកសារ ({{store?.userPermission?.length}}នាក់)</h4>
+            @if (store?.selectedWorkplace) {
+              <div class="acc-wp">
+                <span>{{store?.selectedWorkplace?.name}}</span>
+                <button type="button" (click)="_clear()" mat-icon-button>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+          <div class="avatar-list-pro">
+            @for (permission of $safeNavigationMigration(store?.userPermission) |filterData:'workplaceKey':$safeNavigationMigration(store?.selectedWorkplace?.key); track permission) {
+              <app-avatar-officer (onEdit)="_onEdit($event)" [imgCss]="$safeNavigationMigration(permission?.permission?.route)"
+                [borderColor]="$safeNavigationMigration(permission?.permission?.color)"
+                (onRemove)="_onRemoveDocumentAccount($event,true)" [removeStyle]="true"
+                [isOwner]="store?.headerDocument?.created_by===permission?.accountKey"
+                [officerKey]="$safeNavigationMigration(permission?.accountKey)"
+                >
+              </app-avatar-officer>
+            }
+          </div>
         </div>
-    </mat-dialog-content>
-    <mat-dialog-actions class="dialog-options">
-        <mat-tab-group>
-            <mat-tab label="សិទ្ធិប្រើប្រាស់ឯកសារ">
-                <div class="avatar-acc-add">
-                    <div class="rows">
-                        <h4 class="flex1" style="margin-top: 10px;">គណនីមានសិទ្ធិប្រើប្រាស់ឯកសារ ({{store?.userPermission?.length}}នាក់)</h4>
-                        <div class="acc-wp" *ngIf="store?.selectedWorkplace">
-                            <span>{{store?.selectedWorkplace?.name}}</span>
-                            <button type="button" (click)="_clear()" mat-button mat-icon-button>
-                                <mat-icon>cancel</mat-icon>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="avatar-list-pro">
-                        <app-avatar-officer (onEdit)="_onEdit($event)" [imgCss]="permission?.permission?.route"
-                            [borderColor]="permission?.permission?.color"
-                            (onRemove)="_onRemoveDocumentAccount($event,true)" [removeStyle]="true"
-                            [isOwner]="store?.headerDocument?.created_by===permission?.accountKey"
-                            [officerKey]="permission?.accountKey"
-                            *ngFor="let permission of store?.userPermission |filterData:'workplaceKey':store?.selectedWorkplace?.key">
-                        </app-avatar-officer>
-                    </div>
+      </mat-tab>
+      <mat-tab label="ចរន្តឯកសារ">
+        <div cdkDropList class="cmat-menu-c-container" (cdkDropListDropped)="drop($event)">
+          @for (item of  store?.approvalUserPermission; track item) {
+            <div class="div-container big-item"
+              cdkDrag>
+              <div class="left-border">
+                <div class="top-div"></div>
+                <div class="bottom-div"></div>
+              </div>
+              <div class="wraper">
+                <div class="profile-container">
+                  <div class="profile">
+                    <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)"></app-officer-avatar>
+                  </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="ចរន្តឯកសារ">
-                <div cdkDropList class="cmat-menu-c-container" (cdkDropListDropped)="drop($event)">
-                      <div class="div-container big-item" *ngFor="let item of  store?.approvalUserPermission"
-                        cdkDrag>
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <app-officer-avatar [officerKey]="item?.accountKey"></app-officer-avatar>
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <app-officer-avatar [officerKey]="item?.accountKey" [isTitle]="true">
-                              </app-officer-avatar>
-
-                              <h3>{{item?.profile?.last_name}} {{item?.profile?.first_name}}</h3>
-                              <span class="text">{{item?.profile?.position?.name}}</span>
-                            </div>
-                            <div class="status-container" *ngIf="item?.completedTask">
-                              <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
-                              <p>{{item?.approvedAt?.toDate() | date}}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="info-container">
+                  <div class="info-wraper">
+                    <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)" [isTitle]="true">
+                    </app-officer-avatar>
+                    <h3>{{item?.profile?.last_name}} {{item?.profile?.first_name}}</h3>
+                    <span class="text">{{item?.profile?.position?.name}}</span>
+                  </div>
+                  @if (item?.completedTask) {
+                    <div class="status-container">
+                      <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
+                      <p>{{$safeNavigationMigration(item?.approvedAt?.toDate()) | date}}</p>
                     </div>
-            </mat-tab>
-        </mat-tab-group>
-    </mat-dialog-actions>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-actions>
 </div>

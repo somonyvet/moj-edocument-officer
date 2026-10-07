@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,9 +16,11 @@ import { DatabaseService } from 'src/app/shared/services/database.service';
 import { ProgramForUserFormComponent } from './program-for-user-form/program-for-user-form.component';
 
 @Component({
-  selector: 'app-program-for-user',
-  templateUrl: './program-for-user.component.html',
-  styleUrls: ['./program-for-user.component.scss']
+    selector: 'app-program-for-user',
+    templateUrl: './program-for-user.component.html',
+    styleUrls: ['./program-for-user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProgramForUserComponent implements OnInit {
   tabs = tabs.mmeProgram;

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IInstitution } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { InstitutionStore } from 'src/app/stores/document/institution.store';
 import { InstitutionFormComponent } from './institution-form/institution-form.component';
 
 @Component({
-  selector: 'app-institution',
-  templateUrl: './institution.component.html',
-  styleUrls: ['./institution.component.scss']
+    selector: 'app-institution',
+    templateUrl: './institution.component.html',
+    styleUrls: ['./institution.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InstitutionComponent implements OnInit {
 

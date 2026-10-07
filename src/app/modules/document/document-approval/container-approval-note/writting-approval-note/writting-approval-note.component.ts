@@ -1,7 +1,7 @@
 import { pushObjArray } from 'src/app/shared/services/convert.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { MappingService } from 'src/app/shared/services/mapping.service';
@@ -9,13 +9,15 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { AddRemarkComponent } from './add-remark/add-remark.component';
 
 @Component({
-  selector: 'app-writting-approval-note',
-  templateUrl: './writting-approval-note.component.html',
-  styleUrls: ['./writting-approval-note.component.scss']
+    selector: 'app-writting-approval-note',
+    templateUrl: './writting-approval-note.component.html',
+    styleUrls: ['./writting-approval-note.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class WrittingApprovalNoteComponent implements OnInit {
   @ViewChild('stampFile') stampFile: ElementRef;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() stamp_link: any;
   @Input() compareWithObj: any;
   // @Input() remarkOfficer: any;
@@ -30,7 +32,7 @@ export class WrittingApprovalNoteComponent implements OnInit {
   remark_officer: AbstractControl;
   remarkOfficer: Observable<Array<any>>;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     private dialog: MatDialog
   ) { }

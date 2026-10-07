@@ -9,7 +9,11 @@
   .btn-paid{
     padding: 1px 12px;
     border-radius: 25px;
-    height: fit-content;
+    // MatButton's own default is already height: var(--mat-button-text-container-height, 40px),
+    // but height: fit-content discarded that, falling back to content-driven sizing -- which
+    // comes out much shorter under MDC's tighter line-height than legacy's, producing a thin
+    // ~24px pill instead of the old app's 40px (matching the icon-button circles beside it).
+    height: 40px;
     width: fit-content;
   }
 }
@@ -25,9 +29,6 @@
   }
 }
 
-// the global .full-page-container sets overflow-y:hidden, which makes it its own
-// scrollport: the header's sticky then resolves against a box that never scrolls, so
-// it scrolled away with the form. Letting overflow through pins it to .main-r, the
 // column that actually scrolls.
 .full-page-container {
   overflow: visible;
@@ -36,5 +37,9 @@
   .header {
     top: 0;
     z-index: 100;
+    .wrapper .mat-add-new {
+      position: relative;
+      top: -3px;
+    }
   }
 }

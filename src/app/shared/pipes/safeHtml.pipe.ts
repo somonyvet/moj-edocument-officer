@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'safe'
+    name: 'safe',
+    standalone: false
 })
 export class SafePipe implements PipeTransform {
 
@@ -26,7 +27,8 @@ export class SafePipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'removeFirebaseText'
+    name: 'removeFirebaseText',
+    standalone: false
 })
 export class RemoveFirebaseTextPipe implements PipeTransform {
   

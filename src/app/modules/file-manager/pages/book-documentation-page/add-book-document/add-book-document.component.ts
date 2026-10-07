@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { statusLists, tagTypeLists } from 'src/app/dummy/status';
@@ -15,9 +15,11 @@ import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { BookDocumentStore } from 'src/app/stores/book-document.store';
 
 @Component({
-  selector: 'app-add-book-document',
-  templateUrl: './add-book-document.component.html',
-  styleUrls: ['./add-book-document.component.scss']
+    selector: 'app-add-book-document',
+    templateUrl: './add-book-document.component.html',
+    styleUrls: ['./add-book-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddBookDocumentComponent implements OnInit {
 
@@ -25,7 +27,7 @@ export class AddBookDocumentComponent implements OnInit {
 
   status_lists = statusLists
   tagType_Lists = tagTypeLists
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   color: AbstractControl;
   order: number;
@@ -38,7 +40,7 @@ export class AddBookDocumentComponent implements OnInit {
   isCreate: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public auth: AuthStore,

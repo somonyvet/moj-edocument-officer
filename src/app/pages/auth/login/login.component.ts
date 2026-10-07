@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthStore } from './../../../stores/auth.store';
-import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { WindowService } from 'src/app/shared/services/window.service';
 import firebase from 'firebase/compat/app';
 
@@ -13,9 +13,11 @@ import { SignupComponent } from '../signup/signup.component';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('code1') code1: ElementRef;
@@ -30,18 +32,18 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   };
 
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   error: string = null;
   process: boolean = false;
 
-  formPhone: FormGroup;
-  formCode: FormGroup;
+  formPhone: UntypedFormGroup;
+  formCode: UntypedFormGroup;
 
   isSendCode: boolean = false;
   phoneNumber: string = null;
   windowRef: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AuthStore,
     private router: Router,
     private win: WindowService,

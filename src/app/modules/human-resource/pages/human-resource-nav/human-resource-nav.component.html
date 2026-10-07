@@ -1,29 +1,31 @@
 <div class="main-panel">
-    <div class="main-l" [ngStyle]="setToggle()">
-        <div class="head-bar">
-            <a mat-button class="enbutton primary"
-                [routerLink]="['/hr/officer-application-form/' + auth?.profile?.key + '/personal-info']">
-                <div class="rows">
-                    <ion-icon name="create-outline"></ion-icon>
-                    <span>បញ្ចូលសាលាកប័ត្រ</span>
-                </div>
-            </a>
+  <div class="main-l" [ngStyle]="setToggle()">
+    <div class="head-bar">
+      <a mat-button class="enbutton primary"
+        [routerLink]="['/hr/officer-application-form/' + $safeNavigationMigration(auth?.profile?.key) + '/personal-info']">
+        <div class="rows">
+          <ion-icon name="create-outline"></ion-icon>
+          <span>បញ្ចូលសាលាកប័ត្រ</span>
         </div>
-        <div class="main-body">
-            <div class="tog-side-nav">
-                <a class="side-nav-item" mat-button *ngFor="let item of nav_items" #appTab="routerLinkActive"
-                    [routerLink]="[item?.url]" routerLinkActive="active">
-                    <ion-icon [name]="appTab?.isActive?item?.icon :item?.icon+'-outline'"></ion-icon>
-                    <span>{{item?.name}}</span>
-                </a>
-            </div>
-        </div>
-        <div class="main-calendar">
-            <mat-divider></mat-divider>
-            <mat-calendar (selectedChange)="_onSelectedCalendar($event)" [(selected)]="selected"></mat-calendar>
-        </div>
+      </a>
     </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
+    <div class="main-body">
+      <div class="tog-side-nav">
+        @for (item of nav_items; track item) {
+          <a class="side-nav-item" mat-button #appTab="routerLinkActive"
+            [routerLink]="[$safeNavigationMigration(item?.url)]" routerLinkActive="active">
+            <ion-icon [name]="appTab?.isActive?$safeNavigationMigration(item?.icon) :$safeNavigationMigration(item?.icon)+'-outline'"></ion-icon>
+            <span>{{item?.name}}</span>
+          </a>
+        }
+      </div>
     </div>
+    <div class="main-calendar">
+      <mat-divider></mat-divider>
+      <mat-calendar (selectedChange)="_onSelectedCalendar($event)" [(selected)]="selected"></mat-calendar>
+    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
 </div>

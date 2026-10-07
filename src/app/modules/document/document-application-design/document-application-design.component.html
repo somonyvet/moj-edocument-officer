@@ -1,90 +1,102 @@
 <div class="doc-form-template-wrapper">
-    <div class="doc-form-header">
-        <div class="doc-form-container" style="margin: 0 auto;" *ngIf="!loadingHeader">
-            <div class="db-container">
-                <div class="lb-hd">
-                    <a mat-button mat-icon-button class="mat-add-new" (click)="_goBack()">
-                        <mat-icon>arrow_back</mat-icon>
-                    </a>
-                    <div class="dot-status" [ngClass]="store?.headerDocument?.doc_status|docStatus"></div>
-                    <span>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentTitle}}</span>
-                    <mat-icon *ngIf="store?.headerDocument?.doc_status?.key===99">check_circle</mat-icon>
+  <div class="doc-form-header">
+    @if (!loadingHeader) {
+      <div class="doc-form-container" style="margin: 0 auto;">
+        <div class="db-container">
+          <div class="lb-hd">
+            <a mat-icon-button class="mat-add-new" (click)="_goBack()">
+              <mat-icon>arrow_back</mat-icon>
+            </a>
+            <div class="dot-status" [ngClass]="$safeNavigationMigration(store?.headerDocument?.doc_status)|docStatus"></div>
+            <span>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentTitle}}</span>
+            @if (store?.headerDocument?.doc_status?.key===99) {
+              <mat-icon>check_circle</mat-icon>
+            }
+          </div>
+          <div class="rb-hd">
+            @if ((store?.headerDocument?.doc_status?.key === 1 && !store?.finalDocument)) {
+              <button mat-button class="mat-publish"
+                (click)="_onConfirmRelease()">
+                <mat-icon class="mat-18">send</mat-icon>
+                <span>ដាក់សំណើឯកភាព</span>
+              </button>
+            }
+            <!-- <button mat-button class="mat-publish" *ngIf="store?.finalDocument" (click)="_onRequestEditDoc()">
+            <mat-icon class="mat-18">drive_file_rename_outline</mat-icon>
+            <span>កែសម្រួលខ្លឹមសារ</span>
+          </button> -->
+          @if (!store?.finalDocument && store?.headerDocument?.request_edit_status?.key === 1) {
+            <button mat-button class="mat-publish"
+              (click)="_closeEditDoc()">
+              <mat-icon class="mat-18">send</mat-icon>
+              <span>បញ្ចប់ការកែសម្រួលខ្លឹមសារ</span>
+            </button>
+          }
+          @if (!store?.finalDocument) {
+            <button mat-button (click)="_onConfirmStream()">
+              <mat-icon class="mat-18">draw</mat-icon>
+              <span>ចរន្តឯកសារ</span>
+            </button>
+          }
+          <button mat-button (click)="_onPinDoc()" class="mat-pin-doc"
+            [ngClass]="($safeNavigationMigration(store?.headerDocument?.key)|pinDoc:$safeNavigationMigration(auth?.userPinedDocuments))?'active':''">
+            <mat-icon>push_pin</mat-icon>
+          </button>
+          @if (!store?.finalDocument) {
+            <button mat-button (click)="onCreateDocument($safeNavigationMigration(store?.headerDocument))"
+              class="mat-pin-doc">
+              <mat-icon>edit</mat-icon>
+            </button>
+          }
+          <div class="img-wdb">
+            <button mat-button class="mat-option-menu" [ngClass]="$safeNavigationMigration(store?.headerDocument?.priority?.name_en)"
+              [matMenuTriggerFor]="menu" aria-label="">
+              <mat-icon style="margin-right: 3px;">{{store?.headerDocument?.priority?.icon}}</mat-icon>
+              <span>{{store?.headerDocument?.priority?.name}}</span>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <div class="doc-hd-menu-content">
+                <div class="doc-hd-title">
+                  <h4>កម្រិតបន្ទាន់របស់ឯកសារ</h4>
+                  <p>
+                    សូមជ្រើសរើសកម្រិតបន្ទាន់ឯកសារខាងក្រោម
+                  </p>
                 </div>
-
-                <div class="rb-hd">
-                    <button mat-button class="mat-publish"
-                        *ngIf="(store?.headerDocument?.doc_status?.key === 1 && !store?.finalDocument)"
-                        (click)="_onConfirmRelease()">
-                        <mat-icon class="mat-18">send</mat-icon>
-                        <span>ដាក់សំណើឯកភាព</span>
+                <mat-divider></mat-divider>
+                @for (item of PRIORITY_DATA; track item) {
+                  <div class="doc-priority-item">
+                    <button mat-menu-item [ngClass]="$safeNavigationMigration(item?.name_en)" (click)="_onPriorityChanged(item)"
+                      [disabled]="!editDocument">
+                      <div class="rows">
+                        <mat-icon class="status-mat-icon">{{item?.icon}}</mat-icon>
+                        <span class="flex1">{{item?.name}}</span>
+                        @if (store?.headerDocument?.priority?.key===item?.key) {
+                          <mat-icon class="mat-checked-icon" style="margin-right: 0;"
+                            >
+                            check_circle
+                          </mat-icon>
+                        }
+                      </div>
                     </button>
-
-                    <!-- <button mat-button class="mat-publish" *ngIf="store?.finalDocument" (click)="_onRequestEditDoc()">
-                        <mat-icon class="mat-18">drive_file_rename_outline</mat-icon>
-                        <span>កែសម្រួលខ្លឹមសារ</span>
-                    </button> -->
-
-                    <button mat-button class="mat-publish"
-                        *ngIf="!store?.finalDocument && store?.headerDocument?.request_edit_status?.key === 1"
-                        (click)="_closeEditDoc()">
-                        <mat-icon class="mat-18">send</mat-icon>
-                        <span>បញ្ចប់ការកែសម្រួលខ្លឹមសារ</span>
-                    </button>
-
-                    <button mat-button *ngIf="!store?.finalDocument" (click)="_onConfirmStream()">
-                        <mat-icon class="mat-18">draw</mat-icon>
-                        <span>ចរន្តឯកសារ</span>
-                    </button>
-                    <button mat-button (click)="_onPinDoc()" class="mat-pin-doc"
-                        [ngClass]="(store?.headerDocument?.key|pinDoc:auth?.userPinedDocuments)?'active':''">
-                        <mat-icon>push_pin</mat-icon>
-                    </button>
-                    <button mat-button *ngIf="!store?.finalDocument" (click)="onCreateDocument(store?.headerDocument)"
-                        class="mat-pin-doc">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <div class="img-wdb">
-                        <button mat-button class="mat-option-menu" [ngClass]="store?.headerDocument?.priority?.name_en"
-                            [matMenuTriggerFor]="menu" aria-label="">
-                            <mat-icon style="margin-right: 3px;">{{store?.headerDocument?.priority?.icon}}</mat-icon>
-                            <span>{{store?.headerDocument?.priority?.name}}</span>
-                            <mat-icon>arrow_drop_down</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu" xPosition="before">
-                            <div class="doc-hd-menu-content">
-                                <div class="doc-hd-title">
-                                    <h4>កម្រិតបន្ទាន់របស់ឯកសារ</h4>
-                                    <p>
-                                        សូមជ្រើសរើសកម្រិតបន្ទាន់ឯកសារខាងក្រោម
-                                    </p>
-                                </div>
-                                <mat-divider></mat-divider>
-                                <div class="doc-priority-item" *ngFor="let item of PRIORITY_DATA">
-                                    <button mat-menu-item [ngClass]="item?.name_en" (click)="_onPriorityChanged(item)"
-                                        [disabled]="!editDocument">
-                                        <div class="rows">
-                                            <mat-icon class="status-mat-icon">{{item?.icon}}</mat-icon>
-                                            <span class="flex1">{{item?.name}}</span>
-                                            <mat-icon class="mat-checked-icon" style="margin-right: 0;"
-                                                *ngIf="store?.headerDocument?.priority?.key===item?.key">
-                                                check_circle
-                                            </mat-icon>
-                                        </div>
-
-                                    </button>
-
-                                </div>
-                            </div>
-                        </mat-menu>
-                    </div>
-                </div>
-            </div>
+                  </div>
+                }
+              </div>
+            </mat-menu>
+          </div>
         </div>
+      </div>
     </div>
-    <mat-progress-bar mode="indeterminate"
-        *ngIf="loading || loadingHeader || loadingSection || loadingPermission ||process">
-    </mat-progress-bar>
-    <router-outlet *ngIf="!loading && !loadingHeader && !loadingSection && !loadingPermission"
-        (activate)="onActivate($event)">
-    </router-outlet>
+  }
+</div>
+@if (loading || loadingHeader || loadingSection || loadingPermission ||process) {
+  <mat-progress-bar mode="indeterminate"
+    >
+  </mat-progress-bar>
+}
+@if (!loading && !loadingHeader && !loadingSection && !loadingPermission) {
+  <router-outlet
+    (activate)="onActivate($event)">
+  </router-outlet>
+}
 </div>

@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CriminalStore } from '../../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criminal-verify-application1',
-  templateUrl: './criminal-verify-application1.component.html',
-  styleUrls: ['./criminal-verify-application1.component.scss']
+    selector: 'app-criminal-verify-application1',
+    templateUrl: './criminal-verify-application1.component.html',
+    styleUrls: ['./criminal-verify-application1.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalVerifyApplication1Component implements OnInit {
   loading:boolean=true;

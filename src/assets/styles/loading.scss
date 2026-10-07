@@ -1,3 +1,5 @@
+@use "variable.scss" as *;
+
 @keyframes placeHolderShimmer{
   0%{
       background-position: -468px 0
@@ -227,7 +229,7 @@ left: 100px;
   background: #fff;
   min-height: 56px;
   border-top: solid 1px #eaeaea;
-  .mat-button{
+  .mat-mdc-button{
     border: solid 1px #333;
     border-radius: 100px;
     color: #333;

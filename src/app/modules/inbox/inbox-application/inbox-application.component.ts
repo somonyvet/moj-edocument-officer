@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT_NOTED_OBJECT_ARRAY, REPORT_PERIOD_OBJECT_ARRAY } from 'src/app/dummy/config';
@@ -9,9 +9,11 @@ import { InboxStore } from 'src/app/stores/document/index.store';
 import { InboxFormComponent } from '../inbox-form/inbox-form.component';
 
 @Component({
-  selector: 'app-inbox-application',
-  templateUrl: './inbox-application.component.html',
-  styleUrls: ['./inbox-application.component.scss']
+    selector: 'app-inbox-application',
+    templateUrl: './inbox-application.component.html',
+    styleUrls: ['./inbox-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxApplicationComponent implements OnInit, OnDestroy {
   REPORT_PERIOD_OBJECT_ARRAY = REPORT_PERIOD_OBJECT_ARRAY;

@@ -1,7 +1,7 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { embassyStore } from '../../../stores/embassy.store';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'functions/src/services/data';
@@ -14,16 +14,18 @@ import { autoComplete, validSelected } from 'src/app/shared/services/mapping.ser
 import { FireStorageService } from 'src/app/shared/services/fireStorage.service';
 
 @Component({
-  selector: 'app-embassy-form',
-  templateUrl: './embassy-form.component.html',
-  styleUrls: ['./embassy-form.component.scss']
+    selector: 'app-embassy-form',
+    templateUrl: './embassy-form.component.html',
+    styleUrls: ['./embassy-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EmbassyFormComponent implements OnInit {
   @ViewChild('photoFile') photoFile: ElementRef;
   @ViewChild("focusInput") inputEl: ElementRef;
   title: any = "បង្កើតស្ថានទូត";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   description: AbstractControl;
 
@@ -34,7 +36,7 @@ export class EmbassyFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EmbassyFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     public store: embassyStore,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { criminal_tabs } from 'src/app/modules/criminal-record/dummy/criminal.dummy';
 import { CriminalStore } from 'src/app/modules/criminal-record/stores/criminal.store';
@@ -6,9 +6,11 @@ import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-classify-remaining-number',
-  templateUrl: './classify-remaining-number.component.html',
-  styleUrls: ['./classify-remaining-number.component.scss']
+    selector: 'app-classify-remaining-number',
+    templateUrl: './classify-remaining-number.component.html',
+    styleUrls: ['./classify-remaining-number.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ClassifyRemainingNumberComponent implements OnInit {
 

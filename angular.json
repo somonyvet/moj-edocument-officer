@@ -45,11 +45,20 @@
               "xlsx-js-style",
               "@videojs/xhr",
               "global/document",
+              "global/window",
               "videojs-vtt.js",
               "ngx-kjua",
-              "ngx-lightbox",
               "pdfjs-dist/build/pdf",
-              "pdfjs-dist/web/pdf_viewer"
+              "pdfjs-dist/web/pdf_viewer",
+              "fuzzysort",
+              "idb",
+              "debug",
+              "quill",
+              "extend",
+              "keycode",
+              "mux.js/lib/tools/parse-sidx",
+              "safe-json-parse/tuple",
+              "lottie-web"
             ],
             "outputPath": "dist/edocument",
             "index": "src/index.html",
@@ -79,8 +88,6 @@
               "src/firebase-messaging-sw.js"
             ],
             "styles": [
-              "./node_modules/swiper/swiper-bundle.css",
-              "./node_modules/ngx-lightbox/lightbox.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -129,10 +136,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "edocument:build:production"
+              "buildTarget": "edocument:build:production"
             },
             "development": {
-              "browserTarget": "edocument:build:development"
+              "buildTarget": "edocument:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -140,7 +147,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "edocument:build"
+            "buildTarget": "edocument:build"
           }
         },
         "test": {
@@ -184,5 +191,30 @@
       }
     }
   },
-  "defaultProject": "edocument"
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
+  }
 }

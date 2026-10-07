@@ -1,10 +1,44 @@
-@import "./../.././../../../assets/styles/variable.scss";
+@use "./../.././../../../assets/styles/variable.scss" as *;
 
 .btn-a-wrapper{
   display: flex;
   align-items: center;
+
+  // .avatar-vt-item is a shared global class (main.scss, height: 126px) used by
+  // dozens of other lists with much shorter row content than this one (avatar +
+  // name + several sub-text lines + checkbox + print button) -- 124.64px is this
+  // list's own measured old-app row height, NOT a safe default for every list
+  // using .avatar-vt-item (confirmed: applying it globally broke at least the
+  // letter3-business list, whose rows are far shorter). Scoped here only.
+  // Fixed height lives on the wrapper; the inner clickable element just follows
+  // it via height: 100% instead of duplicating the magic number.
+  height: 124.64px;
+  min-height: 124.64px;
+  max-height: 124.64px;
+  box-sizing: border-box;
+
   .avatar-vt-item{
     flex: 1;
+
+    &.mat-mdc-button {
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      box-sizing: border-box;
+    }
+  }
+
+  // This project's M2 theme defaults .mat-mdc-icon-button to a 48px state-layer vs.
+  // legacy's native 40px (same root cause already fixed for table rows at
+  // main.scss:3680 and the header's .btn-p-icon) -- here it shows up as the print
+  // icon sitting visibly lower/off-center against the row's other 40px elements.
+  .mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 40px;
+    --mat-icon-button-state-layer-size: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    align-self: center;
   }
 
   .item-checkbox {
@@ -23,16 +57,16 @@
       background-color: rgba(0, 0, 0, 0.06);
     }
 
-    ::ng-deep .mat-checkbox-frame {
+    ::ng-deep .mdc-checkbox__background {
       border-width: 2px;
       border-color: rgba(0, 0, 0, 0.3);
     }
 
-    ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    ::ng-deep .mat-mdc-checkbox-checked.mat-accent .mdc-checkbox__background {
       background-color: $appprimaryColor;
     }
 
-    ::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    ::ng-deep .mat-mdc-checkbox-ripple .mat-ripple-element {
       background-color: rgba($appprimaryColor, 0.15);
     }
   }

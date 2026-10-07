@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { driveObj } from 'src/app/dummy/status';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-file-type-doc',
-  templateUrl: './file-type-doc.component.html',
-  styleUrls: ['./file-type-doc.component.scss']
+    selector: 'app-file-type-doc',
+    templateUrl: './file-type-doc.component.html',
+    styleUrls: ['./file-type-doc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FileTypeDocComponent implements OnInit {
 

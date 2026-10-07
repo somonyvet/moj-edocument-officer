@@ -1,88 +1,91 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-        <div class="doc-in">
-            <div class="listing-header">
-                <div class="action-item">
-                    <h4>ម៉ោងធ្វើការ</h4>
-                    <button mat-icon-button (click)="createWorkingHour()" class="enbutton primary" matTooltip="បង្កើត"
-                        matTooltipClass="tooltipClass">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </div>
-                <app-search-filter-box placeholder="ស្វែងរកម៉ោងធ្វើការ" (searchValue)="onSearch($event)">
-                </app-search-filter-box>
-                <nav mat-tab-nav-bar class="fire-tabs">
-                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
-                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}
-                    </a>
-                </nav>
-
-            </div>
-
-            <ng-container *ngIf="store?.data?.length>0 && !store?.data?.searching">
-                <virtual-scroller #scroll class="doc-ls-items seach-header" [items]="store?.data">
-                    <a mat-button class="avatar-vt-item"
-                        [ngClass]="{'active': workingHour?.key === this.store.activeKey}"
-                        [routerLink]="workingHour.key+'/view'"
-                        *ngFor="let workingHour of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
-                        <div class="avatar">
-                            <strong>{{getLocalNumber(i+1)}}</strong>
-                        </div>
-                        <div class="av-vt-body">
-                            <strong>{{workingHour?.name}}</strong>
-                            <div class="rows sub-text">
-                                <span>
-                                    <div class="working-hour-day-wrapper">
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Monday}">
-                                            ច</div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Tuesday}">
-                                            អ</div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Wednesday}">
-                                            ពុ</div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Thursday}">
-                                            ព្រ
-                                        </div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Friday}">
-                                            សុ</div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Saturday}">
-                                            ស</div>
-                                        <div [ngClass]="{'day-box':true,'active':workingHour?.workingDayObj.Sunday}">
-                                            អ</div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-list-action">
-                            <i class="material-icons" [matMenuTriggerFor]="menu" matTooltip="ជ្រើស"
-                                matTooltipClass="tooltipClass">more_vert</i>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item type="button" (click)="editWorkingHour(workingHour)">
-                                    <mat-icon>edit</mat-icon>
-                                    <span>កែប្រែ</span>
-                                </button>
-                                <button mat-menu-item (click)="deleteWorkingHour(workingHour)" type="button">
-                                    <mat-icon>delete</mat-icon>
-                                    <span>លុប</span>
-                                </button>
-                            </mat-menu>
-                        </div>
-                    </a>
-                </virtual-scroller>
-            </ng-container>
-
-            <ng-container *ngIf="store?.searching">
-                <div class="doc-ls-items center">
-                    <app-spinner></app-spinner>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="store?.empty">
-                <div class="doc-ls-items center">
-                    <app-empty className="empty-vt" name="ពុំមានម៉ោងធ្វើការទេ" subtitle=""></app-empty>
-                </div>
-            </ng-container>
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <div class="action-item">
+          <h4>ម៉ោងធ្វើការ</h4>
+          <button mat-icon-button (click)="createWorkingHour()" class="enbutton primary" matTooltip="បង្កើត"
+            matTooltipClass="tooltipClass">
+            <mat-icon>add</mat-icon>
+          </button>
         </div>
+        <app-search-filter-box placeholder="ស្វែងរកម៉ោងធ្វើការ" (searchValue)="onSearch($event)">
+        </app-search-filter-box>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+          @for (link of tabs; track link) {
+            <a mat-tab-link [routerLink]="link.path" routerLinkActive
+              #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}
+            </a>
+          }
+        </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+
+      </div>
+
+      @if (store?.data?.length>0 && !store?.data?.searching) {
+        <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header">
+          <a mat-button class="avatar-vt-item"
+            [ngClass]="{'active': workingHour?.key === this.store.activeKey}"
+            [routerLink]="workingHour.key+'/view'"
+            *cdkVirtualFor="let workingHour of $safeNavigationMigration(store?.data) ;let i=index; trackBy: trackByIdx">
+            <div class="avatar">
+              <strong>{{getLocalNumber(i+1)}}</strong>
+            </div>
+            <div class="av-vt-body">
+              <strong>{{workingHour?.name}}</strong>
+              <div class="rows sub-text">
+                <span>
+                  <div class="working-hour-day-wrapper">
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Monday)}">
+                    ច</div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Tuesday)}">
+                    អ</div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Wednesday)}">
+                    ពុ</div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Thursday)}">
+                      ព្រ
+                    </div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Friday)}">
+                    សុ</div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Saturday)}">
+                    ស</div>
+                    <div [ngClass]="{'day-box':true,'active':$safeNavigationMigration(workingHour?.workingDayObj.Sunday)}">
+                    អ</div>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <div class="card-list-action">
+              <i class="material-icons" [matMenuTriggerFor]="menu" matTooltip="ជ្រើស"
+              matTooltipClass="tooltipClass">more_vert</i>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="editWorkingHour(workingHour)">
+                  <mat-icon>edit</mat-icon>
+                  <span>កែប្រែ</span>
+                </button>
+                <button mat-menu-item (click)="deleteWorkingHour(workingHour)" type="button">
+                  <mat-icon>delete</mat-icon>
+                  <span>លុប</span>
+                </button>
+              </mat-menu>
+            </div>
+          </a>
+        </cdk-virtual-scroll-viewport>
+      }
+
+      @if (store?.searching) {
+        <div class="doc-ls-items center">
+          <app-spinner></app-spinner>
+        </div>
+      }
+      @if (store?.empty) {
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានម៉ោងធ្វើការទេ" subtitle=""></app-empty>
+        </div>
+      }
     </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 import { toKhmerNumber } from 'src/app/shared/services/mapping.service';
@@ -6,9 +6,11 @@ import { STATUS_LIVES, STATUS_LIVES_ARRAY } from 'src/app/dummy/appinfo';
 import { reportImg } from 'src/app/dummy/report';
 
 @Component({
-  selector: 'app-criminal-record-letter-kh-print-fullview',
-  templateUrl: './criminal-record-letter-kh-print-fullview.component.html',
-  styleUrls: ['./criminal-record-letter-kh-print-fullview.component.scss']
+    selector: 'app-criminal-record-letter-kh-print-fullview',
+    templateUrl: './criminal-record-letter-kh-print-fullview.component.html',
+    styleUrls: ['./criminal-record-letter-kh-print-fullview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterKhPrintFullviewComponent implements OnInit {
 

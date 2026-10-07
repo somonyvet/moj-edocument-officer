@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterCheckList'
+    name: 'filterCheckList',
+    standalone: false
 })
 export class FilterCheckListPipe implements PipeTransform {
 
@@ -12,7 +13,8 @@ export class FilterCheckListPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterDocParent'
+    name: 'filterDocParent',
+    standalone: false
 })
 export class FilterDocParent implements PipeTransform {
   transform(list: any[], key: string): any {
@@ -22,7 +24,8 @@ export class FilterDocParent implements PipeTransform {
 }
 
 @Pipe({
-  name: 'checkListFileImg'
+    name: 'checkListFileImg',
+    standalone: false
 })
 export class CheckListFileImg implements PipeTransform {
   transform(list: any[]): any {
@@ -31,7 +34,8 @@ export class CheckListFileImg implements PipeTransform {
 }
 
 @Pipe({
-  name: 'checkListFileDoc'
+    name: 'checkListFileDoc',
+    standalone: false
 })
 export class CheckListFileDoc implements PipeTransform {
   transform(list: any[]): any {
@@ -40,7 +44,8 @@ export class CheckListFileDoc implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterImgFiles'
+    name: 'filterImgFiles',
+    standalone: false
 })
 export class FilterImgFiles implements PipeTransform {
   transform(list: any[]): any {
@@ -49,7 +54,8 @@ export class FilterImgFiles implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterDocFiles'
+    name: 'filterDocFiles',
+    standalone: false
 })
 export class FilterDocFiles implements PipeTransform {
   transform(list: any[]): any {
@@ -58,7 +64,8 @@ export class FilterDocFiles implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterNationalList'
+    name: 'filterNationalList',
+    standalone: false
 })
 export class FilterNationalList implements PipeTransform {
   transform(list: any[],str:string): any {
@@ -67,7 +74,8 @@ export class FilterNationalList implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterCountriesList'
+    name: 'filterCountriesList',
+    standalone: false
 })
 export class FilterCountriesList implements PipeTransform {
   transform(list: any[],str:string,isKhmerForm?:boolean): any {

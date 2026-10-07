@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -12,15 +12,17 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { ConfirmOverwriteComponent } from '../../file-manager/components/confirm-overwrite/confirm-overwrite.component';
 @Component({
-  selector: 'app-document-application-department-success',
-  templateUrl: './document-application-department-success.component.html',
-  styleUrls: ['./document-application-department-success.component.scss']
+    selector: 'app-document-application-department-success',
+    templateUrl: './document-application-department-success.component.html',
+    styleUrls: ['./document-application-department-success.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -95,7 +97,7 @@ export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
 
 
   @ViewChildren("elReference") elReference: QueryList<ElementRef>;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -107,7 +109,7 @@ export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
   section;
   sectionChild;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private route: ActivatedRoute,
@@ -161,19 +163,19 @@ export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
     this.store.fetchDepartments(data=>{});
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   sessionChildForm() {
-    return this.form.controls["sectionChild"] as FormArray
+    return this.form.controls["sectionChild"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -211,7 +213,7 @@ export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content } = item;
     return this.fb.group({
       content: [content],
@@ -227,7 +229,7 @@ export class DocumentApplicationDepartmentSuccessComponent implements OnInit {
     this.sessionChildForm().push(this.newSessionSheet(item));
   }
 
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office } = item;
     return this.fb.group({
       content: [content],

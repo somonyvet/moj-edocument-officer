@@ -3,27 +3,28 @@
     <div class="body">
       <div class="body-item">
         <!-- <div class="title">
-            <h3>៧-ការដាក់ពិន័យៈ </h3>
-          </div> -->
-        <div class="row-item" style="margin-top:30px">
-          <div class="f-table">
-            <table class="tb-input">
-              <thead>
-                <tr>
-                  <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
-                  <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល</th>
-                  <th rowspan="2" class="center">មូលហេតុ</th>
-                  <th rowspan="2" class="center" width="64px"></th>
-                </tr>
-                <tr>
-                  <th class="center">លេខ</th>
-                  <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
-                </tr>
+        <h3>៧-ការដាក់ពិន័យៈ </h3>
+      </div> -->
+      <div class="row-item" style="margin-top:30px">
+        <div class="f-table">
+          <table class="tb-input">
+            <thead>
+              <tr>
+                <th colspan="2" class="center">កាលបរិច្ឆេទ</th>
+                <th rowspan="2" class="center">រូបភាពវិន័យដែលធ្លាប់ទទួល</th>
+                <th rowspan="2" class="center">មូលហេតុ</th>
+                <th rowspan="2" class="center" width="64px"></th>
+              </tr>
+              <tr>
+                <th class="center">លេខ</th>
+                <th class="center">ថ្ងៃ ខែ ឆ្នាំ</th>
+              </tr>
 
-              </thead>
-              <tbody>
+            </thead>
+            <tbody>
+              @for (item of form.get('praiseHistory')?.controls; track item; let i = $index) {
                 <ng-container formArrayName="praiseHistory"
-                  *ngFor="let item of form.get('praiseHistory')?.controls;let i = index;">
+                  >
                   <tr [formGroupName]="i">
                     <td style="width: 160px;">
                       <div class="ftb-input"
@@ -33,117 +34,125 @@
                     </td>
                     <td style="width: 160px;">
                       <!-- <div class="ftb-input"
-                        [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
-                          (focus)="picker7.open()">
-                        <mat-datepicker #picker7></mat-datepicker>
-                      </div> -->
-
-                      <div class="ftb-input">
-                        <div class="inValid-date" *ngIf="dateInvalid" >
+                      [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                      <input class="f-input" type="text" formControlName="date" [matDatepicker]="picker7"
+                        (focus)="picker7.open()">
+                      <mat-datepicker #picker7></mat-datepicker>
+                    </div> -->
+                    <div class="ftb-input">
+                      @if (dateInvalid) {
+                        <div class="inValid-date" >
                           ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
                         </div>
-                        <app-khmer-date-form-picker [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' " (onSelectedItem)="onSelectedDate($event,i)" style="width:100%;"
+                      }
+                      <app-khmer-date-form-picker [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' " (onSelectedItem)="onSelectedDate($event,i)" style="width:100%;"
                         [label]="'ថ្ងៃ'"
                         [day]="item.get('date')?.value?.day||null"
                         [month]="item.get('date')?.value?.month||null"
                         [year]="item.get('date')?.value?.year||null"
-                        ></app-khmer-date-form-picker>
-                      </div>
-                    </td>
-                    <td style="vertical-align: middle;">
-                      <div style="display:flex ;">
-                        <div class="flex1">
-                          <div class="img-view">
-                            <ng-container *ngFor="let file of commendationData[i]?.files;let ind = index">
-                              <div class="img-container">
-                                <a class="download" target="blank" [href]="file?.downloadUrl">
-                                  <img [src]="file?.downloadUrl" *ngIf="file?.fileType!=='application/pdf'">
-                                </a>
-                                <div class="pdf-view download" *ngIf="file?.fileType==='application/pdf'">
-                                  <a target="blank" [href]="file?.downloadUrl">{{file?.name}}</a>
+                      ></app-khmer-date-form-picker>
+                    </div>
+                  </td>
+                  <td style="vertical-align: middle;">
+                    <div style="display:flex ;">
+                      <div class="flex1">
+                        <div class="img-view">
+                          @for (file of commendationData[i]?.files; track file; let ind = $index) {
+                            <div class="img-container">
+                              <a class="download" target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">
+                                @if (file?.fileType!=='application/pdf') {
+                                  <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                                }
+                              </a>
+                              @if (file?.fileType==='application/pdf') {
+                                <div class="pdf-view download">
+                                  <a target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">{{file?.name}}</a>
                                 </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removePraiseFileDB(i,ind,file)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                            <ng-container *ngFor="let item of listDisplayFile[i]; let ind = index;">
-                              <div class="img-container">
-                                <img [src]="item" *ngIf="selectedPraiseFileArray[i][ind]?.type!=='application/pdf'">
-                                <div class="pdf-view" *ngIf="selectedPraiseFileArray[i][ind]?.type==='application/pdf'">
+                              }
+                              <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                                (click)="removePraiseFileDB(i,ind,file)">
+                                <mat-icon class="mat-18">clear</mat-icon>
+                              </a>
+                            </div>
+                          }
+                          @for (item of listDisplayFile[i]; track item; let ind = $index) {
+                            <div class="img-container">
+                              @if (selectedPraiseFileArray[i][ind]?.type!=='application/pdf') {
+                                <img [src]="item">
+                              }
+                              @if (selectedPraiseFileArray[i][ind]?.type==='application/pdf') {
+                                <div class="pdf-view">
                                   {{selectedPraiseFileArray[i][ind]?.name}}
                                 </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removePraiseFile(i,ind)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <!-- <div class="file-select-box">
-                            <button (click)="praiseFile.click()" class="form-file-select">
-                              <mat-icon class="mat-18">attach_file</mat-icon>
-                            </button>
-                            <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
-                              style="display: none;" (change)="selectedPraiseFile($event,i)">
-                          </div> -->
-                        <div class="file-select-box">
-                          <button class="mat-add-new" mat-button mat-icon-button (click)="praiseFile.click()">
-                            <mat-icon class="mat-18">attach_file</mat-icon>
-                          </button>
-                          <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
-                            placeholder="" style="display: none;" (change)="selectedPraiseFile($event,i)" multiple>
+                              }
+                              <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                                (click)="removePraiseFile(i,ind)">
+                                <mat-icon class="mat-18">clear</mat-icon>
+                              </a>
+                            </div>
+                          }
                         </div>
                       </div>
-                    </td>
-
-
-                    <td>
-                      <div class="ftb-input"
-                        [ngClass]="item.get('reason')?.errors&&item.get('reason')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="reason">
-                      </div>
-                    </td>
-
-                    <td>
-                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('praiseHistory', i)">
-                        <mat-icon>close</mat-icon>
-                      </a>
-                    </td>
-
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-            <div class="fw-box">
-              <a mat-button class="btn-text"
-                (click)="addFormArrayWithFields('praiseHistory',[{field:'rank',value:null},{field:'date',value:null},{field:'files',value:null},{field:'reason',value:null}])">
-                <span>បន្ថែមប្រអប់បញ្ចូល</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!-- <div class="footer"></div>
-      <div class="eform-action-controls">
-        <div class="action-control-container">
-          <div class="flex1"></div>
-          <button class="submit-btn" mat-button type="button" (click)="_onSave()">រក្សាទុក</button>
-        </div>
-      </div> -->
-    <div class="eform-action-controls">
-      <div class="action-control-container">
-        <h4>៧-ការដាក់ពិន័យ</h4>
-        <div class="flex1"></div>
-        <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave()"
-          [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
-        </app-primary-button>
+                      <!-- <div class="file-select-box">
+                      <button (click)="praiseFile.click()" class="form-file-select">
+                        <mat-icon class="mat-18">attach_file</mat-icon>
+                      </button>
+                      <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
+                        style="display: none;" (change)="selectedPraiseFile($event,i)">
+                    </div> -->
+                    <div class="file-select-box">
+                      <button class="mat-add-new" mat-icon-button (click)="praiseFile.click()">
+                        <mat-icon class="mat-18">attach_file</mat-icon>
+                      </button>
+                      <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
+                        placeholder="" style="display: none;" (change)="selectedPraiseFile($event,i)" multiple>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="ftb-input"
+                    [ngClass]="item.get('reason')?.errors&&item.get('reason')?.touched?'has-error':''">
+                    <input class="f-input" type="text" formControlName="reason">
+                  </div>
+                </td>
+                <td>
+                  @if (i>0) {
+                    <a mat-icon-button (click)="removeFormArrayWithField('praiseHistory', i)">
+                      <mat-icon>close</mat-icon>
+                    </a>
+                  }
+                </td>
+              </tr>
+            </ng-container>
+          }
+        </tbody>
+      </table>
+      <div class="fw-box">
+        <a mat-button class="btn-text"
+          (click)="addFormArrayWithFields('praiseHistory',[{field:'rank',value:null},{field:'date',value:null},{field:'files',value:null},{field:'reason',value:null}])">
+          <span>បន្ថែមប្រអប់បញ្ចូល</span>
+        </a>
       </div>
     </div>
   </div>
+
+</div>
+</div>
+<!-- <div class="footer"></div>
+<div class="eform-action-controls">
+  <div class="action-control-container">
+    <div class="flex1"></div>
+    <button class="submit-btn" mat-button type="button" (click)="_onSave()">រក្សាទុក</button>
+  </div>
+</div> -->
+<div class="eform-action-controls">
+  <div class="action-control-container">
+    <h4>៧-ការដាក់ពិន័យ</h4>
+    <div class="flex1"></div>
+    <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave()"
+      [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+    </app-primary-button>
+  </div>
+</div>
+</div>
 </div>

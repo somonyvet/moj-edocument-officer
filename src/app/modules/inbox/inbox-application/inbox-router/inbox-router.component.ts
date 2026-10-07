@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-inbox-router',
-  templateUrl: './inbox-router.component.html',
-  styleUrls: ['./inbox-router.component.scss']
+    selector: 'app-inbox-router',
+    templateUrl: './inbox-router.component.html',
+    styleUrls: ['./inbox-router.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxRouterComponent implements OnInit {
 

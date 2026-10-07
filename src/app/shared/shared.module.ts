@@ -3,9 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MobxAngularModule } from 'mobx-angular';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MaterialModule } from '../modules/material.module';
-import { ContextMenuModule } from 'ngx-contextmenu';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { DeleteComponent } from './components/delete/delete.component';
@@ -69,7 +67,7 @@ import { CommentChartComponent } from '../layouts/comment-chart/comment-chart.co
 import { HeaderComponent } from '../layouts/header/header.component';
 import { LayoutComponent } from '../layouts/layout/layout.component';
 import { SidebarComponent } from '../layouts/sidebar/sidebar.component';
-import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { CdkVirtualScrollEndDirective, ScrollEndDirective } from '../directives/virtual-scroll-end.directive';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ConfirmSuccessComponent } from './components/confirm-success/confirm-success.component';
 import { PeopleCardComponent } from './components/people-card/people-card.component';
@@ -77,7 +75,7 @@ import { RemoveFirebaseTextPipe, SafePipe } from './pipes/safeHtml.pipe';
 import { PinDocPipe } from './pipes/pin-doc.pipe';
 import { EmptyDocumentComponent } from './components/empty-document/empty-document.component';
 import { AvatarOfficerComponent } from './components/avatar-officer/avatar-officer.component';
-import { NgxKjuaModule } from 'ngx-kjua';
+import { NgxKjuaComponent } from 'ngx-kjua';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentListingComponent } from './components/comment-listing/comment-listing.component';
@@ -96,7 +94,6 @@ import { InboxFormComponent } from '../modules/inbox/inbox-form/inbox-form.compo
 import { PrefixFocusAndSelectPipe, ScrollToBottomDirective } from './directive/prefix-focus-and-select.pipe';
 import { TopManagementPositionComponent } from './components/top-management-position/top-management-position.component';
 import { DocumentFormComponent } from '../modules/document/document-form/document-form.component';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { OfficerTitleComponent } from './components/officer-title/officer-title.component';
 import { OfficerAvatarComponent } from './components/officer-avatar/officer-avatar.component';
@@ -114,7 +111,7 @@ import { DocumentApplicationWorkplaceFormComponent } from './components/document
 import { DocumentAddPersonWorkplaceFormComponent } from './components/document-add-person-workplace-form/document-add-person-workplace-form.component';
 import { DocumentAddBlockNoteComponent } from './components/document-add-block-note/document-add-block-note.component';
 import { UnderContructionComponent } from './components/under-contruction/under-contruction.component';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 
 export function playerFactory() {
@@ -151,7 +148,7 @@ import { ReportFilterByPostComponent } from './components/report-filter-by-post/
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { StatisticChartViewComponent } from '../modules/criminal-record/pages/statistic-chart-view/statistic-chart-view.component';
-import { LightboxModule } from 'ngx-lightbox';
+import { LightboxComponent } from './components/lightbox/lightbox.component';
 import { CriminalRecordTemplateComponent } from './components/criminal-record-template/criminal-record-template.component';
 import { AppScanQrCodeComponent } from './components/app-scan-qr-code/app-scan-qr-code.component';
 import { CheckHaveTranslatePipe, GenderFr, GetEnglishCopyCountPipe, GetFrenchCopyCountPipe, GetKhmerAmount, GetKhmerCopyCountPipe, IsMolApply } from './pipes/check-have-translate.pipe';
@@ -174,17 +171,6 @@ import { DigitalApprovalFormComponent } from './components/digital-approval-form
 import { DecreeResultViewComponent } from './components/decree-result-view/decree-result-view.component';
 import { CommentDecreeViewComponent } from './components/comment-decree-view/comment-decree-view.component';
 import { StatusPillComponent } from './components/status-pill/status-pill.component';
-
-const customDefaultOptions = {
-  scrollThrottlingTime: 0,
-  scrollDebounceTime: 0,
-  scrollAnimationTime: 750,
-  checkResizeInterval: 1000,
-  resizeBypassRefreshThreshold: 5,
-  modifyOverflowStyleOfParentScroll: true,
-  stripedTable: false
-};
-
 
 const components = [
   GeoDisplayPipe,
@@ -379,6 +365,9 @@ const components = [
   StatusPillComponent,
   OrgChartComponent,
   OrgChartNodeComponent,
+  CdkVirtualScrollEndDirective,
+  ScrollEndDirective,
+  LightboxComponent,
 ];
 const modules = [
   CommonModule,
@@ -387,27 +376,21 @@ const modules = [
   ReactiveFormsModule,
   MaterialModule,
   MobxAngularModule,
-  HttpClientModule,
-  HttpClientJsonpModule,
   ReactiveFormsModule,
   MobxAngularModule,
   MaterialModule,
   NgxDocViewerModule,
   InfiniteScrollModule,
-  ContextMenuModule,
-  VirtualScrollerModule,
   CKEditorModule,
-  NgxKjuaModule,
+  NgxKjuaComponent,
   // NgbModule,
   NgbTimepickerModule,
   MomentModule,
   NgxSkeletonLoaderModule,
-  NgxUsefulSwiperModule,
   EditorModule,
   PdfViewerModule,
   NgxChartsModule,
   NgApexchartsModule,
-  LightboxModule,
 
 ];
 
@@ -425,15 +408,16 @@ const modules = [
   ],
   imports: [
     ...modules,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
   ],
   exports: [
     ...components,
     ...modules,
+    LottieComponent,
   ],
-  providers: [{
-    provide: 'virtual-scroller-default-options', useValue: customDefaultOptions
-  }],
+  providers: [
+    provideLottieOptions({ player: playerFactory }),
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

@@ -53,12 +53,16 @@
         </div>
         <div class="f-item" style="width: unset;"
           [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
-          <span>Gender<span class="star-req" *ngIf="form.get('gender')?.invalid">*</span></span>
+          <span>Gender@if (form.get('gender')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="width: 120px;" class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
           <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
-            <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
-              {{item?.text}}
-            </mat-option>
+            @for (item of GENDER_KH; track item; let i = $index) {
+              <mat-option [value]="item">
+                {{item?.text}}
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
 
@@ -75,11 +79,13 @@
           <input style="width: 24%;" class="f-input" type="text" formControlName="before_nationality"
             [matAutocomplete]="autoBeforeNation">
           <mat-autocomplete [displayWith]="ds.displayName" #autoBeforeNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of NATIONALITY; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="display: contents;"
@@ -88,11 +94,13 @@
           <input style="width: 24%;" class="f-input" type="text" formControlName="current_nationality"
             [matAutocomplete]="autoCurrentNation">
           <mat-autocomplete [displayWith]="ds.displayName" #autoCurrentNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of NATIONALITY; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
       </div>
@@ -111,9 +119,11 @@
 
       <div class="row-item">
         <div class="f-item">
-          <div class="inValid-date" *ngIf="dateOfBirthInvalid">
-            ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-          </div>
+          @if (dateOfBirthInvalid) {
+            <div class="inValid-date">
+              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+            </div>
+          }
           <span class="container-title-fom">
             <span>Date of birth</span>
             <span class="mg-r">:</span>
@@ -122,7 +132,7 @@
             international="true" (onSelectedItem)="onSelectedDateOfBirth($event)" style="width:100%;"
             [title]="date_kh_title" [day]="form.get('dateOfBirthDay')?.value||null"
             [month]="form.get('dateOfBirthMonth')?.value||null" [year]="form.get('dateOfBirthYear')?.value||null"
-            [disabled]="disableDate"></app-khmer-date-form-picker>
+          [disabled]="disableDate"></app-khmer-date-form-picker>
         </div>
 
       </div>
@@ -138,52 +148,66 @@
           <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
           <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="ds.displayName"
             #autoGeoProvinceBD="matAutocomplete">
-            <mat-option *ngFor="let row of bdProvince|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of bdProvince|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
-          <span>District<span class="star-req" *ngIf="form.get('bd_district')?.invalid">*</span></span>
+          <span>District@if (form.get('bd_district')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_district"
             [matAutocomplete]="autoGeoDistrictBD">
           <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="ds.displayName"
             #autoGeoDistrictBD="matAutocomplete">
-            <mat-option *ngFor="let row of bdDistrict|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of bdDistrict|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
-          <span>Commune<span class="star-req" *ngIf="form.get('bd_commune')?.invalid">*</span></span>
+          <span>Commune@if (form.get('bd_commune')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_commune"
             [matAutocomplete]="autoGeoCommuneBD">
           <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="ds.displayName"
             #autoGeoCommuneBD="matAutocomplete">
-            <mat-option *ngFor="let row of bdCommune|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of bdCommune|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
-          <span>Village<span class="star-req" *ngIf="form.get('bd_village')?.invalid">*</span></span>
+          <span>Village@if (form.get('bd_village')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_village"
             [matAutocomplete]="autoGeoVillageBD">
           <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageBD="matAutocomplete">
-            <mat-option *ngFor="let row of bdVillage|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of bdVillage|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
       </div>
@@ -199,52 +223,66 @@
           <input class="f-input" type="text" formControlName="live_province" [matAutocomplete]="autoGeoProvinceLive">
           <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="ds.displayName"
             #autoGeoProvinceLive="matAutocomplete">
-            <mat-option *ngFor="let row of liveProvince|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of liveProvince|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
-          <span>District<span class="star-req" *ngIf="form.get('live_district')?.invalid">*</span></span>
+          <span>District@if (form.get('live_district')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_district"
             [matAutocomplete]="autoGeoDistrictLive">
           <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="ds.displayName"
             #autoGeoDistrictLive="matAutocomplete">
-            <mat-option *ngFor="let row of liveDistrict|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of liveDistrict|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
-          <span>Commune<span class="star-req" *ngIf="form.get('live_commune')?.invalid">*</span></span>
+          <span>Commune@if (form.get('live_commune')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_commune"
             [matAutocomplete]="autoGeoCommuneLive">
           <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="ds.displayName"
             #autoGeoCommuneLive="matAutocomplete">
-            <mat-option *ngFor="let row of liveCommune|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of liveCommune|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
         <div class="f-item" style="width: 60%;"
           [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
-          <span>Village<span class="star-req" *ngIf="form.get('live_village')?.invalid">*</span></span>
+          <span>Village@if (form.get('live_village')?.invalid) {
+            <span class="star-req">*</span>
+          }</span>
           <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_village"
             [matAutocomplete]="autoGeoVillageLive">
           <mat-autocomplete [displayWith]="ds.displayName" #autoGeoVillageLive="matAutocomplete">
-            <mat-option *ngFor="let row of liveVillage|async;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
+            @for (row of liveVillage|async; track row; let i = $index) {
+              <mat-option [value]="row">
+                <div class="rows">
+                  <span>{{row?.name}}</span>
+                </div>
+              </mat-option>
+            }
           </mat-autocomplete>
         </div>
       </div>
@@ -277,301 +315,315 @@
         </div>
 
         <!-- <div class="f-item overfh" style="width: 300px;">
-            <mat-radio-group style="display: flex;" formControlName="fatherIsDead">
-              <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                [checked]="fatherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div> -->
+        <mat-radio-group style="display: flex;" formControlName="fatherIsDead">
+          <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+            [checked]="fatherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div> -->
 
-      </div>
+    </div>
 
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('father_before_nationality')?.errors&&form.get('father_before_nationality')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Nationality</span>
-            <span class="mg-r">:</span>
-          </span>
-          <span>Origin</span>
-          <input class="f-input" type="text" formControlName="father_before_nationality"
-            [matAutocomplete]="autoFatherBeforeNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoFatherBeforeNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+    <div class="row-item">
+      <div class="f-item"
+        [ngClass]="form.get('father_before_nationality')?.errors&&form.get('father_before_nationality')?.touched?'has-error':''">
+        <span class="container-title-fom">
+          <span>Nationality</span>
+          <span class="mg-r">:</span>
+        </span>
+        <span>Origin</span>
+        <input class="f-input" type="text" formControlName="father_before_nationality"
+          [matAutocomplete]="autoFatherBeforeNation">
+        <mat-autocomplete [displayWith]="ds.displayName" #autoFatherBeforeNation="matAutocomplete">
+          @for (row of NATIONALITY; track row; let i = $index) {
+            <mat-option [value]="row">
               <div class="rows">
                 <span>{{row?.name}}</span>
               </div>
             </mat-option>
-          </mat-autocomplete>
-        </div>
-        <div class="f-item"
-          [ngClass]="form.get('father_current_nationality')?.errors&&form.get('father_current_nationality')?.touched?'has-error':''">
-          <span>Current</span>
-          <input class="f-input" type="text" formControlName="father_current_nationality"
-            [matAutocomplete]="autoNowNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoNowNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
+          }
+        </mat-autocomplete>
+      </div>
+      <div class="f-item"
+        [ngClass]="form.get('father_current_nationality')?.errors&&form.get('father_current_nationality')?.touched?'has-error':''">
+        <span>Current</span>
+        <input class="f-input" type="text" formControlName="father_current_nationality"
+          [matAutocomplete]="autoNowNation">
+        <mat-autocomplete [displayWith]="ds.displayName" #autoNowNation="matAutocomplete">
+          @for (row of NATIONALITY; track row; let i = $index) {
+            <mat-option [value]="row">
               <div class="rows">
                 <span>{{row?.name}}</span>
               </div>
             </mat-option>
-          </mat-autocomplete>
-        </div>
+          }
+        </mat-autocomplete>
       </div>
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Place of Birth</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
-        </div>
-
-      </div>
-
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Occupation</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input class="f-input" type="text" formControlName="fatherCurrentOccupation">
-        </div>
-      </div>
-      <div class="row-item">
-        <div class="f-item" style="display: contents;"
-          [ngClass]="form.get('mother_name')?.errors&&form.get('mother_name')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Mother's name</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input style="width: 420px;" class="f-input" type="text" formControlName="mother_name">
-        </div>
-
-        <div class="f-item" style="width: unset;">
-          <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateMotherDob($event)"
-            style="width:100%;" [label]="'Date of birth,'" [day]="form.get('motherDob')?.value?.day||null"
-            international="true" [title]="date_kh_title" [month]="form.get('motherDob')?.value?.month||null"
-            [year]="form.get('motherDob')?.value?.year||null">
-          </app-khmer-date-form-picker>
-        </div>
-
-        <!-- <div class="f-item overfh" style="width: 300px;">
-            <mat-radio-group style="display: flex;" formControlName="motherIsDead">
-              <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                [checked]="motherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div> -->
-
-      </div>
-
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('mother_before_nationality')?.errors&&form.get('mother_before_nationality')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Nationality</span>
-            <span class="mg-r">:</span>
-          </span>
-          <span>Origin</span>
-          <input class="f-input" type="text" formControlName="mother_before_nationality"
-            [matAutocomplete]="autoMotherBeforeNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoMotherBeforeNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </div>
-        <div class="f-item"
-          [ngClass]="form.get('mother_current_nationality')?.errors&&form.get('mother_current_nationality')?.touched?'has-error':''">
-          <span>Current</span>
-          <input class="f-input" type="text" formControlName="mother_current_nationality"
-            [matAutocomplete]="autoMotherCurrentNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoMotherCurrentNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </div>
-      </div>
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Place of Birth</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
-        </div>
-
-      </div>
-
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Occupation</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input class="f-input" type="text" formControlName="motherCurrentOccupation">
-        </div>
-      </div>
-      <div class="row-item">
-        <div class="f-item" style="display: contents;"
-          [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Spouse's name</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input style="width: 420px;" class="f-input" type="text" formControlName="spouse">
-        </div>
-        <!-- <div class="f-item overfh" style="width: 300px;">
-            <mat-radio-group style="display: flex;" formControlName="spouseIsDead">
-              <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                [checked]="spouseDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div> -->
-        <div class="f-item" style="width: unset;">
-          <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateSpouse($event)"
-            style="width:100%;" [label]="'Date of birth,'" [day]="form.get('spouseDob')?.value?.day||null"
-            international="true" [title]="date_kh_title" [month]="form.get('spouseDob')?.value?.month||null"
-            [year]="form.get('spouseDob')?.value?.year||null">
-          </app-khmer-date-form-picker>
-        </div>
-      </div>
-
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('spouse_before_nationality')?.errors&&form.get('spouse_before_nationality')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Nationality</span>
-            <span class="mg-r">:</span>
-          </span>
-          <span>Origin</span>
-          <input class="f-input" type="text" formControlName="spouse_before_nationality"
-            [matAutocomplete]="autoSpouseBeforeNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseBeforeNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </div>
-        <div class="f-item"
-          [ngClass]="form.get('spouse_current_nationality')?.errors&&form.get('spouse_current_nationality')?.touched?'has-error':''">
-          <span>Current<span class="star-req" *ngIf="form.get('spouse_current_nationality')?.invalid">*</span></span>
-          <input class="f-input" type="text" formControlName="spouse_current_nationality"
-            [matAutocomplete]="autoSpouseCurrentNation">
-          <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseCurrentNation="matAutocomplete">
-            <mat-option *ngFor="let row of NATIONALITY;let i=index" [value]="row">
-              <div class="rows">
-                <span>{{row?.name}}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </div>
-      </div>
-
-      <div class="row-item">
-        <div class="f-item"
-          [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
-          <span class="container-title-fom">
-            <span>Occupation</span>
-            <span class="mg-r">:</span>
-          </span>
-          <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
-        </div>
-      </div>
-
-      <div class="row-item">
-        <div class="f-item">
-          <span class="feTitle new" style="text-decoration: underline; font-weight: 800;">NOTE :</span>
-          <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
-        </div>
-      </div>
-      <div class="row-item" style="flex-direction: column; ">
-        <div class="f-item" style="border-top: solid 1px">
-          <span class="title" style="font-size: 14px; padding: 0;">*
-            The Ministry of Justice is responsible for only for the translation of this document made by the
-            Ministry.</span>
-          <span class="title" style="font-size: 14px; padding: 0;">
-            &#160;The buttetin is valid within 3months. Invalid on date..........</span>
-        </div>
-      </div>
-
-      <div class="row-item" style="height: 20rem;">
-        <div class="f-item" style="justify-content: space-between;">
-          <div class="head-item long-w"
-            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-            <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title">Seen</span>
-              </span>
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title">For the Minister</span>
-              </span>
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title">Secretary of State</span>
-              </span>
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title">
-                  << Signature and Seal>>
-                </span>
-              </span>
-
-            </div>
-
-            <span class="container-header-input" style="width: unset">
-              <div class="row-item khmer-date-picker" style="padding-right: 0;">
-                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 10px;">
-                  <div class="f-item">
-                    <span class="nor-fam">Phnom Penh, </span>
-                  </div>
-
-                  <div class="c-item">
-                    <span class="nor-fam">Director-General of Criminal Penalty Arrairs</span>
-                  </div>
-                  <div class="c-item">
-                    <span class="nor-fam">
-                      << Signature>>
-                    </span>
-                  </div>
-                  <div class="c-item">
-                  </div>
-                </div>
-
-              </div>
-            </span>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="row-item" style="flex-direction: column; align-items: center;">
-        <div class="f-item" style="border-top: solid 1px; width: fit-content;">
-          <span class="n-title" style="font-size: 14px;">Samdach Sotheaos Boulevard, Daun Penh district Phnom Penh
-            Capital (in front of the Royal Palace) Telephone : 023
-            216 322, 023 217 841.</span>
-        </div>
+    </div>
+    <div class="row-item">
+      <div class="f-item"
+        [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
+        <span class="container-title-fom">
+          <span>Place of Birth</span>
+          <span class="mg-r">:</span>
+        </span>
+        <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
       </div>
 
     </div>
 
+    <div class="row-item">
+      <div class="f-item"
+        [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
+        <span class="container-title-fom">
+          <span>Occupation</span>
+          <span class="mg-r">:</span>
+        </span>
+        <input class="f-input" type="text" formControlName="fatherCurrentOccupation">
+      </div>
+    </div>
+    <div class="row-item">
+      <div class="f-item" style="display: contents;"
+        [ngClass]="form.get('mother_name')?.errors&&form.get('mother_name')?.touched?'has-error':''">
+        <span class="container-title-fom">
+          <span>Mother's name</span>
+          <span class="mg-r">:</span>
+        </span>
+        <input style="width: 420px;" class="f-input" type="text" formControlName="mother_name">
+      </div>
+
+      <div class="f-item" style="width: unset;">
+        <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateMotherDob($event)"
+          style="width:100%;" [label]="'Date of birth,'" [day]="form.get('motherDob')?.value?.day||null"
+          international="true" [title]="date_kh_title" [month]="form.get('motherDob')?.value?.month||null"
+          [year]="form.get('motherDob')?.value?.year||null">
+        </app-khmer-date-form-picker>
+      </div>
+
+      <!-- <div class="f-item overfh" style="width: 300px;">
+      <mat-radio-group style="display: flex;" formControlName="motherIsDead">
+        <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+          [checked]="motherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div> -->
+
   </div>
+
+  <div class="row-item">
+    <div class="f-item"
+      [ngClass]="form.get('mother_before_nationality')?.errors&&form.get('mother_before_nationality')?.touched?'has-error':''">
+      <span class="container-title-fom">
+        <span>Nationality</span>
+        <span class="mg-r">:</span>
+      </span>
+      <span>Origin</span>
+      <input class="f-input" type="text" formControlName="mother_before_nationality"
+        [matAutocomplete]="autoMotherBeforeNation">
+      <mat-autocomplete [displayWith]="ds.displayName" #autoMotherBeforeNation="matAutocomplete">
+        @for (row of NATIONALITY; track row; let i = $index) {
+          <mat-option [value]="row">
+            <div class="rows">
+              <span>{{row?.name}}</span>
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </div>
+    <div class="f-item"
+      [ngClass]="form.get('mother_current_nationality')?.errors&&form.get('mother_current_nationality')?.touched?'has-error':''">
+      <span>Current</span>
+      <input class="f-input" type="text" formControlName="mother_current_nationality"
+        [matAutocomplete]="autoMotherCurrentNation">
+      <mat-autocomplete [displayWith]="ds.displayName" #autoMotherCurrentNation="matAutocomplete">
+        @for (row of NATIONALITY; track row; let i = $index) {
+          <mat-option [value]="row">
+            <div class="rows">
+              <span>{{row?.name}}</span>
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </div>
+  </div>
+  <div class="row-item">
+    <div class="f-item"
+      [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
+      <span class="container-title-fom">
+        <span>Place of Birth</span>
+        <span class="mg-r">:</span>
+      </span>
+      <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
+    </div>
+
+  </div>
+
+  <div class="row-item">
+    <div class="f-item"
+      [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
+      <span class="container-title-fom">
+        <span>Occupation</span>
+        <span class="mg-r">:</span>
+      </span>
+      <input class="f-input" type="text" formControlName="motherCurrentOccupation">
+    </div>
+  </div>
+  <div class="row-item">
+    <div class="f-item" style="display: contents;"
+      [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
+      <span class="container-title-fom">
+        <span>Spouse's name</span>
+        <span class="mg-r">:</span>
+      </span>
+      <input style="width: 420px;" class="f-input" type="text" formControlName="spouse">
+    </div>
+    <!-- <div class="f-item overfh" style="width: 300px;">
+    <mat-radio-group style="display: flex;" formControlName="spouseIsDead">
+      <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
+        [checked]="spouseDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div> -->
+  <div class="f-item" style="width: unset;">
+    <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateSpouse($event)"
+      style="width:100%;" [label]="'Date of birth,'" [day]="form.get('spouseDob')?.value?.day||null"
+      international="true" [title]="date_kh_title" [month]="form.get('spouseDob')?.value?.month||null"
+      [year]="form.get('spouseDob')?.value?.year||null">
+    </app-khmer-date-form-picker>
+  </div>
+</div>
+
+<div class="row-item">
+  <div class="f-item"
+    [ngClass]="form.get('spouse_before_nationality')?.errors&&form.get('spouse_before_nationality')?.touched?'has-error':''">
+    <span class="container-title-fom">
+      <span>Nationality</span>
+      <span class="mg-r">:</span>
+    </span>
+    <span>Origin</span>
+    <input class="f-input" type="text" formControlName="spouse_before_nationality"
+      [matAutocomplete]="autoSpouseBeforeNation">
+    <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseBeforeNation="matAutocomplete">
+      @for (row of NATIONALITY; track row; let i = $index) {
+        <mat-option [value]="row">
+          <div class="rows">
+            <span>{{row?.name}}</span>
+          </div>
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </div>
+  <div class="f-item"
+    [ngClass]="form.get('spouse_current_nationality')?.errors&&form.get('spouse_current_nationality')?.touched?'has-error':''">
+    <span>Current@if (form.get('spouse_current_nationality')?.invalid) {
+      <span class="star-req">*</span>
+    }</span>
+    <input class="f-input" type="text" formControlName="spouse_current_nationality"
+      [matAutocomplete]="autoSpouseCurrentNation">
+    <mat-autocomplete [displayWith]="ds.displayName" #autoSpouseCurrentNation="matAutocomplete">
+      @for (row of NATIONALITY; track row; let i = $index) {
+        <mat-option [value]="row">
+          <div class="rows">
+            <span>{{row?.name}}</span>
+          </div>
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </div>
+</div>
+
+<div class="row-item">
+  <div class="f-item"
+    [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
+    <span class="container-title-fom">
+      <span>Occupation</span>
+      <span class="mg-r">:</span>
+    </span>
+    <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+  </div>
+</div>
+
+<div class="row-item">
+  <div class="f-item">
+    <span class="feTitle new" style="text-decoration: underline; font-weight: 800;">NOTE :</span>
+    <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+  </div>
+</div>
+<div class="row-item" style="flex-direction: column; ">
+  <div class="f-item" style="border-top: solid 1px">
+    <span class="title" style="font-size: 14px; padding: 0;">*
+      The Ministry of Justice is responsible for only for the translation of this document made by the
+    Ministry.</span>
+    <span class="title" style="font-size: 14px; padding: 0;">
+    &#160;The buttetin is valid within 3months. Invalid on date..........</span>
+  </div>
+</div>
+
+<div class="row-item" style="height: 20rem;">
+  <div class="f-item" style="justify-content: space-between;">
+    <div class="head-item long-w"
+      style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+      <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
+        <span
+          style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+          class="p-rel">
+          <span class="n-title">Seen</span>
+        </span>
+        <span
+          style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+          class="p-rel">
+          <span class="n-title">For the Minister</span>
+        </span>
+        <span
+          style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+          class="p-rel">
+          <span class="n-title">Secretary of State</span>
+        </span>
+        <span
+          style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+          class="p-rel">
+          <span class="n-title">
+            << Signature and Seal>>
+          </span>
+        </span>
+
+      </div>
+
+      <span class="container-header-input" style="width: unset">
+        <div class="row-item khmer-date-picker" style="padding-right: 0;">
+          <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 10px;">
+            <div class="f-item">
+              <span class="nor-fam">Phnom Penh, </span>
+            </div>
+
+            <div class="c-item">
+              <span class="nor-fam">Director-General of Criminal Penalty Arrairs</span>
+            </div>
+            <div class="c-item">
+              <span class="nor-fam">
+                << Signature>>
+              </span>
+            </div>
+            <div class="c-item">
+            </div>
+          </div>
+
+        </div>
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<div class="row-item" style="flex-direction: column; align-items: center;">
+  <div class="f-item" style="border-top: solid 1px; width: fit-content;">
+    <span class="n-title" style="font-size: 14px;">Samdach Sotheaos Boulevard, Daun Penh district Phnom Penh
+      Capital (in front of the Royal Palace) Telephone : 023
+    216 322, 023 217 841.</span>
+  </div>
+</div>
+
+</div>
+
+</div>
 </div>

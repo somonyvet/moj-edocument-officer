@@ -1,55 +1,67 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>កន្លែងទទួលបន្ទុកការងារ</mat-label>
-                <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteRanking"
-                    formControlName="office" matInput placeholder="Select workplace">
-                <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRanking="matAutocomplete">
-                    <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['office'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>កន្លែងទទួលបន្ទុកការងារ</mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteRanking"
+          formControlName="office" matInput placeholder="Select workplace">
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRanking="matAutocomplete">
+          @for (item of filterOffice | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              <span [style.padding-left]="((item.level)*24)+'px'"></span>
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['office'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['office'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>មុខងារតួនាទី</mat-label>
-                <input [matAutocomplete]="autoCompleteRole" formControlName="position" matInput
-                    placeholder="Select position">
-                <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRole="matAutocomplete">
-                    <mat-option *ngFor="let item of filterPosition | async;let i=index" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['position'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['position'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>មុខងារតួនាទី</mat-label>
+        <input [matAutocomplete]="autoCompleteRole" formControlName="position" matInput
+          placeholder="Select position">
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteRole="matAutocomplete">
+          @for (item of filterPosition | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['position'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['position'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">យល់ព្រម</button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">យល់ព្រម</button>
+  </mat-dialog-actions>
 </form>

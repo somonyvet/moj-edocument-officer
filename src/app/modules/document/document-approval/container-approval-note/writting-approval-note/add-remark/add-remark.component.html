@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{titleForm}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
@@ -10,52 +10,54 @@
 
 
     <!-- <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>កំណត់សម្គាល់</mat-label>
-                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-                    placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="remark"></textarea>
+    <mat-form-field appearance="outline">
+      <mat-label>កំណត់សម្គាល់</mat-label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+      placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="remark"></textarea>
 
-            </mat-form-field>
-        </div> -->
+    </mat-form-field>
+  </div> -->
 
-    <!-- <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ជ្រើសរើសពាក្យចំណារ</mat-label>
-                <mat-select [compareWith]="ds?.compareWithObj" formControlName="remark_officer">
-                    <mat-option *ngFor="let item of remarkOfficer; let i = index"
-                        [value]="item">
-                        <div class="rows">
-                            <span>{{item?.name}}</span>
-                        </div>
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.controls['remark_officer'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div> -->
+  <!-- <div class="form-group">
+  <mat-form-field appearance="outline">
+    <mat-label>ជ្រើសរើសពាក្យចំណារ</mat-label>
+    <mat-select [compareWith]="ds?.compareWithObj" formControlName="remark_officer">
+      <mat-option *ngFor="let item of remarkOfficer; let i = index"
+        [value]="item">
+        <div class="rows">
+          <span>{{item?.name}}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.controls['remark_officer'].hasError('required')">
+      This field is required.
+    </mat-error>
+  </mat-form-field>
+</div> -->
 
 
-    <!-- <div class="form-group" style="margin-top: 20px;">
-      <div style="padding: 16px;">
-        បញ្ចូលហត្ថលេខា
-      </div>
-    </div> -->
+<!-- <div class="form-group" style="margin-top: 20px;">
+<div style="padding: 16px;">
+  បញ្ចូលហត្ថលេខា
+</div>
+</div> -->
 
-    <div class="form-group">
-      <mat-form-field class="example-full-width" appearance="outline">
-        <mat-label>សរសេរចំណារ</mat-label>
-        <input formControlName="remarkText" matInput placeholder="សរសេរចំណារ..." />
-        <mat-error *ngIf="form.controls['remarkText'].hasError('required')">
-          This field is required.
-        </mat-error>
-      </mat-form-field>
-    </div>
-  </mat-dialog-content>
+<div class="form-group">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>សរសេរចំណារ</mat-label>
+    <input formControlName="remarkText" matInput placeholder="សរសេរចំណារ..." />
+    @if (form.controls['remarkText'].hasError('required')) {
+      <mat-error>
+        This field is required.
+      </mat-error>
+    }
+  </mat-form-field>
+</div>
+</mat-dialog-content>
 
-  <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-  </mat-dialog-actions>
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+  <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+</mat-dialog-actions>
 </form>

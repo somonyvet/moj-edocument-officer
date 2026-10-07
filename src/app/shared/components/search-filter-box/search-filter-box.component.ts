@@ -1,11 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-search-filter-box',
-  templateUrl: './search-filter-box.component.html',
-  styleUrls: ['./search-filter-box.component.scss']
+    selector: 'app-search-filter-box',
+    templateUrl: './search-filter-box.component.html',
+    styleUrls: ['./search-filter-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SearchFilterBoxComponent implements OnInit ,  OnChanges  {
   @ViewChild('searchFilter') searchFilter: ElementRef;
@@ -18,11 +20,11 @@ export class SearchFilterBoxComponent implements OnInit ,  OnChanges  {
   @Output() closeSearch = new EventEmitter();
   @Output() scanQrCode = new EventEmitter();
 
-  form : FormGroup;
+  form : UntypedFormGroup;
   focusSearch: boolean = false;
 
   constructor(
-    private f: FormBuilder,
+    private f: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {

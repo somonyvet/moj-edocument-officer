@@ -8,19 +8,27 @@
       <div class="do-more" style="border-bottom: solid 1px #ebebeb;">
         <div class="grid-col-xs column">
           <h4>គ្រប់គ្រងសិទ្ធិប្រើប្រាស់{{store?.selectedGroup?.name||'Permissions'}}</h4>
-          <div class="rows" *ngIf="selectedGroup" style="padding-bottom: 16px;">
-            <button (click)="addUser()" mat-button class="mat-add-new" style="margin-top: 20px;" *ngIf="auth?.root">
-              បន្ថែមគណនី
-            </button>
-            <button (click)="create(selectedGroup)" mat-button class="mat-add-new" style="margin:20px 12px 0;"
-              *ngIf="auth?.root">
-              កែសម្រួលព័ត៌មានក្រុម
-            </button>
-            <button (click)="delete(selectedGroup)" mat-button class="mat-add-new" style="margin-top: 20px;"
-              *ngIf="auth?.root">
-              លុបក្រុម
-            </button>
-          </div>
+          @if (selectedGroup) {
+            <div class="rows" style="padding-bottom: 16px;">
+              @if (auth?.root) {
+                <button (click)="addUser()" mat-button class="mat-add-new" style="margin-top: 20px;">
+                  បន្ថែមគណនី
+                </button>
+              }
+              @if (auth?.root) {
+                <button (click)="create(selectedGroup)" mat-button class="mat-add-new" style="margin:20px 12px 0;"
+                  >
+                  កែសម្រួលព័ត៌មានក្រុម
+                </button>
+              }
+              @if (auth?.root) {
+                <button (click)="delete(selectedGroup)" mat-button class="mat-add-new" style="margin-top: 20px;"
+                  >
+                  លុបក្រុម
+                </button>
+              }
+            </div>
+          }
         </div>
       </div>
 
@@ -29,34 +37,40 @@
           <div class="card-wrapper tab" style="padding:24px">
             <div class="g-per-items">
               <div class="tree-per-doc">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"
-                  *ngIf="store?.permissions_tree_data?.length>0">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                    <mat-icon class="tree-icon">
-                      done
-                    </mat-icon>
-                    {{node.name}}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' :
-                        'chevron_right'}}
+                @if (store?.permissions_tree_data?.length>0) {
+                  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"
+                    >
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                      <mat-icon class="tree-icon">
+                        done
                       </mat-icon>
-                    </button>
-                    {{node.name}}
-                  </mat-tree-node>
-                </mat-tree>
-                <app-empty-data
-                  imageUrl="https://mobilecenter.azureedge.net/generated/img/overview-fb45ab8d5bfe977612c185c9e4ac9fec.svg"
-                  *ngIf="store?.selectedGroup?.isAdmin" name="Administrator"
-                  subtitle="Allow all group member access full control in system.">
-                </app-empty-data>
-                <app-empty-data
-                  imageUrl="https://mobilecenter.azureedge.net/generated/img/overview-fb45ab8d5bfe977612c185c9e4ac9fec.svg"
-                  *ngIf="store?.selectedGroup?.isCompletedApplicationOnly" name="បំពេញពាក្យតែប៉ុណ្ណោះ"
-                  subtitle="ផ្ដល់សិទ្ធិដើម្បីអាចបំពេញពាក្យបានច្រើន">
-                </app-empty-data>
+                      {{node.name}}
+                    </mat-tree-node>
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                      <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                          {{treeControl.isExpanded(node) ? 'expand_more' :
+                          'chevron_right'}}
+                        </mat-icon>
+                      </button>
+                      {{node.name}}
+                    </mat-tree-node>
+                  </mat-tree>
+                }
+                @if (store?.selectedGroup?.isAdmin) {
+                  <app-empty-data
+                    imageUrl="https://mobilecenter.azureedge.net/generated/img/overview-fb45ab8d5bfe977612c185c9e4ac9fec.svg"
+                    name="Administrator"
+                    subtitle="Allow all group member access full control in system.">
+                  </app-empty-data>
+                }
+                @if (store?.selectedGroup?.isCompletedApplicationOnly) {
+                  <app-empty-data
+                    imageUrl="https://mobilecenter.azureedge.net/generated/img/overview-fb45ab8d5bfe977612c185c9e4ac9fec.svg"
+                    name="បំពេញពាក្យតែប៉ុណ្ណោះ"
+                    subtitle="ផ្ដល់សិទ្ធិដើម្បីអាចបំពេញពាក្យបានច្រើន">
+                  </app-empty-data>
+                }
               </div>
               <div class="tb-content">
                 <ng-container>
@@ -100,7 +114,7 @@
                     </div>
                   </div>
                   <div class="card-content">
-                    <ng-container *ngFor="let item of store?.groupMembers;let i=index">
+                    @for (item of store?.groupMembers; track item; let i = $index) {
                       <div class="card-item">
                         <div class="card-col10">
                           <div class="flex-block">
@@ -134,20 +148,26 @@
                         </div>
                         <div class="card-col10" style="justify-content: flex-end;">
                           <div class="flex-block">
-                            <button class="mat-add-new" style="margin-right: 8px;" mat-button mat-icon-button (click)="addUser(item)" *ngIf="auth?.root">
-                              <mat-icon>edit</mat-icon>
-                            </button>
-                            <button class="mat-add-new" mat-button mat-icon-button (click)="removeMember(item)" *ngIf="auth?.root">
-                              <mat-icon>delete</mat-icon>
-                            </button>
+                            @if (auth?.root) {
+                              <button class="mat-add-new" style="margin-right: 8px;" mat-icon-button (click)="addUser(item)">
+                                <mat-icon>edit</mat-icon>
+                              </button>
+                            }
+                            @if (auth?.root) {
+                              <button class="mat-add-new" mat-icon-button (click)="removeMember(item)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                            }
                           </div>
                         </div>
                       </div>
-                    </ng-container>
+                    }
                   </div>
-                  <app-empty-data *ngIf="store?.groupMembers?.length === 0 && !store?.loading"
-                    name="You don't have any module yet" subtitle="You can click button below to create one now">
-                  </app-empty-data>
+                  @if (store?.groupMembers?.length === 0 && !store?.loading) {
+                    <app-empty-data
+                      name="You don't have any module yet" subtitle="You can click button below to create one now">
+                    </app-empty-data>
+                  }
                 </ng-container>
 
               </div>

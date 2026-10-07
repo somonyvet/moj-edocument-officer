@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentCompleteComponent } from 'src/app/modules/document/document-complete/document-complete.component';
@@ -10,9 +10,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-archived-document',
-  templateUrl: './archived-document.component.html',
-  styleUrls: ['./archived-document.component.scss']
+    selector: 'app-archived-document',
+    templateUrl: './archived-document.component.html',
+    styleUrls: ['./archived-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ArchivedDocumentComponent implements OnInit {
 

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'userJob'
+    name: 'userJob',
+    standalone: false
 })
 export class UserJobPipe implements PipeTransform {
 
@@ -20,7 +21,8 @@ export class UserJobPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'notMol'
+    name: 'notMol',
+    standalone: false
 })
 export class  NotMol implements PipeTransform {
   transform(obj: any): any {

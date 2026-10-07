@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { IOfficer } from 'src/app/interfaces/document/document.interface';
 import { pushToObject } from '../../services/convert.service';
@@ -6,9 +6,11 @@ import { DatabaseService } from '../../services/database.service';
 import { transformImageSameTokenNo } from '../../services/fireStorage.service';
 
 @Component({
-  selector: 'app-avatar-officer',
-  templateUrl: './avatar-officer.component.html',
-  styleUrls: ['./avatar-officer.component.scss']
+    selector: 'app-avatar-officer',
+    templateUrl: './avatar-officer.component.html',
+    styleUrls: ['./avatar-officer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AvatarOfficerComponent implements OnInit {
   @Input() officerKey: string;

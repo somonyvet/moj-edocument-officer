@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CriminalStore } from '../../../stores/criminal.store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { criminal_tabs } from '../../../dummy/criminal.dummy';
@@ -9,9 +9,11 @@ import { APPLICATION_TYPE_OBJ } from 'src/app/dummy/status';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-approve-letter-digital',
-  templateUrl: './approve-letter-digital.component.html',
-  styleUrls: ['./approve-letter-digital.component.scss']
+    selector: 'app-approve-letter-digital',
+    templateUrl: './approve-letter-digital.component.html',
+    styleUrls: ['./approve-letter-digital.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ApproveLetterDigitalComponent implements OnInit {
   tabs = criminal_tabs.internal_process_applications;

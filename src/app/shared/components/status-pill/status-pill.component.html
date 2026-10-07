@@ -1,4 +1,6 @@
-<span class="status-pill" [class.sm]="size === 'sm'" [class.flat]="flat" [style.--pill-color]="pillColor"
-  *ngIf="pillLabel">
-  <span>{{pillLabel}}</span>
-</span>
+@if (pillLabel) {
+  <span class="status-pill" [class.sm]="size === 'sm'" [class.flat]="flat" [style.--pill-color]="pillColor"
+    >
+    <span>{{pillLabel}}</span>
+  </span>
+}

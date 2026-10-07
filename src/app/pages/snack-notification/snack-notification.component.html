@@ -8,12 +8,12 @@
     <div class="l-container">
         <div class="list-item title">
             <h3>{{data?.title}}</h3>
-            <a class="abs-btn" mat-button mat-icon-button (click)="snackBarRef.dismiss()">
+            <a class="abs-btn" mat-icon-button (click)="snackBarRef.dismiss()">
                 <mat-icon>close</mat-icon>
             </a>
         </div>
         <div class="list-item body">
-            <p>{{data?.body | removeStringPip:'null'}}</p>
+            <p>{{$safeNavigationMigration(data?.body) | removeStringPip:'null'}}</p>
         </div>
         <div class="list-item time">
             1 ម៉ោងមុន

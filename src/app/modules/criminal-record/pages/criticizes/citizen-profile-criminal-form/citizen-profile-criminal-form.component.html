@@ -1,33 +1,35 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <ckeditor #inputRef class="cd-form" (ready)="onReady($event)" [config]="config" [editor]="Editor"
-                formControlName="storyboard">
-            </ckeditor>
-        </div>
-        <div class="form-group" style="margin-top: 8px;">
-            <mat-error *ngIf="form.controls['storyboard'].hasError('required')">
-                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
-        </div>
-    </mat-dialog-content>
-    <div class="submit-story">
-        <h4>បញ្ចូលសង្ខេបសាច់រឿង រួចដាក់អនុម័ត</h4>
-        <app-primary-button (onPress)="_onSubmit(form?.value)" label="ដាក់អនុម័ត" [disable]="process">
-        </app-primary-button>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <ckeditor #inputRef class="cd-form" (ready)="onReady($event)" [config]="config" [editor]="Editor"
+        formControlName="storyboard">
+      </ckeditor>
     </div>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <button class="submit-btn mat-add-new mr-16" mat-button type="submit"
-            (click)="_onSave(form.value,false)">រក្សាទុក</button>
-        <button class="submit-btn mat-add-new" mat-button type="submit"
-            (click)="_onSave(form.value,true)">រក្សាទុករួចបិទ</button>
-    </mat-dialog-actions>
+    <div class="form-group" style="margin-top: 8px;">
+      @if (form.controls['storyboard'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+      }
+    </div>
+  </mat-dialog-content>
+  <div class="submit-story">
+    <h4>បញ្ចូលសង្ខេបសាច់រឿង រួចដាក់អនុម័ត</h4>
+    <app-primary-button (onPress)="_onSubmit($safeNavigationMigration(form?.value))" label="ដាក់អនុម័ត" [disable]="process">
+    </app-primary-button>
+  </div>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <button class="submit-btn mat-add-new mr-16" mat-button type="submit"
+    (click)="_onSave(form.value,false)">រក្សាទុក</button>
+    <button class="submit-btn mat-add-new" mat-button type="submit"
+    (click)="_onSave(form.value,true)">រក្សាទុករួចបិទ</button>
+  </mat-dialog-actions>
 </form>

@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { WindowService } from 'src/app/shared/services/window.service';
 import firebase from 'firebase/compat/app';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,23 +10,25 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { SignupComponent } from 'src/app/pages/auth/signup/signup.component';
 
 @Component({
-  selector: 'app-criminal-record-latter-head',
-  templateUrl: './criminal-record-latter-head.component.html',
-  styleUrls: ['./criminal-record-latter-head.component.scss']
+    selector: 'app-criminal-record-latter-head',
+    templateUrl: './criminal-record-latter-head.component.html',
+    styleUrls: ['./criminal-record-latter-head.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLatterHeadComponent implements OnInit {
   options: AnimationOptions = {
     path: '../../../../assets/bgsty.json',
   };
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   error: string = null;
   process: boolean = false;
 
   processItems: any[] = [false, false, false];
   windowRef: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AuthStore,
     private router: Router,
     private win: WindowService,

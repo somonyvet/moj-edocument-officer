@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { bodyDocItem, footerDocItem, headerDocItem, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { IDocument, IHeaderInformation } from 'src/app/interfaces/document/document.interface';
@@ -8,7 +8,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { generateKeywords, groupBy, getPermission } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,9 +32,11 @@ import { DocumentAddCustomStyleComponent } from '../document-add-custom-style/do
 import { DocumentFormComponent } from '../document-form/document-form.component';
 
 @Component({
-  selector: 'app-document-application-form',
-  templateUrl: './document-application-form.component.html',
-  styleUrls: ['./document-application-form.component.scss']
+    selector: 'app-document-application-form',
+    templateUrl: './document-application-form.component.html',
+    styleUrls: ['./document-application-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   @ViewChild('docAttachFile') docAttachFile: ElementRef;
@@ -63,7 +65,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   //comment
 
   DOC_STATUS = docStatusObj
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -194,7 +196,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
 
   }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -229,7 +231,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   canAddTemplate: boolean = true;
   queryParams: any = null;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private auth: AuthStore,
@@ -684,15 +686,15 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
     return item1 && item2 ? item1.key === item2.key : item1 === item2;
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -790,7 +792,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content, key, office, isInfo, remark, contentTitle, symbol, customStyles } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -808,7 +810,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   addFooterSheet(item: any) {
     this.footerForm().push(this.newFooterSheet(item));
   }
-  newFooterSheet(item: any): FormGroup {
+  newFooterSheet(item: any): UntypedFormGroup {
     const { type, content, key, contentTitle, contentTitleLeft, contentTitleRight, contentTitleCenter, approvedByLeftBox, approvedByRightBox, approvedByCenterBox,
       moj_box1_contentTitleLeft, moj_box1_contentSubTitleLeft, moj_box1_approvedByLeftBox, moj_box2_contentTitleLeft, moj_box2_contentSubTitleLeft, moj_box2_approvedByLeftBox,
       moj_box3_contentTitleLeft, moj_box3_contentSubTitleLeft, moj_box3_approvedByLeftBox, 
@@ -851,7 +853,7 @@ export class DocumentApplicationFormComponent implements OnInit, OnDestroy {
   addSessionSheet(item: any) {
     this.sessionForm().push(this.newSessionSheet(item));
   }
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office, key, isInfo, contentTitle, sectionKey, page_key } = item;
 
     const { documentSections } = this.store;

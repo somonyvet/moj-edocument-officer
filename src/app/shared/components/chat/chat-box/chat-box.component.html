@@ -4,123 +4,135 @@
       <div class="image-container">
         <img
           [src]="toUserData?.photoURL || 'https://firebasestorage.googleapis.com/v0/b/school-link-bb0e9.appspot.com/o/avatar_chat%2Fno_avatar.jpeg?alt=media&token=d1254692-33c5-41d4-80a1-d1f6040c217c'">
-      </div>
-
-      <div class="text-container">
-        <h4>{{ toUserData?.displayName }}</h4>
-        <!-- <p>Active Now</p> -->
-      </div>
-    </div>
-
-    <div class="action-buttons-container">
-      <button mat-icon-button (click)="btnCloseClicked(chatBoxData, chatBoxIndex)">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-  </div>
-
-  <div class="content-container" #scrollFrame (scroll)="onScroll($event)">
-    <div class="chats">
-      <app-spinner *ngIf="fetchMore"></app-spinner>
-      <div class="profile-introduction-container" *ngIf="!loading && chats?.length===0">
-        <div class="profile-image-container">
-          <img
-            [src]="toUserData?.photoURL || 'https://firebasestorage.googleapis.com/v0/b/school-link-bb0e9.appspot.com/o/avatar_chat%2Fno_avatar.jpeg?alt=media&token=d1254692-33c5-41d4-80a1-d1f6040c217c'">
         </div>
-        <div class="profile-content-container">
-          <h3>{{ toUserData?.displayName }}</h3>
+
+        <div class="text-container">
+          <h4>{{ toUserData?.displayName }}</h4>
+          <!-- <p>Active Now</p> -->
         </div>
       </div>
-      <div class="date-container" *ngIf="!loading && chats?.length===0">
-        <div class="line"></div>
-        <p>{{ getCurrentDate() | date: "medium" }}</p>
-        <div class="line"></div>
-      </div>
-      <ng-container *ngFor="let item of chats; let i = index;">
-        <ng-container *ngIf="userId !== item?.sender?.key">
-          <app-chat-box-left [type]="item.type" [value]="item.message" [index]="i" [files]="item?.files"
-            [dateTime]="item?.created_at?.toDate()" [userData]="toUserData" [status]="item?.status"
-            [photoURL]="toUserData?.photoURL">
-          </app-chat-box-left>
-        </ng-container>
-        <ng-container *ngIf="userId === item?.sender?.key">
-          <app-chat-box-right [type]="item.type" [files]="item?.files" [value]="item.message" [index]="i"
-            [photoURL]="fromUserData?.photoURL" [dateTime]="item?.created_at?.toDate()" [userData]="toUserData"
-            [status]="item?.status">
-          </app-chat-box-right>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>
 
-  <div class="footer-container">
-    <mat-progress-bar *ngIf="storage?.startUpload" mode="determinate" [value]="storage?.uploadPercent | async ">
-    </mat-progress-bar>
-    <div class="more-action-buttons-container" *ngIf="isClicked">
-      <button mat-button (click)="fileInput.click()">
-        <mat-icon>attachment</mat-icon>
-      </button>
-      <input #fileInput id="fileInput" type="file" multiple
-        (change)="onSelectedFile($event)" style="display:none;" />
-
-      <button mat-button (click)="fileImageInput.click()">
-        <mat-icon>image</mat-icon>
-      </button>
-      <input #fileImageInput id="fileInput" type="file" multiple accept='image/*'
-        (change)="onSelectedFileImages($event)" style="display:none;" />
-
-      <button mat-button (click)="fileVideoInput.click()">
-        <mat-icon>videocam</mat-icon>
-      </button>
-      <input #fileVideoInput id="fileVideoInput" type="file" multiple accept='video/mp4,video/x-m4v,video/*'
-        (change)="onSelectedFileVideo($event)" style="display:none;" />
-
-      <!-- <button mat-button (click)="messageTypeClicked(MESSAGE_TYPE_ENUM.link)">
-        <mat-icon>share</mat-icon>
-      </button> -->
-
-      <button mat-button (click)="messageTypeClicked(MESSAGE_TYPE_ENUM.voice)">
-        <mat-icon>mic</mat-icon>
-      </button>
-    </div>
-
-    <form [formGroup]="form" class="main-action-buttons-container">
-      <div class="action-buttons-container" *ngIf="!isClicked">
-        <button type="button" mat-icon-button (click)="btnAddMoreClicked()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
-
-      <div class="action-buttons-container" *ngIf="isClicked">
-        <button type="button" mat-icon-button (click)="btnAddMoreClicked()">
+      <div class="action-buttons-container">
+        <button mat-icon-button (click)="btnCloseClicked(chatBoxData, chatBoxIndex)">
           <mat-icon>close</mat-icon>
         </button>
       </div>
+    </div>
 
-      <ng-container *ngIf="MESSAGE_TYPE_ENUM.voice !== selectedMessageType">
+    <div class="content-container" #scrollFrame (scroll)="onScroll($event)">
+      <div class="chats">
+        @if (fetchMore) {
+          <app-spinner></app-spinner>
+        }
+        @if (!loading && chats?.length===0) {
+          <div class="profile-introduction-container">
+            <div class="profile-image-container">
+              <img
+                [src]="toUserData?.photoURL || 'https://firebasestorage.googleapis.com/v0/b/school-link-bb0e9.appspot.com/o/avatar_chat%2Fno_avatar.jpeg?alt=media&token=d1254692-33c5-41d4-80a1-d1f6040c217c'">
+              </div>
+              <div class="profile-content-container">
+                <h3>{{ toUserData?.displayName }}</h3>
+              </div>
+            </div>
+          }
+          @if (!loading && chats?.length===0) {
+            <div class="date-container">
+              <div class="line"></div>
+              <p>{{ getCurrentDate() | date: "medium" }}</p>
+              <div class="line"></div>
+            </div>
+          }
+          @for (item of chats; track item; let i = $index) {
+            @if (userId !== item?.sender?.key) {
+              <app-chat-box-left [type]="item.type" [value]="item.message" [index]="i" [files]="$safeNavigationMigration(item?.files)"
+                [dateTime]="$safeNavigationMigration(item?.created_at?.toDate())" [userData]="toUserData" [status]="$safeNavigationMigration(item?.status)"
+                [photoURL]="$safeNavigationMigration(toUserData?.photoURL)">
+            </app-chat-box-left>
+          }
+          @if (userId === item?.sender?.key) {
+            <app-chat-box-right [type]="item.type" [files]="$safeNavigationMigration(item?.files)" [value]="item.message" [index]="i"
+              [photoURL]="$safeNavigationMigration(fromUserData?.photoURL)" [dateTime]="$safeNavigationMigration(item?.created_at?.toDate())" [userData]="toUserData"
+              [status]="$safeNavigationMigration(item?.status)">
+            </app-chat-box-right>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="footer-container">
+      @if (storage?.startUpload) {
+        <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+        </mat-progress-bar>
+      }
+      @if (isClicked) {
+        <div class="more-action-buttons-container">
+          <button mat-button (click)="fileInput.click()">
+            <mat-icon>attachment</mat-icon>
+          </button>
+          <input #fileInput id="fileInput" type="file" multiple
+            (change)="onSelectedFile($event)" style="display:none;" />
+          <button mat-button (click)="fileImageInput.click()">
+            <mat-icon>image</mat-icon>
+          </button>
+          <input #fileImageInput id="fileInput" type="file" multiple accept='image/*'
+            (change)="onSelectedFileImages($event)" style="display:none;" />
+          <button mat-button (click)="fileVideoInput.click()">
+            <mat-icon>videocam</mat-icon>
+          </button>
+          <input #fileVideoInput id="fileVideoInput" type="file" multiple accept='video/mp4,video/x-m4v,video/*'
+            (change)="onSelectedFileVideo($event)" style="display:none;" />
+          <!-- <button mat-button (click)="messageTypeClicked(MESSAGE_TYPE_ENUM.link)">
+          <mat-icon>share</mat-icon>
+        </button> -->
+        <button mat-button (click)="messageTypeClicked(MESSAGE_TYPE_ENUM.voice)">
+          <mat-icon>mic</mat-icon>
+        </button>
+      </div>
+    }
+
+    <form [formGroup]="form" class="main-action-buttons-container">
+      @if (!isClicked) {
+        <div class="action-buttons-container">
+          <button type="button" mat-icon-button (click)="btnAddMoreClicked()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      }
+
+      @if (isClicked) {
+        <div class="action-buttons-container">
+          <button type="button" mat-icon-button (click)="btnAddMoreClicked()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      }
+
+      @if (MESSAGE_TYPE_ENUM.voice !== selectedMessageType) {
         <input placeholder="Aa" formControlName="message" #message id="message"
           (click)="messageClicked(MESSAGE_TYPE_ENUM.text)">
-      </ng-container>
+      }
 
-      <ng-container *ngIf="MESSAGE_TYPE_ENUM.voice === selectedMessageType">
+      @if (MESSAGE_TYPE_ENUM.voice === selectedMessageType) {
         <div class="voice-recorder-container">
           <div class="progress-bar" [ngStyle]="{ 'width': textboxProgressValue + 'px' }"></div>
-
           <div class="top-buttons">
             <button class="btnStop" (click)="btnRecordAndStopClicked()">
-              <span class="material-icons" *ngIf="!isRecording">play_arrow</span>
-              <span class="material-icons" *ngIf="isRecording">stop</span>
+              @if (!isRecording) {
+                <span class="material-icons">play_arrow</span>
+              }
+              @if (isRecording) {
+                <span class="material-icons">stop</span>
+              }
             </button>
-
             <div class="duration">
               <span>{{convertSecondsToMinutesAndSeconds(progressValue)}}</span>
             </div>
           </div>
         </div>
-      </ng-container>
+      }
 
       <div class="action-buttons-container">
-        <button type="submit" mat-icon-button (click)="btnSendClicked(form?.value)">
+        <button type="submit" mat-icon-button (click)="btnSendClicked($safeNavigationMigration(form?.value))">
           <mat-icon>send</mat-icon>
         </button>
       </div>

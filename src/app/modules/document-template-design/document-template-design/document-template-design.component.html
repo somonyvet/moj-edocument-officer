@@ -1,22 +1,30 @@
 <div class="doc-form-template-wrapper">
-    <div class="doc-form-header" style="display: flex; align-items: center;">
-        <button mat-button mat-icon-button (click)="goBack()" style="margin-left: 16px;">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </button>
-        <div class="doc-form-container" style="margin: 0 auto;" *ngIf="!loading && !loadingHeader && !loadingSection && !loadingPermission && store?.headerDocument">
-            <div class="db-container">
-                <div class="lb-hd">
-                    <div class="dot-status" [ngClass]="store?.headerDocument?.doc_status|docStatus"></div>
-                    <span>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentName}}</span>
-                    <mat-icon *ngIf="store?.headerDocument?.doc_status?.key===99">check_circle</mat-icon>
-                </div>
-            </div>
+  <div class="doc-form-header" style="display: flex; align-items: center;">
+    <button mat-icon-button (click)="goBack()" style="margin-left: 16px;">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </button>
+    @if (!loading && !loadingHeader && !loadingSection && !loadingPermission && store?.headerDocument) {
+      <div class="doc-form-container" style="margin: 0 auto;">
+        <div class="db-container">
+          <div class="lb-hd">
+            <div class="dot-status" [ngClass]="$safeNavigationMigration(store?.headerDocument?.doc_status)|docStatus"></div>
+            <span>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentName}}</span>
+            @if (store?.headerDocument?.doc_status?.key===99) {
+              <mat-icon>check_circle</mat-icon>
+            }
+          </div>
         </div>
-    </div>
+      </div>
+    }
+  </div>
+  @if (loading || loadingHeader || loadingSection || loadingPermission || process) {
     <mat-progress-bar mode="indeterminate"
-        *ngIf="loading || loadingHeader || loadingSection || loadingPermission || process">
+      >
     </mat-progress-bar>
-    <router-outlet *ngIf="!loading && !loadingHeader && !loadingSection && !loadingPermission && store?.headerDocument"
-        (activate)="onActivate($event)">
+  }
+  @if (!loading && !loadingHeader && !loadingSection && !loadingPermission && store?.headerDocument) {
+    <router-outlet
+      (activate)="onActivate($event)">
     </router-outlet>
+  }
 </div>

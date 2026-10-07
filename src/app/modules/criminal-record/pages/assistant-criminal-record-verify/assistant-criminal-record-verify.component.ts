@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -8,9 +8,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-assistant-criminal-record-verify',
-  templateUrl: './assistant-criminal-record-verify.component.html',
-  styleUrls: ['./assistant-criminal-record-verify.component.scss']
+    selector: 'app-assistant-criminal-record-verify',
+    templateUrl: './assistant-criminal-record-verify.component.html',
+    styleUrls: ['./assistant-criminal-record-verify.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AssistantCriminalRecordVerifyComponent implements OnInit {
   tabs = criminal_tabs.internal_process_applications;

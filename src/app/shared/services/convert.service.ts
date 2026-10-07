@@ -1,6 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment'
+import moment from 'moment'
 import firebase from 'firebase/compat/app';
 import * as _ from 'lodash';
 import { months, periodData } from 'src/app/dummy/report';
@@ -125,7 +125,7 @@ export class ConvertService {
   }
 
   static getNumber(value: any, getval: any): number {
-    if (value === NaN || value === null || value === undefined || value === '') {
+    if (Number.isNaN(value) || value === null || value === undefined || value === '') {
       return getval;
     }
     return Number(value);
@@ -142,7 +142,7 @@ export class ConvertService {
     if (value === null || value === "" || value === undefined) {
       return 0;
     }
-    if (Number(value) === NaN) return 0;
+    if (Number.isNaN(Number(value))) return 0;
     return Number(value.toFixed(2));
   }
 
@@ -150,7 +150,7 @@ export class ConvertService {
     if (value === null || value === "" || value === undefined) {
       return 0;
     }
-    if (Number(value) === NaN) return 0;
+    if (Number.isNaN(Number(value))) return 0;
     return Number(value);
   }
 

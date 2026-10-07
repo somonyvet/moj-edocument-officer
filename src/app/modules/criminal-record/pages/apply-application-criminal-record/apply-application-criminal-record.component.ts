@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -14,9 +14,11 @@ import { getYearsList, todayDate } from 'src/app/shared/services/mapping.service
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-apply-application-criminal-record',
-  templateUrl: './apply-application-criminal-record.component.html',
-  styleUrls: ['./apply-application-criminal-record.component.scss']
+    selector: 'app-apply-application-criminal-record',
+    templateUrl: './apply-application-criminal-record.component.html',
+    styleUrls: ['./apply-application-criminal-record.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ApplyApplicationCriminalRecordComponent implements OnInit {
   lottie: AnimationOptions = {
@@ -32,7 +34,7 @@ export class ApplyApplicationCriminalRecordComponent implements OnInit {
   canSave:boolean = false;
   CRIMINAL_APPLICATION_LANGUAGE_ARRAY = CRIMINAL_APPLICATION_LANGUAGE_ARRAY;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public store: CriminalApplicationStore,
@@ -40,12 +42,12 @@ export class ApplyApplicationCriminalRecordComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private fb : FormBuilder
+    private fb : UntypedFormBuilder
   ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      formArray : new FormArray([], minSelectedCheckboxes(1))
+      formArray : new UntypedFormArray([], minSelectedCheckboxes(1))
     })
     const { selectedCriminalRecord, selectedCitizenProfile, attachment_files } = this.store;
     this.canSave = selectedCriminalRecord?.status?.key === STATUS_OBJ.DRAFT?.key || selectedCriminalRecord?.status?.key === STATUS_OBJ.APPLY?.key;
@@ -106,7 +108,7 @@ export class ApplyApplicationCriminalRecordComponent implements OnInit {
   }
 
   patchForm(){
-    const formArray = this.form.get('formArray') as FormArray;
+    const formArray = this.form.get('formArray') as UntypedFormArray;
     this.CRIMINAL_APPLICATION_LANGUAGE_ARRAY?.forEach((m, i) => {
       formArray.push(this.fb.group({
         language : m,
@@ -117,7 +119,7 @@ export class ApplyApplicationCriminalRecordComponent implements OnInit {
 }
 
 function minSelectedCheckboxes(min = 1) {
-  const validator: ValidatorFn = (formArray: FormArray) => {
+  const validator: ValidatorFn = (formArray: UntypedFormArray) => {
     const totalSelected = formArray.controls
       .filter(control => control.value?.check)
     return totalSelected?.length >= min ? null : { required: true };

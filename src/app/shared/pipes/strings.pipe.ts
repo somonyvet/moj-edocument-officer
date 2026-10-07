@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { hasWhiteSpace, toKhmerNumber } from '../services/mapping.service';
 
 @Pipe({
-  name: 'nicknameSpace'
+    name: 'nicknameSpace',
+    standalone: false
 })
 export class NicknameSpace implements PipeTransform {
   transform(str: string): any {
@@ -15,7 +16,8 @@ export class NicknameSpace implements PipeTransform {
 }
 
 @Pipe({
-  name: 'addMoreSpaceToString'
+    name: 'addMoreSpaceToString',
+    standalone: false
 })
 export class AddMoreSpaceToString implements PipeTransform {
   transform(str: string): any {
@@ -29,7 +31,8 @@ export class AddMoreSpaceToString implements PipeTransform {
 }
 
 @Pipe({
-  name: 'addMoreSpaceToStringAddress'
+    name: 'addMoreSpaceToStringAddress',
+    standalone: false
 })
 export class AddMoreSpaceToStringAddress implements PipeTransform {
   transform(str: string): any {
@@ -43,7 +46,8 @@ export class AddMoreSpaceToStringAddress implements PipeTransform {
 }
 
 @Pipe({
-  name: 'khmerNumAddress'
+    name: 'khmerNumAddress',
+    standalone: false
 })
 export class KhmerNumAddress implements PipeTransform {
   transform(str: string): any {
@@ -53,7 +57,8 @@ export class KhmerNumAddress implements PipeTransform {
 }
 
 @Pipe({
-  name: 'stringUpperCase'
+    name: 'stringUpperCase',
+    standalone: false
 })
 export class StringUpperCase implements PipeTransform {
   transform(str: string): any {
@@ -68,7 +73,8 @@ export class StringUpperCase implements PipeTransform {
 }
 
 @Pipe({
-  name: 'stringDoubleSpace'
+    name: 'stringDoubleSpace',
+    standalone: false
 })
 export class stringDoubleSpace implements PipeTransform {
   transform(str: string): any {
@@ -83,7 +89,8 @@ export class stringDoubleSpace implements PipeTransform {
 }
 
 @Pipe({
-  name: 'moreSpaceEnAddress'
+    name: 'moreSpaceEnAddress',
+    standalone: false
 })
 export class MoreSpaceEnAddress implements PipeTransform {
   transform(str: string): any {
@@ -97,7 +104,8 @@ export class MoreSpaceEnAddress implements PipeTransform {
 }
 
 @Pipe({
-  name: 'formatNum3digitPipe'
+    name: 'formatNum3digitPipe',
+    standalone: false
 })
 export class FormatNum3digitPipe implements PipeTransform {
   transform(num: number): any { 
@@ -106,7 +114,8 @@ export class FormatNum3digitPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'removeStringPip'
+    name: 'removeStringPip',
+    standalone: false
 })
 export class RemoveStringPip implements PipeTransform {
   transform(str: string,subStr: string): any { 

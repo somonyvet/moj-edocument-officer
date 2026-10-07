@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +13,11 @@ import { AddGroupRequestFormComponent } from '../add-group-request-form/add-grou
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-criminal-group-request-form-app',
-  templateUrl: './criminal-group-request-form-app.component.html',
-  styleUrls: ['./criminal-group-request-form-app.component.scss']
+    selector: 'app-criminal-group-request-form-app',
+    templateUrl: './criminal-group-request-form-app.component.html',
+    styleUrls: ['./criminal-group-request-form-app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormAppComponent implements OnInit {
   tabs = criminal_tabs.folder_criminal;

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-receipt-application-display',
-  templateUrl: './criminal-receipt-application-display.component.html',
-  styleUrls: ['./criminal-receipt-application-display.component.scss']
+    selector: 'app-criminal-receipt-application-display',
+    templateUrl: './criminal-receipt-application-display.component.html',
+    styleUrls: ['./criminal-receipt-application-display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalReceiptApplicationDisplayComponent implements OnInit {
   criminalData

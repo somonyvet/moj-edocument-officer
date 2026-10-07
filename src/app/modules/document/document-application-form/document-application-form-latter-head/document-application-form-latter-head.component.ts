@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { orderBy } from 'src/app/shared/services/convert.service';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-application-form-latter-head',
-  templateUrl: './document-application-form-latter-head.component.html',
-  styleUrls: ['./document-application-form-latter-head.component.scss']
+    selector: 'app-document-application-form-latter-head',
+    templateUrl: './document-application-form-latter-head.component.html',
+    styleUrls: ['./document-application-form-latter-head.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationFormLatterHeadComponent implements OnInit {
   headerData: any;

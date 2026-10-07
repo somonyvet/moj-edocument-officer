@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -8,9 +8,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalLatterOfficerChooseNationalityComponent } from '../../components/criminal-latter-officer-choose-nationality/criminal-latter-officer-choose-nationality.component';
 
 @Component({
-  selector: 'app-criminal-letter1-input-print',
-  templateUrl: './criminal-letter1-input-print.component.html',
-  styleUrls: ['./criminal-letter1-input-print.component.scss']
+    selector: 'app-criminal-letter1-input-print',
+    templateUrl: './criminal-letter1-input-print.component.html',
+    styleUrls: ['./criminal-letter1-input-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLetter1InputPrintComponent implements OnInit {
   tabs = tabs.letter3InputPrint

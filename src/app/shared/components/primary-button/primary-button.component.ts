@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-primary-button',
-  templateUrl: './primary-button.component.html',
-  styleUrls: ['./primary-button.component.scss']
+    selector: 'app-primary-button',
+    templateUrl: './primary-button.component.html',
+    styleUrls: ['./primary-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() class:any;

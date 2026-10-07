@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -12,22 +12,24 @@ import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { AchievementStatusStore } from 'src/app/modules/mme/store/achievementStatus.store';
 import { IAchievementStatus } from 'src/app/modules/mme/interfaces/document.interface';
 @Component({
-  selector: 'app-achievement-status-form',
-  templateUrl: './achievement-status-form.component.html',
-  styleUrls: ['./achievement-status-form.component.scss']
+    selector: 'app-achievement-status-form',
+    templateUrl: './achievement-status-form.component.html',
+    styleUrls: ['./achievement-status-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AchievementStatusFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតផ្ទៀងផ្ទាត់សមិទ្ធិផល";
-  form: FormGroup;
+  form: UntypedFormGroup;
   filteredOptionsOfficer: any;
   filterSourceBudget: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<AchievementStatusFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AchievementStatusStore,
     private ds: DataService,
     private db: DatabaseService,

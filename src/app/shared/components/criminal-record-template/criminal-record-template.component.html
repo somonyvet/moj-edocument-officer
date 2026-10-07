@@ -1,97 +1,103 @@
 <div class="print-wrapper no-shadow p-0" *mobxAutorun>
-    <div class="row-header">
-        <div class="title">
-            បង្កាន់ដៃទទួលពាក្យ
-        </div>
-        <div class="btn-print">
-            <button mat-icon-button (click)="print()" class="print-btn"><i class="material-icons">&#xE8AD;</i></button>
-        </div>
-        <div class="close-btn-report ml-5" (click)="dialogRef.close('yes')">
-            <i class="material-icons">&#xE14C;</i>
-        </div>
+  <div class="row-header">
+    <div class="title">
+      បង្កាន់ដៃទទួលពាក្យ
+    </div>
+    <div class="btn-print">
+      <button mat-icon-button (click)="print()" class="print-btn"><i class="material-icons">&#xE8AD;</i></button>
+    </div>
+    <div class="close-btn-report ml-5" (click)="dialogRef.close('yes')">
+      <i class="material-icons">&#xE14C;</i>
+    </div>
+  </div>
+
+  <div class="row-body p-header" id="printDD">
+    <div class="c-header">
+      <div class="c-h-item mt">
+        <p>ក្រសួងយុត្តិធម៌</p>
+        <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+        @if (!selectionDoc?.criminal_folder_no) {
+          <p>លេខ...............................</p>
+        }
+        @if (selectionDoc?.criminal_folder_no) {
+          <p>លេខ.........{{selectionDoc?.criminal_folder_no}}..........
+          </p>
+        }
+      </div>
+      <div class="c-h-item head-item">
+        <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+        <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+        <p class="star">3</p>
+
+        <p class="feTitle">បង្កាន់ដៃទទួលពាក្យ</p>
+        <p class="feTitle">សុំព្រឹត្តិបត្រថ្កោលទោស</p>
+
+      </div>
+      <div class="c-h-item"></div>
     </div>
 
-    <div class="row-body p-header" id="printDD">
-        <div class="c-header">
-            <div class="c-h-item mt">
-                <p>ក្រសួងយុត្តិធម៌</p>
-                <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
-                <p *ngIf="!selectionDoc?.criminal_folder_no">លេខ...............................</p>
-                <p *ngIf="selectionDoc?.criminal_folder_no">លេខ.........{{selectionDoc?.criminal_folder_no}}..........
-                </p>
-            </div>
-            <div class="c-h-item head-item">
-                <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
-                <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                <p class="star">3</p>
+    <div class="row-item">
 
-                <p class="feTitle">បង្កាន់ដៃទទួលពាក្យ</p>
-                <p class="feTitle">សុំព្រឹត្តិបត្រថ្កោលទោស</p>
-
-            </div>
-            <div class="c-h-item"></div>
-        </div>
-
-        <div class="row-item">
-
-            <div class="f-item">
-                បានទទួលពីឈ្មោះ <div class="f-input wM flex1"> {{selectionDoc?.last_name}} {{selectionDoc?.first_name}}
-                </div>
-                ភេទ <div class="f-input"> {{selectionDoc?.gender?.name}}</div>
-            </div>
-        </div>
-        <div class="row-item">
-            <div class="f-item">
-                លេខទូរស័ព្ទ <div class="f-input wM flex1"> {{selectionDoc?.phoneNumber}}</div>
-                <div>
-                    <span style="margin-right: 5px;">ភាសាខ្មែរ (ចំនួន {{khmer_amount || 0}} ច្បាប់)</span>
-                    <span style="margin-right: 5px;">ភាសាបារាំង (ចំនួន {{france_amount || 0}} ច្បាប់)</span>
-                    <span style="margin-right: 5px;">ភាសាអង់គ្លេស (ចំនួន {{english_amount || 0}} ច្បាប់)</span>
-                </div>
-            </div>
-        </div>
-        <div class="row-item">
-
-            <div class="f-item">
-                សូមមកទទួលព្រឹត្តិបត្រថ្កោលទោសរយៈពេល <div class="f-input"> {{selectionDoc?.urgent_obj?.name}}</div>
-                នៃថ្ងៃធ្វើការ។
-            </div>
-        </div>
-
-        <div class="c-date">
-            <div class="flex1">
-                <div class="c-receive">
-                    <p>មកយកថ្ងៃទី {{selectionDoc?.withdraw_date | dateDayKh}} ខែ
-                        {{selectionDoc?.withdraw_date | dateMonthKh}} ឆ្នាំ {{selectionDoc?.withdraw_date |
-                        dateYearKh}} ម៉ោង 
-                        {{selectionDoc?.shift_name}}
-                    </p>
-                </div>
-
-                <div class="c-note">
-                    <div class="df">
-                        <p class="note">បញ្ជាក់</p>
-                        <p>បាត់បង្កាន់ដៃនេះនាយកដ្ឋានកិច្ចការ</p>
-                        <p>ថ្កោលទោសពុំទទួលខុសត្រូវឡើយ។</p>
-                    </div>
-                    <div class="qr2" *ngIf="selectionDoc?.key">
-                        <ngx-kjua [text]="selectionDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
-                            [minVersion]="1" [ecLevel]="'H'" [size]="120" [ratio]="undefined" [fill]="'#333'"
-                            [back]="'#fff'" [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50"
-                            [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]=""
-                            [cssClass]="'image-auto'">
-                        </ngx-kjua>
-                    </div>
-                    <div class="flex1"></div>
-                </div>
-            </div>
-            <div class="cc-dd">
-                <div class="df">
-                    ភ្នំពេញ, ថ្ងៃទី <div class="f-input ws flex1">{{issue_date?.day?.name}}</div> ខែ <div class="f-input ws">
-                        {{issue_date?.month?.name}}</div> ឆ្នាំ <div class="f-input ws">{{issue_date?.year?.name}}</div>
-                </div>
-                <p>អ្នកទទួល</p>
-            </div>
-        </div>
+      <div class="f-item">
+        បានទទួលពីឈ្មោះ <div class="f-input wM flex1"> {{selectionDoc?.last_name}} {{selectionDoc?.first_name}}
+      </div>
+      ភេទ <div class="f-input"> {{selectionDoc?.gender?.name}}</div>
     </div>
+  </div>
+  <div class="row-item">
+    <div class="f-item">
+      លេខទូរស័ព្ទ <div class="f-input wM flex1"> {{selectionDoc?.phoneNumber}}</div>
+      <div>
+        <span style="margin-right: 5px;">ភាសាខ្មែរ (ចំនួន {{khmer_amount || 0}} ច្បាប់)</span>
+        <span style="margin-right: 5px;">ភាសាបារាំង (ចំនួន {{france_amount || 0}} ច្បាប់)</span>
+        <span style="margin-right: 5px;">ភាសាអង់គ្លេស (ចំនួន {{english_amount || 0}} ច្បាប់)</span>
+      </div>
+    </div>
+  </div>
+  <div class="row-item">
+
+    <div class="f-item">
+      សូមមកទទួលព្រឹត្តិបត្រថ្កោលទោសរយៈពេល <div class="f-input"> {{selectionDoc?.urgent_obj?.name}}</div>
+      នៃថ្ងៃធ្វើការ។
+    </div>
+  </div>
+
+  <div class="c-date">
+    <div class="flex1">
+      <div class="c-receive">
+        <p>មកយកថ្ងៃទី {{$safeNavigationMigration(selectionDoc?.withdraw_date) | dateDayKh}} ខែ
+          {{$safeNavigationMigration(selectionDoc?.withdraw_date) | dateMonthKh}} ឆ្នាំ {{$safeNavigationMigration(selectionDoc?.withdraw_date) |
+          dateYearKh}} ម៉ោង
+          {{selectionDoc?.shift_name}}
+        </p>
+      </div>
+
+      <div class="c-note">
+        <div class="df">
+          <p class="note">បញ្ជាក់</p>
+          <p>បាត់បង្កាន់ដៃនេះនាយកដ្ឋានកិច្ចការ</p>
+          <p>ថ្កោលទោសពុំទទួលខុសត្រូវឡើយ។</p>
+        </div>
+        @if (selectionDoc?.key) {
+          <div class="qr2">
+            <ngx-kjua [text]="$safeNavigationMigration(selectionDoc?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+              [minVersion]="1" [ecLevel]="'H'" [size]="120" [ratio]="undefined" [fill]="'#333'"
+              [back]="'#fff'" [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50"
+              [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]=""
+              [cssClass]="'image-auto'">
+            </ngx-kjua>
+          </div>
+        }
+        <div class="flex1"></div>
+      </div>
+    </div>
+    <div class="cc-dd">
+      <div class="df">
+        ភ្នំពេញ, ថ្ងៃទី <div class="f-input ws flex1">{{issue_date?.day?.name}}</div> ខែ <div class="f-input ws">
+        {{issue_date?.month?.name}}</div> ឆ្នាំ <div class="f-input ws">{{issue_date?.year?.name}}</div>
+      </div>
+      <p>អ្នកទទួល</p>
+    </div>
+  </div>
+</div>
 </div>

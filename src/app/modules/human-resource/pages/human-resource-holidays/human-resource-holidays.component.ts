@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IHoliday } from 'src/app/interfaces/attendance';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { HrHolidayStore } from '../../stores/hr-holiday.store';
@@ -8,9 +8,11 @@ import { HrHolidayFormComponent } from './human-resource-holidays-form/human-res
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-human-resource-holidays',
-  templateUrl: './human-resource-holidays.component.html',
-  styleUrls: ['./human-resource-holidays.component.scss']
+    selector: 'app-human-resource-holidays',
+    templateUrl: './human-resource-holidays.component.html',
+    styleUrls: ['./human-resource-holidays.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceHolidaysComponent implements OnInit {
   title = "បញ្ជីថ្ងៃឈប់សម្រាក";

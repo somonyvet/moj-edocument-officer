@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDocument } from 'src/app/interfaces/document/document.interface';
@@ -8,9 +8,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { TemplateDocumentFormComponent } from '../template-document-form/template-document-form.component';
 
 @Component({
-  selector: 'app-template-document',
-  templateUrl: './template-document.component.html',
-  styleUrls: ['./template-document.component.scss']
+    selector: 'app-template-document',
+    templateUrl: './template-document.component.html',
+    styleUrls: ['./template-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TemplateDocumentComponent implements OnInit {
 

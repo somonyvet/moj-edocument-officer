@@ -1,7 +1,7 @@
 <div class="dialog-stepper-container">
   <div class="header">
     <h3>ឯកសារភ្ជាប់</h3>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -43,18 +43,22 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <div class="item" *ngFor="let item of data?.generalEducation">
-            <div class="title">
-              <span>
-                {{item?.certificate}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.generalEducation; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.certificate}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -64,18 +68,22 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <div class="item" *ngFor="let item of data?.trainingLevel">
-            <div class="title">
-              <span>
-                {{item?.skill}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.trainingLevel; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.skill}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -90,35 +98,43 @@
               ក.មុខតំណែង
             </h3>
           </div>
-          <div class="item" *ngFor="let item of data?.positionHistory">
-            <div class="title">
-              <span>
-                {{item?.name?.name}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.positionHistory; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.name?.name}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
           <div class="head-title">
             <h3>
               ខ.ឋានន្តរស័ក
             </h3>
           </div>
-          <div class="item" *ngFor="let item of data?.rankHistory">
-            <div class="title">
-              <span>
-                {{item?.name?.name}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.rankHistory; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.name?.name}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -128,18 +144,22 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <div class="item" *ngFor="let item of data?.commendation">
-            <div class="title">
-              <span>
-                {{item?.rank}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.commendation; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.rank}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -149,18 +169,22 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <div class="item" *ngFor="let item of data?.punishment">
-            <div class="title">
-              <span>
-                {{item?.rank}}
-              </span>
-            </div>
-            <div class="file-container">
-              <div class="file-item" *ngFor="let file of item?.files">
-                <img [src]="file?.downloadUrl">
+          @for (item of data?.punishment; track item) {
+            <div class="item">
+              <div class="title">
+                <span>
+                  {{item?.rank}}
+                </span>
+              </div>
+              <div class="file-container">
+                @for (file of item?.files; track file) {
+                  <div class="file-item">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                  </div>
+                }
               </div>
             </div>
-          </div>
+          }
         </div>
       </mat-expansion-panel>
     </mat-accordion>

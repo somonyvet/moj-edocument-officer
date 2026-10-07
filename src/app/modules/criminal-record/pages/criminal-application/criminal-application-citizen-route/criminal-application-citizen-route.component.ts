@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,9 +18,11 @@ import { ChangeDateProcessDocComponent } from '../../../components/change-date-p
 import { RemarkApplicationComponent } from '../../../components/remark-application/remark-application.component';
 
 @Component({
-  selector: 'app-criminal-application-citizen-route',
-  templateUrl: './criminal-application-citizen-route.component.html',
-  styleUrls: ['./criminal-application-citizen-route.component.scss']
+    selector: 'app-criminal-application-citizen-route',
+    templateUrl: './criminal-application-citizen-route.component.html',
+    styleUrls: ['./criminal-application-citizen-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationCitizenRouteComponent implements OnInit {
   // the tab set is route driven so pages like the MOD completed list can add their own tabs

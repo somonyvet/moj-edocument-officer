@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,15 +11,17 @@ import { ConvertService } from 'src/app/shared/services/convert.service';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-rename-file',
-  templateUrl: './rename-file.component.html',
-  styleUrls: ['./rename-file.component.scss']
+    selector: 'app-rename-file',
+    templateUrl: './rename-file.component.html',
+    styleUrls: ['./rename-file.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RenameFileComponent implements OnInit {
 
   @ViewChild('focusInput') inputEl: ElementRef;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   nameChange: boolean = false;
   exist: boolean = false;
@@ -29,7 +31,7 @@ export class RenameFileComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RenameFileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: FileManager,
     public afs: AngularFirestore,
     public auth: AuthStore,

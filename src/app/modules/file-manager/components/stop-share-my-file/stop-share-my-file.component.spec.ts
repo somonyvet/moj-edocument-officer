@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StopShareMyFileComponent } from './stop-share-my-file.component';
 
@@ -6,7 +6,7 @@ describe('StopShareMyFileComponent', () => {
   let component: StopShareMyFileComponent;
   let fixture: ComponentFixture<StopShareMyFileComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ StopShareMyFileComponent ]
     })

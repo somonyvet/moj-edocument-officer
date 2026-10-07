@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -18,14 +18,16 @@ import { HrStore } from '../../stores/hr.store';
 import { HumanResourceApprovalComponent } from '../human-resource-approval/human-resource-approval.component';
 
 @Component({
-  selector: 'app-officer-application-form',
-  templateUrl: './officer-application-form.component.html',
-  styleUrls: ['./officer-application-form.component.scss']
+    selector: 'app-officer-application-form',
+    templateUrl: './officer-application-form.component.html',
+    styleUrls: ['./officer-application-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -71,7 +73,7 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
   positionList = [];
   titleList = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -109,14 +111,14 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
       personalID: [null, [Validators.required]],
 
       educationLevel:[null],
-      educationLevels: new FormArray([]),
+      educationLevels: new UntypedFormArray([]),
       foreignLanguages: [null, [Validators.required]],
 
-      vocationalTrainingLevel: new FormArray([]),
-      positions: new FormArray([]),
+      vocationalTrainingLevel: new UntypedFormArray([]),
+      positions: new UntypedFormArray([]),
 
-      positionHistory: new FormArray([]),
-      rankingHistory: new FormArray([]),
+      positionHistory: new UntypedFormArray([]),
+      rankingHistory: new UntypedFormArray([]),
 
       bd_province: [null, [Validators.required, MappingService.validSelected.bind(this)]],
       bd_commune: [null, [Validators.required, MappingService.validSelected.bind(this)]],
@@ -129,8 +131,8 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
       live_village: [null, [Validators.required, MappingService.validSelected.bind(this)]],
 
 
-      praiseHistory: new FormArray([]),
-      penaltyHistory: new FormArray([]),
+      praiseHistory: new UntypedFormArray([]),
+      penaltyHistory: new UntypedFormArray([]),
 
       spouse:[null],
       spouseDob:[null],
@@ -141,7 +143,7 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
       childrenNumber:[null],
       childrenMaleNumber:[null],
       childrenFemaleNumber:[null],
-      childrenInfo: new FormArray([]),
+      childrenInfo: new UntypedFormArray([]),
 
 
       fatherName:[null],
@@ -271,7 +273,7 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
   }
   //multiform
   removeFormArrayWithField(name: string, index?:number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
 
     if(formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
@@ -286,7 +288,7 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -312,7 +314,7 @@ export class OfficerApplicationFormComponent implements OnInit,OnDestroy {
     }
   }
   getFormArrvalueFields(name: string, fields: string[]) {
-    const formArr = this.form.get(name) as FormArray;
+    const formArr = this.form.get(name) as UntypedFormArray;
     return formArr?.controls?.filter(f => f?.get(fields[0])?.value).map(m => {
       let obj = {};
       fields.forEach(m1 => {

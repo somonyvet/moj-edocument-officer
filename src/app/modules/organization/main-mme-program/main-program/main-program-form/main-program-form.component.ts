@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService, pushObjArray, pushToArray } from 'src/app/shared/services/convert.service';
@@ -21,14 +21,16 @@ import { OfficeInDepartmentComponent } from '../../../department/office-in-depar
 import { MmeProgramStore } from 'src/app/stores/document/mme-program.store';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { config } from 'src/app/dummy/config';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { MmeBaseProgramStore } from 'src/app/stores/document/mme_program.store';
 import { IMmeMainProgram, IMmeProgram } from 'src/app/interfaces/mme';
 
 @Component({
-  selector: 'app-main-program-form',
-  templateUrl: './main-program-form.component.html',
-  styleUrls: ['./main-program-form.component.scss']
+    selector: 'app-main-program-form',
+    templateUrl: './main-program-form.component.html',
+    styleUrls: ['./main-program-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MainProgramFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -38,7 +40,7 @@ export class MainProgramFormComponent implements OnInit {
   @ViewChild('Department') Department: ElementRef<HTMLInputElement>;
 
   title: any = "បង្កើតកម្មវិធី";
-  form: FormGroup;
+  form: UntypedFormGroup;
   ranking: AbstractControl;
   yearProgram: AbstractControl;
   representativeForm: AbstractControl;
@@ -63,13 +65,13 @@ export class MainProgramFormComponent implements OnInit {
   isLastChild: boolean = false;
   removable: boolean = true;
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = config
 
   constructor(
     public dialogRef: MatDialogRef<MainProgramFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: MmeBaseProgramStore,
     public storeMME: MmeProgramStore,
     public auth: AuthStore,

@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CRIMINAL_APPLICATION_LANGUAGE_ARRAY, CRIMINAL_APPLICATION_LANGUAGE_OBJECT } from 'src/app/dummy/appinfo';
 
 import { PrintService } from 'src/app/shared/services/print.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DataService } from 'src/app/shared/services/data.service';
 import { pushToObject } from 'src/app/shared/services/convert.service';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
@@ -13,9 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Component({
-  selector: 'app-letter3-input-print-dialog',
-  templateUrl: './letter3-input-print-dialog.component.html',
-  styleUrls: ['./letter3-input-print-dialog.component.scss']
+    selector: 'app-letter3-input-print-dialog',
+    templateUrl: './letter3-input-print-dialog.component.html',
+    styleUrls: ['./letter3-input-print-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class Letter3InputPrintDialogComponent implements OnInit {
 
@@ -24,7 +26,7 @@ export class Letter3InputPrintDialogComponent implements OnInit {
   loading : boolean = false;
   ARRAY = Array;
 
-  form : FormGroup;
+  form : UntypedFormGroup;
 
   criminalLetterDate : any = new Date();
   process:boolean = false;
@@ -32,7 +34,7 @@ export class Letter3InputPrintDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<Letter3InputPrintDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ps: PrintService,
-    private fb : FormBuilder,
+    private fb : UntypedFormBuilder,
     public criminalStore : CriminalApplicationStore,
     private ds : DataService,
     private db : DatabaseService,

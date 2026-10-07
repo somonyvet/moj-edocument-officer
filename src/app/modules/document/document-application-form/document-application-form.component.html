@@ -1,55 +1,75 @@
 <div class="doc-form-wrapper" *mobxAutorun>
-  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent|async" *ngIf="storage?.startUpload"
-    class="task-loading">
-  </mat-progress-bar>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent)|async"
+      class="task-loading">
+    </mat-progress-bar>
+  }
 
   <div class="doc-form-wrap-content">
     <div class="doc-form-container">
       <div class="doc-form-block">
-        <div class="doc-form-item-attachment" *ngIf="store?.selectedDocument">
-          <div class="lb-hd">
-            <span>{{store?.selectedDocument?.documentNo}} ·
+        @if (store?.selectedDocument) {
+          <div class="doc-form-item-attachment">
+            <div class="lb-hd">
+              <span>{{store?.selectedDocument?.documentNo}} ·
               {{store?.selectedDocument?.documentTitle}}</span>
-            <mat-icon *ngIf="store?.selectedDocument?.doc_status?.key===99">check_circle</mat-icon>
+              @if (store?.selectedDocument?.doc_status?.key===99) {
+                <mat-icon>check_circle</mat-icon>
+              }
+            </div>
+            <a mat-button (click)="_onShowRef()">
+              <mat-icon class="mat-18">launch</mat-icon>
+              <span>មើលឯកសារចូល</span>
+            </a>
           </div>
-          <a mat-button (click)="_onShowRef()">
-            <mat-icon class="mat-18">launch</mat-icon>
-            <span>មើលឯកសារចូល</span>
-          </a>
-        </div>
-        <div class="doc-form-item-attachment jcs" *ngIf="store?.moreDocuments?.length > 0">
-          <button class="btn" mat-button *ngFor="let item of store?.moreDocuments" (click)="linkToDoc(item)"
-            [ngClass]="store?.headerDocument?.key  === item?.key ? 'active' : ''">
-            <mat-icon class="mat-18">description</mat-icon>
-            <span>{{item?.documentNo}} · {{item?.documentTitle}}</span>
-          </button>
-        </div>
-        <div class="doc-form-item-attachment" *ngIf="!store?.finalDocument">
-          <button mat-button (click)="docAttachFile.click()">
-            <mat-icon class="mat-18">attachment</mat-icon>
-            <span>ភ្ជាប់ឯកសារយោង</span>
-          </button>
-          <input #docAttachFile id="docAttachFile" multiple type="file" (change)="onSelectedDocumentFile($event)"
-            style="display:none;" />
-          <div class="flex1"></div>
-
-          <div *ngIf="process" class="saving">
-            <mat-spinner diameter="20"></mat-spinner>
-            <span *ngIf="!storage?.startUpload">កំពុងរក្សាទុក....</span>
-            <span *ngIf="storage?.startUpload">{{(storage?.uploadPercent|async) |number:'1.0-0'}}%
-              Uploading...</span>
+        }
+        @if (store?.moreDocuments?.length > 0) {
+          <div class="doc-form-item-attachment jcs">
+            @for (item of store?.moreDocuments; track item) {
+              <button class="btn" mat-button (click)="linkToDoc(item)"
+                [ngClass]="store?.headerDocument?.key  === item?.key ? 'active' : ''">
+                <mat-icon class="mat-18">description</mat-icon>
+                <span>{{item?.documentNo}} · {{item?.documentTitle}}</span>
+              </button>
+            }
           </div>
-
-          <div class="rb-hd" *ngIf="store?.headerDocument?.doc_status?.key !== DOC_STATUS?.void?.key">
-            <p class="doc-title s2" *ngIf="store?.headerDocument?.doc_status?.key === DOC_STATUS?.void?.key">
-              ឯកសារត្រូវបានមោឃៈ
-            </p>
-            <p class="doc-title s1" *ngIf="store?.headerDocument?.doc_status?.key === DOC_STATUS?.final?.key">
-              ឯកសារត្រូវបានបិទបញ្ចប់
-            </p>
-          </div>
-
-          <!-- <div class="rb-hd" *ngIf="store?.headerDocument?.doc_status?.key !== DOC_STATUS?.void?.key">
+        }
+        @if (!store?.finalDocument) {
+          <div class="doc-form-item-attachment">
+            <button mat-button (click)="docAttachFile.click()">
+              <mat-icon class="mat-18">attachment</mat-icon>
+              <span>ភ្ជាប់ឯកសារយោង</span>
+            </button>
+            <input #docAttachFile id="docAttachFile" multiple type="file" (change)="onSelectedDocumentFile($event)"
+              style="display:none;" />
+            <div class="flex1"></div>
+            @if (process) {
+              <div class="saving">
+                <mat-spinner diameter="20"></mat-spinner>
+                @if (!storage?.startUpload) {
+                  <span>កំពុងរក្សាទុក....</span>
+                }
+                @if (storage?.startUpload) {
+                  <span>{{($safeNavigationMigration(storage?.uploadPercent)|async) |number:'1.0-0'}}%
+                  Uploading...</span>
+                }
+              </div>
+            }
+            @if (store?.headerDocument?.doc_status?.key !== DOC_STATUS?.void?.key) {
+              <div class="rb-hd">
+                @if (store?.headerDocument?.doc_status?.key === DOC_STATUS?.void?.key) {
+                  <p class="doc-title s2">
+                    ឯកសារត្រូវបានមោឃៈ
+                  </p>
+                }
+                @if (store?.headerDocument?.doc_status?.key === DOC_STATUS?.final?.key) {
+                  <p class="doc-title s1">
+                    ឯកសារត្រូវបានបិទបញ្ចប់
+                  </p>
+                }
+              </div>
+            }
+            <!-- <div class="rb-hd" *ngIf="store?.headerDocument?.doc_status?.key !== DOC_STATUS?.void?.key">
             <button
               *ngIf="!store?.headerDocument?.final && store?.headerDocument?.doc_status?.key===DOC_STATUS?.released?.key"
               mat-button class="mat-disable" (click)="disabledDoc()">
@@ -64,54 +84,70 @@
             </button>
           </div> -->
         </div>
+      }
 
+      @if (imageAttachments?.length>0 || docAttachments?.length>0) {
         <div class="doc-form-item" style="margin: 0 0 16px;"
-          *ngIf="imageAttachments?.length>0 || docAttachments?.length>0">
+          >
           <h3>ឯកសារយោង</h3>
-          <div class="attachments-wrap" *ngIf="imageAttachments?.length>0">
-            <ng-container *ngFor="let item of imageAttachments">
-              <div class="img-box">
-                <img [src]="item?.downloadUrl" alt="">
-                <button mat-icon-button *ngIf="!store?.finalDocument" (click)="onDeleteFile(item)">
-                  <mat-icon class="mat-18">cancel</mat-icon>
-                </button>
-              </div>
-            </ng-container>
-          </div>
-          <div class="attachments-wrap" *ngIf="docAttachments?.length>0">
-            <ng-container *ngFor="let item of docAttachments">
-              <div class="doc-box">
-                <a [href]="item?.downloadUrl" target="_blank">{{item?.name}}</a>
-                <button mat-icon-button *ngIf="!store?.finalDocument" (click)="onDeleteFile(item)">
-                  <mat-icon class="mat-18">cancel</mat-icon>
-                </button>
-              </div>
-            </ng-container>
-          </div>
+          @if (imageAttachments?.length>0) {
+            <div class="attachments-wrap">
+              @for (item of imageAttachments; track item) {
+                <div class="img-box">
+                  <img [src]="$safeNavigationMigration(item?.downloadUrl)" alt="">
+                  @if (!store?.finalDocument) {
+                    <button mat-icon-button (click)="onDeleteFile(item)">
+                      <mat-icon class="mat-18">cancel</mat-icon>
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          }
+          @if (docAttachments?.length>0) {
+            <div class="attachments-wrap">
+              @for (item of docAttachments; track item) {
+                <div class="doc-box">
+                  <a [href]="$safeNavigationMigration(item?.downloadUrl)" target="_blank">{{item?.name}}</a>
+                  @if (!store?.finalDocument) {
+                    <button mat-icon-button (click)="onDeleteFile(item)">
+                      <mat-icon class="mat-18">cancel</mat-icon>
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          }
         </div>
+      }
 
-        <div class="doc-form-item" style="margin: 0 0 16px;" *ngIf="docCompleted?.length>0">
+      @if (docCompleted?.length>0) {
+        <div class="doc-form-item" style="margin: 0 0 16px;">
           <h3>ឯកសារសម្រេច</h3>
-          <div class="attachments-wrap" *ngIf="docCompleted?.length>0">
-            <ng-container *ngFor="let item of docCompleted">
-              <div class="doc-box">
-                <a [href]="item?.downloadUrl" target="_blank">{{item?.name}}</a>
-                <button mat-icon-button class="link">
-                  <mat-icon class="mat-18">task_alt</mat-icon>
-                </button>
-              </div>
-            </ng-container>
-          </div>
+          @if (docCompleted?.length>0) {
+            <div class="attachments-wrap">
+              @for (item of docCompleted; track item) {
+                <div class="doc-box">
+                  <a [href]="$safeNavigationMigration(item?.downloadUrl)" target="_blank">{{item?.name}}</a>
+                  <button mat-icon-button class="link">
+                    <mat-icon class="mat-18">task_alt</mat-icon>
+                  </button>
+                </div>
+              }
+            </div>
+          }
         </div>
+      }
 
-        <div class="doc-form-item form-wrapper" [formGroup]="form">
-          <div class="doc-template-wrapper" id="doc-template-wrapper">
-            <div class="doc-template-page">
-              <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='gdi'">
+      <div class="doc-form-item form-wrapper" [formGroup]="form">
+        <div class="doc-template-wrapper" id="doc-template-wrapper">
+          <div class="doc-template-page">
+            @if (auth?.APP_INFO?.key==='gdi') {
+              <div class="doc-template-row">
                 <div class="bl-title-left">
-                  <ng-container *ngFor="let item of store?.headerDocument?.workplaces|workplacesReport">
+                  @for (item of $safeNavigationMigration(store?.headerDocument?.workplaces)|workplacesReport; track item) {
                     <p>{{item.name}}</p>
-                  </ng-container>
+                  }
                   <p>លេខ៖ {{Item?.documentNo}}</p>
                   <p class="star">3</p>
                 </div>
@@ -122,10 +158,12 @@
                   <p class="star">3</p>
                 </div>
               </div>
+            }
 
-              <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
+            @if (auth?.APP_INFO?.key==='moj') {
+              <div class="doc-template-row">
                 <div class="bl-title-left">
-                  <img [src]="auth?.APP_INFO?.logo" width="120px" />
+                  <img [src]="$safeNavigationMigration(auth?.APP_INFO?.logo)" width="120px" />
                   <p>ទីស្តីការក្រសួងយុត្តិធម៍</p>
                   <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
                 </div>
@@ -135,11 +173,12 @@
                   <p>លេខសំណុំឯកសារ {{Item?.documentNo}}</p>
                 </div>
               </div>
+            }
 
-              <div class="doc-template-row">
-                <div class="doc-form-content">
-                  <div class="form-group">
-                    <div class="editor">
+            <div class="doc-template-row">
+              <div class="doc-form-content">
+                <div class="form-group">
+                  <div class="editor">
                       <ckeditor (blur)="onTitleBlur($event)" [config]="{
                                                     content_style:config.content_style,
                                                     toolbar:config.toolbar,
@@ -147,19 +186,20 @@
                                                     fontFamily:config.fontFamily,
                                                     table:config.table,
                                                     placeholder: 'បញ្ចូលចំណងជើង.....'}" [editor]="Editor" data=""
-                        formControlName="documentTitle"></ckeditor>
-                    </div>
+                    formControlName="documentTitle"></ckeditor>
                   </div>
                 </div>
               </div>
+            </div>
 
+            @for (contentGroup of headerForm().controls; track contentGroup; let i = $index) {
               <div class="doc-template-row" #elReference
-                *ngFor="let contentGroup of headerForm().controls;let i = index;" [formGroup]="contentGroup">
+                [formGroup]="contentGroup">
                 <div class="doc-form-content" style="padding: 0;">
-                  <ng-container *ngIf="contentGroup.value.type.key === 0">
+                  @if (contentGroup.value.type.key === 0) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}">
-                        <ckeditor [ngStyle]="gStyle(contentGroup?.value?.customStyles)" (blur)="onHeaderBlur($event, i)"
+                        <ckeditor [ngStyle]="gStyle($safeNavigationMigration(contentGroup?.value?.customStyles))" (blur)="onHeaderBlur($event, i)"
                           [config]="{
                                                         toolbar:config.toolbar,
                                                         fontSize:config.fontSize,
@@ -169,9 +209,8 @@
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
                       </div>
                     </div>
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key !== 0 && contentGroup.value.type.key !== 6">
+                  }
+                  @if (contentGroup.value.type.key !== 0 && contentGroup.value.type.key !== 6) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
                         <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
@@ -182,18 +221,19 @@
                                                     placeholder: contentGroup.value.type.placeholder
                                                 }" [editor]="Editor" data="" formControlName="contentTitle"></ckeditor>
                       </div>
-
-                      <div *ngIf="contentGroup.value.type.key !== 18" class="sign-conent font-size18"
-                        style="padding-right: 10px; max-height: 30px; line-height: 60px;">:
-                      </div>
-
-                      <div *ngIf="contentGroup.value.type.key == 18" class="sign-conent font-size18"
-                        style="padding-right: 10px; line-height: 52px; font-family: 'Moul';">
-                        ✹
-                      </div>
-
+                      @if (contentGroup.value.type.key !== 18) {
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 60px;">:
+                        </div>
+                      }
+                      @if (contentGroup.value.type.key == 18) {
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; line-height: 52px; font-family: 'Moul';">
+                          ✹
+                        </div>
+                      }
                       <div class="editor" id="{{'editor'+i}}">
-                        <ckeditor [ngStyle]="gStyle(contentGroup?.value?.customStyles)" (blur)="onHeaderBlur($event, i)"
+                        <ckeditor [ngStyle]="gStyle($safeNavigationMigration(contentGroup?.value?.customStyles))" (blur)="onHeaderBlur($event, i)"
                           [config]="{
                                                     toolbar:config.toolbar,
                                                     fontSize:config.fontSize,
@@ -203,10 +243,8 @@
                                                 }" [editor]="Editor" data="" formControlName="content"></ckeditor>
                       </div>
                     </div>
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 6">
-
+                  }
+                  @if (contentGroup.value.type.key === 6) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
                         <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
@@ -217,11 +255,13 @@
                                                 placeholder: contentGroup.value.type.placeholder
                                             }" [editor]="Editor" data="" formControlName="contentTitle"></ckeditor>
                       </div>
-                      <div *ngIf="contentGroup.value.type.key === 6" class="sign-conent font-size18"
-                        style="padding-right: 10px;line-height: 60px;">:
-                      </div>
+                      @if (contentGroup.value.type.key === 6) {
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px;line-height: 60px;">:
+                        </div>
+                      }
                       <div class="editor">
-                        <ckeditor [ngStyle]="gStyle(contentGroup?.value?.customStyles)" (blur)="onHeaderBlur($event, i)"
+                        <ckeditor [ngStyle]="gStyle($safeNavigationMigration(contentGroup?.value?.customStyles))" (blur)="onHeaderBlur($event, i)"
                           [config]="{
                                                         toolbar:config.toolbar,
                                                         fontSize:config.fontSize,
@@ -239,44 +279,49 @@
                           </span>
                         </div>
                         <div>
-                          <span *ngFor="let item of contentGroup.value.office"
-                            style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                            {{item?.name}}
-                          </span>
+                          @for (item of contentGroup.value.office; track item) {
+                            <span
+                              style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.name}}
+                            </span>
+                          }
                         </div>
-                        <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                          (click)="onCreateDocumentHeaderItem(contentGroup.value.type, i)">
-                          <mat-icon class="mat-18">add</mat-icon>
-                        </button>
+                        @if (!store?.finalDocument) {
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentHeaderItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        }
                       </div>
                     </div>
-                  </ng-container>
-
+                  }
                 </div>
-                <div class="doc-form-action" *ngIf="!store?.finalDocument">
-                  <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="material-icons">more_vert</i>
-                  </button>
-                  <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="addCustomStyle(i)">
-                      <mat-icon>add_circle</mat-icon>
-                      <span>សម្រួលគម្លាតអក្សរ</span>
+                @if (!store?.finalDocument) {
+                  <div class="doc-form-action">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
                     </button>
-
-                    <button mat-menu-item (click)="deleteHeaderGroup(i)">
-                      <mat-icon>delete</mat-icon>
-                      <span>លុប</span>
-                    </button>
-                  </mat-menu>
-                </div>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="addCustomStyle(i)">
+                        <mat-icon>add_circle</mat-icon>
+                        <span>សម្រួលគម្លាតអក្សរ</span>
+                      </button>
+                      <button mat-menu-item (click)="deleteHeaderGroup(i)">
+                        <mat-icon>delete</mat-icon>
+                        <span>លុប</span>
+                      </button>
+                    </mat-menu>
+                  </div>
+                }
               </div>
+            }
 
 
+            @for (contentGroup of sessionForm().controls; track contentGroup; let i = $index) {
               <div class="doc-template-row" #elReference
-                *ngFor="let contentGroup of sessionForm().controls;let i = index;" [formGroup]="contentGroup">
+                [formGroup]="contentGroup">
                 <div class="doc-form-content" style="padding:8px 0; background-color: #fafafa;">
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 9">
+                  @if (contentGroup.value.type.key === 9) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
@@ -289,20 +334,23 @@
                       </div>
                       <div style="display: flex; align-items: center;">
                         <div>
-                          <span *ngFor="let item of contentGroup.value.office"
-                            style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                            {{item?.office?.name}}
-                          </span>
+                          @for (item of contentGroup.value.office; track item) {
+                            <span
+                              style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.office?.name}}
+                            </span>
+                          }
                         </div>
-                        <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                          (click)="onCreateDocumentItem(contentGroup.value.type, i)">
-                          <mat-icon class="mat-18">add</mat-icon>
-                        </button>
+                        @if (!store?.finalDocument) {
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        }
                       </div>
                     </div>
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 7 || contentGroup.value.type.key === 8">
+                  }
+                  @if (contentGroup.value.type.key === 7 || contentGroup.value.type.key === 8) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}" style="width: 168px;  flex: none;">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
@@ -333,38 +381,42 @@
                           </span>
                         </div>
                         <div style="margin-left: 10px;">
-                          <span *ngFor="let item of contentGroup.value.office"
-                            style="margin-right: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                            {{item?.office?.name}}
-                          </span>
+                          @for (item of contentGroup.value.office; track item) {
+                            <span
+                              style="margin-right: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                              {{item?.office?.name}}
+                            </span>
+                          }
                         </div>
-                        <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                          (click)="onCreateDocumentItem(contentGroup?.value?.type, i)">
-                          <mat-icon class="mat-18">add</mat-icon>
-                        </button>
+                        @if (!store?.finalDocument) {
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem($safeNavigationMigration(contentGroup?.value?.type), i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        }
                       </div>
                     </div>
-
-                    <div class="form-group" *ngIf="store?.peoplesInDoc?.length > 0">
-                      <div style="display: flex; align-items: center;">
-                        <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
-                          <span style="white-space: nowrap;">
-                            អ្នកទទួលអនុវត្ត :
-                          </span>
-                        </div>
-                        <div style="margin-left: 10px;">
-                          <span *ngFor="let item of store?.peoplesInDoc"
-                            style="margin-right: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                            <span>{{item?.last_name}} {{item?.first_name}}</span>
-                          </span>
+                    @if (store?.peoplesInDoc?.length > 0) {
+                      <div class="form-group">
+                        <div style="display: flex; align-items: center;">
+                          <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                            <span style="white-space: nowrap;">
+                              អ្នកទទួលអនុវត្ត :
+                            </span>
+                          </div>
+                          <div style="margin-left: 10px;">
+                            @for (item of store?.peoplesInDoc; track item) {
+                              <span
+                                style="margin-right: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                <span>{{item?.last_name}} {{item?.first_name}}</span>
+                              </span>
+                            }
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 10">
-
+                    }
+                  }
+                  @if (contentGroup.value.type.key === 10) {
                     <div class="form-group">
                       <div class="editor" id="{{'editor'+i}}">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
@@ -376,7 +428,6 @@
                                                     }" [editor]="Editor" data="" formControlName="remark"></ckeditor>
                       </div>
                     </div>
-
                     <div class="form-group" style="align-items: center;">
                       <div class="editor" style="width: 168px; flex: none;">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
@@ -392,10 +443,12 @@
                           style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
                           {{contentGroup?.value?.office?.name}}
                         </span>
-                        <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                          (click)="onCreateDocumentSectionItem(contentGroup.value.type, i)">
-                          <mat-icon class="mat-18">add</mat-icon>
-                        </button>
+                        @if (!store?.finalDocument) {
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentSectionItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        }
                       </div>
                     </div>
                     <div class="form-group">
@@ -409,11 +462,9 @@
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
                       </div>
                     </div>
-
-                  </ng-container>
-                  <ng-container *ngIf="contentGroup.value.type.key === 11">
+                  }
+                  @if (contentGroup.value.type.key === 11) {
                     <div class="form-group">
-
                       <div class="editor" id="{{'editor'+i}}">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
                                                         toolbar:config.toolbar,
@@ -424,9 +475,8 @@
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
                       </div>
                     </div>
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 12">
+                  }
+                  @if (contentGroup.value.type.key === 12) {
                     <div class="form-group">
                       <div class="editor" style="width: 168px; flex: none;">
                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
@@ -439,36 +489,41 @@
                       </div>
                       <div style="display: flex; align-items: center;">
                         <div>
-                          <span *ngFor="let item of contentGroup.value.office"
+                          @for (item of contentGroup.value.office; track item) {
+                            <span
                             style="margin-left: 8px;
                                                     color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                            {{item?.office?.name}}
-                          </span>
+                              {{item?.office?.name}}
+                            </span>
+                          }
                         </div>
-                        <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                          (click)="onCreateDocumentItem(contentGroup.value.type, i)">
-                          <mat-icon class="mat-18">add</mat-icon>
-                        </button>
+                        @if (!store?.finalDocument) {
+                          <button class="add-office" mat-icon-button
+                            (click)="onCreateDocumentItem(contentGroup.value.type, i)">
+                            <mat-icon class="mat-18">add</mat-icon>
+                          </button>
+                        }
                       </div>
-
                     </div>
-                  </ng-container>
-
+                  }
                 </div>
-                <div class="doc-form-action" *ngIf="!store?.finalDocument">
-                  <button mat-icon-button (click)="deleteSessionGroup(contentGroup.value, i)">
-                    <mat-icon class="mat-18">delete</mat-icon>
-                  </button>
-                </div>
+                @if (!store?.finalDocument) {
+                  <div class="doc-form-action">
+                    <button mat-icon-button (click)="deleteSessionGroup(contentGroup.value, i)">
+                      <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </div>
+                }
               </div>
+            }
 
+            @for (contentGroup of footerForm().controls; track contentGroup; let i = $index) {
               <div class="doc-template-row" #elReference
-                *ngFor="let contentGroup of footerForm().controls;let i = index;" [formGroup]="contentGroup">
+                [formGroup]="contentGroup">
                 <div class="doc-form-content" style="padding: 0;">
-                  <ng-container *ngIf="contentGroup.value.type.key === 15">
+                  @if (contentGroup.value.type.key === 15) {
                     <div class="doc-template-row">
                       <div class="doc-form-content" style="padding:8px 0;">
-
                         <div class="editor" id="{{'editor'+i}}">
                           <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                             toolbar:config.toolbar,
@@ -479,13 +534,10 @@
                                                         }" [editor]="Editor" data="" formControlName="contentTitle">
                           </ckeditor>
                         </div>
-
-
                       </div>
                     </div>
-                  </ng-container>
-                  <ng-container *ngIf="contentGroup.value.type.key === 14">
-
+                  }
+                  @if (contentGroup.value.type.key === 14) {
                     <div class="doc-template-row">
                       <table class="doc-table-footer">
                         <tr>
@@ -502,7 +554,6 @@
                                   formControlName="contentTitleLeft">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -519,14 +570,14 @@
                                       contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                                    (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!store?.finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
-
                             </div>
                           </td>
                           <td>
@@ -558,10 +609,12 @@
                                       contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                                    (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!store?.finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
                             </div>
@@ -569,10 +622,8 @@
                         </tr>
                       </table>
                     </div>
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 20">
-
+                  }
+                  @if (contentGroup.value.type.key === 20) {
                     <div class="moj-doc">
                       <div class="md-l">
                         <div class="md-c">
@@ -590,7 +641,6 @@
                             </div>
                           </div>
                           <div class="md-approval">
-
                             <div class="tb-title-text">
                               <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
@@ -603,7 +653,6 @@
                                   formControlName="moj_box1_contentSubTitleLeft">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -620,18 +669,17 @@
                                       contentGroup?.value?.moj_box1_approvedByLeftBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!finalDocument"
-                                    (click)="onCreateDocumentFooterItem('moj_box1_approvedByLeftBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('moj_box1_approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
                             </div>
-
                           </div>
                         </div>
-
                         <div class="md-c">
                           <div class="md-t">
                             <div class="editor" id="{{'editor'+i}}">
@@ -647,7 +695,6 @@
                             </div>
                           </div>
                           <div class="md-approval">
-
                             <div class="tb-title-text">
                               <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
@@ -660,7 +707,6 @@
                                   formControlName="moj_box2_contentSubTitleLeft">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -677,18 +723,17 @@
                                       contentGroup?.value?.moj_box2_approvedByLeftBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!finalDocument"
-                                    (click)="onCreateDocumentFooterItem('moj_box2_approvedByLeftBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('moj_box2_approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
                             </div>
-
                           </div>
                         </div>
-
                         <div class="md-c">
                           <div class="md-t">
                             <div class="editor" id="{{'editor'+i}}">
@@ -704,7 +749,6 @@
                             </div>
                           </div>
                           <div class="md-approval mb">
-
                             <div class="tb-title-text">
                               <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
@@ -717,7 +761,6 @@
                                   formControlName="moj_box3_contentSubTitleLeft">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -734,18 +777,17 @@
                                       contentGroup?.value?.moj_box3_approvedByLeftBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!finalDocument"
-                                    (click)="onCreateDocumentFooterItem('moj_box3_approvedByLeftBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('moj_box3_approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
                             </div>
-
                           </div>
                         </div>
-
                       </div>
                       <div class="md-r">
                         <div class="md-c">
@@ -775,7 +817,6 @@
                                   formControlName="moj_box4_contentSubTitleRight">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -792,17 +833,17 @@
                                       contentGroup?.value?.moj_box4_approvedByRightBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!finalDocument"
-                                    (click)="onCreateDocumentFooterItem('moj_box4_approvedByRightBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('moj_box4_approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
                             </div>
                           </div>
                         </div>
-
                         <div class="md-c">
                           <div class="md-t">
                             <div class="editor" id="{{'editor'+i}}">
@@ -830,7 +871,6 @@
                                   formControlName="moj_box5_contentSubTitleRight">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -847,23 +887,21 @@
                                       contentGroup?.value?.moj_box5_approvedByRightBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!finalDocument"
-                                    (click)="onCreateDocumentFooterItem('moj_box5_approvedByRightBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('moj_box5_approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 13">
-
+                  }
+                  @if (contentGroup.value.type.key === 13) {
                     <div class="doc-template-row">
                       <table class="doc-table-footer">
                         <tr>
@@ -880,7 +918,6 @@
                                   formControlName="contentTitleLeft">
                                 </ckeditor>
                               </div>
-
                               <div class="form-group">
                                 <div style="display: flex; align-items: center;">
                                   <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
@@ -897,14 +934,14 @@
                                       contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                                    (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!store?.finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
-
-
                             </div>
                           </td>
                           <td style="border: none;">
@@ -936,10 +973,12 @@
                                       contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
                                     </span>
                                   </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
-                                    (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
-                                    <mat-icon class="mat-18">add</mat-icon>
-                                  </button>
+                                  @if (!store?.finalDocument) {
+                                    <button class="add-office" mat-icon-button
+                                      (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
+                                      <mat-icon class="mat-18">add</mat-icon>
+                                    </button>
+                                  }
                                 </div>
                               </div>
                             </div>
@@ -947,10 +986,8 @@
                         </tr>
                       </table>
                     </div>
-
                     <!-- <div class="form-group">
-
-                                            <div class="editor" id="{{'editor'+i}}">
+                    <div class="editor" id="{{'editor'+i}}">
                                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                         toolbar:config.toolbar,
                                                         fontSize:config.fontSize,
@@ -958,33 +995,32 @@
                                                         table:config.table,
                                                         placeholder: contentGroup.value.type.placeholder
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div style="display: flex; align-items: center;">
-                                                <div
-                                                    style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                                    <span style="white-space: nowrap;">
-                                                        អ្នកចុះហត្ថលេខា
-                                                    </span>
-                                                </div>
-                                                <div>
-                                                    <span *ngFor="let item of contentGroup.value.office"
-                                                        style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                                        {{item?.name}}
-                                                    </span>
-                                                </div>
-                                                <button class="add-office" mat-icon-button
-                                                    (click)="onCreateDocumentFooterItem('approvedBy', i)">
-                                                    <mat-icon class="mat-18">add</mat-icon>
-                                                </button>
-                                            </div>
-                                        </div> -->
-                  </ng-container>
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 16">
-                    <div class="form-group">
-                      <div class="editor" id="{{'editor'+i}}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div style="display: flex; align-items: center;">
+                      <div
+                        style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                        <span style="white-space: nowrap;">
+                          អ្នកចុះហត្ថលេខា
+                        </span>
+                      </div>
+                      <div>
+                        <span *ngFor="let item of contentGroup.value.office"
+                          style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                          {{item?.name}}
+                        </span>
+                      </div>
+                      <button class="add-office" mat-icon-button
+                        (click)="onCreateDocumentFooterItem('approvedBy', i)">
+                        <mat-icon class="mat-18">add</mat-icon>
+                      </button>
+                    </div>
+                  </div> -->
+                }
+                @if (contentGroup.value.type.key === 16) {
+                  <div class="form-group">
+                    <div class="editor" id="{{'editor'+i}}">
                         <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                         toolbar:config.toolbar,
                                                         fontSize:config.fontSize,
@@ -993,20 +1029,16 @@
                                                         toolbarLocation:config.toolbarLocation,
                                                         placeholder: contentGroup.value.type.placeholder
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
-                      </div>
                     </div>
-                  </ng-container>
-
-
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 17">
-
-                    <div class="doc-template-row">
-                      <table class="doc-table-footer">
-                        <tr>
-                          <td style="border:none;">
-                            <div class="tb-title-text">
-                              <div class="editor" id="{{'editor'+i}}">
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 17) {
+                  <div class="doc-template-row">
+                    <table class="doc-table-footer">
+                      <tr>
+                        <td style="border:none;">
+                          <div class="tb-title-text">
+                            <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                                         toolbar:config.toolbar,
                                                                         fontSize:config.fontSize,
@@ -1014,39 +1046,38 @@
                                                                         table:config.table,
                                                                         placeholder: '.....'
                                                                     }" [editor]="Editor" data=""
-                                  formControlName="contentTitleLeft">
-                                </ckeditor>
-                              </div>
-
-                              <div class="form-group">
-                                <div style="display: flex; align-items: center;">
-                                  <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                    <span style="white-space: nowrap;">
-                                      អ្នកចុះហត្ថលេខា
-                                    </span>
-                                  </div>
-                                  <div>
-                                    <span
-                                      style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                      {{
-                                      contentGroup?.value?.approvedByLeftBox?.profile?.last_name}}
-                                      {{
-                                      contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
-                                    </span>
-                                  </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
+                                formControlName="contentTitleLeft">
+                              </ckeditor>
+                            </div>
+                            <div class="form-group">
+                              <div style="display: flex; align-items: center;">
+                                <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                  <span style="white-space: nowrap;">
+                                    អ្នកចុះហត្ថលេខា
+                                  </span>
+                                </div>
+                                <div>
+                                  <span
+                                    style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                    {{
+                                    contentGroup?.value?.approvedByLeftBox?.profile?.last_name}}
+                                    {{
+                                    contentGroup?.value?.approvedByLeftBox?.profile?.first_name}}
+                                  </span>
+                                </div>
+                                @if (!store?.finalDocument) {
+                                  <button class="add-office" mat-icon-button
                                     (click)="onCreateDocumentFooterItem('approvedByLeftBox', i)">
                                     <mat-icon class="mat-18">add</mat-icon>
                                   </button>
-                                </div>
+                                }
                               </div>
-
-
                             </div>
-                          </td>
-                          <td style="border: none;">
-                            <div class="tb-title-text">
-                              <div class="editor" id="{{'editor'+i}}">
+                          </div>
+                        </td>
+                        <td style="border: none;">
+                          <div class="tb-title-text">
+                            <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                                         toolbar:config.toolbar,
                                                                         fontSize:config.fontSize,
@@ -1054,37 +1085,38 @@
                                                                         table:config.table,
                                                                         placeholder: '.....'
                                                                     }" [editor]="Editor" data=""
-                                  formControlName="contentTitleCenter">
-                                </ckeditor>
-                              </div>
-                              <div class="form-group">
-                                <div style="display: flex; align-items: center;">
-                                  <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                    <span style="white-space: nowrap;">
-                                      អ្នកចុះហត្ថលេខា
-                                    </span>
-                                  </div>
-                                  <div>
-                                    <span
-                                      style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                      {{
-                                      contentGroup?.value?.approvedByCenterBox?.profile?.last_name}}
-                                      {{
-                                      contentGroup?.value?.approvedByCenterBox?.profile?.first_name}}
-                                    </span>
-                                  </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
+                                formControlName="contentTitleCenter">
+                              </ckeditor>
+                            </div>
+                            <div class="form-group">
+                              <div style="display: flex; align-items: center;">
+                                <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                  <span style="white-space: nowrap;">
+                                    អ្នកចុះហត្ថលេខា
+                                  </span>
+                                </div>
+                                <div>
+                                  <span
+                                    style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                    {{
+                                    contentGroup?.value?.approvedByCenterBox?.profile?.last_name}}
+                                    {{
+                                    contentGroup?.value?.approvedByCenterBox?.profile?.first_name}}
+                                  </span>
+                                </div>
+                                @if (!store?.finalDocument) {
+                                  <button class="add-office" mat-icon-button
                                     (click)="onCreateDocumentFooterItem('approvedByCenterBox', i)">
                                     <mat-icon class="mat-18">add</mat-icon>
                                   </button>
-                                </div>
+                                }
                               </div>
                             </div>
-                          </td>
-
-                          <td style="border: none;">
-                            <div class="tb-title-text">
-                              <div class="editor" id="{{'editor'+i}}">
+                          </div>
+                        </td>
+                        <td style="border: none;">
+                          <div class="tb-title-text">
+                            <div class="editor" id="{{'editor'+i}}">
                                 <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                                         toolbar:config.toolbar,
                                                                         fontSize:config.fontSize,
@@ -1092,43 +1124,42 @@
                                                                         table:config.table,
                                                                         placeholder: '.....'
                                                                     }" [editor]="Editor" data=""
-                                  formControlName="contentTitleRight">
-                                </ckeditor>
-                              </div>
-                              <div class="form-group">
-                                <div style="display: flex; align-items: center;">
-                                  <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                    <span style="white-space: nowrap;">
-                                      អ្នកចុះហត្ថលេខា
-                                    </span>
-                                  </div>
-                                  <div>
-                                    <span
-                                      style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
-                                      {{
-                                      contentGroup?.value?.approvedByRightBox?.profile?.last_name}}
-                                      {{
-                                      contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
-                                    </span>
-                                  </div>
-                                  <button class="add-office" mat-icon-button *ngIf="!store?.finalDocument"
+                                formControlName="contentTitleRight">
+                              </ckeditor>
+                            </div>
+                            <div class="form-group">
+                              <div style="display: flex; align-items: center;">
+                                <div style="padding-left: 16px; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                  <span style="white-space: nowrap;">
+                                    អ្នកចុះហត្ថលេខា
+                                  </span>
+                                </div>
+                                <div>
+                                  <span
+                                    style="margin-left: 8px; color: #1d72e7; font-family:'khmer os siemreap', khmeros_siemreap;">
+                                    {{
+                                    contentGroup?.value?.approvedByRightBox?.profile?.last_name}}
+                                    {{
+                                    contentGroup?.value?.approvedByRightBox?.profile?.first_name}}
+                                  </span>
+                                </div>
+                                @if (!store?.finalDocument) {
+                                  <button class="add-office" mat-icon-button
                                     (click)="onCreateDocumentFooterItem('approvedByRightBox', i)">
                                     <mat-icon class="mat-18">add</mat-icon>
                                   </button>
-                                </div>
+                                }
                               </div>
                             </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </ng-container>
-
-
-
-                  <ng-container *ngIf="contentGroup.value.type.key === 18">
-                    <div class="form-group">
-                      <div class="editor" id="{{'editor'+i}}">
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 18) {
+                  <div class="form-group">
+                    <div class="editor" id="{{'editor'+i}}">
                         <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                         toolbar:config.toolbar,
                                                         fontSize:config.fontSize,
@@ -1136,354 +1167,363 @@
                                                         table:config.table,
                                                         placeholder: contentGroup.value.type.placeholder
                                                     }" [editor]="Editor" data="" formControlName="content"></ckeditor>
-                      </div>
                     </div>
-                  </ng-container>
-
-                </div>
-                <div class="doc-form-action" *ngIf="!store?.finalDocument">
+                  </div>
+                }
+              </div>
+              @if (!store?.finalDocument) {
+                <div class="doc-form-action">
                   <button mat-icon-button (click)="deleteFooterGroup(i)">
                     <mat-icon class="mat-18">delete</mat-icon>
                   </button>
                 </div>
+              }
+            </div>
+          }
+
+          @if (store?.documentDataDoc) {
+            <div class="doc-template-row"
+              style="display: flex; justify-content: flex-end; padding-right: 38px;">
+              <ngx-kjua [text]="$safeNavigationMigration(store?.documentDataDoc?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+                [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
+                [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'GDI'"
+                [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+              </ngx-kjua>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!------------------------------------------------ comment ------------------------------------------->
+    <!-- <div class="profile-overview-content-right">
+    <div class="content-box">
+      <h3>កន្លែងបញ្ចេញយោបល់</h3>
+      <div class="commentBox">
+        <div class="cBProfile">
+          <img [ngStyle]="{'background-image': 'url(' + auth?.profile?.photoURL + ')'}" alt=""
+            *ngIf="auth?.profile?.photoURL">
+          <img src="../../../../assets/images/cnp-logo.png" alt="" *ngIf="!auth?.profile?.photoURL">
+        </div>
+        <div class="cBSearch">
+          <div class="g-search">
+            <form [formGroup]="formComment" class="formComment">
+              <button mat-icon-button type="submit"
+                (click)="_onSaveComment(formComment.value)">
+                <mat-icon>search</mat-icon>
+              </button>
+              <input placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="comment" />
+
+              <div class="commentFile" (click)="photoComment.click()">
+                <mat-icon matSuffix role="img">photo_camera</mat-icon>
+                <input #photoComment type="file" accept='image/*' (change)="onSelectedPhoto($event)"
+                  style="display:none;" />
               </div>
 
-              <div class="doc-template-row" *ngIf="store?.documentDataDoc"
-                style="display: flex; justify-content: flex-end; padding-right: 38px;">
-                <ngx-kjua [text]="store?.documentDataDoc?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
-                  [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
-                  [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'GDI'"
-                  [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
-                </ngx-kjua>
+              <div class="commentFile">
+                <mat-icon matSuffix>mic</mat-icon>
+              </div>
+
+              <div class="commentFile" (click)="fileComment.click()">
+                <mat-icon matSuffix>attach_file</mat-icon>
+                <input #fileComment type="file" (change)="onSelectedFile($event)"
+                  style="display:none;" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="progressCommentPic">
+        <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
+        </mat-progress-bar>
+      </div>
+
+      <div class="fileComment">
+        <div class="fileDisplay" *ngFor="let file of SELECTED_FILES">
+          <div class="filename">{{file?.name}}</div>
+          <a mat-icon-button (click)="_removeFile(file)">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="audioTest">
+        <button class="primary" (click)="startRecording()">Start</button>
+        <button class="primary" (click)="stopRecording()">stopRecording</button>
+
+        <audio controls>
+          <source [src]="this.outputRecording?.blob" type="audio/ogg">
+          <source [src]="this.outputRecording?.blob" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+
+      </div>
+
+      <div class="commentPicture" (click)="_removePhoto()">
+        <img [src]="URLPhoto" *ngIf="URLPhoto" />
+      </div>
+
+
+      <div class="commentBoxLine"></div>
+
+      <div class="commentShowAll"> <u>មើល​​ទាំងអស់</u> </div>
+
+      <div class="opcb">
+        <div class="opcbl">
+          <div class="commentBoxShowRT">
+            <div class="commentBoxShowRCTName">
+              <div class="commentBoxShowRCTNameP">
+                Chan Monyrottanak
+              </div>
+            </div>
+            <div class="commentBoxShowRCT">
+              សូមម្ចាស់សហគ្រាស ឬម្ចាស់អាជីវកម្មទាំងអស់ មេត្តាអានលម្អិតលើខ្លឹមសារនៃសេចក្តីសម្រេលេខ ៥០
+              ស្តីពីកែសម្រួលវិធានការដែលត្រូវអនុវត្តក្នុងអំឡុងពេលបិទខ្ទប់ភូមិសាស្ត្ររាជធានីភ្នំពេញ
+              និងក្រុងតាខ្មៅ (ប្រការ៣ ថ្មី) ដើម្បីបានយល់ច្បាស់អំពីប្រភេទសកម្មភាពការងារ ....
+            </div>
+
+          </div>
+          <div class="commentBoxShowRB">
+            <div class="cbsrbt">ចូលចិត្ត . </div>
+            <div class="cbsrbtime">
+              {{item?.updated_at?.toDate()}}
+            </div>
+          </div>
+        </div>
+        <div class="opcbr">
+          <img src="../../../../assets/images/cnp-logo.png" alt="">
+        </div>
+      </div>
+
+
+      <cdk-virtual-scroll-viewport itemSize="20" #scroll autosize
+        class="as-tb-wrap vt-doc scrollComment ">
+        <div class="commentBoxShow" #container *cdkVirtualFor="let item of storeDocumentComment?.dataComment; let i = index">
+          <div class="commentBoxShowL">
+            <img [ngStyle]="{'background-image': 'url(' + item?.ownerData?.photoURL + ')'}" alt=""
+              *ngIf="item?.ownerData?.photoURL">
+            <img src="../../../../assets/images/cnp-logo.png" alt="" *ngIf="!item?.ownerData?.photoURL">
+          </div>
+          <div class="commentBoxShowR">
+            <div class="commentBoxShowRT">
+              <div class="commentBoxShowRCTName">
+                <div class="commentBoxShowRCTNameP">
+                  {{item?.displayName}}
+                </div>
+              </div>
+              <div class="commentListPic">
+                <img [src]="item?.photoComment?.downloadUrl"
+                  *ngIf="item?.photoComment?.downloadUrl" />
+              </div>
+              <div class="commentListFile">
+                <div class="cmlFileDisplay" *ngFor="let itemFile of item?.files">
+                  <a class="cmlFileDisplayName" [href]="itemFile?.downloadUrl" download>
+                    {{itemFile?.name}}
+                  </a>
+                </div>
+              </div>
+              <div class="commentBoxFile">
+
+              </div>
+              <div class="commentBoxShowRCT">
+                {{item?.comment}}
+              </div>
+
+            </div>
+            <div class="commentBoxShowRB">
+              <div class="cbsrbt">ចូលចិត្ត . </div>
+              <div class="cbsrbtime">
+                {{item?.updated_at?.toDate()}}
               </div>
             </div>
           </div>
         </div>
-
-        <!------------------------------------------------ comment ------------------------------------------->
-        <!-- <div class="profile-overview-content-right">
-                    <div class="content-box">
-                        <h3>កន្លែងបញ្ចេញយោបល់</h3>
-                        <div class="commentBox">
-                            <div class="cBProfile">
-                                <img [ngStyle]="{'background-image': 'url(' + auth?.profile?.photoURL + ')'}" alt=""
-                                    *ngIf="auth?.profile?.photoURL">
-                                <img src="../../../../assets/images/cnp-logo.png" alt="" *ngIf="!auth?.profile?.photoURL">
-                            </div>
-                            <div class="cBSearch">
-                                <div class="g-search">
-                                    <form [formGroup]="formComment" class="formComment">
-                                        <button mat-button mat-icon-button type="submit"
-                                            (click)="_onSaveComment(formComment.value)">
-                                            <mat-icon>search</mat-icon>
-                                        </button>
-                                        <input placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="comment" />
-
-                                        <div class="commentFile" (click)="photoComment.click()">
-                                            <mat-icon matSuffix role="img">photo_camera</mat-icon>
-                                            <input #photoComment type="file" accept='image/*' (change)="onSelectedPhoto($event)"
-                                                style="display:none;" />
-                                        </div>
-
-                                        <div class="commentFile">
-                                            <mat-icon matSuffix>mic</mat-icon>
-                                        </div>
-
-                                        <div class="commentFile" (click)="fileComment.click()">
-                                            <mat-icon matSuffix>attach_file</mat-icon>
-                                            <input #fileComment type="file" (change)="onSelectedFile($event)"
-                                                style="display:none;" />
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="progressCommentPic">
-                            <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
-                            </mat-progress-bar>
-                        </div>
-
-                        <div class="fileComment">
-                            <div class="fileDisplay" *ngFor="let file of SELECTED_FILES">
-                                <div class="filename">{{file?.name}}</div>
-                                <a mat-button mat-icon-button (click)="_removeFile(file)">
-                                    <mat-icon>delete</mat-icon>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="audioTest">
-                            <button class="primary" (click)="startRecording()">Start</button>
-                            <button class="primary" (click)="stopRecording()">stopRecording</button>
-
-                            <audio controls>
-                                <source [src]="this.outputRecording?.blob" type="audio/ogg">
-                                <source [src]="this.outputRecording?.blob" type="audio/mpeg">
-                              Your browser does not support the audio element.
-                              </audio>
-
-                        </div>
-
-                        <div class="commentPicture" (click)="_removePhoto()">
-                            <img [src]="URLPhoto" *ngIf="URLPhoto" />
-                        </div>
-
-
-                        <div class="commentBoxLine"></div>
-
-                        <div class="commentShowAll"> <u>មើល​​ទាំងអស់</u> </div>
-
-                        <div class="opcb">
-                            <div class="opcbl">
-                                <div class="commentBoxShowRT">
-                                    <div class="commentBoxShowRCTName">
-                                        <div class="commentBoxShowRCTNameP">
-                                            Chan Monyrottanak
-                                        </div>
-                                    </div>
-                                    <div class="commentBoxShowRCT">
-                                        សូមម្ចាស់សហគ្រាស ឬម្ចាស់អាជីវកម្មទាំងអស់ មេត្តាអានលម្អិតលើខ្លឹមសារនៃសេចក្តីសម្រេលេខ ៥០
-                                        ស្តីពីកែសម្រួលវិធានការដែលត្រូវអនុវត្តក្នុងអំឡុងពេលបិទខ្ទប់ភូមិសាស្ត្ររាជធានីភ្នំពេញ
-                                        និងក្រុងតាខ្មៅ (ប្រការ៣ ថ្មី) ដើម្បីបានយល់ច្បាស់អំពីប្រភេទសកម្មភាពការងារ ....
-                                    </div>
-
-                                </div>
-                                <div class="commentBoxShowRB">
-                                    <div class="cbsrbt">ចូលចិត្ត . </div>
-                                    <div class="cbsrbtime">
-                                        {{item?.updated_at?.toDate()}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="opcbr">
-                                <img src="../../../../assets/images/cnp-logo.png" alt="">
-                            </div>
-                        </div>
-
-
-                        <virtual-scroller #scroll [items]="storeDocumentComment?.dataComment"
-                            class="as-tb-wrap vt-doc scrollComment ">
-                            <div class="commentBoxShow" #container *ngFor="let item of scroll?.viewPortItems; let i = index">
-                                <div class="commentBoxShowL">
-                                    <img [ngStyle]="{'background-image': 'url(' + item?.ownerData?.photoURL + ')'}" alt=""
-                                        *ngIf="item?.ownerData?.photoURL">
-                                    <img src="../../../../assets/images/cnp-logo.png" alt="" *ngIf="!item?.ownerData?.photoURL">
-                                </div>
-                                <div class="commentBoxShowR">
-                                    <div class="commentBoxShowRT">
-                                        <div class="commentBoxShowRCTName">
-                                            <div class="commentBoxShowRCTNameP">
-                                                {{item?.displayName}}
-                                            </div>
-                                        </div>
-                                        <div class="commentListPic">
-                                            <img [src]="item?.photoComment?.downloadUrl"
-                                                *ngIf="item?.photoComment?.downloadUrl" />
-                                        </div>
-                                        <div class="commentListFile">
-                                            <div class="cmlFileDisplay" *ngFor="let itemFile of item?.files">
-                                                <a class="cmlFileDisplayName" [href]="itemFile?.downloadUrl" download>
-                                                    {{itemFile?.name}}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="commentBoxFile">
-
-                                        </div>
-                                        <div class="commentBoxShowRCT">
-                                            {{item?.comment}}
-                                        </div>
-
-                                    </div>
-                                    <div class="commentBoxShowRB">
-                                        <div class="cbsrbt">ចូលចិត្ត . </div>
-                                        <div class="cbsrbtime">
-                                            {{item?.updated_at?.toDate()}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </virtual-scroller>
-                    </div>
-                </div> -->
-        <!-- <div class="profile-overview-content-right">
-                    <div class="content-box">
-                        <h3>កន្លែងបញ្ចេញយោបល់</h3>
-                        <div class="commentBox">
-                            <div class="cBProfile">
-                                <img src="../../../../assets/images/cnp-logo.png" alt="" >
-                            </div>
-                            <div class="cBSearch">
-                                <div class="g-search">
-                                    <form [formGroup]="formComment" class="formComment">
-                                        <button mat-button mat-icon-button type="submit" (click)="_onSaveComment(formComment.value)">
-                                            <mat-icon>search</mat-icon>
-                                        </button>
-                                        <input placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="comment" />
-
-                                        <div class="commentFile" (click)="photoComment.click()">
-                                            <mat-icon matSuffix role="img">photo_camera</mat-icon>
-                                            <input #photoComment type="file" accept='image/*' (change)="onSelectedPhoto($event)"
-                                                style="display:none;" />
-                                        </div>
-
-                                        <div class="commentFile">
-                                            <mat-icon matSuffix>mic</mat-icon>
-                                        </div>
-
-                                        <div class="commentFile" (click)="fileComment.click()">
-                                            <mat-icon matSuffix>attach_file</mat-icon>
-                                            <input #fileComment type="file" (change)="onSelectedFile($event)"
-                                                style="display:none;" />
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="progressCommentPic">
-                            <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
-                            </mat-progress-bar>
-                        </div>
-
-                        <div class="fileComment">
-                            <div class="fileDisplay" *ngFor="let file of SELECTED_FILES">
-                                <div class="filename">{{file?.name}}</div>
-                                <a mat-button mat-icon-button (click)="_removeFile(file)">
-                                    <mat-icon>delete</mat-icon>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="commentPicture" (click)="_removePhoto()">
-                            <img [src]="URLPhoto" *ngIf="URLPhoto"/>
-                        </div>
-
-
-                        <div class="commentBoxLine"></div>
-
-                        <div class="commentShowAll"> <u>មើល​​ទាំងអស់</u> </div>
-
-                        <div class="opcb">
-                            <div class="opcbl">
-                                <div class="commentBoxShowRT">
-                                    <div class="commentBoxShowRCTName">
-                                        <div class="commentBoxShowRCTNameP">
-                                            Chan Monyrottanak
-                                        </div>
-                                    </div>
-                                    <div class="commentBoxShowRCT">
-                                        សូមម្ចាស់សហគ្រាស ឬម្ចាស់អាជីវកម្មទាំងអស់ មេត្តាអានលម្អិតលើខ្លឹមសារនៃសេចក្តីសម្រេលេខ ៥០
-                                        ស្តីពីកែសម្រួលវិធានការដែលត្រូវអនុវត្តក្នុងអំឡុងពេលបិទខ្ទប់ភូមិសាស្ត្ររាជធានីភ្នំពេញ
-                                        និងក្រុងតាខ្មៅ (ប្រការ៣ ថ្មី) ដើម្បីបានយល់ច្បាស់អំពីប្រភេទសកម្មភាពការងារ ....
-                                    </div>
-
-                                </div>
-                                <div class="commentBoxShowRB">
-                                    <div class="cbsrbt">ចូលចិត្ត . </div>
-                                    <div class="cbsrbtime">
-                                        ថ្ងៃទី28 ខែកញ្ញា ឆ្នាំ2021
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="opcbr">
-                                <img src="../../../../assets/images/cnp-logo.png" alt="">
-                            </div>
-                        </div>
-
-
-                            <div class="commentBoxShow"  >
-                                <div class="commentBoxShowL">
-                                    <img src="../../../../assets/images/cnp-logo.png" alt="">
-                                </div>
-                                <div class="commentBoxShowR">
-                                    <div class="commentBoxShowRT">
-                                        <div class="commentBoxShowRCTName">
-                                            <div class="commentBoxShowRCTNameP">
-                                                Chan Monyrottanak
-                                            </div>
-                                        </div>
-                                        <div class="commentBoxShowRCT">
-                                            អាហារូបករណ៍ថ្នាក់បណ្ឌិត សម្រាប់មន្រ្តីជាន់ខ្ពស់​សិក្សានៅសាកលវិទ្យាល័យ​ Sothwest University of Political Science and Law
-                                        </div>
-
-                                    </div>
-                                    <div class="commentBoxShowRB">
-                                        <div class="cbsrbt">ចូលចិត្ត . </div>
-                                        <div class="cbsrbtime">
-                                            ថ្ងៃទី28 ខែកញ្ញា ឆ្នាំ2021
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div> -->
-        <!------------------------------------------------ end comment ------------------------------------------->
-
-
-
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div> -->
+  <!-- <div class="profile-overview-content-right">
+  <div class="content-box">
+    <h3>កន្លែងបញ្ចេញយោបល់</h3>
+    <div class="commentBox">
+      <div class="cBProfile">
+        <img src="../../../../assets/images/cnp-logo.png" alt="" >
       </div>
-      <div class="doc-form-sticky" *ngIf="!store?.finalDocument">
-        <div class="doc-sticky-action">
-          <ng-container>
-            <button mat-button mat-icon-button *ngIf="store?.headerDocument?.doc_type?.key === 2"
-              (click)="addMoreDocumentReport()" matTooltipClass="tooltipClass" matTooltip="បញ្ចូលបន្ថែមឯកសារ"
-              [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">more_time</mat-icon>
+      <div class="cBSearch">
+        <div class="g-search">
+          <form [formGroup]="formComment" class="formComment">
+            <button mat-icon-button type="submit" (click)="_onSaveComment(formComment.value)">
+              <mat-icon>search</mat-icon>
             </button>
+            <input placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="comment" />
 
-            <button mat-button mat-icon-button *ngIf="store?.headerDocument?.doc_status?.key === 1"
-              (click)="chooseTemplate()" matTooltipClass="tooltipClass" matTooltip="គំរូ និងចរន្តឯកសារ"
-              [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">receipt</mat-icon>
-            </button>
+            <div class="commentFile" (click)="photoComment.click()">
+              <mat-icon matSuffix role="img">photo_camera</mat-icon>
+              <input #photoComment type="file" accept='image/*' (change)="onSelectedPhoto($event)"
+                style="display:none;" />
+            </div>
 
-            <button mat-button mat-icon-button *ngIf="store?.headerDocument?.doc_type?.key === 2"
-              (click)="_onAddOldContent()" matTooltipClass="tooltipClass" matTooltip="បញ្ចូលខ្លឹមសារដើម"
-              [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">note_add</mat-icon>
-            </button>
+            <div class="commentFile">
+              <mat-icon matSuffix>mic</mat-icon>
+            </div>
 
-            <mat-divider></mat-divider>
-          </ng-container>
+            <div class="commentFile" (click)="fileComment.click()">
+              <mat-icon matSuffix>attach_file</mat-icon>
+              <input #fileComment type="file" (change)="onSelectedFile($event)"
+                style="display:none;" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-          <ng-container *ngFor="let item of headerDocItem">
-            <button mat-button mat-icon-button (click)="addNewHeaderGroup(item)" matTooltipClass="tooltipClass"
-              [matTooltip]="item?.name" [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-            </button>
-          </ng-container>
-          <mat-divider></mat-divider>
-          <ng-container *ngFor="let item of bodyDocItem">
-            <button mat-button mat-icon-button (click)="addNewSessionGroup(item)" matTooltipClass="tooltipClass"
-              [disabled]="item?.disabled && disKey8" [matTooltip]="item?.name" [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-            </button>
-          </ng-container>
-          <mat-divider></mat-divider>
-          <ng-container *ngFor="let item of footerDocItem">
-            <button mat-button mat-icon-button (click)="addNewFooterGroup(item)" matTooltipClass="tooltipClass"
-              [matTooltip]="item?.name" [matTooltipPosition]="'after'">
-              <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-            </button>
-          </ng-container>
+    <div class="progressCommentPic">
+      <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
+      </mat-progress-bar>
+    </div>
+
+    <div class="fileComment">
+      <div class="fileDisplay" *ngFor="let file of SELECTED_FILES">
+        <div class="filename">{{file?.name}}</div>
+        <a mat-icon-button (click)="_removeFile(file)">
+          <mat-icon>delete</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <div class="commentPicture" (click)="_removePhoto()">
+      <img [src]="URLPhoto" *ngIf="URLPhoto"/>
+    </div>
+
+
+    <div class="commentBoxLine"></div>
+
+    <div class="commentShowAll"> <u>មើល​​ទាំងអស់</u> </div>
+
+    <div class="opcb">
+      <div class="opcbl">
+        <div class="commentBoxShowRT">
+          <div class="commentBoxShowRCTName">
+            <div class="commentBoxShowRCTNameP">
+              Chan Monyrottanak
+            </div>
+          </div>
+          <div class="commentBoxShowRCT">
+            សូមម្ចាស់សហគ្រាស ឬម្ចាស់អាជីវកម្មទាំងអស់ មេត្តាអានលម្អិតលើខ្លឹមសារនៃសេចក្តីសម្រេលេខ ៥០
+            ស្តីពីកែសម្រួលវិធានការដែលត្រូវអនុវត្តក្នុងអំឡុងពេលបិទខ្ទប់ភូមិសាស្ត្ររាជធានីភ្នំពេញ
+            និងក្រុងតាខ្មៅ (ប្រការ៣ ថ្មី) ដើម្បីបានយល់ច្បាស់អំពីប្រភេទសកម្មភាពការងារ ....
+          </div>
+
+        </div>
+        <div class="commentBoxShowRB">
+          <div class="cbsrbt">ចូលចិត្ត . </div>
+          <div class="cbsrbtime">
+            ថ្ងៃទី28 ខែកញ្ញា ឆ្នាំ2021
+          </div>
+        </div>
+      </div>
+      <div class="opcbr">
+        <img src="../../../../assets/images/cnp-logo.png" alt="">
+      </div>
+    </div>
+
+
+    <div class="commentBoxShow"  >
+      <div class="commentBoxShowL">
+        <img src="../../../../assets/images/cnp-logo.png" alt="">
+      </div>
+      <div class="commentBoxShowR">
+        <div class="commentBoxShowRT">
+          <div class="commentBoxShowRCTName">
+            <div class="commentBoxShowRCTNameP">
+              Chan Monyrottanak
+            </div>
+          </div>
+          <div class="commentBoxShowRCT">
+            អាហារូបករណ៍ថ្នាក់បណ្ឌិត សម្រាប់មន្រ្តីជាន់ខ្ពស់​សិក្សានៅសាកលវិទ្យាល័យ​ Sothwest University of Political Science and Law
+          </div>
+
+        </div>
+        <div class="commentBoxShowRB">
+          <div class="cbsrbt">ចូលចិត្ត . </div>
+          <div class="cbsrbtime">
+            ថ្ងៃទី28 ខែកញ្ញា ឆ្នាំ2021
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="doc-form-wrap-comment">
-    <div class="doc-preview-comment-header" style="margin-top: 60px;">
-      <div class="doc-preview-comment-row doc-preview-comment-row-icon">
+</div> -->
+<!------------------------------------------------ end comment ------------------------------------------->
 
-        <button mat-icon-button [matMenuTriggerFor]="menuC" matTooltipClass="tooltipClass"
-          matTooltip="ស្ថានភាពពិនិត្យឯកសារ" aria-label="Approver listing">
-          <mat-icon class="mat-18">grading</mat-icon>
+
+
+</div>
+@if (!store?.finalDocument) {
+  <div class="doc-form-sticky">
+    <div class="doc-sticky-action">
+      <ng-container>
+        @if (store?.headerDocument?.doc_type?.key === 2) {
+          <button mat-icon-button
+            (click)="addMoreDocumentReport()" matTooltipClass="tooltipClass" matTooltip="បញ្ចូលបន្ថែមឯកសារ"
+            [matTooltipPosition]="'after'">
+            <mat-icon class="mat-18">more_time</mat-icon>
+          </button>
+        }
+        @if (store?.headerDocument?.doc_status?.key === 1) {
+          <button mat-icon-button
+            (click)="chooseTemplate()" matTooltipClass="tooltipClass" matTooltip="គំរូ និងចរន្តឯកសារ"
+            [matTooltipPosition]="'after'">
+            <mat-icon class="mat-18">receipt</mat-icon>
+          </button>
+        }
+        @if (store?.headerDocument?.doc_type?.key === 2) {
+          <button mat-icon-button
+            (click)="_onAddOldContent()" matTooltipClass="tooltipClass" matTooltip="បញ្ចូលខ្លឹមសារដើម"
+            [matTooltipPosition]="'after'">
+            <mat-icon class="mat-18">note_add</mat-icon>
+          </button>
+        }
+        <mat-divider></mat-divider>
+      </ng-container>
+      @for (item of headerDocItem; track item) {
+        <button mat-icon-button (click)="addNewHeaderGroup(item)" matTooltipClass="tooltipClass"
+          [matTooltip]="$safeNavigationMigration(item?.name)" [matTooltipPosition]="'after'">
+          <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
         </button>
-        <mat-menu #menuC="matMenu" xPosition="before" class="cmat-menu-container">
-          <div class="cmat-menu-c-container">
+      }
+      <mat-divider></mat-divider>
+      @for (item of bodyDocItem; track item) {
+        <button mat-icon-button (click)="addNewSessionGroup(item)" matTooltipClass="tooltipClass"
+          [disabled]="item?.disabled && disKey8" [matTooltip]="$safeNavigationMigration(item?.name)" [matTooltipPosition]="'after'">
+          <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+        </button>
+      }
+      <mat-divider></mat-divider>
+      @for (item of footerDocItem; track item) {
+        <button mat-icon-button (click)="addNewFooterGroup(item)" matTooltipClass="tooltipClass"
+          [matTooltip]="$safeNavigationMigration(item?.name)" [matTooltipPosition]="'after'">
+          <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+}
+</div>
+</div>
+<div class="doc-form-wrap-comment">
+  <div class="doc-preview-comment-header" style="margin-top: 60px;">
+    <div class="doc-preview-comment-row doc-preview-comment-row-icon">
 
-            <div class="div-container " *ngFor="let item of  store?.userPermission"
+      <button mat-icon-button [matMenuTriggerFor]="menuC" matTooltipClass="tooltipClass"
+        matTooltip="ស្ថានភាពពិនិត្យឯកសារ" aria-label="Approver listing">
+        <mat-icon class="mat-18">grading</mat-icon>
+      </button>
+      <mat-menu #menuC="matMenu" xPosition="before" class="cmat-menu-container">
+        <div class="cmat-menu-c-container">
+
+          @for (item of  store?.userPermission; track item) {
+            <div class="div-container "
               [class.active]="item?.completedTask">
               <div class="left-border">
                 <div class="top-div"></div>
@@ -1492,309 +1532,330 @@
               <div class="wraper">
                 <div class="profile-container">
                   <div class="profile">
-                    <app-officer-avatar [officerKey]="item?.accountKey"></app-officer-avatar>
+                    <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)"></app-officer-avatar>
                   </div>
                 </div>
                 <div class="info-container">
                   <div class="info-wraper">
-                    <app-officer-avatar [officerKey]="item?.accountKey" [isTitle]="true">
+                    <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)" [isTitle]="true">
                     </app-officer-avatar>
-
                     <h3>{{item?.profile?.last_name}} {{item?.profile?.first_name}}</h3>
                     <span class="text">{{item?.profile?.position?.name}}</span>
                   </div>
-                  <div class="status-container" *ngIf="item?.completedTask">
-                    <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
-                    <p>{{item?.approvedAt?.toDate() | date}}</p>
-                  </div>
+                  @if (item?.completedTask) {
+                    <div class="status-container">
+                      <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
+                      <p>{{$safeNavigationMigration(item?.approvedAt?.toDate()) | date}}</p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
-            <!-- <div class="div-container active">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="div-container">
-                        <div class="left-border">
-                          <div class="top-div"></div>
-                          <div class="bottom-div"></div>
-                        </div>
-                        <div class="wraper">
-                          <div class="profile-container">
-                            <div class="profile">
-                              <img [src]="NO_AVATAR">
-                            </div>
-                          </div>
-                          <div class="info-container">
-                            <div class="info-wraper">
-                              <span class="text">លោក</span>
-                              <h3>ស្រស់ប្រិមប្រិយ</h3>
-                              <span class="text">ប្រធានការិយាល័យ</span>
-                            </div>
-                            <div class="status-container">
-                              <span class="text">បានឯកភាព</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
-
+          }
+          <!-- <div class="div-container active">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
           </div>
-        </mat-menu>
-
-        <button mat-icon-button [matMenuTriggerFor]="menuA" matTooltipClass="tooltipClass" matTooltip="មតិឯកភាព"
-          aria-label="Approver listing">
-          <mat-icon class="mat-18">people</mat-icon>
-        </button>
-        <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
-          <div class="cmat-menu-content">
-            <ng-container *ngFor="let item of store?.userPermission">
-              <div class="cmat-menu-item">
-                <app-avatar-officer [description]="item?.permission?.name" [checkIcon]="item?.completedTask"
-                  style="width: 100%;" [officerKey]="item?.accountKey"></app-avatar-officer>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
               </div>
-            </ng-container>
-            <mat-divider style="margin-top: 12px; margin-bottom: 12px;"></mat-divider>
-            <ng-container *ngFor="let item of store?.workplaces">
-              <div class="cmat-menu-item">
-                <div class="info">
-                  <p class="name">
-                    {{item?.name}}
-                  </p>
-                </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
               </div>
-            </ng-container>
-          </div>
-        </mat-menu>
-
-        <button mat-icon-button [matMenuTriggerFor]="menuB" matTooltipClass="tooltipClass" matTooltip="បានចូលមើលឯកសារ"
-          aria-label="Viewer listing">
-          <mat-icon class="mat-18">visibility</mat-icon>
-        </button>
-        <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
-          <div class="cmat-menu-content">
-            <ng-container *ngFor="let item of store?.documentViewersData">
-              <div class="cmat-menu-item">
-                <app-avatar-officer [officerKey]="item?.key"></app-avatar-officer>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
               </div>
-            </ng-container>
+            </div>
           </div>
-        </mat-menu>
-
-        <!-- <button mat-icon-button matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
-          (click)="onPreview(store?.documentDataDoc)" aria-label="Print Document">
-          <mat-icon class="mat-18">laptop</mat-icon>
-        </button> -->
-
-        <button mat-icon-button matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
-          (click)="onPreviewFullSet(store?.documentDataDoc)" aria-label="Print Document">
-          <mat-icon class="mat-18">picture_as_pdf</mat-icon>
-        </button>
-      </div>
-      <mat-divider></mat-divider>
-
-      <aside class="special-memo asm-ma m15"
-        *ngIf="!userOption?.hideButton && userOption?.disabledBtn && !userOption?.hasApprove">
-        <ng-container>
-          <strong class="name">កំណត់សម្គាល់:</strong>
-          <span class="memo">ឯកសារមិនទាន់អាចឯកភាពបានទេ
-            សូមរង់ចាំមន្ត្រីខាងក្រោមត្រួតពិនិត្យនិងឯកភាពជាមុនសិន</span>
-        </ng-container>
-      </aside>
-
-      <ng-container *ngIf="userOption">
-        <div class="doc-btn-action" style="margin: 10px 15px 0px;"
-          *ngIf="userOption?.hideButton === false && store?.headerDocument?.doc_status?.key > 1">
-          <button [disabled]="userOption?.disabledBtn" mat-button class="enbutton primary"
-            [ngClass]="userOption?.disabledBtn?'disabled':''" (click)="approvalDoc()">
-            <span>
-              {{DOCUMENT_ACTION_TYPE_OBJ?.REQUEST_FOR_APPROVAL?.name}}<span
-                *ngIf="userOption?.hasApprove">រួចរាល់</span>
-            </span>
-          </button>
         </div>
-      </ng-container>
-
-      <div class="doc-preview-comment-row">
-        <div class="left-box-dbc" *ngIf="!loadingHeader">
-          <div class="name">
-            <p class="nt">
-              {{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name?.length > 80
-              ?store?.documentDataDoc?.name.substring(0, 80) + '...':store?.documentDataDoc?.name}}
-            </p>
-            <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
-            </p>
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
           </div>
-          <app-avatar-officer [officerKey]="store?.headerDocument?.created_by" *ngIf="!loading"
-            [ownerProfile]="store?.headerDocument?.owner_profile">
-          </app-avatar-officer>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="right-box-dbc">
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
+          </div>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
+          </div>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
+          </div>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
+          </div>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="div-container">
+          <div class="left-border">
+            <div class="top-div"></div>
+            <div class="bottom-div"></div>
+          </div>
+          <div class="wraper">
+            <div class="profile-container">
+              <div class="profile">
+                <img [src]="NO_AVATAR">
+              </div>
+            </div>
+            <div class="info-container">
+              <div class="info-wraper">
+                <span class="text">លោក</span>
+                <h3>ស្រស់ប្រិមប្រិយ</h3>
+                <span class="text">ប្រធានការិយាល័យ</span>
+              </div>
+              <div class="status-container">
+                <span class="text">បានឯកភាព</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
 
-        </div>
       </div>
-      <div class="doc-btn-action" *ngIf="receiveJob">
-        <div *ngIf="receiveJob">
-          <button mat-button class="enbutton primary" (click)="_confirmStreamDocument()">
-            {{store?.selectedDocumentNoted?'កែកំណត់បង្ហាញឯកសារចូល':'កំណត់បង្ហាញឯកសារចូល'}}
-          </button>
-        </div>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuA" matTooltipClass="tooltipClass" matTooltip="មតិឯកភាព"
+      aria-label="Approver listing">
+      <mat-icon class="mat-18">people</mat-icon>
+    </button>
+    <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
+      <div class="cmat-menu-content">
+        @for (item of store?.userPermission; track item) {
+          <div class="cmat-menu-item">
+            <app-avatar-officer [description]="$safeNavigationMigration(item?.permission?.name)" [checkIcon]="$safeNavigationMigration(item?.completedTask)"
+            style="width: 100%;" [officerKey]="$safeNavigationMigration(item?.accountKey)"></app-avatar-officer>
+          </div>
+        }
+        <mat-divider style="margin-top: 12px; margin-bottom: 12px;"></mat-divider>
+        @for (item of store?.workplaces; track item) {
+          <div class="cmat-menu-item">
+            <div class="info">
+              <p class="name">
+                {{item?.name}}
+              </p>
+            </div>
+          </div>
+        }
       </div>
-      <div class="doc-preview-comment-row">
-        <div class="note-cms">
-          <span>
-            {{store?.headerDocument?.total_comments||0}} មតិ
-          </span>
-          <span>{{store?.headerDocument?.total_visitor||0}}
-            នាក់បានឃើញ</span>
-        </div>
-        <div class="flex1"></div>
-        <div class="note-cms">
-          <span>ចូលមើល: {{store?.headerDocument?.total_view||0}}
-            ដង
-          </span>
-        </div>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuB" matTooltipClass="tooltipClass" matTooltip="បានចូលមើលឯកសារ"
+      aria-label="Viewer listing">
+      <mat-icon class="mat-18">visibility</mat-icon>
+    </button>
+    <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
+      <div class="cmat-menu-content">
+        @for (item of store?.documentViewersData; track item) {
+          <div class="cmat-menu-item">
+            <app-avatar-officer [officerKey]="$safeNavigationMigration(item?.key)"></app-avatar-officer>
+          </div>
+        }
       </div>
-    </div>
-    <nav class="cs-tab-group-nav" mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of store?.tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-        [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
-    </nav>
-    <div class="doc-preview-comment-box">
-      <router-outlet *ngIf="!loading"></router-outlet>
-    </div>
+    </mat-menu>
+
+    <!-- <button mat-icon-button matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
+    (click)="onPreview(store?.documentDataDoc)" aria-label="Print Document">
+    <mat-icon class="mat-18">laptop</mat-icon>
+  </button> -->
+
+  <button mat-icon-button matTooltipClass="tooltipClass" matTooltip="ពិនិត្យបោះពុម្ព"
+    (click)="onPreviewFullSet($safeNavigationMigration(store?.documentDataDoc))" aria-label="Print Document">
+    <mat-icon class="mat-18">picture_as_pdf</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+
+@if (!userOption?.hideButton && userOption?.disabledBtn && !userOption?.hasApprove) {
+  <aside class="special-memo asm-ma m15"
+    >
+    <ng-container>
+      <strong class="name">កំណត់សម្គាល់:</strong>
+      <span class="memo">ឯកសារមិនទាន់អាចឯកភាពបានទេ
+      សូមរង់ចាំមន្ត្រីខាងក្រោមត្រួតពិនិត្យនិងឯកភាពជាមុនសិន</span>
+    </ng-container>
+  </aside>
+}
+
+@if (userOption) {
+  @if (userOption?.hideButton === false && store?.headerDocument?.doc_status?.key > 1) {
+    <div class="doc-btn-action" style="margin: 10px 15px 0px;"
+      >
+      <button [disabled]="$safeNavigationMigration(userOption?.disabledBtn)" mat-button class="enbutton primary"
+        [ngClass]="userOption?.disabledBtn?'disabled':''" (click)="approvalDoc()">
+        <span>
+          {{DOCUMENT_ACTION_TYPE_OBJ?.REQUEST_FOR_APPROVAL?.name}}@if (userOption?.hasApprove) {
+          <span
+          >រួចរាល់</span>
+        }
+      </span>
+    </button>
   </div>
+}
+}
+
+<div class="doc-preview-comment-row">
+  @if (!loadingHeader) {
+    <div class="left-box-dbc">
+      <div class="name">
+        <p class="nt">
+          {{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name?.length > 80
+          ?store?.documentDataDoc?.name.substring(0, 80) + '...':store?.documentDataDoc?.name}}
+        </p>
+        <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(store?.documentDataDoc?.created_at?.toDate())|date:'mediumDate'}}
+        </p>
+      </div>
+      @if (!loading) {
+        <app-avatar-officer [officerKey]="$safeNavigationMigration(store?.headerDocument?.created_by)"
+          [ownerProfile]="$safeNavigationMigration(store?.headerDocument?.owner_profile)">
+        </app-avatar-officer>
+      }
+    </div>
+  }
+  <div class="right-box-dbc">
+
+  </div>
+</div>
+@if (receiveJob) {
+  <div class="doc-btn-action">
+    @if (receiveJob) {
+      <div>
+        <button mat-button class="enbutton primary" (click)="_confirmStreamDocument()">
+          {{store?.selectedDocumentNoted?'កែកំណត់បង្ហាញឯកសារចូល':'កំណត់បង្ហាញឯកសារចូល'}}
+        </button>
+      </div>
+    }
+  </div>
+}
+<div class="doc-preview-comment-row">
+  <div class="note-cms">
+    <span>
+      {{store?.headerDocument?.total_comments||0}} មតិ
+    </span>
+    <span>{{store?.headerDocument?.total_visitor||0}}
+    នាក់បានឃើញ</span>
+  </div>
+  <div class="flex1"></div>
+  <div class="note-cms">
+    <span>ចូលមើល: {{store?.headerDocument?.total_view||0}}
+      ដង
+    </span>
+  </div>
+</div>
+</div>
+<nav class="cs-tab-group-nav" mat-tab-nav-bar [tabPanel]="tabPanel">
+  @for (link of store?.tabs; track link) {
+    <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
+  }
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+<div class="doc-preview-comment-box">
+  @if (!loading) {
+    <router-outlet></router-outlet>
+  }
+</div>
+</div>
 </div>

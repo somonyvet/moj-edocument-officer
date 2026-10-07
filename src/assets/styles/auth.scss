@@ -1,3 +1,5 @@
+@use "variable.scss" as *;
+
 .auth-container-wrapper,
 .linear-gradient-container,
 app-login { /*,app-criminal-record-latter-head*/
@@ -166,7 +168,7 @@ app-login { /*,app-criminal-record-latter-head*/
   font-family: $appFont;
 
   .header-box-container {
-    color: $white;
+    color: $whiteColor;
     border: none;
     &.form {
       padding: 40px 0 30px;
@@ -336,7 +338,7 @@ app-login { /*,app-criminal-record-latter-head*/
 }
 
 .social-btn {
-  &.mat-button {
+  &.mat-mdc-button {
     border-style: none;
     width: 100%;
     border-radius: 30px;
@@ -360,7 +362,7 @@ app-login { /*,app-criminal-record-latter-head*/
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
-  .mat-form-field {
+  .mat-mdc-form-field {
     font-family: $appFont;
     line-height: normal;
   }
@@ -380,20 +382,21 @@ app-login { /*,app-criminal-record-latter-head*/
 }
 
 .phone-auth {
-  .mat-form-field-subscript-wrapper {
+  .mat-mdc-form-field-subscript-wrapper {
     margin-top: 0;
   }
 
-  .mat-form-field-infix {
+  .mat-mdc-form-field-infix {
     border-top: none;
   }
 
-  .mat-form-field-appearance-fill .mat-form-field-infix {
+  .mat-form-field-appearance-fill .mat-mdc-form-field-infix {
     padding: 0.25em 0 0.25em 0;
   }
 
-  .mat-form-field-appearance-fill .mat-form-field-flex {
+  .mat-form-field-appearance-fill .mat-mdc-form-field-flex {
     background-color: rgba(255, 255, 255, 0.32);
+    border-radius: 4px 4px 0 0;
   }
 }
 .country-code-item {
@@ -413,18 +416,18 @@ app-login { /*,app-criminal-record-latter-head*/
     }
   }
 }
-.mat-autocomplete-panel {
+.mat-mdc-autocomplete-panel {
   &.country-code-item {
     min-width: 250px;
   }
 }
 
 .txt-code {
-  .mat-form-field {
+  .mat-mdc-form-field {
     width: 100% !important;
     margin: 0 3px !important;
     text-align: center;
-    .mat-input-element {
+    .mat-mdc-input-element {
       font-size: 24px;
       font-weight: 600;
     }
@@ -459,16 +462,16 @@ app-login { /*,app-criminal-record-latter-head*/
   border-radius: 18px;
   width: 800px;
   margin: 0 auto;
-  color: $white;
+  color: $whiteColor;
   min-height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  .mat-form-field-appearance-fill .mat-form-field-flex {
+  .mat-form-field-appearance-fill .mat-mdc-form-field-flex {
     background-color: rgb(255 255 255 / 65%);
   }
-  .mat-button {
+  .mat-mdc-button {
     background-color: $primary;
     font-size: 16px;
     font-weight: 600;
@@ -476,7 +479,7 @@ app-login { /*,app-criminal-record-latter-head*/
     border-radius: 100px;
     min-width: 100px;
   }
-  .mat-form-field {
+  .mat-mdc-form-field {
     width: 100%;
     font-size: 19px;
     font-weight: 500;
@@ -571,9 +574,9 @@ app-login { /*,app-criminal-record-latter-head*/
   flex-direction: column;
 }
 
-.mat-puc.mat-button {
+.mat-puc.mat-mdc-button {
   &.sign-up {
-    background-color: $white;
+    background-color: $whiteColor;
     color: $link;
     margin-top: 12px;
     width: 100% !important;
@@ -602,7 +605,7 @@ app-login { /*,app-criminal-record-latter-head*/
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: $white;
+  background-color: $whiteColor;
   .mat-divider{
     margin: 12px 0;
   }
@@ -767,7 +770,7 @@ app-login { /*,app-criminal-record-latter-head*/
         margin-top: 8px;
       }
 
-      .mat-button-wrapper {
+      .mdc-button__label {
         padding: 12px 0;
       }
 
@@ -777,7 +780,7 @@ app-login { /*,app-criminal-record-latter-head*/
         font-size: 34px;
       }
 
-      .mat-fab {
+      .mat-mdc-fab {
         box-shadow: none;
         background: $primary;
 
@@ -791,7 +794,7 @@ app-login { /*,app-criminal-record-latter-head*/
     .header-actions {
       width: 220px;
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         color: #fff;
       }
     }
@@ -852,7 +855,7 @@ app-login { /*,app-criminal-record-latter-head*/
       }
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       position: absolute;
       right: 10px;
     }
@@ -911,13 +914,13 @@ app-login { /*,app-criminal-record-latter-head*/
   position: absolute;
   padding-left: 16px;
 
-  .mat-select {
+  .mat-mdc-select {
     border: none;
     font-family: $appFont;
     line-height: normal;
   }
 
-  .mat-select-value {
+  .mat-mdc-select-value {
     text-align: center;
     font-size: 15px;
     color: #333;
@@ -933,7 +936,7 @@ app-login { /*,app-criminal-record-latter-head*/
     flex-direction: column;
     app-primary-button{
       margin-bottom: 12px;
-      .mat-puc.mat-button{
+      .mat-puc.mat-mdc-button{
         width: 100%;
       }
     }

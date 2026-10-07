@@ -23,7 +23,7 @@
 
         </div>
      
-        <nav mat-tab-nav-bar>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
             <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
                 [active]="rla.isActive">{{link.label}}</a>
                 <div class="flex1"></div>
@@ -86,6 +86,7 @@
                     </mat-menu>
                 </ng-container> -->
         </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
     </div>
     <!-- <div class="page-page-content doc-contenter" *ngIf="!loading">
         <router-outlet (activate)="onActivate($event)"></router-outlet>

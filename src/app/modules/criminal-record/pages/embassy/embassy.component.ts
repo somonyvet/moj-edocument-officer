@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -12,9 +12,11 @@ import { EmbassyFormComponent } from './embassy-form/embassy-form.component';
 import { embassyStore } from '../../stores/embassy.store';
 
 @Component({
-  selector: 'app-embassy',
-  templateUrl: './embassy.component.html',
-  styleUrls: ['./embassy.component.scss']
+    selector: 'app-embassy',
+    templateUrl: './embassy.component.html',
+    styleUrls: ['./embassy.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EmbassyComponent implements OnInit {
 

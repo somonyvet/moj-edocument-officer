@@ -1,14 +1,16 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { PosterStore } from 'src/app/stores/poster.store';
 import { VideoDocumentStore } from 'src/app/stores/video-document.store';
 
 @Component({
-  selector: 'app-video-documentation-page',
-  templateUrl: './video-documentation-page.component.html',
-  styleUrls: ['./video-documentation-page.component.scss']
+    selector: 'app-video-documentation-page',
+    templateUrl: './video-documentation-page.component.html',
+    styleUrls: ['./video-documentation-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VideoDocumentationPageComponent implements OnInit {
 

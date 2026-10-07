@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 import { STATUS_LIVES } from 'src/app/dummy/appinfo';
 import { DataService } from 'src/app/shared/services/data.service';
 import { toNumber } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-letter-kh-print',
-  templateUrl: './criminal-record-letter-kh-print.component.html',
-  styleUrls: ['./criminal-record-letter-kh-print.component.scss'],
-  // encapsulation: ViewEncapsulation.None,
+    selector: 'app-criminal-record-letter-kh-print',
+    templateUrl: './criminal-record-letter-kh-print.component.html',
+    styleUrls: ['./criminal-record-letter-kh-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterKhPrintComponent implements OnInit {
   @Input() Item: any;
@@ -36,7 +37,7 @@ export class CriminalRecordLetterKhPrintComponent implements OnInit {
 
   STATUS_LIVES = STATUS_LIVES;
 
-  Editor = customBuild;
+  Editor = CustomEditor;
   config = {
     toolbar: [
       'fontfamily',
@@ -90,7 +91,7 @@ export class CriminalRecordLetterKhPrintComponent implements OnInit {
     }
   }
 
-  decree_result = new FormControl(null);
+  decree_result = new UntypedFormControl(null);
   constructor(
     private auth: AuthStore,
     private ds: DataService,

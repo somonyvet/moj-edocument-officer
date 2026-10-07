@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -23,9 +23,11 @@ import { DecreeConfirmDialogComponent } from '../../../components/decree-confirm
 import { debounceTime, take, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-letter-of-condemnation-three',
-  templateUrl: './letter-of-condemnation-three.component.html',
-  styleUrls: ['./letter-of-condemnation-three.component.scss']
+    selector: 'app-letter-of-condemnation-three',
+    templateUrl: './letter-of-condemnation-three.component.html',
+    styleUrls: ['./letter-of-condemnation-three.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LetterOfCondemnationThreeComponent implements OnInit, OnDestroy {
 
@@ -48,7 +50,7 @@ export class LetterOfCondemnationThreeComponent implements OnInit, OnDestroy {
   filteredNationality: Observable<Array<any>>;
   nationals: any = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   footer_phone: AbstractControl;
 
   GENDER_KH = GENDER_DATA;
@@ -149,7 +151,7 @@ export class LetterOfCondemnationThreeComponent implements OnInit, OnDestroy {
 
   constructor(
     public criminal: CriminalStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

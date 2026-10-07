@@ -1,51 +1,51 @@
 <div class="doc-form-container" *mobxAutorun>
-    <div class="doc-form-block" #spacer>
-        <div class="doc-form-item form-wrapper" [formGroup]="form">
-        
-            <div class="doc-template-wrapper">
-                <div class="doc-template-page">
-                    <div class="doc-template-row">
-                        <div class="bl-title-left">
-                            <p>ក្រសួងមហាផ្ទៃ</p>
-                            <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
-                            <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
-                            <p>និងបច្ចេកវិទ្យា</p>
-                            <p>ការិយាល័យរដ្ឋបាលសរុប</p>
-                            <p>លេខ៖ ០៩០៨/២១</p>
-                            <p class="star">3</p>
-                        </div>
-                        <div class="bl-space"></div>
-                        <div class="bl-title-right">
-                            <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
-                            <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                            <p class="star">3</p>
-                        </div>
-                    </div>
+  <div class="doc-form-block" #spacer>
+    <div class="doc-form-item form-wrapper" [formGroup]="form">
 
-                    <div class="doc-template-row">
-                        <div class="doc-form-content">
-                            <div class="form-group">
-                                <div class="editor">
-                                    <ckeditor (blur)="onTitleBlur($event)"
+      <div class="doc-template-wrapper">
+        <div class="doc-template-page">
+          <div class="doc-template-row">
+            <div class="bl-title-left">
+              <p>ក្រសួងមហាផ្ទៃ</p>
+              <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+              <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
+              <p>និងបច្ចេកវិទ្យា</p>
+              <p>ការិយាល័យរដ្ឋបាលសរុប</p>
+              <p>លេខ៖ ០៩០៨/២១</p>
+              <p class="star">3</p>
+            </div>
+            <div class="bl-space"></div>
+            <div class="bl-title-right">
+              <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+              <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+              <p class="star">3</p>
+            </div>
+          </div>
+
+          <div class="doc-template-row">
+            <div class="doc-form-content">
+              <div class="form-group">
+                <div class="editor">
+                  <ckeditor (blur)="onTitleBlur($event)"
                                         [config]="{ 
                                             toolbar:config.toolbar, 
                                             fontSize:config.fontSize,
                                             fontFamily:config.fontFamily,
                                             table:config.table,
                                             placeholder: 'បញ្ចូលចំណងជើង.....'}" [editor]="Editor"
-                                        data="" formControlName="documentTitle"></ckeditor>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  data="" formControlName="documentTitle"></ckeditor>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of headerForm().controls;let i = index;"
-                        [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <ng-container>
-                                <div class="form-group">
-                                    <div class="editor" id="{{'editor'+i}}">
+          @for (contentGroup of headerForm().controls; track contentGroup; let i = $index) {
+            <div class="doc-template-row" #elReference
+              [formGroup]="contentGroup">
+              <div class="doc-form-content" style="padding: 0;">
+                <ng-container>
+                  <div class="form-group">
+                    <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
                                             toolbar:config.toolbar, 
                                             fontSize:config.fontSize,
@@ -53,29 +53,32 @@
                                             table:config.table,
                                             placeholder: contentGroup.value.type.placeholder
                                         }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="content"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteHeaderGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
+                      formControlName="content"></ckeditor>
                     </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="doc-form-action">
+                <!-- <button mat-icon-button (click)="deleteHeaderGroup(i)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button> -->
+            </div>
+          </div>
+        }
 
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of sessionForm().controls;let i = index;"
-                        [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
-                            <div class="form-group">
-                                <span style="white-space: nowrap; margin-top: 12px;"
-                                    *ngIf="contentGroup.value.type.key !== 1">
-                                    {{contentGroup.value.type.name}} :
-                                </span>
-                                <div class="editor" id="{{'editor'+i}}">
+        @for (contentGroup of sessionForm().controls; track contentGroup; let i = $index) {
+          <div class="doc-template-row" #elReference
+            [formGroup]="contentGroup">
+            <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
+              <div class="form-group">
+                @if (contentGroup.value.type.key !== 1) {
+                  <span style="white-space: nowrap; margin-top: 12px;"
+                    >
+                    {{contentGroup.value.type.name}} :
+                  </span>
+                }
+                <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
                                             toolbar:config.toolbar, 
                                             fontSize:config.fontSize,
@@ -83,46 +86,51 @@
                                             table:config.table,
                                             placeholder: contentGroup.value.type.placeholder
                                         }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="remark"></ckeditor>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <mat-form-field appearance="">
-                                    <mat-label>Office</mat-label>
-                                    <mat-select [compareWith]="ds?.compareWithObj" formControlName="office"
-                                        (selectionChange)="selectionChange($event, i)">
-                                        <mat-option *ngFor="let item of store?.departmentData; let i = index"
-                                            [value]="item">
-                                            <div class="rows">
-                                                <span>{{item?.name}}</span>
-                                            </div>
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="contentGroup.controls['office'].hasError('required')">
-                                        This field is required.
-                                    </mat-error>
-
-                                </mat-form-field>
-                            </div>
-
+                  formControlName="remark"></ckeditor>
+                </div>
+              </div>
+              <div class="form-group">
+                <mat-form-field appearance="">
+                  <mat-label>Office</mat-label>
+                  <mat-select [compareWith]="$safeNavigationMigration(ds?.compareWithObj)" formControlName="office"
+                    (selectionChange)="selectionChange($event, i)">
+                    @for (item of store?.departmentData; track item; let i = $index) {
+                      <mat-option
+                        [value]="item">
+                        <div class="rows">
+                          <span>{{item?.name}}</span>
                         </div>
-                        <div class="doc-form-action">
-                            <button mat-icon-button (click)="deleteSessionGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button>
-                        </div>
-                    </div>
+                      </mat-option>
+                    }
+                  </mat-select>
+                  @if (contentGroup.controls['office'].hasError('required')) {
+                    <mat-error>
+                      This field is required.
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="doc-form-action">
+              <button mat-icon-button (click)="deleteSessionGroup(i)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        }
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of sessionChildForm().controls;let i = index;" [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
-                            <div class="form-group">
-                                <span style="white-space: nowrap; margin-top: 12px;"
-                                    *ngIf="contentGroup.value.type.key !== 1">
-                                    {{contentGroup.value.type.name}} :
-                                </span>
-                                <div class="editor" id="{{'editor'+i}}">
+        @for (contentGroup of sessionChildForm().controls; track contentGroup; let i = $index) {
+          <div class="doc-template-row" #elReference
+            [formGroup]="contentGroup">
+            <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
+              <div class="form-group">
+                @if (contentGroup.value.type.key !== 1) {
+                  <span style="white-space: nowrap; margin-top: 12px;"
+                    >
+                    {{contentGroup.value.type.name}} :
+                  </span>
+                }
+                <div class="editor" id="{{'editor'+i}}">
                                     <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
                                             toolbar:config.toolbar, 
                                             fontSize:config.fontSize,
@@ -130,82 +138,83 @@
                                             table:config.table,
                                             placeholder: contentGroup.value.type.placeholder
                                         }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                        formControlName="remark"></ckeditor>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteSessionGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
-                    </div>
-
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of footerForm().controls;let i = index;"
-                        [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <ng-container *ngIf="contentGroup.value.type.key === 1">
-                                <div class="doc-template-row">
-                                    <div class="bl-space"></div>
-                                    <div class="bl-date-right">
-                                        <p>ដោយសេចក្តីគោរព។</p>
-                                        <p>ថ្ងៃ........ខែ........ឆ្នាំឆ្លូវ ត្រីស័ក ព.ស 2565</p>
-                                        <p>រាជធានីភ្នំពេញ ថ្ងៃទី.......ខែ........ឆ្នាំ.........</p>
-                                        <p class="fMoul" style="margin-bottom: 88px;">
-                                            ការិយាល័យរដ្ឋបាលសរុប
-                                        </p>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="contentGroup.value.type.key === 2">
-                                <div class="doc-template-row">
-                                    <table class="doc-table-footer">
-                                        <tr>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អគ្គនាយករង</p>
-                                                    <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
-                                                    <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
-                                                </div>
-
-                                            </td>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
-                                                    <mat-form-field appearance="">
-                                                        <mat-label></mat-label>
-                                                        <textarea formControlName="signature_box_content" matInput
-                                                            cols="30" rows=""></textarea>
-                                                    </mat-form-field>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteFooterGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
-                    </div>
-
-
+                  formControlName="remark"></ckeditor>
                 </div>
+              </div>
             </div>
-
+            <div class="doc-form-action">
+              <!-- <button mat-icon-button (click)="deleteSessionGroup(i)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button> -->
+          </div>
         </div>
-    </div>
-    <div class="doc-form-sticky">
-        <div class="doc-sticky-action">
+      }
 
-            <button mat-icon-button (click)="submitDoc()" matTooltip="ប្រគល់ឯកសារ"
-                [matTooltipPosition]="'after'">
-                <mat-icon class="mat-18">grid_view</mat-icon>
-            </button>
-
+      @for (contentGroup of footerForm().controls; track contentGroup; let i = $index) {
+        <div class="doc-template-row" #elReference
+          [formGroup]="contentGroup">
+          <div class="doc-form-content" style="padding: 0;">
+            @if (contentGroup.value.type.key === 1) {
+              <div class="doc-template-row">
+                <div class="bl-space"></div>
+                <div class="bl-date-right">
+                  <p>ដោយសេចក្តីគោរព។</p>
+                  <p>ថ្ងៃ........ខែ........ឆ្នាំឆ្លូវ ត្រីស័ក ព.ស 2565</p>
+                  <p>រាជធានីភ្នំពេញ ថ្ងៃទី.......ខែ........ឆ្នាំ.........</p>
+                  <p class="fMoul" style="margin-bottom: 88px;">
+                    ការិយាល័យរដ្ឋបាលសរុប
+                  </p>
+                </div>
+              </div>
+            }
+            @if (contentGroup.value.type.key === 2) {
+              <div class="doc-template-row">
+                <table class="doc-table-footer">
+                  <tr>
+                    <td>
+                      <div class="tb-title-text">
+                        <p>អគ្គនាយករង</p>
+                        <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
+                        <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tb-title-text">
+                        <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
+                        <mat-form-field appearance="">
+                          <mat-label></mat-label>
+                          <textarea formControlName="signature_box_content" matInput
+                          cols="30" rows=""></textarea>
+                        </mat-form-field>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            }
+          </div>
+          <div class="doc-form-action">
+            <!-- <button mat-icon-button (click)="deleteFooterGroup(i)">
+            <mat-icon class="mat-18">delete</mat-icon>
+          </button> -->
         </div>
-    </div>
+      </div>
+    }
+
+
+  </div>
+</div>
+
+</div>
+</div>
+<div class="doc-form-sticky">
+  <div class="doc-sticky-action">
+
+    <button mat-icon-button (click)="submitDoc()" matTooltip="ប្រគល់ឯកសារ"
+      [matTooltipPosition]="'after'">
+      <mat-icon class="mat-18">grid_view</mat-icon>
+    </button>
+
+  </div>
+</div>
 </div>

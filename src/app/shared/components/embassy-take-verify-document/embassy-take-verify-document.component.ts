@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
 import { AnimationOptions } from 'ngx-lottie';
 import { APPLY_OBJECT, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CitizenStore } from 'src/app/modules/criminal-record/stores/citizen.store';
@@ -10,9 +10,11 @@ import FileSaver from 'file-saver';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-embassy-take-verify-document',
-  templateUrl: './embassy-take-verify-document.component.html',
-  styleUrls: ['./embassy-take-verify-document.component.scss']
+    selector: 'app-embassy-take-verify-document',
+    templateUrl: './embassy-take-verify-document.component.html',
+    styleUrls: ['./embassy-take-verify-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EmbassyTakeVerifyDocumentComponent implements OnInit {
   lottie: AnimationOptions = {
@@ -24,7 +26,7 @@ export class EmbassyTakeVerifyDocumentComponent implements OnInit {
     public auth: AuthStore,
     public store: CitizenStore,
     public criminalStore: CriminalApplicationStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
   ) { }
 

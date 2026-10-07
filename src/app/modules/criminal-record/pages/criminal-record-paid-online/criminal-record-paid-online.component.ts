@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CriminalLatterOfficerChooseNationalityComponent } from '../../components/criminal-latter-officer-choose-nationality/criminal-latter-officer-choose-nationality.component';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -14,9 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { StartProcessDocDialogComponent } from 'src/app/shared/components/start-process-doc-dialog/start-process-doc-dialog.component';
 
 @Component({
-  selector: 'app-criminal-record-paid-online',
-  templateUrl: './criminal-record-paid-online.component.html',
-  styleUrls: ['./criminal-record-paid-online.component.scss']
+    selector: 'app-criminal-record-paid-online',
+    templateUrl: './criminal-record-paid-online.component.html',
+    styleUrls: ['./criminal-record-paid-online.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordPaidOnlineComponent implements OnInit {
   tabs = tabs.process_doc_online

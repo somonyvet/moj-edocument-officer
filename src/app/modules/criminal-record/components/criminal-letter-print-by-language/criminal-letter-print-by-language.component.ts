@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CRIMINAL_APPLICATION_LANGUAGE, CRIMINAL_APPLICATION_LANGUAGE_ARRAY, CRIMINAL_APPLICATION_LANGUAGE_OBJECT, STATUS_LIVES, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 import { PrintService } from 'src/app/shared/services/print.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DataService } from 'src/app/shared/services/data.service';
 import { pushToObject } from 'src/app/shared/services/convert.service';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
@@ -11,9 +11,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 
 @Component({
-  selector: 'app-criminal-letter-print-by-language',
-  templateUrl: './criminal-letter-print-by-language.component.html',
-  styleUrls: ['./criminal-letter-print-by-language.component.scss']
+    selector: 'app-criminal-letter-print-by-language',
+    templateUrl: './criminal-letter-print-by-language.component.html',
+    styleUrls: ['./criminal-letter-print-by-language.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLetterPrintByLanguageComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class CriminalLetterPrintByLanguageComponent implements OnInit {
   loading: boolean = false;
   ARRAY = Array;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   criminalLetterDate: any = new Date();
   process: boolean = false;
 
@@ -30,7 +32,7 @@ export class CriminalLetterPrintByLanguageComponent implements OnInit {
     public dialogRef: MatDialogRef<CriminalLetterPrintByLanguageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ps: PrintService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public criminalStore: CriminalApplicationStore,
     private ds: DataService,
     private funs: AngularFireFunctions,

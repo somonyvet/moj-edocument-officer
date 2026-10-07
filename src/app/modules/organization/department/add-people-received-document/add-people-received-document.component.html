@@ -1,35 +1,41 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>គណនីថ្នាក់ដឹកនាំ</mat-label>
-                <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteRanking"
-                    formControlName="office" matInput placeholder="Select officer">
-                <mat-autocomplete [displayWith]="ds?.displayNameFn" #autoCompleteRanking="matAutocomplete">
-                    <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                        {{item?.displayName}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['office'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>គណនីថ្នាក់ដឹកនាំ</mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteRanking"
+          formControlName="office" matInput placeholder="Select officer">
+        <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayNameFn)" #autoCompleteRanking="matAutocomplete">
+          @for (item of filterOffice | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.displayName}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['office'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['office'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">យល់ព្រម</button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">យល់ព្រម</button>
+  </mat-dialog-actions>
 </form>

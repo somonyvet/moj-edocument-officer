@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription, fromEvent } from 'rxjs';
@@ -19,10 +19,11 @@ import { driveObj } from 'src/app/dummy/status';
 import { OpenFileComponent } from '../../components/open-file/open-file.component';
 
 @Component({
-  selector: 'app-share-with-me',
-  templateUrl: './share-with-me.component.html',
-  styleUrls: ['./share-with-me.component.scss'],
-
+    selector: 'app-share-with-me',
+    templateUrl: './share-with-me.component.html',
+    styleUrls: ['./share-with-me.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ShareWithMeComponent implements OnInit {
 

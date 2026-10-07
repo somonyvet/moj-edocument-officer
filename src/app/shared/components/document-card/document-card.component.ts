@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IHeaderInformation } from 'src/app/interfaces/document/document.interface';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { DatabaseService } from '../../services/database.service';
 import { transformImageSameTokenNo } from '../../services/fireStorage.service';
 
 @Component({
-  selector: 'app-document-card',
-  templateUrl: './document-card.component.html',
-  styleUrls: ['./document-card.component.scss']
+    selector: 'app-document-card',
+    templateUrl: './document-card.component.html',
+    styleUrls: ['./document-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentCardComponent implements OnInit, OnDestroy {
   @Input() item: IHeaderInformation;

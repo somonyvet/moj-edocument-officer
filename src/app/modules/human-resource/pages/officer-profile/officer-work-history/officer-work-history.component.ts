@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { FAMILY_STATUS, GENDER_DATA, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { days, KHdays, monthOfYear } from 'src/app/dummy/report';
@@ -15,13 +15,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-officer-work-history',
-  templateUrl: './officer-work-history.component.html',
-  styleUrls: ['./officer-work-history.component.scss']
+    selector: 'app-officer-work-history',
+    templateUrl: './officer-work-history.component.html',
+    styleUrls: ['./officer-work-history.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerWorkHistoryComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -72,7 +74,7 @@ export class OfficerWorkHistoryComponent implements OnInit {
   @ViewChild('praiseFile') praiseFile: ElementRef;
   @ViewChild('penaltyFile') penaltyFile: ElementRef;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -87,10 +89,10 @@ export class OfficerWorkHistoryComponent implements OnInit {
     this.form = this.fb.group({
       unit: [null],
       dateOfEntryStateWork: [null],
-      rankHistory: new FormArray([]),
-      positionHistory: new FormArray([]),
+      rankHistory: new UntypedFormArray([]),
+      positionHistory: new UntypedFormArray([]),
 
-      occupationHistory: new FormArray([]),
+      occupationHistory: new UntypedFormArray([]),
     })
     const { registrationFormDoc } = this.store;
     const { rankHistory, positionHistory, unit, dateOfEntryStateWork, occupationHistory } = registrationFormDoc || {};
@@ -158,7 +160,7 @@ export class OfficerWorkHistoryComponent implements OnInit {
 
 
   selectedRankFile(event, index) {
-    const formArr = this.form.get('rankHistory') as FormArray;
+    const formArr = this.form.get('rankHistory') as UntypedFormArray;
     if (event && event.target.files.length > 0) {
       const files = event.target.files;
       const listFile = this.selectedRankFileArray[index];
@@ -209,7 +211,7 @@ export class OfficerWorkHistoryComponent implements OnInit {
 
 
   selectedPositionFile(event, index) {
-    const formArr = this.form.get('positionHistory') as FormArray;
+    const formArr = this.form.get('positionHistory') as UntypedFormArray;
     if (event && event.target.files.length > 0) {
       const files = event.target.files;
       const listFile = this.selectedPositionFileArray[index];
@@ -247,7 +249,7 @@ export class OfficerWorkHistoryComponent implements OnInit {
 
   //multiform
   removeFormArrayWithField(name: string, index?: number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
     if (formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
 
@@ -277,7 +279,7 @@ export class OfficerWorkHistoryComponent implements OnInit {
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -391,22 +393,22 @@ export class OfficerWorkHistoryComponent implements OnInit {
   }
 
   onSelectedDateFrom(event,index){
-    const form = this.form.get('occupationHistory') as FormArray;
+    const form = this.form.get('occupationHistory') as UntypedFormArray;
     form.at(index).get('fromDate').patchValue(event)
   }
 
   onSelectedDateTo(event,index){
-    const form = this.form.get('occupationHistory') as FormArray;
+    const form = this.form.get('occupationHistory') as UntypedFormArray;
     form.at(index).get('toDate').patchValue(event)
   }
 
   onSelectedPosDate(event,index){
-    const form = this.form.get('positionHistory') as FormArray;
+    const form = this.form.get('positionHistory') as UntypedFormArray;
     form.at(index).get('date').patchValue(event)
   }
 
   onSelectedRankDate(event,index){
-    const form = this.form.get('rankHistory') as FormArray;
+    const form = this.form.get('rankHistory') as UntypedFormArray;
     form.at(index).get('date').patchValue(event)
   }
 

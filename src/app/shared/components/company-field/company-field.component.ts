@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
-  selector: 'app-company-field',
-  templateUrl: './company-field.component.html',
-  styleUrls: ['./company-field.component.scss']
+    selector: 'app-company-field',
+    templateUrl: './company-field.component.html',
+    styleUrls: ['./company-field.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CompanyFieldComponent implements OnInit {
   @Input() key;

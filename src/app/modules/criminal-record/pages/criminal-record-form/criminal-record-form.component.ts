@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,9 +9,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-form',
-  templateUrl: './criminal-record-form.component.html',
-  styleUrls: ['./criminal-record-form.component.scss']
+    selector: 'app-criminal-record-form',
+    templateUrl: './criminal-record-form.component.html',
+    styleUrls: ['./criminal-record-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordFormComponent implements OnInit, OnDestroy {
   loading: boolean = true;

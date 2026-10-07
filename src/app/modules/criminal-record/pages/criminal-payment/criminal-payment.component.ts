@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -18,9 +18,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PrintReceiptDialogComponent } from '../../components/print-receipt-dialog/print-receipt-dialog.component';
 
 @Component({
-  selector: 'app-criminal-payment',
-  templateUrl: './criminal-payment.component.html',
-  styleUrls: ['./criminal-payment.component.scss']
+    selector: 'app-criminal-payment',
+    templateUrl: './criminal-payment.component.html',
+    styleUrls: ['./criminal-payment.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalPaymentComponent implements OnInit {
   @ViewChild('searchFilter') searchFilter: ElementRef;
@@ -30,7 +32,7 @@ export class CriminalPaymentComponent implements OnInit {
 
   data = NATIONALITY_APPLICAITON
   durationArray = URGENT_OBJ_ARRAY
-  form: FormGroup
+  form: UntypedFormGroup
   footer_phone: AbstractControl;
   duration: AbstractControl;
   filteredPhone: Observable<Array<any>>;
@@ -48,7 +50,7 @@ export class CriminalPaymentComponent implements OnInit {
     public dialogRef: MatDialogRef<CriminalPaymentComponent>,
     @Inject(MAT_DIALOG_DATA) public formData: any,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     public tran: LanguageStore,
     public ds: DataService,

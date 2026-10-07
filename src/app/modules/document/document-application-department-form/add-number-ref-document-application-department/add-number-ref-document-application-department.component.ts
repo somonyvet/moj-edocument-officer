@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -14,21 +14,23 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-add-number-ref-document-application-department',
-  templateUrl: './add-number-ref-document-application-department.component.html',
-  styleUrls: ['./add-number-ref-document-application-department.component.scss']
+    selector: 'app-add-number-ref-document-application-department',
+    templateUrl: './add-number-ref-document-application-department.component.html',
+    styleUrls: ['./add-number-ref-document-application-department.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddNumberRefDocumentApplicationDepartmentComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បញ្ចូលលេខយោង";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<AddNumberRefDocumentApplicationDepartmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     private ds: DataService,
     private auth: AuthStore,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, OnDestroy, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, OnDestroy, AfterViewInit, AfterViewChecked, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription, fromEvent } from 'rxjs';
@@ -19,9 +19,11 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { SideNavService } from 'src/app/shared/services/sidenav.servce';
 
 @Component({
-  selector: 'app-shared-with-other',
-  templateUrl: './shared-with-other.component.html',
-  styleUrls: ['./shared-with-other.component.scss']
+    selector: 'app-shared-with-other',
+    templateUrl: './shared-with-other.component.html',
+    styleUrls: ['./shared-with-other.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SharedWithOtherComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
   @ViewChild('sidenav') public sidenav: MatSidenav;

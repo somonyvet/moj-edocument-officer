@@ -1,6 +1,6 @@
 <div class="full-page-container">
-    <div class="body">
-        <div class="officer-profile-info-container">
+  <div class="body">
+    <div class="officer-profile-info-container">
 
             <ng-container *ngTemplateOutlet="flowCard; context: {
                 items: normalFlows,
@@ -16,131 +16,149 @@
                 subLabel: 'ព្រឹត្តិបត្រលេខ១, លេខ២ និងពីប្រព័ន្ធ OBR។ លំដាប់ដំណើរការឯកសារពីជំហានទី ១ ដល់ជំហានចុងក្រោយ'
             }"></ng-container>
 
-            <form [formGroup]="latterForm" class="latter-form">
-                <div class="eform form-latter-number" *ngFor="let type of latterTypes"
-                    [formGroupName]="type.key" style="margin: 0 auto; margin-bottom: 16px;">
-                    <div class="body">
-                        <div class="body-item">
-                            <div class="title">
-                                <h3>{{ latterSettings[type.key]?.name || type.name }}</h3>
-                                <span>កំណត់លេខព្រឹត្តិបត្រដោយស្វ័យប្រវត្តិ</span>
-                                <!-- <span class="count" *ngIf="!loadingLatterNo">
-                                    លេខចុងក្រោយ {{ latterSettings[type.key]?.last_no || 0 }}
-                                    <ng-container *ngIf="latterSettings[type.key]?.year_key">
-                                        / {{ latterSettings[type.key]?.year_key }}
-                                    </ng-container>
-                                </span> -->
-                            </div>
-                            <div class="row-item cl">
-                                <div class="latter-item">
-                                    <div class="latter-fields">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>បុព្វបទលេខ</mat-label>
-                                            <input type="text" matInput formControlName="prefix"
-                                                placeholder="ឧ. ព.ថ.៣-">
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>លេខចាប់ផ្ដើម</mat-label>
-                                            <input type="number" required matInput formControlName="start_no"
-                                                placeholder="លេខចាប់ផ្ដើម">
-                                            <mat-error
-                                                *ngIf="latterGroup(type.key)?.controls['start_no']?.hasError('required')">
-                                                This field is required.
-                                            </mat-error>
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>ប្រវែងលេខព្រឹត្តិបត្រ</mat-label>
-                                            <input type="number" required matInput formControlName="padding"
-                                                placeholder="ប្រវែងលេខព្រឹត្តិបត្រ">
-                                            <mat-error
-                                                *ngIf="latterGroup(type.key)?.controls['padding']?.hasError('required')">
-                                                This field is required.
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="latter-foot">
-                                        <mat-checkbox formControlName="include_year">ភ្ជាប់ឆ្នាំក្នុងលេខ</mat-checkbox>
-                                        <button type="button" mat-button class="enbutton primary"
-                                            [disabled]="loadingLatterNo || savingLatterNo === type.key"
-                                            (click)="onSaveLatterNo(type)">រក្សាទុក</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <form [formGroup]="latterForm" class="latter-form">
+        @for (type of latterTypes; track type) {
+          <div class="eform form-latter-number"
+            [formGroupName]="type.key" style="margin: 0 auto; margin-bottom: 16px;">
+            <div class="body">
+              <div class="body-item">
+                <div class="title">
+                  <h3>{{ latterSettings[type.key]?.name || type.name }}</h3>
+                  <span>កំណត់លេខព្រឹត្តិបត្រដោយស្វ័យប្រវត្តិ</span>
+                  <!-- <span class="count" *ngIf="!loadingLatterNo">
+                  លេខចុងក្រោយ {{ latterSettings[type.key]?.last_no || 0 }}
+                  <ng-container *ngIf="latterSettings[type.key]?.year_key">
+                    / {{ latterSettings[type.key]?.year_key }}
+                  </ng-container>
+                </span> -->
+              </div>
+              <div class="row-item cl">
+                <div class="latter-item">
+                  <div class="latter-fields">
+                    <mat-form-field appearance="outline">
+                      <mat-label>បុព្វបទលេខ</mat-label>
+                      <input type="text" matInput formControlName="prefix"
+                        placeholder="ឧ. ព.ថ.៣-">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>លេខចាប់ផ្ដើម</mat-label>
+                      <input type="number" required matInput formControlName="start_no"
+                        placeholder="លេខចាប់ផ្ដើម">
+                      @if (latterGroup(type.key)?.controls['start_no']?.hasError('required')) {
+                        <mat-error
+                          >
+                          This field is required.
+                        </mat-error>
+                      }
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>ប្រវែងលេខព្រឹត្តិបត្រ</mat-label>
+                      <input type="number" required matInput formControlName="padding"
+                        placeholder="ប្រវែងលេខព្រឹត្តិបត្រ">
+                      @if (latterGroup(type.key)?.controls['padding']?.hasError('required')) {
+                        <mat-error
+                          >
+                          This field is required.
+                        </mat-error>
+                      }
+                    </mat-form-field>
+                  </div>
+                  <div class="latter-foot">
+                    <mat-checkbox formControlName="include_year">ភ្ជាប់ឆ្នាំក្នុងលេខ</mat-checkbox>
+                    <button type="button" mat-button class="enbutton primary"
+                      [disabled]="loadingLatterNo || savingLatterNo === type.key"
+                    (click)="onSaveLatterNo(type)">រក្សាទុក</button>
+                  </div>
                 </div>
-            </form>
-
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      }
+    </form>
+
+  </div>
+</div>
 </div>
 
 <ng-template #flowCard let-items="items" let-cat="cat" let-label="label" let-subLabel="subLabel">
-    <div class="eform" style="margin: 0 auto; margin-bottom: 16px;">
-        <div class="body">
-            <div class="body-item">
-                <div class="title">
-                    <h3>ចរន្តឯកសារ {{ label }}</h3>
-                    <span>{{ subLabel }}</span>
-                    <span class="count" *ngIf="!loading && items?.length">
-                        {{ items?.length }} ជំហាន
-                    </span>
-                </div>
-                <div class="row-item cl">
-
-                    <div class="flow-track" *ngIf="loading">
-                        <div class="flow-step is-skeleton" *ngFor="let s of [1,2,3]">
-                            <div class="fl-no"></div>
-                            <div class="fl-body">
-                                <span class="sk-line"></span>
-                                <span class="sk-line sm"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flow-empty" *ngIf="!loading && !items?.length">
-                        <mat-icon>account_tree</mat-icon>
-                        <p>មិនទាន់មានចរន្តឯកសារនៅឡើយទេ</p>
-                        <a mat-button class="btn-create" (click)="create(null, cat)">
-                            <mat-icon class="mat-18">add</mat-icon>
-                            <span>បង្កើតចរន្តឯកសារ</span>
-                        </a>
-                    </div>
-
-                    <div class="flow-track" *ngIf="!loading && items?.length">
-                        <ng-container *ngFor="let item of items; let last = last">
-                            <a class="flow-step" [class.can-skip]="item?.canSkipByCategory"
-                                (click)="create(item, cat)"
-                                [attr.title]="item?.department?.name">
-                                <div class="fl-no">{{ item?.flowNo }}</div>
-                                <div class="fl-body">
-                                    <div class="fl-dep">{{ item?.department?.name }}</div>
-                                    <div class="fl-tag" *ngIf="item?.canSkipByCategory">
-                                        <mat-icon>remove_circle_outline</mat-icon>
-                                        <span>អាចរំលងតាមប្រភេទ</span>
-                                    </div>
-                                </div>
-                                <mat-icon class="fl-edit">edit</mat-icon>
-                            </a>
-
-                            <div class="flow-link" *ngIf="!last">
-                                <mat-icon>arrow_forward</mat-icon>
-                            </div>
-                        </ng-container>
-
-                        <div class="flow-link">
-                            <mat-icon>arrow_forward</mat-icon>
-                        </div>
-                        <a class="flow-step is-add" (click)="create(null, cat)">
-                            <mat-icon>add</mat-icon>
-                            <span>បន្ថែមជំហាន</span>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
+  <div class="eform" style="margin: 0 auto; margin-bottom: 16px;">
+    <div class="body">
+      <div class="body-item">
+        <div class="title">
+          <h3>ចរន្តឯកសារ {{ label }}</h3>
+          <span>{{ subLabel }}</span>
+          @if (!loading && items?.length) {
+            <span class="count">
+              {{ items?.length }} ជំហាន
+            </span>
+          }
         </div>
+        <div class="row-item cl">
+
+          @if (loading) {
+            <div class="flow-track">
+              @for (s of [1,2,3]; track s) {
+                <div class="flow-step is-skeleton">
+                  <div class="fl-no"></div>
+                  <div class="fl-body">
+                    <span class="sk-line"></span>
+                    <span class="sk-line sm"></span>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          @if (!loading && !items?.length) {
+            <div class="flow-empty">
+              <mat-icon>account_tree</mat-icon>
+              <p>មិនទាន់មានចរន្តឯកសារនៅឡើយទេ</p>
+              <a mat-button class="btn-create" (click)="create(null, cat)">
+                <mat-icon class="mat-18">add</mat-icon>
+                <span>បង្កើតចរន្តឯកសារ</span>
+              </a>
+            </div>
+          }
+
+          @if (!loading && items?.length) {
+            <div class="flow-track">
+              @for (item of items; track item; let last = $last) {
+                <a class="flow-step" [class.can-skip]="item?.canSkipByCategory"
+                  (click)="create(item, cat)"
+                  [attr.title]="item?.department?.name">
+                  <div class="fl-no">{{ item?.flowNo }}</div>
+                  <div class="fl-body">
+                    <div class="fl-dep">{{ item?.department?.name }}</div>
+                    @if (item?.canSkipByCategory) {
+                      <div class="fl-tag">
+                        <mat-icon>remove_circle_outline</mat-icon>
+                        <span>អាចរំលងតាមប្រភេទ</span>
+                      </div>
+                    }
+                  </div>
+                  <mat-icon class="fl-edit">edit</mat-icon>
+                </a>
+                @if (!last) {
+                  <div class="flow-link">
+                    <mat-icon>arrow_forward</mat-icon>
+                  </div>
+                }
+              }
+              <div class="flow-link">
+                <mat-icon>arrow_forward</mat-icon>
+              </div>
+              <a class="flow-step is-add" (click)="create(null, cat)">
+                <mat-icon>add</mat-icon>
+                <span>បន្ថែមជំហាន</span>
+              </a>
+            </div>
+          }
+
+        </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 

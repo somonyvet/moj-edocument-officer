@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -7,13 +7,15 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-remark-application',
-  templateUrl: './remark-application.component.html',
-  styleUrls: ['./remark-application.component.scss']
+    selector: 'app-remark-application',
+    templateUrl: './remark-application.component.html',
+    styleUrls: ['./remark-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RemarkApplicationComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   get isReject(): boolean {
     return this.data?.mode === 'reject';
   }
@@ -30,7 +32,7 @@ export class RemarkApplicationComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RemarkApplicationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private auth: AuthStore,

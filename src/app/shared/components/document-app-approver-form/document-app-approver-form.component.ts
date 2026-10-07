@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -9,16 +9,18 @@ import { FireStorageService } from '../../services/fireStorage.service';
 import { MappingService } from '../../services/mapping.service';
 
 @Component({
-  selector: 'app-document-app-approver-form',
-  templateUrl: './document-app-approver-form.component.html',
-  styleUrls: ['./document-app-approver-form.component.scss']
+    selector: 'app-document-app-approver-form',
+    templateUrl: './document-app-approver-form.component.html',
+    styleUrls: ['./document-app-approver-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentAppApproverFormComponent implements OnInit {
 
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "បង្កើតឯកសារ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[];
   filteredOfficeList;
   officeLists = [];
@@ -37,7 +39,7 @@ export class DocumentAppApproverFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentAppApproverFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

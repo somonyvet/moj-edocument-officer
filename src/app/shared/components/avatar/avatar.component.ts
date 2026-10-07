@@ -1,12 +1,14 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { ImageSizeType } from '../../services/fire-storage.service';
 import { transformImageSameTokenNo } from '../../services/fireStorage.service';
 
 @Component({
-  selector: 'app-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+    selector: 'app-avatar',
+    templateUrl: './avatar.component.html',
+    styleUrls: ['./avatar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AvatarComponent implements OnInit, OnChanges {
   @Input() filename: string;

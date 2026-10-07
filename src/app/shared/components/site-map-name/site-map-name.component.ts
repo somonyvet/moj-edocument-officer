@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { pushToObject } from 'src/app/shared/services/convert.service';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-site-map-name',
-  templateUrl: './site-map-name.component.html',
-  styleUrls: ['./site-map-name.component.scss']
+    selector: 'app-site-map-name',
+    templateUrl: './site-map-name.component.html',
+    styleUrls: ['./site-map-name.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SiteMapNameComponent implements OnInit {
   @Input() fileKey: any;

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -13,16 +13,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { BaseStore } from 'src/app/stores/base.store';
 
 @Component({
-  selector: 'app-post-form',
-  templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.scss']
+    selector: 'app-post-form',
+    templateUrl: './post-form.component.html',
+    styleUrls: ['./post-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PostFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតក្រុមផ្តល់ទិដ្ឋាការ";
-  form: FormGroup;
+  form: UntypedFormGroup;
   province: AbstractControl;
   subOfDepartment: AbstractControl;
 
@@ -32,7 +34,7 @@ export class PostFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<PostFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: BaseStore,
     public ds: DataService,
     private auth: AuthStore,

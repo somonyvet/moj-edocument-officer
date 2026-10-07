@@ -4,7 +4,7 @@
             {{title}}
         </div>
         <div class="flex1"></div>
-        <a mat-button mat-icon-button mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+        <a mat-icon-button mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
             <i class="material-icons">&#xE14C;</i>
         </a>
     </div>
@@ -61,7 +61,7 @@
                       <div class="form-arr-item remark-indicator" [formGroupName]="i">
                           <div class="action-container" >
                             <div class="title"><h3>សូចនាករ និង គោលដៅ</h3></div>
-                            <a *ngIf="i>0" (click)="removeFormArr(i)" mat-icon-button mat-button>
+                            <a *ngIf="i>0" (click)="removeFormArr(i)" mat-icon-button>
                               <mat-icon >close</mat-icon>
                             </a>
                           </div>

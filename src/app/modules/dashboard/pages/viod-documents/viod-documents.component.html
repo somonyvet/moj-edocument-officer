@@ -1,68 +1,70 @@
 
-<table class="as-table-wrapper" *ngIf="store?.headerVoidDocuments?.length>0 && !store?.loading">
+@if (store?.headerVoidDocuments?.length>0 && !store?.loading) {
+  <table class="as-table-wrapper">
     <thead #header>
-        <tr>
-            <th class="center">
-                ល.រ
-            </th>
-            <th class="left">
-                លេខឯកសារ
-            </th>
-            <th class="left">
-                ឈ្មោះឯកសារ
-            </th>
-            <th class="left">
-                បច្ចុប្បន្នភាព
-            </th>
-            <th>
-
-            </th>
-        </tr>
+      <tr>
+        <th class="center">
+          ល.រ
+        </th>
+        <th class="left">
+          លេខឯកសារ
+        </th>
+        <th class="left">
+          ឈ្មោះឯកសារ
+        </th>
+        <th class="left">
+          បច្ចុប្បន្នភាព
+        </th>
+        <th>
+        </th>
+      </tr>
     </thead>
     <tbody #container>
-        <tr *ngFor="let item of store?.headerVoidDocuments; let i = index">
-            <td class="center" style="width: 64px;">
-                {{i+1}}
-            </td>
-            <td>
-                <a mat-button mat-icon-button [routerLink]="['/document/' + item?.key]">
-                    <mat-icon>launch</mat-icon>
-                </a>
-                <strong>{{item?.documentNo}}</strong>
-            </td>
-            <td>
-                <!-- {{item?.documentTitle}} -->
-                {{item?.documentTitle?.length > 40 ?item?.documentTitle.substring(0, 40) + '...':item?.documentTitle}}
-            </td>
-            <td>
-                {{item?.updated_at?.toDate()|date:'medium'}}
-            </td>
-            <td style="width: 64px;">
-                <!-- <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <mat-menu #menu="matMenu">
-
-                </mat-menu> -->
-            </td>
-        </tr>
-    </tbody>
+      @for (item of store?.headerVoidDocuments; track item; let i = $index) {
+        <tr>
+          <td class="center" style="width: 64px;">
+            {{i+1}}
+          </td>
+          <td>
+            <a mat-icon-button [routerLink]="['/document/' + $safeNavigationMigration(item?.key)]">
+              <mat-icon>launch</mat-icon>
+            </a>
+            <strong>{{item?.documentNo}}</strong>
+          </td>
+          <td>
+            <!-- {{item?.documentTitle}} -->
+            {{item?.documentTitle?.length > 40 ?item?.documentTitle.substring(0, 40) + '...':item?.documentTitle}}
+          </td>
+          <td>
+            {{$safeNavigationMigration(item?.updated_at?.toDate())|date:'medium'}}
+          </td>
+          <td style="width: 64px;">
+            <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <mat-menu #menu="matMenu">
+          </mat-menu> -->
+        </td>
+      </tr>
+    }
+  </tbody>
 </table>
-<ng-container *ngIf="store?.headerVoidDocuments?.length===0 && !store?.loading">
-    <div class="empty-block">
-        <div class="center-block-empty">
-            <div class="empty-img">
-                <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                    alt="empty">
-            </div>
-            <div class="empty-text">
-                <p class="empty-state-title">
-                    ពុំមានទិន្នន័យ
-                </p>
-                <p class="empty-state-desc">
-                    លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់អគ្គនាយកដ្ឋានដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
-                </p>
-            </div>
-        </div>
+}
+@if (store?.headerVoidDocuments?.length===0 && !store?.loading) {
+  <div class="empty-block">
+    <div class="center-block-empty">
+      <div class="empty-img">
+        <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+          alt="empty">
+      </div>
+      <div class="empty-text">
+        <p class="empty-state-title">
+          ពុំមានទិន្នន័យ
+        </p>
+        <p class="empty-state-desc">
+          លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់អគ្គនាយកដ្ឋានដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+        </p>
+      </div>
     </div>
-</ng-container>
+  </div>
+}

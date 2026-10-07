@@ -1,10 +1,12 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-confirm-success',
-  templateUrl: './confirm-success.component.html',
-  styleUrls: ['./confirm-success.component.scss']
+    selector: 'app-confirm-success',
+    templateUrl: './confirm-success.component.html',
+    styleUrls: ['./confirm-success.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ConfirmSuccessComponent implements OnInit {
   msg: any;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { ChartOfAccountStore } from 'src/app/swotify/stores/chartOfAccount.store
 import { SwotifyStore } from 'src/app/swotify/stores/swotify.store';
 
 @Component({
-  selector: 'app-petty-cash',
-  templateUrl: './petty-cash.component.html',
-  styleUrls: ['./petty-cash.component.scss']
+    selector: 'app-petty-cash',
+    templateUrl: './petty-cash.component.html',
+    styleUrls: ['./petty-cash.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PettyCashComponent implements OnInit {
   tabs = swotify_tabs.chartOfAccounts;

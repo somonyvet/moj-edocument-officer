@@ -1,95 +1,108 @@
 <mat-sidenav-container>
-    <mat-sidenav-content (contextmenu)="rightMenu($event,null); $event.preventDefault()">
-        <mat-progress-bar *ngIf="loading || store?.loading" class="mat-progress-doc" mode="indeterminate">
-        </mat-progress-bar>
-        <div class="page-section">
-            <div *ngIf="!store?.loading && !loading" class="cs-container file-content">
-                <div class="scrollable-table no-scroll">
-                    <table class="table-wrapper" *ngIf="!store?.empty || !store?.fileEmpty">
-                        <thead class="table-header">
-                            <tr class="table-row">
-                                <th class="table-col">ល.រ</th>
-                                <th class="table-col">ឯកសារ</th>
-                                <th class="table-col">ម្ចាស់ឯកសារ</th>
-                                <th class="table-col">បច្ចុប្បន្នភាព</th>
-                                <th class="table-col">ទំហំ</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-body">
-                            <ng-container>
-                                <!-- ==============================Folder -->
-                                <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
-                                    *ngFor="let item of store?.data; let i = index"
-                                    (contextmenu)="rightMenu($event, item); $event.preventDefault()"
-                                    (click)="onSelectedItem(item)" (dblclick)="onOpenItem(item)">
-                                    <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
-                                    <td class="table-col">
-                                        <div class="file-display">
-                                            <file-name-doc [parentFolder]="parentFolder"
-                                                [selectedItem]="store?.selectedItem" [item]="item"></file-name-doc>
-                                        </div>
-                                    </td>
-                                    <td class="table-col">
-                                        {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
-                                    </td>
-                                    <td class="table-col">
-                                        {{ item?.updated_at?.toDate() | date: "medium" }}
-                                    </td>
-                                    <td class="table-col">{{ item | fileSize }}</td>
-                                </tr>
-                                <!-- ==============================File -->
-                                <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
-                                    *ngFor="let item of store?.fileList; let i = index" (click)="onSelectedItem(item)"
-                                    (dblclick)="onOpenItem(item)"
-                                    (contextmenu)="rightMenu($event, item, true); $event.preventDefault()">
-                                    <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
-                                    <td class="table-col">
-                                        <div class="file-display">
-                                            <file-name-doc [parentFolder]="parentFolder"
-                                                [selectedItem]="store?.selectedItem" [item]="item"></file-name-doc>
-                                        </div>
-                                    </td>
-                                    <td class="table-col" *ngIf="auth?.root">
-                                        {{ item?.companyData?.name }}
-                                    </td>
-                                    <td class="table-col">
-                                        {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
-                                    </td>
-                                    <td class="table-col">
-                                        {{ item?.updated_at?.toDate() | date: "medium" }}
-                                    </td>
-                                    <td class="table-col">{{ item | fileSize }}</td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-                <app-empty (contextmenu)="
+  <mat-sidenav-content (contextmenu)="rightMenu($event,null); $event.preventDefault()">
+    @if (loading || store?.loading) {
+      <mat-progress-bar class="mat-progress-doc" mode="indeterminate">
+      </mat-progress-bar>
+    }
+    <div class="page-section">
+      @if (!store?.loading && !loading) {
+        <div class="cs-container file-content">
+          <div class="scrollable-table no-scroll">
+            @if (!store?.empty || !store?.fileEmpty) {
+              <table class="table-wrapper">
+                <thead class="table-header">
+                  <tr class="table-row">
+                    <th class="table-col">ល.រ</th>
+                    <th class="table-col">ឯកសារ</th>
+                    <th class="table-col">ម្ចាស់ឯកសារ</th>
+                    <th class="table-col">បច្ចុប្បន្នភាព</th>
+                    <th class="table-col">ទំហំ</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <ng-container>
+                    <!-- ==============================Folder -->
+                    @for (item of store?.data; track item; let i = $index) {
+                      <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
+                        (contextmenu)="rightMenu($event, item); $event.preventDefault()"
+                        (click)="onSelectedItem(item)" (dblclick)="onOpenItem(item)">
+                        <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
+                        <td class="table-col">
+                          <div class="file-display">
+                            <file-name-doc [parentFolder]="parentFolder"
+                            [selectedItem]="$safeNavigationMigration(store?.selectedItem)" [item]="item"></file-name-doc>
+                          </div>
+                        </td>
+                        <td class="table-col">
+                          {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
+                        </td>
+                        <td class="table-col">
+                          {{ $safeNavigationMigration(item?.updated_at?.toDate()) | date: "medium" }}
+                        </td>
+                        <td class="table-col">{{ item | fileSize }}</td>
+                      </tr>
+                    }
+                    <!-- ==============================File -->
+                    @for (item of store?.fileList; track item; let i = $index) {
+                      <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
+                        (click)="onSelectedItem(item)"
+                        (dblclick)="onOpenItem(item)"
+                        (contextmenu)="rightMenu($event, item, true); $event.preventDefault()">
+                        <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
+                        <td class="table-col">
+                          <div class="file-display">
+                            <file-name-doc [parentFolder]="parentFolder"
+                            [selectedItem]="$safeNavigationMigration(store?.selectedItem)" [item]="item"></file-name-doc>
+                          </div>
+                        </td>
+                        @if (auth?.root) {
+                          <td class="table-col">
+                            {{ item?.companyData?.name }}
+                          </td>
+                        }
+                        <td class="table-col">
+                          {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
+                        </td>
+                        <td class="table-col">
+                          {{ $safeNavigationMigration(item?.updated_at?.toDate()) | date: "medium" }}
+                        </td>
+                        <td class="table-col">{{ item | fileSize }}</td>
+                      </tr>
+                    }
+                  </ng-container>
+                </tbody>
+              </table>
+            }
+          </div>
+          @if (store?.empty && store?.fileEmpty) {
+<app-empty (contextmenu)="
                     rightMenu($event, this.store.selectedOpenItem, false);
                     $event.preventDefault()
-                  " *ngIf="store?.empty && store?.fileEmpty" [subtitle]="APP_SUBTITLE" [name]="APP_INFO"
-                    [img]="APP_IMG">
-                </app-empty>
-            </div>
+                  " [subtitle]="APP_SUBTITLE" [name]="APP_INFO"
+              [img]="APP_IMG">
+            </app-empty>
+          }
         </div>
+      }
+    </div>
 
-        <ng-container>
-            <div class="mobile-menu">
-                <mat-menu #contextMenu="matMenu" class="nopadding">
-                    <app-right-click-menu> </app-right-click-menu>
-                </mat-menu>
-            </div>
+    <ng-container>
+      <div class="mobile-menu">
+        <mat-menu #contextMenu="matMenu" class="nopadding">
+          <app-right-click-menu> </app-right-click-menu>
+        </mat-menu>
+      </div>
 
-            <ng-template #userMenu let-item>
-                <section>
-                    <app-right-click-menu (onClose)="closeEvent($event)"></app-right-click-menu>
-                </section>
-            </ng-template>
-        </ng-container>
+      <ng-template #userMenu let-item>
+        <section>
+          <app-right-click-menu (onClose)="closeEvent($event)"></app-right-click-menu>
+        </section>
+      </ng-template>
+    </ng-container>
 
-    </mat-sidenav-content>
-    <mat-sidenav #sidenav [mode]="ismobile ? 'over' : 'side'" [opened]="!ismobile" [position]="'end'" opened
-        class="content-side" [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
-        <app-file-info></app-file-info>
-    </mat-sidenav>
+  </mat-sidenav-content>
+  <mat-sidenav #sidenav [mode]="ismobile ? 'over' : 'side'" [opened]="!ismobile" [position]="'end'" opened
+    class="content-side" [fixedInViewport]="true" [fixedTopGap]="122" [fixedBottomGap]="0">
+    <app-file-info></app-file-info>
+  </mat-sidenav>
 </mat-sidenav-container>

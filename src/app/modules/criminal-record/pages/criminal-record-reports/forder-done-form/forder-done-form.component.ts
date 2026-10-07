@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -8,9 +8,11 @@ import * as XLSX from 'xlsx';
 import { FolderDoneReportStore } from 'src/app/stores/folder-done-report.store';
 
 @Component({
-  selector: 'app-forder-done-form',
-  templateUrl: './forder-done-form.component.html',
-  styleUrls: ['./forder-done-form.component.scss']
+    selector: 'app-forder-done-form',
+    templateUrl: './forder-done-form.component.html',
+    styleUrls: ['./forder-done-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class ForderDoneFormComponent implements OnInit {

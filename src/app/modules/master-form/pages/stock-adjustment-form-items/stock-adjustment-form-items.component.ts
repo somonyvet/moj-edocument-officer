@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { debounceTime, tap, switchMap } from 'rxjs/operators';
@@ -14,15 +14,17 @@ import { BaseStore } from 'src/app/stores/base.store';
 import { InventoryAdjustmentStore } from 'src/app/stores/inventory-adjustment.store';
 
 @Component({
-  selector: 'app-stock-adjustment-form-items',
-  templateUrl: './stock-adjustment-form-items.component.html',
-  styleUrls: ['./stock-adjustment-form-items.component.scss']
+    selector: 'app-stock-adjustment-form-items',
+    templateUrl: './stock-adjustment-form-items.component.html',
+    styleUrls: ['./stock-adjustment-form-items.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StockAdjustmentFormItemsComponent implements OnInit {
   @ViewChild('inputRef', { static: true }) inputRef: ElementRef;
 
   title: any = "Add adjustment item";
-  form: FormGroup;
+  form: UntypedFormGroup;
   product: AbstractControl;
   qty: AbstractControl;
   from_number: AbstractControl;
@@ -39,7 +41,7 @@ export class StockAdjustmentFormItemsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<StockAdjustmentFormItemsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: InventoryAdjustmentStore,
     private auth: AuthStore,
     private autoStore: AutoCompleteStore,

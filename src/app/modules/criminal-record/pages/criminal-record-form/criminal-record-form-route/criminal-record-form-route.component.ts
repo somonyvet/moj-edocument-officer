@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { APPLICATION_TYPE_OBJ, NATIONALITY_APPLICAITON } from 'src/app/dummy/status';
@@ -8,9 +8,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-form-route',
-  templateUrl: './criminal-record-form-route.component.html',
-  styleUrls: ['./criminal-record-form-route.component.scss']
+    selector: 'app-criminal-record-form-route',
+    templateUrl: './criminal-record-form-route.component.html',
+    styleUrls: ['./criminal-record-form-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordFormRouteComponent implements OnInit {
   loading: boolean = true;

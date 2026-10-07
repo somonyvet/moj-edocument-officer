@@ -1,120 +1,126 @@
 <header id="header" *mobxAutorun StickyPolyFill>
-    <nav class="top-nav">
-        <div class="nav-content">
-            <div class="left-nav">
-                <div class="nav-item-list">
-                    <div class="nav-item" style="margin-left: -12px">
-                        <button mat-button (click)="togglesidebar()">
-                            <mat-icon class="mat-18">menu</mat-icon>
-                        </button>
-                    </div>
-                    <div class="isSmallScreen" *ngIf="ismobile"></div>
-                    <div class="isBigScreen" *ngIf="!ismobile"></div>
-                </div>
-            </div>
-            <h3 style="margin-right: 48px;">
-                {{!store?.root?'ស្នងការដ្ឋាននគរបាល' + store?.selectedCompany?.name:'អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍'}}</h3>
-
-            <!-- <div class="isBigScreen" *ngIf="!ismobile">
-                <div class="search-container">
-                    <button mat-button class="m-r16" style="border-radius: 4px 0 0 4px; ">
-                        <mat-icon class="mat-18">search</mat-icon>
-                    </button>
-
-                    <mat-form-field class="search-box no-line" appearance="fill">
-                        <input type="text" class="search"
-                        matInput [formControl]="company"
-                            placeholder="Search My Files">
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItem">
-                            <mat-option class="cs-mat">
-                                <div class="cs-select-list">
-                                    <div class="info" style="display: flex;">
-                                        <p class="info-item name">
-                                            <img class="ico"
-                                                src="https://firebasestorage.googleapis.com/v0/b/doccamwin.appspot.com/o/file_icons%2Fexcel.svg?alt=media&token=145e6a2f-3451-4e86-bf5d-681c01e38d8d" />
-                                        </p>
-                                        <p class="info-item desc">PDFs</p>
-                                    </div>
-                                </div>
-                            </mat-option>
-                        </mat-autocomplete>
-                        <ng-container *ngIf="company.value">
-                            <button class="cl-search" mat-button (click)="clear()">
-                                <mat-icon class="mat-18">close</mat-icon>
-                            </button>
-                        </ng-container>
-                    </mat-form-field>
-
-                    <button mat-button (click)="searchFilter()">
-                        <mat-icon class="mat-18">arrow_drop_down</mat-icon>
-                    </button>
-                </div>
-
-            </div> -->
-
-            <div class="right-nav">
-                <form [formGroup]="form" class="g-search">
-                    <input formControlName="search" [matAutocomplete]="auto" [placeholder]="'ស្វែងរក'" />
-                    <button type="submit" mat-button mat-icon-button>
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </form>
-
-                <mat-autocomplete (optionSelected)="onOptionSelected($event)" #auto="matAutocomplete" class="sc-auto-menu" [displayWith]="ds?.displayFn" >
-                    <mat-option *ngFor="let item of drive?.searchData" [value]="item" class="map-auto-complete">
-                        <div class="map-sidenav-content-wrap">
-                            <div class="map-sidenav-content-item">
-                                <file-name-doc [item]="item"></file-name-doc>
-                            </div>
-                        </div>
-                    </mat-option>
-                </mat-autocomplete>
-
-                <div class="nav-item-list">
-
-                    <!-- <div class="nav-item">
-                        <div class="nav-item-link" [matMenuTriggerFor]="usermenu">
-                            <div class="avatar">
-                                <img src="https://firebasestorage.googleapis.com/v0/b/sysanotta.appspot.com/o/no_image.svg?alt=media&token=f25af902-6c62-47e6-bdf3-48e3b0c6fe8c"
-                                    alt="user">
-                            </div>
-                        </div>
-                        <mat-menu #usermenu="matMenu" class="cs-matmenu">
-                            <div class="menu-content">
-                                <a mat-menu-item (click)="onLogOut()">
-                                    Sign Out
-                                </a>
-
-                            </div>
-                        </mat-menu>
-                    </div> -->
-                </div>
-            </div>
+  <nav class="top-nav">
+    <div class="nav-content">
+      <div class="left-nav">
+        <div class="nav-item-list">
+          <div class="nav-item" style="margin-left: -12px">
+            <button mat-button (click)="togglesidebar()">
+              <mat-icon class="mat-18">menu</mat-icon>
+            </button>
+          </div>
+          @if (ismobile) {
+            <div class="isSmallScreen"></div>
+          }
+          @if (!ismobile) {
+            <div class="isBigScreen"></div>
+          }
         </div>
-        <!-- <div class="isSmallScreen search-small-screen" *ngIf="ismobile">
-            <div class="search-container">
-                <button mat-button style="border-radius: 4px 0 0 4px;margin-right: 8px; ">
-                    <mat-icon class="mat-18">search</mat-icon>
-                </button>
+      </div>
+      <h3 style="margin-right: 48px;">
+      {{!store?.root?'ស្នងការដ្ឋាននគរបាល' + store?.selectedCompany?.name:'អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍'}}</h3>
 
-                <mat-form-field class="search-box no-line" appearance="fill">
-                    <input type="text" class="search"
-                    matInput [formControl]="company"
-                        placeholder="Search My Files">
+      <!-- <div class="isBigScreen" *ngIf="!ismobile">
+      <div class="search-container">
+        <button mat-button class="m-r16" style="border-radius: 4px 0 0 4px; ">
+          <mat-icon class="mat-18">search</mat-icon>
+        </button>
 
-                    <ng-container *ngIf="company.value">
-                        <button class="cl-search" mat-button (click)="clear()">
-                            <mat-icon class="mat-18">close</mat-icon>
-                        </button>
-                    </ng-container>
-                </mat-form-field>
+        <mat-form-field class="search-box no-line" appearance="fill">
+          <input type="text" class="search"
+            matInput [formControl]="company"
+            placeholder="Search My Files">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayItem">
+            <mat-option class="cs-mat">
+              <div class="cs-select-list">
+                <div class="info" style="display: flex;">
+                  <p class="info-item name">
+                    <img class="ico"
+                      src="https://firebasestorage.googleapis.com/v0/b/doccamwin.appspot.com/o/file_icons%2Fexcel.svg?alt=media&token=145e6a2f-3451-4e86-bf5d-681c01e38d8d" />
+                  </p>
+                  <p class="info-item desc">PDFs</p>
+                </div>
+              </div>
+            </mat-option>
+          </mat-autocomplete>
+          <ng-container *ngIf="company.value">
+            <button class="cl-search" mat-button (click)="clear()">
+              <mat-icon class="mat-18">close</mat-icon>
+            </button>
+          </ng-container>
+        </mat-form-field>
 
+        <button mat-button (click)="searchFilter()">
+          <mat-icon class="mat-18">arrow_drop_down</mat-icon>
+        </button>
+      </div>
 
-                <button mat-button (click)="searchFilter()">
-                    <mat-icon class="mat-18">arrow_drop_down</mat-icon>
-                </button>
+    </div> -->
+
+    <div class="right-nav">
+      <form [formGroup]="form" class="g-search">
+        <input formControlName="search" [matAutocomplete]="auto" [placeholder]="'ស្វែងរក'" />
+        <button type="submit" mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+
+      <mat-autocomplete (optionSelected)="onOptionSelected($event)" #auto="matAutocomplete" class="sc-auto-menu" [displayWith]="$safeNavigationMigration(ds?.displayFn)" >
+        @for (item of drive?.searchData; track item) {
+          <mat-option [value]="item" class="map-auto-complete">
+            <div class="map-sidenav-content-wrap">
+              <div class="map-sidenav-content-item">
+                <file-name-doc [item]="item"></file-name-doc>
+              </div>
             </div>
-                        </div> -->
-    </nav>
+          </mat-option>
+        }
+      </mat-autocomplete>
+
+      <div class="nav-item-list">
+
+        <!-- <div class="nav-item">
+        <div class="nav-item-link" [matMenuTriggerFor]="usermenu">
+          <div class="avatar">
+            <img src="https://firebasestorage.googleapis.com/v0/b/sysanotta.appspot.com/o/no_image.svg?alt=media&token=f25af902-6c62-47e6-bdf3-48e3b0c6fe8c"
+              alt="user">
+          </div>
+        </div>
+        <mat-menu #usermenu="matMenu" class="cs-matmenu">
+          <div class="menu-content">
+            <a mat-menu-item (click)="onLogOut()">
+              Sign Out
+            </a>
+
+          </div>
+        </mat-menu>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- <div class="isSmallScreen search-small-screen" *ngIf="ismobile">
+<div class="search-container">
+  <button mat-button style="border-radius: 4px 0 0 4px;margin-right: 8px; ">
+    <mat-icon class="mat-18">search</mat-icon>
+  </button>
+
+  <mat-form-field class="search-box no-line" appearance="fill">
+    <input type="text" class="search"
+      matInput [formControl]="company"
+      placeholder="Search My Files">
+
+    <ng-container *ngIf="company.value">
+      <button class="cl-search" mat-button (click)="clear()">
+        <mat-icon class="mat-18">close</mat-icon>
+      </button>
+    </ng-container>
+  </mat-form-field>
+
+
+  <button mat-button (click)="searchFilter()">
+    <mat-icon class="mat-18">arrow_drop_down</mat-icon>
+  </button>
+</div>
+</div> -->
+</nav>
 
 </header>

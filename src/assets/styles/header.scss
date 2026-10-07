@@ -1,4 +1,5 @@
-@import "./constants";
+@use "constants";
+@use "variable.scss" as *;
 
 .toggled-sidebar {
   #header {
@@ -74,34 +75,34 @@
     }
   }
 
-  .mat-form-field-infix {
+  .mat-mdc-form-field-infix {
     border: none;
   }
 
-  .mat-form-field-wrapper {
+  .mat-mdc-text-field-wrapper {
     padding: 0;
   }
 
-  .mat-form-field-underline {
+  .mdc-line-ripple {
     display: none;
   }
 
-  .mat-select-value-text {
+  .mat-mdc-select-value-text {
     color: #fafafa;
     text-transform: capitalize;
   }
 
-  .mat-select-arrow {
+  .mat-mdc-select-arrow {
     color: #fafafa;
   }
 
-  .mat-option-text {
+  .mdc-list-item__primary-text {
     text-transform: capitalize;
   }
 }
 
 .campus-select {
-  .mat-select {
+  .mat-mdc-select {
     background-color: #0288d1;
     border: 1px solid #0288d1;
   }
@@ -188,7 +189,7 @@
   .nav-item {
     padding: 0;
 
-    .mat-button {
+    .mat-mdc-button {
       color: $color;
       min-width: unset;
       font-size: 14px;
@@ -197,7 +198,7 @@
     }
 
     .m-menu {
-      &.mat-button {
+      &.mat-mdc-button {
         font-family: $appFontTitle !important;
       }
     }
@@ -265,7 +266,7 @@
 .mat-result-items {
   margin-top: 5px;
 
-  .mat-option {
+  .mat-mdc-option {
     height: 52px;
 
     img {
@@ -274,7 +275,7 @@
       border-radius: 50%;
     }
 
-    .mat-option-text {
+    .mdc-list-item__primary-text {
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -297,7 +298,7 @@
       justify-content: center;
       align-items: center;
 
-      .mat-option-text {
+      .mdc-list-item__primary-text {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -324,7 +325,7 @@
   flex: 1;
 }
 
-.mat-form-field-flex {
+.mat-mdc-form-field-flex {
   line-height: 30px;
 }
 
@@ -339,7 +340,7 @@
   margin-right: 6px;
   font-family: $appFont;
 
-  .mat-select {
+  .mat-mdc-select {
     width: 80px;
     position: absolute;
     left: 12px;
@@ -356,7 +357,7 @@
     font-family: inherit;
   }
 
-  .mat-icon-button {
+  .mat-mdc-icon-button {
     position: absolute;
     left: 6px;
 
@@ -390,7 +391,7 @@
 }
 
 .sc-auto-menu {
-  .mat-option {
+  .mat-mdc-option {
     padding: 0;
   }
 }
@@ -413,7 +414,7 @@ $sidenav-width: 360px;
   top: 0;
   z-index: 999;
 
-  > .mat-button {
+  > .mat-mdc-button {
     &:last-child {
       margin-left: auto;
     }
@@ -699,7 +700,7 @@ app-component-nav {
   flex: 1 1 auto;
 }
 
-@media (max-width: $small-breakpoint-width) {
+@media (max-width: constants.$small-breakpoint-width) {
   // Add specific rule to prevent default rule conflict
   .app-component-viewer-sidenav-container .app-component-viewer-sidenav {
     // position right above the content
@@ -765,7 +766,7 @@ app-component-nav {
   }
 }
 
-@media (max-width: $small-breakpoint-width) {
+@media (max-width: constants.$small-breakpoint-width) {
   .app-component-viewer-sidenav {
     .app-component-viewer-nav-content {
       background: none;
@@ -802,10 +803,41 @@ app-component-nav {
   align-items: center;
   z-index: 2;
 
-  .mat-button {
+  .mat-mdc-button {
     color: #333;
     margin-right: 10px;
     outline: none;
+  }
+
+  .mat-mdc-icon-button {
+    margin-right: 10px;
+  }
+
+  /* Genuinely 40px buttons only: the avatar. Grid/bell share .app-button with the
+     center-nav icons and render at 50x60 in the real old app (verified via its actual
+     rendered DOM), so they are deliberately excluded here. */
+  .btn-p-icon:not(.app-button).mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 40px;
+    --mat-icon-button-state-layer-size: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    .mat-icon {
+      margin: 0;
+      line-height: 24px;
+    }
+  }
+
+  /* Stuck focus/ripple highlight after click or menu close (MDC persistent state
+     layer), while still keeping real keyboard-focus visible for accessibility. */
+  .mat-mdc-icon-button.cdk-program-focused .mat-mdc-button-persistent-ripple::before,
+  .mat-mdc-icon-button.cdk-mouse-focused .mat-mdc-button-persistent-ripple::before,
+  .mat-mdc-icon-button.cdk-focused .mat-focus-indicator::before {
+    opacity: 0 !important;
   }
 
   .btn-p-icon {
@@ -821,6 +853,42 @@ app-component-nav {
       visibility: hidden;
     }
 
+    /* Verified via the real old app's rendered DOM: grid/bell (.app-button) are 60px
+       tall, matching the center-nav icons, not the 40px avatar circle. MDC's own
+       injected component height still wins over .app-button's height:60 for this
+       property specifically (width already resolves correctly via source order), so
+       it needs an explicit override here even though it's unrelated to the 40px rule
+       above (which deliberately excludes .app-button). */
+    &.app-button {
+      height: 60px;
+    }
+
+    /* Requested: the notification bell's circle and touch target should match the
+       profile avatar's 40px size instead of the wider .app-button default. */
+    &.btn-sm-icon {
+      --mdc-icon-button-state-layer-size: 40px;
+      --mat-icon-button-state-layer-size: 40px;
+      --mat-icon-button-touch-target-size: 40px;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+      padding: 8px;
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      .mat-icon {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
     img {
       width: 40px;
       height: 40px;
@@ -830,7 +898,7 @@ app-component-nav {
   }
 }
 
-.mat-tooltip {
+.mat-mdc-tooltip {
   font-family: $font;
   font-size: 15px;
 }
@@ -884,7 +952,7 @@ app-component-nav {
   display: flex;
   align-items: center;
 
-  .mat-button {
+  .mat-mdc-button {
     background: #e4e6eb;
     color: #333;
     margin-right: 6px;
@@ -1053,7 +1121,7 @@ app-component-nav {
   min-width: 360px;
   max-height: calc(100vh - 90px);
 
-  virtual-scroller {
+  cdk-virtual-scroll-viewport {
     width: 100%;
     height: clamp(60vh, calc(100vh - 130px), calc(100vh - 100px));
   }
@@ -1087,7 +1155,7 @@ app-component-nav {
     }
 
     .notify-list-item-b {
-      &.mat-button {
+      &.mat-mdc-button {
         width: 100%;
         display: flex;
         padding: 6px;
@@ -1259,7 +1327,7 @@ app-component-nav {
 }
 
 .devsite-cpwd {
-  &.mat-button {
+  &.mat-mdc-button {
     display: flex;
     flex-direction: column;
     margin: 3px 6px;
@@ -1274,7 +1342,7 @@ app-component-nav {
       }
     }
 
-    .mat-button-wrapper {
+    .mdc-button__label {
       width: 100%;
     }
 
@@ -1326,7 +1394,7 @@ app-component-nav {
   }
 
   .p-term {
-    &.mat-button {
+    &.mat-mdc-button {
       color: $primary;
       margin-top: 12px;
       font-size: 17px;

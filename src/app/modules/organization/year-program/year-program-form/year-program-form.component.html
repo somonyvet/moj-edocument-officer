@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
@@ -11,21 +11,27 @@
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះឆ្នាំ</mat-label>
         <input #inputRef cdkFocusInitial matInputAutofocus formControlName="name" required matInput placeholder="ឈ្មោះឆ្នាំ">
-        <mat-error *ngIf="form.controls['name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
-        <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
-          ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
-        </mat-error>
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (form.controls['name'].hasError('nameAvailable')) {
+          <mat-error class="error-message">
+            ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
         <mat-label>ឆ្នាំសម្រាប់កម្មវិធី</mat-label>
         <input type="number" matInput  formControlName="year">
-        <mat-error *ngIf="form.controls['year'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['year'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
   </mat-dialog-content>

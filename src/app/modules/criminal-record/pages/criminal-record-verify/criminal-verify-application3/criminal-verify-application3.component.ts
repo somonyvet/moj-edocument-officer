@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -11,9 +11,11 @@ import { getYearsList, todayDate } from 'src/app/shared/services/mapping.service
 import { days, monthOfYear } from 'src/app/dummy/report';
 
 @Component({
-  selector: 'app-criminal-verify-application3',
-  templateUrl: './criminal-verify-application3.component.html',
-  styleUrls: ['./criminal-verify-application3.component.scss']
+    selector: 'app-criminal-verify-application3',
+    templateUrl: './criminal-verify-application3.component.html',
+    styleUrls: ['./criminal-verify-application3.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalVerifyApplication3Component implements OnInit {
   tabs = criminal_tabs.internal_process_applications;

@@ -1,147 +1,144 @@
-<div class="doc-preview-wrapper new-ui" *ngIf="isAllowRead; else noPermissionTemplate">
-  <div class="doc-preview-content">
-    <div class="doc-preview-content-action-top">
-      <div class="doc-title">
-        <div class="doc-cover">
+@if (isAllowRead) {
+  <div class="doc-preview-wrapper new-ui">
+    <div class="doc-preview-content">
+      <div class="doc-preview-content-action-top">
+        <div class="doc-title">
+          <div class="doc-cover">
+          </div>
+          <strong>របាយការណ៍សញ្ជាតិប្រចាំថ្ងៃអាកាស</strong>
         </div>
-        <strong>របាយការណ៍សញ្ជាតិប្រចាំថ្ងៃអាកាស</strong>
+        <div class="abs-tr">
+          <a mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
+            matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
+            <mat-icon class="mat-18">local_printshop</mat-icon>
+          </a>
+        </div>
       </div>
-
-      <div class="abs-tr">
-        <a mat-button mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
-          matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
-          <mat-icon class="mat-18">local_printshop</mat-icon>
-        </a>
-      </div>
-    </div>
-
-    <div class="doc-template-wrapper print-preview" id="print">
-      <table #table style="margin: 0 auto;">
-        <tbody>
-          <tr>
-            <td style="padding: 10px 0;">
-              <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
-                aria-label="Example icon-button with a menu">
-                <span>{{store?.periodText ? store?.periodText : 'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
-                <i class="material-icons">arrow_drop_down</i>
-              </button>
-              <mat-menu #menuPeriod="matMenu">
-                <div class="options-lags" (click)="$event.stopPropagation();">
-                  <app-report-filter-period reportRoute="/report-doc/everyday-nationality-report" reportType='thai-travel-in-out' [fromDate]="store?.fromDateNum"
-                    [toDate]="store?.toDateNum">
-                  </app-report-filter-period>
-                </div>
-              </mat-menu>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 0; margin: 0;">
-              <div class="page">
-                <div class="doc-template-page"
-                  style="page-break-after: always; min-height: 297mm; margin-bottom: 30px; min-width: 210mm; padding: 44px 54px;">
-                  <div class="doc-template-row">
-                    <div class="bl-title-left">
-                      <ng-container>
-                        <p>នាយកដ្ឋានជនបរទេស</p>
-                      </ng-container>
-                      <p>
-                        មិនមែនអន្តោប្រវេស និងបច្ចេកទេស
-                      </p>
-                      <p>
-                        ការិយាល័យផ្ដល់ទិដ្ឋាការ
-                      </p>
-                      <span>ក្រុមផ្ដល់ទិដ្ឋាការប្រចាំច្រកទ្វាអាកាសយានដ្ឋានអន្តរជាតិ</span>
-                      <div>
-                        <span>ខេត្តព្រះសីហនុ</span>
+      <div class="doc-template-wrapper print-preview" id="print">
+        <table #table style="margin: 0 auto;">
+          <tbody>
+            <tr>
+              <td style="padding: 10px 0;">
+                <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+                  aria-label="Example icon-button with a menu">
+                  <span>{{store?.periodText ? store?.periodText : 'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+                  <i class="material-icons">arrow_drop_down</i>
+                </button>
+                <mat-menu #menuPeriod="matMenu">
+                  <div class="options-lags" (click)="$event.stopPropagation();">
+                    <app-report-filter-period reportRoute="/report-doc/everyday-nationality-report" reportType='thai-travel-in-out' [fromDate]="$safeNavigationMigration(store?.fromDateNum)"
+                      [toDate]="$safeNavigationMigration(store?.toDateNum)">
+                    </app-report-filter-period>
+                  </div>
+                </mat-menu>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0; margin: 0;">
+                <div class="page">
+                  <div class="doc-template-page"
+                    style="page-break-after: always; min-height: 297mm; margin-bottom: 30px; min-width: 210mm; padding: 44px 54px;">
+                    <div class="doc-template-row">
+                      <div class="bl-title-left">
+                        <ng-container>
+                          <p>នាយកដ្ឋានជនបរទេស</p>
+                        </ng-container>
+                        <p>
+                          មិនមែនអន្តោប្រវេស និងបច្ចេកទេស
+                        </p>
+                        <p>
+                          ការិយាល័យផ្ដល់ទិដ្ឋាការ
+                        </p>
+                        <span>ក្រុមផ្ដល់ទិដ្ឋាការប្រចាំច្រកទ្វាអាកាសយានដ្ឋានអន្តរជាតិ</span>
+                        <div>
+                          <span>ខេត្តព្រះសីហនុ</span>
+                        </div>
+                        <p class="star">3</p>
                       </div>
-                      <p class="star">3</p>
+                      <div class="bl-space"></div>
+                      <div class="bl-title-right">
+                        <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                        <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                        <p class="star">3</p>
+                      </div>
                     </div>
-                    <div class="bl-space"></div>
-                    <div class="bl-title-right">
-                      <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
-                      <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                      <p class="star">3</p>
+                    <div class="doc-template-row doc-template-block">
+                      <div class="bl-title-center pdt-8">
+                        <p style="text-decoration: underline;">កំណត់បង្ហាញ</p>
+                      </div>
+                      <div class="bl-title-center pdt-8">
+                        <span>ប្រចាំថ្ងៃទី២២ ខែកញ្ញា ឆ្នាំ២០២២</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="doc-template-row doc-template-block">
-                    <div class="bl-title-center pdt-8">
-                      <p style="text-decoration: underline;">កំណត់បង្ហាញ</p>
-                    </div>
-                    <div class="bl-title-center pdt-8">
-                      <span>ប្រចាំថ្ងៃទី២២ ខែកញ្ញា ឆ្នាំ២០២២</span>
-                    </div>
-                  </div>
-
-                  <div class="doc-template-row doc-template-block" style="padding: 20px 0;">
-                    <table class="tb-master-print new">
-
-                      <!-- <tr class="table-row">
-                      <td class="table-col center">
-                        <div class="doc-template-row doc-template-block" style="padding: 20px 0;">
-                          <div class="container-table">
-                            <div class="column">
-                              <div class="cell center">ល.រ</div>
-                              <div class="cell center w-600">ប្រទេស/សញ្ជាតិ</div>
-                              <div class="cell center">T</div>
-                              <div class="cell center">T1</div>
-                              <div class="cell center">T2</div>
-                              <div class="cell center">T3</div>
-                              <div class="cell center">E</div>
-                              <div class="cell center">E1</div>
-                              <div class="cell center">E2</div>
-                              <div class="cell center">E3</div>
-                              <div class="cell center">E3</div>
-                              <div class="cell center">E3</div>
-                              <div class="cell center">D</div>
-                              <div class="cell center">K</div>
-                              <div class="cell center">A</div>
-                              <div class="cell center">B</div>
-                              <div class="cell center">C</div>
-                              <div class="cell center">Total</div>
-                            </div>
-                            <div class="column">
-                              <div class="cell center">1</div>
-                              <div class="cell center">Indonesia</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">5</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">5</div>
-                            </div>
-                            <div class="column footer">
-                              <div class="cell center" colspan="2">សរុប</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">5</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">0</div>
-                              <div class="cell center">5</div>
+                    <div class="doc-template-row doc-template-block" style="padding: 20px 0;">
+                      <table class="tb-master-print new">
+                        <!-- <tr class="table-row">
+                        <td class="table-col center">
+                          <div class="doc-template-row doc-template-block" style="padding: 20px 0;">
+                            <div class="container-table">
+                              <div class="column">
+                                <div class="cell center">ល.រ</div>
+                                <div class="cell center w-600">ប្រទេស/សញ្ជាតិ</div>
+                                <div class="cell center">T</div>
+                                <div class="cell center">T1</div>
+                                <div class="cell center">T2</div>
+                                <div class="cell center">T3</div>
+                                <div class="cell center">E</div>
+                                <div class="cell center">E1</div>
+                                <div class="cell center">E2</div>
+                                <div class="cell center">E3</div>
+                                <div class="cell center">E3</div>
+                                <div class="cell center">E3</div>
+                                <div class="cell center">D</div>
+                                <div class="cell center">K</div>
+                                <div class="cell center">A</div>
+                                <div class="cell center">B</div>
+                                <div class="cell center">C</div>
+                                <div class="cell center">Total</div>
+                              </div>
+                              <div class="column">
+                                <div class="cell center">1</div>
+                                <div class="cell center">Indonesia</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">5</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">5</div>
+                              </div>
+                              <div class="column footer">
+                                <div class="cell center" colspan="2">សរុប</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">5</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">0</div>
+                                <div class="cell center">5</div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                    </tr> -->
+                        </td>
+                      </tr> -->
                       <thead class="table-header">
                         <tr class="table-row">
                           <th class="table-col center" style="width: 26px;">ល.រ</th>
@@ -203,7 +200,6 @@
                       </tfoot>
                     </table>
                   </div>
-
                   <div class="doc-template-row doc-template-bloc" style="flex-direction: row-reverse;">
                     <div class="bottom-dt">
                       <div class="flex-row11 blue">
@@ -217,93 +213,83 @@
                       <div class="title">ប្រធានក្រុមផ្ដល់ទិដ្ឋការ</div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-
     </div>
   </div>
   <div class="doc-preview-comment" [ngStyle]="setStyleSidebar(openSideComment)">
-
     <div class="doc-preview-comment-header">
       <div class="doc-preview-comment-row doc-preview-comment-row-icon">
-
         <button style="background-color:transparent; margin:0" (click)="openSideComment = !openSideComment"
-          type="button" mat-button mat-icon-button class="icon-container">
+          type="button" mat-icon-button class="icon-container">
           <ion-icon style="width:26px ; height: 26px" name="close-outline"></ion-icon>
         </button>
-
         <div style="flex:1"></div>
-
         <div>
-
-
-
-
-
         </div>
-
       </div>
       <mat-divider></mat-divider>
-
-
-
       <div class="doc-preview-comment-row">
-        <div class="left-box-dbc" *ngIf="!loadingHeader">
-          <div class="name">
-            <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
-            <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
-            </p>
+        @if (!loadingHeader) {
+          <div class="left-box-dbc">
+            <div class="name">
+              <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
+              <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(store?.documentDataDoc?.created_at?.toDate())|date:'mediumDate'}}
+              </p>
+            </div>
+            @if (!loading) {
+              <app-avatar-officer [officerKey]="$safeNavigationMigration(store?.documentDataDoc?.created_by)">
+              </app-avatar-officer>
+            }
           </div>
-          <app-avatar-officer *ngIf="!loading" [officerKey]="store?.documentDataDoc?.created_by">
-          </app-avatar-officer>
-        </div>
+        }
         <div class="right-box-dbc">
-
         </div>
       </div>
-
       <!-- <div class="doc-preview-comment-row" *ngIf="store?.statistic">
-        <div class="note-cms">
-          <span *ngIf="store?.statistic?.total_comments>0">
-            {{store?.statistic?.total_comments}} មតិ
-          </span>
-          <span *ngIf="store?.statistic?.total_visitor>0">{{store?.statistic?.total_visitor}}
-            នាក់បានឃើញ</span>
-        </div>
-        <div class="flex1"></div>
-        <div class="note-cms">
-          <span *ngIf="store?.statistic?.total_view>0">ចូលមើល: {{store?.statistic?.total_view}}
-            ដង
-          </span>
-        </div>
-      </div> -->
-    </div>
-    <nav class="cs-tab-group-nav" mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of tab" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-        [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
-    </nav>
-    <div class="doc-preview-comment-box">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-  <!-- <ng-template #unselectedDoc>
-      <div class="mt-file">
-        <div class="img-container">
-          <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
-        </div>
-        <div class="text-content">
-          <span>
-            សូមជ្រើសរើសឯកសារដើម្បីពិនិត្យ
-          </span>
-        </div>
+      <div class="note-cms">
+        <span *ngIf="store?.statistic?.total_comments>0">
+          {{store?.statistic?.total_comments}} មតិ
+        </span>
+        <span *ngIf="store?.statistic?.total_visitor>0">{{store?.statistic?.total_visitor}}
+        នាក់បានឃើញ</span>
       </div>
-    </ng-template> -->
+      <div class="flex1"></div>
+      <div class="note-cms">
+        <span *ngIf="store?.statistic?.total_view>0">ចូលមើល: {{store?.statistic?.total_view}}
+          ដង
+        </span>
+      </div>
+    </div> -->
+  </div>
+  <nav class="cs-tab-group-nav" mat-tab-nav-bar [tabPanel]="tabPanel">
+    @for (link of tab; track link) {
+      <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
+    }
+  </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  <div class="doc-preview-comment-box">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<ng-template #noPermissionTemplate>
+<!-- <ng-template #unselectedDoc>
+<div class="mt-file">
+  <div class="img-container">
+    <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+  </div>
+  <div class="text-content">
+    <span>
+      សូមជ្រើសរើសឯកសារដើម្បីពិនិត្យ
+    </span>
+  </div>
+</div>
+</ng-template> -->
+</div>
+} @else {
   <app-document-assess-denied></app-document-assess-denied>
-</ng-template>
+}

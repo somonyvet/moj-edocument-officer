@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-latter-router',
-  templateUrl: './criminal-latter-router.component.html',
-  styleUrls: ['./criminal-latter-router.component.scss']
+    selector: 'app-criminal-latter-router',
+    templateUrl: './criminal-latter-router.component.html',
+    styleUrls: ['./criminal-latter-router.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterRouterComponent implements OnInit {
   selected: Date | null = new Date();

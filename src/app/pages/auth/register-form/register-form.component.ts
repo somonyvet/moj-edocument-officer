@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, take, debounceTime } from "rxjs/operators";
 import { DataService } from 'src/app/shared/services/data.service';
@@ -7,19 +7,21 @@ import { toNameKey } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss']
+    selector: 'app-register-form',
+    templateUrl: './register-form.component.html',
+    styleUrls: ['./register-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RegisterFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   email: AbstractControl;
   password: AbstractControl;
   confirm: AbstractControl;
 
   hide: boolean = true;
   process: boolean = false;
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private router: Router,
     public store: AuthStore,
     private ds: DataService) { }

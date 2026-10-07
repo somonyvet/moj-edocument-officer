@@ -1,24 +1,26 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataService } from 'src/app/shared/services/data.service';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-add-remark',
-  templateUrl: './add-remark.component.html',
-  styleUrls: ['./add-remark.component.scss']
+    selector: 'app-add-remark',
+    templateUrl: './add-remark.component.html',
+    styleUrls: ['./add-remark.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddRemarkComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   loading: boolean = false;
   titleForm = 'បង្កើតចំណារ'
   constructor(
     public dialogRef: MatDialogRef<AddRemarkComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private db: DatabaseService,
     private store: OfficerStore,

@@ -1,7 +1,7 @@
 <nav class="app-navbar-header" aria-label="Top Toolbar" *mobxAutorun>
   <div class="nav-left">
     <a class="app-button brand" aria-label="FLIS" [routerLink]="['/']">
-      <img [src]="auth?.APP_INFO?.logo" />
+      <img [src]="$safeNavigationMigration(auth?.APP_INFO?.logo)" />
       <div class="app-name">
         <span>ព្រឹត្តិបត្រថ្កោលទោស</span>
       </div>
@@ -9,234 +9,252 @@
   </div>
   <div class="nav-right">
     <!-- <a mat-icon-button class="btn-search-icon" matTooltipClass="tooltipClass">
-        <ion-icon name="search"></ion-icon>
-      </a>
-      <form [formGroup]="form" class="g-search">
-        <button type="submit" mat-button mat-icon-button>
-          <ion-icon name="search"></ion-icon>
-        </button>
-        <input formControlName="search" [placeholder]="'ស្វែងរកឯកសារឌីជីថល'" [matAutocomplete]="autoSearch" />
-        <mat-autocomplete #autoSearch="matAutocomplete" class="header-auto-complete" (click)="$event.stopPropagation()">
-          <ng-container *ngIf="searchData && searchData?.length > 0 && !isFileManager">
-            <mat-option *ngFor="let item of searchData" [value]=""
-              [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]" (click)="goSearchDetail(item)">
-              <div class="search-content-item two-col">
-                <div class="image-box">
-                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
-                </div>
-                <div class="info-text" routerLinkActive="active">
-                  <p class="title">
-                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
-                  </p>
-                  <p class="no">
-                    {{item?.documentNo}}
-                  </p>
-                </div>
-              </div>
-            </mat-option>
-          </ng-container>
-  
-          <ng-container *ngIf="searchData && searchData?.length > 0 && !store?.loadingSearch && isFileManager">
-            <mat-option *ngFor="let item of searchData" [value]="" (click)="goShowDetail(item)">
-              <div class="search-content-item two-col">
-                <div class="file-display">
-                  <file-name-doc [item]="item" [noEye]="true">
-                  </file-name-doc>
-                </div>
-              </div>
-            </mat-option>
-          </ng-container>
-  
-          <ng-container *ngIf="store?.loadingSearch && isFileManager">
-            <app-spinner></app-spinner>
-          </ng-container>
-  
-          <ng-container
-            *ngIf="searchData && searchData?.length === 0 && store?.documentRecentSearch?.length === 0 && !searching && !store?.loadingSearch">
-            <mat-option [disabled]="true">
-              <div class="empty-block">
-                <div class="center-block-empty" style="flex-direction: row; align-items: center;">
-                  <div class="empty-text">
+    <ion-icon name="search"></ion-icon>
+  </a>
+  <form [formGroup]="form" class="g-search">
+    <button type="submit" mat-icon-button>
+      <ion-icon name="search"></ion-icon>
+    </button>
+    <input formControlName="search" [placeholder]="'ស្វែងរកឯកសារឌីជីថល'" [matAutocomplete]="autoSearch" />
+    <mat-autocomplete #autoSearch="matAutocomplete" class="header-auto-complete" (click)="$event.stopPropagation()">
+      <ng-container *ngIf="searchData && searchData?.length > 0 && !isFileManager">
+        <mat-option *ngFor="let item of searchData" [value]=""
+          [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]" (click)="goSearchDetail(item)">
+          <div class="search-content-item two-col">
+            <div class="image-box">
+              <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+            </div>
+            <div class="info-text" routerLinkActive="active">
+              <p class="title">
+                {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+              </p>
+              <p class="no">
+                {{item?.documentNo}}
+              </p>
+            </div>
+          </div>
+        </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf="searchData && searchData?.length > 0 && !store?.loadingSearch && isFileManager">
+        <mat-option *ngFor="let item of searchData" [value]="" (click)="goShowDetail(item)">
+          <div class="search-content-item two-col">
+            <div class="file-display">
+              <file-name-doc [item]="item" [noEye]="true">
+              </file-name-doc>
+            </div>
+          </div>
+        </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf="store?.loadingSearch && isFileManager">
+        <app-spinner></app-spinner>
+      </ng-container>
+
+      <ng-container
+        *ngIf="searchData && searchData?.length === 0 && store?.documentRecentSearch?.length === 0 && !searching && !store?.loadingSearch">
+        <mat-option [disabled]="true">
+          <div class="empty-block">
+            <div class="center-block-empty" style="flex-direction: row; align-items: center;">
+              <div class="empty-text">
                     <p class="empty-state-desc" style="margin: 0;
                         font-size: 15px;">
-                      ពុំមានប្រវត្តិស្វែងរកឯកសារ
-                    </p>
-                  </div>
-                </div>
+                  ពុំមានប្រវត្តិស្វែងរកឯកសារ
+                </p>
               </div>
-            </mat-option>
-          </ng-container>
-  
-          <ng-container *ngIf="searchData?.length === 0  && searching">
-            <mat-option>
-              <div class="search-content-item-header">
-                ស្វែងរក
-                <span class="search-text">{{search?.value.length > 30 ?search?.value.substring(0, 30) +
-                  '...':search?.value}}</span>
-              </div>
-            </mat-option>
-          </ng-container>
-  
-          <ng-container *ngIf="searchData?.length === 0 && store?.documentRecentSearch?.length > 0 && !searching">
-  
-            <mat-option>
-              <div class="search-content-item-header">
-                ប្រវត្តិស្វែងរក
-              </div>
-            </mat-option>
-            <mat-option *ngFor="let item of store?.documentRecentSearch" [value]="">
-              <a class="search-content-item" [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]">
-                <div class="image-box">
-                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
-                </div>
-                <div class="info-text">
-                  <p class="title">
-                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
-                  </p>
-                  <p class="no">
-                    {{item?.documentNo}}
-                  </p>
-                </div>
-                <button class="remove-recent" mat-icon-button (click)="removeRecentSearch(item)">
-                  <mat-icon class="mat-18">clear</mat-icon>
-                </button>
-              </a>
-            </mat-option>
-          </ng-container>
-        </mat-autocomplete>
-      </form> -->
+            </div>
+          </div>
+        </mat-option>
+      </ng-container>
 
-    <!--
-      <a mat-button [routerLink]="['/file-manager/filter-documents']" routerLinkActive="active" *ngIf="isFileManager"
-        mat-icon-button matTooltipClass="tooltipClass" class="btn-p-icon app-button" matTooltip="ច្រោះឯកសារ">
-        <mat-icon>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
-          </svg>
-        </mat-icon>
-      </a> -->
+      <ng-container *ngIf="searchData?.length === 0  && searching">
+        <mat-option>
+          <div class="search-content-item-header">
+            ស្វែងរក
+            <span class="search-text">{{search?.value.length > 30 ?search?.value.substring(0, 30) +
+            '...':search?.value}}</span>
+          </div>
+        </mat-option>
+      </ng-container>
 
-    <a mat-button mat-icon-button matTooltipClass="tooltipClass" [matMenuTriggerFor]="languageMenu"
-      class="btn-p-icon app-button" matTooltip="ជ្រើសរើសភាសា">
-      <mat-icon>
-        <ion-icon name="globe-outline"></ion-icon>
-      </mat-icon>
-    </a>
-    <mat-menu #languageMenu="matMenu">
-      <div class="user-notify">
-        <h1>{{lang?.strings['selectLanguage']}}</h1>
+      <ng-container *ngIf="searchData?.length === 0 && store?.documentRecentSearch?.length > 0 && !searching">
+
+        <mat-option>
+          <div class="search-content-item-header">
+            ប្រវត្តិស្វែងរក
+          </div>
+        </mat-option>
+        <mat-option *ngFor="let item of store?.documentRecentSearch" [value]="">
+          <a class="search-content-item" [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]">
+            <div class="image-box">
+              <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+            </div>
+            <div class="info-text">
+              <p class="title">
+                {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+              </p>
+              <p class="no">
+                {{item?.documentNo}}
+              </p>
+            </div>
+            <button class="remove-recent" mat-icon-button (click)="removeRecentSearch(item)">
+              <mat-icon class="mat-18">clear</mat-icon>
+            </button>
+          </a>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+  </form> -->
+
+  <!--
+  <a mat-button [routerLink]="['/file-manager/filter-documents']" routerLinkActive="active" *ngIf="isFileManager"
+    mat-icon-button matTooltipClass="tooltipClass" class="btn-p-icon app-button" matTooltip="ច្រោះឯកសារ">
+    <mat-icon>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z" />
+      </svg>
+    </mat-icon>
+  </a> -->
+
+  <a mat-icon-button matTooltipClass="tooltipClass" [matMenuTriggerFor]="languageMenu"
+    class="btn-p-icon app-button" matTooltip="ជ្រើសរើសភាសា">
+    <mat-icon>
+      <ion-icon name="globe-outline"></ion-icon>
+    </mat-icon>
+  </a>
+  <mat-menu #languageMenu="matMenu">
+    <div class="user-notify">
+      <h1>{{lang?.strings['selectLanguage']}}</h1>
+      @for (item of languages; track item) {
         <button type="button" mat-button class="devsite-cpwd" [ngClass]="lang?.language===item?.key?'active':''"
-          *ngFor="let item of languages" (click)="onChangeLanguage(item)">
+          (click)="onChangeLanguage(item)">
           <div class="devsite-list-text">
-            <img [src]="item?.icon">
+            <img [src]="$safeNavigationMigration(item?.icon)">
             <span>{{item?.name}}</span>
             <mat-icon>{{lang?.language===item?.key?'radio_button_checked':'radio_button_unchecked'}}</mat-icon>
           </div>
         </button>
+      }
+    </div>
+  </mat-menu>
+
+  <a mat-icon-button [matMenuTriggerFor]="notificationsMenu" matTooltipClass="tooltipClass"
+    (click)="onNotification('total_notify')" [matBadge]="$safeNavigationMigration(auth?.totalNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalNotify)<=0"
+    matBadgeColor="warn" class="btn-p-icon app-button" matTooltip="ជូនដំណឹង">
+    <mat-icon>
+      <ion-icon name="notifications"></ion-icon>
+    </mat-icon>
+  </a>
+
+  <mat-menu #notificationsMenu="matMenu">
+    <div class="notify-lists">
+      <div class="notify-lists-header">
+        <h4>ជូនដំណឹង</h4>
       </div>
-    </mat-menu>
-
-    <a mat-button mat-icon-button [matMenuTriggerFor]="notificationsMenu" matTooltipClass="tooltipClass"
-      (click)="onNotification('total_notify')" [matBadge]="auth?.totalNotify" [matBadgeHidden]="auth?.totalNotify<=0"
-      matBadgeColor="warn" class="btn-p-icon app-button" matTooltip="ជូនដំណឹង">
-      <mat-icon>
-        <ion-icon name="notifications"></ion-icon>
-      </mat-icon>
-    </a>
-
-    <mat-menu #notificationsMenu="matMenu">
-      <div class="notify-lists">
-        <div class="notify-lists-header">
-          <h4>ជូនដំណឹង</h4>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="noNotify" *ngIf="notify?.notifications?.length === 0">
+      <mat-divider></mat-divider>
+      @if (notify?.notifications?.length === 0) {
+        <div class="noNotify">
           មិនមានទិន្នន័យ
         </div>
-        <virtual-scroller #scroll [items]="notify?.notifications" (vsEnd)="fetchMore($event)">
-          <div class="notify-list-item" (click)="onDocument(item,i)"
-            *ngFor="let item of scroll.viewPortItems;let i=index">
-            <div class="img-box">
-              <img *ngIf="item?.notifyBy?.file?.downloadUrl" [src]="item?.notifyBy?.file?.downloadUrl" alt="">
-              <img *ngIf="!item?.notifyBy?.file?.downloadUrl" [src]="NO_AVATAR" alt="">
-            </div>
-            <div class="list-text">
-              <strong>{{item?.body}}</strong>
-              <span>{{item?.created_at?.toDate() | amTimeAgo}}</span>
-            </div>
+      }
+      <cdk-virtual-scroll-viewport itemSize="20" #scroll autosize (vsEnd)="fetchMore($event)">
+        <div class="notify-list-item" (click)="onDocument(item,i)"
+          *cdkVirtualFor="let item of $safeNavigationMigration(notify?.notifications);let i=index">
+          <div class="img-box">
+            @if (item?.notifyBy?.file?.downloadUrl) {
+              <img [src]="$safeNavigationMigration(item?.notifyBy?.file?.downloadUrl)" alt="">
+            }
+            @if (!item?.notifyBy?.file?.downloadUrl) {
+              <img [src]="NO_AVATAR" alt="">
+            }
           </div>
-          <app-spinner *ngIf="notify.fetching"></app-spinner>
-        </virtual-scroller>
+          <div class="list-text">
+            <strong>{{item?.body}}</strong>
+            <span>{{$safeNavigationMigration(item?.created_at?.toDate()) | amTimeAgo}}</span>
+          </div>
+        </div>
+        @if (notify.fetching) {
+          <app-spinner></app-spinner>
+        }
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </mat-menu>
+  <a mat-icon-button [matMenuTriggerFor]="userMenu" matTooltipClass="tooltipClass" matTooltip="គណនី"
+    class="btn-p-icon">
+    <img [src]="photoUrl ||auth?.photoUrl" alt="GDI" alt="user">
+  </a>
+  <mat-menu #userMenu="matMenu">
+    <div class="user-notify" (click)="$event.stopPropagation();">
+      <div class="notify-lists-header">
+        @for (item of auth?.currentDepartment?.workplaceDisplayPath; track item; let i = $index) {
+          @if (i===0) {
+            <h4>{{item?.name}}</h4>
+          }
+          @if (i>0) {
+            <p>{{item?.name}}</p>
+          }
+        }
       </div>
-    </mat-menu>
-    <a mat-button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltipClass="tooltipClass" matTooltip="គណនី"
-      class="btn-p-icon">
-      <img [src]="photoUrl ||auth?.photoUrl" alt="GDI" alt="user">
-    </a>
-    <mat-menu #userMenu="matMenu">
-      <div class="user-notify" (click)="$event.stopPropagation();">
-        <div class="notify-lists-header">
-          <ng-container *ngFor="let item of auth?.currentDepartment?.workplaceDisplayPath;let i=index;">
-            <h4 *ngIf="i===0">{{item?.name}}</h4>
-            <p *ngIf="i>0">{{item?.name}}</p>
-          </ng-container>
+      <div class="wellcome-user" style="text-align: center;">
+        <div class="empty-avatar" style="height: 120px; width: 120px; margin: 0 auto;">
+          <img [src]="photoUrl || auth?.photoUrl" alt="GDI" alt="user">
+          <div (click)="fileInput.click()" class="change-profile">
+            <mat-icon class="mat-18">photo_camera</mat-icon>
+          </div>
         </div>
-        <div class="wellcome-user" style="text-align: center;">
-          <div class="empty-avatar" style="height: 120px; width: 120px; margin: 0 auto;">
-            <img [src]="photoUrl || auth?.photoUrl" alt="GDI" alt="user">
-            <div (click)="fileInput.click()" class="change-profile">
-              <mat-icon class="mat-18">photo_camera</mat-icon>
-            </div>
-          </div>
 
-          <input #fileInput id="fileInput" type="file" accept='.png, .jpg, .jpeg' (change)="onSelectedFile($event)"
-            style="display:none;" />
-          <div class="wellcome-text k-wellcome-text" style="margin-top: 10px;">
-            <span>{{auth?.profile?.email}}</span>
-          </div>
-          <div class="wellcome-text k-wellcome-text cap" style="margin-top: 5px;">
-            <span>{{auth?.profile?.displayName}}</span>
-          </div>
-          <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
+        <input #fileInput id="fileInput" type="file" accept='.png, .jpg, .jpeg' (change)="onSelectedFile($event)"
+          style="display:none;" />
+        <div class="wellcome-text k-wellcome-text" style="margin-top: 10px;">
+          <span>{{auth?.profile?.email}}</span>
+        </div>
+        <div class="wellcome-text k-wellcome-text cap" style="margin-top: 5px;">
+          <span>{{auth?.profile?.displayName}}</span>
+        </div>
+        @if (START_UPLOAD) {
+          <mat-progress-bar mode="determinate" [value]="uploadPercent | async ">
           </mat-progress-bar>
-        </div>
+        }
+      </div>
 
-        <div class="nav-committee-u" *ngIf="auth?.currentDepartment">
+      @if (auth?.currentDepartment) {
+        <div class="nav-committee-u">
           <mat-icon>stay_current_portrait</mat-icon>
           <div class="nav-committee-u-t">
             <h5>{{auth?.profile?.currentTitle}}</h5>
           </div>
         </div>
+      }
 
-        <mat-divider></mat-divider>
-        <button type="button" mat-button class="devsite-cpwd" (click)="onLogOut()">
-          <div class="devsite-list-text">
-            <div class="icon-round">
-              <mat-icon>lock</mat-icon>
-            </div>
-            <span>ចេញពីប្រព័ន្ធ</span>
+      <mat-divider></mat-divider>
+      <button type="button" mat-button class="devsite-cpwd" (click)="onLogOut()">
+        <div class="devsite-list-text">
+          <div class="icon-round">
+            <mat-icon>lock</mat-icon>
           </div>
-        </button>
-      </div>
-    </mat-menu>
-
-    <!-- <a mat-button mat-icon-button [matMenuTriggerFor]="helpMenu" matTooltipClass="tooltipClass" matTooltip="ជំនួយ"
-        class="btn-p-icon">
-        <mat-icon>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path
-              d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm2-1.645V14h-2v-1.5a1 1 0 0 1 1-1 1.5 1.5 0 1 0-1.471-1.794l-1.962-.393A3.501 3.501 0 1 1 13 13.355z" />
-          </svg>
-        </mat-icon>
-      </a>
-      <mat-menu #helpMenu="matMenu">
-        <div class="dsnav-menu-header" style="padding: 24px;">
+          <span>ចេញពីប្រព័ន្ធ</span>
         </div>
-      </mat-menu> -->
+      </button>
+    </div>
+  </mat-menu>
 
+  <!-- <a mat-icon-button [matMenuTriggerFor]="helpMenu" matTooltipClass="tooltipClass" matTooltip="ជំនួយ"
+  class="btn-p-icon">
+  <mat-icon>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="none" d="M0 0h24v24H0z" />
+      <path
+        d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm2-1.645V14h-2v-1.5a1 1 0 0 1 1-1 1.5 1.5 0 1 0-1.471-1.794l-1.962-.393A3.501 3.501 0 1 1 13 13.355z" />
+    </svg>
+  </mat-icon>
+</a>
+<mat-menu #helpMenu="matMenu">
+  <div class="dsnav-menu-header" style="padding: 24px;">
   </div>
+</mat-menu> -->
+
+</div>
 
 </nav>
 

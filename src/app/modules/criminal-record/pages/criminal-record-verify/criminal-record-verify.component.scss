@@ -1,4 +1,4 @@
-@import "/src/assets/styles/variable.scss";
+@use "/src/assets/styles/variable.scss" as *;
 
 .tog-side-nav {
   ::ng-deep .side-nav-panel {
@@ -57,7 +57,7 @@
     width: 100%;
     justify-content: flex-start;
 
-    &.mat-button {
+    &.mat-mdc-button {
       padding-left: 32px;
       font-size: 13px;
     }

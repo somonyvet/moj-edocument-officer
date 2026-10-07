@@ -1,13 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-application-route-search',
-  templateUrl: './criminal-application-route-search.component.html',
-  styleUrls: ['./criminal-application-route-search.component.scss']
+    selector: 'app-criminal-application-route-search',
+    templateUrl: './criminal-application-route-search.component.html',
+    styleUrls: ['./criminal-application-route-search.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationRouteSearchComponent implements OnInit, OnDestroy {
   loading:boolean=true;

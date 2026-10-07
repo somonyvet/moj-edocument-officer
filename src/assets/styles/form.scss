@@ -1,3 +1,5 @@
+@use "variable.scss" as *;
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -118,10 +120,10 @@
       margin: 0;
     }
 
-    .mat-radio-button {
+    .mat-mdc-radio-button {
       margin: 0 10px 8px;
 
-      .mat-radio-label {
+      .mdc-label {
         margin-bottom: 0;
       }
     }
@@ -439,7 +441,7 @@
       .small-form {
         max-width: 500px;
 
-        .mat-select {
+        .mat-mdc-select {
           max-width: 320px;
           font-family: Google Sans, Roboto, sans-serif;
           color: #333;
@@ -450,7 +452,7 @@
             box-shadow: 0 0 4px rgba(78, 161, 230, 0.4);
           }
 
-          .mat-select-trigger {
+          .mat-mdc-select-trigger {
             // padding: 12px;
           }
         }
@@ -837,8 +839,8 @@
 
 .chip-list-container {
 
-  .mat-standard-chip .mat-chip-remove,
-  .mat-standard-chip .mat-chip-trailing-icon {
+  .mat-mdc-standard-chip .mat-mdc-chip-remove,
+  .mat-mdc-standard-chip .mat-mdc-chip-trailing-icon {
     height: unset;
     width: unset;
     border: none;
@@ -851,7 +853,7 @@
   margin: 0;
   padding: 0;
 
-  .mat-form-field-wrapper {
+  .mat-mdc-text-field-wrapper {
     padding: 0;
   }
 }

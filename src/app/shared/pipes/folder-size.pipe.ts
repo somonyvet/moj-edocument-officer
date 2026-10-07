@@ -3,7 +3,8 @@ import { ImageSizeType, PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { transformImageSameTokenNo } from '../services/fireStorage.service';
 
 @Pipe({
-  name: 'folderSize'
+    name: 'folderSize',
+    standalone: false
 })
 export class FolderSizePipe implements PipeTransform {
 
@@ -24,7 +25,8 @@ export class FolderSizePipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'imageSize'
+    name: 'imageSize',
+    standalone: false
 })
 export class imageSizePipe implements PipeTransform {
 

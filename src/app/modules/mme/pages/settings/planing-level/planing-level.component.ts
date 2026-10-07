@@ -1,5 +1,5 @@
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tabs } from 'src/app/dummy/tabs';
@@ -8,9 +8,11 @@ import { PlaningLevelFormComponent } from './planing-level-form/planing-level-fo
 import { PlaningCategoryStore } from '../../../store/planingCategory.store';
 
 @Component({
-  selector: 'app-planing-level',
-  templateUrl: './planing-level.component.html',
-  styleUrls: ['./planing-level.component.scss']
+    selector: 'app-planing-level',
+    templateUrl: './planing-level.component.html',
+    styleUrls: ['./planing-level.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PlaningLevelComponent implements OnInit, OnDestroy {
   tabs = tabs.planingCategory

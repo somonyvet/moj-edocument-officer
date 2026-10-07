@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, FormArray, UntypedFormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,9 +16,11 @@ import { getYearsList, toCodeKey, todayDate } from 'src/app/shared/services/mapp
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-receive-hard-paper-form',
-  templateUrl: './receive-hard-paper-form.component.html',
-  styleUrls: ['./receive-hard-paper-form.component.scss']
+    selector: 'app-receive-hard-paper-form',
+    templateUrl: './receive-hard-paper-form.component.html',
+    styleUrls: ['./receive-hard-paper-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReceiveHardPaperFormComponent implements OnInit {
   process: boolean = false;
@@ -30,7 +32,7 @@ export class ReceiveHardPaperFormComponent implements OnInit {
     public criminalStore: CriminalApplicationStore,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
   ) { }
 

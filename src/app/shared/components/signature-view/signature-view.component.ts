@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-signature-view',
-  templateUrl: './signature-view.component.html',
-  styleUrls: ['./signature-view.component.scss']
+    selector: 'app-signature-view',
+    templateUrl: './signature-view.component.html',
+    styleUrls: ['./signature-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SignatureViewComponent implements OnInit {
   @Input() data: any;

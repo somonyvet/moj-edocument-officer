@@ -6,7 +6,8 @@ import { toLatinNumber, toLocaleNumber } from '../services/convert.service';
 import { toNumber } from '../services/mapping.service';
 
 @Pipe({
-    name: 'totalPresent'
+    name: 'totalPresent',
+    standalone: false
 })
 export class TotalPresentPipe implements PipeTransform {
     transform(attendanceArr: IAttendance[]): any {
@@ -25,7 +26,8 @@ export class TotalPresentPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'totalAbsent'
+    name: 'totalAbsent',
+    standalone: false
 })
 export class TotalAbsentPipe implements PipeTransform {
     transform(attendanceArr: IAttendance[]): any {
@@ -46,7 +48,8 @@ export class TotalAbsentPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'displayAttendance'
+    name: 'displayAttendance',
+    standalone: false
 })
 export class DisplayAttendancePipe implements PipeTransform {
     transform(attendanceArr: IAttendance[], day: number): any {

@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </button>
   </div>
@@ -11,17 +11,21 @@
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input formControlName="name" required matInput placeholder="Name (KH)">
-        <mat-error *ngIf="form.controls['name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Name (EN)</mat-label>
         <input formControlName="en_name" matInput placeholder="Name (EN)">
-        <mat-error *ngIf="form.controls['en_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['en_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 

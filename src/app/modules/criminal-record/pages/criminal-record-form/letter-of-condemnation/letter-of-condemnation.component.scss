@@ -1,4 +1,4 @@
-@import "/src/assets/styles/variable.scss";
+@use "/src/assets/styles/variable.scss" as *;
 
 .scrolling-container {
   padding: 40px 12px;
@@ -168,7 +168,7 @@
   margin: 0;
 
 }
-.mat-standard-chip {
+.mat-mdc-standard-chip {
   font-family: $appFont;
 }
 

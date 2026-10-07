@@ -9,6 +9,15 @@
     }
     .btn-add-create{
       background-color: #eff2f5;
+      // This project's M2 theme defaults .mat-mdc-icon-button to a 48px
+      // state-layer vs. legacy's native 40px (same root cause fixed elsewhere
+      // this session for table rows, the header, and the bulletin list) --
+      // here it makes the title row taller, pushing the search box down.
+      --mdc-icon-button-state-layer-size: 40px;
+      --mat-icon-button-state-layer-size: 40px;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
     }
   }
   

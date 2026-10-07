@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -12,13 +12,15 @@ declare function selectScanObject(): any;
 declare function captureFP(result: any): any;
 
 @Component({
-  selector: 'app-criminal-scan-finger-print-dialog',
-  templateUrl: './criminal-scan-finger-print-dialog.component.html',
-  styleUrls: ['./criminal-scan-finger-print-dialog.component.scss']
+    selector: 'app-criminal-scan-finger-print-dialog',
+    templateUrl: './criminal-scan-finger-print-dialog.component.html',
+    styleUrls: ['./criminal-scan-finger-print-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalScanFingerPrintDialogComponent implements OnInit {
   shift_name: any = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
   date: any = null;
 
@@ -30,7 +32,7 @@ export class CriminalScanFingerPrintDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: CriminalApplicationStore,
     private auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,

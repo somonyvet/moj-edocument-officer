@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { MarketplaceStore } from '../../stores/marketplace.store';
 import { SwotifyStore } from '../../stores/swotify.store';
 
 @Component({
-  selector: 'app-accountants',
-  templateUrl: './accountants.component.html',
-  styleUrls: ['./accountants.component.scss']
+    selector: 'app-accountants',
+    templateUrl: './accountants.component.html',
+    styleUrls: ['./accountants.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AccountantsComponent implements OnInit {
   selected: Date | null = new Date();

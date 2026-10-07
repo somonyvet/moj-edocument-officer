@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CHAT_ROOM_TYPE_OBJ } from 'src/app/dummy/chat';
 import { LIST_DOC_ARRAY } from 'src/app/dummy/status';
@@ -6,15 +6,17 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { ChatStore } from 'src/app/stores/chat.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocListingStore } from 'src/app/stores/document/doc-listing.store';
-import { IPageInfo } from 'ngx-virtual-scroller';
-import { DOCUMENT } from '@angular/common';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
+
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { IHeaderInformation } from 'src/app/interfaces/document/document.interface';
 
 @Component({
-  selector: 'app-document-dashboard',
-  templateUrl: './document-dashboard.component.html',
-  styleUrls: ['./document-dashboard.component.scss']
+    selector: 'app-document-dashboard',
+    templateUrl: './document-dashboard.component.html',
+    styleUrls: ['./document-dashboard.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentDashboardComponent implements OnInit, OnDestroy, AfterViewChecked, AfterViewInit {
   @ViewChild('headerPromote') headerPromote: ElementRef;

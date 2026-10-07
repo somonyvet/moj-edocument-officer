@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 /**
  * An issued record has nothing left to review, so its details open on the printable bulletin.
@@ -10,7 +10,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 @Injectable({
   providedIn: 'root'
 })
-export class DigitalIssuedRedirectGuard implements CanActivate {
+export class DigitalIssuedRedirectGuard  {
   constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {

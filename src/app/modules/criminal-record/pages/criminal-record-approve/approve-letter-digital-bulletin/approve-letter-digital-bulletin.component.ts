@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-approve-letter-digital-bulletin',
-  templateUrl: './approve-letter-digital-bulletin.component.html',
-  styleUrls: ['./approve-letter-digital-bulletin.component.scss']
+    selector: 'app-approve-letter-digital-bulletin',
+    templateUrl: './approve-letter-digital-bulletin.component.html',
+    styleUrls: ['./approve-letter-digital-bulletin.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ApproveLetterDigitalBulletinComponent implements OnInit, OnDestroy {
 

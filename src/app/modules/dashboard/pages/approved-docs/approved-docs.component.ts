@@ -1,15 +1,17 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+
+import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { LIST_TYPE } from 'src/app/dummy/status';
 import { tabs } from 'src/app/dummy/tabs';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocListingStore } from 'src/app/stores/document/doc-listing.store';
 
 @Component({
-  selector: 'app-approved-docs',
-  templateUrl: './approved-docs.component.html',
-  styleUrls: ['./approved-docs.component.scss']
+    selector: 'app-approved-docs',
+    templateUrl: './approved-docs.component.html',
+    styleUrls: ['./approved-docs.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ApprovedDocsComponent implements OnInit {
   tabs = tabs.docApproval;

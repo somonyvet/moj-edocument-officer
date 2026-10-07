@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-document-confirm-released',
-  templateUrl: './document-confirm-released.component.html',
-  styleUrls: ['./document-confirm-released.component.scss']
+    selector: 'app-document-confirm-released',
+    templateUrl: './document-confirm-released.component.html',
+    styleUrls: ['./document-confirm-released.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentConfirmReleasedComponent implements OnInit {
   title: any = "ដាក់សំណើឯកភាព";

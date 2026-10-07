@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -17,9 +17,11 @@ const TITLE_OF_STATUS = {
 }
 
 @Component({
-  selector: 'app-criminal-application-direct-letter3-business',
-  templateUrl: './criminal-application-direct-letter3-business.component.html',
-  styleUrls: ['./criminal-application-direct-letter3-business.component.scss']
+    selector: 'app-criminal-application-direct-letter3-business',
+    templateUrl: './criminal-application-direct-letter3-business.component.html',
+    styleUrls: ['./criminal-application-direct-letter3-business.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationDirectLetter3BusinessComponent implements OnInit, OnDestroy {
   loading: boolean = true;

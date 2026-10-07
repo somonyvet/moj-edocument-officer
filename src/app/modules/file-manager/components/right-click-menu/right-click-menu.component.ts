@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, ViewContainerRef, Output, EventEmitter, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, ViewContainerRef, Output, EventEmitter, Renderer2, Input, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -27,9 +27,11 @@ import { NewFolderComponent } from 'src/app/modules/file-manager/components/new-
 import { ShareMyFileComponent } from 'src/app/modules/file-manager/components/share-my-file/share-my-file.component';
 
 @Component({
-  selector: 'app-right-click-menu',
-  templateUrl: './right-click-menu.component.html',
-  styleUrls: ['./right-click-menu.component.scss']
+    selector: 'app-right-click-menu',
+    templateUrl: './right-click-menu.component.html',
+    styleUrls: ['./right-click-menu.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RightClickMenuComponent implements OnInit {
 

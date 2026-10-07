@@ -1,5 +1,5 @@
 <div class="content-page">
   <div class="center-page">
-    <div [innerHTML]="store?.selectedItem?.content_en"></div>
+    <div [innerHTML]="$safeNavigationMigration(store?.selectedItem?.content_en)"></div>
   </div>
 </div>

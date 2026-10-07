@@ -1,6 +1,6 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,16 +21,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentCompleteComponent } from '../../document/document-complete/document-complete.component';
 import { DocumentVoidComponent } from '../../document/document-void/document-void.component';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { IHeaderInformation, IDocument } from 'src/app/interfaces/document/document.interface';
 import { toJpeg } from 'html-to-image';
 import { DocumentApplicationWorkplaceFormComponent } from 'src/app/shared/components/document-application-workplace-form/document-application-workplace-form.component';
 import { DocumentAddCustomStyleComponent } from '../../document/document-add-custom-style/document-add-custom-style.component';
 
 @Component({
-  selector: 'app-document-template-design-form',
-  templateUrl: './document-template-design-form.component.html',
-  styleUrls: ['./document-template-design-form.component.scss']
+    selector: 'app-document-template-design-form',
+    templateUrl: './document-template-design-form.component.html',
+    styleUrls: ['./document-template-design-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentTemplateDesignFormComponent implements OnInit {
 
@@ -59,7 +61,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
   //comment
 
   DOC_STATUS = docStatusObj
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -194,7 +196,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
     }
   }
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -227,7 +229,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
   DOCUMENT_ACTION_TYPE_OBJ = DOCUMENT_ACTION_TYPE_OBJ;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     public auth: AuthStore,
@@ -588,15 +590,15 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
     return item1 && item2 ? item1.key === item2.key : item1 === item2;
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -695,7 +697,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content, key, office, isInfo, remark, contentTitle, customStyles } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -712,7 +714,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
   addFooterSheet(item: any) {
     this.footerForm().push(this.newFooterSheet(item));
   }
-  newFooterSheet(item: any): FormGroup {
+  newFooterSheet(item: any): UntypedFormGroup {
     const { type, content, key, contentTitle, contentTitleLeft, contentTitleRight, contentTitleCenter, approvedByLeftBox, approvedByRightBox, approvedByCenterBox,
       moj_box1_contentTitleLeft, moj_box1_contentSubTitleLeft, moj_box1_approvedByLeftBox, moj_box2_contentTitleLeft, moj_box2_contentSubTitleLeft, moj_box2_approvedByLeftBox,
       moj_box3_contentTitleLeft, moj_box3_contentSubTitleLeft, moj_box3_approvedByLeftBox, 
@@ -756,7 +758,7 @@ export class DocumentTemplateDesignFormComponent implements OnInit {
   addSessionSheet(item: any) {
     this.sessionForm().push(this.newSessionSheet(item));
   }
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office, key, isInfo, contentTitle, sectionKey, page_key } = item;
     const { documentSections } = this.store;
     let officeForm: any = office;

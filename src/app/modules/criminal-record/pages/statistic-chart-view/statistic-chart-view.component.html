@@ -65,8 +65,8 @@
         <div class="ios-divider"></div>
       </div>
       <div class="chart" *ngIf="summaryChartDataSource">
-        <apx-chart [series]="summaryChartDataSource?.series" [chart]="chartOptions.chart"
-          [labels]="summaryChartDataSource?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+        <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource?.series)" [chart]="chartOptions.chart"
+          [labels]="$safeNavigationMigration(summaryChartDataSource?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
           [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="chartOptions3.colors"
           [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
           [plotOptions]="chartOptions.plotOptions">
@@ -81,9 +81,9 @@
         <div class="chart" style="display: flex;
         align-items: center;" *ngIf="organizationChartDataSource">
           <ngx-charts-bar-vertical-2d
-            [view]="[organizationChartDataSource?(organizationChartDataSource?.seriesData?.length===1?150:(organizationChartDataSource?.seriesData?.length*100)):500,500]"
+            [view]="[organizationChartDataSource?(organizationChartDataSource?.seriesData?.length===1?150:($safeNavigationMigration(organizationChartDataSource?.seriesData?.length)*100)):500,500]"
             [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme4" [showDataLabel]="true"
-            [legendPosition]="'below'" [results]="organizationChartDataSource?.seriesData" [gradient]="gradient"
+            [legendPosition]="'below'" [results]="$safeNavigationMigration(organizationChartDataSource?.seriesData)" [gradient]="gradient"
             [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
             [legendTitle]="legendTitle">
@@ -163,8 +163,8 @@
         </div> -->
       </div>
       <div class="chart" *ngIf="summaryChartDataSource2 && summaryChartDataSource2?.series?.length > 0">
-        <apx-chart [series]="summaryChartDataSource2?.series" [chart]="chartOptions.chart"
-          [labels]="summaryChartDataSource2?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+        <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource2?.series)" [chart]="chartOptions.chart"
+          [labels]="$safeNavigationMigration(summaryChartDataSource2?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
           [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color1"
           [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
           [plotOptions]="chartOptions.plotOptions">
@@ -179,9 +179,9 @@
       </div>
       <div class="chart" *ngIf="organizationChartDataSource2">
         <ngx-charts-bar-horizontal-2d
-          [view]="[450,organizationChartDataSource2?(organizationChartDataSource2?.seriesData?.length===1?80:(organizationChartDataSource2?.seriesData?.length*70)):450]"
+          [view]="[450,organizationChartDataSource2?(organizationChartDataSource2?.seriesData?.length===1?80:($safeNavigationMigration(organizationChartDataSource2?.seriesData?.length)*70)):450]"
           [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme2" [showDataLabel]="true" [legendPosition]="'below'"
-          [results]="organizationChartDataSource2?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [results]="$safeNavigationMigration(organizationChartDataSource2?.seriesData)" [gradient]="gradient" [xAxis]="showXAxis"
           [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
           <ng-template #tooltipTemplate let-model="model">
@@ -208,7 +208,7 @@
               </div>
               <span class="ios-label">ចំនួនប្រជាពលរដ្ឋអាយុ (១៨-៣៥):</span>
               <div class="ios-text">
-                <strong>{{summaryChartDataSource7?.totalCitizenE|number}}</strong><span>នាក់</span>
+                <strong>{{$safeNavigationMigration(summaryChartDataSource7?.totalCitizenE)|number}}</strong><span>នាក់</span>
               </div>
             </div>
             <div class="ios-divider"></div>
@@ -218,7 +218,7 @@
               </div>
               <span class="ios-label">ចំនួនសមាជិកបក្សថ្មី :</span>
               <div class="ios-text">
-                <strong>{{summaryChartDataSource7?.totalMemberE|number}}</strong><span>នាក់</span>
+                <strong>{{$safeNavigationMigration(summaryChartDataSource7?.totalMemberE)|number}}</strong><span>នាក់</span>
               </div>
             </div>
             <div class="ios-divider"></div>
@@ -256,8 +256,8 @@
             </div>
 
             <div class="chart" *ngIf="summaryChartDataSource7">
-              <apx-chart [series]="summaryChartDataSource7?.series" [chart]="chartOptions2.chart"
-                [labels]="summaryChartDataSource7?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+              <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource7?.series)" [chart]="chartOptions2.chart"
+                [labels]="$safeNavigationMigration(summaryChartDataSource7?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
                 [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color1"
                 [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
                 [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
@@ -272,7 +272,7 @@
               </div>
               <span class="ios-label">ចំនួនសមាជិកបក្សចាស់:</span>
               <div class="ios-text">
-                <strong>{{summaryChartDataSource8?.totalCitizenE|number}}</strong><span>នាក់</span>
+                <strong>{{$safeNavigationMigration(summaryChartDataSource8?.totalCitizenE)|number}}</strong><span>នាក់</span>
               </div>
             </div>
             <div class="ios-divider"></div>
@@ -282,7 +282,7 @@
               </div>
               <span class="ios-label">ចំនួនសមាជិកបក្សថ្មី:</span>
               <div class="ios-text">
-                <strong>{{summaryChartDataSource8?.totalMemberE|number}}</strong><span>នាក់</span>
+                <strong>{{$safeNavigationMigration(summaryChartDataSource8?.totalMemberE)|number}}</strong><span>នាក់</span>
               </div>
             </div>
             <div class="ios-divider"></div>
@@ -334,8 +334,8 @@
             </div>
 
             <div class="chart" *ngIf="summaryChartDataSource8">
-              <apx-chart [series]="summaryChartDataSource8?.series" [chart]="chartOptions2.chart"
-                [labels]="summaryChartDataSource8?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+              <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource8?.series)" [chart]="chartOptions2.chart"
+                [labels]="$safeNavigationMigration(summaryChartDataSource8?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
                 [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="b_chart2_color2"
                 [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
                 [plotOptions]="chartOptions.plotOptions" [dataLabels]=chartOptions2.dataLabels>
@@ -498,7 +498,7 @@
           </div>
           <span class="ios-label">ចំនួនប្រជាពលរដ្ឋបានចុះឈ្មោះ ប.ឆ:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource5?.totalCitizenE|number}}</strong><span>នាក់</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource5?.totalCitizenE)|number}}</strong><span>នាក់</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -508,7 +508,7 @@
           </div>
           <span class="ios-label">ចំនួនសមាជិកបក្សបានចុះឈ្មោះ ប.ឆ:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource5?.totalMemberE|number}}</strong><span>នាក់</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource5?.totalMemberE)|number}}</strong><span>នាក់</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -518,7 +518,7 @@
           </div>
           <span class="ios-label">អត្រាសមាជិកបក្សធៀបនឹង ប្រជាពលរដ្ឋ:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource5?.totalP|number}}</strong><span>%</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource5?.totalP)|number}}</strong><span>%</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -528,7 +528,7 @@
           </div>
           <span class="ios-label">ផែនការបង្កើនសមាជិកបក្ស:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource5?.totalElectionP|number}}</strong><span>%</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource5?.totalElectionP)|number}}</strong><span>%</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -536,7 +536,7 @@
           <div class="c-center ios-memo">
             <span class="ios-label">
               <strong class="c-red" [ngClass]="summaryChartDataSource5?.totalPD >= 0 ? 'green' : '' ">
-                {{ summaryChartDataSource5?.totalPD >= 0 ? '+' : ''}} {{summaryChartDataSource5?.totalPD|number}} %
+                {{ summaryChartDataSource5?.totalPD >= 0 ? '+' : ''}} {{$safeNavigationMigration(summaryChartDataSource5?.totalPD)|number}} %
               </strong>
             </span>
             <p>អត្រាផែនការ{{ summaryChartDataSource5?.totalPD >= 0 ? 'កើនឡើង' : 'នៅខ្វះ'}}ជាភាគរយ</p>
@@ -544,8 +544,8 @@
         </div>
       </div>
       <div class="chart" *ngIf="summaryChartDataSource5">
-        <apx-chart [series]="summaryChartDataSource5?.series" [chart]="chartOptions.chart"
-          [labels]="summaryChartDataSource5?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+        <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource5?.series)" [chart]="chartOptions.chart"
+          [labels]="$safeNavigationMigration(summaryChartDataSource5?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
           [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color2"
           [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
           [plotOptions]="chartOptions.plotOptions">
@@ -560,9 +560,9 @@
       </div>
       <div class="chart" *ngIf="organizationChartDataSource4">
         <ngx-charts-bar-horizontal-2d
-          [view]="[450,organizationChartDataSource4?(organizationChartDataSource4?.seriesData?.length===1?80:(organizationChartDataSource4?.seriesData?.length*70)):450]"
+          [view]="[450,organizationChartDataSource4?(organizationChartDataSource4?.seriesData?.length===1?80:($safeNavigationMigration(organizationChartDataSource4?.seriesData?.length)*70)):450]"
           [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme" [showDataLabel]="true" [legendPosition]="'below'"
-          [results]="organizationChartDataSource4?.seriesData" [gradient]="gradient" [xAxis]="showXAxis"
+          [results]="$safeNavigationMigration(organizationChartDataSource4?.seriesData)" [gradient]="gradient" [xAxis]="showXAxis"
           [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
           [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [legendTitle]="legendTitle">
           <ng-template #tooltipTemplate let-model="model">
@@ -586,9 +586,9 @@
 
             <div class="chart" *ngIf="organizationChartDataSource6">
               <ngx-charts-bar-horizontal-2d
-                [view]="[450,organizationChartDataSource6?(organizationChartDataSource6?.seriesData?.length===1?80:(organizationChartDataSource6?.seriesData?.length*70)):450]"
+                [view]="[450,organizationChartDataSource6?(organizationChartDataSource6?.seriesData?.length===1?80:($safeNavigationMigration(organizationChartDataSource6?.seriesData?.length)*70)):450]"
                 [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme3" [showDataLabel]="true"
-                [legendPosition]="'below'" [results]="organizationChartDataSource6?.seriesData" [gradient]="gradient"
+                [legendPosition]="'below'" [results]="$safeNavigationMigration(organizationChartDataSource6?.seriesData)" [gradient]="gradient"
                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
                 [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                 [legendTitle]="legendTitle">
@@ -606,9 +606,9 @@
           <div class="c-mid">
             <div class="chart" *ngIf="organizationChartDataSource7">
               <ngx-charts-bar-horizontal-2d
-                [view]="[450,organizationChartDataSource7?(organizationChartDataSource7?.seriesData?.length===1?70:(organizationChartDataSource7?.seriesData?.length*40)):450]"
+                [view]="[450,organizationChartDataSource7?(organizationChartDataSource7?.seriesData?.length===1?70:($safeNavigationMigration(organizationChartDataSource7?.seriesData?.length)*40)):450]"
                 [barPadding]="2" [groupPadding]="2" [scheme]="colorScheme5" [showDataLabel]="true"
-                [legendPosition]="'below'" [results]="organizationChartDataSource7?.seriesData" [gradient]="gradient"
+                [legendPosition]="'below'" [results]="$safeNavigationMigration(organizationChartDataSource7?.seriesData)" [gradient]="gradient"
                 [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
                 [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                 [legendTitle]="legendTitle">
@@ -637,7 +637,7 @@
           </div>
           <span class="ios-label">ចំនួនសមាជិកបក្ស:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource6?.totalCitizenE|number}}</strong><span>នាក់</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource6?.totalCitizenE)|number}}</strong><span>នាក់</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -647,7 +647,7 @@
           </div>
           <span class="ios-label">ចំនួនយុវជនបក្ស:</span>
           <div class="ios-text">
-            <strong>{{summaryChartDataSource6?.totalMemberE|number}}</strong><span>នាក់</span>
+            <strong>{{$safeNavigationMigration(summaryChartDataSource6?.totalMemberE)|number}}</strong><span>នាក់</span>
           </div>
         </div>
         <div class="ios-divider"></div>
@@ -655,7 +655,7 @@
           <div class="c-center ios-memo">
             <span class="ios-label">
               <strong class="c-red yellow">
-                {{ summaryChartDataSource6?.totalP|number}} %
+                {{ $safeNavigationMigration(summaryChartDataSource6?.totalP)|number}} %
               </strong>
             </span>
             <p>អត្រាយុវជនបក្សធៀបនឹង សមាជិកបក្សជាភាគរយ</p>
@@ -663,8 +663,8 @@
         </div>
       </div>
       <div class="chart" *ngIf="summaryChartDataSource6">
-        <apx-chart [series]="summaryChartDataSource6?.series" [chart]="chartOptions.chart"
-          [labels]="summaryChartDataSource6?.labels" [title]="chartOptions.title" [theme]="chartOptions.theme"
+        <apx-chart [series]="$safeNavigationMigration(summaryChartDataSource6?.series)" [chart]="chartOptions.chart"
+          [labels]="$safeNavigationMigration(summaryChartDataSource6?.labels)" [title]="chartOptions.title" [theme]="chartOptions.theme"
           [fill]="chartOptions.fill" [yaxis]="chartOptions.yaxis" [colors]="d_chart_color3"
           [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
           [plotOptions]="chartOptions.plotOptions">

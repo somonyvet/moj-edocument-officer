@@ -1,68 +1,82 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{titleForm}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{titleForm}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <app-spinner *ngIf="process"></app-spinner>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ថ្ងៃបញ្ចប់ឯកសារ</mat-label>
-                <input formControlName="completed_date" required matInput placeholder="ថ្ងៃធ្វើបញ្ចប់ឯកសារ"
-                    [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="form?.controls['completed_date'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
-                </mat-error>
-            </mat-form-field>
-        </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    @if (process) {
+      <app-spinner></app-spinner>
+    }
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ថ្ងៃបញ្ចប់ឯកសារ</mat-label>
+        <input formControlName="completed_date" required matInput placeholder="ថ្ងៃធ្វើបញ្ចប់ឯកសារ"
+          [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (form?.controls['completed_date'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>កំណត់សម្គាល់</mat-label>
-                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-                    placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="completed_note"></textarea>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>កំណត់សម្គាល់</mat-label>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+        placeholder="សូមបញ្ចេញយោបល់នៅទីនេះ" formControlName="completed_note"></textarea>
 
-            </mat-form-field>
-        </div>
+      </mat-form-field>
+    </div>
 
 
-        <div class="doc-form-template-wrapper" style="height: auto;">
-            <div class="doc-form-container nm">
-                <div class="doc-form-item-attachment n-bs">
-                    <button mat-button (click)="docAttachFile.click()">
-                        <mat-icon class="mat-18">attachment</mat-icon>
-                        <span>ភ្ជាប់ឯកសារសម្រេច</span>
-                    </button>
-                    <input #docAttachFile id="docAttachFile" multiple type="file"
-                        (change)="onSelectedDocumentFile($event)" style="display:none;" />
-                    <div *ngIf="START_UPLOAD_FILES" class="saving">
-                        <mat-spinner diameter="20"></mat-spinner>
-                        <span *ngIf="!storage?.startUpload">កំពុងរក្សាទុក....</span>
-                    </div>
-                </div>
+    <div class="doc-form-template-wrapper" style="height: auto;">
+      <div class="doc-form-container nm">
+        <div class="doc-form-item-attachment n-bs">
+          <button mat-button (click)="docAttachFile.click()">
+            <mat-icon class="mat-18">attachment</mat-icon>
+            <span>ភ្ជាប់ឯកសារសម្រេច</span>
+          </button>
+          <input #docAttachFile id="docAttachFile" multiple type="file"
+            (change)="onSelectedDocumentFile($event)" style="display:none;" />
+          @if (START_UPLOAD_FILES) {
+            <div class="saving">
+              <mat-spinner diameter="20"></mat-spinner>
+              @if (!storage?.startUpload) {
+                <span>កំពុងរក្សាទុក....</span>
+              }
             </div>
+          }
         </div>
+      </div>
+    </div>
 
-        <mat-list *ngIf="report">
-            <div mat-subheader>របាយការណ៍</div>
-            <mat-list-item *ngFor="let folder of report?.files">
-                <mat-icon mat-list-icon>folder</mat-icon>
-                <a [href]="folder?.downloadUrl" target="blank" mat-line>{{folder?.name}}</a>
-            </mat-list-item>
-        </mat-list>
+    @if (report) {
+      <mat-list>
+        <div mat-subheader>របាយការណ៍</div>
+        @for (folder of report?.files; track folder) {
+          <mat-list-item>
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <a [href]="$safeNavigationMigration(folder?.downloadUrl)" target="blank" mat-line>{{folder?.name}}</a>
+          </mat-list-item>
+        }
+      </mat-list>
+    }
 
-    </mat-dialog-content>
-    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+  </mat-dialog-content>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
     </mat-progress-bar>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" [disabled]="process" mat-button type="submit"
-            (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+  }
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" [disabled]="process" mat-button type="submit"
+    (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
 </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -9,9 +9,11 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
 import { CriminalPaymentComponent } from '../criminal-payment/criminal-payment.component';
 
 @Component({
-  selector: 'app-oversea-application',
-  templateUrl: './oversea-application.component.html',
-  styleUrls: ['./oversea-application.component.scss']
+    selector: 'app-oversea-application',
+    templateUrl: './oversea-application.component.html',
+    styleUrls: ['./oversea-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OverseaApplicationComponent implements OnInit {
 

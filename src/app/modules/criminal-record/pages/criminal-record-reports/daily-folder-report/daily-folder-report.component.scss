@@ -1,4 +1,4 @@
-@import '/src/assets/styles/variable.scss';
+@use '/src/assets/styles/variable.scss' as *;
 .new-print {
   margin: 0.5cm 1cm !important;
 }

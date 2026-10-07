@@ -1,4 +1,3 @@
-import { async } from '@angular/core/testing';
 import { IBlockNote, IUpdate } from './../../interfaces/document/document.interface';
 import { observable, action, toJS, } from 'mobx';
 import { Injectable } from '@angular/core';

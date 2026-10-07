@@ -81,7 +81,7 @@
           </span>
           <span class="f-input">{{store?.selectedCriminalRecord?.dateOfBirthDay?.name_en}}-
             {{store?.selectedCriminalRecord?.dateOfBirthMonth?.name_fr || store?.selectedCriminalRecord?.dateOfBirthMonth?.name_en}}-
-            {{store?.selectedCriminalRecord?.dateOfBirthYear?.name_en}} </span>
+          {{store?.selectedCriminalRecord?.dateOfBirthYear?.name_en}} </span>
         </div>
       </div>
       <div class="row-item">
@@ -91,27 +91,27 @@
             <span>:</span>
           </span>
           <span class="f-input text-a-s">
-            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.village?.name_en || store?.selectedCriminalRecord?.birthAddress?.village?.name_fr">
+            @if (store?.selectedCriminalRecord?.birthAddress?.village?.name_en || store?.selectedCriminalRecord?.birthAddress?.village?.name_fr) {
               Capital / Province {{store?.selectedCriminalRecord?.birthAddress?.village?.name_fr || store?.selectedCriminalRecord?.birthAddress?.village?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.commune?.name_en || store?.selectedCriminalRecord?.birthAddress?.commune?.name_fr">
+            @if (store?.selectedCriminalRecord?.birthAddress?.commune?.name_en || store?.selectedCriminalRecord?.birthAddress?.commune?.name_fr) {
               District {{store?.selectedCriminalRecord?.birthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.birthAddress?.commune?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.district?.name_en || store?.selectedCriminalRecord?.birthAddress?.district?.name_fr">
+            @if (store?.selectedCriminalRecord?.birthAddress?.district?.name_en || store?.selectedCriminalRecord?.birthAddress?.district?.name_fr) {
               Commune {{store?.selectedCriminalRecord?.birthAddress?.district?.name_fr || store?.selectedCriminalRecord?.birthAddress?.district?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.province?.name_fr || store?.selectedCriminalRecord?.birthAddress?.province?.name_en">
+            @if (store?.selectedCriminalRecord?.birthAddress?.province?.name_fr || store?.selectedCriminalRecord?.birthAddress?.province?.name_en) {
               Village {{store?.selectedCriminalRecord?.birthAddress?.province?.name_fr || store?.selectedCriminalRecord?.birthAddress?.province?.name_en}}
-            </ng-container>
+            }
           </span>
         </div>
       </div>
@@ -122,27 +122,27 @@
             <span>:</span>
           </span>
           <span class="f-input text-a-s">
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.village?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.village?.name_en">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.village?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.village?.name_en) {
               Capital / Province {{store?.selectedCriminalRecord?.permanentAddress?.village?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.village?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.commune?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.commune?.name_en">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.commune?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.commune?.name_en) {
               District {{store?.selectedCriminalRecord?.permanentAddress?.commune?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.commune?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.district?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.district?.name_en">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.district?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.district?.name_en) {
               Commune {{store?.selectedCriminalRecord?.permanentAddress?.district?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.district?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.province?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.province?.name_en">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.province?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.province?.name_en) {
               Village {{store?.selectedCriminalRecord?.permanentAddress?.province?.name_fr || store?.selectedCriminalRecord?.permanentAddress?.province?.name_en}}
-            </ng-container>
+            }
           </span>
         </div>
       </div>
@@ -201,27 +201,27 @@
           </span>
           <span class="f-input text-a-s">
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en">
+            @if (store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en) {
               Capital / Province {{store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en">
+            @if (store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en) {
               District {{store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en">
+            @if (store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en) {
               Commune {{store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en">
+            @if (store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en) {
               Village {{store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name_en}}
-            </ng-container>
+            }
 
           </span>
         </div>
@@ -269,27 +269,27 @@
             <span>:</span>
           </span>
           <span class="f-input text-a-s">
-            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en">
+            @if (store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en) {
               Capital / Province {{store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.village?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en">
+            @if (store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en) {
               District {{store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en">
+            @if (store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en) {
               Commune {{store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.district?.name_en}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en">
+            @if (store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en) {
               Village {{store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_fr || store?.selectedCriminalRecord?.motherBirthAddress?.province?.name_en}}
-            </ng-container>
+            }
           </span>
         </div>
       </div>
@@ -345,99 +345,103 @@
         <div class="f-item">
           <span class="feTitle new"
             style="font-weight: bold;text-decoration: underline;text-underline-position: under;color:black">NOTE
-            :</span>
+          :</span>
         </div>
       </div>
       <div class="row-item">
         <div class="f-item">
           <span class="f-input no-underline" style="text-decoration: none;">
             La personne susmentionnée (<strong> {{store?.selectedCriminalRecord?.last_name_en+"
-              "+store?.selectedCriminalRecord?.first_name_en}} </strong>)
-            {{store?.selectedCriminalRecord?.decree_remark?.decree_result?.name_fr}}
-          </span>
-        </div>
+          "+store?.selectedCriminalRecord?.first_name_en}} </strong>)
+          {{store?.selectedCriminalRecord?.decree_remark?.decree_result?.name_fr}}
+        </span>
       </div>
-      <div class="row-item" style="flex-direction: column; border-top: solid 1px">
-        <div class="f-item">
-          <span class="title" style="font-size: 14px; padding: 0;color:black">*
-            *Le Ministère de la Justice est seul responsable de la traduction de ce document faite par le
-            Ministère</span>
-        </div>
-        <div class="f-item expire-date" *ngIf="store?.selectedCriminalRecord?.expired_date">
+    </div>
+    <div class="row-item" style="flex-direction: column; border-top: solid 1px">
+      <div class="f-item">
+        <span class="title" style="font-size: 14px; padding: 0;color:black">*
+          *Le Ministère de la Justice est seul responsable de la traduction de ce document faite par le
+        Ministère</span>
+      </div>
+      @if (store?.selectedCriminalRecord?.expired_date) {
+        <div class="f-item expire-date">
           <span>
             Ce bulletin est valable dans les 3 mois. Invalide le jour :
-            {{store?.selectedCriminalRecord?.expired_date?.toDate()|dateOnly}}
+            {{$safeNavigationMigration(store?.selectedCriminalRecord?.expired_date?.toDate())|dateOnly}}
           </span>
         </div>
-      </div>
+      }
+    </div>
 
-      <div class="row-item" style="height: 16rem;">
-        <div class="f-item" style="justify-content: space-between;">
+    <div class="row-item" style="height: 16rem;">
+      <div class="f-item" style="justify-content: space-between;">
 
-          <div class="head-item long-w"
-            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-            <div class="c-item" style="justify-content: flex-start;">
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title" style="color:black">
-                  Vu
-                </span>
-                <span class="n-title" style="color:black">
-                  Pour le ministre
-                </span>
-                <span class="n-title" style="color:black">
-                  Secrétaire d'État
-                </span>
-                <span class="n-title" style="color:black">
-                  {{"<<"+"Signature et sceau>>"}}
-                </span>
+        <div class="head-item long-w"
+          style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+          <div class="c-item" style="justify-content: flex-start;">
+            <span
+              style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+              class="p-rel">
+              <span class="n-title" style="color:black">
+                Vu
               </span>
-            </div>
-
-            <span class="container-header-input" style="width: unset">
-              <div class="row-item khmer-date-picker" style="padding-right: 0;">
-                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
-                  <div class="c-item">
-                    <span
-                      style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                      class="p-rel">
-                      <span class="n-title" style="color:black">
-                        Phnom Penh, {{today|dateOnly}}
-                      </span>
-                      <span class="n-title" style="color:black">
-                        Directeur général des affaires de la peine pénale
-                      </span>
-                      <span class="n-title" style="color:black">
-                        {{"<<"+"Signature>>"}}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <span class="n-title" style="color:black">
+                Pour le ministre
+              </span>
+              <span class="n-title" style="color:black">
+                Secrétaire d'État
+              </span>
+              <span class="n-title" style="color:black">
+                {{"<<"+"Signature et sceau>>"}}
+              </span>
             </span>
           </div>
 
+          <span class="container-header-input" style="width: unset">
+            <div class="row-item khmer-date-picker" style="padding-right: 0;">
+              <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                <div class="c-item">
+                  <span
+                    style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                    class="p-rel">
+                    <span class="n-title" style="color:black">
+                      Phnom Penh, {{today|dateOnly}}
+                    </span>
+                    <span class="n-title" style="color:black">
+                      Directeur général des affaires de la peine pénale
+                    </span>
+                    <span class="n-title" style="color:black">
+                      {{"<<"+"Signature>>"}}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </span>
         </div>
-      </div>
 
+      </div>
+    </div>
+
+    @if (store?.selectedCriminalRecord?.key) {
       <div class="" style="display: flex; justify-content: flex-end;margin-right: 40px"
-        *ngIf="store?.selectedCriminalRecord?.key">
-        <ngx-kjua [text]="store?.selectedCriminalRecord?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+        >
+        <ngx-kjua [text]="$safeNavigationMigration(store?.selectedCriminalRecord?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true"
           [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
           [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'"
           [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
         </ngx-kjua>
       </div>
+    }
 
-      <div class="row-item" style="flex-direction: column; align-items: center;">
-        <div class="f-item" style="border-top: solid 1px; width: fit-content;">
-          <span class="n-title" style="font-size: 14px;color:#77867B;">
-            Samdech Sotheaross Boulevard, Daun Penh district, Phnom Penh Capital(in front of the Royal Palace)
-            Téléphone: 023 216 322 ,023 217 841</span>
-        </div>
+    <div class="row-item" style="flex-direction: column; align-items: center;">
+      <div class="f-item" style="border-top: solid 1px; width: fit-content;">
+        <span class="n-title" style="font-size: 14px;color:#77867B;">
+          Samdech Sotheaross Boulevard, Daun Penh district, Phnom Penh Capital(in front of the Royal Palace)
+        Téléphone: 023 216 322 ,023 217 841</span>
       </div>
-
     </div>
+
   </div>
+</div>
 </div>

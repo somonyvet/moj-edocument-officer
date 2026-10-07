@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FileManager } from 'src/app/stores/fileDrive.store';
 import { driveObj } from 'src/app/dummy/status';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -6,9 +6,11 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { SideNavService } from 'src/app/shared/services/sidenav.servce';
 
 @Component({
-  selector: 'app-file-info',
-  templateUrl: './file-info.component.html',
-  styleUrls: ['./file-info.component.scss']
+    selector: 'app-file-info',
+    templateUrl: './file-info.component.html',
+    styleUrls: ['./file-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FileInfoComponent implements OnInit {
 

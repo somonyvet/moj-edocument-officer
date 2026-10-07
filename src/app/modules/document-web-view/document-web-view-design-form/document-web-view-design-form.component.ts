@@ -1,6 +1,6 @@
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AbstractControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -19,14 +19,16 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentApplicationItemFormComponent } from '../../../shared/components/document-application-item-form/document-application-item-form.component';
 import { DocumentApplicationItemHeaderFormComponent } from '../../../shared/components/document-application-item-header-form/document-application-item-header-form.component';
 import { DocumentApplicationItemSectionFormComponent } from '../../../shared/components/document-application-item-section-form/document-application-item-section-form.component';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { generateKeywords, groupBy, pageKey } from 'src/app/shared/services/mapping.service';
 import { DocumentAppApproverFormComponent } from 'src/app/shared/components/document-app-approver-form/document-app-approver-form.component';
 
 @Component({
-  selector: 'app-document-web-view-design-form',
-  templateUrl: './document-web-view-design-form.component.html',
-  styleUrls: ['./document-web-view-design-form.component.scss']
+    selector: 'app-document-web-view-design-form',
+    templateUrl: './document-web-view-design-form.component.html',
+    styleUrls: ['./document-web-view-design-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentWebViewDesignFormComponent implements OnInit {
 
@@ -49,14 +51,14 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
   uploadPercentFile: any;
 
   comment: AbstractControl;
-  formComment: FormGroup;
+  formComment: UntypedFormGroup;
   ownerKeyP: string = ''
   outputRecording: any;
   //comment
 
   DOC_STATUS = docStatusObj
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -193,8 +195,8 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
     }
   }
 
-  form: FormGroup;
-  commentForm: FormGroup;
+  form: UntypedFormGroup;
+  commentForm: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -223,7 +225,7 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
   imageAttachments = [];
   docAttachments = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private auth: AuthStore,
@@ -682,15 +684,15 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
     return item1 && item2 ? item1.key === item2.key : item1 === item2;
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -748,7 +750,7 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content, key, office, isInfo, remark, contentTitle } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -764,7 +766,7 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
   addFooterSheet(item: any) {
     this.footerForm().push(this.newFooterSheet(item));
   }
-  newFooterSheet(item: any): FormGroup {
+  newFooterSheet(item: any): UntypedFormGroup {
     const { type, content, key, contentTitle, contentTitleLeft, contentTitleRight, contentTitleCenter, approvedByCenterBox, approvedByLeftBox, approvedByRightBox } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -783,7 +785,7 @@ export class DocumentWebViewDesignFormComponent implements OnInit {
   addSessionSheet(item: any) {
     this.sessionForm().push(this.newSessionSheet(item));
   }
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office, key, isInfo, contentTitle, sectionKey, page_key } = item;
     const { documentSections } = this.store;
     let officeForm: any = office;

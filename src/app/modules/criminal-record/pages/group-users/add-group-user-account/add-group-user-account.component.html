@@ -3,7 +3,7 @@
     <!-- <h2 mat-dialog-title (click)="batchUser()">{{title}}</h2> -->
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <a mat-button mat-icon-button (click)="dialogRef.close()">
+    <a mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </a>
   </div>
@@ -15,199 +15,216 @@
       </span>
     </div>
 
-    <div class="search-nav" *ngIf="!data?.item">
-      <div class="enroll-filter">
-        <mat-select formControlName="option" [compareWith]="ds.compareObject">
-          <mat-option class="mat-option-s" *ngFor="let item of filterOptions;" [value]="item">
-            {{ item.name }}
-          </mat-option>
-        </mat-select>
-      </div>
-      <input type="text" formControlName="search" [matAutocomplete]="auto" (focus)="_onFocus(true)"
-        (blur)="_onFocus(false)" appFocusSearch placeholder="ស្វែងរកគណនី">
-      <mat-autocomplete (optionSelected)="_onSelectedEmployee($event)" [displayWith]="displayItem"
-        #auto="matAutocomplete" class="mat-result-items">
-        <mat-option *ngFor="let state of store?.searchData" [value]="state">
-          <svg viewBox="0 0 48 48" role="presentation" aria-hidden="true" focusable="false"
-            style="margin-right:10px;height:32px;width:32px;display:block;fill:#FFB400">
-            <path
-              d="M25.3185406,41.953125 C24.8229103,42.1706619 24.0666695,41.5630684 24.0666695,41 L24,9 C24,8.3466682 24.8565693,7.8861504 25.3185406,8.3481216 C28.2416096,11.2711906 34.0175782,14.0522117 38.83704,14.7406997 C39.1509018,14.7855415 39.4004098,15.0270004 39.4555092,15.3392181 C41.589489,27.4317608 35.1391602,37.6428223 25.3185406,41.953125 Z M8,41 L7,41 L7,40 C7,39.4472656 6.5522461,39 6,39 C5.4477539,39 5,39.4472656 5,40 L5,41 L4,41 C3.4477539,41 3,41.4472656 3,42 C3,42.5527344 3.4477539,43 4,43 L5,43 L5,44 C5,44.5527344 5.4477539,45 6,45 C6.5522461,45 7,44.5527344 7,44 L7,43 L8,43 C8.5522461,43 9,42.5527344 9,42 C9,41.4472656 8.5522461,41 8,41 Z M12,47 C12.5522804,47 13,46.5522842 13,46 C13,45.4477158 12.5522804,45 12,45 C11.4477196,45 11,45.4477158 11,46 C11,46.5522842 11.4477196,47 12,47 Z M44,5 L43,5 L43,4 C43,3.4477539 42.5527344,3 42,3 C41.4472656,3 41,3.4477539 41,4 L41,5 L40,5 C39.4472656,5 39,5.4477539 39,6 C39,6.5522461 39.4472656,7 40,7 L41,7 L41,8 C41,8.5522461 41.4472656,9 42,9 C42.5527344,9 43,8.5522461 43,8 L43,7 L44,7 C44.5527344,7 45,6.5522461 45,6 C45,5.4477539 44.5527344,5 44,5 Z">
-            </path>
-            <path fill="#FFFFFF"
-              d="M20,19 C20,16.7908592 21.7908592,15 24,15 C26.2091408,15 28,16.7908592 28,19 C28,21.2091408 26.2091408,23 24,23 C21.7908592,23 20,21.2091408 20,19 Z M30,34 C30,32.2222195 30,32.5555592 30,29 C30,28.5352707 29.9471607,28.08288 29.8471699,27.64851 C29.7127209,27.0644207 29.4929905,26.5129109 29.2017994,26.0077896 C28.9443493,25.5611801 28.6310291,25.1508293 28.2713909,24.7863006 C27.1834106,23.6835194 25.6715298,23 24,23 C20.6862907,23 18,25.6862907 18,29 L18,34 L30,34 Z">
-            </path>
-            <path fill="#484848"
-              d="M24,47 C23.8671875,47 23.7338867,46.9736328 23.6088867,46.9199219 C8.1191406,40.3398438 1.8642578,28.6962891 5.0180664,12.3110352 C5.0996094,11.8881836 5.4423828,11.5649414 5.8696289,11.5087891 C13.175293,10.5473633 19.015625,7.4707031 23.2285156,2.3637695 C23.6083984,1.902832 24.3916015,1.902832 24.7714844,2.3637695 C28.984375,7.4707031 34.8251953,10.5473633 42.1308594,11.508789 C42.5576172,11.5649413 42.9003906,11.8881835 42.9824219,12.3110351 C46.1357422,28.696289 39.8798828,40.3398437 24.3911133,46.9199218 C24.2661133,46.9736328 24.1328125,47 24,47 Z M6.8525391,13.3891602 C4.1875,28.4189453 9.8022461,38.7382812 24,44.9111328 C38.1972656,38.7382812 43.8125,28.4189453 41.1474609,13.3891601 C34.0878906,12.3193359 28.328125,9.34375 24,4.5317383 C19.6728516,9.34375 13.9125977,12.3193359 6.8525391,13.3891602 Z M30.8222656,27.4238281 C30.6669922,26.7509765 30.4130859,26.1064453 30.0683594,25.5078125 C29.7695313,24.9907227 29.4052735,24.5117187 28.9833985,24.0839844 C28.4603882,23.5540772 27.8665772,23.1220703 27.225586,22.7882691 C28.3018799,21.8704224 29,20.5219116 29,19 C29,16.2431641 26.7568359,14 24,14 C21.2431641,14 19,16.2431641 19,19 C19,20.5238647 19.6999512,21.8739014 20.7786865,22.791748 C18.5368042,23.9598389 17,26.3019409 17,29 L17,34 C17,34.5527344 17.4477539,35 18,35 L30,35 C30.5527344,35 31,34.5527344 31,34 L31,29 C31,28.46875 30.9404297,27.9394531 30.8222656,27.4238281 Z M21,19 C21,17.3457031 22.3457031,16 24,16 C25.6542969,16 27,17.3457031 27,19 C27,20.6542969 25.6542969,22 24,22 C22.3457031,22 21,20.6542969 21,19 Z M29,33 L19,33 L19,29 C19,26.2431641 21.2431641,24 24,24 C25.3486328,24 26.6123047,24.5288086 27.5595703,25.487793 C27.8613281,25.7944336 28.1220703,26.1376953 28.3359375,26.506836 C28.5820313,26.9335938 28.7626953,27.3935548 28.8730469,27.8720704 C28.9570312,28.2392578 29,28.6191406 29,29 L29,33 Z">
-            </path>
-          </svg>
-          <span class="flex1 mat-space">
-            {{state?.displayName}}
-          </span>
-          <small>{{state?.school?.shortName}} {{state?.school?.shortName?'-':''}} {{state?.campus?.name}}</small>
-        </mat-option>
-        <mat-option disabled class="mat-empty-result" *ngIf="store?.data?.length===0">
-          <img
-            src="https://mobilecenter.azureedge.net/generated/img/no-filtered-apps-5e1a9c8b30813a99f20a80479de65977.svg">
-          <h3>No data found with current keyword.</h3>
-        </mat-option>
-      </mat-autocomplete>
-      <button mat-icon-button>
-        <mat-icon aria-label="search">search</mat-icon>
-      </button>
-    </div>
-
-    <ng-container *ngIf="data?.group?.key===auth?.config?.officerVerifyCriminalApplication">
-      <div class="form-group" style="margin-top: 24px;">
-        <mat-form-field appearance="outline">
-          <mat-label>បញ្ជរ</mat-label>
-          <input matInput type="number" formControlName="officer_counter" required placeholder="បញ្ជរ">
-        </mat-form-field>
-      </div>
-      <div class="pd-gap">
-        <div class="form-group">
-          <mat-radio-group aria-label="Select an option" formControlName="officer_type">
-            <mat-radio-button [value]="item" style="margin-right: 6px;"
-              *ngFor="let item of auth?.config?.criminalOfficerOptions" [checked]="form?.get('officer_type')?.value?.key === item?.key" >{{item?.name}}</mat-radio-button>
-          </mat-radio-group>
+    @if (!data?.item) {
+      <div class="search-nav">
+        <div class="enroll-filter">
+          <mat-select formControlName="option" [compareWith]="ds.compareObject">
+            @for (item of filterOptions; track item) {
+              <mat-option class="mat-option-s" [value]="item">
+                {{ item.name }}
+              </mat-option>
+            }
+          </mat-select>
         </div>
-        <div class="form-group">
-          <mat-checkbox  class="example-margin" formControlName="print_paid_online">ទទួលបោះពុម្ពពាក្យស្នើសុំអនឡាញ</mat-checkbox>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="data?.group?.isEmbassy">
-      <div class="form-group">
-        <p class="txt-label">ជ្រើសរើស​ប្រទេស</p>
-        <mat-form-field appearance="outline">
-          <input
-            matInput
-            type="text"
-            required
-            formControlName="application_country"
-            [matAutocomplete]="autoCountry"
-          />
-          <mat-autocomplete
-            #autoCountry="matAutocomplete"
-            [displayWith]="displayItemCountry"
-            (optionSelected)="optionSelectedCountry($event.option.value)"
-          >
-            <mat-option
-              *ngFor="let option of filterCountry"
-              [value]="option"
-            >
-              {{ option?.en_short_name }}
+        <input type="text" formControlName="search" [matAutocomplete]="auto" (focus)="_onFocus(true)"
+          (blur)="_onFocus(false)" appFocusSearch placeholder="ស្វែងរកគណនី">
+        <mat-autocomplete (optionSelected)="_onSelectedEmployee($event)" [displayWith]="displayItem"
+          #auto="matAutocomplete" class="mat-result-items">
+          @for (state of store?.searchData; track state) {
+            <mat-option [value]="state">
+              <svg viewBox="0 0 48 48" role="presentation" aria-hidden="true" focusable="false"
+                style="margin-right:10px;height:32px;width:32px;display:block;fill:#FFB400">
+                <path
+                  d="M25.3185406,41.953125 C24.8229103,42.1706619 24.0666695,41.5630684 24.0666695,41 L24,9 C24,8.3466682 24.8565693,7.8861504 25.3185406,8.3481216 C28.2416096,11.2711906 34.0175782,14.0522117 38.83704,14.7406997 C39.1509018,14.7855415 39.4004098,15.0270004 39.4555092,15.3392181 C41.589489,27.4317608 35.1391602,37.6428223 25.3185406,41.953125 Z M8,41 L7,41 L7,40 C7,39.4472656 6.5522461,39 6,39 C5.4477539,39 5,39.4472656 5,40 L5,41 L4,41 C3.4477539,41 3,41.4472656 3,42 C3,42.5527344 3.4477539,43 4,43 L5,43 L5,44 C5,44.5527344 5.4477539,45 6,45 C6.5522461,45 7,44.5527344 7,44 L7,43 L8,43 C8.5522461,43 9,42.5527344 9,42 C9,41.4472656 8.5522461,41 8,41 Z M12,47 C12.5522804,47 13,46.5522842 13,46 C13,45.4477158 12.5522804,45 12,45 C11.4477196,45 11,45.4477158 11,46 C11,46.5522842 11.4477196,47 12,47 Z M44,5 L43,5 L43,4 C43,3.4477539 42.5527344,3 42,3 C41.4472656,3 41,3.4477539 41,4 L41,5 L40,5 C39.4472656,5 39,5.4477539 39,6 C39,6.5522461 39.4472656,7 40,7 L41,7 L41,8 C41,8.5522461 41.4472656,9 42,9 C42.5527344,9 43,8.5522461 43,8 L43,7 L44,7 C44.5527344,7 45,6.5522461 45,6 C45,5.4477539 44.5527344,5 44,5 Z">
+                </path>
+                <path fill="#FFFFFF"
+                  d="M20,19 C20,16.7908592 21.7908592,15 24,15 C26.2091408,15 28,16.7908592 28,19 C28,21.2091408 26.2091408,23 24,23 C21.7908592,23 20,21.2091408 20,19 Z M30,34 C30,32.2222195 30,32.5555592 30,29 C30,28.5352707 29.9471607,28.08288 29.8471699,27.64851 C29.7127209,27.0644207 29.4929905,26.5129109 29.2017994,26.0077896 C28.9443493,25.5611801 28.6310291,25.1508293 28.2713909,24.7863006 C27.1834106,23.6835194 25.6715298,23 24,23 C20.6862907,23 18,25.6862907 18,29 L18,34 L30,34 Z">
+                </path>
+                <path fill="#484848"
+                  d="M24,47 C23.8671875,47 23.7338867,46.9736328 23.6088867,46.9199219 C8.1191406,40.3398438 1.8642578,28.6962891 5.0180664,12.3110352 C5.0996094,11.8881836 5.4423828,11.5649414 5.8696289,11.5087891 C13.175293,10.5473633 19.015625,7.4707031 23.2285156,2.3637695 C23.6083984,1.902832 24.3916015,1.902832 24.7714844,2.3637695 C28.984375,7.4707031 34.8251953,10.5473633 42.1308594,11.508789 C42.5576172,11.5649413 42.9003906,11.8881835 42.9824219,12.3110351 C46.1357422,28.696289 39.8798828,40.3398437 24.3911133,46.9199218 C24.2661133,46.9736328 24.1328125,47 24,47 Z M6.8525391,13.3891602 C4.1875,28.4189453 9.8022461,38.7382812 24,44.9111328 C38.1972656,38.7382812 43.8125,28.4189453 41.1474609,13.3891601 C34.0878906,12.3193359 28.328125,9.34375 24,4.5317383 C19.6728516,9.34375 13.9125977,12.3193359 6.8525391,13.3891602 Z M30.8222656,27.4238281 C30.6669922,26.7509765 30.4130859,26.1064453 30.0683594,25.5078125 C29.7695313,24.9907227 29.4052735,24.5117187 28.9833985,24.0839844 C28.4603882,23.5540772 27.8665772,23.1220703 27.225586,22.7882691 C28.3018799,21.8704224 29,20.5219116 29,19 C29,16.2431641 26.7568359,14 24,14 C21.2431641,14 19,16.2431641 19,19 C19,20.5238647 19.6999512,21.8739014 20.7786865,22.791748 C18.5368042,23.9598389 17,26.3019409 17,29 L17,34 C17,34.5527344 17.4477539,35 18,35 L30,35 C30.5527344,35 31,34.5527344 31,34 L31,29 C31,28.46875 30.9404297,27.9394531 30.8222656,27.4238281 Z M21,19 C21,17.3457031 22.3457031,16 24,16 C25.6542969,16 27,17.3457031 27,19 C27,20.6542969 25.6542969,22 24,22 C22.3457031,22 21,20.6542969 21,19 Z M29,33 L19,33 L19,29 C19,26.2431641 21.2431641,24 24,24 C25.3486328,24 26.6123047,24.5288086 27.5595703,25.487793 C27.8613281,25.7944336 28.1220703,26.1376953 28.3359375,26.506836 C28.5820313,26.9335938 28.7626953,27.3935548 28.8730469,27.8720704 C28.9570312,28.2392578 29,28.6191406 29,29 L29,33 Z">
+                </path>
+              </svg>
+              <span class="flex1 mat-space">
+                {{state?.displayName}}
+              </span>
+              <small>{{state?.school?.shortName}} {{state?.school?.shortName?'-':''}} {{state?.campus?.name}}</small>
             </mat-option>
+          }
+          @if (store?.data?.length===0) {
+            <mat-option disabled class="mat-empty-result">
+              <img
+                src="https://mobilecenter.azureedge.net/generated/img/no-filtered-apps-5e1a9c8b30813a99f20a80479de65977.svg">
+                <h3>No data found with current keyword.</h3>
+              </mat-option>
+            }
           </mat-autocomplete>
-          <mat-error
-            *ngIf="
+          <button mat-icon-button>
+            <mat-icon aria-label="search">search</mat-icon>
+          </button>
+        </div>
+      }
+
+      @if (data?.group?.key===auth?.config?.officerVerifyCriminalApplication) {
+        <div class="form-group" style="margin-top: 24px;">
+          <mat-form-field appearance="outline">
+            <mat-label>បញ្ជរ</mat-label>
+            <input matInput type="number" formControlName="officer_counter" required placeholder="បញ្ជរ">
+          </mat-form-field>
+        </div>
+        <div class="pd-gap">
+          <div class="form-group">
+            <mat-radio-group aria-label="Select an option" formControlName="officer_type">
+              @for (item of auth?.config?.criminalOfficerOptions; track item) {
+                <mat-radio-button [value]="item" style="margin-right: 6px;"
+                [checked]="form?.get('officer_type')?.value?.key === item?.key" >{{item?.name}}</mat-radio-button>
+              }
+            </mat-radio-group>
+          </div>
+          <div class="form-group">
+            <mat-checkbox  class="example-margin" formControlName="print_paid_online">ទទួលបោះពុម្ពពាក្យស្នើសុំអនឡាញ</mat-checkbox>
+          </div>
+        </div>
+      }
+
+      @if (data?.group?.isEmbassy) {
+        <div class="form-group">
+          <p class="txt-label">ជ្រើសរើស​ប្រទេស</p>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="application_country"
+              [matAutocomplete]="autoCountry"
+              />
+            <mat-autocomplete
+              #autoCountry="matAutocomplete"
+              [displayWith]="displayItemCountry"
+              (optionSelected)="optionSelectedCountry($event.option.value)"
+              >
+              @for (option of filterCountry; track option) {
+                <mat-option
+                  [value]="option"
+                  >
+                  {{ option?.en_short_name }}
+                </mat-option>
+              }
+            </mat-autocomplete>
+            @if (
               form.controls['application_country'].hasError('required')
-            "
-          >
-             ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-          </mat-error>
-          <mat-error
-            *ngIf="
+              ) {
+              <mat-error
+                >
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+              </mat-error>
+            }
+            @if (
               form.controls['application_country'].hasError('validKey')
-            "
-          >
-             សូមជ្រើសរើសពីតារាង
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="form-group" style="margin-top: 24px;">
-        <p class="txt-label">ជ្រើសរើសស្ថានទូត</p>
-        <mat-form-field appearance="outline">
-          <input
-            matInput
-            type="text"
-            required
-            formControlName="application_embassy"
-            [matAutocomplete]="autoEmbassy"
-          />
-          <mat-autocomplete
-            #autoEmbassy="matAutocomplete"
-            [displayWith]="displayEmbassy"
-          >
-            <mat-option
-              class="custom-option"
-              *ngFor="let option of filterEmbassy"
-              [value]="option"
-            >
-              <div class="embassy-menu-options">
-                <p class="title">
-                  {{ option?.name }}
-                </p>
-                <p class="address">អាស័យដ្ឋាន: {{ option?.address }}</p>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-          <mat-error
-            *ngIf="
+              ) {
+              <mat-error
+                >
+                សូមជ្រើសរើសពីតារាង
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="form-group" style="margin-top: 24px;">
+          <p class="txt-label">ជ្រើសរើសស្ថានទូត</p>
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="application_embassy"
+              [matAutocomplete]="autoEmbassy"
+              />
+            <mat-autocomplete
+              #autoEmbassy="matAutocomplete"
+              [displayWith]="displayEmbassy"
+              >
+              @for (option of filterEmbassy; track option) {
+                <mat-option
+                  class="custom-option"
+                  [value]="option"
+                  >
+                  <div class="embassy-menu-options">
+                    <p class="title">
+                      {{ option?.name }}
+                    </p>
+                    <p class="address">អាស័យដ្ឋាន: {{ option?.address }}</p>
+                  </div>
+                </mat-option>
+              }
+            </mat-autocomplete>
+            @if (
               form.controls['application_embassy'].hasError('required')
-            "
-          >
-           ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-          </mat-error>
-          <mat-error
-            *ngIf="
+              ) {
+              <mat-error
+                >
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+              </mat-error>
+            }
+            @if (
               form.controls['application_embassy'].hasError('validKey')
-            "
-          >
-           សូមជ្រើសរើសពីតារាង
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </ng-container>
+              ) {
+              <mat-error
+                >
+                សូមជ្រើសរើសពីតារាង
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      }
 
-    <app-spinner *ngIf="process"></app-spinner>
+      @if (process) {
+        <app-spinner></app-spinner>
+      }
 
-    <div *ngIf="SELECTED_EMPLOYEE" style="padding-top: 0; margin-top: 24px;" class="em-list">
+      @if (SELECTED_EMPLOYEE) {
+        <div style="padding-top: 0; margin-top: 24px;" class="em-list">
+          <div class="profile-photo">
+            <img [src]="SELECTED_EMPLOYEE?.file?.downloadUrl || emptyPhoto" alt="profile photo">
+          </div>
+          <div class="dl-items">
+            <div class="dl-title">
+              Officer ID
+            </div>
+            <div class="dl-text">:
+              {{SELECTED_EMPLOYEE?.officerId}}
+            </div>
+          </div>
+          <div class="dl-items">
+            <div class="dl-title">
+              Name
+            </div>
+            <div class="dl-text">:
+              {{SELECTED_EMPLOYEE?.displayName}}
+            </div>
+          </div>
+          <div class="dl-items">
+            <div class="dl-title">
+              Workplace
+            </div>
+            <div class="dl-text">:
+              {{SELECTED_EMPLOYEE?.currentDepartment?.name}}
+            </div>
+          </div>
+          <div class="dl-items">
+            <div class="dl-title">
+              Position
+            </div>
+            <div class="dl-text">:
+              {{SELECTED_EMPLOYEE?.position?.name}}
+            </div>
+          </div>
+        </div>
+      }
+    </mat-dialog-content>
 
-      <div class="profile-photo">
-        <img [src]="SELECTED_EMPLOYEE?.file?.downloadUrl || emptyPhoto" alt="profile photo">
-      </div>
-
-      <div class="dl-items">
-        <div class="dl-title">
-          Officer ID
-        </div>
-        <div class="dl-text">:
-          {{SELECTED_EMPLOYEE?.officerId}}
-        </div>
-      </div>
-
-      <div class="dl-items">
-        <div class="dl-title">
-          Name
-        </div>
-        <div class="dl-text">:
-          {{SELECTED_EMPLOYEE?.displayName}}
-        </div>
-      </div>
-      <div class="dl-items">
-        <div class="dl-title">
-          Workplace
-        </div>
-        <div class="dl-text">:
-          {{SELECTED_EMPLOYEE?.currentDepartment?.name}}
-        </div>
-      </div>
-      <div class="dl-items">
-        <div class="dl-title">
-          Position
-        </div>
-        <div class="dl-text">:
-          {{SELECTED_EMPLOYEE?.position?.name}}
-        </div>
-      </div>
-    </div>
-  </mat-dialog-content>
-
-  <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="enbutton cancel m-r16">Close</a>
-    <button class="enbutton primary" [disabled]="form?.invalid" mat-button type="submit"
+    <mat-dialog-actions align="end">
+      <div class="flex1"></div>
+      <a mat-button mat-dialog-close class="enbutton cancel m-r16">Close</a>
+      <button class="enbutton primary" [disabled]="$safeNavigationMigration(form?.invalid)" mat-button type="submit"
       (click)="_onSave(form.value)">Save</button>
-  </mat-dialog-actions>
-</form>
+    </mat-dialog-actions>
+  </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -9,9 +9,11 @@ import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ApexTheme, ApexTitle
 
 
 @Component({
-  selector: 'app-criminal-statistics',
-  templateUrl: './criminal-statistics.component.html',
-  styleUrls: ['./criminal-statistics.component.scss']
+    selector: 'app-criminal-statistics',
+    templateUrl: './criminal-statistics.component.html',
+    styleUrls: ['./criminal-statistics.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalStatisticsComponent implements OnInit {
   tabs = criminal_tabs.request_latter;

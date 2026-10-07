@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { pushObjArray, toUniq, updateObjArray } from 'src/app/shared/services/convert.service';
@@ -13,9 +13,11 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { DocumentAddPersonWorkplaceFormComponent } from '../document-add-person-workplace-form/document-add-person-workplace-form.component';
 
 @Component({
-  selector: 'app-document-application-workplace-form',
-  templateUrl: './document-application-workplace-form.component.html',
-  styleUrls: ['./document-application-workplace-form.component.scss']
+    selector: 'app-document-application-workplace-form',
+    templateUrl: './document-application-workplace-form.component.html',
+    styleUrls: ['./document-application-workplace-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationWorkplaceFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -37,7 +39,7 @@ export class DocumentApplicationWorkplaceFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentApplicationWorkplaceFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

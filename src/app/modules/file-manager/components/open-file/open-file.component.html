@@ -1,47 +1,45 @@
 <div id="imgPreview">
-    <div class="command-bar" *mobxAutorun>
-        <div class="goback">
-            <ng-container>
-                <div class="open-file-tleft">
-                    <div class="group-info">
-                        <button matTooltip="Back" mat-button mat-icon-button aria-label="Back" (click)="onClose()">
-                            <mat-icon style="padding: 0;">keyboard_backspace</mat-icon>
-                        </button>
-                    </div>
-                    <img class="icon" [src]="msg|iconDrive:msg" *ngIf="msg?.type?.key===DRIVE_OBJ?.file?.key" />
-                    <span>{{msg?.name}}</span>
-                </div>
-            </ng-container>
-        </div>
-        <div class="group-info">
-            <button matTooltip="Download" mat-button mat-icon-button aria-label="download" (click)="onDownload()">
-                <mat-icon>system_update_alt</mat-icon>
+  <div class="command-bar" *mobxAutorun>
+    <div class="goback">
+      <ng-container>
+        <div class="open-file-tleft">
+          <div class="group-info">
+            <button matTooltip="Back" mat-icon-button aria-label="Back" (click)="onClose()">
+              <mat-icon style="padding: 0;">keyboard_backspace</mat-icon>
             </button>
-            <button matTooltip="Close" mat-button mat-icon-button aria-label="close" (click)="onClose()">
-                <mat-icon>close</mat-icon>
-            </button>
+          </div>
+          @if (msg?.type?.key===DRIVE_OBJ?.file?.key) {
+            <img class="icon" [src]="msg|iconDrive:msg" />
+          }
+          <span>{{msg?.name}}</span>
         </div>
+      </ng-container>
     </div>
-    
-    <ng-container
-        *ngIf="data?.ITEM?.fileType !== 'image/svg+xml' && data?.ITEM?.fileType !== 'image/jpeg' && data?.ITEM?.fileType !== 'image/png' && data?.ITEM?.fileType !== 'image/jpg'; else elseTemplate">
-        <div class="viewer-container">
-            <ngx-doc-viewer viewer='google' style="width:100%;height:100vh;" [url]='data?.ITEM?.downloadURL'>
-            </ngx-doc-viewer>
+    <div class="group-info">
+      <button matTooltip="Download" mat-icon-button aria-label="download" (click)="onDownload()">
+        <mat-icon>system_update_alt</mat-icon>
+      </button>
+      <button matTooltip="Close" mat-icon-button aria-label="close" (click)="onClose()">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
-    
-    </ng-container>
-    <ng-template #elseTemplate>
-        <div class="img-lay">
-            <div class="img-center app-img-center ">
-                <img class="img100" [src]="data?.ITEM?.downloadURL" alt="image"/>
-            </div>
-        </div>
-        <!-- <link type="text/css" rel="Stylesheet" href="../../../assets/styles/iframe.css" /> -->
-     
-        <!-- (loaded)="onLoaded($event)" -->
-    </ng-template>
-    <!-- <app-placeholder *ngIf="store?.loading"></app-placeholder> -->
-    <!-- <app-spinner *ngIf="store?.fetching"></app-spinner> -->
+  </div>
+
+  @if (data?.ITEM?.fileType !== 'image/svg+xml' && data?.ITEM?.fileType !== 'image/jpeg' && data?.ITEM?.fileType !== 'image/png' && data?.ITEM?.fileType !== 'image/jpg') {
+    <div class="viewer-container">
+      <ngx-doc-viewer viewer='google' style="width:100%;height:100vh;" [url]='$safeNavigationMigration(data?.ITEM?.downloadURL)'>
+      </ngx-doc-viewer>
+    </div>
+  } @else {
+    <div class="img-lay">
+      <div class="img-center app-img-center ">
+        <img class="img100" [src]="$safeNavigationMigration(data?.ITEM?.downloadURL)" alt="image"/>
+      </div>
+    </div>
+    <!-- <link type="text/css" rel="Stylesheet" href="../../../assets/styles/iframe.css" /> -->
+    <!-- (loaded)="onLoaded($event)" -->
+  }
+  <!-- <app-placeholder *ngIf="store?.loading"></app-placeholder> -->
+  <!-- <app-spinner *ngIf="store?.fetching"></app-spinner> -->
 
 </div>

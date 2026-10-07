@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Directive, ElementRef } from '@angular/core';
 
 @Pipe({
-  name: 'prefixFocusAndSelect'
+    name: 'prefixFocusAndSelect',
+    standalone: false
 })
 export class PrefixFocusAndSelectPipe implements PipeTransform {
 
@@ -14,7 +15,8 @@ export class PrefixFocusAndSelectPipe implements PipeTransform {
 
 
 @Directive({
-  selector: '[scroll-to-bottom]'
+    selector: '[scroll-to-bottom]',
+    standalone: false
 })
 export class ScrollToBottomDirective {
   constructor(private _el: ElementRef) { }

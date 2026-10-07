@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{titleForm}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
@@ -11,9 +11,11 @@
       <mat-form-field appearance="outline">
         <mat-label>ចំណងជើង</mat-label>
         <input #inputRef formControlName="documentName" required matInput placeholder="ចំណងជើង">
-        <mat-error *ngIf="form.controls['documentName'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['documentName'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -21,17 +23,21 @@
       <mat-form-field appearance="outline">
         <mat-label>លេខឯកសារយោង</mat-label>
         <input #inputRef formControlName="refNo" required matInput placeholder="លេខឯកសារយោង">
-        <mat-error *ngIf="form.controls['refNo'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['refNo'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>តំណភ្ជាប់</mat-label>
         <input #inputRef formControlName="link" matInput placeholder="តំណភ្ជាប់">
-        <mat-error *ngIf="form.controls['link'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['link'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -41,9 +47,11 @@
         <input matInput [matDatepicker]="picker" formControlName="receivedDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="form.controls['receivedDate'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['receivedDate'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -52,31 +60,43 @@
         <mat-label>ប្រភេទ</mat-label>
         <input #inputRef formControlName="documentCategory" [matAutocomplete]="autoCategory"  matInput placeholder="ប្រភេទ">
         <mat-autocomplete [displayWith]="ds.displayFn" #autoCategory="matAutocomplete">
-          <mat-option *ngFor="let item of filterDocumentCategory | async;let i=index" [value]="item">
-            {{item?.name}}
-          </mat-option>
+          @for (item of filterDocumentCategory | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
         </mat-autocomplete>
-        <mat-error class="error-message" *ngIf="form.controls['documentCategory'].hasError('validKey')">
-          <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
-        </mat-error>
-        <mat-error *ngIf="form.controls['documentCategory'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['documentCategory'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+          </mat-error>
+        }
+        @if (form.controls['documentCategory'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>ប្រភព</mat-label>
         <input #inputRef [matAutocomplete]="autoSource" formControlName="documentSource"  matInput placeholder="ប្រភព">
         <mat-autocomplete [displayWith]="ds.displayFn" #autoSource="matAutocomplete">
-          <mat-option *ngFor="let item of filterDocumentSource | async;let i=index" [value]="item">
-            {{item?.name}}
-          </mat-option>
+          @for (item of filterDocumentSource | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
         </mat-autocomplete>
-        <mat-error class="error-message" *ngIf="form.controls['documentSource'].hasError('validKey')">
-          <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
-        </mat-error>
-        <mat-error *ngIf="form.controls['documentSource'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['documentSource'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+          </mat-error>
+        }
+        @if (form.controls['documentSource'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -84,65 +104,70 @@
       <div class="navSub">
 
         <input #photoFile type="file" accept='image/*,application/pdf' (change)="onSelectedFile($event.target.files)"
-        style="display:none;" />
+          style="display:none;" />
 
-        <div class="boxNavAddImg" (click)="photoFile.click()"
-          *ngIf="selectedFile?.length===0 && uploadedFile?.length===0">
-          <div class="boxNavMiddle">
-            <div class="boxNavMiddleicon">
-              <mat-icon>attach_file</mat-icon>
+        @if (selectedFile?.length===0 && uploadedFile?.length===0) {
+          <div class="boxNavAddImg" (click)="photoFile.click()"
+            >
+            <div class="boxNavMiddle">
+              <div class="boxNavMiddleicon">
+                <mat-icon>attach_file</mat-icon>
+              </div>
+              <div class="boxNavMiddleTxt">
+                ឯកសារយោង
+              </div>
+              <div class="boxNavMiddleSmallTxt"></div>
             </div>
-            <div class="boxNavMiddleTxt">
-              ឯកសារយោង
-            </div>
-            <div class="boxNavMiddleSmallTxt"></div>
           </div>
-        </div>
+        }
 
-        <div class="boxNavAfterAddImg" *ngIf="selectedFile?.length>0 || uploadedFile?.length>0">
-          <div class="boxImgSmall" *ngFor="let image of selectedFile;let i=index">
-            <ng-container *ngIf="image?.img;else pdfFile">
-              <div class="boxImgSmallClose" (click)="onURL(image,i,true)">
-                <mat-icon>close</mat-icon>
+        @if (selectedFile?.length>0 || uploadedFile?.length>0) {
+          <div class="boxNavAfterAddImg">
+            @for (image of selectedFile; track image; let i = $index) {
+              <div class="boxImgSmall">
+                @if (image?.img) {
+                  <div class="boxImgSmallClose" (click)="onURL(image,i,true)">
+                    <mat-icon>close</mat-icon>
+                  </div>
+                  <img [src]="$safeNavigationMigration(image?.img)" lazyLoad>
+                } @else {
+                  <div class="boxImgSmallClose" (click)="onURL(image,i,true)">
+                    <mat-icon>close</mat-icon>
+                  </div>
+                  <div>
+                    {{image?.file?.name}}
+                  </div>
+                }
               </div>
-              <img [src]="image?.img" lazyLoad>
-            </ng-container>
-            <ng-template #pdfFile>
-              <div class="boxImgSmallClose" (click)="onURL(image,i,true)">
-                <mat-icon>close</mat-icon>
+            }
+            @for (image of uploadedFile; track image; let i = $index) {
+              <div class="boxImgSmall">
+                @if (image?.fileType !=='application/pdf') {
+                  <div class="boxImgSmallClose" (click)="onURL(image,i,false)">
+                    <mat-icon>close</mat-icon>
+                  </div>
+                  <img [src]="$safeNavigationMigration(image?.downloadUrl)" lazyLoad>
+                } @else {
+                  <div class="boxImgSmallClose" (click)="onURL(image,i,false)">
+                    <mat-icon>close</mat-icon>
+                  </div>
+                  <div>
+                    {{image?.name}}
+                  </div>
+                }
               </div>
-              <div>
-                {{image?.file?.name}}
+            }
+            <div class="boxImgSmall bge3e6ea"
+              (click)="photoFile.click()">
+              <div class="bISMidIcon">
+                <mat-icon>add</mat-icon>
               </div>
-            </ng-template>
-          </div>
-          <div class="boxImgSmall" *ngFor="let image of uploadedFile;let i=index">
-            <ng-container *ngIf="image?.fileType !=='application/pdf';else pdfDisplay">
-              <div class="boxImgSmallClose" (click)="onURL(image,i,false)">
-                <mat-icon>close</mat-icon>
+              <div class="bISMidText">
+                ឯកសារយោង
               </div>
-              <img [src]="image?.downloadUrl" lazyLoad>
-            </ng-container>
-            <ng-template #pdfDisplay>
-              <div class="boxImgSmallClose" (click)="onURL(image,i,false)">
-                <mat-icon>close</mat-icon>
-              </div>
-              <div>
-                {{image?.name}}
-              </div>
-            </ng-template>
-          </div>
-          <div class="boxImgSmall bge3e6ea"
-            (click)="photoFile.click()">
-            <div class="bISMidIcon">
-              <mat-icon>add</mat-icon>
             </div>
-            <div class="bISMidText">
-               ឯកសារយោង
-            </div>
-
           </div>
-        </div>
+        }
 
       </div>
     </div>
@@ -154,37 +179,47 @@
         </h3>
         <mat-slide-toggle formControlName="public_status"></mat-slide-toggle>
       </div>
-      <div class="officer-list" *ngIf="!form.get('public_status')?.value">
-        <div class="officer-item" *ngFor="let item of selectedOfficers">
-          <img [src]="item?.file?.downloadUrl || emptyPhoto" alt="">
-          <h3 class="officer-name">{{item?.displayName}}</h3>
-          <div style="flex:1"></div>
-          <div class="action" (click)="removeOfficer(item)">
-            <ion-icon name="close-circle"></ion-icon>
-          </div>
-        </div>
-      </div>
-      <ng-container *ngIf="!form.get('public_status')?.value">
-        <div style="position:relative;width:100%">
-          <app-search-filter-box [placeholder]="'ស្វែងរកមន្ត្រី'" (closeSearch)="search=false" (focusIn)="search=true" (searchValue)="onSearchOfficer($event)" [customClass]="'search-filter-w-100'" style="width: 100%;margin-top:15px;z-index:999"></app-search-filter-box>
-          <div class="search-container" *ngIf="search">
-            <div class="search-item" *ngFor="let item of searchData">
+      @if (!form.get('public_status')?.value) {
+        <div class="officer-list">
+          @for (item of selectedOfficers; track item) {
+            <div class="officer-item">
               <img [src]="item?.file?.downloadUrl || emptyPhoto" alt="">
               <h3 class="officer-name">{{item?.displayName}}</h3>
               <div style="flex:1"></div>
-              <div class="action" (click)="onSelectedOfficer(item)">
-                <ion-icon name="add-circle" ></ion-icon>
+              <div class="action" (click)="removeOfficer(item)">
+                <ion-icon name="close-circle"></ion-icon>
               </div>
             </div>
-          </div>
+          }
         </div>
-      </ng-container>
+      }
+      @if (!form.get('public_status')?.value) {
+        <div style="position:relative;width:100%">
+          <app-search-filter-box [placeholder]="'ស្វែងរកមន្ត្រី'" (closeSearch)="search=false" (focusIn)="search=true" (searchValue)="onSearchOfficer($event)" [customClass]="'search-filter-w-100'" style="width: 100%;margin-top:15px;z-index:999"></app-search-filter-box>
+          @if (search) {
+            <div class="search-container">
+              @for (item of searchData; track item) {
+                <div class="search-item">
+                  <img [src]="item?.file?.downloadUrl || emptyPhoto" alt="">
+                  <h3 class="officer-name">{{item?.displayName}}</h3>
+                  <div style="flex:1"></div>
+                  <div class="action" (click)="onSelectedOfficer(item)">
+                    <ion-icon name="add-circle" ></ion-icon>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
     </div>
 
   </mat-dialog-content>
 
-  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
-  </mat-progress-bar>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+    </mat-progress-bar>
+  }
   <mat-dialog-actions align="end">
     <div class="flex1"></div>
     <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>

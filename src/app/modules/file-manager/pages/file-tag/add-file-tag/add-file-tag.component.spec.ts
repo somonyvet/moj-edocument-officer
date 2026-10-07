@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddFileTagComponent } from './add-file-tag.component';
 
@@ -6,7 +6,7 @@ describe('AddFileTagComponent', () => {
   let component: AddFileTagComponent;
   let fixture: ComponentFixture<AddFileTagComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AddFileTagComponent ]
     })

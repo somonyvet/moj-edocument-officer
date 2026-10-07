@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,9 +18,11 @@ import { RemarkApplicationComponent } from '../../../components/remark-applicati
 import { CriminalApplicationFullviewDialogComponent } from '../../criminal-application/criminal-application-fullview-dialog/criminal-application-fullview-dialog.component';
 
 @Component({
-  selector: 'app-withdraw-online-route',
-  templateUrl: './withdraw-online-route.component.html',
-  styleUrls: ['./withdraw-online-route.component.scss']
+    selector: 'app-withdraw-online-route',
+    templateUrl: './withdraw-online-route.component.html',
+    styleUrls: ['./withdraw-online-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class WithdrawOnlineRouteComponent implements OnInit {
   tabs = criminal_tabs.criminal_record_tabs;

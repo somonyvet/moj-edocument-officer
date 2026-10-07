@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { days, monthOfYear } from 'src/app/dummy/report';
 import { toLocaleNumber } from 'src/app/shared/services/convert.service';
@@ -9,14 +9,16 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-print-finish-review-dialog',
-  templateUrl: './print-finish-review-dialog.component.html',
-  styleUrls: ['./print-finish-review-dialog.component.scss']
+    selector: 'app-print-finish-review-dialog',
+    templateUrl: './print-finish-review-dialog.component.html',
+    styleUrls: ['./print-finish-review-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PrintFinishReviewDialogComponent implements OnInit {
   selectionDoc: any = null;
   issue_date: any = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   khmer_form: AbstractControl;
   khmer_amount: AbstractControl;
   france_form: AbstractControl;
@@ -30,7 +32,7 @@ export class PrintFinishReviewDialogComponent implements OnInit {
     public store: CriminalApplicationStore,
     private ps: PrintService,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
 
   ) { }
 

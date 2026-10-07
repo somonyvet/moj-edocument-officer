@@ -1,16 +1,18 @@
-import { FormControl } from '@angular/forms';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-report-filter-by-post',
-  templateUrl: './report-filter-by-post.component.html',
-  styleUrls: ['./report-filter-by-post.component.scss']
+    selector: 'app-report-filter-by-post',
+    templateUrl: './report-filter-by-post.component.html',
+    styleUrls: ['./report-filter-by-post.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportFilterByPostComponent implements OnInit {
   @Input() selectedInspection: any;
   @Output() onPress = new EventEmitter();
 
-  inspection = new FormControl();
+  inspection = new UntypedFormControl();
 
   constructor(
     // public store: Geo,

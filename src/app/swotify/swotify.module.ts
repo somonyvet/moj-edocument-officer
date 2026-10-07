@@ -4,7 +4,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SwotifyRoutingModule } from './swotify-routing.module';
 import { HomeComponent } from './modules/home/home.component';
 import { MarketplaceComponent } from './modules/marketplace/marketplace.component';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { MarketplaceListingComponent } from './modules/marketplace/marketplace-listing/marketplace-listing.component';
 import { AccountantsComponent } from './modules/accountants/accountants.component';
@@ -28,10 +28,12 @@ export function playerFactory() {
     CommonModule,
     SharedModule,
     SwotifyRoutingModule,
-    LottieModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [
+    provideLottieOptions({ player: playerFactory }),
+  ],
 })
 
 export class SwotifyModule { }

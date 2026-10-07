@@ -192,7 +192,7 @@ export class UserAccountStore {
       const batch = this.ds.batch();
       const { id_number, title, position, full_name, full_name_en, gender, phone } = m
 
-      const genderData = gender.trim() === ("ស្រី" || "ស") ? GENDER_OPTIONS[1] : GENDER_OPTIONS[0]
+      const genderData = (gender.trim() === "ស្រី" || gender.trim() === "ស") ? GENDER_OPTIONS[1] : GENDER_OPTIONS[0]
       const fullName = `${ConvertService.toCapitalize(full_name)}`;
 
       const fullNameArray = fullName.split(" ");

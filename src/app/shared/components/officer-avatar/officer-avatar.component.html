@@ -1,8 +1,10 @@
-<ng-container *ngIf="isTitle">
-    <span *ngFor="let t of item?.title" class="text">
-        {{t?.name}}
+@if (isTitle) {
+  @for (t of item?.title; track t) {
+    <span class="text">
+      {{t?.name}}
     </span>
-</ng-container>
-<ng-container *ngIf="!isTitle">
-    <img [src]="item?.file?.downloadUrl||defaultImg">
-</ng-container>
+  }
+}
+@if (!isTitle) {
+  <img [src]="item?.file?.downloadUrl||defaultImg">
+}

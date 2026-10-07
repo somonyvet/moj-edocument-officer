@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -13,9 +13,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 
 @Component({
-  selector: 'app-report-paid-form',
-  templateUrl: './report-paid-form.component.html',
-  styleUrls: ['./report-paid-form.component.scss']
+    selector: 'app-report-paid-form',
+    templateUrl: './report-paid-form.component.html',
+    styleUrls: ['./report-paid-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportPaidFormComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

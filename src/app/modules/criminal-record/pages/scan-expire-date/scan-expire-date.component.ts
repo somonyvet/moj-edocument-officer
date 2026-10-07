@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -27,27 +27,28 @@ export const MY_DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-scan-expire-date',
-  templateUrl: './scan-expire-date.component.html',
-  styleUrls: ['./scan-expire-date.component.scss'],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-gb' },
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-  ],
-
+    selector: 'app-scan-expire-date',
+    templateUrl: './scan-expire-date.component.html',
+    styleUrls: ['./scan-expire-date.component.scss'],
+    providers: [
+        { provide: MAT_DATE_LOCALE, useValue: 'en-gb' },
+        {
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ScanExpireDateComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private authStore: AuthStore,

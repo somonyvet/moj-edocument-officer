@@ -3,10 +3,11 @@ import { DatePipe } from '@angular/common';
 import { toLocaleNumber } from '../services/convert.service';
 import { KHMER_MONTH_ARRAY, monthOfYear } from 'src/app/dummy/report';
 import { getAmPm, toKhmerNumber } from '../services/mapping.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Pipe({
-  name: 'dateTime'
+    name: 'dateTime',
+    standalone: false
 })
 export class DateTimePipe implements PipeTransform {
 
@@ -17,7 +18,8 @@ export class DateTimePipe implements PipeTransform {
   }
 }
 @Pipe({
-  name: 'khmerDateOnly'
+    name: 'khmerDateOnly',
+    standalone: false
 })
 export class KhmerDatePipe implements PipeTransform {
 
@@ -39,7 +41,8 @@ export class KhmerDatePipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'khmerDateDisplay'
+    name: 'khmerDateDisplay',
+    standalone: false
 })
 export class KhmerDateDisplayPipe implements PipeTransform {
 
@@ -52,7 +55,8 @@ export class KhmerDateDisplayPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'dateDayKh'
+    name: 'dateDayKh',
+    standalone: false
 })
 export class DateDayKh implements PipeTransform {
   transform(value: any, args?: any): any {
@@ -63,7 +67,8 @@ export class DateDayKh implements PipeTransform {
 }
 
 @Pipe({
-  name: 'dateMonthKh'
+    name: 'dateMonthKh',
+    standalone: false
 })
 export class DateMonthKhPipe implements PipeTransform {
 
@@ -75,7 +80,8 @@ export class DateMonthKhPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'dateYearKh'
+    name: 'dateYearKh',
+    standalone: false
 })
 export class DateYearKh implements PipeTransform {
   transform(value: any, args?: any): any {
@@ -87,7 +93,8 @@ export class DateYearKh implements PipeTransform {
 
 
 @Pipe({
-  name: 'dateKh'
+    name: 'dateKh',
+    standalone: false
 })
 export class DateKh implements PipeTransform {
   transform(value: any, args?: any): any {
@@ -105,7 +112,8 @@ export class DateKh implements PipeTransform {
 
 
 @Pipe({
-  name: 'dateTimeKh'
+    name: 'dateTimeKh',
+    standalone: false
 })
 export class DateTimeKh implements PipeTransform {
   transform(value: any, args?: any): any {
@@ -132,7 +140,8 @@ export class DateTimeKh implements PipeTransform {
 }
 
 @Pipe({
-  name: 'convertWorkingHour'
+    name: 'convertWorkingHour',
+    standalone: false
 })
 export class ConvertWorkingHourPipe implements PipeTransform {
   transform(timeInSeconds: number, args?: any): any {
@@ -156,7 +165,8 @@ export class ConvertWorkingHourPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'monthFrPipe'
+    name: 'monthFrPipe',
+    standalone: false
 })
 export class MonthFrPipe implements PipeTransform {
   transform(date: any, args?: any): any {
@@ -166,7 +176,8 @@ export class MonthFrPipe implements PipeTransform {
   }
 }
 @Pipe({
-  name: 'khmerNumber'
+    name: 'khmerNumber',
+    standalone: false
 })
 export class khmerNumberPipe implements PipeTransform {
   transform(number: any): unknown {
@@ -176,7 +187,8 @@ export class khmerNumberPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'arrNumberToStr'
+    name: 'arrNumberToStr',
+    standalone: false
 })
 export class arrNumberToStrPipe implements PipeTransform {
   transform(list: any,isKhmer?: boolean): unknown {
@@ -194,7 +206,8 @@ export class arrNumberToStrPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'pipeCut0'
+    name: 'pipeCut0',
+    standalone: false
 })
 export class PipeCut0 implements PipeTransform {
   transform(str: any): any {

@@ -2,396 +2,415 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>ដាក់បានបង់លុយ Online</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="loading || process"></mat-progress-bar>
+  @if (loading || process) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
   <mat-dialog-content class="form-wrapper">
-    <ng-container *ngIf="!loading">
+    @if (!loading) {
       <div class="option-wrapper">
         <div class="option-container">
-
           <div class="row-item ml5">
             <span class="txt-label">លេខវិក្កយបត្រធនាគារ</span>
           </div>
-
           <div class="row-item ml5">
             <mat-form-field appearance="outline" style="width: 100%;">
               <input matInput type="text" required formControlName="paid_remark" placeholder="លេខវិក្កយបត្រធនាគារ">
-              <mat-error *ngIf="form.controls['paid_remark'].hasError('required')">
-                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-            </mat-error>
+              @if (form.controls['paid_remark'].hasError('required')) {
+                <mat-error>
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                </mat-error>
+              }
             </mat-form-field>
           </div>
-
           <div class="row-item ml5">
             <mat-checkbox formControlName="isStudent">
               <span class="txt-label">{{lang.strings['asastudent']}}</span>
               <span>{{lang.strings['Pleasecheckthisboxforastudentcondemnedbulletin']}}</span
-              >
-            </mat-checkbox>
-          </div>
-
-          <div class="row-item" *ngIf="form?.get('isStudent')?.value">
-            <div class="info-card">
-              <span class="info red"> * {{lang.strings['requiredStudent']}}</span>
-              <br>
-              <span>{{lang.strings['text']}}</span>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="d-flex">
-              <ion-icon class="icon" name="help-outline"></ion-icon>
-              <p class="txt-label">{{lang.strings['AreyouCambodianoraforeigner']}}</p>
-            </div>
-            <mat-radio-group
-              aria-label="Select an option"
-              class="group-gap"
-              formControlName="nationality"
-            >
-              <mat-radio-button
-                [checked]="item?.key === criminalData?.national_application?.key"
-                [value]="item"
-                *ngFor="let item of NATIONALITY_APPLICAITON"
-                ><span
-                  >{{ tran?.language === "en" ? item?.name_en : item?.name }}
-                </span></mat-radio-button
-              >
-            </mat-radio-group>
-          </div>
-          <div class="row-item">
-            <div class="d-flex">
-              <ion-icon class="icon" name="help-outline"></ion-icon>
-              <p class="txt-label">{{lang.strings['select']}}</p>
-            </div>
-            <mat-radio-group
-              aria-label="Select an option"
-              class="group-gap"
-              formControlName="urgent_obj"
-            >
-              <mat-radio-button (change)="calculateWithdrawDate(item)"
-                [checked]="item?.key === criminalData?.urgent_obj?.key"
-                *ngFor="let item of URGENT_OBJ_ARRAY"
-                [value]="item"
-                ><span>{{
-                  tran?.language === "en" ? item?.name_en : item?.name
-                }}</span>
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-
-          <div class="row-item">
-            <div class="info-card">
-              <span class="info red">{{lang.strings['withDrawDate']}} : {{withdraw_date | dateKh}}</span>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="d-flex">
-              <ion-icon class="icon" name="help-outline"></ion-icon>
-              <p class="txt-label">
-                {{lang.strings['AreyouapplyinginCambodiaorabroad']}}
-              </p>
-            </div>
-            <mat-radio-group
-              aria-label="Select an option"
-              class="group-gap"
-              formControlName="apply_from"
-            >
-              <mat-radio-button
-                (change)="applyObjectChanges($event)"
-                [value]="item"
-                *ngFor="let item of APPLY_OBJECT"
-                ><span
-                  >{{ tran?.language === "en" ? item?.name_en : item?.name }}
-                </span>
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <div class="item-wrapper select-contry" *ngIf="showOversea">
-            <div class="row-item">
-              <div class="item-lg">
-                <p class="txt-label">{{lang.strings['selectCountry']}}</p>
-              </div>
-              <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  type="text"
-                  required
-                  formControlName="application_country"
-                  [matAutocomplete]="autoCountry"
-                />
-                <mat-autocomplete
-                  #autoCountry="matAutocomplete"
-                  [displayWith]="displayItemCountry"
-                  (optionSelected)="optionSelectedCountry($event.option.value)"
                 >
-                  <mat-option
-                    *ngFor="let option of filterCountry"
-                    [value]="option"
+              </mat-checkbox>
+            </div>
+            @if (form?.get('isStudent')?.value) {
+              <div class="row-item">
+                <div class="info-card">
+                  <span class="info red"> * {{lang.strings['requiredStudent']}}</span>
+                  <br>
+                    <span>{{lang.strings['text']}}</span>
+                  </div>
+                </div>
+              }
+              <div class="row-item">
+                <div class="d-flex">
+                  <ion-icon class="icon" name="help-outline"></ion-icon>
+                  <p class="txt-label">{{lang.strings['AreyouCambodianoraforeigner']}}</p>
+                </div>
+                <mat-radio-group
+                  aria-label="Select an option"
+                  class="group-gap"
+                  formControlName="nationality"
                   >
-                    {{ option?.en_short_name }}
-                  </mat-option>
-                </mat-autocomplete>
-                <mat-error
-                  *ngIf="
+                  @for (item of NATIONALITY_APPLICAITON; track item) {
+                    <mat-radio-button
+                      [checked]="item?.key === criminalData?.national_application?.key"
+                      [value]="item"
+                      ><span
+                      >{{ tran?.language === "en" ? item?.name_en : item?.name }}
+                    </span></mat-radio-button
+                    >
+                  }
+                </mat-radio-group>
+              </div>
+              <div class="row-item">
+                <div class="d-flex">
+                  <ion-icon class="icon" name="help-outline"></ion-icon>
+                  <p class="txt-label">{{lang.strings['select']}}</p>
+                </div>
+                <mat-radio-group
+                  aria-label="Select an option"
+                  class="group-gap"
+                  formControlName="urgent_obj"
+                  >
+                  @for (item of URGENT_OBJ_ARRAY; track item) {
+                    <mat-radio-button (change)="calculateWithdrawDate(item)"
+                      [checked]="item?.key === criminalData?.urgent_obj?.key"
+                      [value]="item"
+                      ><span>{{
+                      tran?.language === "en" ? item?.name_en : item?.name
+                    }}</span>
+                  </mat-radio-button>
+                }
+              </mat-radio-group>
+            </div>
+            <div class="row-item">
+              <div class="info-card">
+                <span class="info red">{{lang.strings['withDrawDate']}} : {{withdraw_date | dateKh}}</span>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="d-flex">
+                <ion-icon class="icon" name="help-outline"></ion-icon>
+                <p class="txt-label">
+                  {{lang.strings['AreyouapplyinginCambodiaorabroad']}}
+                </p>
+              </div>
+              <mat-radio-group
+                aria-label="Select an option"
+                class="group-gap"
+                formControlName="apply_from"
+                >
+                @for (item of APPLY_OBJECT; track item) {
+                  <mat-radio-button
+                    (change)="applyObjectChanges($event)"
+                    [value]="item"
+                    ><span
+                    >{{ tran?.language === "en" ? item?.name_en : item?.name }}
+                  </span>
+                </mat-radio-button>
+              }
+            </mat-radio-group>
+          </div>
+          @if (showOversea) {
+            <div class="item-wrapper select-contry">
+              <div class="row-item">
+                <div class="item-lg">
+                  <p class="txt-label">{{lang.strings['selectCountry']}}</p>
+                </div>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    type="text"
+                    required
+                    formControlName="application_country"
+                    [matAutocomplete]="autoCountry"
+                    />
+                  <mat-autocomplete
+                    #autoCountry="matAutocomplete"
+                    [displayWith]="displayItemCountry"
+                    (optionSelected)="optionSelectedCountry($event.option.value)"
+                    >
+                    @for (option of filterCountry; track option) {
+                      <mat-option
+                        [value]="option"
+                        >
+                        {{ option?.en_short_name }}
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                  @if (
                     form.controls['application_country'].hasError('required')
-                  "
-                >
-                  {{lang.strings['ThisFieldIsRequired']}}
-                </mat-error>
-                <mat-error
-                  *ngIf="
+                    ) {
+                    <mat-error
+                      >
+                      {{lang.strings['ThisFieldIsRequired']}}
+                    </mat-error>
+                  }
+                  @if (
                     form.controls['application_country'].hasError('validKey')
-                  "
-                >
-                  {{lang.strings['Pleaseselectfromthetable']}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="row-item">
-              <div class="item-lg">
-                <p class="txt-label">{{lang.strings['SelectanEmbassy']}}</p>
+                    ) {
+                    <mat-error
+                      >
+                      {{lang.strings['Pleaseselectfromthetable']}}
+                    </mat-error>
+                  }
+                </mat-form-field>
               </div>
-
-              <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  type="text"
-                  required
-                  formControlName="application_embassy"
-                  [matAutocomplete]="autoEmbassy"
-                />
-                <mat-autocomplete
-                  #autoEmbassy="matAutocomplete"
-                  [displayWith]="displayItem"
-                  (optionSelected)="onSelectedEmbassy($event)"
-                >
-                  <mat-option
-                    class="custom-option"
-                    *ngFor="let option of filterEmbassy"
-                    [value]="option"
-                  >
-                    <div class="embassy-menu-options">
-                      <p class="title">
-                        {{ option?.name }}
-                      </p>
-                      <p class="address">{{lang.strings['Address']}}: {{ option?.address }}</p>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-                <mat-error
-                  *ngIf="
+              <div class="row-item">
+                <div class="item-lg">
+                  <p class="txt-label">{{lang.strings['SelectanEmbassy']}}</p>
+                </div>
+                <mat-form-field appearance="outline">
+                  <input
+                    matInput
+                    type="text"
+                    required
+                    formControlName="application_embassy"
+                    [matAutocomplete]="autoEmbassy"
+                    />
+                  <mat-autocomplete
+                    #autoEmbassy="matAutocomplete"
+                    [displayWith]="displayItem"
+                    (optionSelected)="onSelectedEmbassy($event)"
+                    >
+                    @for (option of filterEmbassy; track option) {
+                      <mat-option
+                        class="custom-option"
+                        [value]="option"
+                        >
+                        <div class="embassy-menu-options">
+                          <p class="title">
+                            {{ option?.name }}
+                          </p>
+                          <p class="address">{{lang.strings['Address']}}: {{ option?.address }}</p>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                  @if (
                     form.controls['application_embassy'].hasError('required')
-                  "
-                >
-                {{lang.strings['ThisFieldIsRequired']}}
-                </mat-error>
-                <mat-error
-                  *ngIf="
+                    ) {
+                    <mat-error
+                      >
+                      {{lang.strings['ThisFieldIsRequired']}}
+                    </mat-error>
+                  }
+                  @if (
                     form.controls['application_embassy'].hasError('validKey')
-                  "
-                >
-                {{lang.strings['Pleaseselectfromthetable']}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row-item" *ngIf="showOversea">
-            <div class="info-card">
-              <strong class="info"
-                >*
-                {{lang.strings['PleaseselectanembassynearyouforconveniencewhenretrievingtheJudgmentBulletin']}}</strong
-              >
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="d-flex">
-              <ion-icon class="icon" name="help-outline"></ion-icon>
-              <p class="txt-label">{{lang.strings['numChoseArticle']}}{{lang.strings['condemnationBulletin']}}</p>
-            </div>
-          </div>
-          <div class="item-wrapper select-contry">
-            <div class="row-item">
-              <div class="item-lg">
-                <mat-checkbox formControlName="khmer_form"></mat-checkbox>
-                <strong style="margin-left: 12px">{{lang.strings['khmer']}}</strong>
+                    ) {
+                    <mat-error
+                      >
+                      {{lang.strings['Pleaseselectfromthetable']}}
+                    </mat-error>
+                  }
+                </mat-form-field>
               </div>
-              <mat-form-field appearance="outline">
-                <mat-label>{{lang.strings['Number']}}</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  min="1"
-                  required
-                  formControlName="khmer_amount"
-                  #Khmer
-                />
-                <span matSuffix>({{ Khmer?.value }} {{lang.strings['sheet']}})</span>
-                <mat-error
-                  *ngIf="form.controls['khmer_amount'].hasError('required')"
-                >
-                {{lang.strings['ThisFieldIsRequired']}}
-                </mat-error>
-                <mat-error *ngIf="form.controls['khmer_amount'].hasError('min')">
-                  {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
-                </mat-error>
-              </mat-form-field>
+            </div>
+          }
+          @if (showOversea) {
+            <div class="row-item">
+              <div class="info-card">
+                <strong class="info"
+                  >*
+                  {{lang.strings['PleaseselectanembassynearyouforconveniencewhenretrievingtheJudgmentBulletin']}}</strong
+                  >
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <div class="d-flex">
+                <ion-icon class="icon" name="help-outline"></ion-icon>
+                <p class="txt-label">{{lang.strings['numChoseArticle']}}{{lang.strings['condemnationBulletin']}}</p>
+              </div>
+            </div>
+            <div class="item-wrapper select-contry">
+              <div class="row-item">
+                <div class="item-lg">
+                  <mat-checkbox formControlName="khmer_form"></mat-checkbox>
+                  <strong style="margin-left: 12px">{{lang.strings['khmer']}}</strong>
+                </div>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{lang.strings['Number']}}</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    min="1"
+                    required
+                    formControlName="khmer_amount"
+                    #Khmer
+                    />
+                  <span matSuffix>({{ Khmer?.value }} {{lang.strings['sheet']}})</span>
+                  @if (form.controls['khmer_amount'].hasError('required')) {
+                    <mat-error
+                      >
+                      {{lang.strings['ThisFieldIsRequired']}}
+                    </mat-error>
+                  }
+                  @if (form.controls['khmer_amount'].hasError('min')) {
+                    <mat-error>
+                      {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
+                    </mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div class="row-item">
+                <div class="item-lg">
+                  <mat-checkbox
+                    formControlName="france_form"
+                    (change)="onChangeLanguage($event, 'france_amount')"
+                    >
+                  </mat-checkbox>
+                  <strong style="margin-left: 12px">{{lang.strings['french']}}</strong>
+                </div>
+                @if (form?.value?.france_form) {
+                  <mat-form-field
+                    appearance="outline"
+                    >
+                    <mat-label>{{lang.strings['Number']}}</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      min="1"
+                      required
+                      formControlName="france_amount"
+                      #Fr
+                      />
+                    <span matSuffix>({{ (Fr?.value || 0) * 2 }} {{lang.strings['sheet']}})</span>
+                    @if (form.controls['france_amount'].hasError('required')) {
+                      <mat-error
+                        >
+                        {{lang.strings['ThisFieldIsRequired']}}
+                      </mat-error>
+                    }
+                    @if (form.controls['france_amount'].hasError('min')) {
+                      <mat-error>
+                        {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                }
+              </div>
+              <div class="row-item">
+                <div class="item-lg">
+                  <mat-checkbox
+                    formControlName="english_form"
+                    (change)="onChangeLanguage($event, 'english_amount')"
+                    >
+                  </mat-checkbox>
+                  <strong style="margin-left: 12px">{{lang.strings['english']}}</strong>
+                </div>
+                @if (form?.value?.english_form) {
+                  <mat-form-field
+                    appearance="outline"
+                    >
+                    <mat-label>{{lang.strings['Number']}}</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      min="1"
+                      required
+                      formControlName="english_amount"
+                      #Eng
+                      />
+                    <span matSuffix>({{ (Eng?.value || 0) * 2 }} {{lang.strings['sheet']}})</span>
+                    @if (form.controls['english_amount'].hasError('required')) {
+                      <mat-error
+                        >
+                        {{lang.strings['ThisFieldIsRequired']}}
+                      </mat-error>
+                    }
+                    @if (form.controls['english_amount'].hasError('min')) {
+                      <mat-error
+                        >
+                        {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                }
+              </div>
             </div>
             <div class="row-item">
-              <div class="item-lg">
-                <mat-checkbox
-                  formControlName="france_form"
-                  (change)="onChangeLanguage($event, 'france_amount')"
-                >
-                </mat-checkbox>
-                <strong style="margin-left: 12px">{{lang.strings['french']}}</strong>
+              <div class="info-card">
+                <p class="title">{{lang.strings['Addresstowithdrawthebulletin']}} :</p>
+                <p class="info">{{ retrieve_address }}</p>
               </div>
-              <mat-form-field
-                appearance="outline"
-                *ngIf="form?.value?.france_form"
-              >
-                <mat-label>{{lang.strings['Number']}}</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  min="1"
-                  required
-                  formControlName="france_amount"
-                  #Fr
-                />
-                <span matSuffix>({{ (Fr?.value || 0) * 2 }} {{lang.strings['sheet']}})</span>
-                <mat-error
-                  *ngIf="form.controls['france_amount'].hasError('required')"
-                >
-                {{lang.strings['ThisFieldIsRequired']}}
-                </mat-error>
-                <mat-error *ngIf="form.controls['france_amount'].hasError('min')">
-                  {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="row-item">
-              <div class="item-lg">
-                <mat-checkbox
-                  formControlName="english_form"
-                  (change)="onChangeLanguage($event, 'english_amount')"
-                >
-                </mat-checkbox>
-                <strong style="margin-left: 12px">{{lang.strings['english']}}</strong>
-              </div>
-              <mat-form-field
-                appearance="outline"
-                *ngIf="form?.value?.english_form"
-              >
-                <mat-label>{{lang.strings['Number']}}</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  min="1"
-                  required
-                  formControlName="english_amount"
-                  #Eng
-                />
-                <span matSuffix>({{ (Eng?.value || 0) * 2 }} {{lang.strings['sheet']}})</span>
-                <mat-error
-                  *ngIf="form.controls['english_amount'].hasError('required')"
-                >
-                {{lang.strings['ThisFieldIsRequired']}}
-                </mat-error>
-                <mat-error
-                  *ngIf="form.controls['english_amount'].hasError('min')"
-                >
-                {{lang.strings['Thisinformationrequiresyoutofillinatleastonecopy']}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="info-card">
-              <p class="title">{{lang.strings['Addresstowithdrawthebulletin']}} :</p>
-              <p class="info">{{ retrieve_address }}</p>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="option-wrapper">
-        <div class="payment-container">
-          <div class="payment-title">
-            <h3 class="txt-label">
-              {{lang.strings['Judgmentbulletinvaluefor']}}:
-              {{ selectedPaymentOption?.nationality?.name }}, {{lang.strings['Request']}}{{
+        <div class="option-wrapper">
+          <div class="payment-container">
+            <div class="payment-title">
+              <h3 class="txt-label">
+                {{lang.strings['Judgmentbulletinvaluefor']}}:
+                {{ selectedPaymentOption?.nationality?.name }}, {{lang.strings['Request']}}{{
                 selectedPaymentOption?.apply_from?.name
-              }}<ng-container *ngIf="selectedPaymentOption?.isStudent"
-                >, {{lang.strings['asastudent']}}</ng-container
-              >, {{lang.strings['Services']}} {{ selectedPaymentOption?.duration?.name }}
-            </h3>
-          </div>
-
-          <div class="row-item">
-            <p class="payment-option-item">{{lang.strings['khmer']}} {{ Khmer?.value }}{{lang.strings['Copy']}}</p>
-            <p class="payment-option-item">
-              {{ Khmer?.value * selectedPaymentOption?.khmer_price }}៛
-            </p>
-          </div>
-
-          <div
-            class="row-item"
-            *ngIf="
+                }}@if (selectedPaymentOption?.isStudent) {
+                , {{lang.strings['asastudent']}}
+                }, {{lang.strings['Services']}} {{ selectedPaymentOption?.duration?.name }}
+              </h3>
+            </div>
+            <div class="row-item">
+              <p class="payment-option-item">{{lang.strings['khmer']}} {{ Khmer?.value }}{{lang.strings['Copy']}}</p>
+              <p class="payment-option-item">
+                {{ Khmer?.value * selectedPaymentOption?.khmer_price }}៛
+              </p>
+            </div>
+            @if (
               !this.form?.controls['france_amount']?.disabled &&
               this.form?.controls['france_amount']?.value
-            "
-          >
-            <p class="payment-option-item">
-              {{lang.strings['french']}} {{ this.form?.controls["france_amount"]?.value }}{{lang.strings['Copy']}}
-            </p>
-            <p class="payment-option-item">
-              {{
-                this.form?.controls["france_amount"]?.value *
+              ) {
+              <div
+                class="row-item"
+                >
+                <p class="payment-option-item">
+                  {{lang.strings['french']}} {{ this.form?.controls["france_amount"]?.value }}{{lang.strings['Copy']}}
+                </p>
+                <p class="payment-option-item">
+                  {{
+                  this.form?.controls["france_amount"]?.value *
                   selectedPaymentOption?.france_price
-              }}៛
-            </p>
-          </div>
-
-          <div
-              class="row-item"
-              *ngIf="
-                total_english
-              "
-            >
-              <p class="payment-option-item">
-                {{lang.strings['english']}} {{ this.form?.get("english_amount")?.value }}{{lang.strings['Copy']}}
-              </p>
-              <p class="payment-option-item">
-                {{total_english
-                }}៛
+                  }}៛
+                </p>
+              </div>
+            }
+            @if (
+              total_english
+              ) {
+              <div
+                class="row-item"
+                >
+                <p class="payment-option-item">
+                  {{lang.strings['english']}} {{ this.form?.get("english_amount")?.value }}{{lang.strings['Copy']}}
+                </p>
+                <p class="payment-option-item">
+                  {{total_english
+                  }}៛
+                </p>
+              </div>
+            }
+            @if (selectedPaymentOption?.tran_fee) {
+              <div class="row-item">
+                <p class="payment-option-item">{{lang.strings['Servicefee']}}</p>
+                <p class="payment-option-item">
+                  {{ selectedPaymentOption?.tran_fee }}៛
+                </p>
+              </div>
+            }
+            <mat-divider></mat-divider>
+            <div class="row-item">
+              <p class="payment-option-item total">{{lang.strings['total']}}</p>
+              <p class="payment-option-item total">
+                {{grandTotal}}៛
               </p>
             </div>
-
-          <div class="row-item" *ngIf="selectedPaymentOption?.tran_fee">
-            <p class="payment-option-item">{{lang.strings['Servicefee']}}</p>
-            <p class="payment-option-item">
-              {{ selectedPaymentOption?.tran_fee }}៛
-            </p>
-          </div>
-          <mat-divider></mat-divider>
-          <div class="row-item">
-            <p class="payment-option-item total">{{lang.strings['total']}}</p>
-            <p class="payment-option-item total">
-              {{grandTotal}}៛
-            </p>
           </div>
         </div>
-      </div>
-    </ng-container>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-  </mat-dialog-actions>
-</form>
+      }
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <div class="flex1"></div>
+      <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+      <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+    </mat-dialog-actions>
+  </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -6,9 +6,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-receipt-application-record',
-  templateUrl: './criminal-receipt-application-record.component.html',
-  styleUrls: ['./criminal-receipt-application-record.component.scss']
+    selector: 'app-criminal-receipt-application-record',
+    templateUrl: './criminal-receipt-application-record.component.html',
+    styleUrls: ['./criminal-receipt-application-record.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalReceiptApplicationRecordComponent implements OnInit {
   loading: boolean = true;

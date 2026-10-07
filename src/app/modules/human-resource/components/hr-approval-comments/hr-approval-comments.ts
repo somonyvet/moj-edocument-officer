@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { IComment, IDelete, IFileComment, IUpdate } from 'src/app/interfaces/document/document.interface';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -20,9 +20,11 @@ import { HrCommentStore } from '../../stores/hr-comment.store';
 import { ConvertService } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-hr-approval-comments',
-  templateUrl: './hr-approval-comments.html',
-  styleUrls: ['./hr-approval-comments.scss']
+    selector: 'app-hr-approval-comments',
+    templateUrl: './hr-approval-comments.html',
+    styleUrls: ['./hr-approval-comments.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HrApprovalCommentsComponent implements OnInit, OnDestroy {
   @ViewChild('fileComment') fileComment: ElementRef;
@@ -30,7 +32,7 @@ export class HrApprovalCommentsComponent implements OnInit, OnDestroy {
 
   @Input('headerKey') headerKey : string;
 
-  commentForm: FormGroup;
+  commentForm: UntypedFormGroup;
   SELECTED_FILES = [];
   SELECTED_FILES_EDIT = [];
   img: [];
@@ -66,7 +68,7 @@ export class HrApprovalCommentsComponent implements OnInit, OnDestroy {
   //URL of Blob
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: HrCommentStore,
     private auth: AuthStore,

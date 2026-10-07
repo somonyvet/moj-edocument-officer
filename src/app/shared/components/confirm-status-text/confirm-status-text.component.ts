@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
-  selector: 'app-confirm-status-text',
-  templateUrl: './confirm-status-text.component.html',
-  styleUrls: ['./confirm-status-text.component.scss']
+    selector: 'app-confirm-status-text',
+    templateUrl: './confirm-status-text.component.html',
+    styleUrls: ['./confirm-status-text.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ConfirmStatusTextComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -10,9 +10,11 @@ import { CriminalPaymentComponent } from '../criminal-payment/criminal-payment.c
 import { APPLICATION_TYPE } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-criminal-application-direct-letter2',
-  templateUrl: './criminal-application-direct-letter2.component.html',
-  styleUrls: ['./criminal-application-direct-letter2.component.scss']
+    selector: 'app-criminal-application-direct-letter2',
+    templateUrl: './criminal-application-direct-letter2.component.html',
+    styleUrls: ['./criminal-application-direct-letter2.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationDirectLetter2Component implements OnInit, OnDestroy {
   loading: boolean = true;

@@ -1,6 +1,6 @@
 import { MmeProgramStore } from './../../../../stores/document/mme-program.store';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -13,22 +13,24 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { RemarkStore } from 'src/app/stores/document/remark.store';
 
 @Component({
-  selector: 'app-year-program-form',
-  templateUrl: './year-program-form.component.html',
-  styleUrls: ['./year-program-form.component.scss']
+    selector: 'app-year-program-form',
+    templateUrl: './year-program-form.component.html',
+    styleUrls: ['./year-program-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class YearProgramFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតឆ្នាំសម្រាប់កម្មវិធី";
-  form: FormGroup;
+  form: UntypedFormGroup;
   officer: AbstractControl;
   filteredOptionsOfficer: any;
 
   constructor(
     public dialogRef: MatDialogRef<YearProgramFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: MmeProgramStore,
     private ds: DataService,
     private auth: AuthStore,

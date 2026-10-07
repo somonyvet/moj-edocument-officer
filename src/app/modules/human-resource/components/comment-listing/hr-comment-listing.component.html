@@ -1,49 +1,57 @@
-<div class="comment-list-item" *ngFor="let item of cData; trackBy: trackByIdx">
-  <div class="comment-avatar">
-    <img [src]="defaultImg" alt="">
-  </div>
-  <div>
-    <div class="comment-info">
-      <div class="comment-user">
-        <strong>{{item?.displayName}}</strong>
-        <span class="ac-comment-section" *ngIf="header?.created_by == auth?.User?.uid">
-          <span class="material-icons ac-comment" [matMenuTriggerFor]="menu">more_vert</span>
-          <mat-menu #menu="matMenu" id="delete-menu">
-            <button class="button-menu-container"
-              style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
-              (click)="editComment(item)">
-              <span>កែប្រែ</span>
-            </button>
-            <button class="button-menu-container"
-              style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
-              (click)="deleteComment(item)">
-              <span>លុប</span>
-            </button>
-          </mat-menu>
-        </span>
-      </div>
-      <p>{{item?.text}}</p>
-      <div class="file-container">
-        <ng-container *ngFor="let file of item?.files">
-          <div class="img-box-item" [class.two-side]="item?.files | fileLength:'image'" *ngIf="file?.type === 'image'">
-            <img [src]="file?.downloadUrl" alt="">
-          </div>
-          <div class="audio-box-item" *ngIf="file?.type === 'audio'">
-            <audio #audioOption controls>
-              <source [src]='file?.downloadUrl' [type]="file?.fileType">
-            </audio>
-          </div>
-          <div class="application-box-item" *ngIf="file?.type === 'application'">
-            <a [href]="file?.downloadUrl" target="_blank">{{file?.name}}</a>
-          </div>
-        </ng-container>
-      </div>
+@for (item of cData; track trackByIdx($index)) {
+  <div class="comment-list-item">
+    <div class="comment-avatar">
+      <img [src]="defaultImg" alt="">
     </div>
-    <!-- <div class="cm-action">
-            <span (click)="onReply(item)">ឆ្លើយតប</span>
-        </div> -->
-
-    <app-comment-listing [data]="store?.documentCommentsChildData" [header]="item"></app-comment-listing>
-
+    <div>
+      <div class="comment-info">
+        <div class="comment-user">
+          <strong>{{item?.displayName}}</strong>
+          @if (header?.created_by == auth?.User?.uid) {
+            <span class="ac-comment-section">
+              <span class="material-icons ac-comment" [matMenuTriggerFor]="menu">more_vert</span>
+              <mat-menu #menu="matMenu" id="delete-menu">
+                <button class="button-menu-container"
+                  style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
+                  (click)="editComment(item)">
+                  <span>កែប្រែ</span>
+                </button>
+                <button class="button-menu-container"
+                  style="display: flex; align-items: center; justify-content: space-evenly;" mat-menu-item
+                  (click)="deleteComment(item)">
+                  <span>លុប</span>
+                </button>
+              </mat-menu>
+            </span>
+          }
+        </div>
+        <p>{{item?.text}}</p>
+        <div class="file-container">
+          @for (file of item?.files; track file) {
+            @if (file?.type === 'image') {
+              <div class="img-box-item" [class.two-side]="$safeNavigationMigration(item?.files) | fileLength:'image'">
+                <img [src]="$safeNavigationMigration(file?.downloadUrl)" alt="">
+              </div>
+            }
+            @if (file?.type === 'audio') {
+              <div class="audio-box-item">
+                <audio #audioOption controls>
+                  <source [src]='$safeNavigationMigration(file?.downloadUrl)' [type]="$safeNavigationMigration(file?.fileType)">
+                </audio>
+              </div>
+            }
+            @if (file?.type === 'application') {
+              <div class="application-box-item">
+                <a [href]="$safeNavigationMigration(file?.downloadUrl)" target="_blank">{{file?.name}}</a>
+              </div>
+            }
+          }
+        </div>
+      </div>
+      <!-- <div class="cm-action">
+      <span (click)="onReply(item)">ឆ្លើយតប</span>
+    </div> -->
+    <app-comment-listing [data]="$safeNavigationMigration(store?.documentCommentsChildData)" [header]="item"></app-comment-listing>
   </div>
 </div>
+}

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IGeo } from '../../interfaces/geo';
@@ -12,15 +12,17 @@ import { PROVINCE_ARRAY_PREFIX, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { MappingService } from 'src/app/shared/services/mapping.service';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 @Component({
-  selector: 'app-province-form',
-  templateUrl: './province-form.component.html',
-  styleUrls: ['./province-form.component.scss']
+    selector: 'app-province-form',
+    templateUrl: './province-form.component.html',
+    styleUrls: ['./province-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProvinceFormComponent implements OnInit {
   title: any = "បង្កើតទិន្នន័យខេត្ត/ក្រុង";
 
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   en_name: AbstractControl
   geo_prefix: AbstractControl
@@ -30,7 +32,7 @@ export class ProvinceFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ProvinceFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     private auth: AuthStore,

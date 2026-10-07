@@ -1,11 +1,13 @@
-import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import videojs from 'video.js';
 
 @Component({
-  selector: 'app-video-js-player',
-  templateUrl: './video-js-player.component.html',
-  styleUrls: ['./video-js-player.component.scss']
+    selector: 'app-video-js-player',
+    templateUrl: './video-js-player.component.html',
+    styleUrls: ['./video-js-player.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VideoJsPlayerComponent implements OnInit {
 

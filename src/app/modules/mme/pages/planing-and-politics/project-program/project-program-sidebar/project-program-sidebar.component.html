@@ -6,7 +6,7 @@
                   <p>ផែនការអនុម័តប្រចាំឆ្នាំ · {{store?.selectedPlaning?.projectStatus?.name_kh}}</p>
                   <h1><span class="dot-status" [style.background-color]="store?.selectedPlaning?.projectStatus?.color"></span><span>{{store?.selectedPlaning?.name}}</span></h1>
               </div>
-              <a class="mat-btn-n" mat-button mat-icon-button>
+              <a class="mat-btn-n" mat-icon-button>
                   <mat-icon>settings</mat-icon>
               </a>
               <mat-menu #menu="matMenu">
@@ -54,10 +54,11 @@
           </ng-template>
       </div> -->
       <div class="nav-dock-body">
-        <nav mat-tab-nav-bar>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel">
             <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
                 #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
         </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
         <router-outlet *ngIf="!loading else formLoading">
         </router-outlet>
         <ng-template #formLoading>

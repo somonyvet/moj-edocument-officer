@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RenameFileComponent } from './rename-file.component';
 
@@ -6,7 +6,7 @@ describe('RenameFileComponent', () => {
   let component: RenameFileComponent;
   let fixture: ComponentFixture<RenameFileComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RenameFileComponent ]
     })

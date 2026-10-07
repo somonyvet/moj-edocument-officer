@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -9,9 +9,11 @@ import { VillageChangeCommuneFormComponent } from '../village-change-commune-for
 import { VillageFormComponent } from '../village-form/village-form.component';
 
 @Component({
-  selector: 'app-geo-data-village',
-  templateUrl: './geo-data-village.component.html',
-  styleUrls: ['./geo-data-village.component.scss']
+    selector: 'app-geo-data-village',
+    templateUrl: './geo-data-village.component.html',
+    styleUrls: ['./geo-data-village.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoDataVillageComponent implements OnInit, OnDestroy {
   communeKey: string;

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService, pushObjArray } from 'src/app/shared/services/convert.service';
@@ -12,9 +12,11 @@ import { docStatusObj } from 'src/app/dummy/status';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 @Component({
-  selector: 'app-document-report-form',
-  templateUrl: './document-report-form.component.html',
-  styleUrls: ['./document-report-form.component.scss']
+    selector: 'app-document-report-form',
+    templateUrl: './document-report-form.component.html',
+    styleUrls: ['./document-report-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentReportFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -22,7 +24,7 @@ export class DocumentReportFormComponent implements OnInit {
   @ViewChild('docAttachFile') docAttachFile: ElementRef;
 
   titleForm: any = "បិទបញ្ចប់ឯកសារ";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   process: boolean = false;
 
@@ -35,7 +37,7 @@ export class DocumentReportFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentReportFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     private auth: AuthStore,
     private snackBar: MatSnackBar,

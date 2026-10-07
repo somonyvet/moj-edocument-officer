@@ -1,5 +1,5 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { switchMap, debounceTime, tap } from "rxjs/operators";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,14 +14,16 @@ import { MappingService, mapToCountryData, mapToEmbassyData } from 'src/app/shar
 // import { OFFICER_COUNTER } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-add-group-user-account',
-  templateUrl: './add-group-user-account.component.html',
-  styleUrls: ['./add-group-user-account.component.scss']
+    selector: 'app-add-group-user-account',
+    templateUrl: './add-group-user-account.component.html',
+    styleUrls: ['./add-group-user-account.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddGroupUserAccountComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('inputRef', { static: true }) inputRef: ElementRef;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   email: AbstractControl;
   option: AbstractControl;
@@ -45,7 +47,7 @@ export class AddGroupUserAccountComponent implements OnInit, OnDestroy, AfterVie
   constructor(
     public dialogRef: MatDialogRef<AddGroupUserAccountComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public fs: DataService,
     public ds: DataService,
     public auth: AuthStore,

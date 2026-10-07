@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-attachment-dialog',
-  templateUrl: './attachment-dialog.component.html',
-  styleUrls: ['./attachment-dialog.component.scss']
+    selector: 'app-attachment-dialog',
+    templateUrl: './attachment-dialog.component.html',
+    styleUrls: ['./attachment-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AttachmentDialogComponent implements OnInit {
 

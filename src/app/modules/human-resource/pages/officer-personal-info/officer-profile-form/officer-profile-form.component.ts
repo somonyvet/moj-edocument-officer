@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -7,9 +7,11 @@ import { HrStore } from '../../../stores/hr.store';
 import { AttachmentDialogComponent } from '../attachment-dialog/attachment-dialog.component';
 
 @Component({
-  selector: 'app-officer-profile-form',
-  templateUrl: './officer-profile-form.component.html',
-  styleUrls: ['./officer-profile-form.component.scss']
+    selector: 'app-officer-profile-form',
+    templateUrl: './officer-profile-form.component.html',
+    styleUrls: ['./officer-profile-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerProfileFormComponent implements OnInit {
 

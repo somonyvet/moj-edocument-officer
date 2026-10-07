@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-folder-report',
-  templateUrl: './folder-report.component.html',
-  styleUrls: ['./folder-report.component.scss']
+    selector: 'app-folder-report',
+    templateUrl: './folder-report.component.html',
+    styleUrls: ['./folder-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FolderReportComponent implements OnInit {
   @Input() folderData : any = null;

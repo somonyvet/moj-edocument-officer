@@ -1,7 +1,7 @@
 import { AuthStore } from './../../../../../stores/auth.store';
 import { Subscription } from 'rxjs';
 import { HrMissionStore } from '../../../stores/hr-mission.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -11,9 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { HrMissionsFormComponent } from '../human-resource-missions-form/human-resource-missions-form.component';
 
 @Component({
-  selector: 'app-human-resource-missions-list',
-  templateUrl: './human-resource-missions-list.component.html',
-  styleUrls: ['./human-resource-missions-list.component.scss']
+    selector: 'app-human-resource-missions-list',
+    templateUrl: './human-resource-missions-list.component.html',
+    styleUrls: ['./human-resource-missions-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceMissionsListComponent implements OnInit {
   URL: any = PHOTO_LIB.EMPTY_PHOTO;

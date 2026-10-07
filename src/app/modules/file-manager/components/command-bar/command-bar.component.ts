@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -24,9 +24,11 @@ import { DeleteComponent } from '../../../../shared/components/delete/delete.com
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-command-bar',
-  templateUrl: './command-bar.component.html',
-  styleUrls: ['./command-bar.component.scss']
+    selector: 'app-command-bar',
+    templateUrl: './command-bar.component.html',
+    styleUrls: ['./command-bar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class CommandBarComponent implements OnInit {
@@ -44,7 +46,7 @@ export class CommandBarComponent implements OnInit {
   parentPath: any = 'my_files'
   totalPath: number = 0;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
 
   constructor(
@@ -57,7 +59,7 @@ export class CommandBarComponent implements OnInit {
     private snackBar: MatSnackBar,
     public setting: SettingStore,
     public breakpointObserver: BreakpointObserver,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   async ngOnInit() {

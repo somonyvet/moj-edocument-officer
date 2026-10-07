@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +11,11 @@ import { GeoStore } from '../../../stores/geo.store';
 import { GeoDistrictsFormComponent } from '../geo-districts-form/geo-districts-form.component';
 
 @Component({
-  selector: 'app-geo-district',
-  templateUrl: './geo-district.component.html',
-  styleUrls: ['./geo-district.component.scss']
+    selector: 'app-geo-district',
+    templateUrl: './geo-district.component.html',
+    styleUrls: ['./geo-district.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoDistrictComponent implements OnInit {
   tabs = criminal_tabs.geo_district;

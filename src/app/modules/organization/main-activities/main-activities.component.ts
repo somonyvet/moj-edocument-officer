@@ -1,7 +1,7 @@
 import { pushToArray } from 'src/app/shared/services/convert.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,9 +20,11 @@ import { MainActivitiesFormComponent } from './main-activities-form/main-activit
 import { MmeMainActivitiesStore } from 'src/app/stores/document/mme-main-activities.store';
 
 @Component({
-  selector: 'app-main-activities',
-  templateUrl: './main-activities.component.html',
-  styleUrls: ['./main-activities.component.scss']
+    selector: 'app-main-activities',
+    templateUrl: './main-activities.component.html',
+    styleUrls: ['./main-activities.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MainActivitiesComponent implements OnInit {
   tabs = tabs.mmeProgram;

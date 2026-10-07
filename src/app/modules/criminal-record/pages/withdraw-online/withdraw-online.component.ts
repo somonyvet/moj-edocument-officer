@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CriminalLatterOfficerChooseNationalityComponent } from '../../components/criminal-latter-officer-choose-nationality/criminal-latter-officer-choose-nationality.component';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -10,9 +10,11 @@ import { isValidUrl } from '../../../../shared/services/mapping.service';
 import { APPLICATION_TYPE_OBJ } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-withdraw-online',
-  templateUrl: './withdraw-online.component.html',
-  styleUrls: ['./withdraw-online.component.scss']
+    selector: 'app-withdraw-online',
+    templateUrl: './withdraw-online.component.html',
+    styleUrls: ['./withdraw-online.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class WithdrawOnlineComponent implements OnInit {
   tabs = tabs.criminalApplication

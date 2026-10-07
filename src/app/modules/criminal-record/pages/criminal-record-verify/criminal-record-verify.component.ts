@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -6,9 +6,11 @@ import { CriminalVerifyStore } from '../../stores/criminalVerify.store';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-criminal-record-verify',
-  templateUrl: './criminal-record-verify.component.html',
-  styleUrls: ['./criminal-record-verify.component.scss']
+    selector: 'app-criminal-record-verify',
+    templateUrl: './criminal-record-verify.component.html',
+    styleUrls: ['./criminal-record-verify.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordVerifyComponent implements OnInit, OnDestroy {
   selected: Date | null = new Date();

@@ -1,134 +1,134 @@
 <div class="page-section" *mobxAutorun>
   <div class="command-bar">
     <div class="group-command">
-        <button mat-button class="mat-path-file last-path" [matMenuTriggerFor]="menu" aria-label="arrow_drop_down_path">
-          <span>ពណ៌ស្លាក</span>
-          <mat-icon aria-hidden="false" aria-label="arrow_drop_down">arrow_drop_down</mat-icon>
-        </button>
+      <button mat-button class="mat-path-file last-path" [matMenuTriggerFor]="menu" aria-label="arrow_drop_down_path">
+        <span>ពណ៌ស្លាក</span>
+        <mat-icon aria-hidden="false" aria-label="arrow_drop_down">arrow_drop_down</mat-icon>
+      </button>
 
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="create()">
-            <mat-icon>color_lens</mat-icon>
-            <span>Create New Tag</span>
-          </button>
-        </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="create()">
+          <mat-icon>color_lens</mat-icon>
+          <span>Create New Tag</span>
+        </button>
+      </mat-menu>
     </div>
 
     <div class="group-info">
-      <ng-container *ngIf="store?.selectedItem">
-        <button  matTooltip="Edit" mat-button
-          mat-icon-button (click)="update(store?.selectedItem)">
+      @if (store?.selectedItem) {
+        <button  matTooltip="Edit" mat-icon-button (click)="update($safeNavigationMigration(store?.selectedItem))">
           <mat-icon>edit</mat-icon>
         </button>
-        <button  matTooltip="Delete" mat-button
-          mat-icon-button (click)="delete(store?.selectedItem)">
+        <button  matTooltip="Delete" mat-icon-button (click)="delete($safeNavigationMigration(store?.selectedItem))">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-button mat-icon-button aria-label="info" (click)="store?.clearSelected()">
+        <button mat-icon-button aria-label="info" (click)="store?.clearSelected()">
           <mat-icon>close</mat-icon>
         </button>
-      </ng-container>
+      }
     </div>
   </div>
 
   <mat-sidenav-container>
     <mat-sidenav-content>
       <div class="cs-container">
-        <ng-container *ngIf="!store?.loading">
+        @if (!store?.loading) {
           <div class="scrollable-table">
-            <table class="table-wrapper" #printtable id="printtable" *ngIf="!store?.empty">
-              <thead class="table-header">
-                <tr class="table-row">
-                  <th class="table-col" style="width:24px;">No</th>
-                  <th class="table-col">Name</th>
-                  <th class="table-col">Color Order</th>
-                  <th class="table-col">Last Updated</th>
-                  <th class="table-col">Updated By</th>
-                  <th class="table-col"></th>
-                </tr>
-              </thead>
-
-              <tbody class="table-body">
-                <tr *ngFor="let item of store?.data; let i=index"
-                  [ngClass]="store?.selectedItem?.key===item?.key?'active':''"
-                  (contextmenu)="rightMenu($event, item); $event. preventDefault()" (click)="onSelectedItem(item)">
-                  <td class="table-col">{{i+1}}</td>
-                  <td class="table-col">
-                    <div class="file-display">
-                      <i class="material-icons" [ngStyle]="{'color':item?.color}">
-                        folder_special
-                      </i>
-                      <span>{{item?.name}}</span>
-                    </div>
-                  </td>
-                  <td class="table-col">{{item?.order}}</td>
-                  <td class="table-col">
-                    {{item?.updated_at?.toDate()| date:'medium'}}</td>
-                  <td class="table-col">{{item?.updated_by?.displayName || item?.updated_by?.name}}</td>
-                  <td class="table-col" style="width: 24px;">
-                    <button matTooltip="Menu" [matMenuTriggerFor]="matMenu" mat-button mat-icon-button>
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-
-              <ng-container>
-                <mat-menu #matMenu="matMenu" matMenuContent style="padding: 0; overflow: hidden;">
-                  <ng-container *ngIf="store?.selectedItem">
-                    <button mat-menu-item (click)="update(store?.selectedItem)">
-                      <mat-icon>edit</mat-icon>
-                      <span>Update</span>
-                    </button>
-                    <button mat-menu-item (click)="delete(store?.selectedItem)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                    </button>
-                  </ng-container>
-                </mat-menu>
-              </ng-container>
-            </table>
+            @if (!store?.empty) {
+              <table class="table-wrapper" #printtable id="printtable">
+                <thead class="table-header">
+                  <tr class="table-row">
+                    <th class="table-col" style="width:24px;">No</th>
+                    <th class="table-col">Name</th>
+                    <th class="table-col">Color Order</th>
+                    <th class="table-col">Last Updated</th>
+                    <th class="table-col">Updated By</th>
+                    <th class="table-col"></th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  @for (item of store?.data; track item; let i = $index) {
+                    <tr
+                      [ngClass]="store?.selectedItem?.key===item?.key?'active':''"
+                      (contextmenu)="rightMenu($event, item); $event. preventDefault()" (click)="onSelectedItem(item)">
+                      <td class="table-col">{{i+1}}</td>
+                      <td class="table-col">
+                        <div class="file-display">
+                          <i class="material-icons" [ngStyle]="{'color':$safeNavigationMigration(item?.color)}">
+                            folder_special
+                          </i>
+                          <span>{{item?.name}}</span>
+                        </div>
+                      </td>
+                      <td class="table-col">{{item?.order}}</td>
+                      <td class="table-col">
+                      {{$safeNavigationMigration(item?.updated_at?.toDate())| date:'medium'}}</td>
+                      <td class="table-col">{{item?.updated_by?.displayName || item?.updated_by?.name}}</td>
+                      <td class="table-col" style="width: 24px;">
+                        <button matTooltip="Menu" [matMenuTriggerFor]="matMenu" mat-icon-button>
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+                <ng-container>
+                  <mat-menu #matMenu="matMenu" matMenuContent style="padding: 0; overflow: hidden;">
+                    @if (store?.selectedItem) {
+                      <button mat-menu-item (click)="update($safeNavigationMigration(store?.selectedItem))">
+                        <mat-icon>edit</mat-icon>
+                        <span>Update</span>
+                      </button>
+                      <button mat-menu-item (click)="delete($safeNavigationMigration(store?.selectedItem))">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                      </button>
+                    }
+                  </mat-menu>
+                </ng-container>
+              </table>
+            }
           </div>
-
           <div class="no-item" (contextmenu)="rightMenu($event, null); $event. preventDefault();"></div>
-
-          <app-empty *ngIf="store?.empty" [name]="'Welcome to CAMwin -File Manager :)'" [buttonText]="'Add new'"
+          @if (store?.empty) {
+            <app-empty [name]="'Welcome to CAMwin -File Manager :)'" [buttonText]="'Add new'"
             (onPress)="create()" [subtitle]="'data not found click button below to add one'"></app-empty>
-        </ng-container>
+          }
+        }
 
-        <app-spinner *ngIf="store?.loading"></app-spinner>
+        @if (store?.loading) {
+          <app-spinner></app-spinner>
+        }
       </div>
     </mat-sidenav-content>
 
     <ng-template #userMenu let-item>
       <section>
         <ng-container matMenuContent>
-          <ng-container *ngIf="store?.selectedItem">
+          @if (store?.selectedItem) {
             <div class="right-click-Menu">
               <button
-                (click)="update(store?.selectedItem)" mat-menu-item>
+                (click)="update($safeNavigationMigration(store?.selectedItem))" mat-menu-item>
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
               </button>
-
               <div class="break"></div>
-
               <button mat-menu-item
-                (click)="delete(store?.selectedItem)">
+                (click)="delete($safeNavigationMigration(store?.selectedItem))">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
               </button>
             </div>
-          </ng-container>
+          }
 
-          <ng-container *ngIf="!store?.selectedItem">
+          @if (!store?.selectedItem) {
             <div class="right-click-Menu">
               <button mat-menu-item (click)="create()">
                 <mat-icon>account_balance</mat-icon>
                 <span>Create new company</span>
               </button>
             </div>
-          </ng-container>
+          }
         </ng-container>
       </section>
     </ng-template>

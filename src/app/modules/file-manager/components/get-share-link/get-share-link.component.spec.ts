@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GetShareLinkComponent } from './get-share-link.component';
 
@@ -6,7 +6,7 @@ describe('GetShareLinkComponent', () => {
   let component: GetShareLinkComponent;
   let fixture: ComponentFixture<GetShareLinkComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GetShareLinkComponent ]
     })

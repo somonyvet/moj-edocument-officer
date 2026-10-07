@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { tabs } from 'src/app/dummy/tabs';
 import { TemplateDocumentFormComponent } from '../template/template-document-form/template-document-form.component';
 
 @Component({
-  selector: 'app-template-route',
-  templateUrl: './template-route.component.html',
-  styleUrls: ['./template-route.component.scss']
+    selector: 'app-template-route',
+    templateUrl: './template-route.component.html',
+    styleUrls: ['./template-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TemplateRouteComponent implements OnInit {
   tabs = tabs.templates

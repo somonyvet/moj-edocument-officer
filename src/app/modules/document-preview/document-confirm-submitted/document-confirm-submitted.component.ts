@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-document-confirm-submitted',
-  templateUrl: './document-confirm-submitted.component.html',
-  styleUrls: ['./document-confirm-submitted.component.scss']
+    selector: 'app-document-confirm-submitted',
+    templateUrl: './document-confirm-submitted.component.html',
+    styleUrls: ['./document-confirm-submitted.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentConfirmSubmittedComponent implements OnInit {
   title: string = "";

@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,9 +17,11 @@ import { DocumentApprovalComponent } from '../../document/document-approval/docu
 import { DocumentConfirmSubmittedComponent } from '../document-confirm-submitted/document-confirm-submitted.component';
 
 @Component({
-  selector: 'app-document-template-full-set-preview',
-  templateUrl: './document-template-full-set-preview.component.html',
-  styleUrls: ['./document-template-full-set-preview.component.scss']
+    selector: 'app-document-template-full-set-preview',
+    templateUrl: './document-template-full-set-preview.component.html',
+    styleUrls: ['./document-template-full-set-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentTemplateFullSetPreviewComponent implements OnInit {
   param: any = null;
@@ -37,7 +39,7 @@ export class DocumentTemplateFullSetPreviewComponent implements OnInit {
   loadingPermission: boolean = false;
 
   workplacesApproved: any[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   groupSections = [];
   defaultDocImg = '../../../../../assets/images/GDI-Doc-Cover-2.jpg';
 
@@ -50,7 +52,7 @@ export class DocumentTemplateFullSetPreviewComponent implements OnInit {
     private dialog: MatDialog,
     private ds: DataService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
 
   ) { }
 

@@ -39,11 +39,9 @@
           <span>ទាញយកឯកសារជា EXCEL</span>
         </button>
       </div>
-      <ng-container *ngIf="!loading else loader">
+      @if (!loading) {
         <ng-container>
           <div class="doc-ls-items center new">
-
-
             <div class="report-wrapper" id="print">
               <table #table>
                 <tbody>
@@ -51,63 +49,67 @@
                     <td>
                       <div class="page">
                         <div class="report-header">
-                          <div class="d-flex" *ngIf="!store?.selectedPost?.name">
-                            <div class="left-tbox">
-                              <div>ក្រសួងមហាផ្ទៃ</div>
-                              <div>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</div>
-                              <div>នាយកដ្ឋានច្រកទ្វារទី១</div>
-                              <div>ការិយាល័យច្រកទ្វារព្រំដែនអន្តរជាតិ</div>
-                              <div> </div>
-                              <div *ngIf="store?.selectedPost?.name">
-                                ប៉ុស្តិ៍នគរបាលច្រកទ្វារព្រំដែនអន្តរជាតិ{{store?.selectedPost?.name}}
+                          @if (!store?.selectedPost?.name) {
+                            <div class="d-flex">
+                              <div class="left-tbox">
+                                <div>ក្រសួងមហាផ្ទៃ</div>
+                                <div>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</div>
+                                <div>នាយកដ្ឋានច្រកទ្វារទី១</div>
+                                <div>ការិយាល័យច្រកទ្វារព្រំដែនអន្តរជាតិ</div>
+                                <div> </div>
+                                @if (store?.selectedPost?.name) {
+                                  <div>
+                                    ប៉ុស្តិ៍នគរបាលច្រកទ្វារព្រំដែនអន្តរជាតិ{{store?.selectedPost?.name}}
+                                  </div>
+                                }
+                                <div class="star">3</div>
                               </div>
-                              <div class="star">3</div>
-                            </div>
-                            <div class="flex-1"></div>
-                            <div class="bavacana">
-                              <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
-                              <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
-                              <div class="star">3</div>
-                            </div>
-                          </div>
-
-                          <div class="d-flex" *ngIf="store?.selectedPost?.name">
-                            <div class="left-tbox-change22">
-                              <div>ក្រសួងមហាផ្ទៃ</div>
-                              <div>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</div>
-                              <div>នាយកដ្ឋានច្រកទ្វារទី១</div>
-                              <div>ការិយាល័យច្រកទ្វារព្រំដែនអន្តរជាតិ</div>
-                              <div> </div>
-                              <div *ngIf="store?.selectedPost?.name">
-                                ប៉ុស្តិ៍នគរបាលច្រកទ្វារព្រំដែនអន្តរជាតិ{{store?.selectedPost?.name}}
+                              <div class="flex-1"></div>
+                              <div class="bavacana">
+                                <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
+                                <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
+                                <div class="star">3</div>
                               </div>
-                              <div class="star">3</div>
                             </div>
-                            <div class="flex-1"></div>
-                            <div class="bavacana-change">
-                              <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
-                              <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
-                              <div class="star">3</div>
+                          }
+                          @if (store?.selectedPost?.name) {
+                            <div class="d-flex">
+                              <div class="left-tbox-change22">
+                                <div>ក្រសួងមហាផ្ទៃ</div>
+                                <div>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</div>
+                                <div>នាយកដ្ឋានច្រកទ្វារទី១</div>
+                                <div>ការិយាល័យច្រកទ្វារព្រំដែនអន្តរជាតិ</div>
+                                <div> </div>
+                                @if (store?.selectedPost?.name) {
+                                  <div>
+                                    ប៉ុស្តិ៍នគរបាលច្រកទ្វារព្រំដែនអន្តរជាតិ{{store?.selectedPost?.name}}
+                                  </div>
+                                }
+                                <div class="star">3</div>
+                              </div>
+                              <div class="flex-1"></div>
+                              <div class="bavacana-change">
+                                <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
+                                <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
+                                <div class="star">3</div>
+                              </div>
                             </div>
-                          </div>
-
+                          }
                           <div class="d-flex">
                             <div class="report-title" style="width: 100%;">
                               <p>បញ្ជីទិន្នន័យអ្នកបើកបរ
                                 និងអ្នករួមដំណើរ(ជនជាតិខ្មែរ){{store?.selectedTravel?.key === 1 ?
-                                'ចូលក្នុង' : 'ចេញពី'}}ប្រទេស</p>
+                              'ចូលក្នុង' : 'ចេញពី'}}ប្រទេស</p>
                               <p>{{store.periodText}}</p>
                             </div>
                           </div>
                         </div>
                         <table class="tb-master-print">
-
                           <tr class="table-row">
                             <th class="table-col center" style="width: 26px;" rowspan="3">ល.រ</th>
                             <th class="table-col center" colspan="12">
                               អត្តសញ្ញាណអ្នកបើកបរ និងអ្នករួមដំណើរ
                             </th>
-
                             <th class="table-col center" colspan="2">
                               អត្តសញ្ញាណយានយន្ត
                             </th>
@@ -115,7 +117,6 @@
                               ផ្សេងៗ
                             </th>
                           </tr>
-
                           <tr class="table-row">
                             <th class="table-col center" rowspan="2"> ឈ្មោះ (ខ្មែរ)</th>
                             <th class="table-col center" rowspan="2"> ឈ្មោះ (ឡាតាំង)</th>
@@ -135,139 +136,133 @@
                             <th class="table-col center">ក្រុង/ស្រុក/ខណ្ឌ</th>
                             <th class="table-col center">រាជធានី/ខេត្ត</th>
                           </tr>
-
-                          <tbody class="table-body" *ngIf="!store?.loading && store?.reportPassengerListing?.data?.length > 0">
-                            <tr *ngFor="let item of store?.reportPassengerListing?.data;let i=index">
-                              <td class="table-col center">{{i+1}}</td>
-                              <td class="table-col ">{{item?.kh_last_name}} {{item?.kh_first_name}} </td>
-                              <td class="table-col ">{{item?.last_name}} {{item?.first_name}} </td>
-                              <td class="table-col center">{{item?.gender?.key === 1 ? 'ប' : 'ស'}} </td>
-                              <td class="table-col center">{{item?.age}}</td>
-                              <td class="table-col center">{{item?.id_number}}</td>
-                              <td class="table-col center">{{item?.villageName}}</td>
-                              <td class="table-col center">{{item?.communeName}}</td>
-                              <td class="table-col center">{{item?.districtName}}</td>
-                              <td class="table-col center">{{item?.provinceName}}</td>
-                              <td class="table-col center">{{item?.phone_number}}</td>
-                              <td class="table-col center">
-                                <ng-container *ngIf="item?.type_of_passenger?.key === 1">&#10003;
-                                </ng-container>
-                              </td>
-                              <td class="table-col center">
-                                <ng-container *ngIf="item?.type_of_passenger?.key === 2">&#10003;
-                                </ng-container>
-                              </td>
-                              <td class="table-col center">{{item?.vehicle?.vehicle_type_name |
-                                vehicleTypeText : true}}</td>
-                              <td class="table-col center">{{item?.vehicle?.vehicle_number}}</td>
-                              <td class="table-col center">{{item?.note}}</td>
-                            </tr>
-                          </tbody>
+                          @if (!store?.loading && store?.reportPassengerListing?.data?.length > 0) {
+                            <tbody class="table-body">
+                              @for (item of store?.reportPassengerListing?.data; track item; let i = $index) {
+                                <tr>
+                                  <td class="table-col center">{{i+1}}</td>
+                                  <td class="table-col ">{{item?.kh_last_name}} {{item?.kh_first_name}} </td>
+                                  <td class="table-col ">{{item?.last_name}} {{item?.first_name}} </td>
+                                  <td class="table-col center">{{item?.gender?.key === 1 ? 'ប' : 'ស'}} </td>
+                                  <td class="table-col center">{{item?.age}}</td>
+                                  <td class="table-col center">{{item?.id_number}}</td>
+                                  <td class="table-col center">{{item?.villageName}}</td>
+                                  <td class="table-col center">{{item?.communeName}}</td>
+                                  <td class="table-col center">{{item?.districtName}}</td>
+                                  <td class="table-col center">{{item?.provinceName}}</td>
+                                  <td class="table-col center">{{item?.phone_number}}</td>
+                                  <td class="table-col center">
+                                    @if (item?.type_of_passenger?.key === 1) {
+                                      &#10003;
+                                    }
+                                  </td>
+                                  <td class="table-col center">
+                                    @if (item?.type_of_passenger?.key === 2) {
+                                      &#10003;
+                                    }
+                                  </td>
+                                  <td class="table-col center">{{$safeNavigationMigration(item?.vehicle?.vehicle_type_name) |
+                                  vehicleTypeText : true}}</td>
+                                  <td class="table-col center">{{item?.vehicle?.vehicle_number}}</td>
+                                  <td class="table-col center">{{item?.note}}</td>
+                                </tr>
+                              }
+                            </tbody>
+                          }
                         </table>
-
                         <!-- <div class="flex-row b-r-fs">
-                          <div class="sum-statistic">
-
-                            <div class="t-travel" *ngIf="store?.reportPassengerListing?.statistic">
-                              <div class="tt-d">
-                                <p class="l-text">សរុបអ្នកបើកបរ</p>
-                                <span class="lf-text">{{store?.reportPassengerListing?.statistic?.driver}}
-                                  នាក់</span>
-                                <span>ស្រី
-                                  {{store?.reportPassengerListing?.statistic?.driverF}} នាក់</span>
-                              </div>
-                              <div class="tt-d">
-                                <p class="l-text">សរុបអ្នករួមដំណើរ</p>
-                                <span class="lf-text">{{store?.reportPassengerListing?.statistic?.passenger}}
-                                  នាក់</span>
-                                <span>ស្រី
-                                  {{store?.reportPassengerListing?.statistic?.passengerF}} នាក់</span>
-                              </div>
-                              <div class="tt-d">
-                                <p class="l-text">ចំនួនសរុប</p>
-                                <span class="lf-text">{{store?.reportPassengerListing?.statistic?.total}}
-                                  នាក់</span>
-                                <span>ស្រី
-                                  {{store?.reportPassengerListing?.statistic?.totalF}} នាក់</span>
-                              </div>
+                        <div class="sum-statistic">
+                          <div class="t-travel" *ngIf="store?.reportPassengerListing?.statistic">
+                            <div class="tt-d">
+                              <p class="l-text">សរុបអ្នកបើកបរ</p>
+                              <span class="lf-text">{{store?.reportPassengerListing?.statistic?.driver}}
+                              នាក់</span>
+                              <span>ស្រី
+                              {{store?.reportPassengerListing?.statistic?.driverF}} នាក់</span>
                             </div>
-
-                            <div class="t-travel" *ngIf="store?.reportPassengerListing?.statistic">
-                              <div class="tt-d" *ngFor="let item of store?.reportPassengerListing?.vehicleTypeStatistic">
-                                <p class="l-text">{{item?.name}}</p>
-                                <span class="lf-text">{{item?.total}} គ្រឿង</span>
-                              </div>
-                              <div class="tt-d">
-                                <p class="l-text">រថយន្តសរុប</p>
-                                <span class="lf-text">{{store?.reportPassengerListing?.statistic?.driver}}
-                                  គ្រឿង</span>
-                              </div>
+                            <div class="tt-d">
+                              <p class="l-text">សរុបអ្នករួមដំណើរ</p>
+                              <span class="lf-text">{{store?.reportPassengerListing?.statistic?.passenger}}
+                              នាក់</span>
+                              <span>ស្រី
+                              {{store?.reportPassengerListing?.statistic?.passengerF}} នាក់</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text">ចំនួនសរុប</p>
+                              <span class="lf-text">{{store?.reportPassengerListing?.statistic?.total}}
+                              នាក់</span>
+                              <span>ស្រី
+                              {{store?.reportPassengerListing?.statistic?.totalF}} នាក់</span>
                             </div>
                           </div>
-
-                          <div class="bottom-dt">
-                            <div class="flex-row">
-                              ថ្ងៃ
-                              <div class="line-space ls120"></div>
-                              ខែ
-                              <div class="line-space"></div>
-                              ឆ្នាំ
-                              <div class="line-space ls100"></div>
-                              ព.ស
-                              <div class="line-space"></div>
+                          <div class="t-travel" *ngIf="store?.reportPassengerListing?.statistic">
+                            <div class="tt-d" *ngFor="let item of store?.reportPassengerListing?.vehicleTypeStatistic">
+                              <p class="l-text">{{item?.name}}</p>
+                              <span class="lf-text">{{item?.total}} គ្រឿង</span>
                             </div>
-                            <div class="flex-row">
-                              <span *ngIf="!store?.selectedPost">រាជធានីភ្នំពេញ</span>
-                              <span *ngIf="store?.selectedPost">
-                                {{store?.selectedPost?.name}}
-                              </span>
-                              , ថ្ងៃទី
-                              <div class="line-space"></div>
-                              ខែ
-                              <div class="line-space"></div>
-                              ឆ្នាំ
-                              <div class="line-space"></div>
+                            <div class="tt-d">
+                              <p class="l-text">រថយន្តសរុប</p>
+                              <span class="lf-text">{{store?.reportPassengerListing?.statistic?.driver}}
+                              គ្រឿង</span>
                             </div>
-                            <div class="title">នាយប៉ុស្តិ៍</div>
                           </div>
-
-                          <div style="width: 5%"></div>
-
-                        </div> -->
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-
-                <tfoot>
-                  <tr>
-                    <td>
-                      <div class="page-footer-space"></div>
-                    </td>
-                  </tr>
-                </tfoot>
-
-              </table>
-
-              <app-spinner *ngIf="loading"></app-spinner>
-
-            </div>
-
+                        </div>
+                        <div class="bottom-dt">
+                          <div class="flex-row">
+                            ថ្ងៃ
+                            <div class="line-space ls120"></div>
+                            ខែ
+                            <div class="line-space"></div>
+                            ឆ្នាំ
+                            <div class="line-space ls100"></div>
+                            ព.ស
+                            <div class="line-space"></div>
+                          </div>
+                          <div class="flex-row">
+                            <span *ngIf="!store?.selectedPost">រាជធានីភ្នំពេញ</span>
+                            <span *ngIf="store?.selectedPost">
+                              {{store?.selectedPost?.name}}
+                            </span>
+                            , ថ្ងៃទី
+                            <div class="line-space"></div>
+                            ខែ
+                            <div class="line-space"></div>
+                            ឆ្នាំ
+                            <div class="line-space"></div>
+                          </div>
+                          <div class="title">នាយប៉ុស្តិ៍</div>
+                        </div>
+                        <div style="width: 5%"></div>
+                      </div> -->
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>
+                    <div class="page-footer-space"></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            @if (loading) {
+              <app-spinner></app-spinner>
+            }
           </div>
-        </ng-container>
-
-      </ng-container>
-      <ng-template #loader>
-        <app-spinner></app-spinner>
-      </ng-template>
-      <ng-template #emptyData>
-        <div class="doc-ls-items center">
-          <h1>EMPTY</h1>
         </div>
-      </ng-template>
-    </div>
+      </ng-container>
+    } @else {
+      <app-spinner></app-spinner>
+    }
+    <ng-template #emptyData>
+      <div class="doc-ls-items center">
+        <h1>EMPTY</h1>
+      </div>
+    </ng-template>
   </div>
-  <!-- <div class="main-r">
-    <router-outlet></router-outlet>
-  </div> -->
+</div>
+<!-- <div class="main-r">
+<router-outlet></router-outlet>
+</div> -->
 </div>

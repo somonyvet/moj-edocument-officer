@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, map, startWith } from 'rxjs/operators';
 import { days, KHMER_DAY, monthOfYear, monthOfYearEng } from 'src/app/dummy/report';
@@ -8,9 +8,11 @@ import { DataService } from '../../services/data.service';
 import { getYearsList, MappingService } from '../../services/mapping.service';
 
 @Component({
-  selector: 'app-display-khmer-date',
-  templateUrl: './display-khmer-date.component.html',
-  styleUrls: ['./display-khmer-date.component.scss']
+    selector: 'app-display-khmer-date',
+    templateUrl: './display-khmer-date.component.html',
+    styleUrls: ['./display-khmer-date.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DisplayKhmerDateComponent implements OnInit {
   @Input() isKhmer: boolean = true;
@@ -41,10 +43,10 @@ export class DisplayKhmerDateComponent implements OnInit {
   yearCtr: AbstractControl;
   filteredYear: Observable<any[]>;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
   ) { }
 

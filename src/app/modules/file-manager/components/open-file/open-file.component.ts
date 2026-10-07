@@ -3,10 +3,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { driveObj } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-open-file',
-  templateUrl: './open-file.component.html',
-  styleUrls: ['./open-file.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-open-file',
+    templateUrl: './open-file.component.html',
+    styleUrls: ['./open-file.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class OpenFileComponent implements OnInit {
 

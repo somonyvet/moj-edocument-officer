@@ -1,18 +1,20 @@
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { AuthStore } from '../../../stores/auth.store';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-column-visible',
-  templateUrl: './column-visible.component.html',
-  styleUrls: ['./column-visible.component.scss']
+    selector: 'app-column-visible',
+    templateUrl: './column-visible.component.html',
+    styleUrls: ['./column-visible.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ColumnVisibleComponent implements OnInit {
   @Input() field:any;
   @Input() data:any;
   @Input() collection:any;
 
-  columnInput=new FormControl();
+  columnInput=new UntypedFormControl();
 
   constructor(public auth:AuthStore ) { }
 

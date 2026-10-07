@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IManagementLevel } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { ManagementLevelStore } from 'src/app/stores/document/managementLevel.st
 import { ManagementLevelFormComponent } from './management-level-form/management-level-form.component';
 
 @Component({
-  selector: 'app-management-level',
-  templateUrl: './management-level.component.html',
-  styleUrls: ['./management-level.component.scss']
+    selector: 'app-management-level',
+    templateUrl: './management-level.component.html',
+    styleUrls: ['./management-level.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ManagementLevelComponent implements OnInit, OnDestroy {
   tabs = tabs.managementLevel

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
 import { AnimationOptions } from 'ngx-lottie';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CitizenStore } from 'src/app/modules/criminal-record/stores/citizen.store';
@@ -11,9 +11,11 @@ import { FireStorageService, transformImageSameTokenNo } from 'src/app/shared/se
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService, addDay } from '../../services/convert.service';
 @Component({
-  selector: 'app-attach-file-oversea',
-  templateUrl: './attach-file-oversea.component.html',
-  styleUrls: ['./attach-file-oversea.component.scss']
+    selector: 'app-attach-file-oversea',
+    templateUrl: './attach-file-oversea.component.html',
+    styleUrls: ['./attach-file-oversea.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AttachFileOverseaComponent implements OnInit {
   lottie: AnimationOptions = {
@@ -25,7 +27,7 @@ export class AttachFileOverseaComponent implements OnInit {
     public auth: AuthStore,
     public store: CitizenStore,
     public criminalStore: CriminalApplicationStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public storage: FireStorageService,
     private snackBar: MatSnackBar,
   ) { }

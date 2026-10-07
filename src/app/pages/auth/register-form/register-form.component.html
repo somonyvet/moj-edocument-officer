@@ -1,72 +1,88 @@
 <div class="auth-container">
-    <form [formGroup]="form" class="line-card" (ngSubmit)="_onSave(form?.value)">
-        <div class="card-header">
-            <img src="../../../../assets/images/GDI_Logo.png">
-            <h4 class="title gcnp">អគ្គនាយកដ្ឋាន អន្តោប្រវេសន៍</h4>
-            <h5 class="location gcnp">General Department Of Immigration</h5>
+  <form [formGroup]="form" class="line-card" (ngSubmit)="_onSave($safeNavigationMigration(form?.value))">
+    <div class="card-header">
+      <img src="../../../../assets/images/GDI_Logo.png">
+      <h4 class="title gcnp">អគ្គនាយកដ្ឋាន អន្តោប្រវេសន៍</h4>
+      <h5 class="location gcnp">General Department Of Immigration</h5>
+    </div>
+    <div class="card-body">
+      <div class="form-wrapper">
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="lh-normal">
+            <mat-label>
+              អត្តលេខ​
+            </mat-label>
+            <input matInput required placeholder="អត្តលេខ​" formControlName="email">
+            @if (form.controls['email'].hasError('required')) {
+              <mat-error>
+                ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+              </mat-error>
+            }
+            @if (form.controls['email'].hasError('nameAvailable')) {
+              <mat-error>
+                អត្តលេខ​នេះត្រូវបានគេចុះឈ្មោះប្រើប្រាស់រួចហើយ។ សូមត្រួតពិនិត្យម្ដងទៀត
+              </mat-error>
+            }
+            @if (email?.hasError('minlength') && !email?.hasError('required')) {
+              <mat-error>
+                អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 5 តួអក្សរ
+              </mat-error>
+            }
+          </mat-form-field>
         </div>
-        <div class="card-body">
-            <div class="form-wrapper">
-                <div class="form-group">
-                    <mat-form-field appearance="outline" class="lh-normal">
-                        <mat-label>
-                            អត្តលេខ​
-                        </mat-label>
-                        <input matInput required placeholder="អត្តលេខ​" formControlName="email">
-                        <mat-error *ngIf="form.controls['email'].hasError('required')">
-                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
-                        </mat-error>
-                        <mat-error *ngIf="form.controls['email'].hasError('nameAvailable')">
-                            អត្តលេខ​នេះត្រូវបានគេចុះឈ្មោះប្រើប្រាស់រួចហើយ។ សូមត្រួតពិនិត្យម្ដងទៀត
-                        </mat-error>
-                        <mat-error *ngIf="email?.hasError('minlength') && !email?.hasError('required')">
-                            អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 5 តួអក្សរ
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="form-group two">
-                    <mat-form-field appearance="outline" class="lh-normal">
-                        <mat-label>ពាក្យសម្ងាត់</mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" required placeholder="ពាក្យសម្ងាត់"
-                            formControlName="password">
-                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
-                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                        <mat-error *ngIf="form.controls['password'].hasError('required')">
-                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
-                        </mat-error>
-                        <mat-error *ngIf="password?.hasError('minlength') && !password?.hasError('required')">
-                            អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 6 តួអក្សរ
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="lh-normal">
-                        <mat-label>បញ្ជាក់ពាក្យសម្ងាត់</mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" required placeholder="បញ្ជាក់ពាក្យសម្ងាត់"
-                            formControlName="confirm">
-                        <mat-error *ngIf="form.controls['confirm'].hasError('required')">
-                            ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
-                        </mat-error>
-                        <mat-error *ngIf="confirm?.hasError('minlength') && !confirm?.hasError('required')">
-                            អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 6 តួអក្សរ
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <mat-error class="error-form"
-                    *ngIf="form?.hasError('notSame') && !confirm?.hasError('required') && !password?.hasError('required')">
-                    ពាក្យសម្ងាត់ និងបញ្ជាក់ពាក្យសម្ងាត់ពុំដូចគ្នា
-                </mat-error>
-            </div>
+        <div class="form-group two">
+          <mat-form-field appearance="outline" class="lh-normal">
+            <mat-label>ពាក្យសម្ងាត់</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required placeholder="ពាក្យសម្ងាត់"
+              formControlName="password">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if (form.controls['password'].hasError('required')) {
+              <mat-error>
+                ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+              </mat-error>
+            }
+            @if (password?.hasError('minlength') && !password?.hasError('required')) {
+              <mat-error>
+                អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 6 តួអក្សរ
+              </mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="lh-normal">
+            <mat-label>បញ្ជាក់ពាក្យសម្ងាត់</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required placeholder="បញ្ជាក់ពាក្យសម្ងាត់"
+              formControlName="confirm">
+            @if (form.controls['confirm'].hasError('required')) {
+              <mat-error>
+                ប្រអប់នេះតម្រូវឲ្យលោកអ្នកបញ្ចូលព័ត៌មាន
+              </mat-error>
+            }
+            @if (confirm?.hasError('minlength') && !confirm?.hasError('required')) {
+              <mat-error>
+                អត្តលេខ​តម្រូវឲ្យបំពេញយ៉ាងតិច 6 តួអក្សរ
+              </mat-error>
+            }
+          </mat-form-field>
         </div>
-        <div class="card-footer">
-            <div class="flex1"></div>
-            <app-primary-button btnId="btnSignIn" class="w100" [process]="process" [disable]="process"
-                label="បង្កើតគណនី" (onPress)="_onSave(form?.value)">
-            </app-primary-button>
-        </div>
-        <mat-divider></mat-divider>
-        <app-primary-button btnId="btnSignUp" btnType="button" class="w100" css="mat-btn-new" [disable]="process"
-            label="ចូលប្រព័ន្ធ" (onPress)="_onSignIn()">
-        </app-primary-button>
-    </form>
+        @if (form?.hasError('notSame') && !confirm?.hasError('required') && !password?.hasError('required')) {
+          <mat-error class="error-form"
+            >
+            ពាក្យសម្ងាត់ និងបញ្ជាក់ពាក្យសម្ងាត់ពុំដូចគ្នា
+          </mat-error>
+        }
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="flex1"></div>
+      <app-primary-button btnId="btnSignIn" class="w100" [process]="process" [disable]="process"
+        label="បង្កើតគណនី" (onPress)="_onSave($safeNavigationMigration(form?.value))">
+      </app-primary-button>
+    </div>
+    <mat-divider></mat-divider>
+    <app-primary-button btnId="btnSignUp" btnType="button" class="w100" css="mat-btn-new" [disable]="process"
+      label="ចូលប្រព័ន្ធ" (onPress)="_onSignIn()">
+    </app-primary-button>
+  </form>
 </div>

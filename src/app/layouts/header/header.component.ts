@@ -1,8 +1,8 @@
 import { AuthStore } from '../../stores/auth.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { debounceTime, tap, switchMap } from 'rxjs/operators';
 import { driveObj } from 'src/app/dummy/status';
 import { SearchFormComponent } from 'src/app/shared/components/search-form/search-form.component';
@@ -17,14 +17,16 @@ interface Food {
 }
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   toggleSidebar;
   ismobile = false;
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
 
   foods: Food[] = [
@@ -35,7 +37,7 @@ export class HeaderComponent implements OnInit {
   // search: AbstractControl;
   company: AbstractControl;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     public store: AuthStore,
     public ds: DataService,

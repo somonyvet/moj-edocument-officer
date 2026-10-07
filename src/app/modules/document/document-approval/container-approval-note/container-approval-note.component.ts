@@ -1,18 +1,20 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-container-approval-note',
-  templateUrl: './container-approval-note.component.html',
-  styleUrls: ['./container-approval-note.component.scss']
+    selector: 'app-container-approval-note',
+    templateUrl: './container-approval-note.component.html',
+    styleUrls: ['./container-approval-note.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ContainerApprovalNoteComponent implements OnInit {
   @Input() stamp_link: any;
   @Input() remarkFile: any;
   @Input() remarkOfficer: any;
   @Input() remark_officer: string;
-  @Input() form : FormGroup;
+  @Input() form : UntypedFormGroup;
   @Input() uid : string;
   @Input() remarkText : string;
   @Input() compareWithObj : any;
@@ -24,7 +26,7 @@ export class ContainerApprovalNoteComponent implements OnInit {
   fileSelected: any = null;
   remarkWrited: string = null;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {

@@ -2,14 +2,14 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-
-    "strictNullChecks":false,//added
-    "skipLibCheck": true,//added
-    "noImplicitAny": false,//added
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false,
@@ -20,12 +20,9 @@
     "declaration": false,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,10 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-criminal-record-letter-fr-print-fullview',
-  templateUrl: './criminal-record-letter-fr-print-fullview.component.html',
-  styleUrls: ['./criminal-record-letter-fr-print-fullview.component.scss']
+    selector: 'app-criminal-record-letter-fr-print-fullview',
+    templateUrl: './criminal-record-letter-fr-print-fullview.component.html',
+    styleUrls: ['./criminal-record-letter-fr-print-fullview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterFrPrintFullviewComponent implements OnInit, OnChanges {
   @Input() Item:any;

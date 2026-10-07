@@ -1,159 +1,168 @@
 <div class="doc-dashboard-page-conntent" *mobxAutorun>
-    <div class="action-search-bar">
-        <div class="search-form-content" [formGroup]="form">
+  <div class="action-search-bar">
+    <div class="search-form-content" [formGroup]="form">
 
-            <b class="b-title">លក្ខខណ្ឌបង្ហាញស្រាវជ្រាវឯកសារ</b>
-            <div class="search-form-content-row">
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        លេខឯកសារយោង
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <input matInput placeholder="បញ្ចូលលេខឯកសារយោង" formControlName="documentID">
-                    </mat-form-field>
-                </div>
-
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        ប្រភេទឯកសារ
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <mat-select placeholder="ជ្រើសរើស" formControlName="documentType">
-                            <mat-option [value]="item" *ngFor="let item of store?.categoryData">{{item?.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        ប្រភពឯកសារ
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <mat-select placeholder="ជ្រើសរើស" formControlName="documentSource">
-                            <mat-option [value]="item" *ngFor="let item of store?.institutionData">{{item?.name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        នាយកដ្ឋាន
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="department" matInput
-                            placeholder="ជ្រើសរើសស្ថាប័ន">
-                        <!-- (optionSelected)="optionSelectedPosition($event)"  -->
-                        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteManagementLevel="matAutocomplete">
-                            <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                                <span [style.padding-left]="((item.level)*14)+'px'"></span>
-                                {{item?.name}}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <div class="title-with-form">
-                <b class="b-title">កាលបរិច្ឆេទ</b>
-                <mat-slide-toggle formControlName="isFilterDate" (change)="toggleChange($event)"></mat-slide-toggle>
-            </div>
-            <div class="search-form-content-row">
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        ចាប់ពីថ្ងៃ
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <input matInput [matDatepicker]="pickerFromDate" placeholder="ជ្រើសរើស"
-                            formControlName="fromDate">
-                        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerFromDate></mat-datepicker>
-                    </mat-form-field>
-                </div>
-
-                <div class="cs-form-box">
-                    <div class="csf-label">
-                        ដល់ថ្ងៃ
-                    </div>
-                    <mat-form-field appearance="outline" floatLabel="never">
-                        <input matInput [matDatepicker]="pickerToDate" placeholder="ជ្រើសរើស" formControlName="toDate">
-                        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerToDate></mat-datepicker>
-                    </mat-form-field>
-                </div>
-
-                <button mat-button class="cs-form-box cs-form-box-filter-btn" (click)="onSearch(form.value)">
-                    ស្វែងរកឯកសារ
-                </button>
-
-            </div>
-
+      <b class="b-title">លក្ខខណ្ឌបង្ហាញស្រាវជ្រាវឯកសារ</b>
+      <div class="search-form-content-row">
+        <div class="cs-form-box">
+          <div class="csf-label">
+            លេខឯកសារយោង
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <input matInput placeholder="បញ្ចូលលេខឯកសារយោង" formControlName="documentID">
+          </mat-form-field>
         </div>
+
+        <div class="cs-form-box">
+          <div class="csf-label">
+            ប្រភេទឯកសារ
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <mat-select placeholder="ជ្រើសរើស" formControlName="documentType">
+              @for (item of store?.categoryData; track item) {
+                <mat-option [value]="item">{{item?.name}}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="cs-form-box">
+          <div class="csf-label">
+            ប្រភពឯកសារ
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <mat-select placeholder="ជ្រើសរើស" formControlName="documentSource">
+              @for (item of store?.institutionData; track item) {
+                <mat-option [value]="item">{{item?.name}}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="cs-form-box">
+          <div class="csf-label">
+            នាយកដ្ឋាន
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="department" matInput
+              placeholder="ជ្រើសរើសស្ថាប័ន">
+            <!-- (optionSelected)="optionSelectedPosition($event)"  -->
+            <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteManagementLevel="matAutocomplete">
+              @for (item of filterOffice | async; track item; let i = $index) {
+                <mat-option [value]="item">
+                  <span [style.padding-left]="((item.level)*14)+'px'"></span>
+                  {{item?.name}}
+                </mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="title-with-form">
+        <b class="b-title">កាលបរិច្ឆេទ</b>
+        <mat-slide-toggle formControlName="isFilterDate" (change)="toggleChange($event)"></mat-slide-toggle>
+      </div>
+      <div class="search-form-content-row">
+        <div class="cs-form-box">
+          <div class="csf-label">
+            ចាប់ពីថ្ងៃ
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <input matInput [matDatepicker]="pickerFromDate" placeholder="ជ្រើសរើស"
+              formControlName="fromDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFromDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="cs-form-box">
+          <div class="csf-label">
+            ដល់ថ្ងៃ
+          </div>
+          <mat-form-field appearance="outline" floatLabel="never">
+            <input matInput [matDatepicker]="pickerToDate" placeholder="ជ្រើសរើស" formControlName="toDate">
+            <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+            <mat-datepicker #pickerToDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <button mat-button class="cs-form-box cs-form-box-filter-btn" (click)="onSearch(form.value)">
+          ស្វែងរកឯកសារ
+        </button>
+
+      </div>
+
     </div>
+  </div>
 
 
-    <div class="docs-search-screen-itemholder-content">
-        <div class="docs-search-screen-item-section docs-search-screen-item-section-header">
-            <div class="docs-search-screen-list-item">
-              
-                <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-title">
-                    ឯកសារ
-                </div>
-                <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-icon">
-                 
-                </div>
-                <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-owner">
-                    រៀបរៀងដោយ
-                </div>
-                <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-time">
-                    បច្ចុប្បន្នភាព
-                </div>
-            </div>
+  <div class="docs-search-screen-itemholder-content">
+    <div class="docs-search-screen-item-section docs-search-screen-item-section-header">
+      <div class="docs-search-screen-list-item">
+
+        <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-title">
+          ឯកសារ
         </div>
-        <div class="docs-search-screen-item-section">
-            <virtual-scroller #scroll [parentScroll]="scroll.window"
-            [enableUnequalChildrenSizes]="49" [items]="store?.documentData" style="height: 100vh;">
-                <div class="docs-search-screen-list-item" *ngFor="let item of scroll?.viewPortItems; let i = index">
-                    <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-icon">
-                        <div class="docs-search-screen-icon">
-                            <mat-icon class="mat-18">text_snippet</mat-icon>
-                        </div>
-                    </div>
-                    <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-title">
-                        {{item?.documentNo}} · {{item?.documentTitle?.length > 40 ?item?.documentTitle.substring(0, 40) +
-                            '...':item?.documentTitle}}
-                    </div>
-                    <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-owner">
-                        {{item?.workplace?.name}}
-                    </div>
-                    <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-time">
-                        {{item?.created_at?.toDate()|date:'medium'}}
-                    </div>
-                </div>
+        <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-icon">
 
-                <ng-container *ngIf="store?.documentData?.length===0 && !store?.loading">
-                    <div class="empty-block">
-                        <div class="center-block-empty">
-                            <div class="empty-img">
-                                <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                                    alt="empty">
-                            </div>
-                            <div class="empty-text">
-                                <p class="empty-state-title">
-                                    ពុំមានទិន្នន័យ
-                                </p>
-                                <p class="empty-state-desc">
-                                    សូមរៀបចំទិន្នន័យរបស់លោកអ្នកដើម្បីបញ្ចូលទៅក្នុងប្រព័ន្ធ
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-                <app-spinner *ngIf="documentData?.loading"></app-spinner>
-                <app-spinner *ngIf="documentData?.fetching"></app-spinner>
-            </virtual-scroller>
         </div>
+        <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-owner">
+          រៀបរៀងដោយ
+        </div>
+        <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-time">
+          បច្ចុប្បន្នភាព
+        </div>
+      </div>
     </div>
+    <div class="docs-search-screen-item-section">
+      <cdk-virtual-scroll-viewport itemSize="48" #scroll autosize style="height: 100vh;">
+        <div class="docs-search-screen-list-item" *cdkVirtualFor="let item of $safeNavigationMigration(store?.documentData); let i = index">
+          <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-icon">
+            <div class="docs-search-screen-icon">
+              <mat-icon class="mat-18">text_snippet</mat-icon>
+            </div>
+          </div>
+          <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-title">
+            {{item?.documentNo}} · {{item?.documentTitle?.length > 40 ?item?.documentTitle.substring(0, 40) +
+            '...':item?.documentTitle}}
+          </div>
+          <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-owner">
+            {{item?.workplace?.name}}
+          </div>
+          <div class="docs-search-screen-list-item-cell docs-search-screen-list-item-time">
+            {{$safeNavigationMigration(item?.created_at?.toDate())|date:'medium'}}
+          </div>
+        </div>
+
+        @if (store?.documentData?.length===0 && !store?.loading) {
+          <div class="empty-block">
+            <div class="center-block-empty">
+              <div class="empty-img">
+                <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                  alt="empty">
+              </div>
+              <div class="empty-text">
+                <p class="empty-state-title">
+                  ពុំមានទិន្នន័យ
+                </p>
+                <p class="empty-state-desc">
+                  សូមរៀបចំទិន្នន័យរបស់លោកអ្នកដើម្បីបញ្ចូលទៅក្នុងប្រព័ន្ធ
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+        @if (documentData?.loading) {
+          <app-spinner></app-spinner>
+        }
+        @if (documentData?.fetching) {
+          <app-spinner></app-spinner>
+        }
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>
 
 </div>

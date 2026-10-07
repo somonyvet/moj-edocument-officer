@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { IDepartment, IPosition } from 'src/app/interfaces/document/document.interface';
@@ -10,16 +10,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-officer-office-form',
-  templateUrl: './officer-office-form.component.html',
-  styleUrls: ['./officer-office-form.component.scss']
+    selector: 'app-officer-office-form',
+    templateUrl: './officer-office-form.component.html',
+    styleUrls: ['./officer-office-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerOfficeFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតមុខងារតួនាទី";
-  form: FormGroup;
+  form: UntypedFormGroup;
   office: AbstractControl;
   filterOffice: Observable<IDepartment[]>;
   position: AbstractControl;
@@ -28,7 +30,7 @@ export class OfficerOfficeFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<OfficerOfficeFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: OfficerStore,
     public ds: DataService,
     private auth: AuthStore,

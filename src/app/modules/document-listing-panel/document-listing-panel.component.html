@@ -17,53 +17,55 @@
               </div>
             </div>
 
-            <div class="pin-box-content-item" *ngFor="let item of LIST_DOC_ARRAY"
-              [routerLink]="['/document-panel-lists/' + item?.link]" routerLinkActive="active">
-              <div class="pin-box-icon">
-                <img [src]="item?.img" alt="">
-              </div>
-              <div class="pin-box-info">
-                <div class="doc-title">
-                  {{item?.name}}
+            @for (item of LIST_DOC_ARRAY; track item) {
+              <div class="pin-box-content-item"
+                [routerLink]="['/document-panel-lists/' + $safeNavigationMigration(item?.link)]" routerLinkActive="active">
+                <div class="pin-box-icon">
+                  <img [src]="$safeNavigationMigration(item?.img)" alt="">
+                </div>
+                <div class="pin-box-info">
+                  <div class="doc-title">
+                    {{item?.name}}
+                  </div>
                 </div>
               </div>
-            </div>
+            }
 
             <!-- <div class="pin-box-content-item">
-              <div class="pin-box-icon">
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Im_0d7HFH4n.png?_nc_eui2=AeGy1j-awZL94NW5pkj_yuFsm5Q_-YdsEieblD_5h2wSJ4dBZoY0Lm_xipTiKi2Vu94jsmB6tg3wA4RyXwasEC97"
-                  alt="">
-              </div>
-              <div class="pin-box-info">
-                <div class="doc-title">
-                  ឯកសារ ទុកចំណាំ
-                </div>
+            <div class="pin-box-icon">
+              <img
+                src="https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/Im_0d7HFH4n.png?_nc_eui2=AeGy1j-awZL94NW5pkj_yuFsm5Q_-YdsEieblD_5h2wSJ4dBZoY0Lm_xipTiKi2Vu94jsmB6tg3wA4RyXwasEC97"
+                alt="">
+            </div>
+            <div class="pin-box-info">
+              <div class="doc-title">
+                ឯកសារ ទុកចំណាំ
               </div>
             </div>
-
-            <div class="pin-box-content-item">
-              <div class="pin-box-icon">
-                <img
-                  src="https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/dMRaTGpU31O.png?_nc_eui2=AeGgAf4Ka7UyWnLImyD66qSD7WDFwIBOBxjtYMXAgE4HGCTMOmhANkKudVZj8H7C4HQ4DDIhD589AcrQkmTr2hhn"
-                  alt="">
-              </div>
-              <div class="pin-box-info">
-                <div class="doc-title">
-                  ឯកសារបានបិទបញ្ចប់
-                </div>
-              </div>
-            </div> -->
-
           </div>
-          <mat-divider></mat-divider>
-        </div>
 
+          <div class="pin-box-content-item">
+            <div class="pin-box-icon">
+              <img
+                src="https://static.xx.fbcdn.net/rsrc.php/v3/y0/r/dMRaTGpU31O.png?_nc_eui2=AeGgAf4Ka7UyWnLImyD66qSD7WDFwIBOBxjtYMXAgE4HGCTMOmhANkKudVZj8H7C4HQ4DDIhD589AcrQkmTr2hhn"
+                alt="">
+            </div>
+            <div class="pin-box-info">
+              <div class="doc-title">
+                ឯកសារបានបិទបញ្ចប់
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+        <mat-divider></mat-divider>
       </div>
+
     </div>
   </div>
-  <div class="doc-dashboard-page-wrapper">
-    <router-outlet></router-outlet>
-  </div>
-  <!-- <div class="doc-dashboard-page-nav"></div> -->
+</div>
+<div class="doc-dashboard-page-wrapper">
+  <router-outlet></router-outlet>
+</div>
+<!-- <div class="doc-dashboard-page-nav"></div> -->
 </main>

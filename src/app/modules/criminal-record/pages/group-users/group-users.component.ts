@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
@@ -28,9 +28,11 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-group-users',
-  templateUrl: './group-users.component.html',
-  styleUrls: ['./group-users.component.scss']
+    selector: 'app-group-users',
+    templateUrl: './group-users.component.html',
+    styleUrls: ['./group-users.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GroupUsersComponent implements OnInit, OnDestroy {
   appsList = appArray;

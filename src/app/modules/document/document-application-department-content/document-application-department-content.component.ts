@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { bodyDocItem, footerDocItem, headerDocItem, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -9,14 +9,16 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 @Component({
-  selector: 'app-document-application-department-content',
-  templateUrl: './document-application-department-content.component.html',
-  styleUrls: ['./document-application-department-content.component.scss']
+    selector: 'app-document-application-department-content',
+    templateUrl: './document-application-department-content.component.html',
+    styleUrls: ['./document-application-department-content.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationDepartmentContentComponent implements OnInit {
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -90,7 +92,7 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
   }
 
   @ViewChildren("elReference") elReference: QueryList<ElementRef>;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -106,7 +108,7 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
   public filteredOfficeList;
   officeLists = []
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private route: ActivatedRoute,
@@ -159,15 +161,15 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
     });
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -216,7 +218,7 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content, key } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -228,7 +230,7 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
   addFooterSheet(item: any) {
     this.footerForm().push(this.newFooterSheet(item));
   }
-  newFooterSheet(item: any): FormGroup {
+  newFooterSheet(item: any): UntypedFormGroup {
     const { type, content, key } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],
@@ -240,7 +242,7 @@ export class DocumentApplicationDepartmentContentComponent implements OnInit {
   addSessionSheet(item: any) {
     this.sessionForm().push(this.newSessionSheet(item));
   }
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office, key } = item;
     return this.fb.group({
       key: [key || this.ds.createId()],

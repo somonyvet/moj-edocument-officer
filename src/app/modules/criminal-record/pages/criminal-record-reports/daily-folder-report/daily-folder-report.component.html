@@ -393,7 +393,7 @@
 
                     <ng-container *ngFor="let item of store?.data; let i = index">
                       <tr class="table-row"
-                        [ngClass]="((item?.criminal_language | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
+                        [ngClass]="(($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
                         <td class="table-col center">
                           {{i+1}}
                         </td>
@@ -407,7 +407,7 @@
                         </td>
                         <td>
                           <div class="ftb-input">
-                            {{item?.dateOfBirthDay?.name | pipeCut0}}
+                            {{$safeNavigationMigration(item?.dateOfBirthDay?.name) | pipeCut0}}
                             {{item?.dateOfBirthMonth?.name}}
                             {{item?.dateOfBirthYear?.name}}
                           </div>
@@ -432,8 +432,8 @@
 
                         <td>
                           <div class="ftb-input">
-                            {{(item?.criminal_language | getKhmerCopyCount)
-                            ?(item?.criminal_language | getKhmerCopyCount)
+                            {{($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                            ?($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
                             :''
                             }}
                           </div>
@@ -441,8 +441,8 @@
 
                         <td>
                           <div class="ftb-input">
-                            {{(item?.criminal_language | getEnglishCopyCount)
-                            ?(item?.criminal_language | getEnglishCopyCount)
+                            {{($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                            ?($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
                             :''
                             }}
                           </div>
@@ -450,8 +450,8 @@
 
                         <td>
                           <div class="ftb-input">
-                            {{(item?.criminal_language | getFrenchCopyCount)
-                            ?(item?.criminal_language | getFrenchCopyCount)
+                            {{($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                            ?($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
                             :''
                             }}
                           </div>

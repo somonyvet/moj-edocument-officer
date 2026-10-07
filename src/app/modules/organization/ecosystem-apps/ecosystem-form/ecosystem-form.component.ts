@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -14,16 +14,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { EcosystemStore } from 'src/app/stores/document/ecosystem.store';
 
 @Component({
-  selector: 'app-ecosystem-form',
-  templateUrl: './ecosystem-form.component.html',
-  styleUrls: ['./ecosystem-form.component.scss']
+    selector: 'app-ecosystem-form',
+    templateUrl: './ecosystem-form.component.html',
+    styleUrls: ['./ecosystem-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EcosystemFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតកម្រិតគ្រប់គ្រង";
-  form: FormGroup;
+  form: UntypedFormGroup;
   SELECTED_PHOTO: any = null;
   START_UPLOAD: boolean = false;
   URL: any = PHOTO_LIB.EMPTY_PHOTO;
@@ -35,7 +37,7 @@ export class EcosystemFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<EcosystemFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: EcosystemStore,
     public ds: DataService,
     private auth: AuthStore,

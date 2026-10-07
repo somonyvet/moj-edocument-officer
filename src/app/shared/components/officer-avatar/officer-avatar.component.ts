@@ -1,13 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { IOfficer } from 'src/app/interfaces/document/document.interface';
 import { pushToObject } from '../../services/convert.service';
 import { DatabaseService } from '../../services/database.service';
 
 @Component({
-  selector: 'app-officer-avatar',
-  templateUrl: './officer-avatar.component.html',
-  styleUrls: ['./officer-avatar.component.scss']
+    selector: 'app-officer-avatar',
+    templateUrl: './officer-avatar.component.html',
+    styleUrls: ['./officer-avatar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerAvatarComponent implements OnInit {
   @Input() officerKey: string;

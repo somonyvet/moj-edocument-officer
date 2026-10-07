@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-dashboard-router',
-  templateUrl: './dashboard-router.component.html',
-  styleUrls: ['./dashboard-router.component.scss']
+    selector: 'app-dashboard-router',
+    templateUrl: './dashboard-router.component.html',
+    styleUrls: ['./dashboard-router.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DashboardRouterComponent implements OnInit {
   

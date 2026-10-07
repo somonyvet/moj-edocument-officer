@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -11,21 +11,23 @@ import { generateKeywords, toNameKey, toNumber } from 'src/app/shared/services/m
 import { AuthStore } from 'src/app/stores/auth.store';
 import { RankingStore } from 'src/app/stores/document/ranking.store';
 @Component({
-  selector: 'app-ranking-form',
-  templateUrl: './ranking-form.component.html',
-  styleUrls: ['./ranking-form.component.scss']
+    selector: 'app-ranking-form',
+    templateUrl: './ranking-form.component.html',
+    styleUrls: ['./ranking-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RankingFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតមុខងារតួនាទី";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<RankingFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: RankingStore,
     private ds: DataService,
     private auth: AuthStore,

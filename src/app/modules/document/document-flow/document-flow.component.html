@@ -7,29 +7,36 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.INCOMING)" mat-menu-item
-            *ngFor="let item of managementLevel">
-            <span>{{item?.name}}</span>
-          </button>
+          @for (item of managementLevel; track item) {
+            <button (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.INCOMING)" mat-menu-item
+              >
+              <span>{{item?.name}}</span>
+            </button>
+          }
         </mat-menu>
       </div>
-  
-      <div class="doc-flow-card" *ngFor="let incoming of store?.incomingFileStream">
-        <h4>{{incoming?.name}}</h4>
-        <div class="doc-fc-off">
-          <div class="doc-fc-office" *ngFor="let item of incoming?.officerData">
-            <div class="rows">
-              <div class="flex1">
-                <h4>{{item?.last_name}} {{item?.first_name}}</h4>
-                <p>{{item?.position?.name}}</p>
+
+      @for (incoming of store?.incomingFileStream; track incoming) {
+        <div class="doc-flow-card">
+          <h4>{{incoming?.name}}</h4>
+          <div class="doc-fc-off">
+            @for (item of incoming?.officerData; track item) {
+              <div class="doc-fc-office">
+                <div class="rows">
+                  <div class="flex1">
+                    <h4>{{item?.last_name}} {{item?.first_name}}</h4>
+                    <p>{{item?.position?.name}}</p>
+                  </div>
+                  @if (item?.requiredApprove) {
+                    <mat-icon>draw</mat-icon>
+                  }
+                </div>
               </div>
-              <mat-icon *ngIf="item?.requiredApprove">draw</mat-icon>
-            </div>
-  
+            }
           </div>
         </div>
-      </div>
-  
+      }
+
     </div>
     <div class="doc-internal-process">
       <div class="rows">
@@ -38,29 +45,36 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuInternal="matMenu">
-          <button mat-menu-item (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.INTERNAL)"
-            *ngFor="let item of managementLevel">
-            <span>{{item?.name}}</span>
-          </button>
+          @for (item of managementLevel; track item) {
+            <button mat-menu-item (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.INTERNAL)"
+              >
+              <span>{{item?.name}}</span>
+            </button>
+          }
         </mat-menu>
       </div>
-  
-      <div class="doc-flow-card" *ngFor="let incoming of store?.internalFileStream">
-        <h4>{{incoming?.name}}</h4>
-        <div class="doc-fc-off">
-          <div class="doc-fc-office" *ngFor="let item of incoming?.officerData">
-            <div class="rows">
-              <div class="flex1">
-                <h4>{{item?.last_name}} {{item?.first_name}}</h4>
-                <p>{{item?.position?.name}}</p>
+
+      @for (incoming of store?.internalFileStream; track incoming) {
+        <div class="doc-flow-card">
+          <h4>{{incoming?.name}}</h4>
+          <div class="doc-fc-off">
+            @for (item of incoming?.officerData; track item) {
+              <div class="doc-fc-office">
+                <div class="rows">
+                  <div class="flex1">
+                    <h4>{{item?.last_name}} {{item?.first_name}}</h4>
+                    <p>{{item?.position?.name}}</p>
+                  </div>
+                  @if (item?.requiredApprove) {
+                    <mat-icon>draw</mat-icon>
+                  }
+                </div>
               </div>
-              <mat-icon *ngIf="item?.requiredApprove">draw</mat-icon>
-            </div>
-  
+            }
           </div>
         </div>
-      </div>
-  
+      }
+
     </div>
     <div class="doc-out-process">
       <div class="rows">
@@ -69,28 +83,35 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menuOutgoing="matMenu">
-          <button mat-menu-item *ngFor="let item of managementLevel"
-            (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.OUTGOING)">
-            <span>{{item?.name}}</span>
-          </button>
+          @for (item of managementLevel; track item) {
+            <button mat-menu-item
+              (click)="onIncomingStream(item,FLOW_TYPE_OBJECT.OUTGOING)">
+              <span>{{item?.name}}</span>
+            </button>
+          }
         </mat-menu>
       </div>
-  
-      <div class="doc-flow-card" *ngFor="let incoming of store?.outgoingFileStream">
-        <h4>{{incoming?.name}}</h4>
-        <div class="doc-fc-off">
-          <div class="doc-fc-office" *ngFor="let item of incoming?.officerData">
-            <div class="rows">
-              <div class="flex1">
-                <h4>{{item?.last_name}} {{item?.first_name}}</h4>
-                <p>{{item?.position?.name}}</p>
+
+      @for (incoming of store?.outgoingFileStream; track incoming) {
+        <div class="doc-flow-card">
+          <h4>{{incoming?.name}}</h4>
+          <div class="doc-fc-off">
+            @for (item of incoming?.officerData; track item) {
+              <div class="doc-fc-office">
+                <div class="rows">
+                  <div class="flex1">
+                    <h4>{{item?.last_name}} {{item?.first_name}}</h4>
+                    <p>{{item?.position?.name}}</p>
+                  </div>
+                  @if (item?.requiredApprove) {
+                    <mat-icon>draw</mat-icon>
+                  }
+                </div>
               </div>
-              <mat-icon *ngIf="item?.requiredApprove">draw</mat-icon>
-            </div>
-  
+            }
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 </div>

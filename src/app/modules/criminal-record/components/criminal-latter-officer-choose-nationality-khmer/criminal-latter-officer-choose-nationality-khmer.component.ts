@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,21 +10,23 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-criminal-latter-officer-choose-nationality-khmer',
-  templateUrl: './criminal-latter-officer-choose-nationality-khmer.component.html',
-  styleUrls: ['./criminal-latter-officer-choose-nationality-khmer.component.scss']
+    selector: 'app-criminal-latter-officer-choose-nationality-khmer',
+    templateUrl: './criminal-latter-officer-choose-nationality-khmer.component.html',
+    styleUrls: ['./criminal-latter-officer-choose-nationality-khmer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterOfficerChooseNationalityKhmerComponent implements OnInit {
   nationality = NATIONALITY_APPLICAITON?.find(m => m?.key === 'khmer') || NATIONALITY_APPLICAITON[0]
   duration = URGENT_OBJ_ARRAY?.slice(0, 1)
   applicationType: any
-  form: FormGroup
+  form: UntypedFormGroup
 
   constructor(
     public dialogRef: MatDialogRef<CriminalLatterOfficerChooseNationalityKhmerComponent>,
     @Inject(MAT_DIALOG_DATA) public formData: any,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     public tran: LanguageStore,
     public ds: DataService,

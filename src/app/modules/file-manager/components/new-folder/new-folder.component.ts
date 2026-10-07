@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { IFolder } from 'src/app/interfaces/file-manager';
 import { statusObj, driveObj } from 'src/app/dummy/status';
 import { FileManager } from 'src/app/stores/fileDrive.store';
@@ -12,12 +12,14 @@ import { generateKeywords, getYear, MappingService, toOfficer, toRanking } from 
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-new-folder',
-  templateUrl: './new-folder.component.html',
-  styleUrls: ['./new-folder.component.scss']
+    selector: 'app-new-folder',
+    templateUrl: './new-folder.component.html',
+    styleUrls: ['./new-folder.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NewFolderComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form: UntypedFormGroup;
   title: any = "បង្កើតទូឯកសារ"
 
   organization: AbstractControl;
@@ -34,7 +36,7 @@ export class NewFolderComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<NewFolderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: FileManager,
     public afs: AngularFirestore,
     public auth: AuthStore,

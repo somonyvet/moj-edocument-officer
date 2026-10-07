@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { IHeaderInformation } from 'src/app/interfaces/document/document.interface';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -11,9 +11,11 @@ import { InboxStore } from 'src/app/stores/document/index.store';
 import { InboxFormComponent } from '../../inbox-form/inbox-form.component';
 
 @Component({
-  selector: 'app-inbox-document-noted',
-  templateUrl: './inbox-document-noted.component.html',
-  styleUrls: ['./inbox-document-noted.component.scss']
+    selector: 'app-inbox-document-noted',
+    templateUrl: './inbox-document-noted.component.html',
+    styleUrls: ['./inbox-document-noted.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxDocumentNotedComponent implements OnInit, OnDestroy {
   loading: boolean = true;

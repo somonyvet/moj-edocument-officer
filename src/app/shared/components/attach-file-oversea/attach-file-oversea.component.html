@@ -3,43 +3,57 @@
     <div class="header-ef">
       <h2 style="margin-bottom:12px;">បញ្ចូលព្រឹត្តិបត្រថ្កោលទោស ៣</h2>
 
-      <div class="lottie-box" *ngIf="!criminalStore?.selectedCriminalRecord?.attachment_pdf">
-        <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
-      </div>
+      @if (!criminalStore?.selectedCriminalRecord?.attachment_pdf) {
+        <div class="lottie-box">
+          <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+        </div>
+      }
 
-      <div class="btn-done" *ngIf="criminalStore?.selectedCriminalRecord?.status?.key >= 11">
+      @if (criminalStore?.selectedCriminalRecord?.status?.key >= 11) {
+        <div class="btn-done">
           <mat-icon>check_circle</mat-icon>
           <p>បញ្ចូល PDF ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣ រួចរាល់</p>
-      </div>
+        </div>
+      }
 
-      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_pdf">
+      @if (criminalStore?.selectedCriminalRecord?.attachment_pdf) {
         <div class="doc-file-p">
           <div class="attach-file-pdf">
-            <mat-spinner [diameter]="26" *ngIf="process"></mat-spinner>
-            <p (click)="download()" *ngIf="!process">{{criminalStore?.selectedCriminalRecord?.attachment_pdf?.name}}</p>
-            <a mat-button mat-icon-button class="mat-add-new" (click)="process ? null : fileAttach?.click()" *ngIf="criminalStore?.selectedCriminalRecord?.status?.key >= 11">
-              <mat-icon>upload_file</mat-icon>
-            </a>
+            @if (process) {
+              <mat-spinner [diameter]="26"></mat-spinner>
+            }
+            @if (!process) {
+              <p (click)="download()">{{criminalStore?.selectedCriminalRecord?.attachment_pdf?.name}}</p>
+            }
+            @if (criminalStore?.selectedCriminalRecord?.status?.key >= 11) {
+              <a mat-icon-button class="mat-add-new" (click)="process ? null : fileAttach?.click()">
+                <mat-icon>upload_file</mat-icon>
+              </a>
+            }
           </div>
         </div>
-      </ng-container>
+      }
 
       <!-- <div class="error" *ngIf="criminalStore?.selectedCriminalRecord?.status?.key < 7.2">
-        <p class="error-text">! ព្រឹត្តិបត្រមិនទាន់ដាក់និទ្ទេស</p>
-      </div> -->
+      <p class="error-text">! ព្រឹត្តិបត្រមិនទាន់ដាក់និទ្ទេស</p>
+    </div> -->
 
-      <button [disabled]="process" mat-button class="btn-withdraw" (click)="process ? null : fileAttach?.click()" *ngIf="(criminalStore?.selectedCriminalRecord?.status?.key >= 7) && (criminalStore?.selectedCriminalRecord?.status?.key < 11)">
+    @if ((criminalStore?.selectedCriminalRecord?.status?.key >= 7) && (criminalStore?.selectedCriminalRecord?.status?.key < 11)) {
+      <button [disabled]="process" mat-button class="btn-withdraw" (click)="process ? null : fileAttach?.click()">
         <div class="wrapper">
-          <mat-spinner [diameter]="26" *ngIf="process" class="spinner-white"></mat-spinner>
+          @if (process) {
+            <mat-spinner [diameter]="26" class="spinner-white"></mat-spinner>
+          }
           បញ្ចូល PDF ព្រឹត្តិបត្រថ្កោលទោសលេខ ៣
         </div>
       </button>
+    }
 
-      <input #fileAttach type="file" class="no-border" placeholder="" style="display: none;"
-        accept=".pdf" (change)="attachFile($event)">
+    <input #fileAttach type="file" class="no-border" placeholder="" style="display: none;"
+      accept=".pdf" (change)="attachFile($event)">
 
-    </div>
-    <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.status?.key >= 11">
-    </ng-container>
   </div>
+  @if (criminalStore?.selectedCriminalRecord?.status?.key >= 11) {
+  }
+</div>
 </div>

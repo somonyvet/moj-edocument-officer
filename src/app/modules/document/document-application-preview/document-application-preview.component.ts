@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-success/confirm-success.component';
@@ -6,9 +6,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-application-preview',
-  templateUrl: './document-application-preview.component.html',
-  styleUrls: ['./document-application-preview.component.scss']
+    selector: 'app-document-application-preview',
+    templateUrl: './document-application-preview.component.html',
+    styleUrls: ['./document-application-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationPreviewComponent implements OnInit, OnDestroy {
   loading:boolean=true;

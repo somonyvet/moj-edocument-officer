@@ -1,7 +1,7 @@
 import { pushToArray } from 'src/app/shared/services/convert.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,9 +20,11 @@ import { ClusterOfActivitiesFormComponent } from './cluster-of-activities-form/c
 import { MmeClusterActivitiesStore } from 'src/app/stores/document/mme-cluster-activities.store';
 
 @Component({
-  selector: 'app-cluster-of-activities',
-  templateUrl: './cluster-of-activities.component.html',
-  styleUrls: ['./cluster-of-activities.component.scss']
+    selector: 'app-cluster-of-activities',
+    templateUrl: './cluster-of-activities.component.html',
+    styleUrls: ['./cluster-of-activities.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ClusterOfActivitiesComponent implements OnInit {
   tabs = tabs.mmeProgram;

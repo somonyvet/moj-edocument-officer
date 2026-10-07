@@ -2,14 +2,14 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
   <mat-dialog-content class="form-wrapper">
 
     <div class="page-doc">
-      <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="dataMainProgram" class="as-tb-wrap vt-doc">
+      <div #scroll (vsEnd)="_onScroll($event)" [appScrollEnd]="dataMainProgram" class="as-tb-wrap vt-doc">
         <table class="as-table-wrapper" >
           <thead #header>
             <tr>
@@ -38,52 +38,54 @@
             </tr>
           </thead>
           <tbody #container>
-            <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
-              <td class="center" style="width: 64px;">
-                {{item?.index}}
-              </td>
-
-              <td>
-                <div class="rows" style="white-space: normal; max-width: 260px;">
-                  <span style="margin-right: 6px;">
-                    {{item?.displayName}}
-                  </span>
-                </div>
-              </td>
-
-              <td>
-                {{item?.describe_activities_kh_budget_mef ? item?.describe_activities_kh_budget_mef: '0.00'}}
-              </td>
-              <td>
-                {{item?.describe_activities_kh_budget_mme ? item?.describe_activities_kh_budget_mme : '0.00'}}
-              </td>
-              <td>
-                {{item?.describe_activities_us_budget_mme? item.describe_activities_us_budget_mme : '0.00'}}
-              </td>
-              <td>
+            @for (item of dataMainProgram; track item; let i = $index) {
+              <tr>
+                <td class="center" style="width: 64px;">
+                  {{item?.index}}
+                </td>
+                <td>
+                  <div class="rows" style="white-space: normal; max-width: 260px;">
+                    <span style="margin-right: 6px;">
+                      {{item?.displayName}}
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  {{item?.describe_activities_kh_budget_mef ? item?.describe_activities_kh_budget_mef: '0.00'}}
+                </td>
+                <td>
+                  {{item?.describe_activities_kh_budget_mme ? item?.describe_activities_kh_budget_mme : '0.00'}}
+                </td>
+                <td>
+                  {{item?.describe_activities_us_budget_mme? item.describe_activities_us_budget_mme : '0.00'}}
+                </td>
+                <td>
                   {{item?.describe_activities_month?.name}}
                 </td>
-              <td style="width: 64px;">
-                <div class="card-list-action">
-                  <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="material-icons">more_vert</i>
-                  </button>
-                  <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="create(item)">
-                      <mat-icon>edit</mat-icon>
-                      <span>កែប្រែ</span>
+                <td style="width: 64px;">
+                  <div class="card-list-action">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
                     </button>
-                    <button mat-menu-item *ngIf="!item?.isAdmin" (click)="delete(item)">
-                      <mat-icon>delete</mat-icon>
-                      <span>លុប</span>
-                    </button>
-                  </mat-menu>
-                </div>
-              </td>
-            </tr>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="create(item)">
+                        <mat-icon>edit</mat-icon>
+                        <span>កែប្រែ</span>
+                      </button>
+                      @if (!item?.isAdmin) {
+                        <button mat-menu-item (click)="delete(item)">
+                          <mat-icon>delete</mat-icon>
+                          <span>លុប</span>
+                        </button>
+                      }
+                    </mat-menu>
+                  </div>
+                </td>
+              </tr>
+            }
           </tbody>
         </table>
-        <ng-container *ngIf="dataMainProgram?.length===0 && store?.loading">
+        @if (dataMainProgram?.length===0 && store?.loading) {
           <div class="empty-block">
             <div class="center-block-empty">
               <div class="empty-img">
@@ -100,9 +102,11 @@
               </div>
             </div>
           </div>
-        </ng-container>
-        <app-spinner *ngIf="store?.loading"></app-spinner>
-      </virtual-scroller>
+        }
+        @if (store?.loading) {
+          <app-spinner></app-spinner>
+        }
+      </div>
     </div>
 
   </mat-dialog-content>

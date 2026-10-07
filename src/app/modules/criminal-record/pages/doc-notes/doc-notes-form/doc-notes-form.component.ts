@@ -1,24 +1,26 @@
 import { NationalityStore } from './../../../stores/nationality.store';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT_NOTE_TYPE_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { ConvertService } from 'src/app/shared/services/convert.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DataService } from 'src/app/shared/services/data.service';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 
 @Component({
-  selector: 'app-doc-notes-form',
-  templateUrl: './doc-notes-form.component.html',
-  styleUrls: ['./doc-notes-form.component.scss']
+    selector: 'app-doc-notes-form',
+    templateUrl: './doc-notes-form.component.html',
+    styleUrls: ['./doc-notes-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class DocNotesFormComponent implements OnInit {
   title: any = "បង្កើតចំណារ";
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   process: boolean = false;
 
   name: any = null;
@@ -28,7 +30,7 @@ export class DocNotesFormComponent implements OnInit {
   note_type = DOCUMENT_NOTE_TYPE_ARRAY;
   quillModules
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     toolbar: [
       'fontfamily',
@@ -85,7 +87,7 @@ export class DocNotesFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocNotesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     public ds: DataService,

@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { IFile, transformImageSameTokenNo, ImageSizeType } from 'src/app/shared/services/fire-storage.service';
 
 @Component({
-  selector: 'app-swot-image',
-  templateUrl: './swot-image.component.html',
-  styleUrls: ['./swot-image.component.scss']
+    selector: 'app-swot-image',
+    templateUrl: './swot-image.component.html',
+    styleUrls: ['./swot-image.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SwotImageComponent implements OnInit, OnChanges {
   @Input() file: IFile;

@@ -228,7 +228,19 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules
+    preloadingStrategy: PreloadAllModules,
+    // Angular's own default for this changed between v12 ('emptyOnly') and
+    // v22 ('always') -- neither app ever set it explicitly, so each silently
+    // used its own version's default. Under 'always', child-route params
+    // (e.g. :id) now bubble up to every ancestor's ActivatedRoute, including
+    // parent layout components that never received them before. Confirmed
+    // concretely: main-sidenav-layout.component's `isMME` (driven by
+    // `id === 'data'`) flips to true under Angular 22 when it stayed false
+    // under Angular 12 for the identical route, substituting that branch's
+    // real content with its "..." placeholder. Restoring the old default
+    // app-wide, since this almost certainly affects other components beyond
+    // the one this was traced through.
+    paramsInheritanceStrategy: 'emptyOnly'
   })],
   exports: [RouterModule]
 })

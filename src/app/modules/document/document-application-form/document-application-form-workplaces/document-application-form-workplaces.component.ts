@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FireStorageService } from 'src/app/shared/services/fireStorage.service';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 import { DocumentReportFormComponent } from '../document-report-form/document-report-form.component';
 
 @Component({
-  selector: 'app-document-application-form-workplaces',
-  templateUrl: './document-application-form-workplaces.component.html',
-  styleUrls: ['./document-application-form-workplaces.component.scss']
+    selector: 'app-document-application-form-workplaces',
+    templateUrl: './document-application-form-workplaces.component.html',
+    styleUrls: ['./document-application-form-workplaces.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationFormWorkplacesComponent implements OnInit {
 

@@ -1,64 +1,75 @@
 <div class="full-page-container">
   <div class="floating-btn">
-    <a mat-button mat-icon-button class="mat-add-new" [matMenuTriggerFor]="menuA">
+    <a mat-icon-button class="mat-add-new" [matMenuTriggerFor]="menuA">
       <mat-icon class="mat-18">toc</mat-icon>
     </a>
     <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
-      <div class="cmat-menu-content" *ngIf="workplaces && workplaces.length > 0">
-        <div (click)="scroll('archivedDocumentRoot')" class="cmat-menu-item">
-          <div class="info infof1">
-            <p class="name">
-              ឯកសារដើម
-            </p>
-          </div>
-          <span class="material-icons checked">
-            check_circle
-          </span>
-        </div>
-        <ng-container *ngFor="let item of workplaces;let i = index;">
-          <div (click)="scroll(item?.docKey)" class="cmat-menu-item">
+      @if (workplaces && workplaces.length > 0) {
+        <div class="cmat-menu-content">
+          <div (click)="scroll('archivedDocumentRoot')" class="cmat-menu-item">
             <div class="info infof1">
               <p class="name">
-                {{item?.office?.name}}
+                ឯកសារដើម
               </p>
             </div>
-
-            <span class="material-icons checked" *ngIf="item?.isCompleted">
+            <span class="material-icons checked">
               check_circle
             </span>
           </div>
-        </ng-container>
-      </div>
+          @for (item of workplaces; track item; let i = $index) {
+            <div (click)="scroll($safeNavigationMigration(item?.docKey))" class="cmat-menu-item">
+              <div class="info infof1">
+                <p class="name">
+                  {{item?.office?.name}}
+                </p>
+              </div>
+              @if (item?.isCompleted) {
+                <span class="material-icons checked">
+                  check_circle
+                </span>
+              }
+            </div>
+          }
+        </div>
+      }
     </mat-menu>
   </div>
   <!-- <div class="header">
-      <div class="wrapper">
-        <nav mat-tab-nav-bar class="fire-tabs" style="flex:1">
-          <a mat-tab-link  [routerLink]="'comments'" routerLinkActive
-            #rla1="routerLinkActive" [active]="rla1.isActive">ឯកសារ
-          </a>
+  <div class="wrapper">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs" style="flex:1">
+      <a mat-tab-link  [routerLink]="'comments'" routerLinkActive
+        #rla1="routerLinkActive" [active]="rla1.isActive">ឯកសារ
+      </a>
 
-          <a mat-tab-link  [routerLink]="'attachment'" routerLinkActive
-            #rla3="routerLinkActive" [active]="rla3.isActive">ឯកសារភ្ជាប់
-          </a>
+      <a mat-tab-link  [routerLink]="'attachment'" routerLinkActive
+        #rla3="routerLinkActive" [active]="rla3.isActive">ឯកសារភ្ជាប់
+      </a>
 
-        </nav>
+    </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
-      </div>
-    </div> -->
-  <div class="body">
-    <app-document-skeleton-loading *ngIf="loading"></app-document-skeleton-loading>
+  </div>
+</div> -->
+<div class="body">
+  @if (loading) {
+    <app-document-skeleton-loading></app-document-skeleton-loading>
+  }
 
-    <div class="doc-sticky-close" *ngIf="!loading">
+  @if (!loading) {
+    <div class="doc-sticky-close">
       <div class="sticky-action-head">
         <div class="wrapper">
           <div class="memo">
             <aside class="special-memo asm-ma m15 cur">
               <ng-container>
                 <strong class="name">កំណត់សម្គាល់:</strong>
-                <span class="memo" *ngIf="documentStore.headerDocument?.doc_status?.key !== 99">សូមត្រួតពិនិត្យនិង
+                @if (documentStore.headerDocument?.doc_status?.key !== 99) {
+                  <span class="memo">សូមត្រួតពិនិត្យនិង
                   បិទបញ្ចប់ឯកសារ</span>
-                <span class="memo" *ngIf="documentStore.headerDocument?.doc_status?.key === 99">ឯកសារបានបិទបញ្ចប់</span>
+                }
+                @if (documentStore.headerDocument?.doc_status?.key === 99) {
+                  <span class="memo">ឯកសារបានបិទបញ្ចប់</span>
+                }
               </ng-container>
             </aside>
           </div>
@@ -70,12 +81,14 @@
                 បិទបញ្ចប់ឯកសារ
               </button>
             </div>
-
           </div>
         </div>
       </div>
     </div>
+  }
 
-    <router-outlet *ngIf="!loading"></router-outlet>
-  </div>
+  @if (!loading) {
+    <router-outlet></router-outlet>
+  }
+</div>
 </div>

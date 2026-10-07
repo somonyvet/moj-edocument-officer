@@ -1,75 +1,89 @@
 <div class="edoc-container" *mobxAutorun>
-  <div class="doc-dashboard-page-conntent" *ngIf="!store?.loadingDocumentIn">
-    <div class="story-doc-listing-card">
-      <div class="story-doc-listing-content">
-        <div class="story-doc-listing-item story-doc-listing-item-add">
-          <div class="image-box">
-          </div>
-          <div class="img-mask img-mask-add"></div>
-          <div class="content-box">
-            <div class="add-box">
-              <button mat-icon-button (click)="onCreateDocument(null)">
-                <mat-icon class="mat-18">add</mat-icon>
-              </button>
-            </div>
-            <div class="text-box">
-              បង្កើតឯកសារឌីជីថល
-            </div>
-          </div>
-        </div>
-        <ng-container *ngIf="!store?.loadingOwner">
-          <a [routerLink]="['/documents/form/'+ item?.key +'/'+ item?.workplace?.key +'/design']"
-            class="story-doc-listing-item" *ngFor="let item of store?.ownerDocuments; let i=index">
+  @if (!store?.loadingDocumentIn) {
+    <div class="doc-dashboard-page-conntent">
+      <div class="story-doc-listing-card">
+        <div class="story-doc-listing-content">
+          <div class="story-doc-listing-item story-doc-listing-item-add">
             <div class="image-box">
-              <img *ngIf="item?.coverFile?.downloadURL" [src]="item?.coverFile?.downloadURL" alt="">
-              <img *ngIf="!item?.coverFile?.downloadURL" [src]="img" alt="">
             </div>
-            <div class="img-mask"></div>
-            <div class="content-box nobg">
-              <p>
-                <strong>{{item?.documentTitle?.length > 35 ?item?.documentTitle.substring(0, 35) +
-                  '...':item?.documentTitle}}</strong>
-              </p>
-              <p>
-                {{item?.documentNo?.length > 35 ?item?.documentNo.substring(0, 35) + '...':item?.documentNo}}
-              </p>
+            <div class="img-mask img-mask-add"></div>
+            <div class="content-box">
+              <div class="add-box">
+                <button mat-icon-button (click)="onCreateDocument(null)">
+                  <mat-icon class="mat-18">add</mat-icon>
+                </button>
+              </div>
+              <div class="text-box">
+                បង្កើតឯកសារឌីជីថល
+              </div>
             </div>
-          </a>
-          <div class="see-all" *ngIf="store?.ownerDocuments?.length >= 4">
-            <a mat-icon-button matTooltipClass="tooltipClass" [routerLink]="['/documents']" matTooltip="បង្ហាញទាំងអស់">
-              <mat-icon class="mat-18">east</mat-icon>
-            </a>
           </div>
-        </ng-container>
-      </div>
-    </div>
-
-    <div class="doc-listing-card task-doc mh">
-      <div class="doc-listing-card-content">
-        <h5 class="ddt">ឯកសារត្រូវពិនិត្យនិងឯកភាព</h5>
-        <p>ជាឯកសារដែលយើងត្រូវត្រួតពិនិត្យ ឬចុះហត្ថលេខាថាត្រឹមត្រូវ</p>
-        <button mat-button class="btn-doc-check" [routerLink]="['/workplace/approval-documents']">
-          <span class="inbox-txt-btn">ចូលពិនិត្យឯកសារ</span>
-          <mat-icon>arrow_forward_ios</mat-icon>
-        </button>
-        <div class="t-doc" *ngIf="store?.documentApproval?.length > 0">
-          {{store?.documentApproval?.length}} <span>ឯកសារ</span>
+          @if (!store?.loadingOwner) {
+            @for (item of store?.ownerDocuments; track item; let i = $index) {
+              <a [routerLink]="['/documents/form/'+ $safeNavigationMigration(item?.key) +'/'+ $safeNavigationMigration(item?.workplace?.key) +'/design']"
+                class="story-doc-listing-item">
+                <div class="image-box">
+                  @if (item?.coverFile?.downloadURL) {
+                    <img [src]="$safeNavigationMigration(item?.coverFile?.downloadURL)" alt="">
+                  }
+                  @if (!item?.coverFile?.downloadURL) {
+                    <img [src]="img" alt="">
+                  }
+                </div>
+                <div class="img-mask"></div>
+                <div class="content-box nobg">
+                  <p>
+                    <strong>{{item?.documentTitle?.length > 35 ?item?.documentTitle.substring(0, 35) +
+                    '...':item?.documentTitle}}</strong>
+                  </p>
+                  <p>
+                    {{item?.documentNo?.length > 35 ?item?.documentNo.substring(0, 35) + '...':item?.documentNo}}
+                  </p>
+                </div>
+              </a>
+            }
+            @if (store?.ownerDocuments?.length >= 4) {
+              <div class="see-all">
+                <a mat-icon-button matTooltipClass="tooltipClass" [routerLink]="['/documents']" matTooltip="បង្ហាញទាំងអស់">
+                  <mat-icon class="mat-18">east</mat-icon>
+                </a>
+              </div>
+            }
+          }
         </div>
       </div>
-      <div class="abs-icon">
-        <mat-icon class="">layers</mat-icon>
+      <div class="doc-listing-card task-doc mh">
+        <div class="doc-listing-card-content">
+          <h5 class="ddt">ឯកសារត្រូវពិនិត្យនិងឯកភាព</h5>
+          <p>ជាឯកសារដែលយើងត្រូវត្រួតពិនិត្យ ឬចុះហត្ថលេខាថាត្រឹមត្រូវ</p>
+          <button mat-button class="btn-doc-check" [routerLink]="['/workplace/approval-documents']">
+            <span class="inbox-txt-btn">ចូលពិនិត្យឯកសារ</span>
+            <mat-icon>arrow_forward_ios</mat-icon>
+          </button>
+          @if (store?.documentApproval?.length > 0) {
+            <div class="t-doc">
+              {{store?.documentApproval?.length}} <span>ឯកសារ</span>
+            </div>
+          }
+        </div>
+        <div class="abs-icon">
+          <mat-icon class="">layers</mat-icon>
+        </div>
+      </div>
+      <div class="doc-tile-listing-container bd">
+        <div class="doc-tile-listing-content">
+          @for (item of store?.documentInWorkPlace; track item) {
+            <app-document-card [uid]="$safeNavigationMigration(auth?.uid)" [item]="item"
+              >
+            </app-document-card>
+          }
+        </div>
       </div>
     </div>
-
-    <div class="doc-tile-listing-container bd">
-      <div class="doc-tile-listing-content">
-        <app-document-card [uid]="auth?.uid" [item]="item"
-          *ngFor="let item of store?.documentInWorkPlace">
-        </app-document-card>
-      </div>
+  }
+  @if (store?.loadingDocumentIn) {
+    <div class="load-spinner-box">
+      <div class="loadingspinner"></div>
     </div>
-  </div>
-  <div class="load-spinner-box" *ngIf="store?.loadingDocumentIn">
-    <div class="loadingspinner"></div>
-  </div>
+  }
 </div>

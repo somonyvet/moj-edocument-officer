@@ -1,11 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { transformImageSameTokenNo } from 'src/app/shared/services/fireStorage.service';
 
 @Component({
-  selector: 'app-snack-notification',
-  templateUrl: './snack-notification.component.html',
-  styleUrls: ['./snack-notification.component.scss']
+    selector: 'app-snack-notification',
+    templateUrl: './snack-notification.component.html',
+    styleUrls: ['./snack-notification.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SnackNotificationComponent implements OnInit {
 

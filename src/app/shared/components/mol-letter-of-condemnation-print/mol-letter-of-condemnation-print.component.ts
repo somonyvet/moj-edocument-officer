@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
@@ -11,9 +11,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CitizenStore } from '../../../modules/criminal-record/stores/citizen.store';
 import { CriminalApplicationStore } from '../../../modules/criminal-record/stores/criminalApplication.store';
 @Component({
-  selector: 'app-mol-letter-of-condemnation-print',
-  templateUrl: './mol-letter-of-condemnation-print.component.html',
-  styleUrls: ['./mol-letter-of-condemnation-print.component.scss']
+    selector: 'app-mol-letter-of-condemnation-print',
+    templateUrl: './mol-letter-of-condemnation-print.component.html',
+    styleUrls: ['./mol-letter-of-condemnation-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MolLetterOfCondemnationPrintComponent implements OnInit {
   STATUS_OBJ = STATUS_OBJ

@@ -13,560 +13,557 @@ transform-origin: top left;">
         <div class="f-item" style="display: flex; margin-left: -18px;">
           <span class="nor-fam no-print" style="border-bottom: 1px solid #28803f!important;font-size:22px">លេខ: </span>
           <!-- <p class="nor-fam-field" style="width: 160px; border-bottom: 1px dotted #28803f!important;">
-          </p> -->
-        </div>
+        </p> -->
       </div>
-    </div>
-    <div class="flex1"></div>
-    <div class="head-item">
-      <p class="feTitle b no-print" style="font-size:32px">ព្រះរាជាណាចក្រកម្ពុជា</p>
-      <p class="feTitle b no-print">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-      <p class="star no-print" style="color:#28803f">3</p>
-      <div style="height: 6px; margin:0">
-      </div>
-      <p class="feTitle b no-print" style="font-size:30px;white-space: nowrap;">ព្រឹត្តិបត្រថ្កោលទោសលេខ
-        <strong>៣</strong>
-      </p>
-    </div>
-    <div class="flex1"></div>
-    <div class="head-item">
     </div>
   </div>
-  <div class="body" style="width:100%;">
-    <div class="body-item kh-3" style="height:1330px">
-      <div class="row-item kh3-row-item" style="position:relative">
-        <div class="f-1 kh3-f1-name " style="min-width: 460px;">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">នាមត្រកូលនិងនាមខ្លួន</span>
-              <span>:</span>
-            </span>
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand" style="padding: 0 12px;">
-            <strong>{{(criminalStore?.selectedCriminalRecord?.last_name||'') +"&emsp;"+(criminalStore?.selectedCriminalRecord?.first_name||'')}}</strong>
-          </p>
+  <div class="flex1"></div>
+  <div class="head-item">
+    <p class="feTitle b no-print" style="font-size:32px">ព្រះរាជាណាចក្រកម្ពុជា</p>
+    <p class="feTitle b no-print">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+    <p class="star no-print" style="color:#28803f">3</p>
+    <div style="height: 6px; margin:0">
+    </div>
+    <p class="feTitle b no-print" style="font-size:30px;white-space: nowrap;">ព្រឹត្តិបត្រថ្កោលទោសលេខ
+      <strong>៣</strong>
+    </p>
+  </div>
+  <div class="flex1"></div>
+  <div class="head-item">
+  </div>
+</div>
+<div class="body" style="width:100%;">
+  <div class="body-item kh-3" style="height:1330px">
+    <div class="row-item kh3-row-item" style="position:relative">
+      <div class="f-1 kh3-f1-name " style="min-width: 460px;">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">នាមត្រកូលនិងនាមខ្លួន</span>
+            <span>:</span>
+          </span>
         </div>
-        <div class="f-1 kh3-f1-3" style="flex: none;">
-          <span class="label-title no-print-kh3">ភេទ</span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n2">{{criminalStore?.selectedCriminalRecord?.gender?.name}} </p>
-        </div>
-        <div class="f-1 kh3-f1-1">
-          <span class="label-title no-print-kh3">សញ្ជាតិដើម</span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">{{criminalStore?.selectedCriminalRecord?.before_nationality?.kh_nationality}} </p>
-        </div>
-        <div class="f-1 kh3-f1-2">
-          <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន</span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n">{{criminalStore?.selectedCriminalRecord?.current_nationality?.kh_nationality}} </p>
-        </div>
+        <p class="f-input f-input-kh-3 font-fastHand" style="padding: 0 12px;">
+          <strong>{{(criminalStore?.selectedCriminalRecord?.last_name||'') +"&emsp;"+(criminalStore?.selectedCriminalRecord?.first_name||'')}}</strong>
+        </p>
       </div>
-      <div class="row-item kh3-row-item">
-        <div class="f-1 ">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ឈ្មោះហៅក្រៅ</span>
-              <span>:</span>
-            </span>
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-pd1" [innerHTML]="(criminalStore?.selectedCriminalRecord?.nick_name|nicknameSpace)?(criminalStore?.selectedCriminalRecord?.nick_name|addMoreSpaceToString):'/'"></p>
-        </div>
+      <div class="f-1 kh3-f1-3" style="flex: none;">
+        <span class="label-title no-print-kh3">ភេទ</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n2">{{criminalStore?.selectedCriminalRecord?.gender?.name}} </p>
       </div>
-      <div class="row-item kh3-row-item">
-        <div class="f-1 ">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត
-              </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-pd1 ali-ce">
-            {{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}
-          </p>
-        </div>
+      <div class="f-1 kh3-f1-1">
+        <span class="label-title no-print-kh3">សញ្ជាតិដើម</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">{{criminalStore?.selectedCriminalRecord?.before_nationality?.kh_nationality}} </p>
       </div>
-      <div class="row-item kh3-row-item ali-start kh3-mg1">
-        <div class="f-1 ">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-              <span>:</span>
+      <div class="f-1 kh3-f1-2">
+        <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n">{{criminalStore?.selectedCriminalRecord?.current_nationality?.kh_nationality}} </p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ឈ្មោះហៅក្រៅ</span>
+            <span>:</span>
+          </span>
+        </div>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-pd1" [innerHTML]="($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.nick_name)|nicknameSpace)?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.nick_name)|addMoreSpaceToString):'/'"></p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត
             </span>
-
-          </div>
-          <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-            *ngIf="criminalStore?.selectedCriminalRecord?.isTextAddress;else khmerBirthPlaceTemplate">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.foreignerPlaceOfBirth|addMoreSpaceToStringAddress"></span>
+            <span>:</span>
           </span>
 
-          <ng-template #khmerBirthPlaceTemplate>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name">
-                {{criminalStore?.selectedCriminalRecord?.birthAddress?.village?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name}}
-              </ng-container>
+        </div>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-pd1 ali-ce">
+          {{criminalStore?.selectedCriminalRecord?.dateOfBirthDay?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.dateOfBirthMonth?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.dateOfBirthYear?.name}}
+        </p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item ali-start kh3-mg1">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+            <span>:</span>
+          </span>
 
-              <span class="space30"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name">
-                {{criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-              <wbr>
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.district?.name">
+        </div>
+        @if (criminalStore?.selectedCriminalRecord?.isTextAddress) {
+          <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+            >
+            <span [innerHTML]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.foreignerPlaceOfBirth)|addMoreSpaceToStringAddress"></span>
+          </span>
+        } @else {
+          <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+            @if (criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name) {
+              {{criminalStore?.selectedCriminalRecord?.birthAddress?.village?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.village?.name}}
+            }
+            <span class="space30"></span>
+            @if (criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name) {
+              {{criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.commune?.name}}
+            }
+            <span class="space30"></span>
+            <wbr>
+              @if (criminalStore?.selectedCriminalRecord?.birthAddress?.district?.name) {
                 {{criminalStore?.selectedCriminalRecord?.birthAddress?.district?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.district?.name}}
-              </ng-container>
-
+              }
               <span class="space30"></span>
               <wbr>
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name">
-                {{criminalStore?.selectedCriminalRecord?.birthAddress?.province?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name}}
-              </ng-container>
-            </span>
-          </ng-template>
-
-        </div>
-      </div>
-      <div class="row-item kh3-row-item ali-start kh3-mg1">
-        <div class="f-1 ">
-
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">អាសយដ្ឋានបច្ចុប្បន្ន </span>
-              <span>:</span>
-            </span>
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line"
-            *ngIf="criminalStore?.selectedCriminalRecord?.isTextAddress;else khmerPermanentAddressTextTemplate">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.permanentAddressText|addMoreSpaceToStringAddress"></span>
-          </p>
-
-          <ng-template #khmerPermanentAddressTextTemplate>
-            <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line">
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no">
-                <span [innerHTML]="'ផ្ទះលេខ ' +(criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no|khmerNumAddress)"></span>
-              </ng-container>
-
-              <span class="space30" *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no">
-                <span [innerHTML]="'ផ្លូវ ' +(criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no|khmerNumAddress)"></span>
-              </ng-container>
-
-              <span class="space30" *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name">
-                {{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name}}
-              </ng-container>
-
-              <span class="space30" *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name">
-                {{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30" *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name"></span>
-              <wbr>
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name">
-                {{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30" *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name"></span>
-              <wbr>
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name">
-                {{criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name}}
-              </ng-container>
-            </p>
-          </ng-template>
-        </div>
-      </div>
-      <div class="row-item kh3-row-item ali-start kh3-mg1">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">មុខរបរ </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand">
-            {{criminalStore?.selectedCriminalRecord?.occupation}}
-          </p>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item ali-start">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ឪពុកឈ្មោះ </span>
-              <span>:</span>
-            </span>
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.father_name?(criminalStore?.selectedCriminalRecord?.father_name|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
-          </p>
-        </div>
-        <div class="f-1 small" style="width: 40%;">
-          <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate1">
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-              (ស្លាប់)
-            </p>
-          </ng-container>
-          <ng-template #notDeadTemplate1>
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="criminalStore?.selectedCriminalRecord?.fatherDob;else ftp1">
-              {{criminalStore?.selectedCriminalRecord?.fatherDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.fatherDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.fatherDob?.year?.name}}
-            </p>
-            <ng-template #ftp1>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                /
-              </p>
-            </ng-template>
-          </ng-template>
-        </div>
-      </div>
-      <div class="row-item kh3-row-item">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-              <span>:</span>
-            </span>
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-            {{criminalStore?.selectedCriminalRecord?.father_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.father_before_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-        <div class="f-1" style="width: 40%;flex: none;">
-          <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-            {{criminalStore?.selectedCriminalRecord?.father_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.father_current_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-      </div>
-      <div class="row-item kh3-row-item">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-            *ngIf="criminalStore?.selectedCriminalRecord?.isTextAddress;else khmerFatherBirthPlaceTemplate">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress?(criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress|addMoreSpaceToStringAddress):'/'"></span>
-          </span>
-
-          <ng-template #khmerFatherBirthPlaceTemplate>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name">
-                {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.geo_prefix?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name">
-                {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.geo_prefix?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name}}
-              </ng-container>
-            </span>
-          </ng-template>
-
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item ali-start">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ម្តាយឈ្មោះ </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.mother_name?(criminalStore?.selectedCriminalRecord?.mother_name|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
-          </p>
-        </div>
-        <div class="f-1 small" style="width: 40%;">
-          <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate2">
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-              (ស្លាប់)
-            </p>
-          </ng-container>
-          <ng-template #notDeadTemplate2>
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="criminalStore?.selectedCriminalRecord?.motherDob;else mdtp1">
-              {{criminalStore?.selectedCriminalRecord?.motherDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.motherDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.motherDob?.year?.name}}
-            </p>
-            <ng-template #mdtp1>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                /
-              </p>
-            </ng-template>
-          </ng-template>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-            {{criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-        <div class="f-1" style="width: 40%;flex: none;">
-          <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-            {{criminalStore?.selectedCriminalRecord?.mother_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-            *ngIf="criminalStore?.selectedCriminalRecord?.isTextAddress;else khmerMotherBirthPlaceTemplate">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.foreignerMotherBirthAddress|addMoreSpaceToStringAddress"></span>
-          </span>
-
-          <ng-template #khmerMotherBirthPlaceTemplate>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-
-              <!-- <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name">
-                ភូមិ {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name">
-                ឃុំ/សង្កាត់ {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30"></span> -->
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name">
-                {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.geo_prefix?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name">
-                {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.geo_prefix?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name}}
-              </ng-container>
-
-            </span>
-          </ng-template>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item ali-start">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">ឈ្មោះប្ដីឬប្រពន្ធ </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.spouse?(criminalStore?.selectedCriminalRecord?.spouse|addMoreSpaceToString):'/'"></span>
-          </p>
-        </div>
-        <div class="f-1 small" style="width: 40%;">
-          <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-
-          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.spouseIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate3">
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-              (ស្លាប់)
-            </p>
-          </ng-container>
-
-          <ng-template #notDeadTemplate3>
-            <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="criminalStore?.selectedCriminalRecord?.spouseDob;else noSpouseTemplate">
-              {{criminalStore?.selectedCriminalRecord?.spouseDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.spouseDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.spouseDob?.year?.name}}
-            </p>
-            <ng-template #noSpouseTemplate>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                /
-              </p>
-            </ng-template>
-          </ng-template>
-
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-            {{criminalStore?.selectedCriminalRecord?.spouse_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.spouse_before_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-        <div class="f-1" style="width: 40%;flex: none;">
-          <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-            {{criminalStore?.selectedCriminalRecord?.spouse_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.spouse_current_nationality?.kh_nationality:'/'}}
-          </p>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item ali-start">
-        <div class="f-1">
-          <div class="kh3-label-container">
-            <span class="container-title-fom  no-print">
-              <span class="label-title no-print-kh3">មុខរបរ </span>
-              <span>:</span>
-            </span>
-
-          </div>
-          <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-            <span [innerHTML]="criminalStore?.selectedCriminalRecord?.spouseCurrentOccupation?(criminalStore?.selectedCriminalRecord?.spouseCurrentOccupation|addMoreSpaceToString):'/'"></span>
-          </p>
-        </div>
-      </div>
-
-      <div class="row-item kh3-row-item kh3-min-height" style="padding: 20px 20px 12px 92px;min-height: 56px;">
-        <div class="f-item">
-          <span class="feTitle new b no-print-kh3"
-            style="text-decoration: underline;font-size:22px!important;min-height:20px">សេចក្ដីបញ្ជាក់ :</span>
-        </div>
-      </div>
-      <div class="row-item kh3-row-item" style="padding-top:0;position: relative;">
-        <div class="f-item">
-          <span class="f-input font-fastHand result-font-fastHand kh3-mg1" style="padding:0 18px!important">
-          </span>
-        </div>
-        <div class="abs-print-date">
-          <span class="font-fastHand kh3-date1">{{this.docDate|dateDayKh}}</span>
-          <span class="font-fastHand kh3-date2">{{this.docDate|dateMonthKh}}</span>
-          <span class="font-fastHand kh3-date">{{this.docDate|dateYearKh}}</span>
-        </div>
-      </div>
-      <div class="row-item kh3-row-item no-print"
-        style="flex-direction: column; border-top: solid 1px #28803f;padding: 12px 0;margin: 0 40px 0 80px;">
-        <div class="f-item">
-          <span class="title no-print" style="font-size: 16px; padding: 0">*
-            ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
-        </div>
-        <div class="f-item expire-date no-print" *ngIf="criminalStore?.selectedCriminalRecord?.expired_date">
-          <span style="color:red!important;">
-            លិខិតនេះមានសុពលភាព ៣ខែ ផុតកំណត់ថ្ងៃទី
-            {{criminalStore?.selectedCriminalRecord?.expired_date?.toDate()|dateDayKh}} -
-            {{criminalStore?.selectedCriminalRecord?.expired_date?.toDate()|dateMonthKh}} -
-            {{criminalStore?.selectedCriminalRecord?.expired_date?.toDate()|dateYearKh}}
-          </span>
-        </div>
-      </div>
-
-
-      <div class="row-item kh3-row-item" style="flex:1;">
-        <div class="f-item" style="justify-content: space-between;">
-
-          <div class="head-item long-w"
-            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-            <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title no-print" style="color:black">បានឃើញ</span>
+                @if (criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name) {
+                  {{criminalStore?.selectedCriminalRecord?.birthAddress?.province?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.birthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.birthAddress?.province?.name}}
+                }
               </span>
-              <span class="feTitle new b no-print"
-                style="display: flex; justify-content: center; line-height: 2; font-size: 22px!important;"><span
-                  class="feTitle new b no-print" style="margin-right: 6px;font-size:22px !important">ជ.</span>
-                រដ្ឋមន្រ្តី</span>
-              <div class="signature no-print">
-                <img [src]="signatureLeft?.default_signatureFile?.downloadUrl" alt="">
-                <!-- <img class="stam-name" [src]="signatureLeft?.default_stampFile?.downloadUrl" alt=""> -->
+            }
+
+
+          </div>
+        </div>
+        <div class="row-item kh3-row-item ali-start kh3-mg1">
+          <div class="f-1 ">
+
+            <div class="kh3-label-container">
+              <span class="container-title-fom  no-print">
+                <span class="label-title no-print-kh3">អាសយដ្ឋានបច្ចុប្បន្ន </span>
+                <span>:</span>
+              </span>
+            </div>
+            @if (criminalStore?.selectedCriminalRecord?.isTextAddress) {
+              <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line"
+                >
+                <span [innerHTML]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.permanentAddressText)|addMoreSpaceToStringAddress"></span>
+              </p>
+            } @else {
+              <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line">
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no) {
+                  <span [innerHTML]="'ផ្ទះលេខ ' +($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no)|khmerNumAddress)"></span>
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.home_no) {
+                  <span class="space30"></span>
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no) {
+                  <span [innerHTML]="'ផ្លូវ ' +($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no)|khmerNumAddress)"></span>
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.street_no) {
+                  <span class="space30"></span>
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name) {
+                  {{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name}}
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.village?.name) {
+                  <span class="space30"></span>
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name) {
+                  {{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name}}
+                }
+                @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.commune?.name) {
+                  <span class="space30"></span>
+                }
+                <wbr>
+                  @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name) {
+                    {{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name}}
+                  }
+                  @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.district?.name) {
+                    <span class="space30"></span>
+                  }
+                  <wbr>
+                    @if (criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name) {
+                      {{criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.geo_prefix?.name?criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.permanentAddress?.province?.name}}
+                    }
+                  </p>
+                }
+
+              </div>
+            </div>
+            <div class="row-item kh3-row-item ali-start kh3-mg1">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">មុខរបរ </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand">
+                  {{criminalStore?.selectedCriminalRecord?.occupation}}
+                </p>
               </div>
             </div>
 
-            <span class="container-header-input no-print" style="width: unset">
-              <div class="row-item kh3-row-item khmer-date-picker" style="padding-right: 0;">
-                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
-                  <div class="f-item">
-                    <span class="nor-fam no-print">ធ្វើនៅរាជធានីភ្នំពេញ, </span>
-                    <span class="nor-fam">
-                      <span class="no-print" style="color:#28803f!important; ">&nbsp;ថ្ងៃទី</span>
-                      <span class="no-fam-date"
-                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important ;"></span>
-                    </span>
-
-                    <span class="nor-fam">
-                      <span class="no-print" style="color:#28803f!important; ">ខែ</span>
-                      <span class="no-fam-date" style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;"></span>
-                    </span>
-
-                    <span class="nor-fam">
-                      <span class="no-print" style="color:#28803f!important; ">ឆ្នាំ</span>
-                      <span class="no-fam-date"
-                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;"></span>
-                    </span>
-                  </div>
-
-                  <div class="c-item">
-                    <span class="feTitle new b no-print" style="font-size:22px!important;">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ
-                      <ng-container class="no-print"
-                        *ngIf="signatureRight?.default_signatureFile || signatureRight?.default_stampFile">
-                        <img src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
-                      </ng-container>
-                    </span>
-                    <div class="signature no-print">
-                      <img [src]="signatureRight?.default_signatureFile?.downloadUrl" alt="">
-                      <!-- <img class="stam-name" [src]="signatureRight?.default_stampFile?.downloadUrl" alt=""> -->
-                    </div>
-                  </div>
+            <div class="row-item kh3-row-item ali-start">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ឪពុកឈ្មោះ </span>
+                    <span>:</span>
+                  </span>
                 </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                  <span [innerHTML]="criminalStore?.selectedCriminalRecord?.father_name?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.father_name)|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
+                </p>
+              </div>
+              <div class="f-1 small" style="width: 40%;">
+                <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+                @if (criminalStore?.selectedCriminalRecord?.fatherIsDead?.key === STATUS_LIVES.DEAD.key) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    (ស្លាប់)
+                  </p>
+                } @else {
+                  @if (criminalStore?.selectedCriminalRecord?.fatherDob) {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      {{criminalStore?.selectedCriminalRecord?.fatherDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.fatherDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.fatherDob?.year?.name}}
+                    </p>
+                  } @else {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      /
+                    </p>
+                  }
+                }
+              </div>
+            </div>
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                    <span>:</span>
+                  </span>
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                  {{criminalStore?.selectedCriminalRecord?.father_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.father_before_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+              <div class="f-1" style="width: 40%;flex: none;">
+                <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                  {{criminalStore?.selectedCriminalRecord?.father_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.father_current_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+            </div>
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                @if (criminalStore?.selectedCriminalRecord?.isTextAddress) {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+                    >
+                    <span [innerHTML]="criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.foreignerFatherBirthAddress)|addMoreSpaceToStringAddress):'/'"></span>
+                  </span>
+                } @else {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+                    @if (criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name) {
+                      {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.geo_prefix?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.district?.name}}
+                    }
+                    <span class="space30"></span>
+                    @if (criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name) {
+                      {{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.geo_prefix?criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.fatherBirthAddress?.province?.name}}
+                    }
+                  </span>
+                }
+
 
               </div>
-            </span>
+            </div>
+
+            <div class="row-item kh3-row-item ali-start">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ម្តាយឈ្មោះ </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                  <span [innerHTML]="criminalStore?.selectedCriminalRecord?.mother_name?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.mother_name)|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
+                </p>
+              </div>
+              <div class="f-1 small" style="width: 40%;">
+                <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+                @if (criminalStore?.selectedCriminalRecord?.motherIsDead?.key === STATUS_LIVES.DEAD.key) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    (ស្លាប់)
+                  </p>
+                } @else {
+                  @if (criminalStore?.selectedCriminalRecord?.motherDob) {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      {{criminalStore?.selectedCriminalRecord?.motherDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.motherDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.motherDob?.year?.name}}
+                    </p>
+                  } @else {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      /
+                    </p>
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                  {{criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+              <div class="f-1" style="width: 40%;flex: none;">
+                <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                  {{criminalStore?.selectedCriminalRecord?.mother_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.mother_before_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+            </div>
+
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                @if (criminalStore?.selectedCriminalRecord?.isTextAddress) {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+                    >
+                    <span [innerHTML]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.foreignerMotherBirthAddress)|addMoreSpaceToStringAddress"></span>
+                  </span>
+                } @else {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+                    <!-- <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name">
+                    ភូមិ {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.village?.name}}
+                  </ng-container>
+                  <span class="space30"></span>
+                  <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name">
+                    ឃុំ/សង្កាត់ {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.commune?.name}}
+                  </ng-container>
+                  <span class="space30"></span> -->
+                  @if (criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name) {
+                    {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.geo_prefix?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.district?.name}}
+                  }
+                  <span class="space30"></span>
+                  @if (criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name) {
+                    {{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.geo_prefix?criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{criminalStore?.selectedCriminalRecord?.motherBirthAddress?.province?.name}}
+                  }
+                </span>
+              }
+
+            </div>
           </div>
 
-        </div>
-      </div>
+          <div class="row-item kh3-row-item ali-start">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">ឈ្មោះប្ដីឬប្រពន្ធ </span>
+                  <span>:</span>
+                </span>
 
-      <div class="row-item kh3-row-item no-print"
-        style="justify-content: center; align-items: center; margin-bottom: 0!important">
-        <div class="f-item" style="border-top: solid 1px #28803f!important;flex:1;justify-content: center;">
-          <span class="n-title" style="font-size: 18px;color:#28803f!important;">មហាវិថីសម្ដេចសុធារស ខ័ណ្ឌដូនពេញ
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                <span [innerHTML]="criminalStore?.selectedCriminalRecord?.spouse?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.spouse)|addMoreSpaceToString):'/'"></span>
+              </p>
+            </div>
+            <div class="f-1 small" style="width: 40%;">
+              <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+
+              @if (criminalStore?.selectedCriminalRecord?.spouseIsDead?.key === STATUS_LIVES.DEAD.key) {
+                <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                  (ស្លាប់)
+                </p>
+              } @else {
+                @if (criminalStore?.selectedCriminalRecord?.spouseDob) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    {{criminalStore?.selectedCriminalRecord?.spouseDob?.day?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.spouseDob?.month?.name}}&nbsp;&nbsp;&nbsp;{{criminalStore?.selectedCriminalRecord?.spouseDob?.year?.name}}
+                  </p>
+                } @else {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    /
+                  </p>
+                }
+              }
+
+
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                  <span>:</span>
+                </span>
+
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                {{criminalStore?.selectedCriminalRecord?.spouse_before_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.spouse_before_nationality?.kh_nationality:'/'}}
+              </p>
+            </div>
+            <div class="f-1" style="width: 40%;flex: none;">
+              <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                {{criminalStore?.selectedCriminalRecord?.spouse_current_nationality?.kh_nationality?criminalStore?.selectedCriminalRecord?.spouse_current_nationality?.kh_nationality:'/'}}
+              </p>
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item ali-start">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">មុខរបរ </span>
+                  <span>:</span>
+                </span>
+
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                <span [innerHTML]="criminalStore?.selectedCriminalRecord?.spouseCurrentOccupation?($safeNavigationMigration(criminalStore?.selectedCriminalRecord?.spouseCurrentOccupation)|addMoreSpaceToString):'/'"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item kh3-min-height" style="padding: 20px 20px 12px 92px;min-height: 56px;">
+            <div class="f-item">
+              <span class="feTitle new b no-print-kh3"
+              style="text-decoration: underline;font-size:22px!important;min-height:20px">សេចក្ដីបញ្ជាក់ :</span>
+            </div>
+          </div>
+          <div class="row-item kh3-row-item" style="padding-top:0;position: relative;">
+            <div class="f-item">
+              <span class="f-input font-fastHand result-font-fastHand kh3-mg1" style="padding:0 18px!important">
+              </span>
+            </div>
+            <div class="abs-print-date">
+              <span class="font-fastHand kh3-date1">{{this.docDate|dateDayKh}}</span>
+              <span class="font-fastHand kh3-date2">{{this.docDate|dateMonthKh}}</span>
+              <span class="font-fastHand kh3-date">{{this.docDate|dateYearKh}}</span>
+            </div>
+          </div>
+          <div class="row-item kh3-row-item no-print"
+            style="flex-direction: column; border-top: solid 1px #28803f;padding: 12px 0;margin: 0 40px 0 80px;">
+            <div class="f-item">
+              <span class="title no-print" style="font-size: 16px; padding: 0">*
+              ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
+            </div>
+            @if (criminalStore?.selectedCriminalRecord?.expired_date) {
+              <div class="f-item expire-date no-print">
+                <span style="color:red!important;">
+                  លិខិតនេះមានសុពលភាព ៣ខែ ផុតកំណត់ថ្ងៃទី
+                  {{$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.expired_date?.toDate())|dateDayKh}} -
+                  {{$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.expired_date?.toDate())|dateMonthKh}} -
+                  {{$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.expired_date?.toDate())|dateYearKh}}
+                </span>
+              </div>
+            }
+          </div>
+
+
+          <div class="row-item kh3-row-item" style="flex:1;">
+            <div class="f-item" style="justify-content: space-between;">
+
+              <div class="head-item long-w"
+                style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+                <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
+                  <span
+                    style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                    class="p-rel">
+                    <span class="n-title no-print" style="color:black">បានឃើញ</span>
+                  </span>
+                  <span class="feTitle new b no-print"
+                    style="display: flex; justify-content: center; line-height: 2; font-size: 22px!important;"><span
+                  class="feTitle new b no-print" style="margin-right: 6px;font-size:22px !important">ជ.</span>
+                រដ្ឋមន្រ្តី</span>
+                <div class="signature no-print">
+                  <img [src]="$safeNavigationMigration(signatureLeft?.default_signatureFile?.downloadUrl)" alt="">
+                  <!-- <img class="stam-name" [src]="signatureLeft?.default_stampFile?.downloadUrl" alt=""> -->
+                </div>
+              </div>
+
+              <span class="container-header-input no-print" style="width: unset">
+                <div class="row-item kh3-row-item khmer-date-picker" style="padding-right: 0;">
+                  <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                    <div class="f-item">
+                      <span class="nor-fam no-print">ធ្វើនៅរាជធានីភ្នំពេញ, </span>
+                      <span class="nor-fam">
+                        <span class="no-print" style="color:#28803f!important; ">&nbsp;ថ្ងៃទី</span>
+                        <span class="no-fam-date"
+                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important ;"></span>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span class="no-print" style="color:#28803f!important; ">ខែ</span>
+                        <span class="no-fam-date" style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;"></span>
+                      </span>
+
+                      <span class="nor-fam">
+                        <span class="no-print" style="color:#28803f!important; ">ឆ្នាំ</span>
+                        <span class="no-fam-date"
+                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;"></span>
+                      </span>
+                    </div>
+
+                    <div class="c-item">
+                      <span class="feTitle new b no-print" style="font-size:22px!important;">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ
+                        @if (signatureRight?.default_signatureFile || signatureRight?.default_stampFile) {
+                          <ng-container class="no-print"
+                            >
+                            <img src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
+                          </ng-container>
+                        }
+                      </span>
+                      <div class="signature no-print">
+                        <img [src]="$safeNavigationMigration(signatureRight?.default_signatureFile?.downloadUrl)" alt="">
+                        <!-- <img class="stam-name" [src]="signatureRight?.default_stampFile?.downloadUrl" alt=""> -->
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row-item kh3-row-item no-print"
+          style="justify-content: center; align-items: center; margin-bottom: 0!important">
+          <div class="f-item" style="border-top: solid 1px #28803f!important;flex:1;justify-content: center;">
+            <span class="n-title" style="font-size: 18px;color:#28803f!important;">មហាវិថីសម្ដេចសុធារស ខ័ណ្ឌដូនពេញ
             រាជធានីធ្នំពេញ (ទល់មុខព្រះបរមរាជវាំង) ទូរស័ព្ទ : ០២៣ ២១៦ ៣២២, ០២៣ ២១៧ ៨៤១, ០២៣ ២១២ ៦៩៣</span>
+          </div>
+          @if (criminalStore?.selectedCriminalRecord?.key) {
+            <div style="margin-top: -24px;">
+              <ngx-kjua [text]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
+                [ecLevel]="'H'" [size]="128" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
+                [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
+                [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+              </ngx-kjua>
+            </div>
+          }
         </div>
-        <div *ngIf="criminalStore?.selectedCriminalRecord?.key" style="margin-top: -24px;">
-          <ngx-kjua [text]="criminalStore?.selectedCriminalRecord?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
-            [ecLevel]="'H'" [size]="128" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
-            [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
-            [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
-          </ngx-kjua>
-        </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
 
 
-<!-- <div style="padding: 0; width: 1144px;">
+  <!-- <div style="padding: 0; width: 1144px;">
   <button mat-button (click)="generatePDF()">Print</button>
   <iframe id="iframeContainer" src="" frameborder="0" width="100%" height="640px"></iframe>
 </div> -->

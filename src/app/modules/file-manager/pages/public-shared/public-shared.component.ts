@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, AfterViewChecked, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, AfterViewChecked, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription, fromEvent } from 'rxjs';
@@ -19,9 +19,11 @@ import { driveObj } from 'src/app/dummy/status';
 import { OpenFileComponent } from '../../components/open-file/open-file.component';
 
 @Component({
-  selector: 'app-public-shared',
-  templateUrl: './public-shared.component.html',
-  styleUrls: ['./public-shared.component.scss']
+    selector: 'app-public-shared',
+    templateUrl: './public-shared.component.html',
+    styleUrls: ['./public-shared.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PublicSharedComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   @ViewChild('sidenav') public sidenav: MatSidenav;

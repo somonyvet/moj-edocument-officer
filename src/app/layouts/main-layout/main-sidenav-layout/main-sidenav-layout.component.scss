@@ -1,0 +1,27 @@
+// .mat-content lives inside <mat-expansion-panel-header>'s own child-component
+// template, so it's past this component's view-encapsulation boundary even
+// though .setup-header is applied here -- ::ng-deep is needed to reach it.
+// Scoped by the .setup-header class itself, so this doesn't leak app-wide.
+::ng-deep .setup-header .mat-content {
+  overflow: hidden;
+}
+
+// These two are projected content (declared in this component's own template,
+// just visually nested inside <mat-expansion-panel-header>), so they stay
+// within this component's normal view encapsulation -- no ::ng-deep needed.
+.setup-header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.setup-header-desc {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

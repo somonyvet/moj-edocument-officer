@@ -1,104 +1,121 @@
 <div *mobxAutorun>
-    <div class="file-display file-info-header">
-        <div class="file-display">
-            <i class="material-icons"
-                [ngStyle]="{'color': store?.selectedItem?.fileTag?.color?store?.selectedItem?.fileTag?.color:'#1a73e8'}"
-                *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key">folder</i>
-            <img [src]="store?.selectedItem|iconDrive:store?.selectedItem"
-                *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key" />
-            <img *ngIf="!store?.selectedItem" [src]="auth?.APP_INFO?.logo" />
-        </div>
-        <div class="file-info-title" (click)="onDownload()" style="-webkit-box-orient: vertical;">
-            {{!store?.selectedItem?.name?'សូមជ្រើសរើសឯកសារ':store?.selectedItem?.name}}
-        </div>
-        <button class="file-info-close" matTooltip="Hide deatils" mat-button mat-icon-button aria-label="close"
-            (click)="toggleSidenav()">
-            <mat-icon style="padding: 0;">close</mat-icon>
-        </button>
+  <div class="file-display file-info-header">
+    <div class="file-display">
+      @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key) {
+        <i class="material-icons"
+          [ngStyle]="{'color': store?.selectedItem?.fileTag?.color?$safeNavigationMigration(store?.selectedItem?.fileTag?.color):'#1a73e8'}"
+        >folder</i>
+      }
+      @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key) {
+        <img [src]="$safeNavigationMigration(store?.selectedItem)|iconDrive:$safeNavigationMigration(store?.selectedItem)"
+          />
+      }
+      @if (!store?.selectedItem) {
+        <img [src]="$safeNavigationMigration(auth?.APP_INFO?.logo)" />
+      }
     </div>
-    <mat-tab-group>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                ព័ត៌មានលំអិត
-            </ng-template>
-            <div *ngIf="store?.selectedItem" style="padding: 24px;">
-                <!-- <file-info-name-doc [selectedItem]="store?.selectedItem" ></file-info-name-doc> -->
-                <div class="file-info-image">
-                    <i *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key" class="material-icons"
-                        [ngStyle]="{'color': store?.selectedItem?.fileTag?.color?store?.selectedItem?.fileTag?.color:'#1a73e8'}">folder</i>
-                    <img [src]="store?.selectedItem|iconDrive:store?.selectedItem"
-                        *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key" />
-                </div>
-                <mat-list role="list" class="file-info-detail">
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Type</div>
-                        <div class="detail-item">
-                            {{store?.selectedItem?.type?.key==='folder'?"Folder":
-                            store?.selectedItem?.name|fileExtension}}
-                        </div>
-
-                    </mat-list-item>
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Size</div>
-                        <div class="detail-item" *ngIf="store?.selectedItem?.type?.key==='file'">
-                            {{store?.selectedItem|fileSize}}</div>
-                        <div class="detail-item" *ngIf="store?.selectedItem?.type?.key==='folder'">
-                            -</div>
-                        <!-- <div class="detail-item" *ngIf="store?.selectedItem?.type?.key==='folder'">
-                            {{totalSize|folderSize}}</div> -->
-
-                    </mat-list-item>
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Location</div>
-                        <div class="detail-item">
-                            <div class="file-display">
-                                <i *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key"
-                                    class="material-icons">{{store?.selectedItem|iconDrive:store?.selectedItem}}</i>
-                                <img [src]="store?.selectedItem|iconDrive:store?.selectedItem"
-                                    *ngIf="store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key" />
-                                <span>{{store?.selectedItem?.currentPath?.name}}</span>
-                            </div>
-                        </div>
-                    </mat-list-item>
-
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Owner</div>
-                        <div class="detail-item">
-                            {{store?.selectedItem?.created_by?.key===auth?.user?.uid?'me':store?.selectedItem?.created_by?.displayName}}
-                        </div>
-                    </mat-list-item>
-
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Modified </div>
-                        <div class="detail-item">{{store?.selectedItem?.updated_at?.toDate() | date:'medium'}} by
-                            {{store?.selectedItem?.updated_by?.key===auth?.user?.uid?'me':store?.selectedItem?.updated_by?.displayName}}
-                        </div>
-                    </mat-list-item>
-
-                    <mat-list-item role="listitem" class="detail-list">
-                        <div class="detail-title">Created</div>
-                        <div class="detail-item">{{store?.selectedItem?.created_at?.toDate() | date:'medium'}}
-                        </div>
-                    </mat-list-item>
-                </mat-list>
+    <div class="file-info-title" (click)="onDownload()" style="-webkit-box-orient: vertical;">
+      {{!store?.selectedItem?.name?'សូមជ្រើសរើសឯកសារ':store?.selectedItem?.name}}
+    </div>
+    <button class="file-info-close" matTooltip="Hide deatils" mat-icon-button aria-label="close"
+      (click)="toggleSidenav()">
+      <mat-icon style="padding: 0;">close</mat-icon>
+    </button>
+  </div>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        ព័ត៌មានលំអិត
+      </ng-template>
+      @if (store?.selectedItem) {
+        <div style="padding: 24px;">
+          <!-- <file-info-name-doc [selectedItem]="store?.selectedItem" ></file-info-name-doc> -->
+          <div class="file-info-image">
+            @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key) {
+              <i class="material-icons"
+              [ngStyle]="{'color': store?.selectedItem?.fileTag?.color?$safeNavigationMigration(store?.selectedItem?.fileTag?.color):'#1a73e8'}">folder</i>
+            }
+            @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key) {
+              <img [src]="$safeNavigationMigration(store?.selectedItem)|iconDrive:$safeNavigationMigration(store?.selectedItem)"
+                />
+            }
+          </div>
+          <mat-list role="list" class="file-info-detail">
+            <mat-list-item role="listitem" class="detail-list">
+              <div class="detail-title">Type</div>
+              <div class="detail-item">
+                {{store?.selectedItem?.type?.key==='folder'?"Folder":
+                $safeNavigationMigration(store?.selectedItem?.name)|fileExtension}}
+              </div>
+            </mat-list-item>
+            <mat-list-item role="listitem" class="detail-list">
+              <div class="detail-title">Size</div>
+              @if (store?.selectedItem?.type?.key==='file') {
+                <div class="detail-item">
+                {{$safeNavigationMigration(store?.selectedItem)|fileSize}}</div>
+              }
+              @if (store?.selectedItem?.type?.key==='folder') {
+                <div class="detail-item">
+                -</div>
+              }
+              <!-- <div class="detail-item" *ngIf="store?.selectedItem?.type?.key==='folder'">
+            {{totalSize|folderSize}}</div> -->
+          </mat-list-item>
+          <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Location</div>
+            <div class="detail-item">
+              <div class="file-display">
+                @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.folder?.key) {
+                  <i
+                  class="material-icons">{{$safeNavigationMigration(store?.selectedItem)|iconDrive:$safeNavigationMigration(store?.selectedItem)}}</i>
+                }
+                @if (store?.selectedItem?.type?.key===DRIVE_OBJ?.file?.key) {
+                  <img [src]="$safeNavigationMigration(store?.selectedItem)|iconDrive:$safeNavigationMigration(store?.selectedItem)"
+                    />
+                }
+                <span>{{store?.selectedItem?.currentPath?.name}}</span>
+              </div>
             </div>
-
-            <div *ngIf="!store?.selectedItem" style="padding: 24px;">
-                <div class="file-info-image">
-                    <i class="material-icons" style="color:#1a73e8" class="material-icons">announcement</i>
-                </div>
-                <div style="text-align: center;">Select a file or folder to view its details.</div>
-
+          </mat-list-item>
+          <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Owner</div>
+            <div class="detail-item">
+              {{store?.selectedItem?.created_by?.key===auth?.user?.uid?'me':store?.selectedItem?.created_by?.displayName}}
             </div>
-        </mat-tab>
-        <mat-tab>
-            <ng-template mat-tab-label>
-                ប្រវត្តិឯកសារ
-            </ng-template>
-            <div *ngIf="store?.selectedItem" style="padding: 24px;">
-
+          </mat-list-item>
+          <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Modified </div>
+            <div class="detail-item">{{$safeNavigationMigration(store?.selectedItem?.updated_at?.toDate()) | date:'medium'}} by
+              {{store?.selectedItem?.updated_by?.key===auth?.user?.uid?'me':store?.selectedItem?.updated_by?.displayName}}
             </div>
-        </mat-tab>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="detail-list">
+            <div class="detail-title">Created</div>
+            <div class="detail-item">{{$safeNavigationMigration(store?.selectedItem?.created_at?.toDate()) | date:'medium'}}
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    }
 
-    </mat-tab-group>
+    @if (!store?.selectedItem) {
+      <div style="padding: 24px;">
+        <div class="file-info-image">
+          <i class="material-icons" style="color:#1a73e8" class="material-icons">announcement</i>
+        </div>
+        <div style="text-align: center;">Select a file or folder to view its details.</div>
+      </div>
+    }
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      ប្រវត្តិឯកសារ
+    </ng-template>
+    @if (store?.selectedItem) {
+      <div style="padding: 24px;">
+      </div>
+    }
+  </mat-tab>
+
+</mat-tab-group>
 </div>

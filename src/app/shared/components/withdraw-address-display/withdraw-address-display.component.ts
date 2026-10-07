@@ -1,12 +1,14 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { LanguageStore } from 'src/app/languages/translate.store';
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-withdraw-address-display',
-  templateUrl: './withdraw-address-display.component.html',
-  styleUrls: ['./withdraw-address-display.component.scss']
+    selector: 'app-withdraw-address-display',
+    templateUrl: './withdraw-address-display.component.html',
+    styleUrls: ['./withdraw-address-display.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class WithdrawAddressDisplayComponent implements OnInit {
   @Input() embassyKey;

@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Application } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-side-nav-report-doc',
-  templateUrl: './side-nav-report-doc.component.html',
-  styleUrls: ['./side-nav-report-doc.component.scss']
+    selector: 'app-side-nav-report-doc',
+    templateUrl: './side-nav-report-doc.component.html',
+    styleUrls: ['./side-nav-report-doc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SideNavReportDocComponent implements OnInit {
 

@@ -1,8 +1,8 @@
 import { ATTENDANCE_STATUS_NO_CHECKOUT } from './../../../../../dummy/status';
 import { AssignUserGroupWorkingHourComponent } from '../assign-user-group-working-hour/assign-user-group-working-hour.component';
 import { WorkingHourStore } from './../../../stores/working-hour.store';
-import { Component, Inject, Input, OnInit, } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, Inject, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, FormControl, UntypedFormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
 import { generateKeywords, MappingService } from 'src/app/shared/services/mapping.service';
@@ -10,9 +10,11 @@ import { ATTENDANCE_SHIFT, ATTENDANCE_STATUS, statusObj, WEEKDAY_ENG, WEEKDAY_KH
 import { AnimationOptions } from 'ngx-lottie';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
-  selector: 'app-add-edit-working-hour',
-  templateUrl: './add-edit-working-hour.component.html',
-  styleUrls: ['./add-edit-working-hour.component.scss']
+    selector: 'app-add-edit-working-hour',
+    templateUrl: './add-edit-working-hour.component.html',
+    styleUrls: ['./add-edit-working-hour.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddEditWorkingHourComponent implements OnInit {
   // isCreateSuccess = false;
@@ -30,7 +32,7 @@ export class AddEditWorkingHourComponent implements OnInit {
   currentShiftNameIndex = null;
   currentShiftSelectIndex = null;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',
@@ -40,7 +42,7 @@ export class AddEditWorkingHourComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AssignUserGroupWorkingHourComponent>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: WorkingHourStore,
     public ds: DataService,
     private snackBar: MatSnackBar,
@@ -81,7 +83,7 @@ export class AddEditWorkingHourComponent implements OnInit {
 
 
   get workingShifts() {
-    return this.form?.controls["workingShifts"] as FormArray;
+    return this.form?.controls["workingShifts"] as UntypedFormArray;
   }
 
   setCurrentShiftSelectIndex(index: number) {

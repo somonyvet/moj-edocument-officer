@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { tabs } from 'src/app/dummy/tabs';
 import { IVisaType } from 'src/app/interfaces/document/document.interface';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -11,9 +11,11 @@ import { BaseStore } from 'src/app/stores/base.store';
 import { PostFormComponent } from './post-form/post-form.component';
 
 @Component({
-  selector: 'app-post-listing',
-  templateUrl: './post-listing.component.html',
-  styleUrls: ['./post-listing.component.scss']
+    selector: 'app-post-listing',
+    templateUrl: './post-listing.component.html',
+    styleUrls: ['./post-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PostListingComponent implements OnInit, OnDestroy {
   tabs = tabs.posts

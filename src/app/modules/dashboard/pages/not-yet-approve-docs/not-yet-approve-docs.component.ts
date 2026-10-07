@@ -1,15 +1,17 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { LIST_TYPE } from 'src/app/dummy/status';
 import { tabs } from 'src/app/dummy/tabs';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocListingStore } from 'src/app/stores/document/doc-listing.store';
 
 @Component({
-  selector: 'app-not-yet-approve-docs',
-  templateUrl: './not-yet-approve-docs.component.html',
-  styleUrls: ['./not-yet-approve-docs.component.scss']
+    selector: 'app-not-yet-approve-docs',
+    templateUrl: './not-yet-approve-docs.component.html',
+    styleUrls: ['./not-yet-approve-docs.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NotYetApproveDocsComponent implements OnInit, OnDestroy {
   tabs = tabs.docApproval;

@@ -63,7 +63,7 @@
   .enbutton{
     background-color: #f44336;
     color: white;
-    &.mat-button-disabled{
+    &.mat-mdc-button-disabled{
       color: rgba(0, 0, 0, 0.26);
     }
   }

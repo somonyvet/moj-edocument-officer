@@ -27,207 +27,194 @@
           <span>ទាញយកឯកសារជា EXCEL</span>
         </button>
       </div>
-      <ng-container *ngIf="!loading else loader">
+      @if (!loading) {
         <div class="doc-ls-items center new">
-
           <div class="report-wrapper" id="print" style="width: 980px; padding : 20px">
             <table #table>
               <!-- <thead>
-                <tr>
-                  <td>
-                      <div class="page-footer-space"></div>
-                  </td>
-                </tr>
-              </thead> -->
-
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="page">
-                                <div class="report-header">
-                                    <div class="d-flex">
-                                        <div class="report-title" style="width: 100%;text-align: center;">
-                                            <p>ពាក្យស្នើសុំពលករបង់ប្រាក់រូច</p>
-                                            <p>{{store.periodText}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="tb-master-print">
-                                  <thead>
-                                    <tr class="table-row">
-                                      <th class="table-col center" rowspan="2">ល.រ</th>
-                                      <th class="table-col center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
-                                      <th class="table-col center" rowspan="2">ភេទ</th>
-                                      <th class="table-col center" rowspan="2">ថ្ងៃខែឆ្នាំកំណើត</th>
-                                      <th class="table-col center" colspan="5">រយៈពេលស្នើសុំ និងចំនួនច្បាប់</th>
-                                      <th class="table-col center" rowspan="2">ថ្ងៃបង់ប្រាក់</th>
-                                      <!-- <th class="table-col center" rowspan="2">ស្ថានភាពឯកសារ</th> -->
-                                      <!-- <th class="table-col center" rowspan="2">អ្នកធ្វើឯកសារ</th> -->
-                                    </tr>
-
-                                    <tr class="table-row">
-                                        <th class="table-col center" style="width: 60px;">
-                                            20 ថ្ងៃ
-                                        </th>
-                                        <th class="table-col center" style="width: 60px;">
-                                            12 ថ្ងៃ
-                                        </th>
-                                        <th class="table-col center" style="width: 60px;">ខ្មែរ</th>
-                                        <th class="table-col center" style="width: 60px;">អង់គ្លេស</th>
-                                        <th class="table-col center" style="width: 60px;">បារាំង</th>
-                                    </tr>
-                                  </thead>
-
-                                    <ng-container *ngFor="let item of store?.data; let i = index">
-                                        <tr class="table-row">
-                                            <td class="table-col center">{{i+1}}</td>
-                                            <td class="table-col">
-                                                {{item?.last_name}} {{item?.first_name}}
-                                            </td>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.gender?.name}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                              {{item?.dateOfBirthDay?.name}} <span *ngIf="item?.dateOfBirthMonth?.name">/</span>
-                                              {{item?.dateOfBirthMonth?.name}} <span *ngIf="item?.dateOfBirthYear?.name">/</span>
-                                              {{item?.dateOfBirthYear?.name}}
-                                            </td>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key :
-                                                    '' |
-                                                    khmerNumber}}
-                                                    {{item?.urgent_obj?.key === 20 ? '' : ''}}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key :
-                                                    '' |
-                                                    khmerNumber}}
-                                                    {{item?.urgent_obj?.key === 12 ? '' : ''}}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{(item?.criminal_language | getKhmerCopyCount)
-                                                        ?(item?.criminal_language | getKhmerCopyCount)
-                                                        :''
-                                                    }}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{(item?.criminal_language | getEnglishCopyCount)
-                                                        ?(item?.criminal_language | getEnglishCopyCount)
-                                                        :''
-                                                    }}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{(item?.criminal_language | getFrenchCopyCount)
-                                                        ?(item?.criminal_language | getFrenchCopyCount)
-                                                        :''
-                                                    }}
-                                                </div>
-                                            </td>
-                                            <td>
-                                              {{item?.paid_at?.toDate() | dateKh}}
-                                            </td>
-                                            <!-- <td>
-                                              {{item?.status?.name}}
-                                            </td>
-                                            <td>
-                                              <ng-container *ngIf="!(item | isMolApply : MOL_workplace_key)">
-                                                {{item?.created_by?.display_name}}
-                                              </ng-container>
-                                            </td> -->
-                                        </tr>
-                                    </ng-container>
-                                </table>
-                                <div class="fake-box"></div>
-                                <div class="flex-row b-r-fs">
-                                    <div class="sum-statistic flex-column">
-                                        <div class="t-travel">
-                                          <div class="tt-d">
-                                            <p class="l-text">សរុបពាក្យស្នើសុំ</p>
-                                            <span class="lf-text">{{store?.statistic?.total}}
-                                                នាក់</span>
-                                            <span>ប្រុស
-                                                {{store?.statistic?.total -
-                                                store?.statistic?.totalF}}
-                                                នាក់ </span>
-                                            <span> / ស្រី
-                                                {{store?.statistic?.totalF}}
-                                                នាក់</span>
-                                          </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="bottom-dt">
-                                        <div class="flex-row">
-                                            ថ្ងៃ
-                                            <div class="line-space ls120"></div>
-                                            ខែ
-                                            <div class="line-space"></div>
-                                            ឆ្នាំ
-                                            <div class="line-space ls100"></div>
-                                            ព.ស
-                                            <div class="line-space"></div>
-                                        </div>
-                                        <div class="flex-row">
-
-                                            , ថ្ងៃទី
-                                            <div class="line-space"></div>
-                                            ខែ
-                                            <div class="line-space"></div>
-                                            ឆ្នាំ
-                                            <div class="line-space"></div>
-                                        </div>
-
-                                        <div class="title" style="margin-bottom: 30px;">មន្ត្រីទទួលបន្ទុក
-                                        </div>
-                                    </div>
-                                </div>
+              <tr>
+                <td>
+                  <div class="page-footer-space"></div>
+                </td>
+              </tr>
+            </thead> -->
+            <tbody>
+              <tr>
+                <td>
+                  <div class="page">
+                    <div class="report-header">
+                      <div class="d-flex">
+                        <div class="report-title" style="width: 100%;text-align: center;">
+                          <p>ពាក្យស្នើសុំពលករបង់ប្រាក់រូច</p>
+                          <p>{{store.periodText}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <table class="tb-master-print">
+                      <thead>
+                        <tr class="table-row">
+                          <th class="table-col center" rowspan="2">ល.រ</th>
+                          <th class="table-col center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
+                          <th class="table-col center" rowspan="2">ភេទ</th>
+                          <th class="table-col center" rowspan="2">ថ្ងៃខែឆ្នាំកំណើត</th>
+                          <th class="table-col center" colspan="5">រយៈពេលស្នើសុំ និងចំនួនច្បាប់</th>
+                          <th class="table-col center" rowspan="2">ថ្ងៃបង់ប្រាក់</th>
+                          <!-- <th class="table-col center" rowspan="2">ស្ថានភាពឯកសារ</th> -->
+                          <!-- <th class="table-col center" rowspan="2">អ្នកធ្វើឯកសារ</th> -->
+                        </tr>
+                        <tr class="table-row">
+                          <th class="table-col center" style="width: 60px;">
+                            20 ថ្ងៃ
+                          </th>
+                          <th class="table-col center" style="width: 60px;">
+                            12 ថ្ងៃ
+                          </th>
+                          <th class="table-col center" style="width: 60px;">ខ្មែរ</th>
+                          <th class="table-col center" style="width: 60px;">អង់គ្លេស</th>
+                          <th class="table-col center" style="width: 60px;">បារាំង</th>
+                        </tr>
+                      </thead>
+                      @for (item of store?.data; track item; let i = $index) {
+                        <tr class="table-row">
+                          <td class="table-col center">{{i+1}}</td>
+                          <td class="table-col">
+                            {{item?.last_name}} {{item?.first_name}}
+                          </td>
+                          <td>
+                            <div class="ftb-input">
+                              {{item?.gender?.name}}
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <tfoot>
-                    <tr>
-                        <td>
-                            <div class="page-footer-space"></div>
-                        </td>
-                    </tr>
-                </tfoot>
-
-            </table>
-
-            <app-spinner *ngIf="loading"></app-spinner>
-
-        </div>
-
-        </div>
-
-      </ng-container>
-      <ng-template #loader>
-        <app-spinner></app-spinner>
-      </ng-template>
-      <ng-template #emptyData>
-        <div class="doc-ls-items center">
-          <h1>EMPTY</h1>
-        </div>
-      </ng-template>
-    </div>
+                          </td>
+                          <td>
+                            {{item?.dateOfBirthDay?.name}} @if (item?.dateOfBirthMonth?.name) {
+                            <span>/</span>
+                          }
+                          {{item?.dateOfBirthMonth?.name}} @if (item?.dateOfBirthYear?.name) {
+                          <span>/</span>
+                        }
+                        {{item?.dateOfBirthYear?.name}}
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key :
+                          '' |
+                          khmerNumber}}
+                          {{item?.urgent_obj?.key === 20 ? '' : ''}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key :
+                          '' |
+                          khmerNumber}}
+                          {{item?.urgent_obj?.key === 12 ? '' : ''}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                          ?($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                          :''
+                          }}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                          ?($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                          :''
+                          }}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                          ?($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                          :''
+                          }}
+                        </div>
+                      </td>
+                      <td>
+                        {{$safeNavigationMigration(item?.paid_at?.toDate()) | dateKh}}
+                      </td>
+                      <!-- <td>
+                      {{item?.status?.name}}
+                    </td>
+                    <td>
+                      <ng-container *ngIf="!(item | isMolApply : MOL_workplace_key)">
+                        {{item?.created_by?.display_name}}
+                      </ng-container>
+                    </td> -->
+                  </tr>
+                }
+              </table>
+              <div class="fake-box"></div>
+              <div class="flex-row b-r-fs">
+                <div class="sum-statistic flex-column">
+                  <div class="t-travel">
+                    <div class="tt-d">
+                      <p class="l-text">សរុបពាក្យស្នើសុំ</p>
+                      <span class="lf-text">{{store?.statistic?.total}}
+                      នាក់</span>
+                      <span>ប្រុស
+                        {{store?.statistic?.total -
+                        store?.statistic?.totalF}}
+                      នាក់ </span>
+                      <span> / ស្រី
+                        {{store?.statistic?.totalF}}
+                      នាក់</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bottom-dt">
+                  <div class="flex-row">
+                    ថ្ងៃ
+                    <div class="line-space ls120"></div>
+                    ខែ
+                    <div class="line-space"></div>
+                    ឆ្នាំ
+                    <div class="line-space ls100"></div>
+                    ព.ស
+                    <div class="line-space"></div>
+                  </div>
+                  <div class="flex-row">
+                    , ថ្ងៃទី
+                    <div class="line-space"></div>
+                    ខែ
+                    <div class="line-space"></div>
+                    ឆ្នាំ
+                    <div class="line-space"></div>
+                  </div>
+                  <div class="title" style="margin-bottom: 30px;">មន្ត្រីទទួលបន្ទុក
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>
+            <div class="page-footer-space"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    @if (loading) {
+      <app-spinner></app-spinner>
+    }
   </div>
+</div>
+} @else {
+  <app-spinner></app-spinner>
+}
+<ng-template #emptyData>
+  <div class="doc-ls-items center">
+    <h1>EMPTY</h1>
+  </div>
+</ng-template>
+</div>
+</div>
 
 </div>

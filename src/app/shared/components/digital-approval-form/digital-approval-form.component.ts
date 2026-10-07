@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, AbstractControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService, fieldValue } from 'src/app/shared/services/data.service';
@@ -12,9 +12,11 @@ import { Router } from '@angular/router';
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
 import { ICriminalRecord } from 'src/app/interfaces/criminal.interface';
 @Component({
-  selector: 'app-digital-approval-form',
-  templateUrl: './digital-approval-form.component.html',
-  styleUrls: ['./digital-approval-form.component.scss']
+    selector: 'app-digital-approval-form',
+    templateUrl: './digital-approval-form.component.html',
+    styleUrls: ['./digital-approval-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DigitalApprovalFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -24,7 +26,7 @@ export class DigitalApprovalFormComponent implements OnInit {
   @ViewChild('stampFile') stampFile: ElementRef;
   titleForm: any = "អនុម័តព្រឹត្តិបត្រ";
   rejectTargets: any[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   process: boolean = false;
 
@@ -47,7 +49,7 @@ export class DigitalApprovalFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DigitalApprovalFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

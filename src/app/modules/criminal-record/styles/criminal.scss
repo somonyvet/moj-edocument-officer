@@ -1,3 +1,5 @@
+@use "../../../../assets/styles/variable.scss" as *;
+
 .form-settings {
   padding: 32px;
   border-radius: 8px;
@@ -6,7 +8,7 @@
   overflow: auto;
   height: calc(100% - 55px);
   .form-group {
-    .mat-form-field {
+    .mat-mdc-form-field {
       width: 100%;
     }
   }
@@ -127,7 +129,7 @@
 
 }
 
-.mat-standard-chip {
+.mat-mdc-standard-chip {
     font-family: $appFont;
 }
 

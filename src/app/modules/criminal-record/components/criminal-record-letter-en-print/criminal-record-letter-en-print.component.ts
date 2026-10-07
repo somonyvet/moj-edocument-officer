@@ -1,16 +1,18 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 import { STATUS_LIVES } from 'src/app/dummy/appinfo';
 import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 import { toNumber } from 'src/app/shared/services/mapping.service';
 
 @Component({
-  selector: 'app-criminal-record-letter-en-print',
-  templateUrl: './criminal-record-letter-en-print.component.html',
-  styleUrls: ['./criminal-record-letter-en-print.component.scss'],
+    selector: 'app-criminal-record-letter-en-print',
+    templateUrl: './criminal-record-letter-en-print.component.html',
+    styleUrls: ['./criminal-record-letter-en-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterEnPrintComponent implements OnInit {
   @Input() Item:any;
@@ -35,7 +37,7 @@ export class CriminalRecordLetterEnPrintComponent implements OnInit {
   sizeNation7 = 26
   sizeNation8 = 26
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     toolbar: [
       'fontfamily',
@@ -89,7 +91,7 @@ export class CriminalRecordLetterEnPrintComponent implements OnInit {
     }
   }
 
-  decree_result = new FormControl(null);
+  decree_result = new UntypedFormControl(null);
   minister_name_eng = '';
   director_name_eng = '';
 

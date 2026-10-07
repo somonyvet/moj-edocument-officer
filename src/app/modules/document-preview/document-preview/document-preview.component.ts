@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,9 +17,11 @@ import { DocumentApprovalComponent } from '../../document/document-approval/docu
 import { DocumentConfirmSubmittedComponent } from '../document-confirm-submitted/document-confirm-submitted.component';
 
 @Component({
-  selector: 'app-document-preview',
-  templateUrl: './document-preview.component.html',
-  styleUrls: ['./document-preview.component.scss']
+    selector: 'app-document-preview',
+    templateUrl: './document-preview.component.html',
+    styleUrls: ['./document-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentPreviewComponent implements OnInit, OnDestroy {
   param: any = null;
@@ -37,7 +39,7 @@ export class DocumentPreviewComponent implements OnInit, OnDestroy {
   loadingPermission: boolean = false;
 
   workplacesApproved: any[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   groupSections = [];
 
   openSideComment:boolean = false;
@@ -51,7 +53,7 @@ export class DocumentPreviewComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private ds: DataService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
 
   ) { }
 

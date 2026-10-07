@@ -1,8 +1,7 @@
 <ng-container *ngIf="!loading else loadingTmp">
   <ng-container *ngIf="store?.activities?.length > 0 ;else emptyActivity">
     <div #scrollingBlock class="annual-table-wrapper w-h-100">
-      <virtual-scroller class="v-scroller" #scroll [items]="store?.activities" [parentScroll]="scrollingBlock"
-        [enableUnequalChildrenSizes]="true">
+      <div class="v-scroller" #scroll>
         <table class="annual-table">
           <thead #header>
             <tr>
@@ -86,7 +85,7 @@
           </thead>
 
           <tbody #container>
-            <tr *ngFor="let doc of scroll.viewPortItems" [style.background-color]="doc?.category?.backgroundColor"
+            <tr *ngFor="let doc of store?.activities" [style.background-color]="doc?.category?.backgroundColor"
               [style.color]="doc?.category?.color">
               <ng-container *ngIf="doc?.level !== 4;else level4ProgramTemplate">
                 <ng-container *ngFor="let col of ANNUAL_PROJECT_COLUMNS">
@@ -96,7 +95,7 @@
                       <div class="rows">
                         <ng-container *ngIf="currentQuarter">
                           <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
-                          matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                          matTooltipPosition="right" matTooltipClass="tooltipClass" mat-icon-button>
                           <mat-icon>add</mat-icon>
                           </a>
                         </ng-container>
@@ -112,7 +111,7 @@
                       <div style="display: flex; column-gap: 10px; align-items: center;height:100%">
                         <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
                           matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
-                          mat-button mat-icon-button>
+                          mat-icon-button>
                           <mat-icon>open_in_new</mat-icon>
                         </a>
 
@@ -176,7 +175,7 @@
                       <div class="rows">
                         <ng-container *ngIf="currentQuarter">
                           <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
-                          matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                          matTooltipPosition="right" matTooltipClass="tooltipClass" mat-icon-button>
                           <mat-icon>add</mat-icon>
                           </a>
                         </ng-container>
@@ -192,7 +191,7 @@
                       <div style="display: flex; column-gap: 10px; align-items: center; height: 100%;">
                         <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
                           matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
-                          mat-button mat-icon-button>
+                          mat-icon-button>
                           <mat-icon>open_in_new</mat-icon>
                         </a>
                         <ng-container *ngIf="col?.key === 'MEF';else mmeBudgetTemplate">
@@ -326,7 +325,7 @@
           </tbody>
         </table>
         <div style="height: 50px;"></div>
-      </virtual-scroller>
+      </div>
     </div>
   </ng-container>
   <ng-template #emptyActivity>

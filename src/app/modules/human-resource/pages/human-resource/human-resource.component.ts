@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HrStore } from '../../stores/hr.store';
 
 @Component({
-  selector: 'app-human-resource',
-  templateUrl: './human-resource.component.html',
-  styleUrls: ['./human-resource.component.scss']
+    selector: 'app-human-resource',
+    templateUrl: './human-resource.component.html',
+    styleUrls: ['./human-resource.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceComponent implements OnInit {
   apps_items = [

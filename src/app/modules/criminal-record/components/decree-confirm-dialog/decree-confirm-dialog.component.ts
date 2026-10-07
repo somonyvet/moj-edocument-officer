@@ -1,10 +1,12 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-decree-confirm-dialog',
-  templateUrl: './decree-confirm-dialog.component.html',
-  styleUrls: ['./decree-confirm-dialog.component.scss']
+    selector: 'app-decree-confirm-dialog',
+    templateUrl: './decree-confirm-dialog.component.html',
+    styleUrls: ['./decree-confirm-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DecreeConfirmDialogComponent implements OnInit {
   msg: any;

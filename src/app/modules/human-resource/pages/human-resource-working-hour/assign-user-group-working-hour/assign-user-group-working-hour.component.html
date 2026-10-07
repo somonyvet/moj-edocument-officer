@@ -1,116 +1,124 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header" style="padding: 16px;">
-        <h2 mat-dialog-title>ជ្រើសរើសមន្ត្រីតាមការិយាល័យ</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header" style="padding: 16px;">
+    <h2 mat-dialog-title>ជ្រើសរើសមន្ត្រីតាមការិយាល័យ</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper" style="flex: 1;">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះការិយាល័យ</mat-label>
+        <input [matAutocomplete]="autoSubOfCommittee" formControlName="departmentName" matInput required
+          placeholder="ឈ្មោះការិយាល័យ">
+        <mat-autocomplete [displayWith]="displayDepartment" #autoSubOfCommittee="matAutocomplete">
+          @for (item of departmentStore.departments; track item; let i = $index) {
+            <mat-option [value]="item"
+              (click)="getOfficer(item.key)">
+              <!-- <span [style.padding-left]="((item.level)*24)+'px'"></span> -->
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form?.controls['departmentName'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+          </mat-error>
+        }
+      </mat-form-field>
     </div>
-    <mat-dialog-content class="form-wrapper" style="flex: 1;">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ឈ្មោះការិយាល័យ</mat-label>
-                <input [matAutocomplete]="autoSubOfCommittee" formControlName="departmentName" matInput required
-                    placeholder="ឈ្មោះការិយាល័យ">
-                <mat-autocomplete [displayWith]="displayDepartment" #autoSubOfCommittee="matAutocomplete">
-                    <mat-option *ngFor="let item of departmentStore.departments;let i=index" [value]="item"
-                        (click)="getOfficer(item.key)">
-                        <!-- <span [style.padding-left]="((item.level)*24)+'px'"></span> -->
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error *ngIf="form?.controls['departmentName'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="vs-wrapper">
-            <ng-container *ngIf="this.departmentKey">
-                <virtual-scroller #scroll [items]="selectedArr?.controls" class="as-tb-wrap vt-doc">
-                    <table class="as-table-wrapper" *ngIf="selectedArr?.value?.length>0 && !store?.fetching">
-                        <thead #header>
-                            <tr>
-                                <th class="left">
-                                    <mat-checkbox class="mat-check-form" matTooltip="ជ្រើសទាំងអស់"
-                                        matTooltipClass="tooltipClass" (change)="checkAll($event)">
-                                    </mat-checkbox>
-                                </th>
-                                <th class="left">
-                                    ល.រ.
-                                </th>
-                                <th class="left">
-                                    អត្តលេខ
-                                </th>
-                                <th class="left">
-                                    ឈ្មោះ
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody #container>
-                            <tr *ngFor="let contentGroup of scroll.viewPortItems">
-                                <ng-container [formGroup]="contentGroup">
-                                    <td>
-                                        <div class="rows" style="vertical-align: middle;">
-                                            <mat-checkbox class="mat-check-form" formControlName="isSelected">
-                                            </mat-checkbox>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="rows" style="vertical-align: middle;">
-                                            {{contentGroup?.value?.rowIndex}}
-                                        </div>
-                                    </td>
-                                    <td>
-
-                                        <div class="rows">
-                                            <div class="avatar-tb">
-                                                <img [src]="contentGroup?.value?.file?.downloadUrl  || URL"
-                                                    (error)="handleImgError($event)">
-                                            </div>
-                                            <strong>{{contentGroup?.value?.officerId}}</strong>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="rows" style="white-space: normal; max-width: 260px;">
-                                            <span style="margin-right: 6px;"
-                                                *ngFor="let title of contentGroup?.value?.title;let j=index">
-                                                {{title?.name}}{{(j+1)===contentGroup?.value?.title?.length?'':' '}}
-                                            </span>
-                                            <span>{{contentGroup?.value?.last_name}}
-                                                {{contentGroup?.value?.first_name}}</span>
-                                        </div>
-                                    </td>
-                                </ng-container>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                    <ng-container *ngIf="selectedArr?.value?.length===0">
-                        <div class="empty-block">
-                            <div class="center-block-empty">
-                                <div class="empty-img">
-                                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                                        alt="empty">
-                                </div>
-                                <div class="empty-text">
-                                    <p class="empty-state-title">
-                                        ពុំមានទិន្នន័យ
-                                    </p>
-                                </div>
-                            </div>
+    <div class="vs-wrapper">
+      @if (this.departmentKey) {
+        <div #scroll class="as-tb-wrap vt-doc">
+          @if (selectedArr?.value?.length>0 && !store?.fetching) {
+            <table class="as-table-wrapper">
+              <thead #header>
+                <tr>
+                  <th class="left">
+                    <mat-checkbox class="mat-check-form" matTooltip="ជ្រើសទាំងអស់"
+                      matTooltipClass="tooltipClass" (change)="checkAll($event)">
+                    </mat-checkbox>
+                  </th>
+                  <th class="left">
+                    ល.រ.
+                  </th>
+                  <th class="left">
+                    អត្តលេខ
+                  </th>
+                  <th class="left">
+                    ឈ្មោះ
+                  </th>
+                </tr>
+              </thead>
+              <tbody #container>
+                @for (contentGroup of selectedArr?.controls; track contentGroup) {
+                  <tr>
+                    <ng-container [formGroup]="contentGroup">
+                      <td>
+                        <div class="rows" style="vertical-align: middle;">
+                          <mat-checkbox class="mat-check-form" formControlName="isSelected">
+                          </mat-checkbox>
                         </div>
+                      </td>
+                      <td>
+                        <div class="rows" style="vertical-align: middle;">
+                          {{contentGroup?.value?.rowIndex}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="rows">
+                          <div class="avatar-tb">
+                            <img [src]="contentGroup?.value?.file?.downloadUrl  || URL"
+                              (error)="handleImgError($event)">
+                          </div>
+                          <strong>{{contentGroup?.value?.officerId}}</strong>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="rows" style="white-space: normal; max-width: 260px;">
+                          @for (title of contentGroup?.value?.title; track title; let j = $index) {
+                            <span style="margin-right: 6px;"
+                              >
+                              {{title?.name}}{{(j+1)===contentGroup?.value?.title?.length?'':' '}}
+                            </span>
+                          }
+                          <span>{{contentGroup?.value?.last_name}}
+                          {{contentGroup?.value?.first_name}}</span>
+                        </div>
+                      </td>
                     </ng-container>
-                </virtual-scroller>
-
-                <app-spinner *ngIf="store?.fetching">
-                </app-spinner>
-
-            </ng-container>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
+          @if (selectedArr?.value?.length===0) {
+            <div class="empty-block">
+              <div class="center-block-empty">
+                <div class="empty-img">
+                  <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                    alt="empty">
+                </div>
+                <div class="empty-text">
+                  <p class="empty-state-title">
+                    ពុំមានទិន្នន័យ
+                  </p>
+                </div>
+              </div>
+            </div>
+          }
         </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="button" (click)="_onSave(form?.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+        @if (store?.fetching) {
+          <app-spinner>
+          </app-spinner>
+        }
+      }
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="button" (click)="_onSave($safeNavigationMigration(form?.value))">រក្សាទុក</button>
+  </mat-dialog-actions>
 </form>

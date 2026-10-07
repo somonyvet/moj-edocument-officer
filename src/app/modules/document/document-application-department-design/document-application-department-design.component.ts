@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-application-department-design',
-  templateUrl: './document-application-department-design.component.html',
-  styleUrls: ['./document-application-department-design.component.scss']
+    selector: 'app-document-application-department-design',
+    templateUrl: './document-application-department-design.component.html',
+    styleUrls: ['./document-application-department-design.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationDepartmentDesignComponent implements OnInit,OnDestroy {
   param:any=null;

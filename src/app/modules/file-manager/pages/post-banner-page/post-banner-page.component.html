@@ -7,8 +7,12 @@
             <mat-icon class="mat-18">menu</mat-icon>
           </button>
         </div>
-        <div class="isSmallScreen" *ngIf="ismobile"></div>
-        <div class="isBigScreen" *ngIf="!ismobile"></div>
+        @if (ismobile) {
+          <div class="isSmallScreen"></div>
+        }
+        @if (!ismobile) {
+          <div class="isBigScreen"></div>
+        }
       </div>
 
       <button mat-button class="mat-path-file last-path" [matMenuTriggerFor]="menu" aria-label="arrow_drop_down_path">
@@ -25,17 +29,17 @@
     </div>
 
     <div class="group-info">
-      <ng-container *ngIf="store?.selectedItem">
-        <button matTooltip="Edit" mat-button mat-icon-button (click)="update(store?.selectedItem)">
+      @if (store?.selectedItem) {
+        <button matTooltip="Edit" mat-icon-button (click)="update($safeNavigationMigration(store?.selectedItem))">
           <mat-icon>edit</mat-icon>
         </button>
-        <button matTooltip="Delete" mat-button mat-icon-button (click)="delete(store?.selectedItem)">
+        <button matTooltip="Delete" mat-icon-button (click)="delete($safeNavigationMigration(store?.selectedItem))">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-button mat-icon-button aria-label="info" (click)="store?.clearSelected()">
+        <button mat-icon-button aria-label="info" (click)="store?.clearSelected()">
           <mat-icon>close</mat-icon>
         </button>
-      </ng-container>
+      }
     </div>
   </div>
 
@@ -44,81 +48,89 @@
       <div class="page-wrapper">
         <div class="scrollable-table">
 
-          <ng-container *ngIf="!store.loading && store?.data && store?.infinite | async as items">
-            <virtual-scroller #scroll [items]="items" [checkResizeInterval]="0" style="height: calc(100vh - 156px);"
-              (vsEnd)="scrollHandler($event, scroll?.cachedItemsLength)">
-
-              <table class="table-wrapper" #printtable id="printtable" *ngIf="!store?.empty">
-                <thead class="table-header">
-                  <tr class="table-row">
-                    <th class="table-col" style="width:24px;">ល.រ</th>
-                    <th class="table-col" style="width:200px;">រូបភាព</th>
-                    <th class="table-col">ចំណងជើង</th>
-                    <th class="table-col" style="min-width: 400px;">បរិយាយ</th>
-                    <th class="table-col">ម្ចាស់ឯកសារ</th>
-                    <th class="table-col">បច្ចុប្បន្នភាព</th>
-                    <th class="table-col"></th>
-                  </tr>
-                </thead>
-                <tbody class="table-body" #container>
-                  <ng-container>
-
-                    <tr *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx"
-                      [ngClass]="store?.selectedItem?.key===item?.key?'active':''" (click)="onSelectedItem(item)">
-                      <td class="table-col table-col-data">{{item?.rowIndex}}</td>
-                      <td class="table-col table-col-data">
-                        <div class="table-image-preview-container" *ngIf="this.item.files?.length !== 0">
-                          <img [defaultImage]="'./assets/images/gif/lazy-loading.gif'"
-                            [lazyLoad]="this.item.files[0].imageDownloadURL">
-                        </div>
-                      </td>
-                      <td class="table-col table-col-data">{{ item.title }}</td>
-                      <td class="table-col table-col-p">
-                        <p [innerHTML]="item?.description | sanitizeHtml"></p>
-                      </td>
-                      <td class="table-col table-col-data">{{item?.updatedAt?.toDate()| date:'medium'}}</td>
-                      <td class="table-col table-col-data">{{item?.updatedBy?.displayName || item?.updatedBy?.name || 'Unknown'}}</td>
-                      <td class="table-col table-col-data" style="width: 24px;">
-                        <button matTooltip="Menu" [matMenuTriggerFor]="matMenu" mat-button mat-icon-button>
-                          <mat-icon>more_vert</mat-icon>
-                        </button>
-                      </td>
+          @if (!store.loading && store?.data && store?.infinite | async; as items) {
+            <div #scroll [appScrollEnd]="items" [checkResizeInterval]="0" style="height: calc(100vh - 156px);"
+              (vsEnd)="scrollHandler($event, $safeNavigationMigration(scroll?.cachedItemsLength))">
+              @if (!store?.empty) {
+                <table class="table-wrapper" #printtable id="printtable">
+                  <thead class="table-header">
+                    <tr class="table-row">
+                      <th class="table-col" style="width:24px;">ល.រ</th>
+                      <th class="table-col" style="width:200px;">រូបភាព</th>
+                      <th class="table-col">ចំណងជើង</th>
+                      <th class="table-col" style="min-width: 400px;">បរិយាយ</th>
+                      <th class="table-col">ម្ចាស់ឯកសារ</th>
+                      <th class="table-col">បច្ចុប្បន្នភាព</th>
+                      <th class="table-col"></th>
                     </tr>
-
+                  </thead>
+                  <tbody class="table-body" #container>
                     <ng-container>
-                      <mat-menu #matMenu="matMenu" matMenuContent style="padding: 0; overflow: hidden;">
-                        <ng-container *ngIf="store?.selectedItem">
-                          <button mat-menu-item (click)="update(store?.selectedItem)">
-                            <mat-icon>edit</mat-icon>
-                            <span>Update</span>
-                          </button>
-                          <button mat-menu-item (click)="delete(store?.selectedItem)">
-                            <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
-                          </button>
-                        </ng-container>
-                      </mat-menu>
+                      @for (item of items ; track trackByIdx(i, item); let i = $index) {
+                        <tr
+                          [ngClass]="store?.selectedItem?.key===item?.key?'active':''" (click)="onSelectedItem(item)">
+                          <td class="table-col table-col-data">{{item?.rowIndex}}</td>
+                          <td class="table-col table-col-data">
+                            @if (this.item.files?.length !== 0) {
+                              <div class="table-image-preview-container">
+                                <img [defaultImage]="'./assets/images/gif/lazy-loading.gif'"
+                                  [lazyLoad]="this.item.files[0].imageDownloadURL">
+                              </div>
+                            }
+                          </td>
+                          <td class="table-col table-col-data">{{ item.title }}</td>
+                          <td class="table-col table-col-p">
+                            <p [innerHTML]="$safeNavigationMigration(item?.description) | sanitizeHtml"></p>
+                          </td>
+                          <td class="table-col table-col-data">{{$safeNavigationMigration(item?.updatedAt?.toDate())| date:'medium'}}</td>
+                          <td class="table-col table-col-data">{{item?.updatedBy?.displayName || item?.updatedBy?.name || 'Unknown'}}</td>
+                          <td class="table-col table-col-data" style="width: 24px;">
+                            <button matTooltip="Menu" [matMenuTriggerFor]="matMenu" mat-icon-button>
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                          </td>
+                        </tr>
+                      }
+                      <ng-container>
+                        <mat-menu #matMenu="matMenu" matMenuContent style="padding: 0; overflow: hidden;">
+                          @if (store?.selectedItem) {
+                            <button mat-menu-item (click)="update($safeNavigationMigration(store?.selectedItem))">
+                              <mat-icon>edit</mat-icon>
+                              <span>Update</span>
+                            </button>
+                            <button mat-menu-item (click)="delete($safeNavigationMigration(store?.selectedItem))">
+                              <mat-icon>delete</mat-icon>
+                              <span>Delete</span>
+                            </button>
+                          }
+                        </mat-menu>
+                      </ng-container>
                     </ng-container>
-
-                  </ng-container>
-                </tbody>
-              </table>
-
-              <div class="spinnerContainer" *ngIf="this.store.fetching">
-                <mat-spinner></mat-spinner>
-              </div>
-            </virtual-scroller>
-
+                  </tbody>
+                </table>
+              }
+              @if (this.store.fetching) {
+                <div class="spinnerContainer">
+                  <mat-spinner></mat-spinner>
+                </div>
+              }
+            </div>
             <div class="no-item" (contextmenu)="rightMenu($event, null); $event. preventDefault();"></div>
-          </ng-container>
+          }
 
-          <app-placeholder *ngIf="store?.loading"></app-placeholder>
+          @if (store?.loading) {
+            <app-placeholder></app-placeholder>
+          }
 
-          <app-empty *ngIf="store?.empty" [name]="'ប្រព័ន្ធគ្រប់គ្រងវត្តមានជនបរទេស - អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍'"
-            [buttonText]="'បង្កើតផ្ទាំងផ្សព្វផ្សាយថ្មី'" (onPress)="create()"
+          @if (store?.empty) {
+            <app-empty [name]="'ប្រព័ន្ធគ្រប់គ្រងវត្តមានជនបរទេស - អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍'"
+              [buttonText]="'បង្កើតផ្ទាំងផ្សព្វផ្សាយថ្មី'" (onPress)="create()"
             [subtitle]="'រកមិនឃើញទិន្នន័យ សូមចុចប៊ូតុងខាងក្រោមដើម្បីបន្ថែម'"></app-empty>
+          }
 
-          <div class="spinner-container" *ngIf="store?.fetching"><app-spinner></app-spinner></div>
+          @if (store?.fetching) {
+            <div class="spinner-container"><app-spinner></app-spinner></div>
+          }
         </div>
       </div>
     </mat-sidenav-content>
@@ -126,21 +138,19 @@
     <ng-template #userMenu let-item>
       <section>
         <ng-container matMenuContent>
-          <ng-container *ngIf="store?.selectedItem">
+          @if (store?.selectedItem) {
             <div class="right-click-Menu">
-              <button (click)="update(store?.selectedItem)" mat-menu-item>
+              <button (click)="update($safeNavigationMigration(store?.selectedItem))" mat-menu-item>
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
               </button>
-
               <div class="break"></div>
-
-              <button mat-menu-item (click)="delete(store?.selectedItem)">
+              <button mat-menu-item (click)="delete($safeNavigationMigration(store?.selectedItem))">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
               </button>
             </div>
-          </ng-container>
+          }
         </ng-container>
       </section>
     </ng-template>

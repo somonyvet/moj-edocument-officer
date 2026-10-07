@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WorkplaceAccountFormComponent } from 'src/app/shared/components/workplace-account-form/workplace-account-form.component';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -6,9 +6,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-inbox-workplace-account',
-  templateUrl: './inbox-workplace-account.component.html',
-  styleUrls: ['./inbox-workplace-account.component.scss']
+    selector: 'app-inbox-workplace-account',
+    templateUrl: './inbox-workplace-account.component.html',
+    styleUrls: ['./inbox-workplace-account.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxWorkplaceAccountComponent implements OnInit,OnDestroy {
 

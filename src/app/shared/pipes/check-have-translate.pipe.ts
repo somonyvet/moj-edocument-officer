@@ -1,20 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'checkHaveTranslate'
+    name: 'checkHaveTranslate',
+    standalone: false
 })
 export class CheckHaveTranslatePipe implements PipeTransform {
 
   transform(item: Array<any>): any {
     if(!item) return null
     const result = item.find(m=> m?.key === 2 || m?.key === 3)
-    if(result) return 'បកប្រែ' || ''
+    if(result) return 'បកប្រែ'
   }
 
 }
 
 @Pipe({
-  name: 'getKhmerCopyCount'
+    name: 'getKhmerCopyCount',
+    standalone: false
 })
 export class GetKhmerCopyCountPipe implements PipeTransform {
 
@@ -28,7 +30,8 @@ export class GetKhmerCopyCountPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'getEnglishCopyCount'
+    name: 'getEnglishCopyCount',
+    standalone: false
 })
 export class GetEnglishCopyCountPipe implements PipeTransform {
 
@@ -44,7 +47,8 @@ export class GetEnglishCopyCountPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'getFrenchCopyCount'
+    name: 'getFrenchCopyCount',
+    standalone: false
 })
 export class GetFrenchCopyCountPipe implements PipeTransform {
 
@@ -60,7 +64,8 @@ export class GetFrenchCopyCountPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'getKhmerAmount'
+    name: 'getKhmerAmount',
+    standalone: false
 })
 export class GetKhmerAmount implements PipeTransform {
   transform(item: Array<any>): any {
@@ -72,7 +77,8 @@ export class GetKhmerAmount implements PipeTransform {
 
 
 @Pipe({
-  name: 'genderFr'
+    name: 'genderFr',
+    standalone: false
 })
 export class GenderFr implements PipeTransform {
   transform(item: string): any {
@@ -88,7 +94,8 @@ export class GenderFr implements PipeTransform {
 }
 
 @Pipe({
-  name: 'isMolApply'
+    name: 'isMolApply',
+    standalone: false
 })
 export class IsMolApply implements PipeTransform {
   transform(item: any, molWorkplaceKey: string): any {

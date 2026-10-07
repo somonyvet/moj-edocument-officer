@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SiteMapNameComponent } from './site-map-name.component';
 
@@ -6,7 +6,7 @@ describe('SiteMapNameComponent', () => {
   let component: SiteMapNameComponent;
   let fixture: ComponentFixture<SiteMapNameComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SiteMapNameComponent ]
     })

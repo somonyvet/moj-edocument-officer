@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'docDocRef'
+    name: 'docDocRef',
+    standalone: false
 })
 export class DocDocRefPipe implements PipeTransform {
 

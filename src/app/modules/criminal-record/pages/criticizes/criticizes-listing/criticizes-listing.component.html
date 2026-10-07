@@ -1,52 +1,52 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-        <div class="doc-in">
-            <div class="listing-header">
-                <h4>{{title}}</h4>
-                <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
-                </app-search-filter-box>
-                <nav mat-tab-nav-bar class="fire-tabs">
-                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
-                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
-                </nav>
-            </div>
-            <ng-container *ngIf="!loading else loader">
-                <ng-container *ngIf="store?.data?.length>0 else emptyData">
-                    <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header"
-                        (vsEnd)="scrollHandler($event)">
-                        <a mat-button class="avatar-vt-item" [routerLink]="item?.key" routerLinkActive="active"
-                            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
-                            <div class="avatar">
-                                <img [src]="item?.photoUrl" (error)="handleImgError($event)">
-                            </div>
-                            <div class="av-vt-body">
-                                <strong>{{item?.last_name}} {{item?.first_name}}</strong>
-                                <div class="rows sub-text">
-                                    <span>{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}}  · {{item?.occupation}}</span>
-                                    <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}}</span>
-                                    <div class="amTimeAgo">
-                                        <ion-icon name="calendar-outline"></ion-icon>
-                                        <span  matTooltipClass="tooltipClass"
-                                        [matTooltip]="item?.created_at?.toDate()| dateTime">{{item?.amTimeAgo}}</span>
-                                      </div>
-                                </div>
-                            </div>
-                        </a>
-                    </virtual-scroller>
-                </ng-container>
-
-            </ng-container>
-            <ng-template #loader>
-                <app-spinner></app-spinner>
-            </ng-template>
-            <ng-template #emptyData>
-                <div class="doc-ls-items center">
-                    <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <h4>{{title}}</h4>
+        <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
+        </app-search-filter-box>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+          @for (link of tabs; track link) {
+            <a mat-tab-link [routerLink]="link.path" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+          }
+        </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+      </div>
+      @if (!loading) {
+        @if (store?.data?.length>0) {
+          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
+            (vsEnd)="scrollHandler($event)">
+            <a mat-button class="avatar-vt-item" [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active"
+              *cdkVirtualFor="let item of $safeNavigationMigration(store?.data) ;let i=index; trackBy: trackByIdx">
+              <div class="avatar">
+                <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
+              </div>
+              <div class="av-vt-body">
+                <strong>{{item?.last_name}} {{item?.first_name}}</strong>
+                <div class="rows sub-text">
+                  <span>{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}}  · {{item?.occupation}}</span>
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}}</span>
+                  <div class="amTimeAgo">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span  matTooltipClass="tooltipClass"
+                    [matTooltip]="$safeNavigationMigration(item?.created_at?.toDate())| dateTime">{{item?.amTimeAgo}}</span>
+                  </div>
                 </div>
-            </ng-template>
-        </div>
+              </div>
+            </a>
+          </cdk-virtual-scroll-viewport>
+        } @else {
+          <div class="doc-ls-items center">
+            <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+          </div>
+        }
+      } @else {
+        <app-spinner></app-spinner>
+      }
     </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -12,15 +12,17 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { HolidayStore } from '../../../stores/holiday.store';
 
 @Component({
-  selector: 'app-add-public-holiday',
-  templateUrl: './add-public-holiday.component.html',
-  styleUrls: ['./add-public-holiday.component.scss']
+    selector: 'app-add-public-holiday',
+    templateUrl: './add-public-holiday.component.html',
+    styleUrls: ['./add-public-holiday.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddPublicHolidayComponent implements OnInit {
   @ViewChild("focusInput") inputEl: ElementRef;
   title: any = "បង្កើតថ្ងៃឈប់​សំរាក";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   description: AbstractControl;
   from_date: AbstractControl;
@@ -32,7 +34,7 @@ export class AddPublicHolidayComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddPublicHolidayComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     public store: HolidayStore,

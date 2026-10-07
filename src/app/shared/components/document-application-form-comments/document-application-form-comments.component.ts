@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { IComment, IDelete, IFileComment, IUpdate } from 'src/app/interfaces/document/document.interface';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -18,15 +18,17 @@ import { Observable } from 'rxjs';
 import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-document-application-form-comments',
-  templateUrl: './document-application-form-comments.component.html',
-  styleUrls: ['./document-application-form-comments.component.scss']
+    selector: 'app-document-application-form-comments',
+    templateUrl: './document-application-form-comments.component.html',
+    styleUrls: ['./document-application-form-comments.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationFormCommentsComponent implements OnInit, OnDestroy {
   @ViewChild('fileComment') fileComment: ElementRef;
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  commentForm: FormGroup;
+  commentForm: UntypedFormGroup;
   SELECTED_FILES = [];
   SELECTED_FILES_EDIT = [];
   img: [];
@@ -62,7 +64,7 @@ export class DocumentApplicationFormCommentsComponent implements OnInit, OnDestr
   //URL of Blob
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private auth: AuthStore,

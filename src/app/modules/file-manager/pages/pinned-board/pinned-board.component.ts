@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription, fromEvent } from 'rxjs';
@@ -18,9 +18,11 @@ import { driveObj } from 'src/app/dummy/status';
 import { OpenFileComponent } from '../../components/open-file/open-file.component';
 
 @Component({
-  selector: 'app-pinned-board',
-  templateUrl: './pinned-board.component.html',
-  styleUrls: ['./pinned-board.component.scss']
+    selector: 'app-pinned-board',
+    templateUrl: './pinned-board.component.html',
+    styleUrls: ['./pinned-board.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PinnedBoardComponent implements OnInit {
 

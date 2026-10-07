@@ -1,7 +1,8 @@
+import { Timestamp } from 'firebase/firestore';
 import { HrHolidayStore } from '../../../stores/hr-holiday.store';
 import { IHoliday } from '../../../../../interfaces/attendance';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, FormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { getDayDifference } from 'src/app/shared/services/convert.service';
@@ -11,20 +12,22 @@ import { generateKeywords, toNameKey } from 'src/app/shared/services/mapping.ser
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-human-resource-holidays-form',
-  templateUrl: './human-resource-holidays-form.component.html',
-  styleUrls: ['./human-resource-holidays-form.component.scss']
+    selector: 'app-human-resource-holidays-form',
+    templateUrl: './human-resource-holidays-form.component.html',
+    styleUrls: ['./human-resource-holidays-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HrHolidayFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតថ្ងៃឈប់សម្រាក";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<HrHolidayFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: HrHolidayStore,
     private ds: DataService,
     private auth: AuthStore,
@@ -49,8 +52,8 @@ export class HrHolidayFormComponent implements OnInit {
       this.form.patchValue({
         nameKh,
         nameEng,
-        startDate: (startDate as firebase.default.firestore.Timestamp).toDate(),
-        endDate: (endDate as firebase.default.firestore.Timestamp).toDate()
+        startDate: (startDate as Timestamp).toDate(),
+        endDate: (endDate as Timestamp).toDate()
       });
     }
   }

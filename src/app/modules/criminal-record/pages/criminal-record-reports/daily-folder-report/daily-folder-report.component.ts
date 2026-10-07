@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MOJReportStore } from '../../../stores/moj-report.store';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -6,9 +6,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-daily-folder-report',
-  templateUrl: './daily-folder-report.component.html',
-  styleUrls: ['./daily-folder-report.component.scss']
+    selector: 'app-daily-folder-report',
+    templateUrl: './daily-folder-report.component.html',
+    styleUrls: ['./daily-folder-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class DailyFolderReportComponent implements OnInit {

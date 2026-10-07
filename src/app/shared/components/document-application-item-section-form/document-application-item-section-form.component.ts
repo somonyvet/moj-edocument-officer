@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { DatabaseService } from 'src/app/shared/services/database.service';
@@ -10,16 +10,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-application-item-section-form',
-  templateUrl: './document-application-item-section-form.component.html',
-  styleUrls: ['./document-application-item-section-form.component.scss']
+    selector: 'app-document-application-item-section-form',
+    templateUrl: './document-application-item-section-form.component.html',
+    styleUrls: ['./document-application-item-section-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationItemSectionFormComponent implements OnInit {
 
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "បង្កើតឯកសារ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[];
   filteredOfficeList;
   officeLists = [];
@@ -37,7 +39,7 @@ export class DocumentApplicationItemSectionFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentApplicationItemSectionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

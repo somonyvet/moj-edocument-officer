@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { statusLists, tagTypeLists } from 'src/app/dummy/status';
@@ -12,9 +12,11 @@ import { SettingStore } from 'src/app/stores/settings/setting.store';
 import { ConvertService } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-add-file-tag',
-  templateUrl: './add-file-tag.component.html',
-  styleUrls: ['./add-file-tag.component.scss']
+    selector: 'app-add-file-tag',
+    templateUrl: './add-file-tag.component.html',
+    styleUrls: ['./add-file-tag.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddFileTagComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class AddFileTagComponent implements OnInit {
 
   status_lists = statusLists
   tagType_Lists = tagTypeLists
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   color: AbstractControl;
   order: number;
@@ -34,7 +36,7 @@ export class AddFileTagComponent implements OnInit {
   isCreate: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     public auth: AuthStore,
     public store: SettingStore,

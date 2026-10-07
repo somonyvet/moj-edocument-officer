@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 
 export interface IWorkingHour {
     key?: string;
@@ -124,8 +125,8 @@ export interface IHoliday {
     keyword?: any;
     nameKh?: string;
     nameEng?: string;
-    startDate?: Date | firebase.default.firestore.Timestamp;
-    endDate?: Date | firebase.default.firestore.Timestamp;
+    startDate?: Date | Timestamp;
+    endDate?: Date | Timestamp;
     duration?: number;
 }
 
@@ -144,8 +145,8 @@ export interface ILeaveRequest {
     status?: any;
     duration?: number;
     description?: string;
-    startDate?: Date | firebase.default.firestore.Timestamp;
-    endDate?: Date | firebase.default.firestore.Timestamp;
+    startDate?: Date | Timestamp;
+    endDate?: Date | Timestamp;
     type?: ILeaveRequestType;
 }
 

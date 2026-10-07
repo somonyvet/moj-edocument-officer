@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { toJS } from 'mobx';
@@ -10,9 +10,11 @@ import { DataService } from '../../services/data.service';
 import { DatabaseService } from '../../services/database.service';
 
 @Component({
-  selector: 'app-template-dialog-setup',
-  templateUrl: './template-dialog-setup.component.html',
-  styleUrls: ['./template-dialog-setup.component.scss']
+    selector: 'app-template-dialog-setup',
+    templateUrl: './template-dialog-setup.component.html',
+    styleUrls: ['./template-dialog-setup.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TemplateDialogSetupComponent implements OnInit {
 

@@ -7,11 +7,11 @@
         <strong>ស្ថិតិភ្ញៀវសុំទិដ្ឋាការចូលព្រះរាជាណាចក្រកម្ពុជា</strong>
       </div>
       <div class="abs-tr">
-        <!-- <a mat-button mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
+        <!-- <a mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
           matTooltip="ចូលកែប្រែ" aria-label="Print Document">
           <mat-icon class="mat-18">edit</mat-icon>
         </a> -->
-        <a mat-button mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
+        <a mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
           matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
           <mat-icon class="mat-18">local_printshop</mat-icon>
         </a>
@@ -30,8 +30,8 @@
               </button>
               <mat-menu #menuPeriod="matMenu">
                 <div class="options-lags" (click)="$event.stopPropagation();">
-                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="store?.fromDateNum"
-                    [toDate]="store?.toDateNum">
+                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="$safeNavigationMigration(store?.fromDateNum)"
+                    [toDate]="$safeNavigationMigration(store?.toDateNum)">
                   </app-report-filter-period>
                 </div>
               </mat-menu>

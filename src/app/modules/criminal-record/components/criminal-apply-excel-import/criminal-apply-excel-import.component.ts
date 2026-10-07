@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as XLSXStyle from 'xlsx-js-style';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
@@ -57,13 +57,15 @@ const COLUMNS: ColumnDef[] = [
 ];
 
 @Component({
-  selector: 'app-criminal-apply-excel-import',
-  templateUrl: './criminal-apply-excel-import.component.html',
-  styleUrls: ['./criminal-apply-excel-import.component.scss']
+    selector: 'app-criminal-apply-excel-import',
+    templateUrl: './criminal-apply-excel-import.component.html',
+    styleUrls: ['./criminal-apply-excel-import.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplyExcelImportComponent implements OnInit {
   COLUMNS = COLUMNS;
-  form: FormGroup;
+  form: UntypedFormGroup;
   duration = URGENT_OBJ_ARRAY?.slice(0, 1);
   applicationType: any;
   DAYS: any[] = [];
@@ -89,7 +91,7 @@ export class CriminalApplyExcelImportComponent implements OnInit {
     public auth: AuthStore,
     public ds: DataService,
     public store: CitizenStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialog: MatDialog,
   ) {
     this.applicationType = APPLICATION_TYPE_OBJ[formData?.tabKey] || APPLICATION_TYPE_OBJ['application-no-ii'];

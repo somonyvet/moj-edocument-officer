@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { orderBy } from 'src/app/shared/services/convert.service';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { transformImageSameTokenNo } from 'src/app/shared/services/fireStorage.service';
@@ -11,9 +11,11 @@ export const APPROVAL_STEP_STATUS = {
 };
 
 @Component({
-  selector: 'app-document-approval-progress',
-  templateUrl: './document-approval-progress.component.html',
-  styleUrls: ['./document-approval-progress.component.scss']
+    selector: 'app-document-approval-progress',
+    templateUrl: './document-approval-progress.component.html',
+    styleUrls: ['./document-approval-progress.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApprovalProgressComponent implements OnInit, OnChanges {
   @Input() criminalRecord: ICriminalRecord

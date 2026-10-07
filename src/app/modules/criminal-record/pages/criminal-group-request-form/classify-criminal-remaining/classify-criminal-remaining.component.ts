@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalVerifyStore } from '../../../stores/criminalVerify.store';
 
 @Component({
-  selector: 'app-classify-criminal-remaining',
-  templateUrl: './classify-criminal-remaining.component.html',
-  styleUrls: ['./classify-criminal-remaining.component.scss']
+    selector: 'app-classify-criminal-remaining',
+    templateUrl: './classify-criminal-remaining.component.html',
+    styleUrls: ['./classify-criminal-remaining.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ClassifyCriminalRemainingComponent implements OnInit {
 

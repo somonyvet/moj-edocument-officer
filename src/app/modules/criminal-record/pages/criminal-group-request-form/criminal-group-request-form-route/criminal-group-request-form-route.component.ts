@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { CriminalStore } from '../../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criminal-group-request-form-route',
-  templateUrl: './criminal-group-request-form-route.component.html',
-  styleUrls: ['./criminal-group-request-form-route.component.scss']
+    selector: 'app-criminal-group-request-form-route',
+    templateUrl: './criminal-group-request-form-route.component.html',
+    styleUrls: ['./criminal-group-request-form-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormRouteComponent implements OnInit {
   loading:boolean=true;

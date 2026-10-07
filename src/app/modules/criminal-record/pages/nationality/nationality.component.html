@@ -5,7 +5,7 @@
         <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
           <h4>{{title}}</h4>
           <div class="nav-right">
-            <a style="width: 30px; height: 30px; display: flex;" routerLinkActive="active" mat-button mat-icon-button
+            <a style="width: 30px; height: 30px; display: flex;" routerLinkActive="active" mat-icon-button
               matTooltipClass="tooltipClass" class="btn-p-icon app-button" [matTooltip]="'បង្កើត'+title"
               (click)="cri?.onCreate()">
               <mat-icon>
@@ -18,103 +18,110 @@
       <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)" (focusOut)="focusSearch = false" (closeSearch)="focusSearch = false">
       </app-search-filter-box>
 
-      <div *ngIf="(searchString || focusSearch)" class="search-result-container criminal">
-        <div class="devider">
-          <div></div>
-        </div>
-        <div class="result-item-container">
-          <div class="lottie-container" *ngIf="!searchString">
+      @if ((searchString || focusSearch)) {
+        <div class="search-result-container criminal">
+          <div class="devider">
+            <div></div>
           </div>
-          <ng-container *ngIf="searchString">
-            <ng-container *ngIf="!store?.searching">
-
-              <a mat-button class="avatar-vt-item" *ngFor="let item of store?.searchResult ;let i=index; trackBy: trackByIdx">
-                <div class="avatar sm">
-                  <img [src]="item?.uri" (error)="handleImgError($event)">
-                </div>
-                <a class="av-vt-body"
-                  routerLinkActive="active">
-                  <strong>{{item?.id}} · {{item?.kh_short_name}}</strong>
-                  <span>អង់គ្លេស: {{item?.en_short_name}}</span>
-                  <span>បារាំង: {{item?.fr_short_name}}</span>
+          <div class="result-item-container">
+            @if (!searchString) {
+              <div class="lottie-container">
+              </div>
+            }
+            @if (searchString) {
+              @if (!store?.searching) {
+                @for (item of store?.searchResult ; track trackByIdx(i, item); let i = $index) {
+                  <a mat-button class="avatar-vt-item">
+                    <div class="avatar sm">
+                      <img [src]="$safeNavigationMigration(item?.uri)" (error)="handleImgError($event)">
+                    </div>
+                    <a class="av-vt-body"
+                      routerLinkActive="active">
+                      <strong>{{item?.id}} · {{item?.kh_short_name}}</strong>
+                      <span>អង់គ្លេស: {{item?.en_short_name}}</span>
+                      <span>បារាំង: {{item?.fr_short_name}}</span>
+                    </a>
+                    <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="criminal.onCreate(item)">
+                        <mat-icon>edit</mat-icon>
+                        <span>កែសម្រួល</span>
+                      </button>
+                      <!-- <button mat-menu-item (click)="onDelete(item)">
+                      <mat-icon>delete</mat-icon>
+                      <span>លុប</span>
+                    </button> -->
+                  </mat-menu>
                 </a>
-                <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="criminal.onCreate(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>កែសម្រួល</span>
-                  </button>
-                  <!-- <button mat-menu-item (click)="onDelete(item)">
-                    <mat-icon>delete</mat-icon>
-                    <span>លុប</span>
-                  </button> -->
-                </mat-menu>
-              </a>
-
-              <ng-container *ngIf="store?.emptySearch">
+              }
+              @if (store?.emptySearch) {
                 <div class="empty-result-container">
                   <p>គ្មានលទ្ធផលសម្រាប់ការស្វែងរក <strong>{{searchString}}</strong></p>
                 </div>
-              </ng-container>
-            </ng-container>
+              }
+            }
             <div style="width:100%; display: flex; justify-content: center;">
-              <mat-spinner *ngIf="store?.searching" class="spinner"></mat-spinner>
+              @if (store?.searching) {
+                <mat-spinner class="spinner"></mat-spinner>
+              }
             </div>
-          </ng-container>
+          }
         </div>
       </div>
+    }
 
-      <nav mat-tab-nav-bar class="fire-tabs">
-        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-          [active]="rla.isActive">{{link.label}}</a>
-      </nav>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+      @for (link of tabs; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+      }
+    </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
-      <ng-container *ngIf="!loading else loader">
-        <ng-container *ngIf="store?.nationalities?.length>0 else emptyData">
-          <virtual-scroller #scroll [items]="store?.nationalities" class="doc-ls-items seach-header"
-            (vsEnd)="scrollHandler($event)">
-            <a mat-button class="avatar-vt-item"
-              *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
-              <div class="avatar sm">
-                <img [src]="item?.uri" (error)="handleImgError($event)">
-              </div>
-              <a class="av-vt-body"
-                routerLinkActive="active">
-                <strong>{{item?.id}} · {{item?.kh_short_name}}</strong>
-                <span>អង់គ្លេស: {{item?.en_short_name}}</span>
-                <span>បារាំង: {{item?.fr_short_name}}</span>
-              </a>
-              <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="criminal.onCreate(item)">
-                  <mat-icon>edit</mat-icon>
-                  <span>កែសម្រួល</span>
-                </button>
-                <!-- <button mat-menu-item (click)="onDelete(item)">
-                  <mat-icon>delete</mat-icon>
-                  <span>លុប</span>
-                </button> -->
-              </mat-menu>
+    @if (!loading) {
+      @if (store?.nationalities?.length>0) {
+        <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
+          (vsEnd)="scrollHandler($event)">
+          <a mat-button class="avatar-vt-item"
+            *cdkVirtualFor="let item of $safeNavigationMigration(store?.nationalities) ;let i=index; trackBy: trackByIdx">
+            <div class="avatar sm">
+              <img [src]="$safeNavigationMigration(item?.uri)" (error)="handleImgError($event)">
+            </div>
+            <a class="av-vt-body"
+              routerLinkActive="active">
+              <strong>{{item?.id}} · {{item?.kh_short_name}}</strong>
+              <span>អង់គ្លេស: {{item?.en_short_name}}</span>
+              <span>បារាំង: {{item?.fr_short_name}}</span>
             </a>
-            <div class="fake"></div>
-          </virtual-scroller>
-        </ng-container>
-      </ng-container>
-      <ng-template #loader>
-        <app-spinner></app-spinner>
-      </ng-template>
-      <ng-template #emptyData>
-        <div class="doc-ls-items center">
-          <app-empty className="empty-vt" name="ពុំមានសញ្ជាតិ" subtitle=""></app-empty>
-        </div>
-      </ng-template>
-    </div>
-  </div>
-  <div class="main-r">
-    <router-outlet></router-outlet>
-  </div>
+            <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="criminal.onCreate(item)">
+                <mat-icon>edit</mat-icon>
+                <span>កែសម្រួល</span>
+              </button>
+              <!-- <button mat-menu-item (click)="onDelete(item)">
+              <mat-icon>delete</mat-icon>
+              <span>លុប</span>
+            </button> -->
+          </mat-menu>
+        </a>
+        <div class="fake"></div>
+      </cdk-virtual-scroll-viewport>
+    } @else {
+      <div class="doc-ls-items center">
+        <app-empty className="empty-vt" name="ពុំមានសញ្ជាតិ" subtitle=""></app-empty>
+      </div>
+    }
+  } @else {
+    <app-spinner></app-spinner>
+  }
+</div>
+</div>
+<div class="main-r">
+  <router-outlet></router-outlet>
+</div>
 </div>

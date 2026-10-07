@@ -31,7 +31,7 @@
           <div class="flex1"></div>
           <!-- <a mat-button mat-dialog-close class="cancel-btn" style="margin-right: 12px;">បោះបង់</a> -->
           <!-- <button class="submit-btn" mat-button type="button" (click)="_onSave()">រក្សាទុក</button> -->
-          <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)" [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+          <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave($safeNavigationMigration(form?.value))" [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
 
           </app-primary-button>
         </div>

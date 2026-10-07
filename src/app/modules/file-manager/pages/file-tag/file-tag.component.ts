@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { fromEvent, Subscription } from 'rxjs';
@@ -18,9 +18,11 @@ import { UpdateFileTagComponent } from './update-file-tag/update-file-tag.compon
 
 
 @Component({
-  selector: 'app-file-tag',
-  templateUrl: './file-tag.component.html',
-  styleUrls: ['./file-tag.component.scss']
+    selector: 'app-file-tag',
+    templateUrl: './file-tag.component.html',
+    styleUrls: ['./file-tag.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FileTagComponent implements OnInit {
 

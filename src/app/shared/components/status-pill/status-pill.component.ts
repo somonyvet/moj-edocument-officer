@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { STATUS_COLOR_OBJ } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-status-pill',
-  templateUrl: './status-pill.component.html',
-  styleUrls: ['./status-pill.component.scss']
+    selector: 'app-status-pill',
+    templateUrl: './status-pill.component.html',
+    styleUrls: ['./status-pill.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StatusPillComponent {
 

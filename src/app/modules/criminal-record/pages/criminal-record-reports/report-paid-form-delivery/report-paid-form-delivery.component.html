@@ -25,12 +25,10 @@
           <span>ទាញយកឯកសារជា EXCEL</span>
         </button>
       </div>
-      <ng-container *ngIf="!loading else loader">
+      @if (!loading) {
         <div class="doc-ls-items center new">
-
           <div class="report-wrapper" id="print" style="width: 980px; padding : 20px">
             <table #table>
-
               <tbody>
                 <tr>
                   <td>
@@ -41,7 +39,6 @@
                             <div>ក្រសួងយុត្តិធម៍</div>
                             <div>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</div>
                             <div>នាយកដ្ឋានកិច្ចការថ្កោលទោស</div>
-
                             <div class="star">3</div>
                           </div>
                           <div class="flex-1"></div>
@@ -51,7 +48,6 @@
                             <div class="star">3</div>
                           </div>
                         </div>
-
                         <div class="d-flex">
                           <div class="report-title" style="width: 100%;text-align: center;">
                             <p>បញ្ជីបង់ប្រាក់រូច និង ដឹកជញ្ជូន</p>
@@ -59,7 +55,6 @@
                           </div>
                         </div>
                       </div>
-
                       <table class="tb-master-print">
                         <thead>
                           <tr class="table-row">
@@ -76,7 +71,6 @@
                             <th class="table-col center" rowspan="2">ចំនួនប្រាក់សរុប</th>
                             <th class="table-col center" rowspan="2">ផ្សេងៗ</th>
                           </tr>
-
                           <tr class="table-row">
                             <th class="table-col center" style="width: 60px;">
                               20 T
@@ -89,18 +83,17 @@
                             <th class="table-col center" style="width: 60px;">បារាំង</th>
                           </tr>
                         </thead>
-
-                        <ng-container *ngFor="let item of store?.data; let i = index">
+                        @for (item of store?.data; track item; let i = $index) {
                           <tr class="table-row"
-                            [ngClass]="((item?.criminal_language | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
+                            [ngClass]="(($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
                             <td class="table-col center">
                               {{i+1}}
                             </td>
                             <td class="table-col">
-                              <ng-container *ngIf="item?.paid_online">
+                              @if (item?.paid_online) {
                                 {{item?.last_name}} {{item?.first_name}}
-                              </ng-container>
-                              <ng-container *ngIf="!item?.paid_online">
+                              }
+                              @if (!item?.paid_online) {
                                 <a class="a-report" [matMenuTriggerFor]="menuDelete">
                                   {{item?.last_name}} {{item?.first_name}}
                                 </a>
@@ -109,7 +102,7 @@
                                     ប្ដូរទៅដាក់ស្នើ
                                   </button>
                                 </mat-menu>
-                              </ng-container>
+                              }
                             </td>
                             <td>
                               <div class="ftb-input">
@@ -124,7 +117,6 @@
                                 {{item?.urgent_obj?.key === 20 ? 'T' : ''}}
                               </div>
                             </td>
-
                             <td>
                               <div class="ftb-input">
                                 {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key :
@@ -133,54 +125,50 @@
                                 {{item?.urgent_obj?.key === 12 ? 'T' : ''}}
                               </div>
                             </td>
-
                             <td>
                               <div class="ftb-input">
-                                {{(item?.criminal_language | getKhmerCopyCount)
-                                ?(item?.criminal_language | getKhmerCopyCount)
+                                {{($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
                                 :''
                                 }}
                               </div>
                             </td>
-
                             <td>
                               <div class="ftb-input">
-                                {{(item?.criminal_language | getEnglishCopyCount)
-                                ?(item?.criminal_language | getEnglishCopyCount)
+                                {{($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
                                 :''
                                 }}
                               </div>
                             </td>
-
                             <td>
                               <div class="ftb-input">
-                                {{(item?.criminal_language | getFrenchCopyCount)
-                                ?(item?.criminal_language | getFrenchCopyCount)
+                                {{($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
                                 :''
                                 }}
                               </div>
                             </td>
                             <td class="table-col center">
-                              <ng-container *ngIf="item?.national_application?.key === 'foreigner'">
+                              @if (item?.national_application?.key === 'foreigner') {
                                 &#10003;
-                              </ng-container>
+                              }
                             </td>
                             <td>{{item?.criminal_folder_no}}</td>
                             <td>
-                              <ng-container *ngIf="item?.paid_online">
+                              @if (item?.paid_online) {
                                 {{((item?.payment_option?.name === 'Credit/Debit Card') || ( item?.pay_option?.name === 'ប័ណ្ណឥណទាន')) ? 'Credit/Debit Card' : 'KHQR'}}
-                              </ng-container>
+                              }
                             </td>
                             <td class="table-col center">
                               {{item?.delivery_scope?.key === 'international' ? 'ក្រៅប្រទេស' : 'ក្នុងប្រទេស'}}
                             </td>
                             <td class="table-col center">
-                              <ng-container *ngIf="item?.delivery_scope?.key === 'international'; else domesticServiceType">
-                                {{mailObjectShortName(item?.delivery_address?.mail_object?.en_name)}}
-                              </ng-container>
-                              <ng-template #domesticServiceType>
+                              @if (item?.delivery_scope?.key === 'international') {
+                                {{mailObjectShortName($safeNavigationMigration(item?.delivery_address?.mail_object?.en_name))}}
+                              } @else {
                                 {{item?.delivery_address?.is_vip_express ? 'លឿន' : 'ធម្មតា'}}
-                              </ng-template>
+                              }
                             </td>
                             <td class="table-col center">
                               {{item?.delivery_fee}}
@@ -190,7 +178,7 @@
                             </td>
                             <td>{{item?.remark_application}}</td>
                           </tr>
-                        </ng-container>
+                        }
                         <tr class="table-row sum-row">
                           <td class="table-col center" colspan="13">សរុបចំនួនប្រាក់</td>
                           <td class="table-col center">{{totalDeliveryAmount | number}}</td>
@@ -201,213 +189,184 @@
                       <div class="fake-box"></div>
                       <div class="flex-row b-r-fs">
                         <div class="sum-statistic">
-
                           <div class="t-travel">
-
                             <div class="tt-d">
                               <p class="l-text">សរុបអ្នកស្នើសុំ</p>
                               <span class="lf-text">{{store?.statistic?.total}}
-                                នាក់({{store?.statistic?.totalKhmer}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.total20T + store?.statistic?.total12T}}
-                                  នាក់({{store?.statistic?.total12TAmount+store?.statistic?.total20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalKhmer}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.total20T + store?.statistic?.total12T}}
+                              នាក់({{store?.statistic?.total12TAmount+store?.statistic?.total20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.total20}}
-                                នាក់({{store?.statistic?.total20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.total20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.total20T}}
-                                នាក់({{store?.statistic?.total20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.total20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.total12}}
-                                នាក់({{store?.statistic?.total12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.total12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.total12T}}
-                                នាក់({{store?.statistic?.total12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.total12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</p>
                               <span class="lf-text">{{store?.statistic?.totalK}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalK20}}
-                                នាក់({{store?.statistic?.totalK20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalK20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalK20T}}
-                                នាក់({{store?.statistic?.totalK20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalK20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalK12}}
-                                នាក់({{store?.statistic?.totalK12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalK12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalK12T}}
-                                នាក់({{store?.statistic?.totalK12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalK12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">សិស្ស ឬនិស្សិត</p>
                               <span class="lf-text">{{store?.statistic?.totalS}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalS20}}
-                                នាក់({{store?.statistic?.totalS20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalS20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalS20T}}
-                                នាក់({{store?.statistic?.totalS20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalS20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalS12}}
-                                នាក់({{store?.statistic?.totalS12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalS12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalS12T}}
-                                នាក់({{store?.statistic?.totalS12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalS12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">ជនបរទេស</p>
                               <span class="lf-text">{{store?.statistic?.totalFor}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalFor20}}
-                                នាក់({{store?.statistic?.totalF20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalF20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalFor20T}}
-                                នាក់({{store?.statistic?.totalF20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalF20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalFor12}}
-                                នាក់({{store?.statistic?.totalF12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalF12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalFor12T}}
-                                នាក់({{store?.statistic?.totalF12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalF12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">អនឡាញ</p>
                               <span class="lf-text">{{store?.statistic?.totalOnline}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalOnline20}}
-                                នាក់({{store?.statistic?.totalO20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalO20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalOnline20T}}
-                                នាក់({{store?.statistic?.totalO20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalO20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalOnline12}}
-                                នាក់({{store?.statistic?.totalO12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalO12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalOnline12T}}
-                                នាក់({{store?.statistic?.totalO12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalO12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">ePayment</p>
                               <span class="lf-text">{{store?.statistic?.totalOnlineEpay}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalOnlineEpay20}}
-                                នាក់({{store?.statistic?.totalEpay20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalEpay20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalOnlineEpay20T}}
-                                នាក់({{store?.statistic?.totalEpay20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalEpay20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalOnlineEpay12}}
-                                នាក់({{store?.statistic?.totalEpay12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalEpay12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalOnlineEpay12T}}
-                                នាក់({{store?.statistic?.totalEpay12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalEpay12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">ប្រពៃណី</p>
                               <span class="lf-text">{{store?.statistic?.totalDirectApply + store?.statistic?.totalMOL}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalDirectApply20}}
-                                នាក់({{store?.statistic?.totalD20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalD20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalDirectApply20T}}
-                                នាក់({{store?.statistic?.totalD20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalD20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalDirectApply12}}
-                                នាក់({{store?.statistic?.totalD12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalD12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalDirectApply12T}}
-                                នាក់({{store?.statistic?.totalD12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalD12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">ពលករសរុប</p>
                               <span class="lf-text">{{store?.statistic?.totalMOL}}
-                                នាក់</span>
+                              នាក់</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalMOL_20}}
-                                នាក់({{store?.statistic?.totalM20Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalM20Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalMOL_20T}}
-                                នាក់({{store?.statistic?.totalM20TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalM20TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
                               <span class="lf-text">{{store?.statistic?.totalMOL_12}}
-                                នាក់({{store?.statistic?.totalM12Amount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalM12Amount}}ច្បាប់)</span>
                               <span>បកប្រែ
                                 {{store?.statistic?.totalMOL_12T}}
-                                នាក់({{store?.statistic?.totalM12TAmount}}ច្បាប់)</span>
+                              នាក់({{store?.statistic?.totalM12TAmount}}ច្បាប់)</span>
                             </div>
-
                             <div class="tt-d">
                               <p class="l-text">សរុបចំនួនប្រាក់ដឹកជញ្ជូន</p>
                               <span class="lf-text">{{totalDeliveryAmount | number}} ៛</span>
                             </div>
-
                           </div>
-
                         </div>
-
                         <div class="bottom-dt">
                           <div class="flex-row">
                             ថ្ងៃ
@@ -420,7 +379,6 @@
                             <div class="line-space"></div>
                           </div>
                           <div class="flex-row">
-
                             , ថ្ងៃទី
                             <div class="line-space"></div>
                             ខែ
@@ -428,7 +386,6 @@
                             ឆ្នាំ
                             <div class="line-space"></div>
                           </div>
-
                           <div class="title" style="margin-bottom: 30px;">មន្ត្រីទទួលបន្ទុក
                           </div>
                         </div>
@@ -437,7 +394,6 @@
                   </td>
                 </tr>
               </tbody>
-
               <tfoot>
                 <tr>
                   <td>
@@ -445,19 +401,15 @@
                   </td>
                 </tr>
               </tfoot>
-
             </table>
-
-            <app-spinner *ngIf="loading"></app-spinner>
-
+            @if (loading) {
+              <app-spinner></app-spinner>
+            }
           </div>
-
         </div>
-
-      </ng-container>
-      <ng-template #loader>
+      } @else {
         <app-spinner></app-spinner>
-      </ng-template>
+      }
       <ng-template #emptyData>
         <div class="doc-ls-items center">
           <h1>EMPTY</h1>

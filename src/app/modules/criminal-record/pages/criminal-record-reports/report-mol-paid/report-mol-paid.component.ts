@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -13,9 +13,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 
 @Component({
-  selector: 'app-report-mol-paid',
-  templateUrl: './report-mol-paid.component.html',
-  styleUrls: ['./report-mol-paid.component.scss']
+    selector: 'app-report-mol-paid',
+    templateUrl: './report-mol-paid.component.html',
+    styleUrls: ['./report-mol-paid.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportMolPaidComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

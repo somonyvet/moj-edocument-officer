@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CONTENT_TYPE, CONTENT_TYPE_ARRAY, TUTORIAL_TYPE, TUTORIAL_TYPE_ARRAY } from 'src/app/dummy/appinfo';
@@ -10,14 +10,16 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { TutorialStore } from '../../../stores/tutorial.store';
 
 @Component({
-  selector: 'app-tutorial-document-form',
-  templateUrl: './tutorial-document-form.component.html',
-  styleUrls: ['./tutorial-document-form.component.scss']
+    selector: 'app-tutorial-document-form',
+    templateUrl: './tutorial-document-form.component.html',
+    styleUrls: ['./tutorial-document-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TutorialDocumentFormComponent implements OnInit, OnDestroy {
   @ViewChild('photoFile') photoFile: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
 
   selectedType: any = null;
   tutorialTypeArray = TUTORIAL_TYPE_ARRAY;
@@ -41,7 +43,7 @@ export class TutorialDocumentFormComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<TutorialDocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: TutorialStore,
     private ds : DataService,
     private auth : AuthStore,
@@ -99,7 +101,7 @@ export class TutorialDocumentFormComponent implements OnInit, OnDestroy {
         title_en: [this.data?.item?.title_en||null, Validators.required],
         description: [this.data?.item?.description?.null],
         description_en: [this.data?.item?.description_en||null],
-        content_array: new FormArray([])
+        content_array: new UntypedFormArray([])
       })
     }
     this.store.selectedType = type;
@@ -223,7 +225,7 @@ export class TutorialDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   addFormArray(type){
-    const formArray = this.form.get('content_array') as FormArray;
+    const formArray = this.form.get('content_array') as UntypedFormArray;
     formArray.push(this.fb.group({
       content: [null],
       content_en: [null],
@@ -232,7 +234,7 @@ export class TutorialDocumentFormComponent implements OnInit, OnDestroy {
   }
 
   removeFormArray(index){
-    const formArray = this.form.get('content_array') as FormArray;
+    const formArray = this.form.get('content_array') as UntypedFormArray;
     formArray.removeAt(index)
     this.selected_photo = this.selected_photo?.filter(f=>f?.index!==index)
   }

@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,9 +21,11 @@ import { debounceTime } from 'rxjs/operators';
 import { DOCUMENT_FLOW_CATEGORY } from '../../../dummy/criminal.dummy';
 
 @Component({
-  selector: 'app-letter-of-condemnation',
-  templateUrl: './letter-of-condemnation.component.html',
-  styleUrls: ['./letter-of-condemnation.component.scss']
+    selector: 'app-letter-of-condemnation',
+    templateUrl: './letter-of-condemnation.component.html',
+    styleUrls: ['./letter-of-condemnation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LetterOfCondemnationComponent implements OnInit, OnDestroy {
 
@@ -41,7 +43,7 @@ export class LetterOfCondemnationComponent implements OnInit, OnDestroy {
   filteredNationality: Observable<Array<any>>;
   nationals: any = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
   STATUS_OBJ = STATUS_OBJ;
@@ -145,7 +147,7 @@ export class LetterOfCondemnationComponent implements OnInit, OnDestroy {
 
   constructor(
     public criminal: CriminalStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

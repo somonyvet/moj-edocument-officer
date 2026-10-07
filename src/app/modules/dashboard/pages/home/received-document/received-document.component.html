@@ -1,337 +1,348 @@
-<ng-template #loadingDoc>
-  <app-document-skeleton-loading></app-document-skeleton-loading>
-</ng-template>
 
-<ng-container *ngIf="!loading else loadingDoc">
-  <div class="doc-preview-wrapper new-ui" *ngIf="isAllowRead;else noPermissionTemplate">
-    <div class="doc-preview-content" *mobxAutorun>
-      <div class="doc-preview-content-action-top">
-        <div class="doc-title" matTooltipClass="tooltipClass"
-          [matTooltip]="store?.headerDocument?.documentNo + ' · ' + store?.headerDocument?.documentTitle">
-          <div class="doc-cover">
-            <img [src]="store?.headerDocument?.photoUrl">
-          </div>
-          <strong>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentTitle}}</strong>
-        </div>
-        <nav mat-tab-nav-bar class="step-navigation-container" disableRipple>
-          <a mat-tab-link>
-            <div class="step-navigation">
-              <ul class="steps" *ngIf="workPlaces?.length > 0">
-                <li [ngClass]="'step-nav'+(i+1)" [class.active]="item?.completed===true"
-                  *ngFor="let item of workPlaces;let i=index">
-                  <span>
-                    <strong>{{item?.name}}</strong>
-                  </span><i></i>
-                </li>
-              </ul>
+
+@if (!loading) {
+  @if (isAllowRead) {
+    <div class="doc-preview-wrapper new-ui">
+      <div class="doc-preview-content" *mobxAutorun>
+        <div class="doc-preview-content-action-top">
+          <div class="doc-title" matTooltipClass="tooltipClass"
+            [matTooltip]="$safeNavigationMigration(store?.headerDocument?.documentNo) + ' · ' + $safeNavigationMigration(store?.headerDocument?.documentTitle)">
+            <div class="doc-cover">
+              <img [src]="$safeNavigationMigration(store?.headerDocument?.photoUrl)">
             </div>
-          </a>
-        </nav>
-        <div class="abs-tr">
-          <div>
-            <a mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass"
-              matTooltip="ស្ថានភាពពិនិត្យឯកសារ" aria-label="Approver listing" [matMenuTriggerFor]="menuC">
-              <mat-icon class="mat-18">grading</mat-icon>
-            </a>
-            <mat-menu #menuC="matMenu" xPosition="before" class="cmat-menu-container">
-              <div class="cmat-menu-c-container">
-                <div class="div-container " *ngFor="let item of  store?.userPermission"
-                  [class.active]="item?.completedTask">
-                  <div class="left-border">
-                    <div class="top-div"></div>
-                    <div class="bottom-div"></div>
-                  </div>
-                  <div class="wraper">
-                    <div class="profile-container">
-                      <div class="profile">
-                        <app-officer-avatar [officerKey]="item?.accountKey"></app-officer-avatar>
-                      </div>
-                    </div>
-                    <div class="info-container">
-                      <div class="info-wraper">
-                        <app-officer-avatar [officerKey]="item?.accountKey" [isTitle]="true">
-                        </app-officer-avatar>
-
-                        <h3>{{item?.profile?.last_name}} {{item?.profile?.first_name}}</h3>
-                        <span class="text">{{item?.profile?.position?.name}}</span>
-                      </div>
-                      <div class="status-container" *ngIf="item?.completedTask">
-                        <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
-                        <p>{{item?.approvedAt?.toDate() | date}}</p>
-                      </div>
-                    </div>
-                  </div>
+            <strong>{{store?.headerDocument?.documentNo}} · {{store?.headerDocument?.documentTitle}}</strong>
+          </div>
+          <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="step-navigation-container" disableRipple>
+            <a mat-tab-link>
+              <div class="step-navigation">
+                @if (workPlaces?.length > 0) {
+                  <ul class="steps">
+                    @for (item of workPlaces; track item; let i = $index) {
+                      <li [ngClass]="'step-nav'+(i+1)" [class.active]="item?.completed===true"
+                        >
+                        <span>
+                          <strong>{{item?.name}}</strong>
+                          </span><i></i>
+                        </li>
+                      }
+                    </ul>
+                  }
                 </div>
-              </div>
-            </mat-menu>
-
-            <a mat-button class="mat-add-new" mat-icon-button [matMenuTriggerFor]="menuA" matTooltipClass="tooltipClass"
-              matTooltip="ឯកភាពលើឯកសារ" aria-label="Approver listing">
-              <mat-icon class="mat-18">people</mat-icon>
-            </a>
-            <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
-              <div class="cmat-menu-content">
-                <ng-container *ngFor="let item of store?.documentStreamOfficers">
-                  <div class="cmat-menu-item">
-                    <app-avatar-officer [description]="item?.permission?.name" [checkIcon]="item?.completedTask"
-                      style="width: 100%;" [officerKey]="item?.accountKey"></app-avatar-officer>
-                  </div>
-                </ng-container>
-                <mat-divider style="margin-top: 12px; margin-bottom: 12px;"></mat-divider>
-                <ng-container *ngFor="let item of workPlacesParentDoc">
-                  <div class="cmat-menu-item">
-                    <div class="info">
-                      <p class="name">
-                        {{item?.name}}
-                      </p>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </mat-menu>
-            <a mat-button class="mat-add-new" mat-icon-button class="mat-add-new" [matMenuTriggerFor]="menuB"
-              matTooltipClass="tooltipClass" matTooltip="បានចូលមើលឯកសារ" aria-label="Viewer listing">
-              <mat-icon class="mat-18">visibility</mat-icon>
-            </a>
-            <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
-              <div class="cmat-menu-content">
-                <ng-container *ngFor="let item of store?.documentViewersData">
-                  <div class="cmat-menu-item">
-                    <app-avatar-officer [officerKey]="item?.key"></app-avatar-officer>
-                  </div>
-                </ng-container>
-              </div>
-            </mat-menu>
-
-            <a mat-button mat-icon-button (click)="print()" class="mat-add-new" matTooltipClass="tooltipClass"
-              matTooltip="បោះពុម្ព" aria-label="Print Document">
-              <mat-icon class="mat-18">print</mat-icon>
-            </a>
-
-            <a mat-button mat-icon-button class="mat-add-new"
-              *ngIf="store?.headerDocument?.approvedByKeys?.length === 0 && store?.headerDocument?.final"
-              (click)="_onAccount()" matTooltipClass="tooltipClass" matTooltip="ដល់សិទ្ធិលើការធ្វើរបាយការណ៍"
-              aria-label="Approver listing">
-              <mat-icon class="mat-18">person_add</mat-icon>
-            </a>
-
-            <!-- <a mat-button mat-icon-button class="mat-add-new" *ngIf="store?.headerDocument?.doc_parent"
-              (click)="onEdit()" matTooltipClass="tooltipClass" matTooltip="ចូលកែប្រែ" aria-label="Print Document">
-              <mat-icon class="mat-18">edit</mat-icon>
-            </a> -->
-
-            <a mat-button mat-icon-button class="mat-add-new"
-              *ngIf="store?.headerDocument?.doc_parent && store?.headerDocument?.doc_status?.key===1"
-              (click)="_onDelete()" matTooltipClass="tooltipClass" matTooltip="លុបឯកសារ" aria-label="Print Document">
-              <mat-icon class="mat-18">delete</mat-icon>
-            </a>
-
-            <a mat-button mat-icon-button class="icon-container mat-add-new" matTooltipClass="tooltipClass"
-              matTooltip="មតិ" (click)="openSideComment = !openSideComment">
-              <mat-icon>chat</mat-icon>
-            </a>
-          </div>
-
-
-        </div>
-      </div>
-
-      <div class="sticky-action-head" *ngIf="canCreateDocument">
-        <div class="wrapper">
-          <div class="memo">
-            <aside class="special-memo asm-ma m15 cur" *ngIf="blockNoteItem?.isShowBlockNote">
-              <ng-container *ngIf="!blockNoteItem?.blockNoteDoc">
-                <strong class="name">កំណត់សម្គាល់:</strong>
-                <span class="memo">សូមរង់ចាំលោកអនុប្រធាននាយកដ្ឋានជូនចំណាត់ការជាមុនសិន</span>
-              </ng-container>
-              <ng-container *ngIf="blockNoteItem?.blockNoteDoc">
-                <strong class="name">ចំណាត់ការអនុវត្ត:</strong>
-                <span class="memo">{{blockNoteItem?.blockNoteDoc?.description}}</span>
-              </ng-container>
-            </aside>
-          </div>
-          <div></div>
-          <div class="action-btn">
-            <!-- <div class="doc-btn-action" style="margin:0">
-              <button  mat-button class="enbutton primary"
-                (click)="createBlockNote(blockNoteItem?.blockNoteDoc || null)">
-                កំណត់ចំណាត់ការអនុវត្ត
-              </button>
-            </div> -->
-            <div class="doc-btn-action" style="margin:0" *ngIf="blockNoteItem?.isOwnDepartment">
-              <button [disabled]="blockNoteItem?.blockNoteDoc" mat-button class="enbutton primary"
-                [ngClass]="!blockNoteItem?.blockNoteDoc?'disabled':''"
-                (click)="createBlockNote(blockNoteItem?.blockNoteDoc || null)">
-                កំណត់ចំណាត់ការអនុវត្ត
-              </button>
-            </div>
-            <div class="doc-btn-action" style="margin:0" *ngIf="!blockNoteItem?.isOwnDepartment">
-              <button
-                [disabled]="checkDocRef || (blockNoteItem && !blockNoteItem?.blockNoteDoc && !blockNoteItem?.haveBlockNoteExist)"
-                mat-button class="enbutton primary" [ngClass]="checkDocRef?'disabled':''" (click)="receivedMemo()">
-                កំណត់បង្ហាញឯកសារចូល
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- <div class="doc-form-item-attachment doc-p-header" *ngIf="!loadingHeader && store?.selectedDocument">
-        <div class="lb-hd">
-          <span>{{store?.selectedDocument?.documentNo}} ·
-            {{store?.selectedDocument?.documentTitle}}</span>
-          <mat-icon *ngIf="store?.selectedDocument?.doc_status?.key===99">check_circle</mat-icon>
-        </div>
-        <a mat-button (click)="_onPreviewDocument()">
-          <mat-icon class="mat-18">launch</mat-icon>
-          <span>មើលឯកសារចូល</span>
-        </a>
-      </div> -->
-
-      <div class="doc-form-template-wrapper no-height">
-        <div class="doc-template-wrapper print-preview no-top-bt">
-          <div class="doc-form-wrap-content">
-            <div class="doc-form-container nm">
-              <div class="doc-form-block">
-                <div class="doc-form-item" style="margin: 12px 0 0;"
-                  *ngIf="imageAttachments?.length>0 || docAttachments?.length>0">
-                  <h3>ឯកសារយោង</h3>
-                  <div class="attachments-wrap" *ngIf="imageAttachments?.length>0">
-                    <ng-container *ngFor="let item of imageAttachments">
-                      <div class="img-box">
-                        <img [src]="item?.downloadUrl" alt="">
-                      </div>
-                    </ng-container>
-                  </div>
-                  <div class="attachments-wrap" *ngIf="docAttachments?.length>0">
-                    <ng-container *ngFor="let item of docAttachments">
-                      <div class="doc-box">
-                        <a [href]="item?.downloadUrl" target="_blank">{{item?.name}}</a>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="doc-template-wrapper print-preview" id="print">
-        <table style="margin: 0 auto;">
-          <tbody>
-            <tr>
-              <td style="padding: 0; margin: 0;">
-                <div class="page">
-                  <div class="doc-template-page">
-                    <div class="doc-template-row">
-                      <div class="bl-title-left">
-                        <ng-container *ngFor="let item of store?.headerDocument?.workplaces|workplacesReport">
-                          <p>{{item.name}}</p>
-                        </ng-container>
-                        <p>លេខ៖
-                          <span>
-                            {{store?.documentDataDoc?.documentNo}}
-                          </span>
-                        </p>
-                        <p class="star">3</p>
-                      </div>
-                      <div class="bl-space"></div>
-                      <div class="bl-title-right">
-                        <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
-                        <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                        <p class="star">3</p>
-                      </div>
-                    </div>
-
-                    <div class="doc-template-row doc-template-block">
-                      <div [innerHtml]="store?.documentDataDoc?.title | safe:'html'"></div>
-                    </div>
-
-                    <div class="doc-template-row" *ngFor="let item of store?.documentDataDoc?.header;let i = index;">
-                      <ng-container *ngIf="item?.type?.key === 0">
-                        <div [innerHtml]="item?.content | safe:'html'" style="width: 100%;"></div>
-                      </ng-container>
-                      <ng-container *ngIf="item?.type?.key !== 6 && item?.type?.key !== 0">
-
-                        <div *ngIf="item?.type?.key !== 18" style="width: 118px; flex:none"
-                          [innerHtml]="item?.contentTitle | safe:'html'"></div>
-
-                        <div *ngIf="item?.type?.key === 18" style="width: 108px; flex:none"
-                          [innerHtml]="item?.contentTitle | safe:'html'"></div>
-
-                        <div *ngIf="item?.type?.key !== 18" class="sign-conent font-size18"
-                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+              </a>
+            </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+            <div class="abs-tr">
+              <div>
+                <a mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass"
+                  matTooltip="ស្ថានភាពពិនិត្យឯកសារ" aria-label="Approver listing" [matMenuTriggerFor]="menuC">
+                  <mat-icon class="mat-18">grading</mat-icon>
+                </a>
+                <mat-menu #menuC="matMenu" xPosition="before" class="cmat-menu-container">
+                  <div class="cmat-menu-c-container">
+                    @for (item of  store?.userPermission; track item) {
+                      <div class="div-container "
+                        [class.active]="item?.completedTask">
+                        <div class="left-border">
+                          <div class="top-div"></div>
+                          <div class="bottom-div"></div>
                         </div>
-
-                        <div *ngIf="item?.type?.key == 18" class="sign-conent font-size18"
-                          style="padding-right: 10px; max-height: 30px; line-height: 27px; font-family: 'Moul';">
-                          ✹
-                        </div>
-
-                        <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
-                          style="width: 100%;" [innerHtml]="item?.content | safe:'html'"></div>
-                      </ng-container>
-                      <ng-container *ngIf="item?.type?.key === 6 && item?.content">
-                        <div style="width: 118px; flex:none" [innerHtml]="item?.contentTitle | safe:'html'"></div>
-                        <div class="sign-conent font-size18"
-                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
-                        </div>
-                        <div [ngStyle]="gStyle(item?.customStyles)" class="content-container font-size18"
-                          style="width: 100%;" [innerHtml]="item?.content | safe:'html'"></div>
-                      </ng-container>
-                    </div>
-
-
-                    <div class="doc-template-row" *ngFor="let item of groupSections;let i = index;">
-
-                      <ng-container *ngIf="item?.type?.key === 7 || item?.type?.key === 8">
-                        <div style="width: 118px; flex:none" [innerHtml]="item?.contentTitle | safe:'html'"></div>
-                        <div class="sign-conent font-size18"
-                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
-                        </div>
-                        <div [innerHtml]="item?.content | safe:'html'"></div>
-                      </ng-container>
-
-                      <ng-container *ngIf="item.type.key === 10">
-                        <div>
-                          <div *ngIf="item?.remark" [innerHtml]="item?.remark | safe:'html'">
+                        <div class="wraper">
+                          <div class="profile-container">
+                            <div class="profile">
+                              <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)"></app-officer-avatar>
+                            </div>
                           </div>
+                          <div class="info-container">
+                            <div class="info-wraper">
+                              <app-officer-avatar [officerKey]="$safeNavigationMigration(item?.accountKey)" [isTitle]="true">
+                              </app-officer-avatar>
+                              <h3>{{item?.profile?.last_name}} {{item?.profile?.first_name}}</h3>
+                              <span class="text">{{item?.profile?.position?.name}}</span>
+                            </div>
+                            @if (item?.completedTask) {
+                              <div class="status-container">
+                                <p class="text">{{item?.permission?.key === 3?"បានពិនិត្យ" : "បានឯកភាព"}}</p>
+                                <p>{{$safeNavigationMigration(item?.approvedAt?.toDate()) | date}}</p>
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </mat-menu>
+                <a mat-button class="mat-add-new" mat-icon-button [matMenuTriggerFor]="menuA" matTooltipClass="tooltipClass"
+                  matTooltip="ឯកភាពលើឯកសារ" aria-label="Approver listing">
+                  <mat-icon class="mat-18">people</mat-icon>
+                </a>
+                <mat-menu #menuA="matMenu" xPosition="before" class="cmat-menu-container">
+                  <div class="cmat-menu-content">
+                    @for (item of store?.documentStreamOfficers; track item) {
+                      <div class="cmat-menu-item">
+                        <app-avatar-officer [description]="$safeNavigationMigration(item?.permission?.name)" [checkIcon]="$safeNavigationMigration(item?.completedTask)"
+                        style="width: 100%;" [officerKey]="$safeNavigationMigration(item?.accountKey)"></app-avatar-officer>
+                      </div>
+                    }
+                    <mat-divider style="margin-top: 12px; margin-bottom: 12px;"></mat-divider>
+                    @for (item of workPlacesParentDoc; track item) {
+                      <div class="cmat-menu-item">
+                        <div class="info">
+                          <p class="name">
+                            {{item?.name}}
+                          </p>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </mat-menu>
+                <a mat-button class="mat-add-new" mat-icon-button class="mat-add-new" [matMenuTriggerFor]="menuB"
+                  matTooltipClass="tooltipClass" matTooltip="បានចូលមើលឯកសារ" aria-label="Viewer listing">
+                  <mat-icon class="mat-18">visibility</mat-icon>
+                </a>
+                <mat-menu #menuB="matMenu" xPosition="before" class="cmat-menu-container">
+                  <div class="cmat-menu-content">
+                    @for (item of store?.documentViewersData; track item) {
+                      <div class="cmat-menu-item">
+                        <app-avatar-officer [officerKey]="$safeNavigationMigration(item?.key)"></app-avatar-officer>
+                      </div>
+                    }
+                  </div>
+                </mat-menu>
+                <a mat-icon-button (click)="print()" class="mat-add-new" matTooltipClass="tooltipClass"
+                  matTooltip="បោះពុម្ព" aria-label="Print Document">
+                  <mat-icon class="mat-18">print</mat-icon>
+                </a>
+                @if (store?.headerDocument?.approvedByKeys?.length === 0 && store?.headerDocument?.final) {
+                  <a mat-icon-button class="mat-add-new"
+                    (click)="_onAccount()" matTooltipClass="tooltipClass" matTooltip="ដល់សិទ្ធិលើការធ្វើរបាយការណ៍"
+                    aria-label="Approver listing">
+                    <mat-icon class="mat-18">person_add</mat-icon>
+                  </a>
+                }
+                <!-- <a mat-icon-button class="mat-add-new" *ngIf="store?.headerDocument?.doc_parent"
+                (click)="onEdit()" matTooltipClass="tooltipClass" matTooltip="ចូលកែប្រែ" aria-label="Print Document">
+                <mat-icon class="mat-18">edit</mat-icon>
+              </a> -->
+              @if (store?.headerDocument?.doc_parent && store?.headerDocument?.doc_status?.key===1) {
+                <a mat-icon-button class="mat-add-new"
+                  (click)="_onDelete()" matTooltipClass="tooltipClass" matTooltip="លុបឯកសារ" aria-label="Print Document">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                </a>
+              }
+              <a mat-icon-button class="icon-container mat-add-new" matTooltipClass="tooltipClass"
+                matTooltip="មតិ" (click)="openSideComment = !openSideComment">
+                <mat-icon>chat</mat-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+        @if (canCreateDocument) {
+          <div class="sticky-action-head">
+            <div class="wrapper">
+              <div class="memo">
+                @if (blockNoteItem?.isShowBlockNote) {
+                  <aside class="special-memo asm-ma m15 cur">
+                    @if (!blockNoteItem?.blockNoteDoc) {
+                      <strong class="name">កំណត់សម្គាល់:</strong>
+                      <span class="memo">សូមរង់ចាំលោកអនុប្រធាននាយកដ្ឋានជូនចំណាត់ការជាមុនសិន</span>
+                    }
+                    @if (blockNoteItem?.blockNoteDoc) {
+                      <strong class="name">ចំណាត់ការអនុវត្ត:</strong>
+                      <span class="memo">{{blockNoteItem?.blockNoteDoc?.description}}</span>
+                    }
+                  </aside>
+                }
+              </div>
+              <div></div>
+              <div class="action-btn">
+                <!-- <div class="doc-btn-action" style="margin:0">
+                <button  mat-button class="enbutton primary"
+                  (click)="createBlockNote(blockNoteItem?.blockNoteDoc || null)">
+                  កំណត់ចំណាត់ការអនុវត្ត
+                </button>
+              </div> -->
+              @if (blockNoteItem?.isOwnDepartment) {
+                <div class="doc-btn-action" style="margin:0">
+                  <button [disabled]="$safeNavigationMigration(blockNoteItem?.blockNoteDoc)" mat-button class="enbutton primary"
+                    [ngClass]="!blockNoteItem?.blockNoteDoc?'disabled':''"
+                    (click)="createBlockNote(blockNoteItem?.blockNoteDoc || null)">
+                    កំណត់ចំណាត់ការអនុវត្ត
+                  </button>
+                </div>
+              }
+              @if (!blockNoteItem?.isOwnDepartment) {
+                <div class="doc-btn-action" style="margin:0">
+                  <button
+                    [disabled]="checkDocRef || (blockNoteItem && !blockNoteItem?.blockNoteDoc && !blockNoteItem?.haveBlockNoteExist)"
+                    mat-button class="enbutton primary" [ngClass]="checkDocRef?'disabled':''" (click)="receivedMemo()">
+                    កំណត់បង្ហាញឯកសារចូល
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+      <!-- <div class="doc-form-item-attachment doc-p-header" *ngIf="!loadingHeader && store?.selectedDocument">
+      <div class="lb-hd">
+        <span>{{store?.selectedDocument?.documentNo}} ·
+        {{store?.selectedDocument?.documentTitle}}</span>
+        <mat-icon *ngIf="store?.selectedDocument?.doc_status?.key===99">check_circle</mat-icon>
+      </div>
+      <a mat-button (click)="_onPreviewDocument()">
+        <mat-icon class="mat-18">launch</mat-icon>
+        <span>មើលឯកសារចូល</span>
+      </a>
+    </div> -->
+    <div class="doc-form-template-wrapper no-height">
+      <div class="doc-template-wrapper print-preview no-top-bt">
+        <div class="doc-form-wrap-content">
+          <div class="doc-form-container nm">
+            <div class="doc-form-block">
+              @if (imageAttachments?.length>0 || docAttachments?.length>0) {
+                <div class="doc-form-item" style="margin: 12px 0 0;"
+                  >
+                  <h3>ឯកសារយោង</h3>
+                  @if (imageAttachments?.length>0) {
+                    <div class="attachments-wrap">
+                      @for (item of imageAttachments; track item) {
+                        <div class="img-box">
+                          <img [src]="$safeNavigationMigration(item?.downloadUrl)" alt="">
+                        </div>
+                      }
+                    </div>
+                  }
+                  @if (docAttachments?.length>0) {
+                    <div class="attachments-wrap">
+                      @for (item of docAttachments; track item) {
+                        <div class="doc-box">
+                          <a [href]="$safeNavigationMigration(item?.downloadUrl)" target="_blank">{{item?.name}}</a>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-template-wrapper print-preview" id="print">
+      <table style="margin: 0 auto;">
+        <tbody>
+          <tr>
+            <td style="padding: 0; margin: 0;">
+              <div class="page">
+                <div class="doc-template-page">
+                  <div class="doc-template-row">
+                    <div class="bl-title-left">
+                      @for (item of $safeNavigationMigration(store?.headerDocument?.workplaces)|workplacesReport; track item) {
+                        <p>{{item.name}}</p>
+                      }
+                      <p>លេខ៖
+                        <span>
+                          {{store?.documentDataDoc?.documentNo}}
+                        </span>
+                      </p>
+                      <p class="star">3</p>
+                    </div>
+                    <div class="bl-space"></div>
+                    <div class="bl-title-right">
+                      <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+                      <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                      <p class="star">3</p>
+                    </div>
+                  </div>
+                  <div class="doc-template-row doc-template-block">
+                    <div [innerHtml]="$safeNavigationMigration(store?.documentDataDoc?.title) | safe:'html'"></div>
+                  </div>
+                  @for (item of store?.documentDataDoc?.header; track item; let i = $index) {
+                    <div class="doc-template-row">
+                      @if (item?.type?.key === 0) {
+                        <div [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'" style="width: 100%;"></div>
+                      }
+                      @if (item?.type?.key !== 6 && item?.type?.key !== 0) {
+                        @if (item?.type?.key !== 18) {
+                          <div style="width: 118px; flex:none"
+                          [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
+                        }
+                        @if (item?.type?.key === 18) {
+                          <div style="width: 108px; flex:none"
+                          [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
+                        }
+                        @if (item?.type?.key !== 18) {
+                          <div class="sign-conent font-size18"
+                            style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                          </div>
+                        }
+                        @if (item?.type?.key == 18) {
+                          <div class="sign-conent font-size18"
+                            style="padding-right: 10px; max-height: 30px; line-height: 27px; font-family: 'Moul';">
+                            ✹
+                          </div>
+                        }
+                        <div [ngStyle]="gStyle($safeNavigationMigration(item?.customStyles))" class="content-container font-size18"
+                        style="width: 100%;" [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></div>
+                      }
+                      @if (item?.type?.key === 6 && item?.content) {
+                        <div style="width: 118px; flex:none" [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                        </div>
+                        <div [ngStyle]="gStyle($safeNavigationMigration(item?.customStyles))" class="content-container font-size18"
+                        style="width: 100%;" [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></div>
+                      }
+                    </div>
+                  }
+                  @for (item of groupSections; track item; let i = $index) {
+                    <div class="doc-template-row">
+                      @if (item?.type?.key === 7 || item?.type?.key === 8) {
+                        <div style="width: 118px; flex:none" [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
+                        <div class="sign-conent font-size18"
+                          style="padding-right: 10px; max-height: 30px; line-height: 27px;">:
+                        </div>
+                        <div [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></div>
+                      }
+                      @if (item.type.key === 10) {
+                        <div>
+                          @if (item?.remark) {
+                            <div [innerHtml]="$safeNavigationMigration(item?.remark) | safe:'html'">
+                            </div>
+                          }
                           <div class="doc-template-row">
-                            <div [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                            <div [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
                             <div>
                               {{item?.office?.name}}
                             </div>
                           </div>
-                          <p *ngIf="item?.content" [innerHtml]="item?.content| safe:'html'"></p>
-
+                          @if (item?.content) {
+                            <p [innerHtml]="$safeNavigationMigration(item?.content)| safe:'html'"></p>
+                          }
                         </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="item.type.key === 11">
-                        <div [innerHtml]="item?.content | safe:'html'"></div>
-                      </ng-container>
-
-                      <ng-container *ngIf="item.type.key === 12">
-                        <div style="white-space: nowrap;" [innerHtml]="item?.contentTitle | safe:'html'"></div>
+                      }
+                      @if (item.type.key === 11) {
+                        <div [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></div>
+                      }
+                      @if (item.type.key === 12) {
+                        <div style="white-space: nowrap;" [innerHtml]="$safeNavigationMigration(item?.contentTitle) | safe:'html'"></div>
                         <div>
-                          <ng-container *ngFor="let f of item?.office">
+                          @for (f of item?.office; track f) {
                             {{f?.name}}
-                          </ng-container>
+                          }
                         </div>
-                      </ng-container>
-
+                      }
                     </div>
-
+                  }
+                  @for (item of store?.documentDataDoc?.footer; track item; let i = $index) {
                     <div class="doc-template-row doc-template-block"
-                      *ngFor="let item of store?.documentDataDoc?.footer;let i = index;">
-                      <ng-container *ngIf="item.type.key === 15">
+                      >
+                      @if (item.type.key === 15) {
                         <div class="doc-template-row">
                           <div style="width: 100%;" [innerHtml]="item?.contentTitle??'' | safe:'html'"></div>
                         </div>
-                      </ng-container>
-                      <ng-container *ngIf="item.type.key === 14">
+                      }
+                      @if (item.type.key === 14) {
                         <div class="doc-template-row">
                           <table class="doc-table-footer">
                             <tr>
@@ -339,27 +350,29 @@
                                 <div class="tb-title-text">
                                   <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
                                   </div>
-                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
-                                    [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
-                                  </app-signature-view>
+                                  @if (store?.userPermissionCompeted) {
+                                    <app-signature-view
+                                      [data]="$safeNavigationMigration(item?.approvedByLeftBox)" [dataArray]="$safeNavigationMigration(store?.userPermissionCompeted)">
+                                    </app-signature-view>
+                                  }
                                 </div>
                               </td>
                               <td>
                                 <div class="tb-title-text">
                                   <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
                                   </div>
-                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
-                                    [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
-                                  </app-signature-view>
-
+                                  @if (store?.userPermissionCompeted) {
+                                    <app-signature-view
+                                      [data]="$safeNavigationMigration(item?.approvedByRightBox)" [dataArray]="$safeNavigationMigration(store?.userPermissionCompeted)">
+                                    </app-signature-view>
+                                  }
                                 </div>
                               </td>
                             </tr>
                           </table>
                         </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="item.type.key === 13">
+                      }
+                      @if (item.type.key === 13) {
                         <div class="doc-template-row">
                           <table class="doc-table-footer">
                             <tr>
@@ -367,85 +380,87 @@
                                 <div class="tb-title-text">
                                   <div [innerHtml]="item?.contentTitleLeft??'' | safe:'html'">
                                   </div>
-                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
-                                    [data]="item?.approvedByLeftBox" [dataArray]="store?.userPermissionCompeted">
-                                  </app-signature-view>
-
+                                  @if (store?.userPermissionCompeted) {
+                                    <app-signature-view
+                                      [data]="$safeNavigationMigration(item?.approvedByLeftBox)" [dataArray]="$safeNavigationMigration(store?.userPermissionCompeted)">
+                                    </app-signature-view>
+                                  }
                                 </div>
                               </td>
                               <td style="border: none;">
                                 <div class="tb-title-text">
                                   <div [innerHtml]="item?.contentTitleRight??'' | safe:'html'">
                                   </div>
-                                  <app-signature-view *ngIf="store?.userPermissionCompeted"
-                                    [data]="item?.approvedByRightBox" [dataArray]="store?.userPermissionCompeted">
-                                  </app-signature-view>
-
+                                  @if (store?.userPermissionCompeted) {
+                                    <app-signature-view
+                                      [data]="$safeNavigationMigration(item?.approvedByRightBox)" [dataArray]="$safeNavigationMigration(store?.userPermissionCompeted)">
+                                    </app-signature-view>
+                                  }
                                 </div>
                               </td>
                             </tr>
                           </table>
                         </div>
-                      </ng-container>
-
-                      <ng-container *ngIf="item.type.key === 16">
+                      }
+                      @if (item.type.key === 16) {
                         <div [innerHtml]="item?.content??'' | safe:'html'"></div>
-                      </ng-container>
-
+                      }
                     </div>
-
-                    <div class="" style="display: flex; justify-content: flex-end;" *ngIf="store?.documentDataDoc">
-                      <ngx-kjua [text]="store?.documentDataDoc?.key" [renderAsync]="false" [render]="'svg'"
+                  }
+                  @if (store?.documentDataDoc) {
+                    <div class="" style="display: flex; justify-content: flex-end;">
+                      <ngx-kjua [text]="$safeNavigationMigration(store?.documentDataDoc?.key)" [renderAsync]="false" [render]="'svg'"
                         [crisp]="true" [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'"
                         [back]="'#fff'" [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50"
                         [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]=""
                         [cssClass]="'image-auto'">
                       </ngx-kjua>
                     </div>
-
-                  </div>
+                  }
                 </div>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td>
-                <div class="page-footer-space"></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-
-      </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <div class="page-footer-space"></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
-    <div class="doc-preview-comment" [ngStyle]="setStyleSidebar(openSideComment)">
-
-      <div class="doc-preview-comment-header">
-        <div class="doc-preview-comment-row doc-preview-comment-row-icon">
-          <button style="background-color:transparent; margin:0" (click)="openSideComment = !openSideComment"
-            type="button" mat-button mat-icon-button class="icon-container">
-            <ion-icon style="width:26px ; height: 26px" name="close-outline"></ion-icon>
-          </button>
-          <div style="flex:1"></div>
-
-        </div>
-        <mat-divider></mat-divider>
-        <div class="doc-preview-comment-row">
-          <div class="left-box-dbc" *ngIf="!loadingHeader">
+  </div>
+  <div class="doc-preview-comment" [ngStyle]="setStyleSidebar(openSideComment)">
+    <div class="doc-preview-comment-header">
+      <div class="doc-preview-comment-row doc-preview-comment-row-icon">
+        <button style="background-color:transparent; margin:0" (click)="openSideComment = !openSideComment"
+          type="button" mat-icon-button class="icon-container">
+          <ion-icon style="width:26px ; height: 26px" name="close-outline"></ion-icon>
+        </button>
+        <div style="flex:1"></div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="doc-preview-comment-row">
+        @if (!loadingHeader) {
+          <div class="left-box-dbc">
             <div class="name">
               <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
-              <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
+              <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(store?.documentDataDoc?.created_at?.toDate())|date:'mediumDate'}}
               </p>
             </div>
-            <app-avatar-officer *ngIf="!loading" [officerKey]="store?.documentDataDoc?.created_by">
-            </app-avatar-officer>
+            @if (!loading) {
+              <app-avatar-officer [officerKey]="$safeNavigationMigration(store?.documentDataDoc?.created_by)">
+              </app-avatar-officer>
+            }
           </div>
-        </div>
-
+        }
+      </div>
+      @if (store?.selectedDocument) {
         <a class="doc-preview doc-preview-btn"
-          [routerLink]="['/documents/form/'+ store?.selectedDocument?.key +'/'+ store?.selectedDocument?.workplace?.key +'/design/']"
-          *ngIf="store?.selectedDocument">
+          [routerLink]="['/documents/form/'+ $safeNavigationMigration(store?.selectedDocument?.key) +'/'+ $safeNavigationMigration(store?.selectedDocument?.workplace?.key) +'/design/']"
+          >
           <button mat-icon-button class="btn-ico">
             <mat-icon class="mat-18">history_edu</mat-icon>
           </button>
@@ -453,42 +468,54 @@
             <span>{{store?.selectedDocument?.documentNo}} . </span>
             <span>{{store?.selectedDocument?.documentTitle}}</span>
             <p class="ct">
-              បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.selectedDocument?.created_at?.toDate()|date:'mediumDate'}}
+              បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(store?.selectedDocument?.created_at?.toDate())|date:'mediumDate'}}
             </p>
           </div>
-
           <button mat-button>
             មើលឯកសារ
           </button>
         </a>
-
+      }
+      @if (store?.statistic?.total_comments>0 || store?.statistic?.total_comments>0) {
         <div class="doc-preview-comment-row"
-          *ngIf="store?.statistic?.total_comments>0 || store?.statistic?.total_comments>0">
+          >
           <div class="note-cms">
-            <span *ngIf="store?.statistic?.total_comments>0">
-              {{store?.statistic?.total_comments}} មតិ
-            </span>
-            <span *ngIf="store?.statistic?.total_visitor>0">{{store?.statistic?.total_visitor}}
+            @if (store?.statistic?.total_comments>0) {
+              <span>
+                {{store?.statistic?.total_comments}} មតិ
+              </span>
+            }
+            @if (store?.statistic?.total_visitor>0) {
+              <span>{{store?.statistic?.total_visitor}}
               នាក់បានឃើញ</span>
+            }
           </div>
           <div class="flex1"></div>
           <div class="note-cms">
-            <span *ngIf="store?.statistic?.total_view>0">ចូលមើល: {{store?.statistic?.total_view}}
-              ដង
-            </span>
+            @if (store?.statistic?.total_view>0) {
+              <span>ចូលមើល: {{store?.statistic?.total_view}}
+                ដង
+              </span>
+            }
           </div>
         </div>
-      </div>
-      <nav class="cs-tab-group-nav" mat-tab-nav-bar>
-        <a mat-tab-link *ngFor="let link of tab" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-          [active]="rla.isActive">{{link.label}}</a>
-      </nav>
-      <div class="doc-preview-comment-box">
-        <router-outlet></router-outlet>
-      </div>
+      }
+    </div>
+    <nav class="cs-tab-group-nav" mat-tab-nav-bar [tabPanel]="tabPanel2">
+      @for (link of tab; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+      }
+    </nav>
+<mat-tab-nav-panel #tabPanel2></mat-tab-nav-panel>
+    <div class="doc-preview-comment-box">
+      <router-outlet></router-outlet>
     </div>
   </div>
-  <ng-template #noPermissionTemplate>
-    <app-document-assess-denied></app-document-assess-denied>
-  </ng-template>
-</ng-container>
+</div>
+} @else {
+  <app-document-assess-denied></app-document-assess-denied>
+}
+} @else {
+  <app-document-skeleton-loading></app-document-skeleton-loading>
+}

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, merge, of, fromEvent } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-net-info',
-  templateUrl: './net-info.component.html',
-  styleUrls: ['./net-info.component.scss']
+    selector: 'app-net-info',
+    templateUrl: './net-info.component.html',
+    styleUrls: ['./net-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NetInfoComponent implements OnInit {
 

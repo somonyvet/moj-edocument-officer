@@ -1,11 +1,13 @@
 import { AuthStore } from 'src/app/stores/auth.store';
-import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { IComment } from 'src/app/interfaces/document/document.interface';
 
 @Component({
-  selector: 'app-hr-comment-listing',
-  templateUrl: './hr-comment-listing.component.html',
-  styleUrls: ['./hr-comment-listing.component.scss']
+    selector: 'app-hr-comment-listing',
+    templateUrl: './hr-comment-listing.component.html',
+    styleUrls: ['./hr-comment-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HrCommentListingComponent implements OnInit {
   @Input() data: any;

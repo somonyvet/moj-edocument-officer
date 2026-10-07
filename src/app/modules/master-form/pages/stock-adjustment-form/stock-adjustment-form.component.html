@@ -1,169 +1,196 @@
 <form [formGroup]="form" class="master-container">
-    <div class="mas-header">
-        <div class="mas-head">
-            <div class="mas-title">
-                <div class="site-map">
-                    <a [routerLink]="[backUrl]">{{page?.name}}</a>
-                    <span class="material-icons">
-                        arrow_right
-                    </span>
-                    <span>{{title}}</span>
-                </div>
-                <h4>{{title}}</h4>
-            </div>
-
+  <div class="mas-header">
+    <div class="mas-head">
+      <div class="mas-title">
+        <div class="site-map">
+          <a [routerLink]="[backUrl]">{{page?.name}}</a>
+          <span class="material-icons">
+            arrow_right
+          </span>
+          <span>{{title}}</span>
         </div>
-        <div class="mas-head-form">
-            <mat-form-field appearance="outline">
-                <mat-label>Adjustment Type</mat-label>
-                <mat-select #inputRef cdkFocusInitial matInputAutofocus formControlName="adjustmentType"
-                    [compareWith]="ds?.compareObject">
-                    <mat-option [value]="item" *ngFor="let item of ADJUSTMENT_TYPES">{{item?.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Branch</mat-label>
-                <input type="text" required placeholder="Select branch" matInput formControlName="branch"
-                    [matAutocomplete]="autoBranch">
-                <mat-autocomplete [displayWith]="ds.displayName" autoActiveFirstOption #autoBranch="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredBranchOptions | async;let i=index" [value]="item">
-                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['branch'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['branch'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Ref No</mat-label>
-                <input formControlName="ref" matInput placeholder="Enter reference number">
-                <mat-error *ngIf="form.controls['ref'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Issue Date</mat-label>
-                <input formControlName="issueDate" [matDatepicker]="pickerIssueDate" matInput
-                    placeholder="Enter issue date">
-                <mat-datepicker-toggle matSuffix [for]="pickerIssueDate"></mat-datepicker-toggle>
-                <mat-datepicker #pickerIssueDate></mat-datepicker>
-                <mat-error *ngIf="form.controls['issueDate'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Note</mat-label>
-                <textarea rows="6" formControlName="memo" matInput placeholder=""></textarea>
-            </mat-form-field>
-        </div>
-
-        <div class="mas-footer-form" *ngIf="IS_HOLD && !LOADING">
-            <p class="memo">
-                You can add images, contact info and other details after you create the
-                Page.
-            </p>
-            <app-primary-button label="Save as Draft" class="mat-default" [process]="SAVE_DRAFT"
-                (onPress)="_release(form.value,MOVEMENT_STATUS_OBJ.HOLD)">
-            </app-primary-button>
-            <app-primary-button label="Save as Submit" [process]="SAVE_SUBMIT"
-                (onPress)="_release(form.value,MOVEMENT_STATUS_OBJ.RELEASED)">
-            </app-primary-button>
-        </div>
+        <h4>{{title}}</h4>
+      </div>
 
     </div>
-    <div class="mas-viewer">
-        <div class="mas-tb" *ngIf="!LOADING">
-            <div class="mas-tb-header">
-                <button type="button" mat-button mat-icon-button [routerLink]="[backUrl]">
-                    <mat-icon>arrow_back</mat-icon>
-                </button>
-                <h4>Adjustment's Items</h4>
-            </div>
-            <table *ngIf="store?.adjustmentItems?.length>0" class="as-table-wrapper">
-                <thead>
-                    <tr>
-                        <th class="center">
-                            No
-                        </th>
-                        <th class="left">
-                            Name
-                        </th>
-                        <th class="left">
-                            QTY
-                        </th>
-                        <th class="left">
-                            From Number
-                        </th>
-                        <th class="left">
-                            To Number
-                        </th>
-                        <th *ngIf="IS_HOLD">
-
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let item of store?.adjustmentItems; let i = index">
-                        <tr>
-                            <td class="center" style="width: 64px;">
-                                {{i+1}}
-                            </td>
-                            <td>
-                                {{item?.product?.name}}
-                            </td>
-                            <td>
-                                {{item?.qty|number}}
-                            </td>
-                            <td>
-                                {{item?.from_number|number}}
-                            </td>
-                            <td>
-                                {{item?.to_number|number}}
-                            </td>
-                            <td style="width: 64px;" *ngIf="IS_HOLD">
-                                <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
-                                    <mat-icon>more_vert</mat-icon>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)="create(item)">
-                                        <mat-icon>edit</mat-icon>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button mat-menu-item (click)="delete(item)">
-                                        <mat-icon>delete</mat-icon>
-                                        <span>Delete</span>
-                                    </button>
-                                </mat-menu>
-                            </td>
-                        </tr>
-                    </ng-container>
-                    <tr>
-                        <td class="center" style="width: 64px;"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="right"><strong>Total Qty</strong></td>
-                        <td class="right"><strong>{{store?.totalQty}}</strong></td>
-                        <td style="width: 64px;" *ngIf="IS_HOLD"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <app-empty-data *ngIf="store?.adjustmentItems?.length === 0" buttonText="Add New Inventory"
-                (onPress)="create()" name="Inventory Adjustment"
-                subtitle="Choose inventory and release your adjustment for submitted to stock.">
-            </app-empty-data>
-
-        </div>
-        <app-spinner *ngIf="LOADING"></app-spinner>
+    <div class="mas-head-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Adjustment Type</mat-label>
+        <mat-select #inputRef cdkFocusInitial matInputAutofocus formControlName="adjustmentType"
+          [compareWith]="$safeNavigationMigration(ds?.compareObject)">
+          @for (item of ADJUSTMENT_TYPES; track item) {
+            <mat-option [value]="item">{{item?.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Branch</mat-label>
+        <input type="text" required placeholder="Select branch" matInput formControlName="branch"
+          [matAutocomplete]="autoBranch">
+        <mat-autocomplete [displayWith]="ds.displayName" autoActiveFirstOption #autoBranch="matAutocomplete">
+          @for (item of filteredBranchOptions | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              <span [style.padding-left]="((item.level)*24)+'px'"></span>
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['branch'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['branch'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ref No</mat-label>
+        <input formControlName="ref" matInput placeholder="Enter reference number">
+        @if (form.controls['ref'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Issue Date</mat-label>
+        <input formControlName="issueDate" [matDatepicker]="pickerIssueDate" matInput
+          placeholder="Enter issue date">
+        <mat-datepicker-toggle matSuffix [for]="pickerIssueDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerIssueDate></mat-datepicker>
+        @if (form.controls['issueDate'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Note</mat-label>
+        <textarea rows="6" formControlName="memo" matInput placeholder=""></textarea>
+      </mat-form-field>
     </div>
 
-    <button *ngIf="IS_HOLD && !LOADING" matTooltip="Add New Inventory" (click)="create()" mat-button mat-icon-button
-        class="mas-add-new">
-        <mat-icon>add</mat-icon>
+    @if (IS_HOLD && !LOADING) {
+      <div class="mas-footer-form">
+        <p class="memo">
+          You can add images, contact info and other details after you create the
+          Page.
+        </p>
+        <app-primary-button label="Save as Draft" class="mat-default" [process]="SAVE_DRAFT"
+          (onPress)="_release(form.value,MOVEMENT_STATUS_OBJ.HOLD)">
+        </app-primary-button>
+        <app-primary-button label="Save as Submit" [process]="SAVE_SUBMIT"
+          (onPress)="_release(form.value,MOVEMENT_STATUS_OBJ.RELEASED)">
+        </app-primary-button>
+      </div>
+    }
+
+  </div>
+  <div class="mas-viewer">
+    @if (!LOADING) {
+      <div class="mas-tb">
+        <div class="mas-tb-header">
+          <button type="button" mat-icon-button [routerLink]="[backUrl]">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <h4>Adjustment's Items</h4>
+        </div>
+        @if (store?.adjustmentItems?.length>0) {
+          <table class="as-table-wrapper">
+            <thead>
+              <tr>
+                <th class="center">
+                  No
+                </th>
+                <th class="left">
+                  Name
+                </th>
+                <th class="left">
+                  QTY
+                </th>
+                <th class="left">
+                  From Number
+                </th>
+                <th class="left">
+                  To Number
+                </th>
+                @if (IS_HOLD) {
+                  <th>
+                  </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of store?.adjustmentItems; track item; let i = $index) {
+                <tr>
+                  <td class="center" style="width: 64px;">
+                    {{i+1}}
+                  </td>
+                  <td>
+                    {{item?.product?.name}}
+                  </td>
+                  <td>
+                    {{$safeNavigationMigration(item?.qty)|number}}
+                  </td>
+                  <td>
+                    {{$safeNavigationMigration(item?.from_number)|number}}
+                  </td>
+                  <td>
+                    {{$safeNavigationMigration(item?.to_number)|number}}
+                  </td>
+                  @if (IS_HOLD) {
+                    <td style="width: 64px;">
+                      <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="create(item)">
+                          <mat-icon>edit</mat-icon>
+                          <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="delete(item)">
+                          <mat-icon>delete</mat-icon>
+                          <span>Delete</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  }
+                </tr>
+              }
+              <tr>
+                <td class="center" style="width: 64px;"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="right"><strong>Total Qty</strong></td>
+                <td class="right"><strong>{{store?.totalQty}}</strong></td>
+                @if (IS_HOLD) {
+                  <td style="width: 64px;"></td>
+                }
+              </tr>
+            </tbody>
+          </table>
+        }
+        @if (store?.adjustmentItems?.length === 0) {
+          <app-empty-data buttonText="Add New Inventory"
+            (onPress)="create()" name="Inventory Adjustment"
+            subtitle="Choose inventory and release your adjustment for submitted to stock.">
+          </app-empty-data>
+        }
+      </div>
+    }
+    @if (LOADING) {
+      <app-spinner></app-spinner>
+    }
+  </div>
+
+  @if (IS_HOLD && !LOADING) {
+    <button matTooltip="Add New Inventory" (click)="create()" mat-icon-button
+      class="mas-add-new">
+      <mat-icon>add</mat-icon>
     </button>
+  }
 </form>

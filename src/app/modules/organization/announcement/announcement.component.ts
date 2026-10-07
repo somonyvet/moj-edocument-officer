@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -12,9 +12,11 @@ import { InstitutionFormComponent } from '../institution/institution-form/instit
 import { AnnouncementFormComponent } from './announcement-form/announcement-form.component';
 
 @Component({
-  selector: 'app-announcement',
-  templateUrl: './announcement.component.html',
-  styleUrls: ['./announcement.component.scss']
+    selector: 'app-announcement',
+    templateUrl: './announcement.component.html',
+    styleUrls: ['./announcement.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AnnouncementComponent implements OnInit {
 

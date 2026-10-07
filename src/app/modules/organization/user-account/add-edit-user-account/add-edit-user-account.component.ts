@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOC_CATEGORY_APP_ARRAY, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -15,9 +15,11 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { OfficerOfficeFormComponent } from '../officer-office-form/officer-office-form.component';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 @Component({
-  selector: 'app-add-edit-user-account',
-  templateUrl: './add-edit-user-account.component.html',
-  styleUrls: ['./add-edit-user-account.component.scss']
+    selector: 'app-add-edit-user-account',
+    templateUrl: './add-edit-user-account.component.html',
+    styleUrls: ['./add-edit-user-account.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddEditUserAccountComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -27,7 +29,7 @@ export class AddEditUserAccountComponent implements OnInit, OnDestroy {
   @ViewChild('stampFile') stampFile: ElementRef;
 
   titleForm: any = "បង្កើតមន្ត្រីបុគ្គលិក";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   title: AbstractControl;
   stock_visa: AbstractControl;
@@ -48,7 +50,7 @@ export class AddEditUserAccountComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<AddEditUserAccountComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: OfficerStore,
     public ds: DataService,
     private auth: AuthStore,

@@ -6,8 +6,12 @@
           <mat-icon class="mat-18">menu</mat-icon>
         </button>
       </div>
-      <div class="isSmallScreen" *ngIf="ismobile"></div>
-      <div class="isBigScreen" *ngIf="!ismobile"></div>
+      @if (ismobile) {
+        <div class="isSmallScreen"></div>
+      }
+      @if (!ismobile) {
+        <div class="isBigScreen"></div>
+      }
     </div>
 
     <div class="group-command">
@@ -28,65 +32,75 @@
           <mat-form-field appearance="outline">
             <mat-label>Tag Name</mat-label>
             <input matInput #focusInput matInputAutofocus required placeholder="Tag name" formControlName="name">
-            <mat-error *ngIf="form.controls['name'].hasError('required')">
-              Tag name is required.
-            </mat-error>
+            @if (form.controls['name'].hasError('required')) {
+              <mat-error>
+                Tag name is required.
+              </mat-error>
+            }
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Color</mat-label>
             <input matInput placeholder="Ex: #FFFFFF" autocomplete="off" formControlName="color">
             <!-- <mat-error *ngIf="form.controls['color'].hasError('required')">
-                            Tag color is required.
-                        </mat-error> -->
-          </mat-form-field>
-        </div>
+            Tag color is required.
+          </mat-error> -->
+        </mat-form-field>
+      </div>
 
 
-        <div class="form-group two">
-          <mat-form-field appearance="outline">
-            <mat-label>Tag Type</mat-label>
-            <mat-select formControlName="tagtype">
-              <mat-option *ngFor="let item of tagType_Lists" [value]="item">
+      <div class="form-group two">
+        <mat-form-field appearance="outline">
+          <mat-label>Tag Type</mat-label>
+          <mat-select formControlName="tagtype">
+            @for (item of tagType_Lists; track item) {
+              <mat-option [value]="item">
                 {{item.text}}
               </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls['tagtype'].hasError('required')">
+            }
+          </mat-select>
+          @if (form.controls['tagtype'].hasError('required')) {
+            <mat-error>
               Tag type is required.
             </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Order</mat-label>
-            <input matInput placeholder="Ex: 1" autocomplete="off" formControlName="order">
-          </mat-form-field>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Order</mat-label>
+          <input matInput placeholder="Ex: 1" autocomplete="off" formControlName="order">
+        </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Status</mat-label>
-            <mat-select formControlName="status">
-              <mat-option *ngFor="let item of status_lists" [value]="item">
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            @for (item of status_lists; track item) {
+              <mat-option [value]="item">
                 {{item.text}}
               </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.controls['status'].hasError('required')">
+            }
+          </mat-select>
+          @if (form.controls['status'].hasError('required')) {
+            <mat-error>
               Status is required.
             </mat-error>
-          </mat-form-field>
+          }
+        </mat-form-field>
 
-        </div>
-        <div class="d-flex" style="padding: 6px">
-          <div class="flex-1"></div>
-          <a mat-button class="mat-puc cancel" (click)="goBack()">
-            <span>
-              Cancel
-            </span>
-          </a>
-          <app-primary-button (onPress)="onSave(form.value,true)" [process]="processNew" label="Save & New">
-          </app-primary-button>
-          <app-primary-button (onPress)="onSave(form.value,false)" [process]="processClose" label="Save & Close">
-          </app-primary-button>
-        </div>
+      </div>
+      <div class="d-flex" style="padding: 6px">
+        <div class="flex-1"></div>
+        <a mat-button class="mat-puc cancel" (click)="goBack()">
+          <span>
+            Cancel
+          </span>
+        </a>
+        <app-primary-button (onPress)="onSave(form.value,true)" [process]="processNew" label="Save & New">
+        </app-primary-button>
+        <app-primary-button (onPress)="onSave(form.value,false)" [process]="processClose" label="Save & Close">
+        </app-primary-button>
       </div>
     </div>
-
   </div>
+
+</div>
 
 </div>

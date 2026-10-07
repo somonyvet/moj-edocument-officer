@@ -1,10 +1,10 @@
-@import "./../.././../../../assets/styles/variable.scss";
+@use "./../.././../../../assets/styles/variable.scss" as *;
 
 .update{
   .dialog-header{
     background-color: #FADA5E
   }
-  .mat-dialog-actions{
+  .mat-mdc-dialog-actions{
     background-color: #FADA5E
   }
 }
@@ -68,17 +68,17 @@
   font-weight: 700;
 }
 
-::ng-deep.mat-checkbox-checked.mat-accent.mat-checkbox-disabled .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+::ng-deep.mat-mdc-checkbox-checked.mat-accent.mat-mdc-checkbox-disabled .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
   background-color: #1a73e8 !important;
 }
 
-::ng-deep.mat-checkbox-checked.mat-accent .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+::ng-deep.mat-mdc-checkbox-checked.mat-accent .mdc-checkbox__background,
+.mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
   background-color: #1a73e8 !important;
 }
 
-.mat-option {
+.mat-mdc-option {
   height: unset;
   padding: 12px !important;
 }

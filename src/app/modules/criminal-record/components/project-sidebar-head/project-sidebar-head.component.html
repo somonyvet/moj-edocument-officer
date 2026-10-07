@@ -10,7 +10,7 @@
       </ng-template>
     </div>
     <ng-container *ngIf="options?.isSetting">
-      <a mat-button mat-icon-button class="mat-btn-n" [matMenuTriggerFor]="menu" (menuOpened)="onProjectOpened()">
+      <a mat-icon-button class="mat-btn-n" [matMenuTriggerFor]="menu" (menuOpened)="onProjectOpened()">
         <mat-icon>notes</mat-icon>
       </a>
       <mat-menu #menu="matMenu">
@@ -20,8 +20,8 @@
           </div>
           <div class="filter-panel-content">
             <ng-template #projectTmp>
-              <virtual-scroller #scrollProjects [items]="store?.projects" style="height: calc(100vh - 300px);">
-                <div *ngFor="let item of scrollProjects.viewPortItems;let i=index">
+              <cdk-virtual-scroll-viewport itemSize="56" #scrollProjects autosize style="height: calc(100vh - 300px);">
+                <div *cdkVirtualFor="let item of store?.projects;let i=index">
                   <mat-divider></mat-divider>
                   <a mat-button class="devsite-cpwd" [ngClass]="selectedProject?.key===item?.key?'active':''"
                     (click)="onSelectYear(item)">
@@ -38,7 +38,7 @@
                     </div>
                   </a>
                 </div>
-              </virtual-scroller>
+              </cdk-virtual-scroll-viewport>
             </ng-template>
             <app-skeleton-loader *ngIf="loadingProject else projectTmp"></app-skeleton-loader>
           </div>

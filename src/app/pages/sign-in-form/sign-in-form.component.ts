@@ -1,24 +1,26 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { WindowService } from 'src/app/shared/services/window.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-sign-in-form',
-  templateUrl: './sign-in-form.component.html',
-  styleUrls: ['./sign-in-form.component.scss']
+    selector: 'app-sign-in-form',
+    templateUrl: './sign-in-form.component.html',
+    styleUrls: ['./sign-in-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SignInFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   error: string = null;
   process: boolean = false;
   title = "ចូលប្រព័ន្ធតាមគណនី"
 
   constructor(public dialogRef: MatDialogRef<SignInFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AuthStore,
     private router: Router,
     private win: WindowService,

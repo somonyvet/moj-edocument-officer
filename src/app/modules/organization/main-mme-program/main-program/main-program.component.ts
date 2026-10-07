@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,9 +16,11 @@ import { MainProgramFormComponent } from './main-program-form/main-program-form.
 import { MmeBaseProgramStore } from 'src/app/stores/document/mme_program.store';
 
 @Component({
-  selector: 'app-main-program',
-  templateUrl: './main-program.component.html',
-  styleUrls: ['./main-program.component.scss']
+    selector: 'app-main-program',
+    templateUrl: './main-program.component.html',
+    styleUrls: ['./main-program.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MainProgramComponent implements OnInit {
   tabs = tabs.mmeProgram;

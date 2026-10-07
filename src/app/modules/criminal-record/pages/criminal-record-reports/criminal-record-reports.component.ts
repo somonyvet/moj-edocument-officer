@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -6,9 +6,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-reports',
-  templateUrl: './criminal-record-reports.component.html',
-  styleUrls: ['./criminal-record-reports.component.scss']
+    selector: 'app-criminal-record-reports',
+    templateUrl: './criminal-record-reports.component.html',
+    styleUrls: ['./criminal-record-reports.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordReportsComponent implements OnInit {
   selected: Date | null = new Date();

@@ -1,42 +1,60 @@
-<div class="approval-progress-wrapper" *ngIf="steps?.length > 0; else emptyFlow">
-  <div class="header-wrapper">
-    <h3 class="header-title">ចរន្តឯកសារ</h3>
-    <app-status-pill *ngIf="isFullyApproved" [status]="APPROVED_STATUS" label="អនុម័តរួចរាល់"></app-status-pill>
-  </div>
-  <div class="approval-progress">
-    <div class="approval-step" *ngFor="let step of steps; let last = last" [ngClass]="step.status">
-      <div class="step-line">
-        <div class="step-dot">
-          <mat-icon *ngIf="step.status === 'approved'">check</mat-icon>
-          <mat-icon *ngIf="step.status === 'pending'">schedule</mat-icon>
-          <span *ngIf="step.status === 'waiting'">{{step.flowNo}}</span>
-        </div>
-        <div class="step-connector" *ngIf="!last"></div>
-      </div>
-      <div class="step-content">
-        <div class="step-title" [attr.title]="step.departmentName">{{step.departmentName || '---'}}</div>
-        <ng-container *ngIf="step.status === 'approved'">
-          <div class="step-officer">
-            <img class="officer-photo" [src]="step.approvedBy?.photoUrl"
-              [attr.alt]="step.approvedBy?.display_name || ''" (error)="handleImgError($event)">
-            <div class="officer-info">
-              <span class="officer-name" [attr.title]="step.approvedBy?.display_name">
-                {{step.approvedBy?.display_name || '---'}}
-              </span>
-              <span class="step-sub muted" *ngIf="step.approvedAt">
-                {{step.approvedAt | date:'dd/MM/yyyy HH:mm'}}
-              </span>
+@if (steps?.length > 0) {
+  <div class="approval-progress-wrapper">
+    <div class="header-wrapper">
+      <h3 class="header-title">ចរន្តឯកសារ</h3>
+      @if (isFullyApproved) {
+        <app-status-pill [status]="APPROVED_STATUS" label="អនុម័តរួចរាល់"></app-status-pill>
+      }
+    </div>
+    <div class="approval-progress">
+      @for (step of steps; track step; let last = $last) {
+        <div class="approval-step" [ngClass]="step.status">
+          <div class="step-line">
+            <div class="step-dot">
+              @if (step.status === 'approved') {
+                <mat-icon>check</mat-icon>
+              }
+              @if (step.status === 'pending') {
+                <mat-icon>schedule</mat-icon>
+              }
+              @if (step.status === 'waiting') {
+                <span>{{step.flowNo}}</span>
+              }
             </div>
+            @if (!last) {
+              <div class="step-connector"></div>
+            }
           </div>
-        </ng-container>
-
-        <div class="step-badge pending" *ngIf="step.status === 'pending'">កំពុងរង់ចាំការអនុម័ត</div>
-        <div class="step-badge waiting" *ngIf="step.status === 'waiting'">មិនទាន់ដល់វេន</div>
-      </div>
+          <div class="step-content">
+            <div class="step-title" [attr.title]="step.departmentName">{{step.departmentName || '---'}}</div>
+            @if (step.status === 'approved') {
+              <div class="step-officer">
+                <img class="officer-photo" [src]="$safeNavigationMigration(step.approvedBy?.photoUrl)"
+                  [attr.alt]="step.approvedBy?.display_name || ''" (error)="handleImgError($event)">
+                <div class="officer-info">
+                  <span class="officer-name" [attr.title]="step.approvedBy?.display_name">
+                    {{step.approvedBy?.display_name || '---'}}
+                  </span>
+                  @if (step.approvedAt) {
+                    <span class="step-sub muted">
+                      {{step.approvedAt | date:'dd/MM/yyyy HH:mm'}}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+            @if (step.status === 'pending') {
+              <div class="step-badge pending">កំពុងរង់ចាំការអនុម័ត</div>
+            }
+            @if (step.status === 'waiting') {
+              <div class="step-badge waiting">មិនទាន់ដល់វេន</div>
+            }
+          </div>
+        </div>
+      }
     </div>
   </div>
-</div>
-
-<ng-template #emptyFlow>
+} @else {
   <div class="approval-empty">ពុំមានចរន្តលំហូរអនុម័តឯកសារ</div>
-</ng-template>
+}
+

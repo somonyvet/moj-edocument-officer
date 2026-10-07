@@ -2,37 +2,45 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
   <mat-dialog-content class="form-wrapper">
 
     <div class="form-group two">
-        <mat-form-field appearance="outline">
-          <mat-label>ខែ<span class="rq-sign">*</span></mat-label>
-          <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteDepartment"
-            formControlName="month" matInput placeholder="ជ្រើសរើសខែ...">
-          <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteDepartment="matAutocomplete">
-            <mat-option *ngFor="let item of FilterMonth | async;let i=index" [value]="item">
+      <mat-form-field appearance="outline">
+        <mat-label>ខែ<span class="rq-sign">*</span></mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus [matAutocomplete]="autoCompleteDepartment"
+          formControlName="month" matInput placeholder="ជ្រើសរើសខែ...">
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoCompleteDepartment="matAutocomplete">
+          @for (item of FilterMonth | async; track item; let i = $index) {
+            <mat-option [value]="item">
               <span [style.padding-left]="((item.level+1)*24)+'px'"></span>
               {{item?.name}}
             </mat-option>
-          </mat-autocomplete>
-          <mat-error class="error-message" *ngIf="form.controls['month'].hasError('validKey')">
+          }
+        </mat-autocomplete>
+        @if (form.controls['month'].hasError('validKey')) {
+          <mat-error class="error-message">
             <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់។</div>
           </mat-error>
-          <mat-error *ngIf="form.controls['month'].hasError('required')">
+        }
+        @if (form.controls['month'].hasError('required')) {
+          <mat-error>
             ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
           </mat-error>
-        </mat-form-field>
+        }
+      </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>ចំណងជើងបរិយាយសកម្មភាព<span class="rq-sign">*</span></mat-label>
         <input type="text" matInput placeholder="បញ្ចូលចំណងជើងបរិយាយសកម្មភាព" formControlName="title">
-        <mat-error *ngIf="form.controls['title'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['title'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -40,23 +48,29 @@
       <mat-form-field appearance="outline">
         <mat-label>គម្រោងចំណាយMEF(លាន៛)<span class="rq-sign">*</span></mat-label>
         <input type="number" matInput placeholder="បញ្ចូលគម្រោងចំណាយMEF(លាន៛)..." formControlName="kh_budget_mef">
-        <mat-error *ngIf="form.controls['kh_budget_mef'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['kh_budget_mef'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>គម្រោងចំណាយMME (លាន៛)<span class="rq-sign">*</span></mat-label>
         <input type="number" matInput placeholder="បញ្ចូលគម្រោងចំណាយMME(លាន៛)..." formControlName="kh_budget_mme">
-        <mat-error *ngIf="form.controls['kh_budget_mme'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['kh_budget_mme'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>គម្រោងចំណាយMME ($)<span class="rq-sign">*</span></mat-label>
         <input type="number" matInput placeholder="គម្រោងចំណាយMME($)..." formControlName="us_budget_mme">
-        <mat-error *ngIf="form.controls['us_budget_mme'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['us_budget_mme'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 

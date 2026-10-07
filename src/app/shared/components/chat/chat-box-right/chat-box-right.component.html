@@ -1,25 +1,33 @@
 <div class="chat right" (click)="chatClicked()">
   <div class="content">
     <label for="dateTime-toggle">
-      <ng-container *ngIf="value">
-        <p class="text" *ngIf="!(value|validateUrl)">{{ value }}</p>
-        <a class="text" *ngIf="(value|validateUrl)" [href]="value" target="blank">{{ value }}</a>
-      </ng-container>
+      @if (value) {
+        @if (!(value|validateUrl)) {
+          <p class="text">{{ value }}</p>
+        }
+        @if ((value|validateUrl)) {
+          <a class="text" [href]="value" target="blank">{{ value }}</a>
+        }
+      }
 
-      <ng-container *ngIf="fileAudio?.length>0">
+      @if (fileAudio?.length>0) {
         <audio class="audio-swot own" controls [src]="audioUrl"></audio>
-      </ng-container>
+      }
 
-      <div class="img-gride" [ngClass]="'grid' + fileImages.length" *ngIf="fileImages?.length>0">
-        <img [src]="item?.downloadURL || item?.downloadUrl" *ngFor="let item of fileImages">
-      </div>
+      @if (fileImages?.length>0) {
+        <div class="img-gride" [ngClass]="'grid' + fileImages.length">
+          @for (item of fileImages; track item) {
+            <img [src]="item?.downloadURL || item?.downloadUrl">
+          }
+        </div>
+      }
 
     </label>
 
-    <ng-container *ngIf="isClicked">
+    @if (isClicked) {
       <p class="time-seen">
         <span class="time">{{ dateTime | amTimeAgo }}</span>
       </p>
-    </ng-container>
+    }
   </div>
 </div>

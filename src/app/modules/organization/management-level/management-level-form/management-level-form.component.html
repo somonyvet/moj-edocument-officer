@@ -1,137 +1,163 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="photo-pro">
-            <div class="avatar">
-                <img [src]="URL" />
-                <div (click)="photoFile.click()" class="change-profile">
-                    <mat-icon class="mat-icon" role="img">
-                        photo_camera
-                    </mat-icon>
-                </div>
-            </div>
-            <input #photoFile type="file" accept='image/*' (change)="onSelectedFile($event)" style="display:none;" />
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="photo-pro">
+      <div class="avatar">
+        <img [src]="URL" />
+        <div (click)="photoFile.click()" class="change-profile">
+          <mat-icon class="mat-icon" role="img">
+            photo_camera
+          </mat-icon>
         </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ឈ្មោះ</mat-label>
-                <input #inputRef formControlName="name" required matInput placeholder="ឈ្មោះ">
-                <mat-error *ngIf="form.controls['name'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-                <mat-error *ngIf="form.controls['name'].hasError('nameAvailable')" class="error-message">
-                    ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ឈ្មោះជាភាសាអង់គ្លេស</mat-label>
-                <input formControlName="name_en" matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
-                <mat-error *ngIf="form.controls['name_en'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-            </mat-form-field>
-        </div>
+      </div>
+      <input #photoFile type="file" accept='image/*' (change)="onSelectedFile($event)" style="display:none;" />
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះ</mat-label>
+        <input #inputRef formControlName="name" required matInput placeholder="ឈ្មោះ">
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (form.controls['name'].hasError('nameAvailable')) {
+          <mat-error class="error-message">
+            ឈ្មោះនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ឈ្មោះជាភាសាអង់គ្លេស</mat-label>
+        <input formControlName="name_en" matInput placeholder="ឈ្មោះជាភាសាអង់គ្លេស">
+        @if (form.controls['name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ស្ថិតនៅក្រោម</mat-label>
-                <input [matAutocomplete]="autoSubOfCommittee" formControlName="subOfWorkplace" matInput
-                    placeholder="Select member of">
-                <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
-                    <mat-option *ngFor="let item of filterSubOfWorkplace | async;let i=index" [value]="item">
-                        <span [style.padding-left]="((item.level)*24)+'px'"></span>
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['subOfWorkplace'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['subOfWorkplace'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ស្ថិតនៅក្រោម</mat-label>
+        <input [matAutocomplete]="autoSubOfCommittee" formControlName="subOfWorkplace" matInput
+          placeholder="Select member of">
+        <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
+          @for (item of filterSubOfWorkplace | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              <span [style.padding-left]="((item.level)*24)+'px'"></span>
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['subOfWorkplace'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['subOfWorkplace'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <div class="form-hashtag" style="margin:20px 0;">
-            <h4>តួនាទីថ្នាក់ដឹកនាំ</h4>
-            <div class="form-group" style="margin-bottom: 0;">
-                <mat-form-field appearance="outline">
-                    <mat-label>កម្រិតមុខងារតួនាទី</mat-label>
-                    <input [matAutocomplete]="autoPositionsForApproval" formControlName="positionForApproval" matInput
-                        placeholder="កម្រិតមុខងារតួនាទី">
-                    <mat-autocomplete (optionSelected)="optionSelectedManager($event,1)" [displayWith]="ds.displayFn"
-                        #autoPositionsForApproval="matAutocomplete">
-                        <mat-option *ngFor="let item of filterPositionsForApproval | async;let i=index" [value]="item">
-                            {{item?.order}}. {{item?.name}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-error class="error-message" *ngIf="form.controls['positionForApproval'].hasError('validKey')">
-                        <div>Please select once from list to continue.</div>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <mat-chip-list class="example-chip">
-                <mat-chip class="example-box" *ngFor="let item of positionsForApprovalItems"
-                    (removed)="removeManagerTag(item,1)">
-                    {{item?.name}}
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
-        </div>
-        <div class="form-hashtag" style="margin:20px 0;">
-            <h4>តួនាទីជំនួយការថ្នាក់ដឹកនាំ</h4>
-            <div class="form-group" style="margin-bottom: 0;">
-                <mat-form-field appearance="outline">
-                    <mat-label>កម្រិតមុខងារតួនាទី</mat-label>
-                    <input [matAutocomplete]="autoPositionAssistant" formControlName="positionAssistant" matInput
-                        placeholder="កម្រិតមុខងារតួនាទី">
-                    <mat-autocomplete (optionSelected)="optionSelectedManager($event,2)" [displayWith]="ds.displayFn"
-                        #autoPositionAssistant="matAutocomplete">
-                        <mat-option *ngFor="let item of filterPositionsAssistant | async;let i=index" [value]="item">
-                            {{item?.order}}. {{item?.name}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-error class="error-message" *ngIf="form.controls['positionAssistant'].hasError('validKey')">
-                        <div>Please select once from list to continue.</div>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <mat-chip-list class="example-chip">
-                <mat-chip class="example-box" *ngFor="let item of positionsAssistantItems"
-                    (removed)="removeManagerTag(item,2)">
-                    {{item?.name}}
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
-        </div>
-        <div class="form-group" style="margin-left: 10px;">
-            <mat-checkbox class="example-margin" formControlName="verifyFromAssistant">
-                តម្រូវឲ្យត្រួតពិនិត្យពីជំនួយការមុនពេលទៅដល់ថ្នាក់ដឹកនាំ
-            </mat-checkbox>
-        </div>
-        <div class="form-group" style="margin-left: 10px;">
-            <mat-checkbox class="example-margin" formControlName="isWorkplace">
-                ស្ថាប័នទទួលការងារ
-            </mat-checkbox>
-        </div>
-    </mat-dialog-content>
-    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+    <div class="form-hashtag" style="margin:20px 0;">
+      <h4>តួនាទីថ្នាក់ដឹកនាំ</h4>
+      <div class="form-group" style="margin-bottom: 0;">
+        <mat-form-field appearance="outline">
+          <mat-label>កម្រិតមុខងារតួនាទី</mat-label>
+          <input [matAutocomplete]="autoPositionsForApproval" formControlName="positionForApproval" matInput
+            placeholder="កម្រិតមុខងារតួនាទី">
+          <mat-autocomplete (optionSelected)="optionSelectedManager($event,1)" [displayWith]="ds.displayFn"
+            #autoPositionsForApproval="matAutocomplete">
+            @for (item of filterPositionsForApproval | async; track item; let i = $index) {
+              <mat-option [value]="item">
+                {{item?.order}}. {{item?.name}}
+              </mat-option>
+            }
+          </mat-autocomplete>
+          @if (form.controls['positionForApproval'].hasError('validKey')) {
+            <mat-error class="error-message">
+              <div>Please select once from list to continue.</div>
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <mat-chip-grid class="example-chip">
+        @for (item of positionsForApprovalItems; track item) {
+          <mat-chip-row class="example-box"
+            (removed)="removeManagerTag(item,1)">
+            {{item?.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+    </div>
+    <div class="form-hashtag" style="margin:20px 0;">
+      <h4>តួនាទីជំនួយការថ្នាក់ដឹកនាំ</h4>
+      <div class="form-group" style="margin-bottom: 0;">
+        <mat-form-field appearance="outline">
+          <mat-label>កម្រិតមុខងារតួនាទី</mat-label>
+          <input [matAutocomplete]="autoPositionAssistant" formControlName="positionAssistant" matInput
+            placeholder="កម្រិតមុខងារតួនាទី">
+          <mat-autocomplete (optionSelected)="optionSelectedManager($event,2)" [displayWith]="ds.displayFn"
+            #autoPositionAssistant="matAutocomplete">
+            @for (item of filterPositionsAssistant | async; track item; let i = $index) {
+              <mat-option [value]="item">
+                {{item?.order}}. {{item?.name}}
+              </mat-option>
+            }
+          </mat-autocomplete>
+          @if (form.controls['positionAssistant'].hasError('validKey')) {
+            <mat-error class="error-message">
+              <div>Please select once from list to continue.</div>
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <mat-chip-grid class="example-chip">
+        @for (item of positionsAssistantItems; track item) {
+          <mat-chip-row class="example-box"
+            (removed)="removeManagerTag(item,2)">
+            {{item?.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+    </div>
+    <div class="form-group" style="margin-left: 10px;">
+      <mat-checkbox class="example-margin" formControlName="verifyFromAssistant">
+        តម្រូវឲ្យត្រួតពិនិត្យពីជំនួយការមុនពេលទៅដល់ថ្នាក់ដឹកនាំ
+      </mat-checkbox>
+    </div>
+    <div class="form-group" style="margin-left: 10px;">
+      <mat-checkbox class="example-margin" formControlName="isWorkplace">
+        ស្ថាប័នទទួលការងារ
+      </mat-checkbox>
+    </div>
+  </mat-dialog-content>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
     </mat-progress-bar>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+  }
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
 </form>

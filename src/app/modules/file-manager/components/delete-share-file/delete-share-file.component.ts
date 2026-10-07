@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-delete-share-file',
-  templateUrl: './delete-share-file.component.html',
-  styleUrls: ['./delete-share-file.component.scss']
+    selector: 'app-delete-share-file',
+    templateUrl: './delete-share-file.component.html',
+    styleUrls: ['./delete-share-file.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DeleteShareFileComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +13,11 @@ import { GeoProvinceFormComponent } from '../geo-data/geo-province-form/geo-prov
 import { CriminalRecordCategoriesFormComponent } from './criminal-record-categories-form/criminal-record-categories-form.component';
 
 @Component({
-  selector: 'app-criminal-record-categories',
-  templateUrl: './criminal-record-categories.component.html',
-  styleUrls: ['./criminal-record-categories.component.scss']
+    selector: 'app-criminal-record-categories',
+    templateUrl: './criminal-record-categories.component.html',
+    styleUrls: ['./criminal-record-categories.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordCategoriesComponent implements OnInit {
   tabs = criminal_tabs.crime_rec_cate;

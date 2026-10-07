@@ -1,25 +1,36 @@
 <div class="full-page-container">
   <div class="header">
     <div class="wrapper">
-      <nav mat-tab-nav-bar class="fire-tabs flex1">
-        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.key" routerLinkActive #rla="routerLinkActive"
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs flex1">
+        @for (link of tabs; track link) {
+          <a mat-tab-link [routerLink]="link.key" routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">{{link.label}}</a>
+        }
       </nav>
-      <button mat-button class="enbutton cancel" (click)="onRejectApplication()"
-        *ngIf="(auth?.root || auth?.permissionKeys?.includes('admin_mod_request')) && store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.CONFIRM_APPLICATION?.key">
-        <span>បដិសេធពាក្យស្នើរសុំ</span>
-      </button>
-      <button mat-button class="enbutton primary" (click)="onConfirmReviewed()"
-        *ngIf="store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.CONFIRM_APPLICATION?.key">
-        <span>បានពិនិត្យរួចរាល់</span>
-      </button>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+      @if ((auth?.root || auth?.permissionKeys?.includes('admin_mod_request')) && store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.CONFIRM_APPLICATION?.key) {
+        <button mat-button class="enbutton cancel" (click)="onRejectApplication()"
+          >
+          <span>បដិសេធពាក្យស្នើរសុំ</span>
+        </button>
+      }
+      @if (store?.selectedCriminalRecord?.status?.key < STATUS_OBJ?.CONFIRM_APPLICATION?.key) {
+        <button mat-button class="enbutton primary" (click)="onConfirmReviewed()"
+          >
+          <span>បានពិនិត្យរួចរាល់</span>
+        </button>
+      }
       <button mat-button class="enbutton cancel" (click)="onPrint()">
         <span>បោះពុម្ព</span>
       </button>
     </div>
   </div>
-  <div class="body" *ngIf="!loading">
-    <router-outlet *ngIf="!loading"></router-outlet>
-    <div class="fake"></div>
-  </div>
+  @if (!loading) {
+    <div class="body">
+      @if (!loading) {
+        <router-outlet></router-outlet>
+      }
+      <div class="fake"></div>
+    </div>
+  }
 </div>

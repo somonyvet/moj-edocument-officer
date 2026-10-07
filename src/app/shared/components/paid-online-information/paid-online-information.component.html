@@ -6,11 +6,13 @@
       </div>
       <div class="receipt-banner-text">
         <span class="receipt-banner-label">បានបង់ប្រាក់រួចរាល់ (តាមអនឡាញ)</span>
-        <span class="receipt-banner-amount">{{store?.selectedCriminalRecord?.paid_amount|formatNum3digitPipe}}<small>៛</small></span>
+        <span class="receipt-banner-amount">{{$safeNavigationMigration(store?.selectedCriminalRecord?.paid_amount)|formatNum3digitPipe}}<small>៛</small></span>
       </div>
-      <div class="receipt-banner-photo" *ngIf="recipientPhoto">
-        <img [src]="recipientPhoto" alt="">
-      </div>
+      @if (recipientPhoto) {
+        <div class="receipt-banner-photo">
+          <img [src]="recipientPhoto" alt="">
+        </div>
+      }
     </div>
 
     <div class="receipt-body">
@@ -24,59 +26,77 @@
             <span class="row-label"><i class="material-icons row-icon">confirmation_number</i>លេខបង្កាន់ដៃ</span>
             <span class="row-value">{{store?.selectedCriminalRecord?.criminal_folder_no}}</span>
           </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.paid_remark || store?.selectedCriminalRecord?.receipt_ref">
-            <span class="row-label"><i class="material-icons row-icon">tag</i>លេខប្រតិបត្ដិការ</span>
-            <span class="row-value">{{store?.selectedCriminalRecord?.paid_remark || store?.selectedCriminalRecord?.receipt_ref}}</span>
-          </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.receipt_ref">
-            <span class="row-label"><i class="material-icons row-icon">description</i>Transaction ID</span>
-            <span class="row-value">{{store?.selectedCriminalRecord?.receipt_ref}}</span>
-          </div>
+          @if (store?.selectedCriminalRecord?.paid_remark || store?.selectedCriminalRecord?.receipt_ref) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">tag</i>លេខប្រតិបត្ដិការ</span>
+              <span class="row-value">{{store?.selectedCriminalRecord?.paid_remark || store?.selectedCriminalRecord?.receipt_ref}}</span>
+            </div>
+          }
+          @if (store?.selectedCriminalRecord?.receipt_ref) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">description</i>Transaction ID</span>
+              <span class="row-value">{{store?.selectedCriminalRecord?.receipt_ref}}</span>
+            </div>
+          }
           <div class="receipt-row">
             <span class="row-label"><i class="material-icons row-icon">event</i>កាលបរិច្ឆេទបង់ប្រាក់</span>
-            <span class="row-value">{{store?.selectedCriminalRecord?.paid_at?.toDate() | dateKh}}</span>
+            <span class="row-value">{{$safeNavigationMigration(store?.selectedCriminalRecord?.paid_at?.toDate()) | dateKh}}</span>
           </div>
           <div class="receipt-row">
             <span class="row-label"><i class="material-icons row-icon">payment</i>ប្រភេទការទូទាត់</span>
             <span class="row-value">{{((store?.selectedCriminalRecord?.payment_option?.name === 'Credit/Debit Card') || (store?.selectedCriminalRecord?.pay_option?.name === 'ប័ណ្ណឥណទាន') ) ? 'Credit/Debit Card' : 'KHQR'}}</span>
           </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.start_process_at">
-            <span class="row-label"><i class="material-icons row-icon">event_available</i>កាលបរិច្ឆេទដាក់ដំណើរការឯកសារ</span>
-            <span class="row-value">{{store?.selectedCriminalRecord?.start_process_at?.toDate() | dateKh}}</span>
-          </div>
+          @if (store?.selectedCriminalRecord?.start_process_at) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">event_available</i>កាលបរិច្ឆេទដាក់ដំណើរការឯកសារ</span>
+              <span class="row-value">{{$safeNavigationMigration(store?.selectedCriminalRecord?.start_process_at?.toDate()) | dateKh}}</span>
+            </div>
+          }
           <div class="receipt-row">
             <span class="row-label"><i class="material-icons row-icon">stars</i>សេវា</span>
             <span class="row-value">{{store?.selectedCriminalRecord?.urgent_obj?.name}}</span>
           </div>
-          <div class="receipt-row" *ngIf="khmer_amount">
-            <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាខ្មែរ</span>
-            <span class="row-value">{{khmer_amount || 0}} ច្បាប់</span>
-          </div>
-          <div class="receipt-row" *ngIf="france_amount">
-            <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាបារាំង</span>
-            <span class="row-value">{{france_amount || 0}} ច្បាប់</span>
-          </div>
-          <div class="receipt-row" *ngIf="english_amount">
-            <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាអង់គ្លេស</span>
-            <span class="row-value">{{english_amount || 0}} ច្បាប់</span>
-          </div>
+          @if (khmer_amount) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាខ្មែរ</span>
+              <span class="row-value">{{khmer_amount || 0}} ច្បាប់</span>
+            </div>
+          }
+          @if (france_amount) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាបារាំង</span>
+              <span class="row-value">{{france_amount || 0}} ច្បាប់</span>
+            </div>
+          }
+          @if (english_amount) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">translate</i>ភាសាអង់គ្លេស</span>
+              <span class="row-value">{{english_amount || 0}} ច្បាប់</span>
+            </div>
+          }
           <div class="receipt-row">
             <span class="row-label"><i class="material-icons row-icon">event_busy</i>កាលបរិច្ឆេទត្រូវមកដកព្រឹត្តិបត្រថ្កោលទោស</span>
-            <span class="row-value">{{store?.selectedCriminalRecord?.withdraw_date?.toDate() | dateKh}}</span>
+            <span class="row-value">{{$safeNavigationMigration(store?.selectedCriminalRecord?.withdraw_date?.toDate()) | dateKh}}</span>
           </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.apply_from?.key === 'oversea'">
-            <span class="row-label"><i class="material-icons row-icon">public</i>ស្នើសុំក្រៅប្រទេស</span>
-          </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.national_application?.key !== 'khmer'">
-            <span class="row-label"><i class="material-icons row-icon">flag</i>ជាជនបរទេស</span>
-          </div>
-          <div class="receipt-row" *ngIf="store?.selectedCriminalRecord?.isStudent">
-            <span class="row-label"><i class="material-icons row-icon">school</i>ជាសិស្ស/និស្សិត</span>
-          </div>
+          @if (store?.selectedCriminalRecord?.apply_from?.key === 'oversea') {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">public</i>ស្នើសុំក្រៅប្រទេស</span>
+            </div>
+          }
+          @if (store?.selectedCriminalRecord?.national_application?.key !== 'khmer') {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">flag</i>ជាជនបរទេស</span>
+            </div>
+          }
+          @if (store?.selectedCriminalRecord?.isStudent) {
+            <div class="receipt-row">
+              <span class="row-label"><i class="material-icons row-icon">school</i>ជាសិស្ស/និស្សិត</span>
+            </div>
+          }
         </div>
       </div>
 
-      <ng-container *ngIf="store?.selectedCriminalRecord?.delivery_method?.key == 'home_delivery'">
+      @if (store?.selectedCriminalRecord?.delivery_method?.key == 'home_delivery') {
         <div class="receipt-divider"></div>
         <div class="receipt-col">
           <div class="receipt-col-title">
@@ -84,42 +104,53 @@
             <span>ព័ត៌មានដឹកជញ្ជូន</span>
           </div>
           <div class="receipt-rows">
-            <div class="receipt-row" *ngIf="isDomesticDelivery">
-              <span class="row-label"><i class="material-icons row-icon">location_on</i>អាសយដ្ឋានដឹកជញ្ជូន</span>
-              <span class="row-value">{{domesticAddressLine}}</span>
-            </div>
-            <div class="receipt-row" *ngIf="isInternationalDelivery">
-              <span class="row-label"><i class="material-icons row-icon">location_on</i>អាសយដ្ឋានដឹកជញ្ជូន</span>
-              <span class="row-value">
-                {{internationalAddressLine}}
-                <ng-container *ngIf="deliveryAddress?.mail_object?.en_name">
-                  &middot; {{deliveryAddress?.mail_object?.en_name}}
-                </ng-container>
-              </span>
-            </div>
-            <div class="receipt-row" *ngIf="deliveryAddress?.phone_number">
-              <span class="row-label"><i class="material-icons row-icon">call</i>លេខទូរស័ព្ទ</span>
-              <span class="row-value">{{deliveryAddress?.phone_number}}</span>
-            </div>
-            <div class="receipt-row" *ngIf="deliveryAddress?.email">
-              <span class="row-label"><i class="material-icons row-icon">email</i>អ៊ីមែល</span>
-              <span class="row-value">{{deliveryAddress?.email}}</span>
-            </div>
-            <ng-container *ngIf="deliveryTicket">
-              <div class="receipt-row" *ngIf="deliveryTicket?.tracking_code">
-                <span class="row-label"><i class="material-icons row-icon">qr_code</i>លេខតាមដាន</span>
-                <span class="row-value">{{deliveryTicket?.tracking_code}}</span>
+            @if (isDomesticDelivery) {
+              <div class="receipt-row">
+                <span class="row-label"><i class="material-icons row-icon">location_on</i>អាសយដ្ឋានដឹកជញ្ជូន</span>
+                <span class="row-value">{{domesticAddressLine}}</span>
               </div>
-              <div class="receipt-row" *ngIf="deliveryEstimateDate">
-                <span class="row-label"><i class="material-icons row-icon">schedule</i>កាលបរិច្ឆេទប៉ាន់ស្មានដល់</span>
-                <span class="row-value">{{deliveryEstimateDate | dateKh}}</span>
+            }
+            @if (isInternationalDelivery) {
+              <div class="receipt-row">
+                <span class="row-label"><i class="material-icons row-icon">location_on</i>អាសយដ្ឋានដឹកជញ្ជូន</span>
+                <span class="row-value">
+                  {{internationalAddressLine}}
+                  @if (deliveryAddress?.mail_object?.en_name) {
+                    &middot; {{deliveryAddress?.mail_object?.en_name}}
+                  }
+                </span>
               </div>
-            </ng-container>
+            }
+            @if (deliveryAddress?.phone_number) {
+              <div class="receipt-row">
+                <span class="row-label"><i class="material-icons row-icon">call</i>លេខទូរស័ព្ទ</span>
+                <span class="row-value">{{deliveryAddress?.phone_number}}</span>
+              </div>
+            }
+            @if (deliveryAddress?.email) {
+              <div class="receipt-row">
+                <span class="row-label"><i class="material-icons row-icon">email</i>អ៊ីមែល</span>
+                <span class="row-value">{{deliveryAddress?.email}}</span>
+              </div>
+            }
+            @if (deliveryTicket) {
+              @if (deliveryTicket?.tracking_code) {
+                <div class="receipt-row">
+                  <span class="row-label"><i class="material-icons row-icon">qr_code</i>លេខតាមដាន</span>
+                  <span class="row-value">{{deliveryTicket?.tracking_code}}</span>
+                </div>
+              }
+              @if (deliveryEstimateDate) {
+                <div class="receipt-row">
+                  <span class="row-label"><i class="material-icons row-icon">schedule</i>កាលបរិច្ឆេទប៉ាន់ស្មានដល់</span>
+                  <span class="row-value">{{deliveryEstimateDate | dateKh}}</span>
+                </div>
+              }
+            }
             <div class="receipt-row">
-                <span class="row-label"><i class="material-icons row-icon">money</i>ថ្លៃសេវាដឹកជញ្ជូន</span>
-                <span class="row-value">{{this.store?.selectedCriminalRecord?.delivery_fee|formatNum3digitPipe}}<small>៛</small></span>
+              <span class="row-label"><i class="material-icons row-icon">money</i>ថ្លៃសេវាដឹកជញ្ជូន</span>
+              <span class="row-value">{{$safeNavigationMigration(this.store?.selectedCriminalRecord?.delivery_fee)|formatNum3digitPipe}}<small>៛</small></span>
             </div>
-            
           </div>
           <ng-template #emptyDelivery>
             <div class="receipt-empty">
@@ -128,7 +159,7 @@
             </div>
           </ng-template>
         </div>
-      </ng-container>
+      }
 
     </div>
   </div>

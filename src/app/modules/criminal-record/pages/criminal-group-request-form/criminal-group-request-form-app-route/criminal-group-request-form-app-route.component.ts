@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import { AddGroupRequestFormComponent } from '../add-group-request-form/add-group-request-form.component';
 
 @Component({
-  selector: 'app-criminal-group-request-form-app-route',
-  templateUrl: './criminal-group-request-form-app-route.component.html',
-  styleUrls: ['./criminal-group-request-form-app-route.component.scss']
+    selector: 'app-criminal-group-request-form-app-route',
+    templateUrl: './criminal-group-request-form-app-route.component.html',
+    styleUrls: ['./criminal-group-request-form-app-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormAppRouteComponent implements OnInit, OnDestroy {
   tabs = criminal_tabs.criminal_record_approval_by_folder_tabs;

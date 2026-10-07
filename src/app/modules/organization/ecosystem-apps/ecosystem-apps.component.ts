@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IEcosystem } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { EcosystemStore } from 'src/app/stores/document/ecosystem.store';
 import { EcosystemFormComponent } from './ecosystem-form/ecosystem-form.component';
 
 @Component({
-  selector: 'app-ecosystem-apps',
-  templateUrl: './ecosystem-apps.component.html',
-  styleUrls: ['./ecosystem-apps.component.scss']
+    selector: 'app-ecosystem-apps',
+    templateUrl: './ecosystem-apps.component.html',
+    styleUrls: ['./ecosystem-apps.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EcosystemAppsComponent implements OnInit {
   tabs = tabs.ecosystem

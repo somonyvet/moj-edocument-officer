@@ -15,108 +15,116 @@
             <li class="breadcrumb-item"><a routerLink="/workplace">ទំព័រដើម</a></li>
             <li class="breadcrumb-item"><a routerLink="/apps/program/mme-program">កម្មវិធី</a></li>
             <li class="breadcrumb-item"><a
-                [routerLink]="'/apps/program/' + store?.parentData?.key + '/mme-sub-program'">{{store?.parentData?.title}}</a></li>
+            [routerLink]="'/apps/program/' + $safeNavigationMigration(store?.parentData?.key) + '/mme-sub-program'">{{store?.parentData?.title}}</a></li>
             <li class="breadcrumb-item"><a
-                [routerLink]="'/apps/program/' + store?.submainProgram?.key + '/cluster-of-activities'">{{store?.submainProgram?.title}}</a></li>
-            <li class="breadcrumb-item"><a [routerLink]="'/apps/program/' + store?.clusterData?.key + '/main-activities'">{{store?.clusterData?.title}}</a></li>
+            [routerLink]="'/apps/program/' + $safeNavigationMigration(store?.submainProgram?.key) + '/cluster-of-activities'">{{store?.submainProgram?.title}}</a></li>
+            <li class="breadcrumb-item"><a [routerLink]="'/apps/program/' + $safeNavigationMigration(store?.clusterData?.key) + '/main-activities'">{{store?.clusterData?.title}}</a></li>
             <li class="breadcrumb-item">{{store?.mainActivitiesData?.title}}</li>
           </ol>
         </nav>
       </div>
     </div>
 
-    <nav mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      @for (link of tabs; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
         [active]="rla.isActive">{{link.label}}</a>
+      }
     </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
   </div>
 
   <div class="page-doc">
-    <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="dataMainProgram" class="as-tb-wrap vt-doc">
-      <table class="as-table-wrapper" *ngIf="dataMainProgram.length > 0 && !store?.loading">
-        <thead #header>
-          <tr>
-            <th class="center">
-              ល.រ
-            </th>
-            <th class="left">
-              លេខកូដ
-            </th>
-            <th class="left">
-              ឈ្មោះ
-            </th>
-            <th class="left">
-              ថវិការ MME (លាន៛)
-            </th>
-            <th class="left">
-              ថវិការ MME ($)
-            </th>
-            <th class="left">
-              ថវិការ MEF (លាន៛)
-            </th>
-            <th>
-
-            </th>
-          </tr>
-        </thead>
-        <tbody #container>
-          <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
-            <td class="center" style="width: 64px;">
-              {{item?.index}}
-            </td>
-            <td>
-              <div class="rows">
-                <div class="avatar-tb">
-                  <img [src]="item?.file?.downloadUrl || URL">
-                </div>
-                <strong>{{item?.program_id}}</strong>
-              </div>
-            </td>
-            <td>
-              <div class="rows" style="white-space: normal; max-width: 260px;">
-                <span style="margin-right: 6px;">
-                  {{item?.title}}
-                </span>
-              </div>
-            </td>
-            <td>
-              {{item?.kh_budget_mme ? item?.kh_budget_mme: '0.00'}}
-            </td>
-            <td>
-              {{item?.us_budget_mme ? item?.us_budget_mme : '0.00'}}
-            </td>
-            <td>
-              {{item?.kh_budget_mfe? item.kh_budget_mfe : '0.00'}}
-            </td>
-            <td style="width: 64px;">
-              <div class="card-list-action">
-                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                  <i class="material-icons">more_vert</i>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="create(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>កែប្រែ</span>
-                  </button>
-                  <button mat-menu-item (click)="desActi(item)">
-                    <mat-icon>notes</mat-icon>
-                    <span>បរិយាយសកម្មភាព</span>
-                  </button>
-                  <button mat-menu-item (click)="AddIndicators(item)">
-                    <mat-icon>notes</mat-icon>
-                    <span>សូចនាករ</span>
-                  </button>
-                  <button mat-menu-item *ngIf="!item?.isAdmin" (click)="delete(item)">
-                    <mat-icon>delete</mat-icon>
-                    <span>លុប</span>
-                  </button>
-                </mat-menu>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
+    <div #scroll (vsEnd)="_onScroll($event)" [appScrollEnd]="dataMainProgram" class="as-tb-wrap vt-doc">
+      @if (dataMainProgram.length > 0 && !store?.loading) {
+        <table class="as-table-wrapper">
+          <thead #header>
+            <tr>
+              <th class="center">
+                ល.រ
+              </th>
+              <th class="left">
+                លេខកូដ
+              </th>
+              <th class="left">
+                ឈ្មោះ
+              </th>
+              <th class="left">
+                ថវិការ MME (លាន៛)
+              </th>
+              <th class="left">
+                ថវិការ MME ($)
+              </th>
+              <th class="left">
+                ថវិការ MEF (លាន៛)
+              </th>
+              <th>
+              </th>
+            </tr>
+          </thead>
+          <tbody #container>
+            @for (item of dataMainProgram; track item; let i = $index) {
+              <tr>
+                <td class="center" style="width: 64px;">
+                  {{item?.index}}
+                </td>
+                <td>
+                  <div class="rows">
+                    <div class="avatar-tb">
+                      <img [src]="item?.file?.downloadUrl || URL">
+                    </div>
+                    <strong>{{item?.program_id}}</strong>
+                  </div>
+                </td>
+                <td>
+                  <div class="rows" style="white-space: normal; max-width: 260px;">
+                    <span style="margin-right: 6px;">
+                      {{item?.title}}
+                    </span>
+                  </div>
+                </td>
+                <td>
+                  {{item?.kh_budget_mme ? item?.kh_budget_mme: '0.00'}}
+                </td>
+                <td>
+                  {{item?.us_budget_mme ? item?.us_budget_mme : '0.00'}}
+                </td>
+                <td>
+                  {{item?.kh_budget_mfe? item.kh_budget_mfe : '0.00'}}
+                </td>
+                <td style="width: 64px;">
+                  <div class="card-list-action">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <i class="material-icons">more_vert</i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="create(item)">
+                        <mat-icon>edit</mat-icon>
+                        <span>កែប្រែ</span>
+                      </button>
+                      <button mat-menu-item (click)="desActi(item)">
+                        <mat-icon>notes</mat-icon>
+                        <span>បរិយាយសកម្មភាព</span>
+                      </button>
+                      <button mat-menu-item (click)="AddIndicators(item)">
+                        <mat-icon>notes</mat-icon>
+                        <span>សូចនាករ</span>
+                      </button>
+                      @if (!item?.isAdmin) {
+                        <button mat-menu-item (click)="delete(item)">
+                          <mat-icon>delete</mat-icon>
+                          <span>លុប</span>
+                        </button>
+                      }
+                    </mat-menu>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      @if (store?.data?.length===0 && !store?.loading) {
         <div class="empty-block">
           <div class="center-block-empty">
             <div class="empty-img">
@@ -133,10 +141,12 @@
             </div>
           </div>
         </div>
-      </ng-container>
-      <app-spinner *ngIf="store?.loading"></app-spinner>
+      }
+      @if (store?.loading) {
+        <app-spinner></app-spinner>
+      }
       <!-- <app-spinner *ngIf="store?.fetching"></app-spinner> -->
-    </virtual-scroller>
+    </div>
   </div>
 </div>
 

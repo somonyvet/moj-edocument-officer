@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-approved-mod-data-entry',
-  templateUrl: './criminal-record-approved-mod-data-entry.component.html',
-  styleUrls: ['./criminal-record-approved-mod-data-entry.component.scss']
+    selector: 'app-criminal-record-approved-mod-data-entry',
+    templateUrl: './criminal-record-approved-mod-data-entry.component.html',
+    styleUrls: ['./criminal-record-approved-mod-data-entry.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordApprovedModDataEntryComponent implements OnInit {
   loading: boolean = true;

@@ -27,10 +27,12 @@
           </div>
         </div>
 
-        <div class="receipt-error" *ngIf="auth?.isEmbassyUser && (criminalStore?.selectedCriminalRecord?.application_embassy?.key !== auth?.selected_application_embassy?.key)">
-          <i class="material-icons">warning</i>
-          <span>ទីតាំងដកព្រឹត្តិបត្រមិនត្រឹមត្រូវ</span>
-        </div>
+        @if (auth?.isEmbassyUser && (criminalStore?.selectedCriminalRecord?.application_embassy?.key !== auth?.selected_application_embassy?.key)) {
+          <div class="receipt-error">
+            <i class="material-icons">warning</i>
+            <span>ទីតាំងដកព្រឹត្តិបត្រមិនត្រឹមត្រូវ</span>
+          </div>
+        }
       </div>
     </div>
   </div>

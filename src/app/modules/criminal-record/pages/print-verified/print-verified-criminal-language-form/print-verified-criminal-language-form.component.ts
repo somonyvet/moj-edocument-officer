@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -8,18 +8,20 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import { AngularFireFunctions } from "@angular/fire/compat/functions";
 
 @Component({
-  selector: 'app-print-verified-criminal-language-form',
-  templateUrl: './print-verified-criminal-language-form.component.html',
-  styleUrls: ['./print-verified-criminal-language-form.component.scss']
+    selector: 'app-print-verified-criminal-language-form',
+    templateUrl: './print-verified-criminal-language-form.component.html',
+    styleUrls: ['./print-verified-criminal-language-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PrintVerifiedCriminalLanguageFormComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<PrintVerifiedCriminalLanguageFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private authStore: AuthStore,

@@ -1,13 +1,15 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { PosterStore } from 'src/app/stores/poster.store';
 
 @Component({
-  selector: 'app-post-banner-page',
-  templateUrl: './post-banner-page.component.html',
-  styleUrls: ['./post-banner-page.component.scss']
+    selector: 'app-post-banner-page',
+    templateUrl: './post-banner-page.component.html',
+    styleUrls: ['./post-banner-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PostBannerPageComponent implements OnInit {
 

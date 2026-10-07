@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -6,9 +6,11 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
 import { GeoProvinceFormComponent } from '../geo-data/geo-province-form/geo-province-form.component';
 
 @Component({
-  selector: 'app-criminal-receipt-application',
-  templateUrl: './criminal-receipt-application.component.html',
-  styleUrls: ['./criminal-receipt-application.component.scss']
+    selector: 'app-criminal-receipt-application',
+    templateUrl: './criminal-receipt-application.component.html',
+    styleUrls: ['./criminal-receipt-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalReceiptApplicationComponent implements OnInit {
   selected: Date | null = new Date();

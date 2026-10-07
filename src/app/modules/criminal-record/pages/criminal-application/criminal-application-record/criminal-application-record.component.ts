@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-application-record',
-  templateUrl: './criminal-application-record.component.html',
-  styleUrls: ['./criminal-application-record.component.scss']
+    selector: 'app-criminal-application-record',
+    templateUrl: './criminal-application-record.component.html',
+    styleUrls: ['./criminal-application-record.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationRecordComponent implements OnInit, OnDestroy {
   tabs = criminal_tabs.applications;

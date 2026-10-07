@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { FAMILY_STATUS, GENDER_DATA, PHOTO_LIB, STATUS_LIVES_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { days, KHdays, KHMER_DAY, monthOfYear } from 'src/app/dummy/report';
@@ -17,13 +17,15 @@ import { map, take, debounceTime } from "rxjs/operators";
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
-  selector: 'app-cv-form-condemn',
-  templateUrl: './cv-form-condemn.component.html',
-  styleUrls: ['./cv-form-condemn.component.scss']
+    selector: 'app-cv-form-condemn',
+    templateUrl: './cv-form-condemn.component.html',
+    styleUrls: ['./cv-form-condemn.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CvFormCondemnComponent implements OnInit {
   backUrl: string = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -132,7 +134,7 @@ export class CvFormCondemnComponent implements OnInit {
   // old_age_mother: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     public store: CitizenStore,
@@ -463,7 +465,7 @@ export class CvFormCondemnComponent implements OnInit {
       nick_name_en: [null],
       nick_name_fr: [null],
 
-      liveInForeign: new FormArray([]),
+      liveInForeign: new UntypedFormArray([]),
 
       father_name_kh: [null],
       father_name_en: [null],
@@ -637,7 +639,7 @@ export class CvFormCondemnComponent implements OnInit {
 
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -663,7 +665,7 @@ export class CvFormCondemnComponent implements OnInit {
     }
   }
   getFormArrvalueFields(name: string, fields: string[]) {
-    const formArr = this.form.get(name) as FormArray;
+    const formArr = this.form.get(name) as UntypedFormArray;
     return formArr?.controls?.filter(f => f?.get(fields[0])?.value).map(m => {
       let obj = {};
       fields.forEach(m1 => {
@@ -1149,12 +1151,12 @@ export class CvFormCondemnComponent implements OnInit {
   }
 
   onSelectedFromDateArr(event, index) {
-    const form = this.form.get('liveInForeign') as FormArray
+    const form = this.form.get('liveInForeign') as UntypedFormArray
     form.at(index).get('from_date').patchValue(event)
   }
 
   onSelectedToDateArr(event, index) {
-    const form = this.form.get('liveInForeign') as FormArray
+    const form = this.form.get('liveInForeign') as UntypedFormArray
     form.at(index).get('to_date').patchValue(event)
   }
 
@@ -1213,7 +1215,7 @@ export class CvFormCondemnComponent implements OnInit {
 
 
   addFormArrayForeign() {
-    const form = this.form.get('liveInForeign') as FormArray;
+    const form = this.form.get('liveInForeign') as UntypedFormArray;
     form.push(this.fb.group({
       name: [null],
       from_date: [null],
@@ -1222,12 +1224,12 @@ export class CvFormCondemnComponent implements OnInit {
   }
 
   removeFormArrayForeign(index) {
-    const form = this.form.get('liveInForeign') as FormArray;
+    const form = this.form.get('liveInForeign') as UntypedFormArray;
     form.removeAt(index);
   }
 
   patchFormArray(list) {
-    const form = this.form.get('liveInForeign') as FormArray;
+    const form = this.form.get('liveInForeign') as UntypedFormArray;
     while (form.length > 0) {
       form.removeAt(0)
     }

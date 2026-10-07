@@ -5,441 +5,469 @@
 
       <div class="body-item">
         <!-- <div class="title">
-            <h3>៥-ប្រវត្តិការងារ</h3>
-          </div> -->
+        <h3>៥-ប្រវត្តិការងារ</h3>
+      </div> -->
 
-        <div class="row-item" style="margin-top: 20px">
-          <div class="f-item" [ngClass]="form.get('unit')?.errors&&form.get('unit')?.touched?'has-error':''">
-            <span>អង្គភាពៈ</span>
-            <input class="f-input" type="text" formControlName="unit">
-          </div>
+      <div class="row-item" style="margin-top: 20px">
+        <div class="f-item" [ngClass]="form.get('unit')?.errors&&form.get('unit')?.touched?'has-error':''">
+          <span>អង្គភាពៈ</span>
+          <input class="f-input" type="text" formControlName="unit">
         </div>
-
-        <div class="row-item">
-          <!-- <div class="f-item" [ngClass]="form.get('dateOfEntryStateWork')?.errors&&form.get('dateOfEntryStateWork')?.touched?'has-error':''">
-              <span>ថ្ងៃ ខែ ឆ្នាំ	បម្រើការងារក្របខណ្ឌរដ្ឋៈ</span>
-              <input class="f-input" type="text" formControlName="dateOfEntryStateWork" [matDatepicker]="pickerD" (focus)="pickerD.open()">
-              <mat-datepicker #pickerD></mat-datepicker>
-            </div> -->
-          <div class="f-item">
-            <div class="inValid-date" *ngIf="dateOfEntryStateWorkInvalid">
-              ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-            </div>
-            <app-khmer-date-form-picker
-              [class]="dateOfEntryStateWorkInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-              (onSelectedItem)="onSelectedDateOfEntryStateWork($event)" style="width:100%;"
-              [label]="'ថ្ងៃខែឆ្នាំបម្រើការងារក្របខណ្ឌរដ្ឋ ថ្ងៃ'"
-              [day]="form.get('dateOfEntryStateWork')?.value?.day||null"
-              [month]="form.get('dateOfEntryStateWork')?.value?.month||null"
-              [year]="form.get('dateOfEntryStateWork')?.value?.year||null"></app-khmer-date-form-picker>
-          </div>
-        </div>
-
-        <div class="memo">
-          <div class="wrapper">
-            <div class="sub-title">
-              <h4>សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក (ឆ្នាំ១៩៧៩ ដល់បច្ចុប្បន្ន)</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="row-item">
-          <div class="f-table">
-            <table class="tb-input">
-              <thead>
-                <tr>
-                  <th class="center">កាលបរិច្ឆេទ</th>
-                  <th class="center" rowspan="2">សកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក</th>
-                  <th class="center" rowspan="2">នាយកដ្ឋាន~អង្គភាព</th>
-                  <th width="64px" rowspan="2"></th>
-                </tr>
-                <tr>
-                  <th class="center">ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container formArrayName="occupationHistory"
-                  *ngFor="let item of form.get('occupationHistory')?.controls;let i = index;">
-                  <tr [formGroupName]="i">
-                    <td>
-                      <div style="display: flex; grid-gap: 12px;">
-                        <!-- <div class="ftb-input" [ngClass]="item.get('fromDate')?.errors&&item.get('fromDate')?.touched?'has-error':''">
-                              <input class="f-input" type="text" formControlName="fromDate" [matDatepicker]="picker1" (focus)="picker1.open()">
-                              <mat-datepicker #picker1></mat-datepicker>
-                            </div> -->
-                        <div class="ftb-input">
-                          <div class="inValid-date" *ngIf="dateInvalid">
-                            ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-                          </div>
-                          <app-khmer-date-form-picker
-                            [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-                            (onSelectedItem)="onSelectedDateFrom($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
-                            [day]="item.get('fromDate')?.value?.day||null"
-                            [month]="item.get('fromDate')?.value?.month||null"
-                            [year]="item.get('fromDate')?.value?.year||null"></app-khmer-date-form-picker>
-                        </div>
-
-                        <span class="ftb-text">ដល់</span>
-
-                        <!-- <div class="ftb-input" [ngClass]="item.get('toDate')?.errors&&item.get('toDate')?.touched?'has-error':''">
-                              <input class="f-input" type="text" formControlName="toDate" [matDatepicker]="picker2" (focus)="picker2.open()">
-                              <mat-datepicker #picker2></mat-datepicker>
-                            </div> -->
-
-                        <div class="ftb-input">
-                          <div class="inValid-date" *ngIf="dateInvalid">
-                            ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-                          </div>
-                          <app-khmer-date-form-picker
-                            [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-                            (onSelectedItem)="onSelectedDateTo($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
-                            [day]="item.get('toDate')?.value?.day||null"
-                            [month]="item.get('toDate')?.value?.month||null"
-                            [year]="item.get('toDate')?.value?.year||null"></app-khmer-date-form-picker>
-                        </div>
-
-                      </div>
-                    </td>
-                    <td style="width: 270px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="name">
-                      </div>
-                    </td>
-                    <td style="width: 220px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('unit')?.errors&&item.get('unit')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="unit">
-                      </div>
-                    </td>
-
-
-                    <td>
-                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('occupationHistory')">
-                        <mat-icon>close</mat-icon>
-                      </a>
-                    </td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-            <div class="fw-box">
-              <a mat-button class="btn-text"
-                (click)="this.addFormArrayWithFields('occupationHistory',[{ field: 'fromDate', value: null },{ field: 'toDate', value: null }, { field: 'name', value: null }, { field: 'unit', value: null }])">
-                <span>បន្ថែមប្រអប់បញ្ចូល</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div class="memo">
-          <div class="wrapper">
-            <div class="sub-title">
-              <h4>ក.មុខតំណែង (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="row-item">
-          <div class="f-table">
-            <table class="tb-input">
-              <thead>
-                <tr>
-                  <th class="center">លេខរៀង</th>
-                  <th class="center">មុខតំណែងនីមួយៗ</th>
-                  <th class="center">លេខឯកសារ</th>
-                  <th class="center">កាលបរិច្ឆេទ</th>
-                  <th class="center">រូបភាព</th>
-                  <th width="64px"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container formArrayName="positionHistory"
-                  *ngFor="let item of form.get('positionHistory')?.controls;let i = index;">
-                  <tr [formGroupName]="i">
-                    <td style="width: 90px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('order')?.errors&&item.get('order')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="order">
-                      </div>
-                    </td>
-                    <td style="width: 270px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="name" [matAutocomplete]="autoGender">
-                        <mat-autocomplete [displayWith]="ds?.displayName" #autoGender="matAutocomplete">
-                          <mat-option *ngFor="let item of titleList;let i=index" [value]="item">
-                            {{item?.name}}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </div>
-                    </td>
-                    <td style="width: 220px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('numDoc')?.errors&&item.get('numDoc')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="numDoc">
-                      </div>
-                    </td>
-
-                    <td style="width: 150px">
-                      <!-- <div class="ftb-input" [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="date" [matDatepicker]="pickerPositionHistory" (focus)="pickerPositionHistory.open()">
-                          <mat-datepicker #pickerPositionHistory></mat-datepicker>
-                        </div> -->
-
-                      <div class="ftb-input">
-                        <div class="inValid-date" *ngIf="dateInvalid">
-                          ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-                        </div>
-                        <app-khmer-date-form-picker
-                          [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-                          (onSelectedItem)="onSelectedPosDate($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
-                          [day]="item.get('date')?.value?.day||null" [month]="item.get('date')?.value?.month||null"
-                          [year]="item.get('date')?.value?.year||null"></app-khmer-date-form-picker>
-                      </div>
-
-                    </td>
-
-
-                    <td style="vertical-align: middle;">
-                      <div style="display:flex ;">
-                        <!-- <div class="flex1">
-                            <div class="img-view">
-                              <ng-container *ngFor="let item of selectedPositionFileArray[i]; let ind = index;">
-                                <span class="flc">{{item?.name}}</span>
-                                <button mat-icon-button *ngIf="item?.name" (click)="removePositionFile(i,ind)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </button>
-                              </ng-container>
-                            </div>
-                          </div> -->
-                        <div class="flex1">
-                          <div class="img-view">
-                            <ng-container *ngFor="let file of positionHistoryData[i]?.files">
-                              <div class="img-container">
-                                <a class="download" target="blank" [href]="file?.downloadUrl">
-                                  <img [src]="file?.downloadUrl" *ngIf="file?.fileType!=='application/pdf'">
-                                </a>
-                                <div class="pdf-view download" *ngIf="file?.fileType==='application/pdf'">
-                                  <a target="blank" [href]="file?.downloadUrl">{{file?.name}}</a>
-                                </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removePositionFileDB(i,ind,file)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                            <ng-container *ngFor="let item of listDisplayFile1[i]; let ind = index;">
-                              <div class="img-container">
-                                <img [src]="item" *ngIf="selectedPositionFileArray[i][ind]?.type!=='application/pdf'">
-                                <div class="pdf-view"
-                                  *ngIf="selectedPositionFileArray[i][ind]?.type==='application/pdf'">
-                                  {{selectedPositionFileArray[i][ind]?.name}}
-                                </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removePositionFile(i,ind)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <!-- <div class="file-select-box">
-                            <button (click)="praiseFile.click()" class="form-file-select">
-                              <mat-icon class="mat-18">attach_file</mat-icon>
-                            </button>
-                            <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
-                              style="display: none;" (change)="selectedPositionFile($event,i)">
-                          </div> -->
-                        <div class="file-select-box">
-                          <button class="mat-add-new" mat-button mat-icon-button (click)="praiseFile.click()">
-                            <mat-icon class="mat-18">attach_file</mat-icon>
-                          </button>
-                          <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
-                            placeholder="" style="display: none;" (change)="selectedPositionFile($event,i)" multiple>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td>
-                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('positionHistory')">
-                        <mat-icon>close</mat-icon>
-                      </a>
-                    </td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-            <div class="fw-box">
-              <a mat-button class="btn-text"
-                (click)="this.addFormArrayWithFields('positionHistory',[{ field: 'numDoc', value: null }, { field: 'name', value: null }, { field: 'order', value: null }, { field: 'date', value: null }, { field: 'files', value: null }])">
-                <span>បន្ថែមប្រអប់បញ្ចូល</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="memo">
-          <div class="wrapper">
-            <div class="sub-title">
-              <h4>ខ.ឋានន្តរស័ក (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
-            </div>
-          </div>
-        </div>
-
-        <div class="row-item">
-          <div class="f-table">
-            <table class="tb-input">
-              <thead>
-                <tr>
-                  <th class="center">លេខរៀង</th>
-                  <th class="center">ឋានន្តរស័កនីមួយៗ</th>
-                  <th class="center">លេខឯកសារ</th>
-                  <th class="center">កាលបរិច្ឆេទ</th>
-                  <th class="center">រូបភាព</th>
-                  <th width="64px"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container formArrayName="rankHistory"
-                  *ngFor="let item of form.get('rankHistory')?.controls;let i = index;">
-                  <tr [formGroupName]="i">
-                    <td style="width: 90px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('order')?.errors&&item.get('order')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="order">
-                      </div>
-                    </td>
-                    <td style="width: 270px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="name" [matAutocomplete]="autoPosition">
-                        <mat-autocomplete [displayWith]="ds?.displayName" #autoPosition="matAutocomplete">
-                          <mat-option *ngFor="let item of positionList;let i=index" [value]="item">
-                            {{item?.name}}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </div>
-                    </td>
-                    <td style="width: 220px">
-                      <div class="ftb-input"
-                        [ngClass]="item.get('numDoc')?.errors&&item.get('numDoc')?.touched?'has-error':''">
-                        <input class="f-input" type="text" formControlName="numDoc">
-                      </div>
-                    </td>
-
-                    <td style="width: 150px">
-                      <!-- <div class="ftb-input" [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="date" [matDatepicker]="pickerRankHistory" (focus)="pickerRankHistory.open()">
-                          <mat-datepicker #pickerRankHistory></mat-datepicker>
-                        </div> -->
-                      <div class="ftb-input">
-                        <div class="inValid-date" *ngIf="dateInvalid">
-                          ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-                        </div>
-                        <app-khmer-date-form-picker
-                          [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-                          (onSelectedItem)="onSelectedRankDate($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
-                          [day]="item.get('date')?.value?.day||null" [month]="item.get('date')?.value?.month||null"
-                          [year]="item.get('date')?.value?.year||null"></app-khmer-date-form-picker>
-                      </div>
-                    </td>
-                    <td style="vertical-align: middle;">
-                      <div style="display:flex ;">
-                        <!-- <div class="flex1">
-                            <div class="img-view">
-                              <ng-container *ngFor="let file of rankHistoryData[i]?.files; let ind = index;">
-                                <span class="fdb">{{file?.name}}</span>
-                                <button mat-icon-button *ngIf="file?.name" (click)="removeRankFileDB(i,ind, file)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </button>
-                              </ng-container>
-                              <ng-container *ngFor="let item of selectedRankFileArray[i]; let ind = index;">
-                                <span class="flc">{{item?.name}}</span>
-                                <button mat-icon-button *ngIf="item?.name" (click)="removeRankFile(i,ind)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </button>
-                              </ng-container>
-                            </div>
-                          </div> -->
-                        <div class="flex1">
-                          <div class="img-view">
-                            <ng-container *ngFor="let file of rankHistoryData[i]?.files">
-                              <div class="img-container">
-                                <a class="download" target="blank" [href]="file?.downloadUrl">
-                                  <img [src]="file?.downloadUrl" *ngIf="file?.fileType!=='application/pdf'">
-                                </a>
-                                <div class="pdf-view download" *ngIf="file?.fileType==='application/pdf'">
-                                  <a target="blank" [href]="file?.downloadUrl">{{file?.name}}</a>
-                                </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removeRankFileDB(i,ind,file)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                            <ng-container *ngFor="let item of listDisplayFile2[i]; let ind = index;">
-                              <div class="img-container">
-                                <img [src]="item" *ngIf="selectedRankFileArray[i][ind]?.type!=='application/pdf'">
-                                <div class="pdf-view" *ngIf="selectedRankFileArray[i][ind]?.type==='application/pdf'">
-                                  {{selectedRankFileArray[i][ind]?.name}}
-                                </div>
-                                <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
-                                  (click)="removeRankFile(i,ind)">
-                                  <mat-icon class="mat-18">clear</mat-icon>
-                                </a>
-                              </div>
-                            </ng-container>
-                          </div>
-                        </div>
-                        <div class="file-select-box">
-                          <button class="mat-add-new" mat-button mat-icon-button (click)="praiseFile.click()">
-                            <mat-icon class="mat-18">attach_file</mat-icon>
-                          </button>
-                          <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
-                            placeholder="" style="display: none;" (change)="selectedRankFile($event,i)" multiple>
-                        </div>
-                        <!-- <div class="file-select-box">
-                            <button (click)="praiseFile.click()" class="form-file-select">
-                              <mat-icon class="mat-18">attach_file</mat-icon>
-                            </button>
-                            <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
-                              style="display: none;" (change)="selectedRankFile($event,i)">
-                          </div> -->
-                      </div>
-                    </td>
-
-                    <td>
-                      <a mat-button mat-icon-button *ngIf="i>0" (click)="removeFormArrayWithField('rankHistory')">
-                        <mat-icon>close</mat-icon>
-                      </a>
-                    </td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-            <div class="fw-box">
-              <a mat-button class="btn-text"
-                (click)="this.addFormArrayWithFields('rankHistory',[{ field: 'numDoc', value: null }, { field: 'name', value: null }, { field: 'order', value: null }, { field: 'date', value: null }, { field: 'files', value: null }])">
-                <span>បន្ថែមប្រអប់បញ្ចូល</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
 
+      <div class="row-item">
+        <!-- <div class="f-item" [ngClass]="form.get('dateOfEntryStateWork')?.errors&&form.get('dateOfEntryStateWork')?.touched?'has-error':''">
+        <span>ថ្ងៃ ខែ ឆ្នាំ	បម្រើការងារក្របខណ្ឌរដ្ឋៈ</span>
+        <input class="f-input" type="text" formControlName="dateOfEntryStateWork" [matDatepicker]="pickerD" (focus)="pickerD.open()">
+        <mat-datepicker #pickerD></mat-datepicker>
+      </div> -->
+      <div class="f-item">
+        @if (dateOfEntryStateWorkInvalid) {
+          <div class="inValid-date">
+            ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+          </div>
+        }
+        <app-khmer-date-form-picker
+          [class]="dateOfEntryStateWorkInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+          (onSelectedItem)="onSelectedDateOfEntryStateWork($event)" style="width:100%;"
+          [label]="'ថ្ងៃខែឆ្នាំបម្រើការងារក្របខណ្ឌរដ្ឋ ថ្ងៃ'"
+          [day]="form.get('dateOfEntryStateWork')?.value?.day||null"
+          [month]="form.get('dateOfEntryStateWork')?.value?.month||null"
+        [year]="form.get('dateOfEntryStateWork')?.value?.year||null"></app-khmer-date-form-picker>
+      </div>
     </div>
-    <div class="eform-action-controls">
-      <div class="action-control-container">
-        <h4>៥-ប្រវត្តិការងារ</h4>
-        <div class="flex1"></div>
-        <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave()"
-          [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
-        </app-primary-button>
+
+    <div class="memo">
+      <div class="wrapper">
+        <div class="sub-title">
+          <h4>សូមរៀបរាប់អំពីសកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក (ឆ្នាំ១៩៧៩ ដល់បច្ចុប្បន្ន)</h4>
+        </div>
       </div>
+    </div>
+
+    <div class="row-item">
+      <div class="f-table">
+        <table class="tb-input">
+          <thead>
+            <tr>
+              <th class="center">កាលបរិច្ឆេទ</th>
+              <th class="center" rowspan="2">សកម្មភាពការងារ និងមុខតំណែងដែលបានទទួលកន្លងមក</th>
+              <th class="center" rowspan="2">នាយកដ្ឋាន~អង្គភាព</th>
+              <th width="64px" rowspan="2"></th>
+            </tr>
+            <tr>
+              <th class="center">ពីថ្ងៃ ខែ ឆ្នាំ ដល់ ថ្ងៃ ខែ ឆ្នាំ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of form.get('occupationHistory')?.controls; track item; let i = $index) {
+              <ng-container formArrayName="occupationHistory"
+                >
+                <tr [formGroupName]="i">
+                  <td>
+                    <div style="display: flex; grid-gap: 12px;">
+                      <!-- <div class="ftb-input" [ngClass]="item.get('fromDate')?.errors&&item.get('fromDate')?.touched?'has-error':''">
+                      <input class="f-input" type="text" formControlName="fromDate" [matDatepicker]="picker1" (focus)="picker1.open()">
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </div> -->
+                    <div class="ftb-input">
+                      @if (dateInvalid) {
+                        <div class="inValid-date">
+                          ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                        </div>
+                      }
+                      <app-khmer-date-form-picker
+                        [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+                        (onSelectedItem)="onSelectedDateFrom($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
+                        [day]="item.get('fromDate')?.value?.day||null"
+                        [month]="item.get('fromDate')?.value?.month||null"
+                      [year]="item.get('fromDate')?.value?.year||null"></app-khmer-date-form-picker>
+                    </div>
+                    <span class="ftb-text">ដល់</span>
+                    <!-- <div class="ftb-input" [ngClass]="item.get('toDate')?.errors&&item.get('toDate')?.touched?'has-error':''">
+                    <input class="f-input" type="text" formControlName="toDate" [matDatepicker]="picker2" (focus)="picker2.open()">
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </div> -->
+                  <div class="ftb-input">
+                    @if (dateInvalid) {
+                      <div class="inValid-date">
+                        ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                      </div>
+                    }
+                    <app-khmer-date-form-picker
+                      [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+                      (onSelectedItem)="onSelectedDateTo($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
+                      [day]="item.get('toDate')?.value?.day||null"
+                      [month]="item.get('toDate')?.value?.month||null"
+                    [year]="item.get('toDate')?.value?.year||null"></app-khmer-date-form-picker>
+                  </div>
+                </div>
+              </td>
+              <td style="width: 270px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="name">
+                </div>
+              </td>
+              <td style="width: 220px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('unit')?.errors&&item.get('unit')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="unit">
+                </div>
+              </td>
+              <td>
+                @if (i>0) {
+                  <a mat-icon-button (click)="removeFormArrayWithField('occupationHistory')">
+                    <mat-icon>close</mat-icon>
+                  </a>
+                }
+              </td>
+            </tr>
+          </ng-container>
+        }
+      </tbody>
+    </table>
+    <div class="fw-box">
+      <a mat-button class="btn-text"
+        (click)="this.addFormArrayWithFields('occupationHistory',[{ field: 'fromDate', value: null },{ field: 'toDate', value: null }, { field: 'name', value: null }, { field: 'unit', value: null }])">
+        <span>បន្ថែមប្រអប់បញ្ចូល</span>
+      </a>
     </div>
   </div>
+</div>
+
+
+
+<div class="memo">
+  <div class="wrapper">
+    <div class="sub-title">
+      <h4>ក.មុខតំណែង (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row-item">
+  <div class="f-table">
+    <table class="tb-input">
+      <thead>
+        <tr>
+          <th class="center">លេខរៀង</th>
+          <th class="center">មុខតំណែងនីមួយៗ</th>
+          <th class="center">លេខឯកសារ</th>
+          <th class="center">កាលបរិច្ឆេទ</th>
+          <th class="center">រូបភាព</th>
+          <th width="64px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of form.get('positionHistory')?.controls; track item; let i = $index) {
+          <ng-container formArrayName="positionHistory"
+            >
+            <tr [formGroupName]="i">
+              <td style="width: 90px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('order')?.errors&&item.get('order')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="order">
+                </div>
+              </td>
+              <td style="width: 270px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="name" [matAutocomplete]="autoGender">
+                  <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayName)" #autoGender="matAutocomplete">
+                    @for (item of titleList; track item; let i = $index) {
+                      <mat-option [value]="item">
+                        {{item?.name}}
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </td>
+              <td style="width: 220px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('numDoc')?.errors&&item.get('numDoc')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="numDoc">
+                </div>
+              </td>
+              <td style="width: 150px">
+                <!-- <div class="ftb-input" [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                <input class="f-input" type="text" formControlName="date" [matDatepicker]="pickerPositionHistory" (focus)="pickerPositionHistory.open()">
+                <mat-datepicker #pickerPositionHistory></mat-datepicker>
+              </div> -->
+              <div class="ftb-input">
+                @if (dateInvalid) {
+                  <div class="inValid-date">
+                    ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                  </div>
+                }
+                <app-khmer-date-form-picker
+                  [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+                  (onSelectedItem)="onSelectedPosDate($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
+                  [day]="item.get('date')?.value?.day||null" [month]="item.get('date')?.value?.month||null"
+                [year]="item.get('date')?.value?.year||null"></app-khmer-date-form-picker>
+              </div>
+            </td>
+            <td style="vertical-align: middle;">
+              <div style="display:flex ;">
+                <!-- <div class="flex1">
+                <div class="img-view">
+                  <ng-container *ngFor="let item of selectedPositionFileArray[i]; let ind = index;">
+                    <span class="flc">{{item?.name}}</span>
+                    <button mat-icon-button *ngIf="item?.name" (click)="removePositionFile(i,ind)">
+                      <mat-icon class="mat-18">clear</mat-icon>
+                    </button>
+                  </ng-container>
+                </div>
+              </div> -->
+              <div class="flex1">
+                <div class="img-view">
+                  @for (file of positionHistoryData[i]?.files; track file) {
+                    <div class="img-container">
+                      <a class="download" target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">
+                        @if (file?.fileType!=='application/pdf') {
+                          <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                        }
+                      </a>
+                      @if (file?.fileType==='application/pdf') {
+                        <div class="pdf-view download">
+                          <a target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">{{file?.name}}</a>
+                        </div>
+                      }
+                      <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                        (click)="removePositionFileDB(i,ind,file)">
+                        <mat-icon class="mat-18">clear</mat-icon>
+                      </a>
+                    </div>
+                  }
+                  @for (item of listDisplayFile1[i]; track item; let ind = $index) {
+                    <div class="img-container">
+                      @if (selectedPositionFileArray[i][ind]?.type!=='application/pdf') {
+                        <img [src]="item">
+                      }
+                      @if (selectedPositionFileArray[i][ind]?.type==='application/pdf') {
+                        <div class="pdf-view"
+                          >
+                          {{selectedPositionFileArray[i][ind]?.name}}
+                        </div>
+                      }
+                      <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                        (click)="removePositionFile(i,ind)">
+                        <mat-icon class="mat-18">clear</mat-icon>
+                      </a>
+                    </div>
+                  }
+                </div>
+              </div>
+              <!-- <div class="file-select-box">
+              <button (click)="praiseFile.click()" class="form-file-select">
+                <mat-icon class="mat-18">attach_file</mat-icon>
+              </button>
+              <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
+                style="display: none;" (change)="selectedPositionFile($event,i)">
+            </div> -->
+            <div class="file-select-box">
+              <button class="mat-add-new" mat-icon-button (click)="praiseFile.click()">
+                <mat-icon class="mat-18">attach_file</mat-icon>
+              </button>
+              <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
+                placeholder="" style="display: none;" (change)="selectedPositionFile($event,i)" multiple>
+            </div>
+          </div>
+        </td>
+        <td>
+          @if (i>0) {
+            <a mat-icon-button (click)="removeFormArrayWithField('positionHistory')">
+              <mat-icon>close</mat-icon>
+            </a>
+          }
+        </td>
+      </tr>
+    </ng-container>
+  }
+</tbody>
+</table>
+<div class="fw-box">
+  <a mat-button class="btn-text"
+    (click)="this.addFormArrayWithFields('positionHistory',[{ field: 'numDoc', value: null }, { field: 'name', value: null }, { field: 'order', value: null }, { field: 'date', value: null }, { field: 'files', value: null }])">
+    <span>បន្ថែមប្រអប់បញ្ចូល</span>
+  </a>
+</div>
+</div>
+</div>
+
+<div class="memo">
+  <div class="wrapper">
+    <div class="sub-title">
+      <h4>ខ.ឋានន្តរស័ក (សូមរៀបរាប់តាមលំដាប់លំដោយបន្តបន្ទាប់)</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row-item">
+  <div class="f-table">
+    <table class="tb-input">
+      <thead>
+        <tr>
+          <th class="center">លេខរៀង</th>
+          <th class="center">ឋានន្តរស័កនីមួយៗ</th>
+          <th class="center">លេខឯកសារ</th>
+          <th class="center">កាលបរិច្ឆេទ</th>
+          <th class="center">រូបភាព</th>
+          <th width="64px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of form.get('rankHistory')?.controls; track item; let i = $index) {
+          <ng-container formArrayName="rankHistory"
+            >
+            <tr [formGroupName]="i">
+              <td style="width: 90px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('order')?.errors&&item.get('order')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="order">
+                </div>
+              </td>
+              <td style="width: 270px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="name" [matAutocomplete]="autoPosition">
+                  <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayName)" #autoPosition="matAutocomplete">
+                    @for (item of positionList; track item; let i = $index) {
+                      <mat-option [value]="item">
+                        {{item?.name}}
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </td>
+              <td style="width: 220px">
+                <div class="ftb-input"
+                  [ngClass]="item.get('numDoc')?.errors&&item.get('numDoc')?.touched?'has-error':''">
+                  <input class="f-input" type="text" formControlName="numDoc">
+                </div>
+              </td>
+              <td style="width: 150px">
+                <!-- <div class="ftb-input" [ngClass]="item.get('date')?.errors&&item.get('date')?.touched?'has-error':''">
+                <input class="f-input" type="text" formControlName="date" [matDatepicker]="pickerRankHistory" (focus)="pickerRankHistory.open()">
+                <mat-datepicker #pickerRankHistory></mat-datepicker>
+              </div> -->
+              <div class="ftb-input">
+                @if (dateInvalid) {
+                  <div class="inValid-date">
+                    ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                  </div>
+                }
+                <app-khmer-date-form-picker
+                  [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+                  (onSelectedItem)="onSelectedRankDate($event,i)" style="width:100%;" [label]="'ថ្ងៃ'"
+                  [day]="item.get('date')?.value?.day||null" [month]="item.get('date')?.value?.month||null"
+                [year]="item.get('date')?.value?.year||null"></app-khmer-date-form-picker>
+              </div>
+            </td>
+            <td style="vertical-align: middle;">
+              <div style="display:flex ;">
+                <!-- <div class="flex1">
+                <div class="img-view">
+                  <ng-container *ngFor="let file of rankHistoryData[i]?.files; let ind = index;">
+                    <span class="fdb">{{file?.name}}</span>
+                    <button mat-icon-button *ngIf="file?.name" (click)="removeRankFileDB(i,ind, file)">
+                      <mat-icon class="mat-18">clear</mat-icon>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngFor="let item of selectedRankFileArray[i]; let ind = index;">
+                    <span class="flc">{{item?.name}}</span>
+                    <button mat-icon-button *ngIf="item?.name" (click)="removeRankFile(i,ind)">
+                      <mat-icon class="mat-18">clear</mat-icon>
+                    </button>
+                  </ng-container>
+                </div>
+              </div> -->
+              <div class="flex1">
+                <div class="img-view">
+                  @for (file of rankHistoryData[i]?.files; track file) {
+                    <div class="img-container">
+                      <a class="download" target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">
+                        @if (file?.fileType!=='application/pdf') {
+                          <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                        }
+                      </a>
+                      @if (file?.fileType==='application/pdf') {
+                        <div class="pdf-view download">
+                          <a target="blank" [href]="$safeNavigationMigration(file?.downloadUrl)">{{file?.name}}</a>
+                        </div>
+                      }
+                      <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                        (click)="removeRankFileDB(i,ind,file)">
+                        <mat-icon class="mat-18">clear</mat-icon>
+                      </a>
+                    </div>
+                  }
+                  @for (item of listDisplayFile2[i]; track item; let ind = $index) {
+                    <div class="img-container">
+                      @if (selectedRankFileArray[i][ind]?.type!=='application/pdf') {
+                        <img [src]="item">
+                      }
+                      @if (selectedRankFileArray[i][ind]?.type==='application/pdf') {
+                        <div class="pdf-view">
+                          {{selectedRankFileArray[i][ind]?.name}}
+                        </div>
+                      }
+                      <a class="abs-tr" style="background-color: white;" mat-icon-button mat-icon-button
+                        (click)="removeRankFile(i,ind)">
+                        <mat-icon class="mat-18">clear</mat-icon>
+                      </a>
+                    </div>
+                  }
+                </div>
+              </div>
+              <div class="file-select-box">
+                <button class="mat-add-new" mat-icon-button (click)="praiseFile.click()">
+                  <mat-icon class="mat-18">attach_file</mat-icon>
+                </button>
+                <input #praiseFile accept='image/*,application/pdf,.pdf' type="file" class="no-border"
+                  placeholder="" style="display: none;" (change)="selectedRankFile($event,i)" multiple>
+              </div>
+              <!-- <div class="file-select-box">
+              <button (click)="praiseFile.click()" class="form-file-select">
+                <mat-icon class="mat-18">attach_file</mat-icon>
+              </button>
+              <input #praiseFile multiple accept='image/*' type="file" class="no-border" placeholder=""
+                style="display: none;" (change)="selectedRankFile($event,i)">
+            </div> -->
+          </div>
+        </td>
+        <td>
+          @if (i>0) {
+            <a mat-icon-button (click)="removeFormArrayWithField('rankHistory')">
+              <mat-icon>close</mat-icon>
+            </a>
+          }
+        </td>
+      </tr>
+    </ng-container>
+  }
+</tbody>
+</table>
+<div class="fw-box">
+  <a mat-button class="btn-text"
+    (click)="this.addFormArrayWithFields('rankHistory',[{ field: 'numDoc', value: null }, { field: 'name', value: null }, { field: 'order', value: null }, { field: 'date', value: null }, { field: 'files', value: null }])">
+    <span>បន្ថែមប្រអប់បញ្ចូល</span>
+  </a>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="eform-action-controls">
+  <div class="action-control-container">
+    <h4>៥-ប្រវត្តិការងារ</h4>
+    <div class="flex1"></div>
+    <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave()"
+      [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+    </app-primary-button>
+  </div>
+</div>
+</div>
 </div>

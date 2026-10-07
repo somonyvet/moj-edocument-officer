@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FolderListComponent } from './folder-list.component';
 
@@ -6,7 +6,7 @@ describe('FolderListComponent', () => {
   let component: FolderListComponent;
   let fixture: ComponentFixture<FolderListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FolderListComponent ]
     })

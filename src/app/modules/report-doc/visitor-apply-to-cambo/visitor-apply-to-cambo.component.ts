@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,9 +13,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-visitor-apply-to-cambo',
-  templateUrl: './visitor-apply-to-cambo.component.html',
-  styleUrls: ['./visitor-apply-to-cambo.component.scss']
+    selector: 'app-visitor-apply-to-cambo',
+    templateUrl: './visitor-apply-to-cambo.component.html',
+    styleUrls: ['./visitor-apply-to-cambo.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VisitorApplyToCamboComponent implements OnInit {
 

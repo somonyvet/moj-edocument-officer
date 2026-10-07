@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </button>
   </div>
@@ -11,19 +11,23 @@
       <mat-form-field appearance="outline">
         <mat-label>ចំណងជើង</mat-label>
         <textarea #focusInput formControlName="khName" required matInput placeholder="Name (KH)"
-          cdkTextareaAutosize></textarea>
-        <mat-error *ngIf="form.controls['khName'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        cdkTextareaAutosize></textarea>
+        @if (form.controls['khName'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
         <mat-label>ចំណងជើង (EN)</mat-label>
         <textarea formControlName="name" required matInput placeholder="Name (EN)" cdkTextareaAutosize></textarea>
-        <mat-error *ngIf="form.controls['name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -34,27 +38,35 @@
           placeholder="ថ្ងៃឈប់សម្រាក">
         <mat-datepicker-toggle matSuffix [for]="fpicker"></mat-datepicker-toggle>
         <mat-datepicker #fpicker></mat-datepicker>
-        <mat-error *ngIf="form.controls['from_date'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['from_date'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>សម្រាប់ឆ្នាំ</mat-label>
         <input formControlName="year" [matAutocomplete]="autoBook" matInput placeholder="សម្រាប់ឆ្នាំ">
         <mat-autocomplete #autoBook="matAutocomplete" [displayWith]="displayItem">
-          <mat-option *ngFor="let state of filteredStateEducationLevel | async" [value]="state">
-            <div class="flex-box">
-              <span class="flex1">{{state?.text}}</span>
-            </div>
-          </mat-option>
+          @for (state of filteredStateEducationLevel | async; track state) {
+            <mat-option [value]="state">
+              <div class="flex-box">
+                <span class="flex1">{{state?.text}}</span>
+              </div>
+            </mat-option>
+          }
         </mat-autocomplete>
-        <mat-error *ngIf="form.controls['year'].hasError('validKey')" class="error-message">
-          សូមជ្រើសរើសទិន្នន័យចេញពីតារា
-        </mat-error>
-        <mat-error *ngIf="form.controls['year'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['year'].hasError('validKey')) {
+          <mat-error class="error-message">
+            សូមជ្រើសរើសទិន្នន័យចេញពីតារា
+          </mat-error>
+        }
+        @if (form.controls['year'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
     </div>
@@ -69,7 +81,9 @@
   <mat-dialog-actions align="end">
     <div class="flex1"></div>
     <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
-    <button class="enbutton primary" mat-button type="submit" *ngIf="!data?.item" (click)="create(form.value, true)">រក្សាទុករួចធ្វើបន្ត</button>
+    @if (!data?.item) {
+      <button class="enbutton primary" mat-button type="submit" (click)="create(form.value, true)">រក្សាទុករួចធ្វើបន្ត</button>
+    }
     <button class="enbutton primary" mat-button type="submit" (click)="create(form.value, false)">{{data?.item?'រក្សាទុក':'រក្សាទុករួចបិទ'}}</button>
   </mat-dialog-actions>
 </form>

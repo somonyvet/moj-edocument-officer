@@ -1,3 +1,5 @@
+@use "../../../assets/styles/variable.scss" as *;
+
 .mat-tree {
   &.sw-tree {
     .mat-tree-node {
@@ -14,7 +16,7 @@
         align-items: center;
       }
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         width: 28px;
         height: 28px;
         line-height: 28px;

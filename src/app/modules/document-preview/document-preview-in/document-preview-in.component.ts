@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,9 +16,11 @@ import { DocumentApprovalComponent } from '../../document/document-approval/docu
 import { DocumentFormComponent } from '../../document/document-form/document-form.component';
 
 @Component({
-  selector: 'app-document-preview-in',
-  templateUrl: './document-preview-in.component.html',
-  styleUrls: ['./document-preview-in.component.scss']
+    selector: 'app-document-preview-in',
+    templateUrl: './document-preview-in.component.html',
+    styleUrls: ['./document-preview-in.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentPreviewInComponent implements OnInit, OnDestroy {
   param: any = null;
@@ -39,7 +41,7 @@ export class DocumentPreviewInComponent implements OnInit, OnDestroy {
   imageAttachments = [];
 
   workplacesApproved: any[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   groupSections = [];
   canCreateDocument: boolean = false;
   checkDocRef: IHeaderInformation = null;
@@ -53,7 +55,7 @@ export class DocumentPreviewInComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private ds: DataService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
 
   ) { }
 

@@ -1,14 +1,16 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { InboxStore } from 'src/app/stores/document/index.store';
 
 @Component({
-  selector: 'app-inbox-noted',
-  templateUrl: './inbox-noted.component.html',
-  styleUrls: ['./inbox-noted.component.scss']
+    selector: 'app-inbox-noted',
+    templateUrl: './inbox-noted.component.html',
+    styleUrls: ['./inbox-noted.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxNotedComponent implements OnInit, OnDestroy {
   loading: boolean = true;

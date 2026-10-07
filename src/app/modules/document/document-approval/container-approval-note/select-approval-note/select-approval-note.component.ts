@@ -1,15 +1,17 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-select-approval-note',
-  templateUrl: './select-approval-note.component.html',
-  styleUrls: ['./select-approval-note.component.scss']
+    selector: 'app-select-approval-note',
+    templateUrl: './select-approval-note.component.html',
+    styleUrls: ['./select-approval-note.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SelectApprovalNoteComponent implements OnInit {
   @ViewChild('stampFile') stampFile: ElementRef;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() remarkFile: any;
   @Input() stamp_link: any;
   @Input() compareWithObj: any;
@@ -19,7 +21,7 @@ export class SelectApprovalNoteComponent implements OnInit {
 
   STAMP_URL: any = PHOTO_LIB.EMPTY_PHOTO;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {

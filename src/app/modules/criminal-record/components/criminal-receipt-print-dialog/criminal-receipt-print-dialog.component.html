@@ -1,4 +1,4 @@
-<ng-container *ngIf="!loading">
+@if (!loading) {
   <form [formGroup]="form" class="dialog-wrapper" *mobxAutorun>
     <div class="dialog-header">
       <div class="title">
@@ -11,7 +11,6 @@
     </div>
     <div class="dialog-content">
       <div class="form-wrapper">
-
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>កាលបរិច្ឆេទបង់ប្រាក់</mat-label>
@@ -19,15 +18,13 @@
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
-       </div>
-
+        </div>
         <div class="form-group">
           <aside class="special-memo asm-ma m15">
             <strong class="name">ថ្ងៃមកយកព្រឹត្តិបត្រថ្កោលទោស:</strong>
             <strong class="memo" style="font-size: 19px;">{{date}}</strong>
           </aside>
         </div>
-
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>ថ្ងៃយកព្រឹត្តិបត្រ</mat-label>
@@ -35,21 +32,24 @@
               placeholder="ចំណងជើង">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.controls['withdraw_date'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['withdraw_date'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
-
-        <app-spinner *ngIf="process"></app-spinner>
+        @if (process) {
+          <app-spinner></app-spinner>
+        }
       </div>
     </div>
     <div class="dialog-footer">
       <div class="flex1"></div>
       <a mat-dialog-close class="enbutton cancel m-r16" mat-button (click)="dialogRef.close(null)">បោះបង់</a>
-      <button type="submit" [disabled]="process" class="enbutton primary" mat-button (click)="_onSubmit(form?.value)"
-        >យល់ព្រម</button>
+      <button type="submit" [disabled]="process" class="enbutton primary" mat-button (click)="_onSubmit($safeNavigationMigration(form?.value))"
+      >យល់ព្រម</button>
     </div>
   </form>
-</ng-container>
+}
 

@@ -1,4 +1,6 @@
 <div *mobxAutorun>
-    <app-criminal-header *ngIf="auth?.profile"></app-criminal-header>
-    <router-outlet></router-outlet>
+  @if (auth?.profile) {
+    <app-criminal-header></app-criminal-header>
+  }
+  <router-outlet></router-outlet>
 </div>

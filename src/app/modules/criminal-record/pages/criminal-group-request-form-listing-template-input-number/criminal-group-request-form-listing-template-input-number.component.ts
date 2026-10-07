@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -13,9 +13,11 @@ import { IOfficer } from 'functions/src/interfaces/interface';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 import { AddDocToGroupComponent } from '../criminal-group-request-form/add-doc-to-group/add-doc-to-group.component';
 @Component({
-  selector: 'app-criminal-group-request-form-listing-template-input-number',
-  templateUrl: './criminal-group-request-form-listing-template-input-number.component.html',
-  styleUrls: ['./criminal-group-request-form-listing-template-input-number.component.scss']
+    selector: 'app-criminal-group-request-form-listing-template-input-number',
+    templateUrl: './criminal-group-request-form-listing-template-input-number.component.html',
+    styleUrls: ['./criminal-group-request-form-listing-template-input-number.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormListingTemplateInputNumberComponent implements OnInit {
 
@@ -24,7 +26,7 @@ export class CriminalGroupRequestFormListingTemplateInputNumberComponent impleme
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',

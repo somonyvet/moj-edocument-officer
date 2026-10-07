@@ -1,7 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+
+import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { LIST_TYPE } from 'src/app/dummy/status';
 import { tabs } from 'src/app/dummy/tabs';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -9,9 +9,11 @@ import { DocListingStore } from 'src/app/stores/document/doc-listing.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-in-listing',
-  templateUrl: './document-in-listing.component.html',
-  styleUrls: ['./document-in-listing.component.scss']
+    selector: 'app-document-in-listing',
+    templateUrl: './document-in-listing.component.html',
+    styleUrls: ['./document-in-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentInListingComponent implements OnInit {
 

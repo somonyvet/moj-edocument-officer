@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { generateKeywords, MappingService, toNameKey } from 'src/app/shared/services/mapping.service';
@@ -13,21 +13,23 @@ import { MONTHS_ARRAY, SEMESTER_ARRAY } from 'src/app/dummy/config';
 import { IQuarter } from 'src/app/modules/mme/interfaces/document.interface';
 
 @Component({
-  selector: 'app-time-scope-form',
-  templateUrl: './time-scope-form.component.html',
-  styleUrls: ['./time-scope-form.component.scss']
+    selector: 'app-time-scope-form',
+    templateUrl: './time-scope-form.component.html',
+    styleUrls: ['./time-scope-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TimeScopeFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   title: string = "បង្កើតត្រីមាស";
-  form: FormGroup;
+  form: UntypedFormGroup;
   MONTHS_ARRAY: any[] = MappingService.orderBy(MONTHS_ARRAY, 'id');
   SEMESTER_ARRAY: any[] = SEMESTER_ARRAY;
 
   constructor(
     public dialogRef: MatDialogRef<TimeScopeFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: TimeScopeStore,
     public ds: DatabaseService,
     private auth: AuthStore,

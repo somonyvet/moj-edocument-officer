@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tabs } from 'src/app/dummy/tabs';
@@ -8,9 +8,11 @@ import { TimeScopeStore } from '../../../store/time_scope.store';
 import { TimeScopeFormComponent } from './time-scope-form/time-scope-form.component';
 
 @Component({
-  selector: 'app-time-scope',
-  templateUrl: './time-scope.component.html',
-  styleUrls: ['./time-scope.component.scss']
+    selector: 'app-time-scope',
+    templateUrl: './time-scope.component.html',
+    styleUrls: ['./time-scope.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TimeScopeComponent implements OnInit, OnDestroy {
   tabs = tabs.quarter

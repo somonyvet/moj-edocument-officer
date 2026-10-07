@@ -1,67 +1,79 @@
 <div class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
-    </div>
-    <mat-dialog-content class="form-wrapper">
-        <mat-tree #treeProject class="nav-tree" [dataSource]="dataSource" [treeControl]="treeControl" *ngIf="!loading">
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-                <button mat-button type="button" mat-icon-button disabled></button>
-                <a mat-button mat-icon-button class="mat-add-link" (click)="onAddPersonWorkPlaceItem(node?.item)">
-                    <span class="material-icons" [ngClass]="(Office|validData:'key':node?.item?.key)?'rm':'ra'">
-                        {{(Office|validData:'key':Office:node?.item?.key)?'remove_circle':'add_circle'}}
-                    </span>
-                </a>
-                <a class="nav-tree-text">
-                    <span>{{node.item?.name}}</span>
-                </a>
-            </mat-tree-node>
-            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-                <a mat-button type="button" mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                    </mat-icon>
-                </a>
-                <a mat-button mat-icon-button class="mat-add-link" (click)="onAddPersonWorkPlaceItem(node?.item)">
-                    <span class="material-icons" [ngClass]="(Office|validData:'key':node?.item?.key)?'rm':'ra'">
-                        {{(Office|validData:'key':Office:node?.item?.key)?'remove_circle':'add_circle'}}
-                    </span>
-                </a>
-                <a class="nav-tree-text">
-                    <span>{{node.item?.name}}</span>
-                </a>
-            </mat-tree-node>
-        </mat-tree>
-        <app-side-list-item-skeleton-loading *ngIf="loading"></app-side-list-item-skeleton-loading>
-        <div class="form-group f-assign" *ngIf="Office?.length > 0">
-            <h4>កន្លែងទទួលអនុវត្ត</h4>
-            <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip cdkDrag *ngFor="let item of Office" [removable]="true" (removed)="removePosition(item)">
-                    {{item?.office?.name}}
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    @if (!loading) {
+      <mat-tree #treeProject class="nav-tree" [dataSource]="dataSource" [treeControl]="treeControl">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <button mat-button type="button" mat-icon-button disabled></button>
+          <a mat-icon-button class="mat-add-link" (click)="onAddPersonWorkPlaceItem($safeNavigationMigration(node?.item))">
+            <span class="material-icons" [ngClass]="(Office|validData:'key':$safeNavigationMigration(node?.item?.key))?'rm':'ra'">
+              {{(Office|validData:'key':Office:$safeNavigationMigration(node?.item?.key))?'remove_circle':'add_circle'}}
+            </span>
+          </a>
+          <a class="nav-tree-text">
+            <span>{{node.item?.name}}</span>
+          </a>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+          <a mat-button type="button" mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </a>
+          <a mat-icon-button class="mat-add-link" (click)="onAddPersonWorkPlaceItem($safeNavigationMigration(node?.item))">
+            <span class="material-icons" [ngClass]="(Office|validData:'key':$safeNavigationMigration(node?.item?.key))?'rm':'ra'">
+              {{(Office|validData:'key':Office:$safeNavigationMigration(node?.item?.key))?'remove_circle':'add_circle'}}
+            </span>
+          </a>
+          <a class="nav-tree-text">
+            <span>{{node.item?.name}}</span>
+          </a>
+        </mat-tree-node>
+      </mat-tree>
+    }
+    @if (loading) {
+      <app-side-list-item-skeleton-loading></app-side-list-item-skeleton-loading>
+    }
+    @if (Office?.length > 0) {
+      <div class="form-group f-assign">
+        <h4>កន្លែងទទួលអនុវត្ត</h4>
+        <mat-chip-grid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+          @for (item of Office; track item) {
+            <mat-chip-row cdkDrag [removable]="true" (removed)="removePosition(item)">
+              {{item?.office?.name}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+      </div>
+    }
 
-        <div class="form-group f-assign mt" *ngIf="people?.length > 0">
-            <h4>អ្នកត្រូវទទួលអនុវត្ត</h4>
-            <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip cdkDrag *ngFor="let item of people" [removable]="true" (removed)="removePerson(item)">
-                    <span>{{item?.last_name}} {{item?.first_name}}</span>
-                    <!-- <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button> -->
-                </mat-chip>
-            </mat-chip-list>
-        </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button class="cancel-btn" (click)="close()">បោះបង់</a>
-    </mat-dialog-actions>
+    @if (people?.length > 0) {
+      <div class="form-group f-assign mt">
+        <h4>អ្នកត្រូវទទួលអនុវត្ត</h4>
+        <mat-chip-grid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+          @for (item of people; track item) {
+            <mat-chip-row cdkDrag [removable]="true" (removed)="removePerson(item)">
+              <span>{{item?.last_name}} {{item?.first_name}}</span>
+              <!-- <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button> -->
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+    </div>
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button class="cancel-btn" (click)="close()">បោះបង់</a>
+</mat-dialog-actions>
 </div>

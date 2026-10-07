@@ -1,5 +1,5 @@
 import { AttendanceStore } from '../../../../stores/attendance.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,9 +8,11 @@ import { observable } from 'mobx';
 import { toLocaleNumber } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-attendance-nav',
-  templateUrl: './attendance-nav.component.html',
-  styleUrls: ['./attendance-nav.component.scss']
+    selector: 'app-attendance-nav',
+    templateUrl: './attendance-nav.component.html',
+    styleUrls: ['./attendance-nav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AttendanceNavComponent implements OnInit {
   selected: Date | null = new Date();

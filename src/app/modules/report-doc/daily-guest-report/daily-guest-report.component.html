@@ -1,23 +1,23 @@
-<div class="doc-preview-wrapper new-ui" *ngIf="isAllowRead; else noPermissionTemplate">
-  <div class="doc-preview-content">
-    <div class="doc-preview-content-action-top">
-      <div class="doc-title" matTooltipClass="tooltipClass">
-        <div class="doc-cover">
+@if (isAllowRead) {
+  <div class="doc-preview-wrapper new-ui">
+    <div class="doc-preview-content">
+      <div class="doc-preview-content-action-top">
+        <div class="doc-title" matTooltipClass="tooltipClass">
+          <div class="doc-cover">
+          </div>
+          <strong>រាយការណ៍ភ្ញៀវប្រចាំថ្ងៃ</strong>
         </div>
-        <strong>រាយការណ៍ភ្ញៀវប្រចាំថ្ងៃ</strong>
-      </div>
-      <div class="abs-tr">
-        <!-- <a mat-button mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
+        <div class="abs-tr">
+          <!-- <a mat-icon-button class="mat-add-new" (click)="onEdit()" matTooltipClass="tooltipClass"
           matTooltip="ចូលកែប្រែ" aria-label="Print Document">
           <mat-icon class="mat-18">edit</mat-icon>
         </a> -->
-        <a mat-button mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
+        <a mat-icon-button class="mat-add-new" (click)="onPrint()" matTooltipClass="tooltipClass"
           matTooltip="ព្រីនទិន្នន័យ" aria-label="Print Document">
           <mat-icon class="mat-18">local_printshop</mat-icon>
         </a>
       </div>
     </div>
-
     <div class="doc-template-wrapper print-preview" id="print">
       <table #table style="margin: 0 auto;">
         <tbody>
@@ -30,8 +30,8 @@
               </button>
               <mat-menu #menuPeriod="matMenu">
                 <div class="options-lags" (click)="$event.stopPropagation();">
-                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="store?.fromDateNum"
-                    [toDate]="store?.toDateNum">
+                  <app-report-filter-period reportType='thai-travel-in-out' [fromDate]="$safeNavigationMigration(store?.fromDateNum)"
+                    [toDate]="$safeNavigationMigration(store?.toDateNum)">
                   </app-report-filter-period>
                 </div>
               </mat-menu>
@@ -71,193 +71,178 @@
                       <p style="text-decoration: underline; font-size: 17px;">គោរពជូន</p>
                     </div>
                   </div>
-
                   <div class="doc-template-row doc-template-block">
-                  <table #table style="margin:0 auto; table-layout: fixed; width: 80%;">
-                    <tr>
-                      <td>
-                        <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
-                        <p class="p-start">កម្មវត្ថុ:</p>
-                        </div>
-                      </td>
-                      <td style="width: 90%; padding: 10px;">
-
-                        <div class="doc-template-row doc-template-block" style="padding: 8px 0;">
-                          <div class="bl-title-left pdt-8 t-start lh-2" style="padding: 0;">
-                            <span>ស្ដីពីចំនួនភ្ញៀវបរទេស ដែលបានមកសុំទិដ្ឋាការចូលព្រះរាជាណាចក្រកម្ពុជា នៅអាកាសយានដ្ឋានអន្តរជាតិព្រះសីហនុ ចាប់ពីថ្ងៃទី ៖ ២២
+                    <table #table style="margin:0 auto; table-layout: fixed; width: 80%;">
+                      <tr>
+                        <td>
+                          <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
+                            <p class="p-start">កម្មវត្ថុ:</p>
+                          </div>
+                        </td>
+                        <td style="width: 90%; padding: 10px;">
+                          <div class="doc-template-row doc-template-block" style="padding: 8px 0;">
+                            <div class="bl-title-left pdt-8 t-start lh-2" style="padding: 0;">
+                              <span>ស្ដីពីចំនួនភ្ញៀវបរទេស ដែលបានមកសុំទិដ្ឋាការចូលព្រះរាជាណាចក្រកម្ពុជា នៅអាកាសយានដ្ឋានអន្តរជាតិព្រះសីហនុ ចាប់ពីថ្ងៃទី ៖ ២២
                               ខែកញ្ញា ឆ្នាំ២០២២ ម៉ោង 00:00 ម៉ោង បញ្ចប់នៅថ្ងៃទី ៖ ២២ ខែកញ្ញា ឆ្នាំ២០២២ ម៉ោង 11:30</span>
-                          </div>
-                        </div>
-
-                        <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
-                          <p class="p-start w-full" style="text-decoration: underline;">ក. ប្រភេទទិដ្ឋាការបង់អាករ</p>
-                        </div>
-
-                        <div class="doc-template-row doc-template-block">
-                          <table #table style="width: 94%; margin: 0 auto;">
-                            <tbody class="table-body lh-2">
-                              <tr style="margin-left: 8px;">
-                                <td>1.</td>
-                                <td style="width: 230px;">ទិដ្ឋាការទេសចរណ៍</td>
-                                <td style="width: 120px;">T</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>6</td>
-                                <td>នាក់</td>
-                              </tr>
-                              <tr style="margin-left: 8px;">
-                                <td>2.</td>
-                                <td style="width: 150px;">ទិដ្ឋាការទេសចរណ៍រយះពេលវែង</td>
-                                <td style="width: 120px;">T1</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>0</td>
-                                <td>នាក់</td>
-                              </tr>
-                              <tr style="margin-left: 8px;">
-                                <td>3.</td>
-                                <td style="width: 150px;">ទិដ្ឋាការទេសចរណ៍</td>
-                                <td style="width: 120px;">T2</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>0</td>
-                                <td>នាក់</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-
-                        <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
-                          <p class="p-start w-full" style="text-decoration: underline;">ខ. ប្រភេទទិដ្ឋាការមិនបង់អាករ</p>
-                        </div>
-
-                        <div class="doc-template-row doc-template-block">
-                          <table #table style="width: 94%; margin: 0 auto;">
-                            <tbody class="table-body lh-2">
-                              <tr style="margin-left: 8px;">
-                                <td>1.</td>
-                                <td style="width: 230px;">ទិដ្ឋាការពិសេស</td>
-                                <td style="width: 120px;">K</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>8</td>
-                                <td>នាក់</td>
-                              </tr>
-                              <tr style="margin-left: 8px;">
-                                <td>2.</td>
-                                <td style="width: 150px;">ទិដ្ឋាការការទូត</td>
-                                <td style="width: 120px;">A</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>0</td>
-                                <td>នាក់</td>
-                              </tr>
-                              <tr style="margin-left: 8px;">
-                                <td>3.</td>
-                                <td style="width: 150px;">ទិដ្ឋាការផ្លូវការ</td>
-                                <td style="width: 120px;">B</td>
-                                <td style="width: 120px;">ចំនួន=</td>
-                                <td>0</td>
-                                <td>នាក់</td>
-                              </tr>
-                              <tr style="margin-left: 8px;">
-                                <td></td>
-                                <td style="width: 150px;"></td>
-                                <td style="width: 120px;"></td>
-                                <td style="width: 120px;" class="muol-bold">សរុបភ្ញៀវចំនួន</td>
-                                <td class="muol-bold">8</td>
-                                <td class="muol-bold">នាក់</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-
-                        <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
-                          <p class="p-start w-full" style="text-decoration: underline;">គ. ចំណុចគួរអោយកត់សំគាល់</p>
-                        </div>
-
-                        <div class="doc-template-row doc-template-block">
-                          <table #table style="width: 100%; margin: 0 auto;">
-                            <tbody class="table-body lh-2">
-                              <tr style="">
-                                <td>អាស្រ័យហេតុនេះសូមមេត្តា ពិនិត្យ និង ជ្រាបជា របាយការណ៍ដ៏ខ្ពង់ខ្ពស់។</td>
-                              </tr>
-
-                            </tbody>
-                          </table>
-                        </div>
-
-                        <div class="doc-template-row doc-template-block">
-                          <table #table style="width: 94%; margin: 0 auto;">
-                            <tbody class="table-body lh-2">
-                            <tr style="margin-left: 14px;">
-                              <td>សូមមេត្តាទទួលនូវការគោរពដ៏ខ្ពង់ខ្ពស់ អំពីយើងខ្ញុំ។</td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
-
-
-
-                        <div class="doc-template-row doc-template-bloc" style="flex-direction: row-reverse; margin-top: 10px;">
-                          <div class="bottom-dt lh-2">
-                            <div class="flex-row11">
-                              <span>ព្រះសីហនុ.</span>
-                              <span> ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
-                              </span>
                             </div>
-                            <div class="title" style="margin: 0;">ប្រធានក្រុមផ្ដល់ទិដ្ឋការ</div>
                           </div>
-                        </div>
-
-                      </td>
-                    </tr>
-                  </table>
+                          <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
+                            <p class="p-start w-full" style="text-decoration: underline;">ក. ប្រភេទទិដ្ឋាការបង់អាករ</p>
+                          </div>
+                          <div class="doc-template-row doc-template-block">
+                            <table #table style="width: 94%; margin: 0 auto;">
+                              <tbody class="table-body lh-2">
+                                <tr style="margin-left: 8px;">
+                                  <td>1.</td>
+                                  <td style="width: 230px;">ទិដ្ឋាការទេសចរណ៍</td>
+                                  <td style="width: 120px;">T</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>6</td>
+                                  <td>នាក់</td>
+                                </tr>
+                                <tr style="margin-left: 8px;">
+                                  <td>2.</td>
+                                  <td style="width: 150px;">ទិដ្ឋាការទេសចរណ៍រយះពេលវែង</td>
+                                  <td style="width: 120px;">T1</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>0</td>
+                                  <td>នាក់</td>
+                                </tr>
+                                <tr style="margin-left: 8px;">
+                                  <td>3.</td>
+                                  <td style="width: 150px;">ទិដ្ឋាការទេសចរណ៍</td>
+                                  <td style="width: 120px;">T2</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>0</td>
+                                  <td>នាក់</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
+                            <p class="p-start w-full" style="text-decoration: underline;">ខ. ប្រភេទទិដ្ឋាការមិនបង់អាករ</p>
+                          </div>
+                          <div class="doc-template-row doc-template-block">
+                            <table #table style="width: 94%; margin: 0 auto;">
+                              <tbody class="table-body lh-2">
+                                <tr style="margin-left: 8px;">
+                                  <td>1.</td>
+                                  <td style="width: 230px;">ទិដ្ឋាការពិសេស</td>
+                                  <td style="width: 120px;">K</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>8</td>
+                                  <td>នាក់</td>
+                                </tr>
+                                <tr style="margin-left: 8px;">
+                                  <td>2.</td>
+                                  <td style="width: 150px;">ទិដ្ឋាការការទូត</td>
+                                  <td style="width: 120px;">A</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>0</td>
+                                  <td>នាក់</td>
+                                </tr>
+                                <tr style="margin-left: 8px;">
+                                  <td>3.</td>
+                                  <td style="width: 150px;">ទិដ្ឋាការផ្លូវការ</td>
+                                  <td style="width: 120px;">B</td>
+                                  <td style="width: 120px;">ចំនួន=</td>
+                                  <td>0</td>
+                                  <td>នាក់</td>
+                                </tr>
+                                <tr style="margin-left: 8px;">
+                                  <td></td>
+                                  <td style="width: 150px;"></td>
+                                  <td style="width: 120px;"></td>
+                                  <td style="width: 120px;" class="muol-bold">សរុបភ្ញៀវចំនួន</td>
+                                  <td class="muol-bold">8</td>
+                                  <td class="muol-bold">នាក់</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="bl-title-left pdt-8 t-start" style="padding: 0;">
+                            <p class="p-start w-full" style="text-decoration: underline;">គ. ចំណុចគួរអោយកត់សំគាល់</p>
+                          </div>
+                          <div class="doc-template-row doc-template-block">
+                            <table #table style="width: 100%; margin: 0 auto;">
+                              <tbody class="table-body lh-2">
+                                <tr style="">
+                                  <td>អាស្រ័យហេតុនេះសូមមេត្តា ពិនិត្យ និង ជ្រាបជា របាយការណ៍ដ៏ខ្ពង់ខ្ពស់។</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="doc-template-row doc-template-block">
+                            <table #table style="width: 94%; margin: 0 auto;">
+                              <tbody class="table-body lh-2">
+                                <tr style="margin-left: 14px;">
+                                  <td>សូមមេត្តាទទួលនូវការគោរពដ៏ខ្ពង់ខ្ពស់ អំពីយើងខ្ញុំ។</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="doc-template-row doc-template-bloc" style="flex-direction: row-reverse; margin-top: 10px;">
+                            <div class="bottom-dt lh-2">
+                              <div class="flex-row11">
+                                <span>ព្រះសីហនុ.</span>
+                                <span> ថ្ងៃទី ២២ ខែកញ្ញា ឆ្នាំ២០២២
+                                </span>
+                              </div>
+                              <div class="title" style="margin: 0;">ប្រធានក្រុមផ្ដល់ទិដ្ឋការ</div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
-
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-
     </div>
   </div>
   <div class="doc-preview-comment" [ngStyle]="setStyleSidebar(openSideComment)">
-
     <div class="doc-preview-comment-header">
       <div class="doc-preview-comment-row doc-preview-comment-row-icon">
-
         <button style="background-color:transparent; margin:0" (click)="openSideComment = !openSideComment"
-          type="button" mat-button mat-icon-button class="icon-container">
+          type="button" mat-icon-button class="icon-container">
           <ion-icon style="width:26px ; height: 26px" name="close-outline"></ion-icon>
         </button>
-
         <div style="flex:1"></div>
-
       </div>
       <mat-divider></mat-divider>
-
       <div class="doc-preview-comment-row">
-        <div class="left-box-dbc" *ngIf="!loadingHeader">
-          <div class="name">
-            <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
-            <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{store?.documentDataDoc?.created_at?.toDate()|date:'mediumDate'}}
-            </p>
+        @if (!loadingHeader) {
+          <div class="left-box-dbc">
+            <div class="name">
+              <p class="nt">{{store?.documentDataDoc?.documentNo}} · {{store?.documentDataDoc?.name}}</p>
+              <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(store?.documentDataDoc?.created_at?.toDate())|date:'mediumDate'}}
+              </p>
+            </div>
+            @if (!loading) {
+              <app-avatar-officer [officerKey]="$safeNavigationMigration(store?.documentDataDoc?.created_by)">
+              </app-avatar-officer>
+            }
           </div>
-          <app-avatar-officer *ngIf="!loading" [officerKey]="store?.documentDataDoc?.created_by">
-          </app-avatar-officer>
-        </div>
+        }
         <div class="right-box-dbc">
-
         </div>
       </div>
     </div>
-    <nav class="cs-tab-group-nav" mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of tab" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    <nav class="cs-tab-group-nav" mat-tab-nav-bar [tabPanel]="tabPanel">
+      @for (link of tab; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
         [queryParams]="queryParams" [active]="rla.isActive">{{link.label}}</a>
+      }
     </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
     <div class="doc-preview-comment-box">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-<ng-template #noPermissionTemplate>
+} @else {
   <app-document-assess-denied></app-document-assess-denied>
-</ng-template>
+}

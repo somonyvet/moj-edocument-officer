@@ -1,69 +1,75 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>លេខព្រឹត្តិបត្ត(ខ្មែរ)</mat-label>
-                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_kh" matInput
-                    [placeholder]="'លេខព្រឹត្តិបត្ត(ខ្មែរ)'">
-                <mat-error *ngIf="form.controls['code_kh'].hasError('required')">
-                    ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
-                </mat-error>
-                <mat-error *ngIf="form.controls['code_kh'].hasError('nameAvailable')">
-                    លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
-                </mat-error>
-            </mat-form-field>
-        </div>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>លេខព្រឹត្តិបត្ត(ខ្មែរ)</mat-label>
+        <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_kh" matInput
+          [placeholder]="'លេខព្រឹត្តិបត្ត(ខ្មែរ)'">
+        @if (form.controls['code_kh'].hasError('required')) {
+          <mat-error>
+            ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+          </mat-error>
+        }
+        @if (form.controls['code_kh'].hasError('nameAvailable')) {
+          <mat-error>
+            លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ថ្ងៃអាចមកដកព្រឹត្តិបត្រ</mat-label>
-                <input date="true" (click)="fpicker.open()" formControlName="can_received_at" [matDatepicker]="fpicker"
-                    matInput placeholder="ថ្ងៃអាចមកដកព្រឹត្តិបត្រ">
-                <mat-datepicker-toggle matSuffix [for]="fpicker"></mat-datepicker-toggle>
-                <mat-datepicker #fpicker></mat-datepicker>
-                <mat-error *ngIf="form.controls['can_received_at'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-            </mat-form-field>
-        </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ថ្ងៃអាចមកដកព្រឹត្តិបត្រ</mat-label>
+        <input date="true" (click)="fpicker.open()" formControlName="can_received_at" [matDatepicker]="fpicker"
+          matInput placeholder="ថ្ងៃអាចមកដកព្រឹត្តិបត្រ">
+        <mat-datepicker-toggle matSuffix [for]="fpicker"></mat-datepicker-toggle>
+        <mat-datepicker #fpicker></mat-datepicker>
+        @if (form.controls['can_received_at'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
-        <!-- <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>លេខព្រឹត្តិបត្ត(អង់គ្លេស)</mat-label>
-                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_en" matInput
-                    [placeholder]="'លេខព្រឹត្តិបត្ត(អង់គ្លេស)'">
-                <mat-error *ngIf="form.controls['code_en'].hasError('required')">
-                    ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
-                </mat-error>
-                <mat-error *ngIf="form.controls['code_en'].hasError('nameAvailable')">
-                    លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>លេខព្រឹត្តិបត្ត(បារាំង)</mat-label>
-                <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_fr" matInput
-                    [placeholder]="'លេខព្រឹត្តិបត្ត(បារាំង)'">
-                <mat-error *ngIf="form.controls['code_fr'].hasError('required')">
-                    ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
-                </mat-error>
-                <mat-error *ngIf="form.controls['code_fr'].hasError('nameAvailable')">
-                    លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
-                </mat-error>
-            </mat-form-field>
-        </div> -->
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+    <!-- <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>លេខព្រឹត្តិបត្ត(អង់គ្លេស)</mat-label>
+      <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_en" matInput
+        [placeholder]="'លេខព្រឹត្តិបត្ត(អង់គ្លេស)'">
+      <mat-error *ngIf="form.controls['code_en'].hasError('required')">
+        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+      </mat-error>
+      <mat-error *ngIf="form.controls['code_en'].hasError('nameAvailable')">
+        លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>លេខព្រឹត្តិបត្ត(បារាំង)</mat-label>
+      <input #inputRef cdkFocusInitial matInputAutofocus formControlName="code_fr" matInput
+        [placeholder]="'លេខព្រឹត្តិបត្ត(បារាំង)'">
+      <mat-error *ngIf="form.controls['code_fr'].hasError('required')">
+        ប្រអប់នេះតម្រូវអោយលោកអ្នកបំពេញ
+      </mat-error>
+      <mat-error *ngIf="form.controls['code_fr'].hasError('nameAvailable')">
+        លេខកូដនេះមាននៅក្នុងប្រព័ន្ធម្ដងហើយ សូមប្រើប្រាស់លេខកូដផ្សេងទៀត
+      </mat-error>
+    </mat-form-field>
+  </div> -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+  <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+</mat-dialog-actions>
 </form>

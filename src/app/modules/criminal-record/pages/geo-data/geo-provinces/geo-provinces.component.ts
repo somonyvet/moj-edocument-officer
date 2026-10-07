@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +11,11 @@ import { GeoStore } from '../../../stores/geo.store';
 import { GeoProvinceFormComponent } from '../geo-province-form/geo-province-form.component';
 
 @Component({
-  selector: 'app-geo-provinces',
-  templateUrl: './geo-provinces.component.html',
-  styleUrls: ['./geo-provinces.component.scss']
+    selector: 'app-geo-provinces',
+    templateUrl: './geo-provinces.component.html',
+    styleUrls: ['./geo-provinces.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoProvincesComponent implements OnInit, OnDestroy {
   tabs = criminal_tabs.geo_provinces;

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CriminalStore } from '../../../stores/criminal.store';
@@ -7,9 +7,11 @@ import { CriminalRecordFlowFormComponent } from '../criminal-record-flow-form/cr
 import { CRIMINAL_LATTER_NUMBER_TYPES, DOCUMENT_FLOW_CATEGORY } from '../../../dummy/criminal.dummy';
 
 @Component({
-  selector: 'app-criminal-record-flow',
-  templateUrl: './criminal-record-flow.component.html',
-  styleUrls: ['./criminal-record-flow.component.scss']
+    selector: 'app-criminal-record-flow',
+    templateUrl: './criminal-record-flow.component.html',
+    styleUrls: ['./criminal-record-flow.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordFlowComponent implements OnInit, OnDestroy {
   loading: boolean = true;
@@ -18,13 +20,13 @@ export class CriminalRecordFlowComponent implements OnInit, OnDestroy {
   digitalFlows: any[] = [];
 
   latterTypes = CRIMINAL_LATTER_NUMBER_TYPES;
-  latterForm: FormGroup;
+  latterForm: UntypedFormGroup;
   latterSettings: any = {};
   loadingLatterNo: boolean = true;
   savingLatterNo: string = null;
 
   constructor(private dialog: MatDialog,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     public store: CriminalStore,) { }
 
@@ -67,8 +69,8 @@ export class CriminalRecordFlowComponent implements OnInit, OnDestroy {
     this.loadingLatterNo = false;
   }
 
-  latterGroup(key: string): FormGroup {
-    return this.latterForm?.controls[key] as FormGroup;
+  latterGroup(key: string): UntypedFormGroup {
+    return this.latterForm?.controls[key] as UntypedFormGroup;
   }
 
   onSaveLatterNo(type: any) {

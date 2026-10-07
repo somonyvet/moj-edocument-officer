@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,13 +11,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-officer-family-info',
-  templateUrl: './officer-family-info.component.html',
-  styleUrls: ['./officer-family-info.component.scss']
+    selector: 'app-officer-family-info',
+    templateUrl: './officer-family-info.component.html',
+    styleUrls: ['./officer-family-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerFamilyInfoComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -69,7 +71,7 @@ export class OfficerFamilyInfoComponent implements OnInit {
   fatherDeadStatus;
   motherDeadStatus;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -91,7 +93,7 @@ export class OfficerFamilyInfoComponent implements OnInit {
       childrenFemaleNumber: [null],
       childrenMaleNumber: [null],
 
-      childrenInfo: new FormArray([]),
+      childrenInfo: new UntypedFormArray([]),
 
       fatherName: [null],
       fatherIsDead: [false],
@@ -166,14 +168,14 @@ export class OfficerFamilyInfoComponent implements OnInit {
   }
   //multiform
   removeFormArrayWithField(name: string, index?: number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
     if (formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
 
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -289,7 +291,7 @@ export class OfficerFamilyInfoComponent implements OnInit {
   }
 
   onSelectedDateChildDoB(event,index){
-    const form = this.form.get('childrenInfo') as FormArray;
+    const form = this.form.get('childrenInfo') as UntypedFormArray;
     form.at(index).get('dob').patchValue(event)
   }
 

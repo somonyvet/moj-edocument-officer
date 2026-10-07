@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IDepartment } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { GeneralDepartmentStore } from 'src/app/stores/document/general-departme
 import { GeneralDepartmentFormComponent } from './general-department-form/general-department-form.component';
 
 @Component({
-  selector: 'app-general-department',
-  templateUrl: './general-department.component.html',
-  styleUrls: ['./general-department.component.scss']
+    selector: 'app-general-department',
+    templateUrl: './general-department.component.html',
+    styleUrls: ['./general-department.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeneralDepartmentComponent implements OnInit, OnDestroy {
   tabs = tabs.generalDepartment

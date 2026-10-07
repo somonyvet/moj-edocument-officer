@@ -1,7 +1,7 @@
 import { ConvertService } from './../../../../shared/services/convert.service';
 import { AddEditWorkingHourComponent } from './add-edit-working-hour/add-edit-working-hour.component';
 import { WorkingHourStore } from './../../stores/working-hour.store';
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { toLocaleNumber } from 'src/app/shared/services/convert.service';
 import { tabs } from 'src/app/dummy/tabs';
@@ -9,9 +9,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 @Component({
-  selector: 'app-human-resource-working-hour',
-  templateUrl: './human-resource-working-hour.component.html',
-  styleUrls: ['./human-resource-working-hour.component.scss']
+    selector: 'app-human-resource-working-hour',
+    templateUrl: './human-resource-working-hour.component.html',
+    styleUrls: ['./human-resource-working-hour.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceWorkingHourComponent implements OnInit {
   tabs = tabs.working_hour;

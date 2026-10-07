@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { WindowService } from 'src/app/shared/services/window.service';
 import firebase from 'firebase/compat/app';
 
@@ -10,19 +10,20 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AnimationOptions } from 'ngx-lottie';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { SignupComponent } from '../auth/signup/signup.component';
-import { SwiperOptions } from 'swiper';
 
 @Component({
-  selector: 'app-criminal-record-latter',
-  templateUrl: './criminal-record-latter.component.html',
-  styleUrls: ['./criminal-record-latter.component.scss']
+    selector: 'app-criminal-record-latter',
+    templateUrl: './criminal-record-latter.component.html',
+    styleUrls: ['./criminal-record-latter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLatterComponent implements OnInit {
   options: AnimationOptions = {
     path: '../../../../assets/bgsty.json',
   };
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   error: string = null;
   process: boolean = false;
 
@@ -49,15 +50,6 @@ export class CriminalRecordLatterComponent implements OnInit {
     // {name: 'Fourth slide', color:'black'},
     // {name: 'Fifth slide', color:'yellow'},
   ];
-
-  config: SwiperOptions = {
-    pagination: { el: '.swiper-pagination', clickable: true },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    spaceBetween: 30
-  };
 
   LANGAUGE_BUTTON = [
     { key: '1', text: 'ខ្មែរ', en_name: 'Khmer', kh_name: 'ខ្មែរ', fr_name: 'Khmer', key_lang: 'kh' },
@@ -86,7 +78,7 @@ export class CriminalRecordLatterComponent implements OnInit {
   // }
   // reveal
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AuthStore,
     private router: Router,
     private win: WindowService,

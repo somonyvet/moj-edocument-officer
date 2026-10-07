@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -18,15 +18,17 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { docStatusObj } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-inbox-form',
-  templateUrl: './inbox-form.component.html',
-  styleUrls: ['./inbox-form.component.scss']
+    selector: 'app-inbox-form',
+    templateUrl: './inbox-form.component.html',
+    styleUrls: ['./inbox-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InboxFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "លិខិតកំណត់បង្ហាញ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[] = [];
 
   process: boolean = false;
@@ -39,7 +41,7 @@ export class InboxFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InboxFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

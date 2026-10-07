@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthStore } from '../stores/auth.store';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApproveOfficerGuardGuard implements CanActivate {
+export class ApproveOfficerGuardGuard  {
 
   constructor(
     private auth : AuthStore,

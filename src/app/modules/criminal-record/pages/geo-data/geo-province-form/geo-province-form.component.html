@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </button>
   </div>
@@ -11,9 +11,11 @@
       <mat-form-field appearance="outline">
         <mat-label>លេខកូដ</mat-label>
         <input formControlName="id" type="number" required matInput placeholder="លេខកូដ">
-        <mat-error *ngIf="form.controls['id'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['id'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -21,17 +23,21 @@
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះ (ខ្មែរ)</mat-label>
         <input formControlName="name" required matInput placeholder="ឈ្មោះ (ខ្មែរ)">
-        <mat-error *ngIf="form.controls['name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះ (អង់គ្លេស)</mat-label>
         <input formControlName="en_name" matInput placeholder="ឈ្មោះ (អង់គ្លេស)">
-        <mat-error *ngIf="form.controls['en_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['en_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -39,9 +45,11 @@
       <mat-form-field appearance="outline">
         <mat-label>ឈ្មោះ (បារាំង)</mat-label>
         <input formControlName="fr_name" matInput placeholder="ឈ្មោះ (បារាំង)">
-        <mat-error *ngIf="form.controls['fr_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['fr_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -49,17 +57,21 @@
       <mat-form-field appearance="outline">
         <mat-label>រយៈទទឹង</mat-label>
         <input formControlName="Latitude" type="number" matInput placeholder="រយៈទទឹង">
-        <mat-error *ngIf="form.controls['Latitude'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['Latitude'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>រយៈបណ្តោយ</mat-label>
         <input formControlName="Longitude" type="number" matInput placeholder="រយៈបណ្តោយ">
-        <mat-error *ngIf="form.controls['Longitude'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['Longitude'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -68,25 +80,27 @@
         <mat-label>ពណ៌</mat-label>
         <input formControlName="color" matInput placeholder="ពណ៌">
         <!-- <mat-error *ngIf="form.controls['color'].hasError('required')">
-                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error> -->
-      </mat-form-field>
-    </div>
+        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+      </mat-error> -->
+    </mat-form-field>
+  </div>
 
 
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>ការពិពណ៌នា</mat-label>
-        <textarea formControlName="description" matInput placeholder="ការពិពណ៌នា"></textarea>
-        <mat-error *ngIf="form.controls['description'].hasError('required')">
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>ការពិពណ៌នា</mat-label>
+      <textarea formControlName="description" matInput placeholder="ការពិពណ៌នា"></textarea>
+      @if (form.controls['description'].hasError('required')) {
+        <mat-error>
           ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
         </mat-error>
-      </mat-form-field>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
-    <button class="enbutton primary" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-  </mat-dialog-actions>
+      }
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
+  <button class="enbutton primary" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+</mat-dialog-actions>
 </form>

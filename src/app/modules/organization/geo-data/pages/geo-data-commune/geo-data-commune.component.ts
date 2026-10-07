@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -8,9 +8,11 @@ import { Geo } from '../../stores/geo.store';
 import { CommuneFormComponent } from '../commune-form/commune-form.component';
 
 @Component({
-  selector: 'app-geo-data-commune',
-  templateUrl: './geo-data-commune.component.html',
-  styleUrls: ['./geo-data-commune.component.scss']
+    selector: 'app-geo-data-commune',
+    templateUrl: './geo-data-commune.component.html',
+    styleUrls: ['./geo-data-commune.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoDataCommuneComponent implements OnInit, OnDestroy {
   districtKey: string;

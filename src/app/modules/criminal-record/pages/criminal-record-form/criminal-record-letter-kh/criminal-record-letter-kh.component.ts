@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-letter-kh',
-  templateUrl: './criminal-record-letter-kh.component.html',
-  styleUrls: ['./criminal-record-letter-kh.component.scss']
+    selector: 'app-criminal-record-letter-kh',
+    templateUrl: './criminal-record-letter-kh.component.html',
+    styleUrls: ['./criminal-record-letter-kh.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterKhComponent implements OnInit, OnDestroy {
   docDate = null;

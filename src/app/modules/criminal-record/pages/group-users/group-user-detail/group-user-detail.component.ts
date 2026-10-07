@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
@@ -22,9 +22,11 @@ interface ExampleFlatNode {
   level: number;
 }
 @Component({
-  selector: 'app-group-user-detail',
-  templateUrl: './group-user-detail.component.html',
-  styleUrls: ['./group-user-detail.component.scss']
+    selector: 'app-group-user-detail',
+    templateUrl: './group-user-detail.component.html',
+    styleUrls: ['./group-user-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GroupUserDetailComponent implements OnInit, OnDestroy, AfterViewChecked {
 

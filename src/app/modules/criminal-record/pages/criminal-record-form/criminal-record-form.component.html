@@ -1,61 +1,71 @@
-<ng-template #loadingTmp>
-  <mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-loader"></mat-progress-bar>
-</ng-template>
+
 <div class="officer-profile-wrapper" *mobxAutorun>
-  <div class="officer-profile-navigation-ds" *ngIf="!hideSidebar"></div>
-  <div class="officer-profile-navigation" *ngIf="!hideSidebar">
+  @if (!hideSidebar) {
+    <div class="officer-profile-navigation-ds"></div>
+  }
+  @if (!hideSidebar) {
+    <div class="officer-profile-navigation">
       <div class="off-p-nav">
-          <div class="officer-profile-navigation-container">
-              <div class="header-fm rows">
-                  <a mat-button mat-icon-button class="mat-add-new" [routerLink]="['/']">
-                      <mat-icon>close</mat-icon>
-                  </a>
-                  <h4>សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</h4>
-              </div>
-              <a mat-button class="officer-profile-navigation-item" [routerLink]="['application-form']"
-                  routerLinkActive="active">
-                  ជំហានទី១. បំពេញពាក្យស្នើសុំ
-              </a>
-              <a mat-button class="officer-profile-navigation-item" [routerLink]="['curriculum-vitae']"
-                  routerLinkActive="active">
-                  ជំហានទី២. បំពេញប្រវត្តិរូបសង្ខេប
-              </a>
-                <a mat-button class="officer-profile-navigation-item" [routerLink]="['apply-application']"
-                    routerLinkActive="active">
-                    ជំហានទី៣. ដាក់ពាក្យស្នើសុំ
-                </a>
+        <div class="officer-profile-navigation-container">
+          <div class="header-fm rows">
+            <a mat-icon-button class="mat-add-new" [routerLink]="['/']">
+              <mat-icon>close</mat-icon>
+            </a>
+            <h4>សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</h4>
           </div>
-          <!-- <div class="select-application-type" style="padding:0 20px;">
-            <mat-radio-group  aria-label="Select an option" [(ngModel)]="applicationType" >
-              <mat-radio-button [disabled]="disableChangeNationality" (change)="changeApplicationType('khmer')" value="khmer"><span>ជនជាតិខ្មែរ</span></mat-radio-button>
-              <mat-radio-button [disabled]="disableChangeNationality" style="margin-left:26px;" (change)="changeApplicationType('foreigner')" value="foreigner"><span>ជនជាតិបរទេស</span></mat-radio-button>
-            </mat-radio-group>
-          </div> -->
-          <div class="officer-profile-submit-block" style="padding:24px;">
-              <div class="row-item memo blue">
-                  <div class="f-item">
-                      <div class="c-item">
-                          <span style="text-decoration: underline;"> <strong> សូមជូនភ្ជាប់មកជាមួយនូវ ៖ </strong> </span>
-                          <span style="margin-top: 8px;margin-left: 12px; display: flex; flex-direction: column; padding: 0;gap:6px;"
-                              class="p-rel">
-                              <span>- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
-                              <span>- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
-                              <ng-container *ngIf="store?.isKhmerForm">
-                                  <span>- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅ ឬសៀវភៅគ្រួសារច្បាប់ដើម
-                                      ព្រមទាំងថតចម្លង
-                                      (១ច្បាប់) មួយផង។</span>
-                              </ng-container>
-                              <span *ngIf="!store?.isKhmerForm">-
-                                ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។</span>
-                          </span>
-                      </div>
-                  </div>
-              </div>
+          <a mat-button class="officer-profile-navigation-item" [routerLink]="['application-form']"
+            routerLinkActive="active">
+            ជំហានទី១. បំពេញពាក្យស្នើសុំ
+          </a>
+          <a mat-button class="officer-profile-navigation-item" [routerLink]="['curriculum-vitae']"
+            routerLinkActive="active">
+            ជំហានទី២. បំពេញប្រវត្តិរូបសង្ខេប
+          </a>
+          <a mat-button class="officer-profile-navigation-item" [routerLink]="['apply-application']"
+            routerLinkActive="active">
+            ជំហានទី៣. ដាក់ពាក្យស្នើសុំ
+          </a>
+        </div>
+        <!-- <div class="select-application-type" style="padding:0 20px;">
+        <mat-radio-group  aria-label="Select an option" [(ngModel)]="applicationType" >
+          <mat-radio-button [disabled]="disableChangeNationality" (change)="changeApplicationType('khmer')" value="khmer"><span>ជនជាតិខ្មែរ</span></mat-radio-button>
+          <mat-radio-button [disabled]="disableChangeNationality" style="margin-left:26px;" (change)="changeApplicationType('foreigner')" value="foreigner"><span>ជនជាតិបរទេស</span></mat-radio-button>
+        </mat-radio-group>
+      </div> -->
+      <div class="officer-profile-submit-block" style="padding:24px;">
+        <div class="row-item memo blue">
+          <div class="f-item">
+            <div class="c-item">
+              <span style="text-decoration: underline;"> <strong> សូមជូនភ្ជាប់មកជាមួយនូវ ៖ </strong> </span>
+              <span style="margin-top: 8px;margin-left: 12px; display: flex; flex-direction: column; padding: 0;gap:6px;"
+                class="p-rel">
+                <span>- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
+                <span>- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
+                @if (store?.isKhmerForm) {
+                  <span>- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅ ឬសៀវភៅគ្រួសារច្បាប់ដើម
+                    ព្រមទាំងថតចម្លង
+                  (១ច្បាប់) មួយផង។</span>
+                }
+                @if (!store?.isKhmerForm) {
+                  <span>-
+                  ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។</span>
+                }
+              </span>
+            </div>
           </div>
+        </div>
       </div>
-      <div class="shadow-y"></div>
+    </div>
+    <div class="shadow-y"></div>
   </div>
-  <div class="officer-profile-info-container">
-      <router-outlet *ngIf="!loading else loadingTmp"></router-outlet>
-  </div>
+}
+<div class="officer-profile-info-container">
+  @if (!loading) {
+    <router-outlet></router-outlet>
+  } @else {
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate" class="app-loader"></mat-progress-bar>
+    }
+  }
+</div>
 </div>

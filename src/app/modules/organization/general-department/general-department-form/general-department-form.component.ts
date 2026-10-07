@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DEPARTMENT_STATUS_OBJ, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -17,16 +17,18 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ICompany } from 'src/app/interfaces/user';
 
 @Component({
-  selector: 'app-general-department-form',
-  templateUrl: './general-department-form.component.html',
-  styleUrls: ['./general-department-form.component.scss']
+    selector: 'app-general-department-form',
+    templateUrl: './general-department-form.component.html',
+    styleUrls: ['./general-department-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeneralDepartmentFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតស្ថាប័នគ្រប់គ្រង";
-  form: FormGroup;
+  form: UntypedFormGroup;
   ranking: AbstractControl;
   filteredRankingOptions: Observable<IRanking[]>;
 
@@ -37,7 +39,7 @@ export class GeneralDepartmentFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GeneralDepartmentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: GeneralDepartmentStore,
     public ds: DatabaseService,
     private auth: AuthStore,

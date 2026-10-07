@@ -14,11 +14,13 @@
                 - រូបថតមន្ត្រី
               </span>
             </div>
-            <div class="file-container" *ngIf="this.store.selectedOfficer?.photo || this.store.selectedOfficer?.file">
+            @if (this.store.selectedOfficer?.photo || this.store.selectedOfficer?.file) {
+              <div class="file-container">
                 <div class="file-item" (click)="selectedImage = this.store.selectedOfficer?.photo || this.store.selectedOfficer?.file">
                   <img [src]="this.store.selectedOfficer?.photo?.downloadUrl || this.store.selectedOfficer?.file?.downloadUrl">
                 </div>
-            </div>
+              </div>
+            }
           </div>
           <div class="item">
             <div class="title">
@@ -27,19 +29,23 @@
               </span>
             </div>
             <div class="file-container" >
-              <ng-container *ngFor="let file of selectedOfficer?.policeCardFiles">
-                <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                  <img [src]="file?.downloadUrl">
-                </div>
-                <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                  <div class="ico">
-                    <img [src]="SVG">
+              @for (file of selectedOfficer?.policeCardFiles; track file) {
+                @if (file?.type==='image') {
+                  <div class="file-item" (click)="selectedImage = file">
+                    <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                   </div>
-                  <div class="info">
-                    {{file?.name}}
-                  </div>
-                </a>
-              </ng-container>
+                }
+                @if (file?.type!=='image') {
+                  <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                    <div class="ico">
+                      <img [src]="SVG">
+                    </div>
+                    <div class="info">
+                      {{file?.name}}
+                    </div>
+                  </a>
+                }
+              }
             </div>
           </div>
           <div class="item" >
@@ -48,21 +54,27 @@
                 - អត្តសញ្ញាណប័ណ្ណសញ្ជាតិខ្មែរ
               </span>
             </div>
-            <div class="file-container" *ngFor="let file of selectedOfficer?.nationalCardIdFiles">
-              <ng-container>
-                <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                  <img [src]="file?.downloadUrl">
-                </div>
-                <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                  <div class="ico">
-                    <img [src]="SVG">
-                  </div>
-                  <div class="info">
-                    {{file?.name}}
-                  </div>
-                </a>
-              </ng-container>
-            </div>
+            @for (file of selectedOfficer?.nationalCardIdFiles; track file) {
+              <div class="file-container">
+                <ng-container>
+                  @if (file?.type==='image') {
+                    <div class="file-item" (click)="selectedImage = file">
+                      <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                    </div>
+                  }
+                  @if (file?.type!=='image') {
+                    <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                      <div class="ico">
+                        <img [src]="SVG">
+                      </div>
+                      <div class="info">
+                        {{file?.name}}
+                      </div>
+                    </a>
+                  }
+                </ng-container>
+              </div>
+            }
           </div>
         </div>
       </mat-expansion-panel>
@@ -73,30 +85,38 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <div class="item" *ngFor="let item of selectedOfficer?.generalEducation">
-            <ng-container *ngIf="item?.certificate || item?.files?.length >0">
-              <div class="title">
-                <span *ngIf="item?.certificate">
-                  - {{item?.certificate}}
-                </span>
-              </div>
-              <div class="file-container">
-                <ng-container *ngFor="let file of item?.files">
-                  <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                    <img [src]="file?.downloadUrl">
-                  </div>
-                  <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                    <div class="ico">
-                      <img [src]="SVG">
-                    </div>
-                    <div class="info">
-                      {{file?.name}}
-                    </div>
-                  </a>
-                </ng-container>
-              </div>
-            </ng-container>
-          </div>
+          @for (item of selectedOfficer?.generalEducation; track item) {
+            <div class="item">
+              @if (item?.certificate || item?.files?.length >0) {
+                <div class="title">
+                  @if (item?.certificate) {
+                    <span>
+                      - {{item?.certificate}}
+                    </span>
+                  }
+                </div>
+                <div class="file-container">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
+                      </div>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -106,32 +126,38 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <ng-container *ngFor="let item of selectedOfficer?.trainingLevel">
-            <ng-container *ngIf="item?.skill || item?.files?.length > 0">
+          @for (item of selectedOfficer?.trainingLevel; track item) {
+            @if (item?.skill || item?.files?.length > 0) {
               <div class="item">
                 <div class="title">
-                  <span *ngIf="item?.skill">
-                    - {{item?.skill}}
-                  </span>
+                  @if (item?.skill) {
+                    <span>
+                      - {{item?.skill}}
+                    </span>
+                  }
                 </div>
                 <div class="file-container">
-                  <ng-container *ngFor="let file of item?.files">
-                    <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                      <img [src]="file?.downloadUrl">
-                    </div>
-                    <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                      <div class="ico">
-                        <img [src]="SVG">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                       </div>
-                      <div class="info">
-                        {{file?.name}}
-                      </div>
-                    </a>
-                  </ng-container>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
                 </div>
               </div>
-            </ng-container>
-          </ng-container>
+            }
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -146,32 +172,38 @@
               ក.មុខតំណែង
             </h3>
           </div>
-          <ng-container *ngFor="let item of selectedOfficer?.positionHistory">
-            <ng-container *ngIf="item?.name?.name || item?.files?.length > 0">
+          @for (item of selectedOfficer?.positionHistory; track item) {
+            @if (item?.name?.name || item?.files?.length > 0) {
               <div class="item">
                 <div class="title">
-                  <span *ngIf="item?.name?.name">
-                    - {{item?.name?.name}}
-                  </span>
+                  @if (item?.name?.name) {
+                    <span>
+                      - {{item?.name?.name}}
+                    </span>
+                  }
                 </div>
                 <div class="file-container">
-                  <ng-container *ngFor="let file of item?.files">
-                    <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                      <img [src]="file?.downloadUrl">
-                    </div>
-                    <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                      <div class="ico">
-                        <img [src]="SVG">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                       </div>
-                      <div class="info">
-                        {{file?.name}}
-                      </div>
-                    </a>
-                  </ng-container>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
                 </div>
-            </div>
-            </ng-container>
-          </ng-container>
+              </div>
+            }
+          }
 
           <div class="head-title">
             <h3>
@@ -179,32 +211,38 @@
             </h3>
           </div>
 
-          <ng-container *ngFor="let item of selectedOfficer?.rankHistory">
-            <ng-container *ngIf="item?.name?.name || item?.files?.length > 0">
+          @for (item of selectedOfficer?.rankHistory; track item) {
+            @if (item?.name?.name || item?.files?.length > 0) {
               <div class="item" >
                 <div class="title">
-                  <span *ngIf="item?.name?.name">
-                    - {{item?.name?.name}}
-                  </span>
+                  @if (item?.name?.name) {
+                    <span>
+                      - {{item?.name?.name}}
+                    </span>
+                  }
                 </div>
                 <div class="file-container">
-                  <ng-container *ngFor="let file of item?.files">
-                    <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                      <img [src]="file?.downloadUrl">
-                    </div>
-                    <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                      <div class="ico">
-                        <img [src]="SVG">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                       </div>
-                      <div class="info">
-                        {{file?.name}}
-                      </div>
-                    </a>
-                  </ng-container>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
                 </div>
               </div>
-            </ng-container>
-          </ng-container>
+            }
+          }
 
         </div>
       </mat-expansion-panel>
@@ -215,32 +253,38 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <ng-container *ngFor="let item of selectedOfficer?.commendation">
-            <ng-container *ngIf="item?.rank || item?.files?.length > 0">
+          @for (item of selectedOfficer?.commendation; track item) {
+            @if (item?.rank || item?.files?.length > 0) {
               <div class="item" >
                 <div class="title">
-                  <span *ngIf="item?.rank">
-                    - {{item?.rank}}
-                  </span>
+                  @if (item?.rank) {
+                    <span>
+                      - {{item?.rank}}
+                    </span>
+                  }
                 </div>
                 <div class="file-container">
-                  <ng-container *ngFor="let file of item?.files">
-                    <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                      <img [src]="file?.downloadUrl">
-                    </div>
-                    <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                      <div class="ico">
-                        <img [src]="SVG">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                       </div>
-                      <div class="info">
-                        {{file?.name}}
-                      </div>
-                    </a>
-                  </ng-container>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
                 </div>
-            </div>
-            </ng-container>
-          </ng-container>
+              </div>
+            }
+          }
         </div>
       </mat-expansion-panel>
       <mat-expansion-panel>
@@ -250,43 +294,50 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="expan-content">
-          <ng-container *ngFor="let item of selectedOfficer?.punishment">
-            <ng-container *ngIf="item?.rank || item?.files?.length > 0">
+          @for (item of selectedOfficer?.punishment; track item) {
+            @if (item?.rank || item?.files?.length > 0) {
               <div class="item" >
                 <div class="title">
-                  <span *ngIf="item?.rank">
-                    - {{item?.rank}}
-                  </span>
+                  @if (item?.rank) {
+                    <span>
+                      - {{item?.rank}}
+                    </span>
+                  }
                 </div>
                 <div class="file-container">
-                  <ng-container *ngFor="let file of item?.files">
-                    <div class="file-item" *ngIf="file?.type==='image'" (click)="selectedImage = file">
-                      <img [src]="file?.downloadUrl">
-                    </div>
-                    <a class="file-item-pfd" style="display: flex; justify-content: center;" *ngIf="file?.type!=='image'" [href]="file?.downloadUrl" target="new">
-                      <div class="ico">
-                        <img [src]="SVG">
+                  @for (file of item?.files; track file) {
+                    @if (file?.type==='image') {
+                      <div class="file-item" (click)="selectedImage = file">
+                        <img [src]="$safeNavigationMigration(file?.downloadUrl)">
                       </div>
-                      <div class="info">
-                        {{file?.name}}
-                      </div>
-                    </a>
-                  </ng-container>
+                    }
+                    @if (file?.type!=='image') {
+                      <a class="file-item-pfd" style="display: flex; justify-content: center;" [href]="$safeNavigationMigration(file?.downloadUrl)" target="new">
+                        <div class="ico">
+                          <img [src]="SVG">
+                        </div>
+                        <div class="info">
+                          {{file?.name}}
+                        </div>
+                      </a>
+                    }
+                  }
                 </div>
               </div>
-            </ng-container>
-          </ng-container>
+            }
+          }
         </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
   <div class="body">
-    <div class="img-preview-container" *ngIf="selectedImage?.downloadUrl;else noSelectImageTemplate">
-      <div class="img-container">
-        <img [src]="selectedImage?.downloadUrl">
+    @if (selectedImage?.downloadUrl) {
+      <div class="img-preview-container">
+        <div class="img-container">
+          <img [src]="$safeNavigationMigration(selectedImage?.downloadUrl)">
+        </div>
       </div>
-    </div>
-    <ng-template #noSelectImageTemplate>
+    } @else {
       <div class="mt-file">
         <div class="img-container">
           <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
@@ -297,6 +348,6 @@
           </span>
         </div>
       </div>
-    </ng-template>
+    }
   </div>
 </div>

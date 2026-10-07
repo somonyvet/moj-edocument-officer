@@ -1,8 +1,8 @@
 import { WorkingHourStore } from './../../../stores/working-hour.store';
 import { AssignUserGroupWorkingHourComponent } from './../assign-user-group-working-hour/assign-user-group-working-hour.component';
 import { IOfficer } from '../../../../../interfaces/document/document.interface';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -10,9 +10,11 @@ import { tabs } from 'src/app/dummy/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 @Component({
-  selector: 'app-officer-list-working-hour',
-  templateUrl: './officer-list-working-hour.component.html',
-  styleUrls: ['./officer-list-working-hour.component.scss']
+    selector: 'app-officer-list-working-hour',
+    templateUrl: './officer-list-working-hour.component.html',
+    styleUrls: ['./officer-list-working-hour.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerListWorkingHourComponent implements OnInit {
   tabs = tabs.officers;
@@ -20,7 +22,7 @@ export class OfficerListWorkingHourComponent implements OnInit {
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',

@@ -8,12 +8,14 @@
       </div>
     </div>
 
-    <div class="nav-list-item" *ngFor="let item of dummyIonicons" >
-      <div class="active-space"></div>
-      <div class="icon-container">
-        <ion-icon [name]="item"></ion-icon>
+    @for (item of dummyIonicons; track item) {
+      <div class="nav-list-item" >
+        <div class="active-space"></div>
+        <div class="icon-container">
+          <ion-icon [name]="item"></ion-icon>
+        </div>
       </div>
-    </div>
+    }
   </div>
   <div class="main-panel">
     <div class="head-bar">

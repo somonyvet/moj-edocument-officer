@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, take, debounceTime } from "rxjs/operators";
@@ -29,19 +29,21 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'app-add-group-user',
-  templateUrl: './add-group-user.component.html',
-  styleUrls: ['./add-group-user.component.scss']
+    selector: 'app-add-group-user',
+    templateUrl: './add-group-user.component.html',
+    styleUrls: ['./add-group-user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddGroupUserComponent implements OnInit {
   TITLE: any = "បង្កើតក្រុមសិទ្ធិប្រើប្រាស់"
   filteredStateLevel: any;
   filteredStateSubject: any;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
 
-  formProgram: FormGroup;
+  formProgram: UntypedFormGroup;
 
   process: boolean;
   ITEM: IGroupUser;
@@ -51,7 +53,7 @@ export class AddGroupUserComponent implements OnInit {
     public dialogRef: MatDialogRef<AddGroupUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: GroupsAccountStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public list: BaseStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

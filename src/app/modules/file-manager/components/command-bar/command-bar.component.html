@@ -112,7 +112,7 @@
                 aria-label="arrow_drop_down_path">
                 <span>
                   <span *ngIf="item?.isMyFile===true">{{item?.name}}</span>
-                  <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="item?.key">
+                  <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="$safeNavigationMigration(item?.key)">
                   </app-site-map-name>
                 </span>
                 <mat-icon aria-hidden="false" aria-label="arrow_drop_down">arrow_drop_down</mat-icon>
@@ -129,7 +129,7 @@
                     <span>File upload</span>
                   </a>
                   <input #fileInput type="file" multiple
-                    (change)="store?.fetchSelectedFile(fileInput,NEW_FILE_DIALOG,auth?.user,auth?.selectedCompany)"
+                    (change)="store?.fetchSelectedFile(fileInput,NEW_FILE_DIALOG,$safeNavigationMigration(auth?.user),$safeNavigationMigration(auth?.selectedCompany))"
                     style="display:none;" />
                 </ng-container>
               </mat-menu>
@@ -138,7 +138,7 @@
               <a mat-button class="mat-path-file last-path" aria-label="arrow_drop_down_path">
                 <span>
                   <span *ngIf="item?.isMyFile===true">{{item?.name}}</span>
-                  <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="item?.key">
+                  <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="$safeNavigationMigration(item?.key)">
                   </app-site-map-name>
                 </span>
               </a>
@@ -149,7 +149,7 @@
             <a mat-button class="mat-path-file path-ellipsis last-path" [matMenuTriggerFor]="menu"
               aria-label="arrow_drop_down_path">
               <span *ngIf="item?.isMyFile===true">{{item?.name}}</span>
-              <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="item?.key"></app-site-map-name>
+              <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="$safeNavigationMigration(item?.key)"></app-site-map-name>
               <mat-icon aria-hidden="false" aria-label="arrow_drop_down">arrow_drop_down</mat-icon>
             </a>
             <mat-menu #menu="matMenu">
@@ -163,7 +163,7 @@
                   <span>File upload</span>
                 </a>
                 <input #fileInput type="file" multiple
-                  (change)="store?.fetchSelectedFile(fileInput,NEW_FILE_DIALOG,auth?.user,auth?.selectedCompany)"
+                  (change)="store?.fetchSelectedFile(fileInput,NEW_FILE_DIALOG,$safeNavigationMigration(auth?.user),$safeNavigationMigration(auth?.selectedCompany))"
                   style="display:none;" />
               </ng-container>
 
@@ -200,7 +200,7 @@
                   <div class="tag-content">
                     <div class="tag-box" *ngFor="let tag of tagColor">
                       <a mat-menu-item (click)="changeColor(item, tag,'c')" class="tag-item check"
-                        [ngStyle]="{'background-color': tag?.color}">
+                        [ngStyle]="{'background-color': $safeNavigationMigration(tag?.color)}">
                         <mat-icon>{{item?.fileTag?.color===tag.color?'done_outline':''}}
                         </mat-icon>
                       </a>
@@ -215,13 +215,13 @@
       </ng-container>
 
       <ng-container *ngIf="i===1 && item?.folder_path_button===true">
-        <a mat-button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <a mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_horiz</mat-icon>
         </a>
         <mat-icon aria-hidden="false" aria-label="arrow_drop_down">keyboard_arrow_right</mat-icon>
         <mat-menu #menu="matMenu">
           <a (click)="goBack(folder)" mat-menu-item
-            *ngFor="let folder of store?.pathData|filterFolderPath;let j=index;">
+            *ngFor="let folder of $safeNavigationMigration(store?.pathData)|filterFolderPath;let j=index;">
             <mat-icon>folder</mat-icon>
             <span>{{folder?.name}}</span>
           </a>
@@ -232,7 +232,7 @@
         <a mat-button (click)="goBack(item)" class="mat-path-file last-path">
           <span>
             <span *ngIf="item?.isMyFile===true">{{item?.name}}</span>
-            <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="item?.key">
+            <app-site-map-name *ngIf="item?.isMyFile===false" [fileKey]="$safeNavigationMigration(item?.key)">
             </app-site-map-name>
           </span>
         </a>
@@ -245,62 +245,59 @@
     <ng-container *ngIf="!ismobile">
       <ng-container *ngIf="store?.selectedItem">
         <ng-container *ngIf="router.url==='/file-manager/trash'">
-          <a (click)="restore(store?.selectedItem)" matTooltip='restore "store?.selectedItem?.name"' mat-button
-            mat-icon-button>
+          <a (click)="restore($safeNavigationMigration(store?.selectedItem))" matTooltip='restore "store?.selectedItem?.name"' mat-icon-button>
             <mat-icon>restore</mat-icon>
           </a>
-          <a mat-button mat-icon-button (click)="deleteForever(store?.selectedItem)"
+          <a mat-icon-button (click)="deleteForever($safeNavigationMigration(store?.selectedItem))"
             matTooltip='Delete "store?.selectedItem?.name" forever'>
             <mat-icon>delete_forever </mat-icon>
           </a>
         </ng-container>
 
         <ng-container *ngIf="this.router.url!=='/file-manager/trash' && store?.selectedItem">
-          <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getDownload(store?.selectedItem)" mat-button
-            mat-icon-button matTooltip='Download' aria-label="link">
+          <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getDownload($safeNavigationMigration(store?.selectedItem))" mat-icon-button matTooltip='Download' aria-label="link">
             <mat-icon>system_update_alt</mat-icon>
           </a>
-          <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getShareLink(store?.selectedItem)" mat-button
-            mat-icon-button matTooltip='Get shareable link' aria-label="link">
+          <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getShareLink($safeNavigationMigration(store?.selectedItem))" mat-icon-button matTooltip='Get shareable link' aria-label="link">
             <mat-icon>link</mat-icon>
           </a>
           <a *ngIf="auth?.root && store?.selectedItem?.type?.key==='file'"
-            (click)="stopSharedPerson(store?.selectedItem)" mat-button mat-icon-button
-            [matTooltip]="'Share ' + store?.selectedItem?.name" aria-label="link">
+            (click)="stopSharedPerson($safeNavigationMigration(store?.selectedItem))" mat-icon-button
+            [matTooltip]="'Share ' + $safeNavigationMigration(store?.selectedItem?.name)" aria-label="link">
             <mat-icon>person_add</mat-icon>
           </a>
           <a *ngIf="auth?.root && store?.selectedItem?.type?.key==='folder'"
-            (click)="store?.newFolder(NEW_FOLDER_DIALOG,this.store.selectedItem)" mat-button mat-icon-button
-            [matTooltip]="'Edit ' + store?.selectedItem?.name" aria-label="link">
+            (click)="store?.newFolder(NEW_FOLDER_DIALOG,this.store.selectedItem)" mat-icon-button
+            [matTooltip]="'Edit ' + $safeNavigationMigration(store?.selectedItem?.name)" aria-label="link">
             <mat-icon>edit</mat-icon>
           </a>
-          <a *ngIf="auth?.root" matTooltip='Delete "{{store?.selectedItem?.name}}"' mat-button mat-icon-button
-            aria-label="delete" (click)="delete(store?.selectedItem)">
+          <a *ngIf="auth?.root" matTooltip='Delete "{{store?.selectedItem?.name}}"' mat-icon-button
+            aria-label="delete" (click)="delete($safeNavigationMigration(store?.selectedItem))">
             <mat-icon>delete</mat-icon>
           </a>
           <a matTooltip="menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">
             <mat-icon>more_vert</mat-icon>
           </a>
           <mat-menu class="right-click-Menu" #menu="matMenu" xPosition="before" yPosition="below">
-            <a mat-menu-item (click)="onOpenItem(store?.selectedItem)">
+            <a mat-menu-item (click)="onOpenItem($safeNavigationMigration(store?.selectedItem))">
               <mat-icon>visibility</mat-icon>
               <span>Open</span>
             </a>
-            <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getShareLink(store?.selectedItem)" mat-menu-item
+            <a *ngIf="store?.selectedItem?.type?.key==='file'" (click)="getShareLink($safeNavigationMigration(store?.selectedItem))" mat-menu-item
               matTooltip='Get shareable link' aria-label="link">
               <mat-icon>link</mat-icon>
               <span>Get shareable link</span>
             </a>
-            <a mat-menu-item *ngIf="store?.selectedItem?.isFavorite===false" (click)="isFavorite(store?.selectedItem)">
+            <a mat-menu-item *ngIf="store?.selectedItem?.isFavorite===false" (click)="isFavorite($safeNavigationMigration(store?.selectedItem))">
               <mat-icon>folder_special</mat-icon>
               <span>Add to star</span>
             </a>
-            <a mat-menu-item *ngIf="store?.selectedItem?.isFavorite===true" (click)="isFavorite(store?.selectedItem)">
+            <a mat-menu-item *ngIf="store?.selectedItem?.isFavorite===true" (click)="isFavorite($safeNavigationMigration(store?.selectedItem))">
               <mat-icon>folder_special</mat-icon>
               <span>Remove from Starred</span>
             </a>
             <a *ngIf="(store?.selectedItem?.type?.key==='file' && auth.uid===store?.selectedItem?.created_by?.key) || auth.root"
-              mat-menu-item (click)="rename(store?.selectedItem)">
+              mat-menu-item (click)="rename($safeNavigationMigration(store?.selectedItem))">
               <mat-icon>title</mat-icon>
               <span>Rename</span>
             </a>
@@ -311,18 +308,18 @@
               </a>
             </ng-container>
             <a *ngIf="auth?.root" mat-menu-item matTooltip='Delete "{{store?.selectedItem?.name}}"' aria-label="delete"
-              (click)="delete(store?.selectedItem)">
+              (click)="delete($safeNavigationMigration(store?.selectedItem))">
               <mat-icon>delete</mat-icon>
               <span>Remove</span>
             </a>
           </mat-menu>
-          <a *ngIf="store?.selectedItem" matTooltip="Clear selection" mat-button mat-icon-button aria-label="Clear"
+          <a *ngIf="store?.selectedItem" matTooltip="Clear selection" mat-icon-button aria-label="Clear"
             (click)="store?.clearSelected()">
             <mat-icon>close</mat-icon>
           </a>
         </ng-container>
       </ng-container>
-      <a matTooltip="Detail" mat-button mat-icon-button aria-label="info" (click)="toggleSidenav()">
+      <a matTooltip="Detail" mat-icon-button aria-label="info" (click)="toggleSidenav()">
         <mat-icon>info</mat-icon>
       </a>
     </ng-container>
@@ -332,8 +329,8 @@
   <mat-menu #appMenu="matMenu">
     <div class="tag-content">
       <div class="tag-box" *ngFor="let tag of tagColor">
-        <a mat-menu-item (click)="changeColor(store?.selectedItem, tag,'m')" class="tag-item check"
-          [ngStyle]="{'background-color': tag?.color}">
+        <a mat-menu-item (click)="changeColor($safeNavigationMigration(store?.selectedItem), tag,'m')" class="tag-item check"
+          [ngStyle]="{'background-color': $safeNavigationMigration(tag?.color)}">
           <mat-icon>{{store?.selectedItem?.fileTag?.color===tag.color?'done_outline':''}}</mat-icon>
         </a>
       </div>

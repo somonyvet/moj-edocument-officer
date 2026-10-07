@@ -1,25 +1,27 @@
 import { WorkingHourStore } from './../../../stores/working-hour.store';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DepartmentStore } from 'src/app/stores/document/department.store';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-assign-user-group-working-hour',
-  templateUrl: './assign-user-group-working-hour.component.html',
-  styleUrls: ['./assign-user-group-working-hour.component.scss']
+    selector: 'app-assign-user-group-working-hour',
+    templateUrl: './assign-user-group-working-hour.component.html',
+    styleUrls: ['./assign-user-group-working-hour.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AssignUserGroupWorkingHourComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
   departmentKey = '';
 
   constructor(
     public dialogRef: MatDialogRef<AssignUserGroupWorkingHourComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: WorkingHourStore,
     public departmentStore: DepartmentStore,
     private snackBar: MatSnackBar,
@@ -27,7 +29,7 @@ export class AssignUserGroupWorkingHourComponent implements OnInit {
   ) { }
 
   get selectedArr() {
-    return this.form?.controls["selectedArr"] as FormArray;
+    return this.form?.controls["selectedArr"] as UntypedFormArray;
   }
 
   async ngOnInit(): Promise<void> {

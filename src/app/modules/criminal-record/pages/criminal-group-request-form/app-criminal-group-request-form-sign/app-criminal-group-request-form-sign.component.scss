@@ -1,10 +1,10 @@
+@use 'src/assets/styles/variable.scss' as *;
 $fontTitleitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", "Moul", "auxswot", "khmer os siemreap",
     "khmeros_siemreap";
 $colorBlue: #002060;
 $fontSubitm: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", Roboto, Open Sans, Helvetica Neue,
     Helvetica, Arial, sans-serif, "auxswot-bold", "auxswot", "Battambang", "khmeros_siemreap";
 
-@import 'src/assets/styles/variable.scss';
 
 .row-item-new {
     display: flex;

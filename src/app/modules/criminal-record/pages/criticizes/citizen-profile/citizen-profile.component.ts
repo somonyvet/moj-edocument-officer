@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CitizenStore } from '../../../stores/citizen.store';
 import { CriminalStore } from '../../../stores/criminal.store';
 
 @Component({
-  selector: 'app-citizen-profile',
-  templateUrl: './citizen-profile.component.html',
-  styleUrls: ['./citizen-profile.component.scss']
+    selector: 'app-citizen-profile',
+    templateUrl: './citizen-profile.component.html',
+    styleUrls: ['./citizen-profile.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CitizenProfileComponent implements OnInit {
   tabs = criminal_tabs.citizen_nationality;

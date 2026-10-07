@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,13 +11,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { AddEditUserAccountComponent } from './add-edit-user-account/add-edit-user-account.component';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-success/confirm-success.component';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { APP_CONFIG } from 'src/app/dummy/config';
 @Component({
-  selector: 'app-user-account',
-  templateUrl: './user-account.component.html',
-  styleUrls: ['./user-account.component.scss']
+    selector: 'app-user-account',
+    templateUrl: './user-account.component.html',
+    styleUrls: ['./user-account.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class UserAccountComponent implements OnInit, OnDestroy {
@@ -26,7 +28,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
   filterBy = [
     { key: "id_number", text: "គណនីមន្រ្តី", placeholder: 'ស្វែងរកគណនីមន្រ្តី', ref: 'id_number' },
   ];
@@ -41,7 +43,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
     private auth: AuthStore,
     private snackBar: MatSnackBar,
     public store: OfficerStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
 
   ) { }
 

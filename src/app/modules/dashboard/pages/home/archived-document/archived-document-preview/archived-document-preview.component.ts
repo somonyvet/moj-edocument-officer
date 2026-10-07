@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { pushToObject } from 'src/app/shared/services/convert.service';
@@ -8,9 +8,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-archived-document-preview',
-  templateUrl: './archived-document-preview.component.html',
-  styleUrls: ['./archived-document-preview.component.scss']
+    selector: 'app-archived-document-preview',
+    templateUrl: './archived-document-preview.component.html',
+    styleUrls: ['./archived-document-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ArchivedDocumentPreviewComponent implements OnInit, OnDestroy {
 

@@ -1,82 +1,110 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{titleForm}}</h2>
-        <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </div>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{titleForm}}</h2>
+    <div class="space1"></div>
+    <div mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
     </div>
-    <mat-dialog-content class="form-wrapper">
+  </div>
+  <mat-dialog-content class="form-wrapper">
 
-        <div class="section-card" *ngIf="!isReject">
-            <p class="section-title">បញ្ចូលហត្ថលេខា</p>
-            <div class="signature-box" (click)="signatureFile.click()">
-                <img *ngIf="SIGNATURE_URL" class="signature-preview" [src]="SIGNATURE_URL" alt="signature" />
-                <div *ngIf="!SIGNATURE_URL" class="signature-empty">
-                    <mat-icon>gesture</mat-icon>
-                    <span>ចុចដើម្បីបញ្ចូលហត្ថលេខា</span>
-                </div>
-                <div class="signature-action">
-                    <mat-icon class="mat-icon" role="img">photo_camera</mat-icon>
-                </div>
+    @if (!isReject) {
+      <div class="section-card">
+        <p class="section-title">បញ្ចូលហត្ថលេខា</p>
+        <div class="signature-box" (click)="signatureFile.click()">
+          @if (SIGNATURE_URL) {
+            <img class="signature-preview" [src]="SIGNATURE_URL" alt="signature" />
+          }
+          @if (!SIGNATURE_URL) {
+            <div class="signature-empty">
+              <mat-icon>gesture</mat-icon>
+              <span>ចុចដើម្បីបញ្ចូលហត្ថលេខា</span>
             </div>
-            <input #signatureFile type="file" accept='image/*' (change)="onSelectedSignatureFile($event)"
-                style="display:none;" />
+          }
+          <div class="signature-action">
+            <mat-icon class="mat-icon" role="img">photo_camera</mat-icon>
+          </div>
         </div>
+        <input #signatureFile type="file" accept='image/*' (change)="onSelectedSignatureFile($event)"
+          style="display:none;" />
+      </div>
+    }
 
-        <div class="section-card" *ngIf="isReject">
-            <p class="section-title">បញ្ជូនត្រឡប់ទៅអង្គភាព <span class="required">*</span></p>
-            <mat-radio-group class="reject-target-group" formControlName="reject_to_workplace_key">
-                <mat-radio-button class="reject-target-option" *ngFor="let item of rejectTargets"
-                    [value]="item?.key">{{item?.name}}</mat-radio-button>
-            </mat-radio-group>
-            <p class="field-error" *ngIf="rejectTargets?.length === 0">
-                ពុំមានអង្គភាពសម្រាប់បដិសេធ
-            </p>
+    @if (isReject) {
+      <div class="section-card">
+        <p class="section-title">បញ្ជូនត្រឡប់ទៅអង្គភាព <span class="required">*</span></p>
+        <mat-radio-group class="reject-target-group" formControlName="reject_to_workplace_key">
+          @for (item of rejectTargets; track item) {
+            <mat-radio-button class="reject-target-option"
+            [value]="$safeNavigationMigration(item?.key)">{{item?.name}}</mat-radio-button>
+          }
+        </mat-radio-group>
+        @if (rejectTargets?.length === 0) {
+          <p class="field-error">
+            ពុំមានអង្គភាពសម្រាប់បដិសេធ
+          </p>
+        }
+      </div>
+    }
+
+    @if (isReject) {
+      <div class="section-card">
+        <p class="section-title">មូលហេតុបដិសេធ <span class="required">*</span></p>
+        <textarea class="comment-textarea" rows="5" formControlName="comment_officer"
+        placeholder="សូមបញ្ចូលមូលហេតុ"></textarea>
+        @if (form.controls['comment_officer'].invalid && form.controls['comment_officer'].touched) {
+          <p class="field-error"
+            >
+            សូមបញ្ចូលមូលហេតុ
+          </p>
+        }
+      </div>
+    }
+
+    @if (isValidDecreeRecord) {
+      <div class="reminder-box">
+        <mat-icon class="reminder-icon">warning</mat-icon>
+        <div class="reminder-content">
+          <p class="reminder-title">{{decreeStatusName}}</p>
+          <p class="reminder-desc">មានកំណត់ត្រាផ្ដន្ទាទោសជាប់ពន្ធនាគារ សូមពិនិត្យមុនពេលអនុម័ត។</p>
+          @if (decreeResultName) {
+            <p class="reminder-decree" [innerHTML]="decreeResultName | sanitizeHtml"></p>
+          }
         </div>
+      </div>
+    }
 
-        <div class="section-card" *ngIf="isReject">
-            <p class="section-title">មូលហេតុបដិសេធ <span class="required">*</span></p>
-            <textarea class="comment-textarea" rows="5" formControlName="comment_officer"
-                placeholder="សូមបញ្ចូលមូលហេតុ"></textarea>
-            <p class="field-error"
-                *ngIf="form.controls['comment_officer'].invalid && form.controls['comment_officer'].touched">
-                សូមបញ្ចូលមូលហេតុ
-            </p>
-        </div>
+    @if (!isReject && isCommentRequired) {
+      <div class="section-card">
+        <p class="section-title">យោបល់ <span class="required">*</span></p>
+        <textarea class="comment-textarea" rows="5" formControlName="comment_officer"
+        placeholder="សូមបញ្ចូលយោបល់"></textarea>
+        @if (form.controls['comment_officer'].invalid && form.controls['comment_officer'].touched) {
+          <p class="field-error"
+            >
+            សូមបញ្ចូលយោបល់
+          </p>
+        }
+      </div>
+    }
 
-        <div class="reminder-box" *ngIf="isValidDecreeRecord">
-            <mat-icon class="reminder-icon">warning</mat-icon>
-            <div class="reminder-content">
-                <p class="reminder-title">{{decreeStatusName}}</p>
-                <p class="reminder-desc">មានកំណត់ត្រាផ្ដន្ទាទោសជាប់ពន្ធនាគារ សូមពិនិត្យមុនពេលអនុម័ត។</p>
-                <p class="reminder-decree" *ngIf="decreeResultName" [innerHTML]="decreeResultName | sanitizeHtml"></p>
-            </div>
-        </div>
+    @if (!isReject) {
+      <app-container-approval-note  [remarkFile]="$safeNavigationMigration(auth?.employee?.remarkFile)" [compareWithObj]="$safeNavigationMigration(ds?.compareWithObj)" [form]="form" [uid]="uid" [remarkText]="form.controls['remarkText'].value" [stamp_link]="STAMP_URL"
+        (selected_stamp)="onSelectedStampFile($event)"
+        (remark_form)="selectedRemark($event)"
+      ></app-container-approval-note>
+    }
 
-        <div class="section-card" *ngIf="!isReject && isCommentRequired">
-            <p class="section-title">យោបល់ <span class="required">*</span></p>
-            <textarea class="comment-textarea" rows="5" formControlName="comment_officer"
-                placeholder="សូមបញ្ចូលយោបល់"></textarea>
-            <p class="field-error"
-                *ngIf="form.controls['comment_officer'].invalid && form.controls['comment_officer'].touched">
-                សូមបញ្ចូលយោបល់
-            </p>
-        </div>
-
-        <app-container-approval-note *ngIf="!isReject"  [remarkFile]="auth?.employee?.remarkFile" [compareWithObj]="ds?.compareWithObj" [form]="form" [uid]="uid" [remarkText]="form.controls['remarkText'].value" [stamp_link]="STAMP_URL"
-         (selected_stamp)="onSelectedStampFile($event)"
-         (remark_form)="selectedRemark($event)"
-         ></app-container-approval-note>
-
-    </mat-dialog-content>
-    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+  </mat-dialog-content>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
     </mat-progress-bar>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button [ngClass]="isReject ? 'reject-btn' : 'submit-btn'" mat-button type="submit"
-            [disabled]="isReject && rejectTargets?.length === 0"
-            (click)="_onSave(form.value)">{{ isReject ? 'បដិសេធ' : 'រក្សាទុក' }}</button>
-    </mat-dialog-actions>
+  }
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button [ngClass]="isReject ? 'reject-btn' : 'submit-btn'" mat-button type="submit"
+      [disabled]="isReject && rejectTargets?.length === 0"
+    (click)="_onSave(form.value)">{{ isReject ? 'បដិសេធ' : 'រក្សាទុក' }}</button>
+  </mat-dialog-actions>
 </form>

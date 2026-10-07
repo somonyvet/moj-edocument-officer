@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -12,16 +12,18 @@ import { InstitutionStore } from 'src/app/stores/document/institution.store';
 import { generateKeywords, toNameKey } from 'src/app/shared/services/mapping.service';
 
 @Component({
-  selector: 'app-institution-form',
-  templateUrl: './institution-form.component.html',
-  styleUrls: ['./institution-form.component.scss']
+    selector: 'app-institution-form',
+    templateUrl: './institution-form.component.html',
+    styleUrls: ['./institution-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InstitutionFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   titleForm: any = "បង្កើតស្ថាប័ន";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
 
   SELECTED_PHOTO: any = null;
@@ -32,7 +34,7 @@ export class InstitutionFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InstitutionFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: InstitutionStore,
     public ds: DataService,
     private auth: AuthStore,

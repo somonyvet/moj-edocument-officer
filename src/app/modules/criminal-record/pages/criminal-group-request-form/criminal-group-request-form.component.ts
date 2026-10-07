@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalStore } from '../../stores/criminal.store';
@@ -6,9 +6,11 @@ import { CriminalVerifyStore } from '../../stores/criminalVerify.store';
 import { AddGroupRequestFormComponent } from './add-group-request-form/add-group-request-form.component';
 
 @Component({
-  selector: 'app-criminal-group-request-form',
-  templateUrl: './criminal-group-request-form.component.html',
-  styleUrls: ['./criminal-group-request-form.component.scss']
+    selector: 'app-criminal-group-request-form',
+    templateUrl: './criminal-group-request-form.component.html',
+    styleUrls: ['./criminal-group-request-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormComponent implements OnInit {
   selected: Date | null = new Date();

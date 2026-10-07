@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -14,9 +14,11 @@ import { AddPublicHolidayComponent } from './add-public-holiday/add-public-holid
 import { ConvertService } from 'src/app/shared/services/convert.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Component({
-  selector: 'app-public-holiday',
-  templateUrl: './public-holiday.component.html',
-  styleUrls: ['./public-holiday.component.scss']
+    selector: 'app-public-holiday',
+    templateUrl: './public-holiday.component.html',
+    styleUrls: ['./public-holiday.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PublicHolidayComponent implements OnInit, OnDestroy {
   HR_FUNCTION = HR_FUNCTION;

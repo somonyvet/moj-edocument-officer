@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -14,9 +14,11 @@ import { toNumber } from 'src/app/shared/services/mapping.service';
 import { DELIVERY_METHOD_ARRAY } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-report-paid-form-delivery',
-  templateUrl: './report-paid-form-delivery.component.html',
-  styleUrls: ['./report-paid-form-delivery.component.scss']
+    selector: 'app-report-paid-form-delivery',
+    templateUrl: './report-paid-form-delivery.component.html',
+    styleUrls: ['./report-paid-form-delivery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportPaidFormDeliveryComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

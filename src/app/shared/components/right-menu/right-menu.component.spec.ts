@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RightMenuComponent } from './right-menu.component';
 
@@ -6,7 +6,7 @@ describe('RightMenuComponent', () => {
   let component: RightMenuComponent;
   let fixture: ComponentFixture<RightMenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ RightMenuComponent ]
     })

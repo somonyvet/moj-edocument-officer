@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { MarketplaceStore } from 'src/app/swotify/stores/marketplace.store';
@@ -7,9 +7,11 @@ import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { SwotifyStore } from 'src/app/swotify/stores/swotify.store';
 
 @Component({
-  selector: 'app-marketplace-listing',
-  templateUrl: './marketplace-listing.component.html',
-  styleUrls: ['./marketplace-listing.component.scss']
+    selector: 'app-marketplace-listing',
+    templateUrl: './marketplace-listing.component.html',
+    styleUrls: ['./marketplace-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MarketplaceListingComponent implements OnInit, OnDestroy {
   tabs = swotify_tabs.marketplaces;

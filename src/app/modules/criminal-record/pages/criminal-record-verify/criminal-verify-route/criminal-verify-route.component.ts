@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -11,9 +11,11 @@ import { DecreeConfirmDialogComponent } from '../../../components/decree-confirm
 import { RemarkApplicationComponent } from '../../../components/remark-application/remark-application.component';
 
 @Component({
-  selector: 'app-criminal-verify-route',
-  templateUrl: './criminal-verify-route.component.html',
-  styleUrls: ['./criminal-verify-route.component.scss']
+    selector: 'app-criminal-verify-route',
+    templateUrl: './criminal-verify-route.component.html',
+    styleUrls: ['./criminal-verify-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalVerifyRouteComponent implements OnInit, OnDestroy {
   tabs = criminal_tabs.criminal_record_verify_tabs;

@@ -1,7 +1,7 @@
   import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { IDepartment, IPosition, IYearProgram } from 'src/app/interfaces/document/document.interface';
@@ -16,16 +16,18 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { LEVEL_MME, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { MmeSubProgramStore } from 'src/app/stores/document/mme-sub-program.store';
 import {  MONTH_DATA } from 'src/app/dummy/config';
 import { MmeBaseProgramStore } from 'src/app/stores/document/mme_program.store';
 import { monthOfYear } from 'src/app/dummy/report';
 
 @Component({
-  selector: 'app-describe-activities-form',
-  templateUrl: './describe-activities-form.component.html',
-  styleUrls: ['./describe-activities-form.component.scss']
+    selector: 'app-describe-activities-form',
+    templateUrl: './describe-activities-form.component.html',
+    styleUrls: ['./describe-activities-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DescribeActivitiesFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -34,7 +36,7 @@ export class DescribeActivitiesFormComponent implements OnInit {
   @ViewChild('Representative') Representative: ElementRef<HTMLInputElement>;
 
   title: any = "បង្កើតបរិយាយសកម្មភាព";
-  form: FormGroup;
+  form: UntypedFormGroup;
   yearProgram: AbstractControl;
   source_budget: AbstractControl;
   department: AbstractControl;
@@ -60,7 +62,7 @@ export class DescribeActivitiesFormComponent implements OnInit {
   MonthList = monthOfYear
 
   source: any[] = [];
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     // placeholder: "",
     toolbar: [
@@ -136,7 +138,7 @@ export class DescribeActivitiesFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DescribeActivitiesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: MmeSubProgramStore,
     public ds: DataService,
     private auth: AuthStore,

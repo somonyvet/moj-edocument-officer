@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Pipe({
-    name: 'getCompany'
+    name: 'getCompany',
+    standalone: false
 })
 export class getCompanyPipe implements PipeTransform {
     constructor(

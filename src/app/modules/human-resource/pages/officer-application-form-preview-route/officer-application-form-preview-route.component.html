@@ -1,5 +1,5 @@
 <div class="full-page-container">
-  <ng-container *ngIf="docKey && docKey==='na'">
+  @if (docKey && docKey==='na') {
     <div class="mt-file">
       <div class="img-container">
         <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
@@ -11,54 +11,50 @@
         </span>
       </div>
     </div>
-  </ng-container>
-  <ng-container *ngIf="docKey && docKey!=='na'">
+  }
+  @if (docKey && docKey!=='na') {
     <div class="header">
       <div class="wrapper">
-        <nav mat-tab-nav-bar class="fire-tabs" style="flex:1">
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs" style="flex:1">
           <a mat-tab-link [routerLink]="'certificate'" routerLinkActive (click)="childrenRoute = 'certificate'"
             #rla1="routerLinkActive" [active]="rla1.isActive">សាលាកប័ត្រព័ត៌មាន
           </a>
-
           <a mat-tab-link [routerLink]="'biography'" routerLinkActive (click)="childrenRoute = 'biography'"
             #rla2="routerLinkActive" [active]="rla2.isActive">ជីវប្រវត្តិមន្ត្រី
           </a>
-
           <a mat-tab-link [routerLink]="'attachment'" routerLinkActive (click)="childrenRoute = 'attachment'"
             #rla3="routerLinkActive" [active]="rla3.isActive">ឯកសារភ្ជាប់
           </a>
-
         </nav>
-        <a mat-button mat-icon-button class="mat-add-new" [routerLink]="['/hr/officer-application-form/' + docKey + '/personal-info']"
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+        <a mat-icon-button class="mat-add-new" [routerLink]="['/hr/officer-application-form/' + docKey + '/personal-info']"
           [queryParams]="{backUrl:backUrl}">
           <mat-icon class="mat-18">edit</mat-icon>
         </a>
-        <!-- <a mat-button mat-icon-button class="mat-add-new" (click)="print()">
-          <mat-icon class="mat-18">delete</mat-icon>
-        </a> -->
-        <button [disabled]="childrenRoute === 'attachment'" matTooltip="បោះពុម្ព" mat-button mat-icon-button
-          class="mat-add-new" (click)="print()">
-          <mat-icon class="mat-18">print</mat-icon>
-        </button>
-        <button class="btn-submit" mat-button (click)="_onApproval()">អនុម័ត</button>
-
-        <a mat-button mat-icon-button class="mat-add-new" (click)="toggleComment = !toggleComment">
-          <mat-icon class="mat-18">chat</mat-icon>
-        </a>
-
-      </div>
+        <!-- <a mat-icon-button class="mat-add-new" (click)="print()">
+        <mat-icon class="mat-18">delete</mat-icon>
+      </a> -->
+      <button [disabled]="childrenRoute === 'attachment'" matTooltip="បោះពុម្ព" mat-icon-button
+        class="mat-add-new" (click)="print()">
+        <mat-icon class="mat-18">print</mat-icon>
+      </button>
+      <button class="btn-submit" mat-button (click)="_onApproval()">អនុម័ត</button>
+      <a mat-icon-button class="mat-add-new" (click)="toggleComment = !toggleComment">
+        <mat-icon class="mat-18">chat</mat-icon>
+      </a>
     </div>
-
-    <div class="comment-container doc-form-wrapper" [ngStyle]="{'right':toggleComment?'28px':'-500px'}">
-      <div class="title">មតិ</div>
-      <div style="flex:1;max-height: calc(100% - 46px);">
-        <app-hr-approval-comments [headerKey]="docKey">
-        </app-hr-approval-comments>
-      </div>
+  </div>
+  <div class="comment-container doc-form-wrapper" [ngStyle]="{'right':toggleComment?'28px':'-500px'}">
+    <div class="title">មតិ</div>
+    <div style="flex:1;max-height: calc(100% - 46px);">
+      <app-hr-approval-comments [headerKey]="docKey">
+      </app-hr-approval-comments>
     </div>
-
-    <div class="body">
-      <router-outlet *ngIf="!loading"></router-outlet>
-    </div>
-  </ng-container>
+  </div>
+  <div class="body">
+    @if (!loading) {
+      <router-outlet></router-outlet>
+    }
+  </div>
+}
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, TemplateRef, ViewContainerRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, TemplateRef, ViewContainerRef, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription, fromEvent, Observable } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter, take } from 'rxjs/operators';
@@ -23,9 +23,11 @@ import { OpenFileComponent } from '../open-file/open-file.component';
 import { NewFolderComponent } from 'src/app/modules/file-manager/components/new-folder/new-folder.component';
 
 @Component({
-  selector: 'app-list-items',
-  templateUrl: './list-items.component.html',
-  styleUrls: ['./list-items.component.scss']
+    selector: 'app-list-items',
+    templateUrl: './list-items.component.html',
+    styleUrls: ['./list-items.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class ListItemsComponent implements OnInit {

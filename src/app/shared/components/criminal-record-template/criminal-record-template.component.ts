@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { days, monthOfYear } from 'src/app/dummy/report';
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
@@ -8,9 +8,11 @@ import { PrintService } from 'src/app/shared/services/print.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-criminal-record-template',
-  templateUrl: './criminal-record-template.component.html',
-  styleUrls: ['./criminal-record-template.component.scss']
+    selector: 'app-criminal-record-template',
+    templateUrl: './criminal-record-template.component.html',
+    styleUrls: ['./criminal-record-template.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordTemplateComponent implements OnInit {
   selectionDoc: any = null;

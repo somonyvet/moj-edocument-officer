@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -8,9 +8,11 @@ import * as XLSX from 'xlsx';
 import { ReportDecreeForm } from 'src/app/stores/report-decree-form.store';
 
 @Component({
-  selector: 'app-report-decree-form',
-  templateUrl: './report-decree-form.component.html',
-  styleUrls: ['./report-decree-form.component.scss']
+    selector: 'app-report-decree-form',
+    templateUrl: './report-decree-form.component.html',
+    styleUrls: ['./report-decree-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportDecreeFormComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

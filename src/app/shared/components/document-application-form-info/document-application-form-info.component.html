@@ -1,7 +1,7 @@
 <!-- <div class="hashtags" *ngIf="store?.headerDocument?.hashtag && store?.headerDocument?.hashtag?.length>0">
-    <span class="hashtag-item" *ngFor="let item of store?.headerDocument?.hashtag">
-        #{{item}}
-    </span>
+<span class="hashtag-item" *ngFor="let item of store?.headerDocument?.hashtag">
+  #{{item}}
+</span>
 </div> -->
 
 <div class="doc-detail">
@@ -112,10 +112,14 @@
     </div>
 
     <div class="item">
-      <span *ngFor="let item of store?.headerDocument?.hashtag ; let i = index;">
-        <span *ngIf="i>0">, </span>{{item}}
-      </span>
+      @for (item of store?.headerDocument?.hashtag ; track item; let i = $index) {
+        <span>
+          @if (i>0) {
+            <span>, </span>
+            }{{item}}
+          </span>
+        }
+      </div>
     </div>
-  </div>
 
-</div>
+  </div>

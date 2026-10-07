@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'geoDisplay'
+    name: 'geoDisplay',
+    standalone: false
 })
 export class GeoDisplayPipe implements PipeTransform {
 

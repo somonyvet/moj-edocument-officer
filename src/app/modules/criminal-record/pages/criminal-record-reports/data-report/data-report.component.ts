@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-data-report',
-  templateUrl: './data-report.component.html',
-  styleUrls: ['./data-report.component.scss']
+    selector: 'app-data-report',
+    templateUrl: './data-report.component.html',
+    styleUrls: ['./data-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DataReportComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

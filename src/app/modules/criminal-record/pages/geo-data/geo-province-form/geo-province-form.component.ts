@@ -1,6 +1,6 @@
 import { IProvince } from 'src/app/interfaces/document/document.interface';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService } from 'src/app/shared/services/convert.service';
@@ -12,16 +12,18 @@ import { GeoService } from 'src/app/modules/organization/geo-data/services/geo.s
 import { IGeo } from 'src/app/modules/organization/geo-data/interfaces/geo';
 import firebase from 'firebase/compat/app';
 @Component({
-  selector: 'app-geo-province-form',
-  templateUrl: './geo-province-form.component.html',
-  styleUrls: ['./geo-province-form.component.scss']
+    selector: 'app-geo-province-form',
+    templateUrl: './geo-province-form.component.html',
+    styleUrls: ['./geo-province-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoProvinceFormComponent implements OnInit {
 
   title: any = "បង្កើតទិន្នន័យខេត្ត/ក្រុង";
 
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -31,7 +33,7 @@ export class GeoProvinceFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GeoProvinceFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     private auth: AuthStore,

@@ -1,90 +1,113 @@
 <ng-container matMenuContent *mobxAutorun>
   <div class="right-click-Menu">
-    <button mat-menu-item *ngIf="store?.selectedItem" (click)="onOpenItem(store?.selectedItem)">
-      <mat-icon>visibility</mat-icon>
-      <span>Open</span>
-    </button>
+    @if (store?.selectedItem) {
+      <button mat-menu-item (click)="onOpenItem($safeNavigationMigration(store?.selectedItem))">
+        <mat-icon>visibility</mat-icon>
+        <span>Open</span>
+      </button>
+    }
 
-    <button mat-menu-item *ngIf="auth?.root" (click)="store?.newFolder(NEW_FOLDER_DIALOG)">
-      <mat-icon>create_new_folder</mat-icon>
-      <span>Folder</span>
-    </button>
+    @if (auth?.root) {
+      <button mat-menu-item (click)="store?.newFolder(NEW_FOLDER_DIALOG)">
+        <mat-icon>create_new_folder</mat-icon>
+        <span>Folder</span>
+      </button>
+    }
 
-    <button *ngIf="auth?.root || store?.selectedOpenItem?.allowUpload" mat-menu-item (click)="fileInput.click()">
-      <mat-icon>cloud_upload </mat-icon>
-      <span>File upload </span>
-    </button>
+    @if (auth?.root || store?.selectedOpenItem?.allowUpload) {
+      <button mat-menu-item (click)="fileInput.click()">
+        <mat-icon>cloud_upload </mat-icon>
+        <span>File upload </span>
+      </button>
+    }
     <input #fileInput type="file" multiple (change)="
         fetchSelectedFile(
           fileInput,
           NEW_FILE_DIALOG,
-          auth?.user,
-          auth?.selectedCompany
+          $safeNavigationMigration(auth?.user),
+          $safeNavigationMigration(auth?.selectedCompany)
         )
       " style="display: none" />
 
     <div class="break"></div>
-    <button *ngIf="FILE?.type?.key === 'file'" (click)="getDownload()" mat-menu-item>
-      <mat-icon>system_update_alt</mat-icon>
-      <span>Download</span>
-    </button>
+    @if (FILE?.type?.key === 'file') {
+      <button (click)="getDownload()" mat-menu-item>
+        <mat-icon>system_update_alt</mat-icon>
+        <span>Download</span>
+      </button>
+    }
 
-    <button *ngIf="FILE?.type?.key === 'file'" (click)="getShareLink(store?.selectedItem)" mat-menu-item>
-      <mat-icon>link</mat-icon>
-      <span>Get shareable link</span>
-    </button>
+    @if (FILE?.type?.key === 'file') {
+      <button (click)="getShareLink($safeNavigationMigration(store?.selectedItem))" mat-menu-item>
+        <mat-icon>link</mat-icon>
+        <span>Get shareable link</span>
+      </button>
+    }
 
-    <button *ngIf="auth?.root && store?.selectedItem?.type?.key==='file'" (click)="sharedPerson()" mat-menu-item>
-      <mat-icon>person_add</mat-icon>
-      <span>Share</span>
-    </button>
+    @if (auth?.root && store?.selectedItem?.type?.key==='file') {
+      <button (click)="sharedPerson()" mat-menu-item>
+        <mat-icon>person_add</mat-icon>
+        <span>Share</span>
+      </button>
+    }
 
-    <button mat-menu-item *ngIf="store?.selectedItem?.isFavorite === false" (click)="isFavorite(store?.selectedItem)">
-      <mat-icon>folder_special</mat-icon>
-      <span>Add to Starred</span>
-    </button>
-    <button mat-menu-item *ngIf="store?.selectedItem?.isFavorite === true" (click)="isFavorite(store?.selectedItem)">
-      <mat-icon>folder_special</mat-icon>
-      <span>Remove from Starred</span>
-    </button>
+    @if (store?.selectedItem?.isFavorite === false) {
+      <button mat-menu-item (click)="isFavorite($safeNavigationMigration(store?.selectedItem))">
+        <mat-icon>folder_special</mat-icon>
+        <span>Add to Starred</span>
+      </button>
+    }
+    @if (store?.selectedItem?.isFavorite === true) {
+      <button mat-menu-item (click)="isFavorite($safeNavigationMigration(store?.selectedItem))">
+        <mat-icon>folder_special</mat-icon>
+        <span>Remove from Starred</span>
+      </button>
+    }
 
-    <button
-      *ngIf="store?.selectedItem && ((store?.selectedItem?.type?.key==='file' && auth.uid===store?.selectedItem?.created_by?.key) || auth.root)"
-      mat-menu-item (click)="rename()">
-      <mat-icon>title</mat-icon>
-      <span>Rename</span>
-    </button>
+    @if (store?.selectedItem && ((store?.selectedItem?.type?.key==='file' && auth.uid===store?.selectedItem?.created_by?.key) || auth.root)) {
+      <button
+        mat-menu-item (click)="rename()">
+        <mat-icon>title</mat-icon>
+        <span>Rename</span>
+      </button>
+    }
 
-    <ng-container *ngIf="store?.selectedItem?.type?.key === 'folder' && auth?.root">
+    @if (store?.selectedItem?.type?.key === 'folder' && auth?.root) {
       <button mat-menu-item [matMenuTriggerFor]="appMenu">
         <mat-icon>color_lens</mat-icon>
         <span>Change folder color</span>
       </button>
-    </ng-container>
+    }
     <mat-menu #appMenu="matMenu">
       <div matMenuContent class="tag-content">
-        <div class="tag-box" *ngFor="let tag of tagColor">
-          <button mat-menu-item (click)="changeColor(tag)" class="tag-item check"
-            [ngStyle]="{ 'background-color': tag?.color }">
-            <mat-icon>{{
-              store?.selectedItem?.fileTag?.color === tag.color
+        @for (tag of tagColor; track tag) {
+          <div class="tag-box">
+            <button mat-menu-item (click)="changeColor(tag)" class="tag-item check"
+              [ngStyle]="{ 'background-color': $safeNavigationMigration(tag?.color) }">
+              <mat-icon>{{
+                store?.selectedItem?.fileTag?.color === tag.color
                 ? "done_outline"
                 : ""
-            }}</mat-icon>
-          </button>
-        </div>
+              }}</mat-icon>
+            </button>
+          </div>
+        }
       </div>
     </mat-menu>
 
-    <button *ngIf="auth?.root && store?.selectedItem?.type?.key === 'folder'"
-      (click)="store?.newFolder(NEW_FOLDER_DIALOG, this.store.selectedItem)" mat-menu-item aria-label="link">
-      <mat-icon>edit</mat-icon>
-      <span>Edit</span>
-    </button>
+    @if (auth?.root && store?.selectedItem?.type?.key === 'folder') {
+      <button
+        (click)="store?.newFolder(NEW_FOLDER_DIALOG, this.store.selectedItem)" mat-menu-item aria-label="link">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
+      </button>
+    }
 
-    <button *ngIf="store?.selectedItem && auth?.root" mat-menu-item (click)="delete()">
-      <mat-icon>delete</mat-icon>
-      <span>Remove</span>
-    </button>
+    @if (store?.selectedItem && auth?.root) {
+      <button mat-menu-item (click)="delete()">
+        <mat-icon>delete</mat-icon>
+        <span>Remove</span>
+      </button>
+    }
   </div>
 </ng-container>

@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DOC_CUSTOM_STYLE_OBJ, DOC_POSITION_ARRAY, DOC_SPACING_ARRAY } from 'src/app/dummy/status';
 import { DatabaseService } from 'src/app/shared/services/database.service';
@@ -10,16 +10,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-add-custom-style',
-  templateUrl: './document-add-custom-style.component.html',
-  styleUrls: ['./document-add-custom-style.component.scss']
+    selector: 'app-document-add-custom-style',
+    templateUrl: './document-add-custom-style.component.html',
+    styleUrls: ['./document-add-custom-style.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentAddCustomStyleComponent implements OnInit {
 
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "សម្រួលគម្លាតអក្សរ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   spacing: AbstractControl;
   spacing_value: AbstractControl;
   position: AbstractControl;
@@ -31,7 +33,7 @@ export class DocumentAddCustomStyleComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentAddCustomStyleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

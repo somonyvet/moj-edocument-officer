@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -11,9 +11,11 @@ import { UserStore } from '../../stores/users.store';
 import {  MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-oversea-user',
-  templateUrl: './oversea-user.component.html',
-  styleUrls: ['./oversea-user.component.scss']
+    selector: 'app-oversea-user',
+    templateUrl: './oversea-user.component.html',
+    styleUrls: ['./oversea-user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OverseaUserComponent implements OnInit {
 

@@ -1,5 +1,5 @@
 import { AuthStore } from '../../stores/auth.store';
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FileManager } from 'src/app/stores/fileDrive.store';
@@ -11,9 +11,11 @@ import { DataService } from '../../shared/services/data.service';
 import { NewFolderComponent } from 'src/app/modules/file-manager/components/new-folder/new-folder.component';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class SidebarComponent implements OnInit {

@@ -1,4 +1,4 @@
-@import "../../../../../assets/styles/variable.scss";
+@use "../../../../../assets/styles/variable.scss" as *;
 
 .list-items {
   height: calc(100vh - 159px);
@@ -24,7 +24,7 @@
     font-size: 18px;
     font-weight: 700;
   }
-  .mat-button {
+  .mat-mdc-button {
     min-width: 0;
     width: 100%;
     border-radius: 4px;
@@ -37,7 +37,7 @@
     color: rgba(0, 0, 0, 0.9);
     text-align: left;
     font-weight: 500;
-    .mat-button-wrapper {
+    .mdc-button__label {
       width: 100%;
       display: flex;
     }

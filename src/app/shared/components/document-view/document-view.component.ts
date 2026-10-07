@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
@@ -7,9 +7,11 @@ import { DatabaseService } from '../../services/database.service';
 import { groupBy } from '../../services/mapping.service';
 
 @Component({
-  selector: 'app-document-view',
-  templateUrl: './document-view.component.html',
-  styleUrls: ['./document-view.component.scss']
+    selector: 'app-document-view',
+    templateUrl: './document-view.component.html',
+    styleUrls: ['./document-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentViewComponent implements OnInit {
 

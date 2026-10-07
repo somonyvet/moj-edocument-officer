@@ -1,4 +1,4 @@
-@import '../../../../../assets/styles/variable.scss';
+@use '../../../../../assets/styles/variable.scss' as *;
 .annual-table-wrapper{
   margin: 16px;
   border-radius: 6px;

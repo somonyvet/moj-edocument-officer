@@ -1,4 +1,4 @@
-@import "./../.././../../../assets/styles/variable.scss";
+@use "./../.././../../../assets/styles/variable.scss" as *;
 
 .chooser-cat {
   height        : fit-content !important;
@@ -179,7 +179,7 @@
   gap      : 14px;
 }
 
-::ng-deep .choice-card.mat-radio-button {
+::ng-deep .choice-card.mat-mdc-radio-button {
   flex         : 1 1 200px;
   border       : 1.5px solid $border;
   border-radius: 12px;
@@ -187,7 +187,7 @@
   transition   : border-color .15s ease, background-color .15s ease;
   cursor       : pointer;
 
-  .mat-radio-label {
+  .mdc-label {
     width      : 100%;
     white-space: normal;
   }
@@ -197,7 +197,7 @@
     background  : $svgWash;
   }
 
-  &.mat-radio-checked {
+  &.mat-mdc-radio-checked {
     border-color: $primary;
     background  : $svgWash;
   }
@@ -232,7 +232,7 @@
     background  : $svgWash;
   }
 
-  &.locked ::ng-deep .mat-slide-toggle {
+  &.locked ::ng-deep .mat-mdc-slide-toggle {
     pointer-events: none;
     opacity       : .85;
   }
@@ -838,11 +838,11 @@
   }
 }
 
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+::ng-deep .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track {
   background-color: rgba(26, 115, 232, 0.5) !important;
 }
 
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+::ng-deep .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__handle {
   background-color: $primary !important;
 }
 
@@ -855,7 +855,7 @@
     flex-direction: column;
   }
 
-  ::ng-deep .choice-card.mat-radio-button {
+  ::ng-deep .choice-card.mat-mdc-radio-button {
     flex: 1 1 auto;
   }
 

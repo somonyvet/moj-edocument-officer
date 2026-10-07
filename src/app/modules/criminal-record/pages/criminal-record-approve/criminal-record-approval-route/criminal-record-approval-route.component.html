@@ -1,18 +1,22 @@
 <div class="full-page-container">
   <div class="header">
     <div class="wrapper">
-      <nav mat-tab-nav-bar class="fire-tabs flex1">
-        <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs flex1">
+        @for (link of tabs; track link) {
+          <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
           [active]="rla.isActive">{{link.label}}</a>
+        }
       </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <button mat-button class="enbutton cancel" (click)="onPrint()">
         <span>បោះពុម្ព</span>
       </button>
       <!-- <app-primary-button (onPress)="_approve()" label="អនុម័ត" [disable]="!store?.selectedCriminalRecord && loading">
-      </app-primary-button> -->
-    </div>
+    </app-primary-button> -->
   </div>
-  <div class="body officer-profile-info-container apply-form-page offi" *ngIf="!loading">
+</div>
+@if (!loading) {
+  <div class="body officer-profile-info-container apply-form-page offi">
     <div class="eform small" style="margin-top:12px;">
       <div class="header-ef">
         <h2 style="margin-bottom:12px;">អនុម័តព្រឹត្តិបត្រថ្កោលទោស</h2>
@@ -23,21 +27,28 @@
         <app-primary-button (onPress)="_approve()" label="អនុម័ត"></app-primary-button>
       </div>
       <ul class="required-items">
-        <li *ngFor="let item of decree_options">
-          <button mat-button class="ef-item" (click)="_onSubmit(item)">
-            <span class="ef-txt">
-              <div class="ef-t">
-                {{item?.name}}
-              </div>
-              <mat-progress-spinner *ngIf="process && _result?.key===item?.key" class="small-spinner"
-                mode="indeterminate">
-              </mat-progress-spinner>
-            </span>
-            <mat-icon>chevron_right</mat-icon>
-          </button>
-        </li>
+        @for (item of decree_options; track item) {
+          <li>
+            <button mat-button class="ef-item" (click)="_onSubmit(item)">
+              <span class="ef-txt">
+                <div class="ef-t">
+                  {{item?.name}}
+                </div>
+                @if (process && _result?.key===item?.key) {
+                  <mat-progress-spinner class="small-spinner"
+                    mode="indeterminate">
+                  </mat-progress-spinner>
+                }
+              </span>
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </li>
+        }
       </ul>
     </div>
-    <router-outlet *ngIf="!loading"></router-outlet>
+    @if (!loading) {
+      <router-outlet></router-outlet>
+    }
   </div>
+}
 </div>

@@ -1,49 +1,58 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-        <div class="doc-in">
-            <div class="listing-header">
-                <h4>{{title}}</h4>
-                <app-search-filter-box [placeholder]="'Search '+title" (searchValue)="onSearch($event)">
-                </app-search-filter-box>
-                <nav mat-tab-nav-bar class="fire-tabs">
-                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
-                        #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
-                </nav>
-            </div>
-            <ng-container *ngIf="!loading else loader">
-                <ng-container *ngIf="store?.data?.length>0 else emptyData">
-                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="sw-tree">
-                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="sw-tree-item" [ngClass]="node?.item?.isBlack?'sw-tree-b':''">
-                            <div class="l-line" [ngStyle]="{'left':(40*i)+13+'px'}" *ngFor="let ele of createRange(node?.item?.level); let i=index"></div>
-                            <div class="l-line-curve" *ngIf="node?.item?.level > 0"></div>
-                            <button mat-button mat-icon-button disabled></button>
-                            {{node?.item?.name}}
-                        </mat-tree-node>
-                        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding class="sw-tree-item" [ngClass]="node?.item?.isBlack?'sw-tree-b':''">
-                            <div class="l-line" [ngStyle]="{'left':(40*i)+13+'px'}" *ngFor="let ele of createRange(node?.item?.level); let i=index"></div>
-                            <div class="l-line-curve" *ngIf="node?.item?.level > 0"></div>
-                            <dic class="b-line" [ngStyle]="{'left':(40*node?.item?.level)+13+'px'}"></dic>
-                            <button mat-button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node?.item?.name">
-                                <mat-icon class="mat-icon-rtl-mirror">
-                                    {{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'}}
-                                </mat-icon>
-                            </button>
-                            {{node?.item?.name}}
-                        </mat-tree-node>
-                    </mat-tree>
-                </ng-container>
-            </ng-container>
-            <ng-template #loader>
-                <app-skeleton-loader></app-skeleton-loader>
-            </ng-template>
-            <ng-template #emptyData>
-                <div class="doc-ls-items center">
-                    <app-empty className="empty-vt" name="Chart of accounts is empty." subtitle=""></app-empty>
-                </div>
-            </ng-template>
-        </div>
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <h4>{{title}}</h4>
+        <app-search-filter-box [placeholder]="'Search '+title" (searchValue)="onSearch($event)">
+        </app-search-filter-box>
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+          @for (link of tabs; track link) {
+            <a mat-tab-link [routerLink]="link.path" routerLinkActive
+            #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+          }
+        </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+      </div>
+      @if (!loading) {
+        @if (store?.data?.length>0) {
+          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="sw-tree">
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="sw-tree-item" [ngClass]="node?.item?.isBlack?'sw-tree-b':''">
+              @for (ele of createRange($safeNavigationMigration(node?.item?.level)); track ele; let i = $index) {
+                <div class="l-line" [ngStyle]="{'left':(40*i)+13+'px'}"></div>
+              }
+              @if (node?.item?.level > 0) {
+                <div class="l-line-curve"></div>
+              }
+              <button mat-icon-button disabled></button>
+              {{node?.item?.name}}
+            </mat-tree-node>
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding class="sw-tree-item" [ngClass]="node?.item?.isBlack?'sw-tree-b':''">
+              @for (ele of createRange($safeNavigationMigration(node?.item?.level)); track ele; let i = $index) {
+                <div class="l-line" [ngStyle]="{'left':(40*i)+13+'px'}"></div>
+              }
+              @if (node?.item?.level > 0) {
+                <div class="l-line-curve"></div>
+              }
+              <dic class="b-line" [ngStyle]="{'left':(40*$safeNavigationMigration(node?.item?.level))+13+'px'}"></dic>
+              <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node?.item?.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'}}
+                </mat-icon>
+              </button>
+              {{node?.item?.name}}
+            </mat-tree-node>
+          </mat-tree>
+        } @else {
+          <div class="doc-ls-items center">
+            <app-empty className="empty-vt" name="Chart of accounts is empty." subtitle=""></app-empty>
+          </div>
+        }
+      } @else {
+        <app-skeleton-loader></app-skeleton-loader>
+      }
     </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
 </div>

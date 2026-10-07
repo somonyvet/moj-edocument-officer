@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,9 +17,11 @@ import { InventoryAdjustmentStore } from 'src/app/stores/inventory-adjustment.st
 import { StockAdjustmentFormItemsComponent } from '../stock-adjustment-form-items/stock-adjustment-form-items.component';
 
 @Component({
-  selector: 'app-stock-adjustment-form',
-  templateUrl: './stock-adjustment-form.component.html',
-  styleUrls: ['./stock-adjustment-form.component.scss']
+    selector: 'app-stock-adjustment-form',
+    templateUrl: './stock-adjustment-form.component.html',
+    styleUrls: ['./stock-adjustment-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StockAdjustmentFormComponent implements OnInit {
   params: any = null;
@@ -32,7 +34,7 @@ export class StockAdjustmentFormComponent implements OnInit {
   filteredEmployeeOptions: Observable<Array<any>>;
   ADJUSTMENT_TYPES = ADJUSTMENT_TYPES
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   branch: AbstractControl;
   MOVEMENT_STATUS_OBJ = MOVEMENT_STATUS_OBJ;
 
@@ -47,7 +49,7 @@ export class StockAdjustmentFormComponent implements OnInit {
     private auth: AuthStore,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public baseStore: BaseStore,
 

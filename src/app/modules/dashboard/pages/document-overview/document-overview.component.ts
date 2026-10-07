@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-overview',
-  templateUrl: './document-overview.component.html',
-  styleUrls: ['./document-overview.component.scss']
+    selector: 'app-document-overview',
+    templateUrl: './document-overview.component.html',
+    styleUrls: ['./document-overview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentOverviewComponent implements OnInit, OnDestroy {
   constructor(

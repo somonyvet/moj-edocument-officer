@@ -138,7 +138,7 @@ $text:#202124;
             }
           }
         }
-        .mat-button-wrapper {
+        .mdc-button__label {
           display: flex;
           flex-direction: row;
           align-items: center;
@@ -206,7 +206,7 @@ $text:#202124;
   }
 
   .oBLASMBCreate {
-    &.mat-button {
+    &.mat-mdc-button {
       cursor: pointer;
       font-size: 15px;
       padding: $size8 $size8;
@@ -220,7 +220,7 @@ $text:#202124;
       justify-content: center;
       color: #fff;
       line-height: normal;
-      .mat-button-wrapper{
+      .mdc-button__label{
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -250,7 +250,7 @@ $text:#202124;
       align-items: center;
       cursor: pointer;
       text-decoration: none;
-      .mat-button-wrapper {
+      .mdc-button__label {
         flex-direction: row;
         align-items: center;
         display: flex;

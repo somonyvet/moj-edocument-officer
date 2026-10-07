@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IPosition } from 'functions/src/interfaces/interface';
@@ -16,16 +16,18 @@ import { GroupsAccountStore } from '../../../stores/groups-account.store';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-oversea-user-form',
-  templateUrl: './oversea-user-form.component.html',
-  styleUrls: ['./oversea-user-form.component.scss']
+    selector: 'app-oversea-user-form',
+    templateUrl: './oversea-user-form.component.html',
+    styleUrls: ['./oversea-user-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OverseaUserFormComponent implements OnInit {
   @ViewChild('photoFile') photoFile: ElementRef;
   @ViewChild('inputRef') inputRef: ElementRef;
 
   titleForm: any = "បង្កើតគណនីស្ថានទូក";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   title: AbstractControl;
   stock_visa: AbstractControl;
@@ -45,7 +47,7 @@ export class OverseaUserFormComponent implements OnInit {
     private auth: AuthStore,
     public store: OfficerStore,
     public ds: DataService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     public gaStore: GroupsAccountStore,
   ) {

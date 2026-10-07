@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { DOCUMENT_ATTACHMENT_TYPES } from 'src/app/dummy/report';
 import { FileInfo } from 'src/app/interfaces/attendance';
@@ -6,16 +6,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../../modules/criminal-record/stores/criminalApplication.store';
 import { transformImageSameTokenNo } from '../../services/fireStorage.service';
 import { MappingService } from '../../services/mapping.service';
-import { Lightbox } from 'ngx-lightbox';
+import { Lightbox } from '../../services/lightbox.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { addDay, ConvertService } from '../../services/convert.service';
 import { DataService } from '../../services/data.service';
 
 
 @Component({
-  selector: 'app-view-attachment-condemn',
-  templateUrl: './view-attachment-condemn.component.html',
-  styleUrls: ['./view-attachment-condemn.component.scss']
+    selector: 'app-view-attachment-condemn',
+    templateUrl: './view-attachment-condemn.component.html',
+    styleUrls: ['./view-attachment-condemn.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ViewAttachmentCondemnComponent implements OnInit {
   @ViewChild('docFile', { static: false }) docFile: ElementRef;

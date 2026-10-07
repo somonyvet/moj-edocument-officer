@@ -1,124 +1,141 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>ស្ថាប័ន</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>ស្ថាប័ន</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    @if (data.type.type === 'Header') {
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <!-- <mat-label>Choose an option</mat-label> -->
+          <mat-select  formControlName="optionType" (selectionChange)="selectionChange($event)">
+            @for (item of optionType; track item) {
+              <mat-option [value]="item">
+                {{item?.name}}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        @if (selectedOptionType.key === 1) {
+          <mat-form-field appearance="outline">
+            <mat-label>ក្នុងស្ថាប័ន</mat-label>
+            <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
+              placeholder="ជ្រើសរើសស្ថាប័ន">
+            <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
+              #autoCompleteManagementLevel="matAutocomplete">
+              @for (item of filterOffice | async; track item; let i = $index) {
+                <mat-option [value]="item">
+                  <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                  {{item?.name}}
+                </mat-option>
+              }
+            </mat-autocomplete>
+            @if (form.controls['office'].hasError('validKey')) {
+              <mat-error class="error-message">
+                <div>Please select once from list to continue.</div>
+              </mat-error>
+            }
+            @if (form.controls['office'].hasError('required')) {
+              <mat-error>
+                This field is required.
+              </mat-error>
+            }
+          </mat-form-field>
+        }
+        @if (selectedOptionType.key === 2) {
+          <mat-form-field appearance="outline">
+            <mat-label>ក្រៅស្ថាប័ន</mat-label>
+            <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
+              placeholder="ជ្រើសរើសស្ថាប័ន">
+            <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
+              #autoCompleteManagementLevel="matAutocomplete">
+              @for (item of filterInstitution | async; track item; let i = $index) {
+                <mat-option [value]="item">
+                  {{item?.name}}
+                </mat-option>
+              }
+            </mat-autocomplete>
+            @if (form.controls['office'].hasError('validKey')) {
+              <mat-error class="error-message">
+                <div>Please select once from list to continue.</div>
+              </mat-error>
+            }
+            @if (form.controls['office'].hasError('required')) {
+              <mat-error>
+                This field is required.
+              </mat-error>
+            }
+          </mat-form-field>
+        }
+      </div>
+    }
+    @if (data.type.type !== 'Header') {
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>ស្ថាប័ន</mat-label>
+          <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
+            placeholder="ជ្រើសរើសស្ថាប័ន">
+          <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
+            #autoCompleteManagementLevel="matAutocomplete">
+            @for (item of filterOffice | async; track item; let i = $index) {
+              <mat-option [value]="item">
+                <span [style.padding-left]="((item.level)*24)+'px'"></span>
+                {{item?.name}}
+              </mat-option>
+            }
+          </mat-autocomplete>
+          @if (form.controls['office'].hasError('validKey')) {
+            <mat-error class="error-message">
+              <div>Please select once from list to continue.</div>
+            </mat-error>
+          }
+          @if (form.controls['office'].hasError('required')) {
+            <mat-error>
+              This field is required.
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <!-- <div class="form-group">
+      <mat-checkbox class="mat-check-form" (change)="changeIsInfo($event)" formControlName="isInfo">ជាការផ្ដល់ព័ត៌មានប៉ុណ្ណោះ</mat-checkbox>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <ng-container *ngIf="data.type.type === 'Header'">
-
-            <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <!-- <mat-label>Choose an option</mat-label> -->
-                    <mat-select  formControlName="optionType" (selectionChange)="selectionChange($event)">
-                      <mat-option *ngFor="let item of optionType" [value]="item">
-                          {{item?.name}}
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-        
-            </div>
-            <div class="form-group">
-                <ng-container *ngIf="selectedOptionType.key === 1">
-                    <mat-form-field appearance="outline">
-                        <mat-label>ក្នុងស្ថាប័ន</mat-label>
-                        <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
-                            placeholder="ជ្រើសរើសស្ថាប័ន">
-                        <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
-                            #autoCompleteManagementLevel="matAutocomplete">
-                            <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                                <span [style.padding-left]="((item.level)*24)+'px'"></span>
-                                {{item?.name}}
-                            </mat-option>
-                        </mat-autocomplete>
-                        <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                            <div>Please select once from list to continue.</div>
-                        </mat-error>
-                        <mat-error *ngIf="form.controls['office'].hasError('required')">
-                            This field is required.
-                        </mat-error>
-                    </mat-form-field>
-                </ng-container>
-
-                <ng-container *ngIf="selectedOptionType.key === 2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>ក្រៅស្ថាប័ន</mat-label>
-                        <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
-                            placeholder="ជ្រើសរើសស្ថាប័ន">
-                        <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
-                            #autoCompleteManagementLevel="matAutocomplete">
-                            <mat-option *ngFor="let item of filterInstitution | async;let i=index" [value]="item">
-                                {{item?.name}}
-                            </mat-option>
-                        </mat-autocomplete>
-                        <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                            <div>Please select once from list to continue.</div>
-                        </mat-error>
-                        <mat-error *ngIf="form.controls['office'].hasError('required')">
-                            This field is required.
-                        </mat-error>
-                    </mat-form-field>
-                </ng-container>
-                
-             
-            </div>
-
-         
-        </ng-container>
-        <ng-container *ngIf="data.type.type !== 'Header'">
-            <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>ស្ថាប័ន</mat-label>
-                    <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
-                        placeholder="ជ្រើសរើសស្ថាប័ន">
-                    <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
-                        #autoCompleteManagementLevel="matAutocomplete">
-                        <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                            <span [style.padding-left]="((item.level)*24)+'px'"></span>
-                            {{item?.name}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                        <div>Please select once from list to continue.</div>
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['office'].hasError('required')">
-                        This field is required.
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <!-- <div class="form-group">
-                <mat-checkbox class="mat-check-form" (change)="changeIsInfo($event)" formControlName="isInfo">ជាការផ្ដល់ព័ត៌មានប៉ុណ្ណោះ</mat-checkbox>
-            </div>
-            <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>កំណត់សម្គាល់សម្រាប់ផ្ដល់មតិ</mat-label>
-                    <textarea cols="5" rows="3" formControlName="remark" matInput placeholder="កំណត់សម្គាល់សម្រាប់ផ្ដល់មតិ"></textarea>
-                </mat-form-field>
-            </div> -->
-        </ng-container>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>កំណត់សម្គាល់សម្រាប់ផ្ដល់មតិ</mat-label>
+        <textarea cols="5" rows="3" formControlName="remark" matInput placeholder="កំណត់សម្គាល់សម្រាប់ផ្ដល់មតិ"></textarea>
+      </mat-form-field>
+    </div> -->
+  }
 
 
-        <div class="form-group">
-            <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip cdkDrag *ngFor="let item of data?.office" [removable]="true" (removed)="removePosition(item)">
-                    {{item?.name}}
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
+  <div class="form-group">
+    <mat-chip-grid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+      @for (item of data?.office; track item) {
+        <mat-chip-row cdkDrag [removable]="true" (removed)="removePosition(item)">
+          {{item?.name}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+    </mat-chip-grid>
 
-        </div>
+  </div>
 
 
-    </mat-dialog-content>
-    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
-    </mat-progress-bar>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+</mat-dialog-content>
+@if (storage?.startUpload) {
+  <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+  </mat-progress-bar>
+}
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+  <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+</mat-dialog-actions>
 </form>

@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { IComment, IDelete, IFileComment, IUpdate } from 'src/app/interfaces/document/document.interface';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -19,15 +19,17 @@ import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores
 import { CriminalService } from 'src/app/modules/criminal-record/services/criminal.service';
 
 @Component({
-  selector: 'app-moj-document-comment',
-  templateUrl: './moj-document-comment.component.html',
-  styleUrls: ['./moj-document-comment.component.scss']
+    selector: 'app-moj-document-comment',
+    templateUrl: './moj-document-comment.component.html',
+    styleUrls: ['./moj-document-comment.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MojDocumentCommentComponent implements OnInit, OnDestroy {
   @ViewChild('fileComment') fileComment: ElementRef;
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  commentForm: FormGroup;
+  commentForm: UntypedFormGroup;
   SELECTED_FILES = [];
   SELECTED_FILES_EDIT = [];
   img: [];
@@ -64,7 +66,7 @@ export class MojDocumentCommentComponent implements OnInit, OnDestroy {
 
   subscribe_criminal_application_ref: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: CriminalApplicationStore,
     private auth: AuthStore,

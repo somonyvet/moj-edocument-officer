@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { ReportPaidForm } from 'src/app/stores/report-paid-form.store';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-report-withdraw-online',
-  templateUrl: './report-withdraw-online.component.html',
-  styleUrls: ['./report-withdraw-online.component.scss']
+    selector: 'app-report-withdraw-online',
+    templateUrl: './report-withdraw-online.component.html',
+    styleUrls: ['./report-withdraw-online.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportWithdrawOnlineComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

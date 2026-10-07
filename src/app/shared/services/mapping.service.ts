@@ -1,7 +1,7 @@
-import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, AbstractControl } from '@angular/forms';
 import * as _ from 'lodash';
 import { startWith, map } from 'rxjs/operators';
-import * as moment from 'moment'
+import moment from 'moment'
 import { IDepartment, IManagementLevel, IOfficer, IRanking } from 'src/app/interfaces/document/document.interface';
 import { ICompany } from 'src/app/interfaces/user';
 import { orderBy, toLocaleNumber } from './convert.service';
@@ -92,12 +92,12 @@ export class MappingService {
   }
 }
 
-export function validateAllFormFields(formGroup: FormGroup) {
+export function validateAllFormFields(formGroup: UntypedFormGroup) {
   Object.keys(formGroup.controls).forEach(field => {
     const control = formGroup.get(field);
-    if (control instanceof FormControl) {
+    if (control instanceof UntypedFormControl) {
       control.markAsTouched({ onlySelf: true });
-    } else if (control instanceof FormGroup) {
+    } else if (control instanceof UntypedFormGroup) {
       this.validateAllFormFields(control);
     }
   });

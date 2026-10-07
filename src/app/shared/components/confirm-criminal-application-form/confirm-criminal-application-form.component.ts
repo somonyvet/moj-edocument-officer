@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,13 +16,15 @@ import { getYearsList, toDateKey, todayDate } from '../../services/mapping.servi
 import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.component';
 
 @Component({
-  selector: 'app-confirm-criminal-application-form',
-  templateUrl: './confirm-criminal-application-form.component.html',
-  styleUrls: ['./confirm-criminal-application-form.component.scss']
+    selector: 'app-confirm-criminal-application-form',
+    templateUrl: './confirm-criminal-application-form.component.html',
+    styleUrls: ['./confirm-criminal-application-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ConfirmCriminalApplicationFormComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/45793-confirmed.json',
@@ -52,7 +54,7 @@ export class ConfirmCriminalApplicationFormComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -208,7 +210,7 @@ export class ConfirmCriminalApplicationFormComponent implements OnInit {
     if (Array.isArray(this.criminalStore?.selectedCriminalRecord?.criminal_language)) {
       selectedLanguages = this.criminalStore?.selectedCriminalRecord?.criminal_language
     }
-    const formArray = this.form.get('formArray') as FormArray;
+    const formArray = this.form.get('formArray') as UntypedFormArray;
     while (formArray.length > 0) {
       formArray.removeAt(0)
     }
@@ -232,7 +234,7 @@ export class ConfirmCriminalApplicationFormComponent implements OnInit {
 }
 
 function minSelectedCheckboxes(min = 1) {
-  const validator: ValidatorFn = (formArray: FormArray) => {
+  const validator: ValidatorFn = (formArray: UntypedFormArray) => {
     const totalSelected = formArray.controls
       .filter(control => control.value?.check)
     return totalSelected?.length >= min ? null : { required: true };

@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CCY, INDUSTRY_OBJ, LANGUAGE, ROLEOFBUSS_OBJ, TYPEOFBUSS_OBJ, YEAROFBUSS_OBJ } from 'src/app/dummy/status';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CompanyStore } from 'src/app/stores/company.store';
 
 @Component({
-  selector: 'app-company-form',
-  templateUrl: './company-form.component.html',
-  styleUrls: ['./company-form.component.scss']
+    selector: 'app-company-form',
+    templateUrl: './company-form.component.html',
+    styleUrls: ['./company-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CompanyFormComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class CompanyFormComponent implements OnInit {
   vaformCHkFirst: any;
 
   isLinear = false;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   TYPEOFBUSS_OBJ = TYPEOFBUSS_OBJ;
   YEAROFBUSS_OBJ = YEAROFBUSS_OBJ;
@@ -32,8 +34,8 @@ export class CompanyFormComponent implements OnInit {
   CURRENCY_LIST = CCY;
   
   constructor(
-    private _formBuilder: FormBuilder,
-    private fb: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
+    private fb: UntypedFormBuilder,
     public store: CompanyStore,
     public auth: AuthStore,
     private router: Router

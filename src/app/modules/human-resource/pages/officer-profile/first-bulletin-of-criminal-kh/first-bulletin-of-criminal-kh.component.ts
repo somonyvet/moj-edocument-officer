@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable } from 'rxjs';
 import { FAMILY_STATUS, GENDER_DATA, PHOTO_LIB, STATUS_LIVES_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { days, KHdays, KHMER_DAY, monthOfYear } from 'src/app/dummy/report';
@@ -15,13 +15,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-first-bulletin-of-criminal-kh',
-  templateUrl: './first-bulletin-of-criminal-kh.component.html',
-  styleUrls: ['./first-bulletin-of-criminal-kh.component.scss']
+    selector: 'app-first-bulletin-of-criminal-kh',
+    templateUrl: './first-bulletin-of-criminal-kh.component.html',
+    styleUrls: ['./first-bulletin-of-criminal-kh.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FirstBulletinOfCriminalKhComponent implements OnInit {
   backUrl: string = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -102,7 +104,7 @@ export class FirstBulletinOfCriminalKhComponent implements OnInit {
   disableDate: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -409,7 +411,7 @@ export class FirstBulletinOfCriminalKhComponent implements OnInit {
   }
 
   removeFormArrayWithField(name: string, index?: number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
 
     if (formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
@@ -423,7 +425,7 @@ export class FirstBulletinOfCriminalKhComponent implements OnInit {
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -449,7 +451,7 @@ export class FirstBulletinOfCriminalKhComponent implements OnInit {
     }
   }
   getFormArrvalueFields(name: string, fields: string[]) {
-    const formArr = this.form.get(name) as FormArray;
+    const formArr = this.form.get(name) as UntypedFormArray;
     return formArr?.controls?.filter(f => f?.get(fields[0])?.value).map(m => {
       let obj = {};
       fields.forEach(m1 => {
@@ -755,7 +757,7 @@ export class FirstBulletinOfCriminalKhComponent implements OnInit {
   }
 
   onSelectedDateChildDoB(event, index) {
-    const form = this.form.get('childrenInfo') as FormArray;
+    const form = this.form.get('childrenInfo') as UntypedFormArray;
     form.at(index).get('dob').patchValue(event)
   }
 

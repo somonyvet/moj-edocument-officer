@@ -1,47 +1,51 @@
 <!-- <div style="transform: scale(0.854);
 transform-origin: top">
-  <div style="margin:12px auto 0 auto" id="printD">
-    <ng-container *ngFor="let item of criminalRecords">
-      <ng-container *ngFor="let cri of item?.criminal_language">
-        <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key">
-          <ng-container *ngFor="let num of ARRAY(cri?.amount);let i = index;">
-            <ng-container *ngIf="i===0;else normalTemplate">
-              <div style="margin-bottom: 6px;">
-                <app-criminal-record-letter-kh-print [Item]="item"></app-criminal-record-letter-kh-print>
-              </div>
-            </ng-container>
-            <ng-template #normalTemplate>
-              <div style="page-break-before: always; margin-bottom: 6px;">
-                <app-criminal-record-letter-kh-print [Item]="item"></app-criminal-record-letter-kh-print>
-              </div>
-            </ng-template>
-          </ng-container>
-        </ng-container>
-        <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.france?.key">
-          <ng-container *ngFor="let num of ARRAY(cri?.amount)">
-            <div style="page-break-before: always; margin-bottom: 6px;">
-              <app-criminal-record-letter-fr-print [Item]="item"></app-criminal-record-letter-fr-print>
+<div style="margin:12px auto 0 auto" id="printD">
+  <ng-container *ngFor="let item of criminalRecords">
+    <ng-container *ngFor="let cri of item?.criminal_language">
+      <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key">
+        <ng-container *ngFor="let num of ARRAY(cri?.amount);let i = index;">
+          <ng-container *ngIf="i===0;else normalTemplate">
+            <div style="margin-bottom: 6px;">
+              <app-criminal-record-letter-kh-print [Item]="item"></app-criminal-record-letter-kh-print>
             </div>
           </ng-container>
-        </ng-container>
-        <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.english?.key">
-          <ng-container *ngFor="let num of ARRAY(cri?.amount)">
+          <ng-template #normalTemplate>
             <div style="page-break-before: always; margin-bottom: 6px;">
-              <app-criminal-record-letter-en-print [Item]="item"></app-criminal-record-letter-en-print>
+              <app-criminal-record-letter-kh-print [Item]="item"></app-criminal-record-letter-kh-print>
             </div>
-          </ng-container>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.france?.key">
+        <ng-container *ngFor="let num of ARRAY(cri?.amount)">
+          <div style="page-break-before: always; margin-bottom: 6px;">
+            <app-criminal-record-letter-fr-print [Item]="item"></app-criminal-record-letter-fr-print>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.english?.key">
+        <ng-container *ngFor="let num of ARRAY(cri?.amount)">
+          <div style="page-break-before: always; margin-bottom: 6px;">
+            <app-criminal-record-letter-en-print [Item]="item"></app-criminal-record-letter-en-print>
+          </div>
         </ng-container>
       </ng-container>
     </ng-container>
-  </div>
+  </ng-container>
+</div>
 </div> -->
 
-<div class="btn-3container" *ngIf="!loading">
-  <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key)">ព្រឹត្តិបត្រថ្កោលទោសភាសា ខ្មែរ</button>
-  <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,CRIMINAL_APPLICATION_LANGUAGE?.english?.key)">ព្រឹត្តិបត្រថ្កោលទោសភាសា អង់គ្លេស</button>
-  <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,CRIMINAL_APPLICATION_LANGUAGE?.france?.key)">ព្រឹត្តិបត្រថ្កោលទោសភាសា បារាំង</button>
-</div>
+@if (!loading) {
+  <div class="btn-3container">
+    <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,$safeNavigationMigration(CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key))">ព្រឹត្តិបត្រថ្កោលទោសភាសា ខ្មែរ</button>
+    <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,$safeNavigationMigration(CRIMINAL_APPLICATION_LANGUAGE?.english?.key))">ព្រឹត្តិបត្រថ្កោលទោសភាសា អង់គ្លេស</button>
+    <button class="btn-3" mat-button (click)="openDialogPrint(criminalRecords,$safeNavigationMigration(CRIMINAL_APPLICATION_LANGUAGE?.france?.key))">ព្រឹត្តិបត្រថ្កោលទោសភាសា បារាំង</button>
+  </div>
+}
 
-<div class="loading" *ngIf="loading">
-  <mat-spinner [diameter]="40"></mat-spinner>
-</div>
+@if (loading) {
+  <div class="loading">
+    <mat-spinner [diameter]="40"></mat-spinner>
+  </div>
+}

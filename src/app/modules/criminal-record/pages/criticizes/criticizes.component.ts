@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { CitizenStore } from '../../stores/citizen.store';
 import { CriminalStore } from '../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criticizes',
-  templateUrl: './criticizes.component.html',
-  styleUrls: ['./criticizes.component.scss']
+    selector: 'app-criticizes',
+    templateUrl: './criticizes.component.html',
+    styleUrls: ['./criticizes.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriticizesComponent implements OnInit {
   selected: Date | null = new Date();

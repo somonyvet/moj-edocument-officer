@@ -3,7 +3,7 @@
     <!-- <h2 mat-dialog-title (click)="generateMOL()">{{titleForm}}</h2> -->
     <h2 mat-dialog-title>{{titleForm}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
@@ -23,12 +23,16 @@
       <mat-form-field appearance="outline">
         <mat-label>អត្តលេខ</mat-label>
         <input #inputRef formControlName="officerId" required matInput placeholder="អត្តលេខ">
-        <mat-error *ngIf="form.controls['officerId'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
-        <mat-error *ngIf="form.controls['officerId'].hasError('nameAvailable')" class="error-message">
-          លេខកម្រិតគ្រប់គ្រងនេះត្រូវបានយកទៅប្រើម្ដងហើយ
-        </mat-error>
+        @if (form.controls['officerId'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (form.controls['officerId'].hasError('nameAvailable')) {
+          <mat-error class="error-message">
+            លេខកម្រិតគ្រប់គ្រងនេះត្រូវបានយកទៅប្រើម្ដងហើយ
+          </mat-error>
+        }
         <mat-hint>អត្តលេខសម្រាប់បង្កើតគណនីចូលប្រើប្រាស់ប្រព័ន្ធ</mat-hint>
       </mat-form-field>
     </div>
@@ -36,33 +40,41 @@
       <mat-form-field appearance="outline">
         <mat-label>នាមត្រកូល</mat-label>
         <input #inputRef formControlName="last_name" required matInput placeholder="នាមត្រកូល">
-        <mat-error *ngIf="form.controls['last_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['last_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>នាមខ្លួន</mat-label>
         <input #inputRef cdkFocusInitial matInputAutofocus formControlName="first_name" required matInput
           placeholder="នាមខ្លួន">
-        <mat-error *ngIf="form.controls['first_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['first_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group two">
       <mat-form-field appearance="outline">
         <mat-label>នាមត្រកូល (អង់គ្លេស)</mat-label>
         <input formControlName="last_name_en" required matInput placeholder="នាមត្រកូល (អង់គ្លេស)">
-        <mat-error *ngIf="form.controls['last_name_en'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['last_name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>នាមខ្លួន (អង់គ្លេស)</mat-label>
         <input formControlName="first_name_en" required matInput placeholder="នាមខ្លួន (អង់គ្លេស)">
-        <mat-error *ngIf="form.controls['first_name_en'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['first_name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -70,107 +82,128 @@
       <mat-form-field appearance="outline">
         <mat-label>លេខទូរស័ព្ទ</mat-label>
         <input #inputRef formControlName="phoneNumber" required matInput placeholder="លេខទូរស័ព្ទ">
-        <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
-        <mat-error *ngIf="form.controls['phoneNumber'].hasError('nameAvailable')" class="error-message">
-          លេខទូរស័ព្ទត្រូវបានយកទៅប្រើម្ដងហើយ
-        </mat-error>
+        @if (form.controls['phoneNumber'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (form.controls['phoneNumber'].hasError('nameAvailable')) {
+          <mat-error class="error-message">
+            លេខទូរស័ព្ទត្រូវបានយកទៅប្រើម្ដងហើយ
+          </mat-error>
+        }
         <mat-hint>លេខទូរស័ព្ទសម្រាប់បង្កើតគណនីចូលប្រើប្រាស់ប្រព័ន្ធ</mat-hint>
       </mat-form-field>
     </div>
     <div class="form-group">
       <!-- <mat-form-field appearance="outline">
-        <mat-label>ឋានន្តរស័ក្ដិ</mat-label>
-        <input formControlName="currentPosition" matInput placeholder="ឋានន្តរស័ក្ដិ">
-        <mat-error *ngIf="form.controls['currentPosition'].hasError('required')">
+      <mat-label>ឋានន្តរស័ក្ដិ</mat-label>
+      <input formControlName="currentPosition" matInput placeholder="ឋានន្តរស័ក្ដិ">
+      <mat-error *ngIf="form.controls['currentPosition'].hasError('required')">
+        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+      </mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="outline">
+      <mat-label>មុខងារនិងតួនាទីបច្ចុប្បន្ន</mat-label>
+      <input formControlName="currentTitle" required matInput placeholder="មុខងារនិងតួនាទីបច្ចុប្បន្ន">
+      @if (form.controls['currentTitle'].hasError('required')) {
+        <mat-error>
           ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
         </mat-error>
-      </mat-form-field> -->
-      <mat-form-field appearance="outline">
-        <mat-label>មុខងារនិងតួនាទីបច្ចុប្បន្ន</mat-label>
-        <input formControlName="currentTitle" required matInput placeholder="មុខងារនិងតួនាទីបច្ចុប្បន្ន">
-        <mat-error *ngIf="form.controls['currentTitle'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="outline">
-        <mat-label>គ្រប់គ្រងទិដ្ឋការស្អិត</mat-label>
-        <input [matAutocomplete]="autoSubOfCommittee" formControlName="stock_visa" matInput
-          placeholder="គ្រប់គ្រងទិដ្ឋការស្អិត">
-        <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
-          <mat-option *ngFor="let item of filteredStockVisaOptions | async;let i=index" [value]="item">
+      }
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>គ្រប់គ្រងទិដ្ឋការស្អិត</mat-label>
+      <input [matAutocomplete]="autoSubOfCommittee" formControlName="stock_visa" matInput
+        placeholder="គ្រប់គ្រងទិដ្ឋការស្អិត">
+      <mat-autocomplete [displayWith]="ds.displayFn" #autoSubOfCommittee="matAutocomplete">
+        @for (item of filteredStockVisaOptions | async; track item; let i = $index) {
+          <mat-option [value]="item">
             <span [style.padding-left]="((item.level)*24)+'px'"></span>
             {{item?.name}}
           </mat-option>
-        </mat-autocomplete>
-        <mat-error class="error-message" *ngIf="form.controls['stock_visa'].hasError('validKey')">
+        }
+      </mat-autocomplete>
+      @if (form.controls['stock_visa'].hasError('validKey')) {
+        <mat-error class="error-message">
           <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
         </mat-error>
-        <mat-error *ngIf="form.controls['stock_visa'].hasError('required')">
+      }
+      @if (form.controls['stock_visa'].hasError('required')) {
+        <mat-error>
           ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
         </mat-error>
-      </mat-form-field>
-    </div>
+      }
+    </mat-form-field>
+  </div>
 
-    <div class="mat-group-form">
-      <div class="mat-gf-action">
-        <span class="material-icons">
-          assignment_ind
-        </span>
-        <div class="mat-gf-memo">
-          <strong>ឋានៈ!</strong><span>លោកអ្នកអាចកំណត់មុខងារឬឋានៈច្រើនទៅក្នុងមន្ត្រីតែម្នាក់</span>
-        </div>
+  <div class="mat-group-form">
+    <div class="mat-gf-action">
+      <span class="material-icons">
+        assignment_ind
+      </span>
+      <div class="mat-gf-memo">
+        <strong>ឋានៈ!</strong><span>លោកអ្នកអាចកំណត់មុខងារឬឋានៈច្រើនទៅក្នុងមន្ត្រីតែម្នាក់</span>
       </div>
-      <div class="mat-gf-chips">
-        <mat-form-field appearance="outline">
-          <mat-label>ឋានៈ</mat-label>
-          <input [matAutocomplete]="autoCompleteRanking" formControlName="title" matInput placeholder="Select title">
-          <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
-            #autoCompleteRanking="matAutocomplete">
-            <mat-option *ngFor="let item of filterTitle | async;let i=index" [value]="item">
+    </div>
+    <div class="mat-gf-chips">
+      <mat-form-field appearance="outline">
+        <mat-label>ឋានៈ</mat-label>
+        <input [matAutocomplete]="autoCompleteRanking" formControlName="title" matInput placeholder="Select title">
+        <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
+          #autoCompleteRanking="matAutocomplete">
+          @for (item of filterTitle | async; track item; let i = $index) {
+            <mat-option [value]="item">
               {{item?.name}}
             </mat-option>
-          </mat-autocomplete>
-          <mat-error class="error-message" *ngIf="form.controls['title'].hasError('validKey')">
+          }
+        </mat-autocomplete>
+        @if (form.controls['title'].hasError('validKey')) {
+          <mat-error class="error-message">
             <div>Please select once from list to continue.</div>
           </mat-error>
-          <mat-error *ngIf="form.controls['title'].hasError('required')">
+        }
+        @if (form.controls['title'].hasError('required')) {
+          <mat-error>
             This field is required.
           </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="mat-gf-items">
-        <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-          <mat-chip class="example-box" cdkDrag *ngFor="let item of store?.position" [removable]="true"
+        }
+      </mat-form-field>
+    </div>
+    <div class="mat-gf-items">
+      <mat-chip-grid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+        @for (item of store?.position; track item) {
+          <mat-chip-row class="example-box" cdkDrag [removable]="true"
             (removed)="removePosition(item)">
             {{item.name}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
             </button>
-          </mat-chip>
-        </mat-chip-list>
-      </div>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
     </div>
+  </div>
 
-    <div class="mat-group-form">
-      <div class="mat-gf-action">
-        <span class="material-icons">
-          verified
-        </span>
-        <div class="mat-gf-memo">
-          <strong>តួនាទីភារកិច្ច!</strong><span>លោកអ្នកអាចកំណត់មុខងារឬឋានៈច្រើនទៅក្នុងមន្ត្រីតែម្នាក់</span>
-        </div>
-        <button mat-button type="button" (click)="create()">
-          តួនាទីភារកិច្ច
-        </button>
+  <div class="mat-group-form">
+    <div class="mat-gf-action">
+      <span class="material-icons">
+        verified
+      </span>
+      <div class="mat-gf-memo">
+        <strong>តួនាទីភារកិច្ច!</strong><span>លោកអ្នកអាចកំណត់មុខងារឬឋានៈច្រើនទៅក្នុងមន្ត្រីតែម្នាក់</span>
       </div>
+      <button mat-button type="button" (click)="create()">
+        តួនាទីភារកិច្ច
+      </button>
     </div>
-    <mat-list class="mat-pos-office">
-      <div mat-subheader>កន្លែងទទួលបន្ទុកការងារ និងមុខងារតួនាទី</div>
-      <mat-list-item *ngFor="let folder of store?.workingOffices;let i=index">
+  </div>
+  <mat-list class="mat-pos-office">
+    <div mat-subheader>កន្លែងទទួលបន្ទុកការងារ និងមុខងារតួនាទី</div>
+    @for (folder of store?.workingOffices; track folder; let i = $index) {
+      <mat-list-item>
         <mat-icon mat-list-icon>badge</mat-icon>
         <div class="flex1" style="margin-left: 10px;">
           <div mat-line>{{folder?.office?.name}}</div>
@@ -189,75 +222,82 @@
             <span>លុប</span>
           </button>
         </mat-menu>
-        <mat-divider *ngIf="i<store?.workingOffices?.length-1"></mat-divider>
+        @if (i<store?.workingOffices?.length-1) {
+          <mat-divider></mat-divider>
+        }
       </mat-list-item>
-    </mat-list>
-    <mat-divider></mat-divider>
-    <div class="form-group">
-      <mat-selection-list #shoes formControlName="defaultApp" [compareWith]="ds?.compareWith">
-        <mat-list-option checkboxPosition="before" *ngFor="let item of DOC_CATEGORY_APP_ARRAY" [value]="item">
+    }
+  </mat-list>
+  <mat-divider></mat-divider>
+  <div class="form-group">
+    <mat-selection-list #shoes formControlName="defaultApp" [compareWith]="$safeNavigationMigration(ds?.compareWith)">
+      @for (item of DOC_CATEGORY_APP_ARRAY; track item) {
+        <mat-list-option checkboxPosition="before" [value]="item">
           {{item?.name}}
         </mat-list-option>
-      </mat-selection-list>
+      }
+    </mat-selection-list>
+  </div>
+
+  <div class="form-group two" style="margin-top: 16px;">
+    <div style="padding: 16px;">
+      ចំណារឯកភាព
+    </div>
+    <div class="photo-pro">
+      <div class="avatar">
+        <img [src]="REMARK_URL" />
+        <div (click)="remarkFile.click()" class="change-profile">
+          <mat-icon class="mat-icon" role="img">
+            photo_camera
+          </mat-icon>
+        </div>
+      </div>
+      <input #remarkFile type="file" accept='image/*' (change)="onSelectedRemarkFile($event)" style="display:none;" />
     </div>
 
-    <div class="form-group two" style="margin-top: 16px;">
-      <div style="padding: 16px;">
-        ចំណារឯកភាព
-      </div>
-      <div class="photo-pro">
-        <div class="avatar">
-          <img [src]="REMARK_URL" />
-          <div (click)="remarkFile.click()" class="change-profile">
-            <mat-icon class="mat-icon" role="img">
-              photo_camera
-            </mat-icon>
-          </div>
+    <div style="padding: 16px;">
+      បញ្ចូលហត្ថលេខា
+    </div>
+    <div class="photo-pro">
+      <div class="avatar">
+        <img [src]="SIGNATURE_URL" />
+        <div (click)="signatureFile.click()" class="change-profile">
+          <mat-icon class="mat-icon" role="img">
+            photo_camera
+          </mat-icon>
         </div>
-        <input #remarkFile type="file" accept='image/*' (change)="onSelectedRemarkFile($event)" style="display:none;" />
       </div>
 
-      <div style="padding: 16px;">
-        បញ្ចូលហត្ថលេខា
-      </div>
-      <div class="photo-pro">
-        <div class="avatar">
-          <img [src]="SIGNATURE_URL" />
-          <div (click)="signatureFile.click()" class="change-profile">
-            <mat-icon class="mat-icon" role="img">
-              photo_camera
-            </mat-icon>
-          </div>
-        </div>
-
-        <input #signatureFile type="file" accept='image/*' (change)="onSelectedSignatureFile($event)"
-          style="display:none;" />
-      </div>
-
-      <div style="padding: 16px;">
-        បញ្ចូលត្រាឈ្មោះ
-      </div>
-      <div class="photo-pro">
-        <div class="avatar">
-          <img [src]="STAMP_URL" />
-          <div (click)="stampFile.click()" class="change-profile">
-            <mat-icon class="mat-icon" role="img">
-              photo_camera
-            </mat-icon>
-          </div>
-        </div>
-
-        <input #stampFile type="file" accept='image/*' (change)="onSelectedStampFile($event)" style="display:none;" />
-      </div>
-
+      <input #signatureFile type="file" accept='image/*' (change)="onSelectedSignatureFile($event)"
+        style="display:none;" />
     </div>
 
-  </mat-dialog-content>
-  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+    <div style="padding: 16px;">
+      បញ្ចូលត្រាឈ្មោះ
+    </div>
+    <div class="photo-pro">
+      <div class="avatar">
+        <img [src]="STAMP_URL" />
+        <div (click)="stampFile.click()" class="change-profile">
+          <mat-icon class="mat-icon" role="img">
+            photo_camera
+          </mat-icon>
+        </div>
+      </div>
+
+      <input #stampFile type="file" accept='image/*' (change)="onSelectedStampFile($event)" style="display:none;" />
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+@if (storage?.startUpload) {
+  <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
   </mat-progress-bar>
-  <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-  </mat-dialog-actions>
+}
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+  <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+</mat-dialog-actions>
 </form>

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IUserPined } from 'src/app/interfaces/document/document.interface';
 
 @Pipe({
-  name: 'pinDoc'
+    name: 'pinDoc',
+    standalone: false
 })
 export class PinDocPipe implements PipeTransform {
 

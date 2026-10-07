@@ -1,10 +1,12 @@
-import { Component, OnInit,Inject,PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-tab-layout',
-  templateUrl: './tab-layout.component.html',
-  styleUrls: ['./tab-layout.component.scss']
+    selector: 'app-tab-layout',
+    templateUrl: './tab-layout.component.html',
+    styleUrls: ['./tab-layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TabLayoutComponent implements OnInit {
 

@@ -1,28 +1,30 @@
 <div class="dialog-content-wrapper">
-  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
   <mat-dialog-content class="form-wrapper flex1" style="max-height:unset!important">
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
-      <ng-container *ngIf="!loading">
+      @if (!loading) {
         <mat-step [stepControl]="form">
           <form [formGroup]="form" style="max-width:430px">
             <ng-template matStepLabel>ព័ត៌មានបញ្ជីលេខរៀង</ng-template>
-
             <div class="form-group" style="margin-bottom: 20px;">
               <mat-radio-group (change)="changePeriod($event)" aria-label="Select an option"
                 formControlName="period_process_document">
-                <mat-radio-button [value]="item" *ngFor="let item of URGENT_OBJ_ARRAY" style="margin-right: 10px;">
-                  {{item?.name}}
-                </mat-radio-button>
+                @for (item of URGENT_OBJ_ARRAY; track item) {
+                  <mat-radio-button [value]="item" style="margin-right: 10px;">
+                    {{item?.name}}
+                  </mat-radio-button>
+                }
               </mat-radio-group>
             </div>
-
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>ថ្ងៃដកឯកសារ</mat-label>
@@ -30,9 +32,11 @@
                   placeholder="ថ្ងៃដកឯកសារ" [matDatepicker]="picker1">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
-                <mat-error *ngIf="form?.controls['release_date'].hasError('required')">
-                  ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
-                </mat-error>
+                @if (form?.controls['release_date'].hasError('required')) {
+                  <mat-error>
+                    ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+                  </mat-error>
+                }
               </mat-form-field>
             </div>
             <div class="form-group">
@@ -41,7 +45,6 @@
                 <strong>{{date}}</strong>
               </aside>
             </div>
-
             <div class="form-group">
               <mat-checkbox formControlName="is_category_labor"
                 (change)="onChangedCheckBox($event,'is_category_labor')">
@@ -53,59 +56,56 @@
                 ព្រឹត្តិបត្របន្ទាន់
               </mat-checkbox>
             </div>
-
             <div class="form-group" style="margin-top:12px">
               <mat-form-field appearance="outline">
                 <mat-label>កំណត់ចំណាំ</mat-label>
                 <input formControlName="remark" matInput placeholder="កំណត់ចំណាំ">
               </mat-form-field>
             </div>
-
-            <app-spinner *ngIf="process"></app-spinner>
-
+            @if (process) {
+              <app-spinner></app-spinner>
+            }
             <div style="margin-top:24px;">
               <button class="submit-btn" mat-button type="submit" [disabled]="!form.value || process"
-                (click)="_onSave(form.value,stepper)">រក្សាទុក</button>
+              (click)="_onSave(form.value,stepper)">រក្សាទុក</button>
             </div>
-
           </form>
         </mat-step>
         <mat-step [stepControl]="form2">
           <ng-template matStepLabel>បញ្ជីព្រឹត្តិបត្រ</ng-template>
-
           <form [formGroup]="form2">
-            <ng-container *ngIf="form.invalid;else formTemplate">
+            @if (form.invalid) {
               <div class="memo">
                 <span>
                   សូមបំពេញព័ត៌មានខាងលើឱ្យរួចរាល់ជាមុនសិន។
                 </span>
               </div>
-            </ng-container>
-            <ng-template #formTemplate>
-
+            } @else {
               <div class="box-container">
-
                 <div class="box-item">
                   <div class="box-item-title">
                     ព្រឹត្តិបត្រ ១២ថ្ងៃ ដែលមិនទាន់បញ្ចូលក្នុងបញ្ជី
                   </div>
-                  <div class="avatar-vt-item-wrapper" *ngFor="let item of criminalApplicationStore?.unClassify12 ;let i=index;">
-                    <a mat-button class="avatar-vt-item">
-                      <div class="avatar">
-                        <img [src]="item?.photoUrl" (error)="handleImgError($event)">
-                      </div>
-                      <div class="av-vt-body">
-                        <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}})
+                  @for (item of criminalApplicationStore?.unClassify12 ; track item; let i = $index) {
+                    <div class="avatar-vt-item-wrapper">
+                      <a mat-button class="avatar-vt-item">
+                        <div class="avatar">
+                          <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
+                        </div>
+                        <div class="av-vt-body">
+                          <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}})
                           ({{item?.urgent_obj?.name}})</strong>
-                        <div class="rows sub-text">
-                          <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
+                          <div class="rows sub-text">
+                            <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
                             {{item?.occupation}}</span>
-                          <!-- <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
-                            {{item?.application_type?.text}}</span> -->
-                          <span>ថ្ងៃដាក់ឯកសារ: {{item?.paid_at?.toDate()|dateKh}}</span>
-                          <span style="color:red">ថ្ងៃមកយក: {{item?.withdraw_date?.toDate()|dateKh}}</span>
+                            <!-- <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
+                          {{item?.application_type?.text}}</span> -->
+                          <span>ថ្ងៃដាក់ឯកសារ: {{$safeNavigationMigration(item?.paid_at?.toDate())|dateKh}}</span>
+                          <span style="color:red">ថ្ងៃមកយក: {{$safeNavigationMigration(item?.withdraw_date?.toDate())|dateKh}}</span>
                           <div class="amTimeAgo">
-                            <b *ngIf="item?.criminal_language?.length>1">បកប្រែ</b>
+                            @if (item?.criminal_language?.length>1) {
+                              <b>បកប្រែ</b>
+                            }
                           </div>
                         </div>
                       </div>
@@ -114,136 +114,137 @@
                       <mat-icon>add</mat-icon>
                     </a>
                   </div>
+                }
+              </div>
+              <div class="box-item">
+                <div class="box-item-title">
+                  ព្រឹត្តិបត្រ ២០ថ្ងៃ​ ដែលមិនទាន់បញ្ចូលក្នុងបញ្ជី
                 </div>
-                <div class="box-item">
-                  <div class="box-item-title">
-                    ព្រឹត្តិបត្រ ២០ថ្ងៃ​ ដែលមិនទាន់បញ្ចូលក្នុងបញ្ជី
-                  </div>
-                  <div class="avatar-vt-item-wrapper" *ngFor="let item of criminalApplicationStore?.unClassify20 ;let i=index;">
+                @for (item of criminalApplicationStore?.unClassify20 ; track item; let i = $index) {
+                  <div class="avatar-vt-item-wrapper">
                     <a mat-button class="avatar-vt-item">
                       <div class="avatar">
-                        <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                        <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
                       </div>
                       <div class="av-vt-body">
                         <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}})
-                          ({{item?.urgent_obj?.name}})</strong>
+                        ({{item?.urgent_obj?.name}})</strong>
                         <div class="rows sub-text">
                           <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
-                            {{item?.occupation}}</span>
+                          {{item?.occupation}}</span>
                           <!-- <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
-                            {{item?.application_type?.text}}</span> -->
-                          <span>ថ្ងៃដាក់ឯកសារ: {{item?.paid_at?.toDate()|dateKh}}</span>
-                          <span style="color:red">ថ្ងៃមកយក: {{item?.withdraw_date?.toDate()|dateKh}}</span>
-                          <div class="amTimeAgo">
-                            <b *ngIf="item?.criminal_language?.length>1">បកប្រែ</b>
-                          </div>
+                        {{item?.application_type?.text}}</span> -->
+                        <span>ថ្ងៃដាក់ឯកសារ: {{$safeNavigationMigration(item?.paid_at?.toDate())|dateKh}}</span>
+                        <span style="color:red">ថ្ងៃមកយក: {{$safeNavigationMigration(item?.withdraw_date?.toDate())|dateKh}}</span>
+                        <div class="amTimeAgo">
+                          @if (item?.criminal_language?.length>1) {
+                            <b>បកប្រែ</b>
+                          }
                         </div>
                       </div>
-                    </a>
-                    <a mat-icon-button (click)="onSelectAdd(item,20)" class="abs-cancel">
-                      <mat-icon>add</mat-icon>
-                    </a>
-                  </div>
-                </div>
-
-                <div class="box-item">
-                  <div class="box-item-title">
-                    ព្រឹត្តិបត្រដែលនៅក្នុងបញ្ជីលេខរៀង
-                  </div>
-                  <!-- <div class="search-head-container">
-                <app-search-filter-box [placeholder]="'ស្វែងរកព្រឹត្តិបត្រថ្កោលទោស'" (focusIn)="focusSearch = true"
-                  (focusOut)="focusSearch = false" (closeSearch)="focusSearch = false" (searchValue)="onSearch($event)">
-                </app-search-filter-box>
-                <div *ngIf="searchString || focusSearch" class="search-result-container criminal">
-                  <div class="result-item-container">
-
-                    <div class="lottie-container" *ngIf="!searchString">
-                      <p style="padding:12px 26px">ស្វែងរកព្រឹត្តិបត្រដើម្បីដាក់ចូលក្នុងបញ្ជីលេខរៀង។</p>
                     </div>
-
-                    <ng-container *ngIf="searchString">
-                      <ng-container *ngIf="!store?.searching">
-                        <a mat-button class="avatar-vt-item" (click)="onSelectItemSearch(item)"
-                          *ngFor="let item of store?.searchResult ;let i=index; trackBy: trackByIdx">
-                          <div class="avatar">
-                            <img [src]="item?.photoUrl" (error)="handleImgError($event)">
-                          </div>
-                          <div class="av-vt-body">
-                            <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}}) ({{item?.urgent_obj?.name}})</strong>
-                            <div class="rows sub-text">
-                              <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
-                                {{item?.occupation}}</span>
-                              <span>ថ្ងៃដាក់ឯកសារ:  {{item?.paid_at?.toDate()|dateKh}}</span>
-                              <span style="color:red">ថ្ងៃមកយក:  {{item?.withdraw_date?.toDate()|dateKh}}</span>
-                              <div class="amTimeAgo">
-                                <b *ngIf="item?.criminal_language?.length>1">បកប្រែ</b>
-                              </div>
+                  </a>
+                  <a mat-icon-button (click)="onSelectAdd(item,20)" class="abs-cancel">
+                    <mat-icon>add</mat-icon>
+                  </a>
+                </div>
+              }
+            </div>
+            <div class="box-item">
+              <div class="box-item-title">
+                ព្រឹត្តិបត្រដែលនៅក្នុងបញ្ជីលេខរៀង
+              </div>
+              <!-- <div class="search-head-container">
+              <app-search-filter-box [placeholder]="'ស្វែងរកព្រឹត្តិបត្រថ្កោលទោស'" (focusIn)="focusSearch = true"
+                (focusOut)="focusSearch = false" (closeSearch)="focusSearch = false" (searchValue)="onSearch($event)">
+              </app-search-filter-box>
+              <div *ngIf="searchString || focusSearch" class="search-result-container criminal">
+                <div class="result-item-container">
+                  <div class="lottie-container" *ngIf="!searchString">
+                    <p style="padding:12px 26px">ស្វែងរកព្រឹត្តិបត្រដើម្បីដាក់ចូលក្នុងបញ្ជីលេខរៀង។</p>
+                  </div>
+                  <ng-container *ngIf="searchString">
+                    <ng-container *ngIf="!store?.searching">
+                      <a mat-button class="avatar-vt-item" (click)="onSelectItemSearch(item)"
+                        *ngFor="let item of store?.searchResult ;let i=index; trackBy: trackByIdx">
+                        <div class="avatar">
+                          <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                        </div>
+                        <div class="av-vt-body">
+                          <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}}) ({{item?.urgent_obj?.name}})</strong>
+                          <div class="rows sub-text">
+                            <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
+                            {{item?.occupation}}</span>
+                            <span>ថ្ងៃដាក់ឯកសារ:  {{item?.paid_at?.toDate()|dateKh}}</span>
+                            <span style="color:red">ថ្ងៃមកយក:  {{item?.withdraw_date?.toDate()|dateKh}}</span>
+                            <div class="amTimeAgo">
+                              <b *ngIf="item?.criminal_language?.length>1">បកប្រែ</b>
                             </div>
                           </div>
-                        </a>
-                        <ng-container *ngIf="store?.emptySearch">
-                          <div class="empty-result-container">
-                            <p>គ្មានលទ្ធផលសម្រាប់ការស្វែងរក <strong>{{searchString}}</strong></p>
-                          </div>
-                        </ng-container>
-                      </ng-container>
-
-                      <div style="width:100%; display: flex; justify-content: center;">
-                        <mat-spinner *ngIf="store?.searching" class="spinner"></mat-spinner>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-              </div> -->
-
-                  <div class="avatar-vt-item-wrapper" *ngFor="let item of criminalApplicationStore?.criminalFolderItems ;let i=index;">
-                    <a mat-button class="avatar-vt-item">
-                      <div class="avatar">
-                        <img [src]="item?.photoUrl" (error)="handleImgError($event)">
-                      </div>
-                      <div class="av-vt-body">
-                        <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}})
-                          ({{item?.urgent_obj?.name}})</strong>
-                        <div class="rows sub-text">
-                          <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
-                            {{item?.occupation}}</span>
-                          <!-- <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
-                            {{item?.application_type?.text}}</span> -->
-                          <span>ថ្ងៃដាក់ឯកសារ: {{item?.paid_at?.toDate()|dateKh}}</span>
-                          <span style="color:red">ថ្ងៃមកយក: {{item?.withdraw_date?.toDate()|dateKh}}</span>
-                          <div class="amTimeAgo">
-                            <b *ngIf="item?.criminal_language?.length>1">បកប្រែ</b>
-                          </div>
                         </div>
-                      </div>
-                    </a>
-                    <a mat-icon-button (click)="onRemoveSelectedSearch(item)" class="abs-cancel">
-                      <mat-icon>close</mat-icon>
-                    </a>
-                  </div>
-
+                      </a>
+                      <ng-container *ngIf="store?.emptySearch">
+                        <div class="empty-result-container">
+                          <p>គ្មានលទ្ធផលសម្រាប់ការស្វែងរក <strong>{{searchString}}</strong></p>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div style="width:100%; display: flex; justify-content: center;">
+                      <mat-spinner *ngIf="store?.searching" class="spinner"></mat-spinner>
+                    </div>
+                  </ng-container>
                 </div>
-
               </div>
-
-              <!-- <mat-selection-list #shoes formControlName="criminal_letters"
-                (selectionChange)="selectionChangeCriminal($event)">
-                <mat-list-option checkboxPosition="before" *ngFor="let item of folder_group_items" [value]="item">
-                  <div class="rows">
-                    <strong>{{item?.criminal_folder_no}}:</strong><span>{{item?.last_name}} {{item?.first_name}}</span>
+            </div> -->
+            @for (item of criminalApplicationStore?.criminalFolderItems ; track item; let i = $index) {
+              <div class="avatar-vt-item-wrapper">
+                <a mat-button class="avatar-vt-item">
+                  <div class="avatar">
+                    <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
                   </div>
-                  <div mat-line>ទូរសព្ទលេខ:{{item?.phoneNumber}}</div>
-                </mat-list-option>
-              </mat-selection-list> -->
-            </ng-template>
-          </form>
-        </mat-step>
-      </ng-container>
-    </mat-stepper>
-  </mat-dialog-content>
-  <!-- <mat-dialog-actions align="end">
-    <div class="flex1"></div>
-    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+                  <div class="av-vt-body">
+                    <strong>{{item?.last_name}} {{item?.first_name}} ({{item?.criminal_folder_no}})
+                    ({{item?.urgent_obj?.name}})</strong>
+                    <div class="rows sub-text">
+                      <span class="ct-text">{{item?.phoneNumber}} · {{item?.current_nationality?.kh_nationality}} ·
+                      {{item?.occupation}}</span>
+                      <!-- <span>រាជធានី/ខេត្ត {{item?.permanentAddress?.province?.name}} ·
+                    {{item?.application_type?.text}}</span> -->
+                    <span>ថ្ងៃដាក់ឯកសារ: {{$safeNavigationMigration(item?.paid_at?.toDate())|dateKh}}</span>
+                    <span style="color:red">ថ្ងៃមកយក: {{$safeNavigationMigration(item?.withdraw_date?.toDate())|dateKh}}</span>
+                    <div class="amTimeAgo">
+                      @if (item?.criminal_language?.length>1) {
+                        <b>បកប្រែ</b>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a mat-icon-button (click)="onRemoveSelectedSearch(item)" class="abs-cancel">
+                <mat-icon>close</mat-icon>
+              </a>
+            </div>
+          }
+        </div>
+      </div>
+      <!-- <mat-selection-list #shoes formControlName="criminal_letters"
+      (selectionChange)="selectionChangeCriminal($event)">
+      <mat-list-option checkboxPosition="before" *ngFor="let item of folder_group_items" [value]="item">
+        <div class="rows">
+          <strong>{{item?.criminal_folder_no}}:</strong><span>{{item?.last_name}} {{item?.first_name}}</span>
+        </div>
+        <div mat-line>ទូរសព្ទលេខ:{{item?.phoneNumber}}</div>
+      </mat-list-option>
+    </mat-selection-list> -->
+  }
+</form>
+</mat-step>
+}
+</mat-stepper>
+</mat-dialog-content>
+<!-- <mat-dialog-actions align="end">
+<div class="flex1"></div>
+<a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
 
-  </mat-dialog-actions> -->
+</mat-dialog-actions> -->
 </div>

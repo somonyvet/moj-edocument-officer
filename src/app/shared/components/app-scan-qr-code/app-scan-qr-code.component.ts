@@ -1,11 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { DOCUMENT } from '@angular/common';
+
 
 @Component({
-  selector: 'app-app-scan-qr-code',
-  templateUrl: './app-scan-qr-code.component.html',
-  styleUrls: ['./app-scan-qr-code.component.scss']
+    selector: 'app-app-scan-qr-code',
+    templateUrl: './app-scan-qr-code.component.html',
+    styleUrls: ['./app-scan-qr-code.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AppScanQrCodeComponent implements OnInit {
 

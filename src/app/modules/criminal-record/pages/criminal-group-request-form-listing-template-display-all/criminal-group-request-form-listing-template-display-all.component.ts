@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -15,16 +15,18 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
 import { CriminalLetterPrintByLanguageComponent } from '../../components/criminal-letter-print-by-language/criminal-letter-print-by-language.component';
 
 @Component({
-  selector: 'app-criminal-group-request-form-listing-template-display-all',
-  templateUrl: './criminal-group-request-form-listing-template-display-all.component.html',
-  styleUrls: ['./criminal-group-request-form-listing-template-display-all.component.scss']
+    selector: 'app-criminal-group-request-form-listing-template-display-all',
+    templateUrl: './criminal-group-request-form-listing-template-display-all.component.html',
+    styleUrls: ['./criminal-group-request-form-listing-template-display-all.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormListingTemplateDisplayAllComponent implements OnInit {
   tabs = tabs.officers;
   URL: any = PHOTO_LIB.EMPTY_PHOTO;
   formFocus: boolean;
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',
   };

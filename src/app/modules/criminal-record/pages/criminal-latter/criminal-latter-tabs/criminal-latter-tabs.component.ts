@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-latter-tabs',
-  templateUrl: './criminal-latter-tabs.component.html',
-  styleUrls: ['./criminal-latter-tabs.component.scss']
+    selector: 'app-criminal-latter-tabs',
+    templateUrl: './criminal-latter-tabs.component.html',
+    styleUrls: ['./criminal-latter-tabs.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterTabsComponent implements OnInit {
   tabs = criminal_tabs.criminal_record_approval_by_folder_tabs_input_number;

@@ -21,7 +21,7 @@
                                     <div><strong>{{item?.code}}.</strong> {{item?.name}}</div>
                                 </a>
                             </ng-template>
-                            <a mat-button mat-icon-button [matMenuTriggerFor]="menu"
+                            <a mat-icon-button [matMenuTriggerFor]="menu"
                                 aria-label="Example icon-button with a menu">
                                 <mat-icon>more_vert</mat-icon>
                             </a>
@@ -83,7 +83,7 @@
     </div>
     <div class="nav-container-fill">
         <div class="breadcrumb">
-            <a mat-button mat-icon-button class="mat-btn-n" [routerLink]="['/planing/annual-project/na/all']">
+            <a mat-icon-button class="mat-btn-n" [routerLink]="['/planing/annual-project/na/all']">
                 <mat-icon>home</mat-icon>
             </a>
             <a [routerLink]="[item?.uri]" class="breadcrumb-item" *ngFor="let item of store?.breadcrumbMap;let j=index"

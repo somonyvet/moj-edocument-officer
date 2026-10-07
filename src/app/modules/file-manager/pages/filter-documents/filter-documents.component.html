@@ -1,138 +1,174 @@
 <form [formGroup]="form" class="filter-container">
-    <div class="filter-container-wrap">
-        <div class="filter-search">
-            <div class="filter-search-wrap">
-                <input formControlName="keyword" placeholder="ស្វែងរកតាម លេខយោង ឈ្មោះ ឆ្នាំ និងពាក្យគន្លឹះ">
-                <button class="fl-search-btn" type="submit" (click)="onSearch(form?.value)">
-                    <mat-icon class="mat-18" *ngIf="!params">search</mat-icon>
-                    <mat-icon class="mat-18" *ngIf="params">clear</mat-icon>
-                </button>
-            </div>
-        </div>
-        <div class="filter-options">
-            <mat-form-field appearance="outline">
-                <mat-label>អ្នកចុះហត្ថលេខា</mat-label>
-                <input [matAutocomplete]="autoCompleteSigner" formControlName="signer" matInput
-                    placeholder="អ្នកចុះហត្ថលេខា">
-                <mat-autocomplete [displayWith]="ds?.displayNameFn" #autoCompleteSigner="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredSignerOptions | async;let i=index" [value]="item">
-                        {{item?.displayName}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['signer'].hasError('validKey')">
-                    <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>ស្ថាប័ន</mat-label>
-                <input [matAutocomplete]="autoCompleteRanking" formControlName="organization" matInput
-                    placeholder="ស្ថាប័ន">
-                <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteRanking="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredOrganizationOptions | async;let i=index" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['organization'].hasError('validKey')">
-                    <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>ប្រភេទឯកសារ</mat-label>
-                <input [matAutocomplete]="autoCompleteCategory" formControlName="category" matInput
-                    placeholder="ប្រភេទឯកសារ">
-                <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteCategory="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredCategoryOptions | async;let i=index" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['category'].hasError('validKey')">
-                    <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['category'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
-                </mat-error>
-            </mat-form-field>
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>វិស័យ</mat-label>
-                <input [matAutocomplete]="autoCompleteSector" formControlName="sector" matInput placeholder="វិស័យ">
-                <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteSector="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredSectorsOptions | async;let i=index" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['sector'].hasError('validKey')">
-                    <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['sector'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
-                </mat-error>
-            </mat-form-field> -->
-            <mat-form-field appearance="outline">
-                <mat-label>កាលបរិចេ្ឆទចុះហត្ថលេខា</mat-label>
-                <input placeholder="កាលបរិចេ្ឆទចុះហត្ថលេខា" aria-label="" matInput formControlName="issueDate"
-                    [matDatepicker]="picker">
-                <mat-error *ngIf="form.controls['issueDate'].hasError('required')">
-                    <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
-                </mat-error>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
+  <div class="filter-container-wrap">
+    <div class="filter-search">
+      <div class="filter-search-wrap">
+        <input formControlName="keyword" placeholder="ស្វែងរកតាម លេខយោង ឈ្មោះ ឆ្នាំ និងពាក្យគន្លឹះ">
+        <button class="fl-search-btn" type="submit" (click)="onSearch($safeNavigationMigration(form?.value))">
+          @if (!params) {
+            <mat-icon class="mat-18">search</mat-icon>
+          }
+          @if (params) {
+            <mat-icon class="mat-18">clear</mat-icon>
+          }
+        </button>
+      </div>
     </div>
+    <div class="filter-options">
+      <mat-form-field appearance="outline">
+        <mat-label>អ្នកចុះហត្ថលេខា</mat-label>
+        <input [matAutocomplete]="autoCompleteSigner" formControlName="signer" matInput
+          placeholder="អ្នកចុះហត្ថលេខា">
+        <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayNameFn)" #autoCompleteSigner="matAutocomplete">
+          @for (item of filteredSignerOptions | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.displayName}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['signer'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>ស្ថាប័ន</mat-label>
+        <input [matAutocomplete]="autoCompleteRanking" formControlName="organization" matInput
+          placeholder="ស្ថាប័ន">
+        <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayFn)" #autoCompleteRanking="matAutocomplete">
+          @for (item of filteredOrganizationOptions | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['organization'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>ប្រភេទឯកសារ</mat-label>
+        <input [matAutocomplete]="autoCompleteCategory" formControlName="category" matInput
+          placeholder="ប្រភេទឯកសារ">
+        <mat-autocomplete [displayWith]="$safeNavigationMigration(ds?.displayFn)" #autoCompleteCategory="matAutocomplete">
+          @for (item of filteredCategoryOptions | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['category'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+          </mat-error>
+        }
+        @if (form.controls['category'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+          </mat-error>
+        }
+      </mat-form-field>
+      <!-- <mat-form-field appearance="outline">
+      <mat-label>វិស័យ</mat-label>
+      <input [matAutocomplete]="autoCompleteSector" formControlName="sector" matInput placeholder="វិស័យ">
+      <mat-autocomplete [displayWith]="ds?.displayFn" #autoCompleteSector="matAutocomplete">
+        <mat-option *ngFor="let item of filteredSectorsOptions | async;let i=index" [value]="item">
+          {{item?.name}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error class="error-message" *ngIf="form.controls['sector'].hasError('validKey')">
+        <div>សូមជ្រើសរើសព័ត៌មានក្នុងប្រអប់</div>
+      </mat-error>
+      <mat-error *ngIf="form.controls['sector'].hasError('required')">
+        ព័ត៌មាននេះតម្រូវឲ្យបំពេញ
+      </mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="outline">
+      <mat-label>កាលបរិចេ្ឆទចុះហត្ថលេខា</mat-label>
+      <input placeholder="កាលបរិចេ្ឆទចុះហត្ថលេខា" aria-label="" matInput formControlName="issueDate"
+        [matDatepicker]="picker">
+      @if (form.controls['issueDate'].hasError('required')) {
+        <mat-error>
+          <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
+        </mat-error>
+      }
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
 </form>
 
-<div *ngIf="!store?.loading && this.params" class="cs-container file-content">
+@if (!store?.loading && this.params) {
+  <div class="cs-container file-content">
     <ng-container>
-        <div class="file-up-doc filter-docs">
-            <h4>លទ្ធផលស្វែងរក:</h4>
-        </div>
-        <div class="scrollable-table filter-docs no-scroll">
-            <table class="table-wrapper" *ngIf="!store?.empty">
-                <thead class="table-header">
-                    <tr class="table-row">
-                        <th class="table-col">ល.រ</th>
-                        <th class="table-col">ឯកសារ</th>
-                        <th class="table-col" *ngIf="auth?.root ">
-                            រាជធានី/ខេត្ត
-                            <button (click)="clearFilter()" *ngIf="queryParams?.p" mat-button mat-icon-button>
-                                <mat-icon>cancel</mat-icon>
-                            </button>
-                        </th>
-                        <th class="table-col">ម្ចាស់ឯកសារ</th>
-                        <th class="table-col">បច្ចុប្បន្នភាព</th>
-                        <th class="table-col">ទំហំ</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    <ng-container>
-                        <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
-                            *ngFor="let item of store?.dataFilter; let i = index" (click)="onSelectedItem(item)"
-                            (dblclick)="onOpenItem(item)">
-                            <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
-                            <td class="table-col">
-                                <div class="file-display">
-                                    <file-name-doc [parentFolder]="parentFolder" [selectedItem]="store?.selectedItem"
-                                        [item]="item">
-                                    </file-name-doc>
-                                </div>
-                            </td>
-                            <td class="table-col" *ngIf="auth?.root">
-                                {{ item?.companyData?.name }}
-                            </td>
-                            <td class="table-col">
-                                {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
-                            </td>
-                            <td class="table-col">
-                                {{ item?.updated_at?.toDate() | date: "medium" }}
-                            </td>
-                            <td class="table-col">{{ item | fileSize }}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </div>
-        <app-empty *ngIf="store?.empty" [subtitle]="APP_SUBTITLE" [name]="APP_INFO" [img]="APP_IMG">
+      <div class="file-up-doc filter-docs">
+        <h4>លទ្ធផលស្វែងរក:</h4>
+      </div>
+      <div class="scrollable-table filter-docs no-scroll">
+        @if (!store?.empty) {
+          <table class="table-wrapper">
+            <thead class="table-header">
+              <tr class="table-row">
+                <th class="table-col">ល.រ</th>
+                <th class="table-col">ឯកសារ</th>
+                @if (auth?.root ) {
+                  <th class="table-col">
+                    រាជធានី/ខេត្ត
+                    @if (queryParams?.p) {
+                      <button (click)="clearFilter()" mat-icon-button>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    }
+                  </th>
+                }
+                <th class="table-col">ម្ចាស់ឯកសារ</th>
+                <th class="table-col">បច្ចុប្បន្នភាព</th>
+                <th class="table-col">ទំហំ</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <ng-container>
+                @for (item of store?.dataFilter; track item; let i = $index) {
+                  <tr [ngClass]="store?.selectedItem?.key === item?.key ? 'active' : ''"
+                    (click)="onSelectedItem(item)"
+                    (dblclick)="onOpenItem(item)">
+                    <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
+                    <td class="table-col">
+                      <div class="file-display">
+                        <file-name-doc [parentFolder]="parentFolder" [selectedItem]="$safeNavigationMigration(store?.selectedItem)"
+                          [item]="item">
+                        </file-name-doc>
+                      </div>
+                    </td>
+                    @if (auth?.root) {
+                      <td class="table-col">
+                        {{ item?.companyData?.name }}
+                      </td>
+                    }
+                    <td class="table-col">
+                      {{item?.created_by?.key === auth?.user?.uid? "me": item?.created_by?.displayName}}
+                    </td>
+                    <td class="table-col">
+                      {{ $safeNavigationMigration(item?.updated_at?.toDate()) | date: "medium" }}
+                    </td>
+                    <td class="table-col">{{ item | fileSize }}</td>
+                  </tr>
+                }
+              </ng-container>
+            </tbody>
+          </table>
+        }
+      </div>
+      @if (store?.empty) {
+        <app-empty [subtitle]="APP_SUBTITLE" [name]="APP_INFO" [img]="APP_IMG">
         </app-empty>
+      }
     </ng-container>
-</div>
-<app-spinner *ngIf="store?.loading"></app-spinner>
+  </div>
+}
+@if (store?.loading) {
+  <app-spinner></app-spinner>
+}

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService } from 'src/app/shared/services/convert.service';
@@ -14,15 +14,17 @@ import firebase from 'firebase/compat/app';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 
 @Component({
-  selector: 'app-district-form',
-  templateUrl: './district-form.component.html',
-  styleUrls: ['./district-form.component.scss']
+    selector: 'app-district-form',
+    templateUrl: './district-form.component.html',
+    styleUrls: ['./district-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DistrictFormComponent implements OnInit {
   title: any = "បង្កើតស្រុក";
 
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   en_name: AbstractControl
   id: AbstractControl
@@ -34,7 +36,7 @@ export class DistrictFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DistrictFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

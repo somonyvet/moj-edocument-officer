@@ -1,36 +1,38 @@
-<mat-progress-bar mode="indeterminate" *ngIf="process" class="app-loader"></mat-progress-bar>
+@if (process) {
+  <mat-progress-bar mode="indeterminate" class="app-loader"></mat-progress-bar>
+}
 <div class="apply-form-page offi">
-    <div class="eform small" style="height: 400px;" [formGroup]="form">
-        <div class="header-ef">
-            <h2 style="margin-bottom:12px;">ចុះសុពលភាពព្រឹត្តិបត្រថ្កោលទោស</h2>
-            <p style="margin-bottom:12px;">
-                សូមពិនិត្យថ្ងៃផុតកំណត់នៅខាងក្រោម និងថ្ងៃផុតកំណត់នៅលើឯកសារឱ្យបានត្រឹមត្រូវព្រោះសុពលភាពផុតកំណត់ដែលរក្សាទុកយកតាមថ្ងៃផុតកំណត់នៅខាងក្រោម :
-            </p>
-            <!-- <div class="lottie-box">
-              <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
-            </div> -->
-            <div class="pd-b col">
-                <div class="row" style="margin-bottom: 18px;display: flex;flex-direction: column;">
-                    <app-search-filter-box placeholder="ស្គេន QR Verify នៅលើព្រឹត្តិបត្រថ្កោលទោសដើម្បីចុះសុពលភាព" class="filter-small" (scanQrCode)="onScanQrCode($event)"></app-search-filter-box>
-                </div>
-                <div class="row" style="width: 270px;display: flex;flex-direction: column;">
-                    <mat-form-field appearance="outline">
-                        <mat-label>ថ្ងៃផុតកំណត់</mat-label>
-                        <input formControlName="expired_date" matInput [matDatepicker]="picker">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
+  <div class="eform small" style="height: 400px;" [formGroup]="form">
+    <div class="header-ef">
+      <h2 style="margin-bottom:12px;">ចុះសុពលភាពព្រឹត្តិបត្រថ្កោលទោស</h2>
+      <p style="margin-bottom:12px;">
+        សូមពិនិត្យថ្ងៃផុតកំណត់នៅខាងក្រោម និងថ្ងៃផុតកំណត់នៅលើឯកសារឱ្យបានត្រឹមត្រូវព្រោះសុពលភាពផុតកំណត់ដែលរក្សាទុកយកតាមថ្ងៃផុតកំណត់នៅខាងក្រោម :
+      </p>
+      <!-- <div class="lottie-box">
+      <ng-lottie [options]="lottie" width="100%" height="100%"></ng-lottie>
+    </div> -->
+    <div class="pd-b col">
+      <div class="row" style="margin-bottom: 18px;display: flex;flex-direction: column;">
+        <app-search-filter-box placeholder="ស្គេន QR Verify នៅលើព្រឹត្តិបត្រថ្កោលទោសដើម្បីចុះសុពលភាព" class="filter-small" (scanQrCode)="onScanQrCode($event)"></app-search-filter-box>
+      </div>
+      <div class="row" style="width: 270px;display: flex;flex-direction: column;">
+        <mat-form-field appearance="outline">
+          <mat-label>ថ្ងៃផុតកំណត់</mat-label>
+          <input formControlName="expired_date" matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-                <div class="row">
-                    <span class="bright-text">
-                        ថ្ងៃផុតកំណត់ : {{form?.get('expired_date')?.value|dateDayKh | pipeCut0}} -
-                        {{form?.get('expired_date')?.value|dateMonthKh}} -
-                        {{form?.get('expired_date')?.value|dateYearKh}}
-                    </span>
-                </div>
+      <div class="row">
+        <span class="bright-text">
+          ថ្ងៃផុតកំណត់ : {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateDayKh | pipeCut0}} -
+          {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateMonthKh}} -
+          {{$safeNavigationMigration(form?.get('expired_date')?.value)|dateYearKh}}
+        </span>
+      </div>
 
-            </div>
-        </div>
     </div>
+  </div>
+</div>
 </div>

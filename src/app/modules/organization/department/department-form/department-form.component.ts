@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService, pushObjArray, pushToArray } from 'src/app/shared/services/convert.service';
@@ -20,16 +20,18 @@ import { AddPeopleReceivedDocumentComponent } from '../add-people-received-docum
 import { AddPeopleCcDocumentComponent } from '../add-people-cc-document/add-people-cc-document.component';
 
 @Component({
-  selector: 'app-department-form',
-  templateUrl: './department-form.component.html',
-  styleUrls: ['./department-form.component.scss']
+    selector: 'app-department-form',
+    templateUrl: './department-form.component.html',
+    styleUrls: ['./department-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DepartmentFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតរចនាសម្ព័ន្ធស្ថាប័ន";
-  form: FormGroup;
+  form: UntypedFormGroup;
   ranking: AbstractControl;
 
   subOfDepartment: AbstractControl;
@@ -42,7 +44,7 @@ export class DepartmentFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<DepartmentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DepartmentStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

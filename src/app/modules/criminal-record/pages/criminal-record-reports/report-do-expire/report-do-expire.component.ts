@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -13,9 +13,11 @@ import { ShowVerifyQRComponent } from 'src/app/shared/components/show-verify-qr/
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-report-do-expire',
-  templateUrl: './report-do-expire.component.html',
-  styleUrls: ['./report-do-expire.component.scss']
+    selector: 'app-report-do-expire',
+    templateUrl: './report-do-expire.component.html',
+    styleUrls: ['./report-do-expire.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportDoExpireComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

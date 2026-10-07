@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-more-document-detail-view',
-  templateUrl: './more-document-detail-view.component.html',
-  styleUrls: ['./more-document-detail-view.component.scss']
+    selector: 'app-more-document-detail-view',
+    templateUrl: './more-document-detail-view.component.html',
+    styleUrls: ['./more-document-detail-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MoreDocumentDetailViewComponent implements OnInit {
 

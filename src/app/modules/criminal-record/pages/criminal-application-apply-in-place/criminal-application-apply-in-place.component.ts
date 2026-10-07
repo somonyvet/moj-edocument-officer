@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -8,9 +8,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-application-apply-in-place',
-  templateUrl: './criminal-application-apply-in-place.component.html',
-  styleUrls: ['./criminal-application-apply-in-place.component.scss']
+    selector: 'app-criminal-application-apply-in-place',
+    templateUrl: './criminal-application-apply-in-place.component.html',
+    styleUrls: ['./criminal-application-apply-in-place.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationApplyInPlaceComponent implements OnInit {
   tabs = tabs.criminalApplication

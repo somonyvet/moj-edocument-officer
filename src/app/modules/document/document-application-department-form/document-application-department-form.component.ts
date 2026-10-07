@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { footerDocItem, headerDocItem, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -10,17 +10,19 @@ import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 import { AddNumberRefDocumentApplicationDepartmentComponent } from './add-number-ref-document-application-department/add-number-ref-document-application-department.component';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { docStatusObj } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-document-application-department-form',
-  templateUrl: './document-application-department-form.component.html',
-  styleUrls: ['./document-application-department-form.component.scss']
+    selector: 'app-document-application-department-form',
+    templateUrl: './document-application-department-form.component.html',
+    styleUrls: ['./document-application-department-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationDepartmentFormComponent implements OnInit {
-  public Editor = customBuild;
+  public Editor = CustomEditor;
 
   public config = {
     // placeholder: "",
@@ -95,7 +97,7 @@ export class DocumentApplicationDepartmentFormComponent implements OnInit {
   }
 
   @ViewChildren("elReference") elReference: QueryList<ElementRef>;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   headerDocItem = headerDocItem;
   footerDocItem = footerDocItem;
@@ -107,7 +109,7 @@ export class DocumentApplicationDepartmentFormComponent implements OnInit {
   section;
   id;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public store: DocumentStore,
     private route: ActivatedRoute,
@@ -155,15 +157,15 @@ export class DocumentApplicationDepartmentFormComponent implements OnInit {
     })
   }
   headerForm() {
-    return this.form.controls["header"] as FormArray
+    return this.form.controls["header"] as UntypedFormArray
   }
 
   footerForm() {
-    return this.form.controls["footer"] as FormArray
+    return this.form.controls["footer"] as UntypedFormArray
   }
 
   sessionForm() {
-    return this.form.controls["section"] as FormArray
+    return this.form.controls["section"] as UntypedFormArray
   }
 
   onTitleBlur(event) {
@@ -199,7 +201,7 @@ export class DocumentApplicationDepartmentFormComponent implements OnInit {
   addHeaderSheet(item: any) {
     this.headerForm().push(this.newHeaderSheet(item));
   }
-  newHeaderSheet(item: any): FormGroup {
+  newHeaderSheet(item: any): UntypedFormGroup {
     const { type, content } = item;
     return this.fb.group({
       content: [content],
@@ -210,7 +212,7 @@ export class DocumentApplicationDepartmentFormComponent implements OnInit {
   addSessionSheet(item: any) {
     this.sessionForm().push(this.newSessionSheet(item));
   }
-  newSessionSheet(item: any): FormGroup {
+  newSessionSheet(item: any): UntypedFormGroup {
     const { type, content, remark, office } = item;
     return this.fb.group({
       content: [content],

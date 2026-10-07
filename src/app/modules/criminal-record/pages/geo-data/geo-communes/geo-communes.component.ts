@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +11,11 @@ import { GeoStore } from '../../../stores/geo.store';
 import { GeoCommunesFormComponent } from '../geo-communes-form/geo-communes-form.component';
 
 @Component({
-  selector: 'app-geo-communes',
-  templateUrl: './geo-communes.component.html',
-  styleUrls: ['./geo-communes.component.scss']
+    selector: 'app-geo-communes',
+    templateUrl: './geo-communes.component.html',
+    styleUrls: ['./geo-communes.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoCommunesComponent implements OnInit {
   tabs = criminal_tabs.geo_commune;

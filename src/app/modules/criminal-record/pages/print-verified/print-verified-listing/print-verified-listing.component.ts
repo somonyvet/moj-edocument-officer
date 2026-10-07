@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,9 +19,11 @@ import { CriminalApplicationFullviewDialogComponent } from '../../criminal-appli
 import { PrintVerifiedCriminalLanguageFormComponent } from '../print-verified-criminal-language-form/print-verified-criminal-language-form.component';
 
 @Component({
-  selector: 'app-print-verified-listing',
-  templateUrl: './print-verified-listing.component.html',
-  styleUrls: ['./print-verified-listing.component.scss']
+    selector: 'app-print-verified-listing',
+    templateUrl: './print-verified-listing.component.html',
+    styleUrls: ['./print-verified-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class PrintVerifiedListingComponent implements OnInit {

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -18,15 +18,17 @@ import { docStatusObj, DOC_CATEGORY_OBJ } from 'src/app/dummy/status';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-document-form',
-  templateUrl: './document-form.component.html',
-  styleUrls: ['./document-form.component.scss']
+    selector: 'app-document-form',
+    templateUrl: './document-form.component.html',
+    styleUrls: ['./document-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "ឯកសារឌីជីថល";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[] = [];
   organizationRef: AbstractControl;
   filteredOrganizationOptions: Observable<IInstitution[]>;
@@ -44,7 +46,7 @@ export class DocumentFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<DocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

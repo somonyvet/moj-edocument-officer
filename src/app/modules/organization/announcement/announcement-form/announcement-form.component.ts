@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -13,14 +13,16 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { AnnouncementStore } from 'src/app/stores/document/announcement.store';
 
 @Component({
-  selector: 'app-announcement-form',
-  templateUrl: './announcement-form.component.html',
-  styleUrls: ['./announcement-form.component.scss']
+    selector: 'app-announcement-form',
+    templateUrl: './announcement-form.component.html',
+    styleUrls: ['./announcement-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AnnouncementFormComponent implements OnInit {
   @ViewChild('photoFile') photoFile: ElementRef;
 
-  form : FormGroup;
+  form : UntypedFormGroup;
   titleForm: any = "បង្កើតសេចក្តីប្រកាស";
   search = false;
   documentCategory : AbstractControl;
@@ -43,7 +45,7 @@ export class AnnouncementFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AnnouncementFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: AnnouncementStore,
     public ds: DataService,
     private auth: AuthStore,

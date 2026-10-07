@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,20 +10,22 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-criminal-latter-officer-choose-nationality',
-  templateUrl: './criminal-latter-officer-choose-nationality.component.html',
-  styleUrls: ['./criminal-latter-officer-choose-nationality.component.scss']
+    selector: 'app-criminal-latter-officer-choose-nationality',
+    templateUrl: './criminal-latter-officer-choose-nationality.component.html',
+    styleUrls: ['./criminal-latter-officer-choose-nationality.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterOfficerChooseNationalityComponent implements OnInit {
   data = NATIONALITY_APPLICAITON
   duration = URGENT_OBJ_ARRAY
-  form: FormGroup
+  form: UntypedFormGroup
 
   constructor(
     public dialogRef: MatDialogRef<CriminalLatterOfficerChooseNationalityComponent>,
     @Inject(MAT_DIALOG_DATA) public formData: any,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     public tran: LanguageStore,
     public ds: DataService,

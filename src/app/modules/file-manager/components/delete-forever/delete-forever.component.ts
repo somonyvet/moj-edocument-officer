@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-delete-forever',
-  templateUrl: './delete-forever.component.html',
-  styleUrls: ['./delete-forever.component.scss']
+    selector: 'app-delete-forever',
+    templateUrl: './delete-forever.component.html',
+    styleUrls: ['./delete-forever.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DeleteForeverComponent implements OnInit {
 

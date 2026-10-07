@@ -3,98 +3,100 @@
     <div class="page-doc" >
       <table class="as-table-wrapper">
         <thead #header>
-            <tr>
-                <th class="center">
-                    ល.រ
-                </th>
-                <th class="left">
-                    ឈ្មោះ
-                </th>
-                <th class="left">
-                    របាយការណ៍
-                </th>
-                <th class="left">
-                    សូចនាករ
-                </th>
-                <th class="left">
-                    គោលដៅ
-                </th>
-                <th>
+          <tr>
+            <th class="center">
+              ល.រ
+            </th>
+            <th class="left">
+              ឈ្មោះ
+            </th>
+            <th class="left">
+              របាយការណ៍
+            </th>
+            <th class="left">
+              សូចនាករ
+            </th>
+            <th class="left">
+              គោលដៅ
+            </th>
+            <th>
 
-                </th>
-            </tr>
+            </th>
+          </tr>
         </thead>
         <tbody #container>
-            <tr *ngFor="let item of dummyValue; let i = index"
-                [ngStyle]="{'background': ''+item?.backgroundColor+'','color':''+ item?.color +''}">
-                <td class="center" style="width: 64px;">
-                    {{item?.order}}
-                </td>
-                <td>
-                    <div class="rows">
-                        <mat-icon style="margin-right: 8px;">{{item?.icon||'folder'}}</mat-icon>
-                        <strong>{{item?.name}}</strong>
-                    </div>
-                </td>
-                <td>
-                    <mat-icon>{{!item?.allowDoReport?'check_box_outline_blank':'check_box'}}</mat-icon>
-                </td>
-                <td>
-                    <mat-icon>{{!item?.indicator?'check_box_outline_blank':'check_box'}}</mat-icon>
-                </td>
-                <td>
-                    <mat-icon>{{!item?.remark?'check_box_outline_blank':'check_box'}}</mat-icon>
-                </td>
-                <td style="width: 64px;">
-                    <div class="card-list-action">
-                        <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="create(item)">
-                                <mat-icon>edit</mat-icon>
-                                <span>កែប្រែ</span>
-                            </button>
-                            <!-- <button mat-menu-item (click)="delete(item)">
-                                <mat-icon>delete</mat-icon>
-                                <span>លុប</span>
-                            </button> -->
-                        </mat-menu>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
+          @for (item of dummyValue; track item; let i = $index) {
+            <tr
+              [ngStyle]="{'background': ''+$safeNavigationMigration(item?.backgroundColor)+'','color':''+ $safeNavigationMigration(item?.color) +''}">
+              <td class="center" style="width: 64px;">
+                {{item?.order}}
+              </td>
+              <td>
+                <div class="rows">
+                  <mat-icon style="margin-right: 8px;">{{item?.icon||'folder'}}</mat-icon>
+                  <strong>{{item?.name}}</strong>
+                </div>
+              </td>
+              <td>
+                <mat-icon>{{!item?.allowDoReport?'check_box_outline_blank':'check_box'}}</mat-icon>
+              </td>
+              <td>
+                <mat-icon>{{!item?.indicator?'check_box_outline_blank':'check_box'}}</mat-icon>
+              </td>
+              <td>
+                <mat-icon>{{!item?.remark?'check_box_outline_blank':'check_box'}}</mat-icon>
+              </td>
+              <td style="width: 64px;">
+                <div class="card-list-action">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <i class="material-icons">more_vert</i>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="create(item)">
+                      <mat-icon>edit</mat-icon>
+                      <span>កែប្រែ</span>
+                    </button>
+                    <!-- <button mat-menu-item (click)="delete(item)">
+                    <mat-icon>delete</mat-icon>
+                    <span>លុប</span>
+                  </button> -->
+                </mat-menu>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
     </table>
   </div>
-  </div>
-  <div class="full-page">
-    <div class="wrapper">
-      <div class="title">
-        <h3>
-          អនុម័ត
-        </h3>
-      </div>
-      <div class="item-wrapper">
-        <!-- <div class="card-item first" routerLink="/approval/report/na/0/reports">
-          <div class="text-wrapper">
-            <p>របាយការណ៍ប្រចាំខែ</p>
-          </div>
-        </div>
-        <div class="card-item second" routerLink="/approval/planing/na/all">
-          <div class="text-wrapper">
-            <p>ផែនការប្រចាំត្រីមាស</p>
-          </div>
-        </div> -->
-
-        <button class="btn-item first" mat-button routerLink="/approval/report/na/0/reports">
-          របាយការណ៍ប្រចាំខែ
-        </button>
-
-        <button class="btn-item second" mat-button routerLink="/approval/planing/na/all">
-          ផែនការប្រចាំត្រីមាស
-        </button>
-
+</div>
+<div class="full-page">
+  <div class="wrapper">
+    <div class="title">
+      <h3>
+        អនុម័ត
+      </h3>
+    </div>
+    <div class="item-wrapper">
+      <!-- <div class="card-item first" routerLink="/approval/report/na/0/reports">
+      <div class="text-wrapper">
+        <p>របាយការណ៍ប្រចាំខែ</p>
       </div>
     </div>
+    <div class="card-item second" routerLink="/approval/planing/na/all">
+      <div class="text-wrapper">
+        <p>ផែនការប្រចាំត្រីមាស</p>
+      </div>
+    </div> -->
+
+    <button class="btn-item first" mat-button routerLink="/approval/report/na/0/reports">
+      របាយការណ៍ប្រចាំខែ
+    </button>
+
+    <button class="btn-item second" mat-button routerLink="/approval/planing/na/all">
+      ផែនការប្រចាំត្រីមាស
+    </button>
+
   </div>
+</div>
+</div>
 </div>

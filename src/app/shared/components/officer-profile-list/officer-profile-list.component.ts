@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CHAT_ROOM_TYPE_OBJ } from 'src/app/dummy/chat';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -6,9 +6,11 @@ import { ChatStore } from 'src/app/stores/chat.store';
 import { PresenceService } from '../../services/presence.service';
 
 @Component({
-  selector: 'app-officer-profile-list',
-  templateUrl: './officer-profile-list.component.html',
-  styleUrls: ['./officer-profile-list.component.scss']
+    selector: 'app-officer-profile-list',
+    templateUrl: './officer-profile-list.component.html',
+    styleUrls: ['./officer-profile-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerProfileListComponent implements OnInit {
 

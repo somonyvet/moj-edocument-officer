@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { STATUS_LIVES_ARRAY } from 'src/app/dummy/appinfo';
@@ -11,9 +11,11 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { CriminalApplicationStore } from '../../../modules/criminal-record/stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-cv-form-condemnation-print',
-  templateUrl: './cv-form-condemnation-print.component.html',
-  styleUrls: ['./cv-form-condemnation-print.component.scss']
+    selector: 'app-cv-form-condemnation-print',
+    templateUrl: './cv-form-condemnation-print.component.html',
+    styleUrls: ['./cv-form-condemnation-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CvFormCondemnationPrintComponent implements OnInit, OnDestroy {
   STATUS_LIVES_ARRAY_DATA = STATUS_LIVES_ARRAY;
@@ -24,7 +26,7 @@ export class CvFormCondemnationPrintComponent implements OnInit, OnDestroy {
   isKhmerForm : boolean = false
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfirmApprovalComponent } from './confirm-approval.component';
 
@@ -6,7 +6,7 @@ describe('ConfirmApprovalComponent', () => {
   let component: ConfirmApprovalComponent;
   let fixture: ComponentFixture<ConfirmApprovalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConfirmApprovalComponent ]
     })

@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,9 +14,11 @@ import { toJpeg } from 'html-to-image';
 import { FireStorageService } from 'src/app/shared/services/fireStorage.service';
 import { docStatusObj } from 'src/app/dummy/status';
 @Component({
-  selector: 'app-document-application-design',
-  templateUrl: './document-application-design.component.html',
-  styleUrls: ['./document-application-design.component.scss']
+    selector: 'app-document-application-design',
+    templateUrl: './document-application-design.component.html',
+    styleUrls: ['./document-application-design.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApplicationDesignComponent implements OnInit, OnDestroy {
   param: any = null;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -10,9 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Letter3InputPrintDialogComponent } from '../../components/letter3-input-print-dialog/letter3-input-print-dialog.component';
 
 @Component({
-  selector: 'app-letter3-input-print',
-  templateUrl: './letter3-input-print.component.html',
-  styleUrls: ['./letter3-input-print.component.scss']
+    selector: 'app-letter3-input-print',
+    templateUrl: './letter3-input-print.component.html',
+    styleUrls: ['./letter3-input-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class Letter3InputPrintComponent implements OnInit,OnDestroy {
   tabs = tabs.letter3InputPrint

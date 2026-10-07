@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -11,9 +11,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-appy-data-entry',
-  templateUrl: './criminal-record-appy-data-entry.component.html',
-  styleUrls: ['./criminal-record-appy-data-entry.component.scss']
+    selector: 'app-criminal-record-appy-data-entry',
+    templateUrl: './criminal-record-appy-data-entry.component.html',
+    styleUrls: ['./criminal-record-appy-data-entry.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordAppyDataEntryComponent implements OnInit {
   loading: boolean = true;

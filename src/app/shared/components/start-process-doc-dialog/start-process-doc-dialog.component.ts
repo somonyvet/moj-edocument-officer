@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
@@ -7,16 +7,18 @@ import { addDays, generateKeywords, getYearsList, MappingService, toDateKey, tod
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-start-process-doc-dialog',
-  templateUrl: './start-process-doc-dialog.component.html',
-  styleUrls: ['./start-process-doc-dialog.component.scss']
+    selector: 'app-start-process-doc-dialog',
+    templateUrl: './start-process-doc-dialog.component.html',
+    styleUrls: ['./start-process-doc-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StartProcessDocDialogComponent implements OnInit {
 
   report_date : any = null;
   withdraw_date : any = null;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<StartProcessDocDialogComponent>,
@@ -24,7 +26,7 @@ export class StartProcessDocDialogComponent implements OnInit {
     public store: CriminalApplicationStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { 
     const _report = localStorage.getItem('report_start_process_doc_date')
     const dt_report = JSON.parse(_report);

@@ -1,6 +1,6 @@
 import { HRPregnancyBreakFormComponent } from './human-resource-pregnancy-break-form/human-resource-pregnancy-break-form.component';
 import { HrPregnancyBreakStore } from './../../stores/hr-pregnancy-break.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -9,9 +9,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { khmerNumberToEN, toLocaleNumber } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-human-resource-pregnancy-break',
-  templateUrl: './human-resource-pregnancy-break.component.html',
-  styleUrls: ['./human-resource-pregnancy-break.component.scss']
+    selector: 'app-human-resource-pregnancy-break',
+    templateUrl: './human-resource-pregnancy-break.component.html',
+    styleUrls: ['./human-resource-pregnancy-break.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourcePregnancyBreakComponent implements OnInit {
   title = "បញ្ជីមន្ត្រីសម្រាកមានផ្ទៃពោះ";

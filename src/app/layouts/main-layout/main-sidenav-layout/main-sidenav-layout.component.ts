@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Application } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
 
 @Component({
-  selector: 'app-main-sidenav-layout',
-  templateUrl: './main-sidenav-layout.component.html',
-  styleUrls: ['./main-sidenav-layout.component.scss']
+    selector: 'app-main-sidenav-layout',
+    templateUrl: './main-sidenav-layout.component.html',
+    styleUrls: ['./main-sidenav-layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MainSidenavLayoutComponent implements OnInit {
 
@@ -37,6 +39,10 @@ export class MainSidenavLayoutComponent implements OnInit {
     { path: '/mme/settings/data/time-scope', title: 'Source Budge', title_kh: 'រៀបចំដែនកំណត់រយៈពេល', icon: 'business_center' },
 
   ]
+
+  get mmeApplicationNames(): string {
+    return this.mmeApplications.map(item => item.title_kh).join(', ');
+  }
 
   constructor(
     public auth: AuthStore,

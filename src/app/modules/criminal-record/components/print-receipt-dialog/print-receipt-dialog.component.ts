@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { days, monthOfYear } from 'src/app/dummy/report';
 import { toLocaleNumber } from 'src/app/shared/services/convert.service';
@@ -8,9 +8,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-print-receipt-dialog',
-  templateUrl: './print-receipt-dialog.component.html',
-  styleUrls: ['./print-receipt-dialog.component.scss']
+    selector: 'app-print-receipt-dialog',
+    templateUrl: './print-receipt-dialog.component.html',
+    styleUrls: ['./print-receipt-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PrintReceiptDialogComponent implements OnInit {
   selectionDoc: any = null;

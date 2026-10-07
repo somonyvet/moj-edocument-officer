@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-empty-data',
-  templateUrl: './empty-data.component.html',
-  styleUrls: ['./empty-data.component.scss']
+    selector: 'app-empty-data',
+    templateUrl: './empty-data.component.html',
+    styleUrls: ['./empty-data.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EmptyDataComponent implements OnInit {
   @Input() buttonText: string;

@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,9 +19,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-success/confirm-success.component';
 
 @Component({
-  selector: 'app-letter-of-condemnation-form-in-fullview',
-  templateUrl: './letter-of-condemnation-form-in-fullview.component.html',
-  styleUrls: ['./letter-of-condemnation-form-in-fullview.component.scss']
+    selector: 'app-letter-of-condemnation-form-in-fullview',
+    templateUrl: './letter-of-condemnation-form-in-fullview.component.html',
+    styleUrls: ['./letter-of-condemnation-form-in-fullview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LetterOfCondemnationFormInFullviewComponent implements OnInit {
 
@@ -38,7 +40,7 @@ export class LetterOfCondemnationFormInFullviewComponent implements OnInit {
   filteredNationality: Observable<Array<any>>;
   nationals: any = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
   STATUS_OBJ = STATUS_OBJ;
@@ -134,7 +136,7 @@ export class LetterOfCondemnationFormInFullviewComponent implements OnInit {
 
   constructor(
     public criminal: CriminalStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

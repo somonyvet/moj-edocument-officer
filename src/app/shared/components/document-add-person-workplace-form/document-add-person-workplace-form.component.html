@@ -1,61 +1,72 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>បញ្ចូលកន្លែង ឬអ្នកត្រូវទទួលអនុវត្ត</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>បញ្ចូលកន្លែង ឬអ្នកត្រូវទទួលអនុវត្ត</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>អ្នកត្រូវទទួលអនុវត្ត</mat-label>
+        <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
+          placeholder="ជ្រើសរើសអ្នកត្រូវទទួលអនុវត្ត">
+        <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
+          #autoCompleteManagementLevel="matAutocomplete">
+          @for (item of filterOffice | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              @for (title of item?.title; track title; let j = $index) {
+                <span style="margin-right: 6px;">
+                  {{title?.name}}{{(j+1)===item?.title?.length?'':' '}}
+                </span>
+              }
+              <span>{{item?.last_name}} {{item?.first_name}}</span>
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['office'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>Please select once from list to continue.</div>
+          </mat-error>
+        }
+        @if (form.controls['office'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>អ្នកត្រូវទទួលអនុវត្ត</mat-label>
-                <input [matAutocomplete]="autoCompleteManagementLevel" formControlName="office" matInput
-                    placeholder="ជ្រើសរើសអ្នកត្រូវទទួលអនុវត្ត">
-                <mat-autocomplete (optionSelected)="optionSelectedPosition($event)" [displayWith]="ds.displayFn"
-                    #autoCompleteManagementLevel="matAutocomplete">
-                    <mat-option *ngFor="let item of filterOffice | async;let i=index" [value]="item">
-                        <span style="margin-right: 6px;" *ngFor="let title of item?.title;let j=index">
-                            {{title?.name}}{{(j+1)===item?.title?.length?'':' '}}
-                        </span>
-                        <span>{{item?.last_name}} {{item?.first_name}}</span>
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['office'].hasError('validKey')">
-                    <div>Please select once from list to continue.</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['office'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
 
-        <ng-container class="dialog-header">
-            <mat-checkbox (change)='showOptions($event)' formControlName="selectAll"
-                style="margin-left: 10px;margin-bottom: 15px;" class="title"> ជ្រើសរើស​ទាំងអស់
-            </mat-checkbox>
-        </ng-container>
+    <ng-container class="dialog-header">
+      <mat-checkbox (change)='showOptions($event)' formControlName="selectAll"
+        style="margin-left: 10px;margin-bottom: 15px;" class="title"> ជ្រើសរើស​ទាំងអស់
+      </mat-checkbox>
+    </ng-container>
 
-        <div class="form-group">
-            <mat-chip-list cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                <mat-chip cdkDrag *ngFor="let item of people" [removable]="true" (removed)="removePosition(item)">
-                    <span>{{item?.last_name}} {{item?.first_name}}</span>
+    <div class="form-group">
+      <mat-chip-grid cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+        @for (item of people; track item) {
+          <mat-chip-row cdkDrag [removable]="true" (removed)="removePosition(item)">
+            <span>{{item?.last_name}} {{item?.first_name}}</span>
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
 
-                    <button matChipRemove>
-                        <mat-icon>cancel</mat-icon>
-                    </button>
-                </mat-chip>
-            </mat-chip-list>
-
-        </div>
+    </div>
 
 
-    </mat-dialog-content>
-    <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
+  </mat-dialog-content>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
     </mat-progress-bar>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+  }
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
 </form>

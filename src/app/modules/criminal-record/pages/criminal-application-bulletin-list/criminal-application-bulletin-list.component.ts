@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { APPLICATION_TYPE_OBJ, programArrayObj } from 'src/app/dummy/status';
@@ -14,9 +14,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { CriminalApplyExcelImportComponent } from '../../components/criminal-apply-excel-import/criminal-apply-excel-import.component';
 import { DecreeConfirmDialogComponent } from '../../components/decree-confirm-dialog/decree-confirm-dialog.component';
 @Component({
-  selector: 'app-criminal-application-bulletin-list',
-  templateUrl: './criminal-application-bulletin-list.component.html',
-  styleUrls: ['./criminal-application-bulletin-list.component.scss']
+    selector: 'app-criminal-application-bulletin-list',
+    templateUrl: './criminal-application-bulletin-list.component.html',
+    styleUrls: ['./criminal-application-bulletin-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationBulletinListComponent implements OnInit, OnDestroy {
   tab = tabs?.laborEntry

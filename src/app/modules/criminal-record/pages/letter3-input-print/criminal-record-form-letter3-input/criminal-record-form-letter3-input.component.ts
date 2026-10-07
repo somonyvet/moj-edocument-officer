@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,16 +17,18 @@ import { CriminalStore } from 'src/app/modules/criminal-record/stores/criminal.s
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
 import { MatDialog } from '@angular/material/dialog';
 import { AnimationOptions } from 'ngx-lottie';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Letter3InputPrintDialogComponent } from '../../../components/letter3-input-print-dialog/letter3-input-print-dialog.component';
 import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-criminal-record-form-letter3-input',
-  templateUrl: './criminal-record-form-letter3-input.component.html',
-  styleUrls: ['./criminal-record-form-letter3-input.component.scss']
+    selector: 'app-criminal-record-form-letter3-input',
+    templateUrl: './criminal-record-form-letter3-input.component.html',
+    styleUrls: ['./criminal-record-form-letter3-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordFormLetter3InputComponent implements OnInit {
 
@@ -50,7 +52,7 @@ export class CriminalRecordFormLetter3InputComponent implements OnInit {
   filteredNationality: Observable<Array<any>>;
   nationals: any = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   GENDER_KH = GENDER_DATA;
   FAMILY_STATUS = FAMILY_STATUS;
@@ -147,7 +149,7 @@ export class CriminalRecordFormLetter3InputComponent implements OnInit {
   criminal_record_data : any = null;
 
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     toolbar: [
       'fontfamily',
@@ -206,7 +208,7 @@ export class CriminalRecordFormLetter3InputComponent implements OnInit {
 
   constructor(
     public criminal: CriminalStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

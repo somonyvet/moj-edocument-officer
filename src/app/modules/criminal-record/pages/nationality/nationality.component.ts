@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +13,11 @@ import { GeoProvinceFormComponent } from '../geo-data/geo-province-form/geo-prov
 import { NationalityFormComponent } from './nationality-form/nationality-form.component';
 
 @Component({
-  selector: 'app-nationality',
-  templateUrl: './nationality.component.html',
-  styleUrls: ['./nationality.component.scss']
+    selector: 'app-nationality',
+    templateUrl: './nationality.component.html',
+    styleUrls: ['./nationality.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NationalityComponent implements OnInit {
   tabs = criminal_tabs.add_nationality;

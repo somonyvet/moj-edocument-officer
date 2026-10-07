@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 declare function load():any;
 declare function onSelectScan():any;
@@ -7,9 +7,11 @@ declare function captureFP(result:any):any;
 
 
 @Component({
-  selector: 'app-finger-print',
-  templateUrl: './finger-print.component.html',
-  styleUrls: ['./finger-print.component.scss']
+    selector: 'app-finger-print',
+    templateUrl: './finger-print.component.html',
+    styleUrls: ['./finger-print.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FingerPrintComponent implements OnInit {
 

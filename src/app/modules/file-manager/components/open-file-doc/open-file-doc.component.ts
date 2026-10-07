@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-open-file-doc',
-  templateUrl: './open-file-doc.component.html',
-  styleUrls: ['./open-file-doc.component.scss']
+    selector: 'app-open-file-doc',
+    templateUrl: './open-file-doc.component.html',
+    styleUrls: ['./open-file-doc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OpenFileDocComponent implements OnInit {
 

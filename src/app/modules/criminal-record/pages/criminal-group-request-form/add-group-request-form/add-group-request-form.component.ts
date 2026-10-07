@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,19 +18,21 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import { DOCUMENT_FLOW_CATEGORY } from '../../../dummy/criminal.dummy';
 
 @Component({
-  selector: 'app-add-group-request-form',
-  templateUrl: './add-group-request-form.component.html',
-  styleUrls: ['./add-group-request-form.component.scss']
+    selector: 'app-add-group-request-form',
+    templateUrl: './add-group-request-form.component.html',
+    styleUrls: ['./add-group-request-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddGroupRequestFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតបញ្ជីលេខរៀង";
-  form: FormGroup;
+  form: UntypedFormGroup;
   criminal_letters: AbstractControl
 
   hashtagItems: string[] = [];
-  form2: FormGroup;
+  form2: UntypedFormGroup;
 
   folder_group_items: any[] = [];
   // folder_items: any[] = [];
@@ -50,7 +52,7 @@ export class AddGroupRequestFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<AddGroupRequestFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: PositionStore,
     private ds: DataService,
     public storage: FireStorageService,
@@ -119,7 +121,7 @@ export class AddGroupRequestFormComponent implements OnInit, OnDestroy {
   }
 
   selectionChangeCriminal(event: MatSelectionListChange) {
-    const { value, selected } = event.option
+    const { value, selected } = event.options[0]
     if (selected) {
       this.store.addCriminalToFolder(value, this.data.item, this.criminalApplicationStore?.getMappedProfile()).then(() => {
         this.snackBar.open(`ព្រឹត្តិបត្រថ្កោលទោសត្រូវបានរក្សាទុកដោយជោគជ័យក្នុងបញ្ជីលេខរៀង`, "ជោគជ័យ", { duration: 3000 });

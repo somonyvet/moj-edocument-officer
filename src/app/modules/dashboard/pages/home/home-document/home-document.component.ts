@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,9 +31,11 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 
 @Component({
-  selector: 'app-home-document',
-  templateUrl: './home-document.component.html',
-  styleUrls: ['./home-document.component.scss']
+    selector: 'app-home-document',
+    templateUrl: './home-document.component.html',
+    styleUrls: ['./home-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomeDocumentComponent implements OnInit, OnDestroy {
 

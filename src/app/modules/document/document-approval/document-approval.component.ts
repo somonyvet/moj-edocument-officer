@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -11,9 +11,11 @@ import { MappingService } from 'src/app/shared/services/mapping.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-document-approval',
-  templateUrl: './document-approval.component.html',
-  styleUrls: ['./document-approval.component.scss']
+    selector: 'app-document-approval',
+    templateUrl: './document-approval.component.html',
+    styleUrls: ['./document-approval.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentApprovalComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -23,7 +25,7 @@ export class DocumentApprovalComponent implements OnInit {
   @ViewChild('stampFile') stampFile: ElementRef;
 
   titleForm: any = "បានពិនិត្យ និងឯកភាព";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   process: boolean = false;
 
@@ -45,7 +47,7 @@ export class DocumentApprovalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentApprovalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

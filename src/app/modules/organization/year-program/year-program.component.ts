@@ -1,7 +1,7 @@
-  import { Component, OnDestroy, OnInit } from '@angular/core';
+  import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { tabs } from 'src/app/dummy/tabs';
 import { IRemarkOfficer, IYearProgram } from 'src/app/interfaces/document/document.interface';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -11,9 +11,11 @@ import { MmeProgramStore } from 'src/app/stores/document/mme-program.store';
 import { RemarkStore } from 'src/app/stores/document/remark.store';
 import { YearProgramFormComponent } from './year-program-form/year-program-form.component';
 @Component({
-  selector: 'app-year-program',
-  templateUrl: './year-program.component.html',
-  styleUrls: ['./year-program.component.scss']
+    selector: 'app-year-program',
+    templateUrl: './year-program.component.html',
+    styleUrls: ['./year-program.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class YearProgramComponent implements OnInit {
   tabs = tabs.mmeYearProgram

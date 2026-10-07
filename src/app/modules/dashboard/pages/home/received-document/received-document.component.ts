@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,9 +22,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-received-document',
-  templateUrl: './received-document.component.html',
-  styleUrls: ['./received-document.component.scss']
+    selector: 'app-received-document',
+    templateUrl: './received-document.component.html',
+    styleUrls: ['./received-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 
@@ -48,7 +50,7 @@ export class ReceivedDocumentComponent implements OnInit {
   imageAttachments = [];
 
   workplacesApproved: any[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   groupSections = [];
   canCreateDocument: boolean = false;
   checkDocRef: IHeaderInformation = null;
@@ -67,7 +69,7 @@ export class ReceivedDocumentComponent implements OnInit {
     private dialog: MatDialog,
     private ds: DataService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public memoStore: MemoStore,
 
   ) { }

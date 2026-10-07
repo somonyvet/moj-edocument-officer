@@ -1,5 +1,5 @@
 import { Geo } from './../../stores/geo.store';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { IGeo } from '../../interfaces/geo';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,9 +10,11 @@ import { tabs } from 'src/app/dummy/tabs';
 
 
 @Component({
-  selector: 'app-geo-data',
-  templateUrl: './geo-data.component.html',
-  styleUrls: ['./geo-data.component.scss']
+    selector: 'app-geo-data',
+    templateUrl: './geo-data.component.html',
+    styleUrls: ['./geo-data.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoDataComponent implements OnInit, OnDestroy {
   dbName: any;

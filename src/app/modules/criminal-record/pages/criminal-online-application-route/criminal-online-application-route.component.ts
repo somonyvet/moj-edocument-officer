@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -9,9 +9,11 @@ import { CriminalPaymentComponent } from '../criminal-payment/criminal-payment.c
 import { tabs } from 'src/app/dummy/tabs';
 
 @Component({
-  selector: 'app-criminal-online-application-route',
-  templateUrl: './criminal-online-application-route.component.html',
-  styleUrls: ['./criminal-online-application-route.component.scss']
+    selector: 'app-criminal-online-application-route',
+    templateUrl: './criminal-online-application-route.component.html',
+    styleUrls: ['./criminal-online-application-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalOnlineApplicationRouteComponent implements OnInit {
   loading: boolean = true;

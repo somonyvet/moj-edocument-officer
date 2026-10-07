@@ -1,36 +1,43 @@
-<mat-progress-bar mode="indeterminate" *ngIf="process || loading" class="app-loader"></mat-progress-bar>
+@if (process || loading) {
+  <mat-progress-bar mode="indeterminate" class="app-loader"></mat-progress-bar>
+}
 <div class="full-page-container">
-    <div class="header">
-        <div class="wrapper">
-            <nav mat-tab-nav-bar class="fire-tabs tab-no-b flex1">
-                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.key" routerLinkActive
-                    #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
-            </nav>
-            <ng-container *ngIf="store.selectedCriminalRecord?.do_expire_at">
-                <div class="warn-note">
-                    <span class="bright-text">
-                        ថ្ងៃផុតកំណត់: {{store.selectedCriminalRecord?.expired_date?.toDate()|dateDayKh | pipeCut0}} -
-                        {{store.selectedCriminalRecord?.expired_date?.toDate()|dateMonthKh}} -
-                        {{store.selectedCriminalRecord?.expired_date?.toDate()|dateYearKh}}
-                    </span>
-                </div>
-            </ng-container>
-            <ng-container *ngIf="!store.selectedCriminalRecord?.do_expire_at">
-                <ng-container *ngIf="store.selectedCriminalRecord?.do_verify">
-                    <button class="enbutton primary" mat-button (click)="doExpireDoc()">ចុះថ្ងៃផុតកំណត់</button>
-                </ng-container>
-                <ng-container *ngIf="!store.selectedCriminalRecord?.do_verify">
-                    <div class="warn-note">
-                        <span class="warn-text">
-                            ព្រឹត្តិបត្រមិនទាន់បានដាក់ចូលប្រព័ន្ធ Verify !
-                        </span>
-                    </div>
-                </ng-container>
-            </ng-container>
+  <div class="header">
+    <div class="wrapper">
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs tab-no-b flex1">
+        @for (link of tabs; track link) {
+          <a mat-tab-link [routerLink]="link.key" routerLinkActive
+          #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
+        }
+      </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+      @if (store.selectedCriminalRecord?.do_expire_at) {
+        <div class="warn-note">
+          <span class="bright-text">
+            ថ្ងៃផុតកំណត់: {{$safeNavigationMigration(store.selectedCriminalRecord?.expired_date?.toDate())|dateDayKh | pipeCut0}} -
+            {{$safeNavigationMigration(store.selectedCriminalRecord?.expired_date?.toDate())|dateMonthKh}} -
+            {{$safeNavigationMigration(store.selectedCriminalRecord?.expired_date?.toDate())|dateYearKh}}
+          </span>
         </div>
+      }
+      @if (!store.selectedCriminalRecord?.do_expire_at) {
+        @if (store.selectedCriminalRecord?.do_verify) {
+          <button class="enbutton primary" mat-button (click)="doExpireDoc()">ចុះថ្ងៃផុតកំណត់</button>
+        }
+        @if (!store.selectedCriminalRecord?.do_verify) {
+          <div class="warn-note">
+            <span class="warn-text">
+              ព្រឹត្តិបត្រមិនទាន់បានដាក់ចូលប្រព័ន្ធ Verify !
+            </span>
+          </div>
+        }
+      }
     </div>
-    <div class="body" style="overflow:auto">
-        <router-outlet *ngIf="!loading"></router-outlet>
-        <div class="fake"></div>
-    </div>
+  </div>
+  <div class="body" style="overflow:auto">
+    @if (!loading) {
+      <router-outlet></router-outlet>
+    }
+    <div class="fake"></div>
+  </div>
 </div>

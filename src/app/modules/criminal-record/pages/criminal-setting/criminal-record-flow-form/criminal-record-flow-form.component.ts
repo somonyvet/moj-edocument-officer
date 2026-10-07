@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryFormComponent } from 'src/app/modules/organization/category/category-form/category-form.component';
@@ -13,15 +13,17 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { DOCUMENT_FLOW_CATEGORY } from '../../../dummy/criminal.dummy';
 
 @Component({
-  selector: 'app-criminal-record-flow-form',
-  templateUrl: './criminal-record-flow-form.component.html',
-  styleUrls: ['./criminal-record-flow-form.component.scss']
+    selector: 'app-criminal-record-flow-form',
+    templateUrl: './criminal-record-flow-form.component.html',
+    styleUrls: ['./criminal-record-flow-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordFlowFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតចរន្តឯកសារ";
-  form: FormGroup;
+  form: UntypedFormGroup;
   department: AbstractControl;
   filterDepartments: any;
   category: any = DOCUMENT_FLOW_CATEGORY.normal;
@@ -29,7 +31,7 @@ export class CriminalRecordFlowFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CategoryFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: CriminalStore,
     private ds: CriminalService,
     private auth: AuthStore,

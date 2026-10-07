@@ -1,5 +1,5 @@
 import { DatabaseService } from 'src/app/shared/services/database.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tabs } from 'src/app/dummy/tabs';
@@ -8,9 +8,11 @@ import { AchievementStatusFormComponent } from './achievement-status-form/achiev
 import { AchievementStatusStore } from '../../../store/achievementStatus.store';
 
 @Component({
-  selector: 'app-achievement-status',
-  templateUrl: './achievement-status.component.html',
-  styleUrls: ['./achievement-status.component.scss']
+    selector: 'app-achievement-status',
+    templateUrl: './achievement-status.component.html',
+    styleUrls: ['./achievement-status.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AchievementStatusComponent implements OnInit,OnDestroy {
   tabs = tabs.planingAchievement

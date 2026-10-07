@@ -4,7 +4,8 @@ import { docStatusObj } from 'src/app/dummy/status';
 import { MappingService } from '../services/mapping.service';
 
 @Pipe({
-  name: 'dateOnly'
+    name: 'dateOnly',
+    standalone: false
 })
 export class DateOnlyPipe implements PipeTransform {
 
@@ -17,7 +18,8 @@ export class DateOnlyPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'docStatus'
+    name: 'docStatus',
+    standalone: false
 })
 export class DocStatusPipe implements PipeTransform {
 
@@ -39,7 +41,8 @@ export class DocStatusPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'findDocumentAccount'
+    name: 'findDocumentAccount',
+    standalone: false
 })
 export class FindDocumentAccountPipe implements PipeTransform {
 
@@ -52,7 +55,8 @@ export class FindDocumentAccountPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'filterData'
+    name: 'filterData',
+    standalone: false
 })
 export class FilterDataPipe implements PipeTransform {
 
@@ -68,7 +72,8 @@ export class FilterDataPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'filterUserPermissionApproval'
+    name: 'filterUserPermissionApproval',
+    standalone: false
 })
 export class FilterUserPermissionApprovalPipe implements PipeTransform {
 
@@ -81,7 +86,8 @@ export class FilterUserPermissionApprovalPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'validData'
+    name: 'validData',
+    standalone: false
 })
 export class validDataPipe implements PipeTransform {
 
@@ -94,7 +100,8 @@ export class validDataPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'checkWorkplace'
+    name: 'checkWorkplace',
+    standalone: false
 })
 export class CheckWorkplacePipe implements PipeTransform {
 
@@ -107,7 +114,8 @@ export class CheckWorkplacePipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'workplacesReport'
+    name: 'workplacesReport',
+    standalone: false
 })
 export class WorkplaceReportPipe implements PipeTransform {
 
@@ -122,7 +130,8 @@ export class WorkplaceReportPipe implements PipeTransform {
 
 
 @Pipe({
-  name: 'workplaceCompletedReport'
+    name: 'workplaceCompletedReport',
+    standalone: false
 })
 export class WorkplaceCompletedReportPipe implements PipeTransform {
 
@@ -133,7 +142,8 @@ export class WorkplaceCompletedReportPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'validateUrl'
+    name: 'validateUrl',
+    standalone: false
 })
 export class ValidateUrlPipe implements PipeTransform {
 
@@ -150,7 +160,8 @@ export class ValidateUrlPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'validDob'
+    name: 'validDob',
+    standalone: false
 })
 export class validDobPipe implements PipeTransform {
   transform(val1: any, val2: any, val3: any): boolean {

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { driveObj, } from '../../dummy/status';
 import { FILE_TYPE } from '../../dummy/fileType'
 @Pipe({
-  name: 'iconDrive'
+    name: 'iconDrive',
+    standalone: false
 })
 export class IconDrivePipe implements PipeTransform {
 

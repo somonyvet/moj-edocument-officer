@@ -1,69 +1,85 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close('no')">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close('no')">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ប្រភេទទិដ្ឋាការ</mat-label>
+        <input [matAutocomplete]="autoCompleteRole" formControlName="product" matInput
+          placeholder="Select visa type">
+        <mat-autocomplete [displayWith]="ds.displayVisaType" #autoCompleteRole="matAutocomplete">
+          @for (item of filterVisaTypes | async; track item; let i = $index) {
+            <mat-option [value]="item">
+              <div class="rows">
+                <span class="flex1">{{item?.name}}</span>
+                <span>{{item?.short_name}}</span>
+              </div>
+            </mat-option>
+          }
+        </mat-autocomplete>
+        @if (form.controls['product'].hasError('validKey')) {
+          <mat-error class="error-message">
+            <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
+          </mat-error>
+        }
+        @if (form.controls['product'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+      </mat-form-field>
     </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ប្រភេទទិដ្ឋាការ</mat-label>
-                <input [matAutocomplete]="autoCompleteRole" formControlName="product" matInput
-                    placeholder="Select visa type">
-                <mat-autocomplete [displayWith]="ds.displayVisaType" #autoCompleteRole="matAutocomplete">
-                    <mat-option *ngFor="let item of filterVisaTypes | async;let i=index" [value]="item">
-                        <div class="rows">
-                            <span class="flex1">{{item?.name}}</span>
-                            <span>{{item?.short_name}}</span>
-                        </div>
-                    </mat-option>
-                </mat-autocomplete>
-                <mat-error class="error-message" *ngIf="form.controls['product'].hasError('validKey')">
-                    <div>សូមជ្រើសរើសម្តងពីបញ្ជីដើម្បីបន្ត</div>
-                </mat-error>
-                <mat-error *ngIf="form.controls['product'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-group two">
-            <mat-form-field appearance="outline">
-                <mat-label>ចាប់ពីលេខ</mat-label>
-                <input type="number" formControlName="from_number" required matInput placeholder="Enter from number">
-                <mat-error *ngIf="form.controls['from_number'].hasError('required')">
-                    This field is required.
-                </mat-error>
-                <mat-error *ngIf="from_number?.hasError('validAmount')">
-                    Your input must be more than Zero.
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>ចំនួនសរុប</mat-label>
-                <input type="number" formControlName="qty" required matInput placeholder="Enter qty">
-                <mat-error *ngIf="form.controls['qty'].hasError('required')">
-                    This field is required.
-                </mat-error>
-                <mat-error *ngIf="qty?.hasError('validAmount')">
-                    Your input must be more than Zero.
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label>ដល់លេខ</mat-label>
-                <input type="number" formControlName="to_number" required matInput placeholder="Enter to number">
-                <mat-error *ngIf="form.controls['to_number'].hasError('required')">
-                    This field is required.
-                </mat-error>
-            </mat-form-field>
-        </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close>Cancel</a>
-        <button class="enbutton primary" [disabled]="!form?.valid" mat-button type="submit"
-            (click)="_onSave(form.value)">OK</button>
-    </mat-dialog-actions>
+    <div class="form-group two">
+      <mat-form-field appearance="outline">
+        <mat-label>ចាប់ពីលេខ</mat-label>
+        <input type="number" formControlName="from_number" required matInput placeholder="Enter from number">
+        @if (form.controls['from_number'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+        @if (from_number?.hasError('validAmount')) {
+          <mat-error>
+            Your input must be more than Zero.
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>ចំនួនសរុប</mat-label>
+        <input type="number" formControlName="qty" required matInput placeholder="Enter qty">
+        @if (form.controls['qty'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+        @if (qty?.hasError('validAmount')) {
+          <mat-error>
+            Your input must be more than Zero.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label>ដល់លេខ</mat-label>
+        <input type="number" formControlName="to_number" required matInput placeholder="Enter to number">
+        @if (form.controls['to_number'].hasError('required')) {
+          <mat-error>
+            This field is required.
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close>Cancel</a>
+    <button class="enbutton primary" [disabled]="!form?.valid" mat-button type="submit"
+    (click)="_onSave(form.value)">OK</button>
+  </mat-dialog-actions>
 </form>

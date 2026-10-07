@@ -1,54 +1,59 @@
 <div class="pin-box-wrapper" >
-    <div class="pin-box-header">
-        <h3>ឯកសារបានបិទបញ្ចប់</h3>
+  <div class="pin-box-header">
+    <h3>ឯកសារបានបិទបញ្ចប់</h3>
+  </div>
+
+  @if (store?.headerFinalDocuments?.length > 0) {
+    <div class="pin-box-content">
+      @for (item of store?.headerFinalDocuments; track item) {
+        <div class="pin-box-content-item" [routerLink]="['/document/' + $safeNavigationMigration(item?.key)]">
+          <div class="pin-box-icon">
+            <img [src]="$safeNavigationMigration(item?.coverFile?.downloadURL)" alt="">
+          </div>
+          <div class="pin-box-info">
+            <div class="doc-title">
+              {{item?.documentTitle?.length > 35 ?item?.documentTitle.substring(0, 35) + '...':item?.documentTitle}}
+            </div>
+            <div class="doc-number">
+              {{item?.documentNo?.length > 35 ?item?.documentNo.substring(0, 35) + '...':item?.documentNo}}
+            </div>
+          </div>
+        </div>
+      }
     </div>
+  }
+  <mat-divider></mat-divider>
 
-    <div class="pin-box-content" *ngIf="store?.headerFinalDocuments?.length > 0">
-        <div class="pin-box-content-item" *ngFor="let item of store?.headerFinalDocuments" [routerLink]="['/document/' + item?.key]">
-            <div class="pin-box-icon">
-                <img [src]="item?.coverFile?.downloadURL" alt="">
-            </div>
-            <div class="pin-box-info">
-                <div class="doc-title">
-                    {{item?.documentTitle?.length > 35 ?item?.documentTitle.substring(0, 35) + '...':item?.documentTitle}}
-                </div>
-                <div class="doc-number">
-                    {{item?.documentNo?.length > 35 ?item?.documentNo.substring(0, 35) + '...':item?.documentNo}}
-                </div>
-            </div>
+  <!-- <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="pin-box-container" [disableRipple]="true" *ngIf="store?.headerFinalDocuments?.length > 0">
+  <div mat-tab-link *ngFor="let item of store?.headerFinalDocuments" [routerLink]="['/document/' + item?.key]">
+    <div class="pin-box-content">
+      <div class="top-content">
+        <div class="pin-box-image">
+          <img [src]="item?.coverFile?.downloadURL" alt="">
         </div>
+      </div>
+      <div class="pin-box-text">
+        <div class="doc-title">
+          {{item?.documentTitle}}
+        </div>
+        <div class="doc-number">
+          {{item?.documentNo}}
+        </div>
+      </div>
     </div>
-    <mat-divider></mat-divider>
+  </div>
+</nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
-    <!-- <nav mat-tab-nav-bar class="pin-box-container" [disableRipple]="true" *ngIf="store?.headerFinalDocuments?.length > 0">
-        <div mat-tab-link *ngFor="let item of store?.headerFinalDocuments" [routerLink]="['/document/' + item?.key]">
-            <div class="pin-box-content">
-                <div class="top-content">
-                    <div class="pin-box-image">
-                        <img [src]="item?.coverFile?.downloadURL" alt="">
-                    </div>
-                </div>
-                <div class="pin-box-text">
-                    <div class="doc-title">
-                        {{item?.documentTitle}}
-                    </div>
-                    <div class="doc-number">
-                        {{item?.documentNo}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div *ngIf="store?.headerFinalDocuments?.length === 0">
-        <div class="empty-block">
-            <div class="center-block-empty">
-                <div class="empty-text">
-                    <p class="empty-state-desc">
-                        មិនមានឯកសារ
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div> -->
+<div *ngIf="store?.headerFinalDocuments?.length === 0">
+  <div class="empty-block">
+    <div class="center-block-empty">
+      <div class="empty-text">
+        <p class="empty-state-desc">
+          មិនមានឯកសារ
+        </p>
+      </div>
+    </div>
+  </div>
+</div> -->
 </div>

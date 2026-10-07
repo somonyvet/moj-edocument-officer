@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
-  selector: 'app-page-under-construction',
-  templateUrl: './page-under-construction.component.html',
-  styleUrls: ['./page-under-construction.component.scss']
+    selector: 'app-page-under-construction',
+    templateUrl: './page-under-construction.component.html',
+    styleUrls: ['./page-under-construction.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PageUnderConstructionComponent implements OnInit {
 

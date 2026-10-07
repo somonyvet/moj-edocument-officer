@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,9 +7,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-approve-application-route',
-  templateUrl: './criminal-record-approve-application-route.component.html',
-  styleUrls: ['./criminal-record-approve-application-route.component.scss']
+    selector: 'app-criminal-record-approve-application-route',
+    templateUrl: './criminal-record-approve-application-route.component.html',
+    styleUrls: ['./criminal-record-approve-application-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordApproveApplicationRouteComponent implements OnInit {
   tabs = criminal_tabs.internal_process_applications;

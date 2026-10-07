@@ -1,50 +1,58 @@
 <div class="dialog-content-wrapper" *mobxAutorun>
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close(null)">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close(null)">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper form-doc-full">
+    <div class="doc-rows-form">
+      <div class="doc-rows-container">
+        <h1>ជ្រើសរើសគណនី</h1>
+        <form class="search-form" [formGroup]="form">
+          <span class="material-icons">search</span>
+          <input formControlName="search" placeholder="ស្វែងរកគណនី" type="text">
+        </form>
+        <h4>គណនី</h4>
+        <cdk-virtual-scroll-viewport #scrollAccount autosize itemSize="52" class="virtual-list">
+          <div class="profile-avatar" *cdkVirtualFor="let item of $safeNavigationMigration(officer?.officers)">
+            <img [src]="item?.file?.downloadUrl||URL">
+            <div class="pro-txt">
+              <div>{{item?.displayName}}</div>
+              @if (item?.currentTitle) {
+                <div class="pro-txt-sub">{{item?.currentTitle}}
+                {{item?.currentDepartment?.name}}</div>
+              }
+            </div>
+            @if (store?.headerDocument?.created_by!==item?.key) {
+              <span class="material-icons"
+                (click)="_onRemoveDocumentAccount(item,false)"
+                [ngClass]="($safeNavigationMigration(item?.key)|findDocumentAccount:$safeNavigationMigration(officer?.userPermissions))?'rm':'ra'">
+                {{($safeNavigationMigration(item?.key)|findDocumentAccount:$safeNavigationMigration(officer?.userPermissions))?'remove_circle':'add_circle'}}
+              </span>
+            }
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
     </div>
-    <mat-dialog-content class="form-wrapper form-doc-full">
-        <div class="doc-rows-form">
-            <div class="doc-rows-container">
-                <h1>ជ្រើសរើសគណនី</h1>
-                <form class="search-form" [formGroup]="form">
-                    <span class="material-icons">search</span>
-                    <input formControlName="search" placeholder="ស្វែងរកគណនី" type="text">
-                </form>
-                <h4>គណនី</h4>
-                <virtual-scroller #scrollAccount [items]="officer?.officers" itemSize="52" class="virtual-list">
-                    <div class="profile-avatar" *ngFor="let item of scrollAccount?.viewPortItems">
-                        <img [src]="item?.file?.downloadUrl||URL">
-                        <div class="pro-txt">
-                            <div>{{item?.displayName}}</div>
-                            <div class="pro-txt-sub" *ngIf="item?.currentTitle">{{item?.currentTitle}}
-                                {{item?.currentDepartment?.name}}</div>
-                        </div>
-                        <span class="material-icons" *ngIf="store?.headerDocument?.created_by!==item?.key"
-                            (click)="_onRemoveDocumentAccount(item,false)"
-                            [ngClass]="(item?.key|findDocumentAccount:officer?.userPermissions)?'rm':'ra'">
-                            {{(item?.key|findDocumentAccount:officer?.userPermissions)?'remove_circle':'add_circle'}}
-                        </span>
-                    </div>
-                </virtual-scroller>
-            </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="dialog-options">
+    @if (officer?.userPermissions?.length>0) {
+      <div class="avatar-acc-add">
+        <div class="rows">
+          <h4 class="flex1">គណនីមានសិទ្ធិប្រើប្រាស់ឯកសារ ({{officer?.userPermissions?.length}}នាក់)</h4>
         </div>
-    </mat-dialog-content>
-    <mat-dialog-actions class="dialog-options">
-        <div class="avatar-acc-add" *ngIf="officer?.userPermissions?.length>0">
-            <div class="rows">
-                <h4 class="flex1">គណនីមានសិទ្ធិប្រើប្រាស់ឯកសារ ({{officer?.userPermissions?.length}}នាក់)</h4>
-            </div>
-            <div class="avatar-list-pro">
-                <app-avatar-officer [imgCss]="permission?.permission?.route"
-                    [borderColor]="permission?.permission?.color" (onRemove)="_onRemoveDocumentAccount($event,true)"
-                    [removeStyle]="true" [isOwner]="store?.headerDocument?.created_by===permission?.accountKey"
-                    [officerKey]="permission?.accountKey" *ngFor="let permission of officer?.userPermissions">
-                </app-avatar-officer>
-            </div>
+        <div class="avatar-list-pro">
+          @for (permission of officer?.userPermissions; track permission) {
+            <app-avatar-officer [imgCss]="$safeNavigationMigration(permission?.permission?.route)"
+              [borderColor]="$safeNavigationMigration(permission?.permission?.color)" (onRemove)="_onRemoveDocumentAccount($event,true)"
+              [removeStyle]="true" [isOwner]="store?.headerDocument?.created_by===permission?.accountKey"
+              [officerKey]="$safeNavigationMigration(permission?.accountKey)">
+            </app-avatar-officer>
+          }
         </div>
-    </mat-dialog-actions>
+      </div>
+    }
+  </mat-dialog-actions>
 </div>

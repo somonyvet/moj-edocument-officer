@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CriminalStore } from '../../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criminal-latter-print-route',
-  templateUrl: './criminal-latter-print-route.component.html',
-  styleUrls: ['./criminal-latter-print-route.component.scss']
+    selector: 'app-criminal-latter-print-route',
+    templateUrl: './criminal-latter-print-route.component.html',
+    styleUrls: ['./criminal-latter-print-route.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalLatterPrintRouteComponent implements OnInit {
 

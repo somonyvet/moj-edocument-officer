@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CRIMINAL_APPLICATION_LANGUAGE_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -12,13 +12,15 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
 import { PrintReceiptDialogComponent } from '../print-receipt-dialog/print-receipt-dialog.component';
 
 @Component({
-  selector: 'app-criminal-receipt-print-dialog',
-  templateUrl: './criminal-receipt-print-dialog.component.html',
-  styleUrls: ['./criminal-receipt-print-dialog.component.scss']
+    selector: 'app-criminal-receipt-print-dialog',
+    templateUrl: './criminal-receipt-print-dialog.component.html',
+    styleUrls: ['./criminal-receipt-print-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalReceiptPrintDialogComponent implements OnInit {
   shift_name: any = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
   date: any = null;
   holidays: any[] = [];
@@ -30,7 +32,7 @@ export class CriminalReceiptPrintDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: CriminalApplicationStore,
     private auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,

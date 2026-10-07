@@ -1,3 +1,5 @@
+@use "variable.scss" as *;
+
 * {
   outline: none;
 }
@@ -8,7 +10,7 @@ body {
   font-family: $appFont;
 }
 
-table.mat-table {
+table.mat-mdc-table {
   width: 100%;
 }
 
@@ -218,7 +220,7 @@ table.mat-table {
         width: 100%;
       }
 
-      .mat-checkbox {
+      .mat-mdc-checkbox {
         margin-bottom: 4px;
       }
     }
@@ -249,25 +251,25 @@ table.mat-table {
       // }
 
       .txt-code {
-        .mat-form-field {
+        .mat-mdc-form-field {
           width: 50px !important;
           margin: 0 3px !important;
           text-align: center;
 
-          .mat-input-element {
+          .mat-mdc-input-element {
             font-size: 24px;
             font-weight: 600;
           }
         }
       }
 
-      .mat-form-field {
+      .mat-mdc-form-field {
         margin: 0 0 16px !important;
         width: 100% !important;
       }
     }
 
-    .mat-input-element {
+    .mat-mdc-input-element {
       line-height: 24px;
       font-size: 13px;
       font-family: $appFont;
@@ -278,7 +280,7 @@ table.mat-table {
       margin-left: 6px;
     }
 
-    .mat-form-field,
+    .mat-mdc-form-field,
     .editor {
       margin: 3px 6px;
       width: 100%;
@@ -287,7 +289,7 @@ table.mat-table {
 
     &.two,
     &.editor {
-      .mat-form-field,
+      .mat-mdc-form-field,
       .editor {
         width: calc(100% / 2 - 12px);
       }
@@ -295,14 +297,14 @@ table.mat-table {
 
     &.three,
     &.editor {
-      .mat-form-field {
+      .mat-mdc-form-field {
         width: calc(100% / 3 - 18px);
       }
     }
 
     &.four,
     &.editor {
-      .mat-form-field {
+      .mat-mdc-form-field {
         width: calc(100% / 4 - 12px);
       }
     }
@@ -351,7 +353,7 @@ table.mat-table {
     margin-bottom: 16px;
   }
 
-  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  .mat-mdc-checkbox-checked.mat-accent .mdc-checkbox__background {
     background-color: $appprimaryColor;
   }
 }
@@ -623,12 +625,12 @@ table.mat-table {
 }
 
 .view-file-container {
-  .mat-list-base {
+  .mat-mdc-list-base {
     display: flex;
     flex-wrap: wrap;
 
-    .mat-list-item,
-    .mat-list-option {
+    .mat-mdc-list-item,
+    .mat-mdc-list-option {
       height: auto;
       width: calc(100% / 3);
     }
@@ -768,11 +770,11 @@ table.mat-table {
     background-color: #fff;
     font-family: $appFont;
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       color: $descColor;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       width: 28px;
       height: 28px;
       line-height: 28px;
@@ -840,7 +842,7 @@ table.mat-table {
     justify-content: flex-end;
     visibility: hidden;
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       height: 30px;
       width: 30px;
       line-height: 30px;
@@ -1101,7 +1103,7 @@ table.mat-table {
   }
 }
 
-.mat-menu-item {
+.mat-mdc-menu-item {
   &.active {
     background-color: $menuActiveColor;
     color: $primary;
@@ -1202,7 +1204,7 @@ table.mat-table {
     font-size: 24px;
   }
 
-  .mat-icon-button {
+  .mat-mdc-icon-button {
     background-color: #edeff1;
     border-radius: 4px;
   }
@@ -1348,7 +1350,7 @@ table.mat-table {
 .item-list-panel {
   max-width: unset !important;
 
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     padding: 1px;
     border-radius: 15px;
 
@@ -1441,7 +1443,7 @@ table.mat-table {
     }
   }
 
-  // .mat-form-field-wrapper {
+  // .mat-mdc-text-field-wrapper {
   //   // padding-bottom: 0;
   // }
   .table-wrapper {
@@ -1477,18 +1479,18 @@ table.mat-table {
       .table-wrapper {
         margin-top: 0;
 
-        .mat-button {
+        .mat-mdc-button {
           border-radius: 0;
         }
       }
     }
 
     .form-group {
-      .mat-form-field {
+      .mat-mdc-form-field {
         margin: 0 6px;
       }
 
-      .mat-input-element {
+      .mat-mdc-input-element {
         line-height: normal;
         font-size: 14px;
       }
@@ -1615,7 +1617,7 @@ table.mat-table {
 
 .form-dialog-wrapper {
   // width: 350px;
-  .mat-puc.mat-button {
+  .mat-puc.mat-mdc-button {
     padding: 3px 24px !important;
     font-size: 14px !important;
     margin-left: 12px !important;
@@ -1652,7 +1654,7 @@ table.mat-table {
     margin: 0;
   }
 
-  .mat-puc.mat-button {
+  .mat-puc.mat-mdc-button {
     margin-left: 12px;
     padding: 4px 22px;
   }
@@ -1728,7 +1730,7 @@ table.mat-table {
   height: 90vh;
   max-width: unset !important;
 
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     padding: 24px;
     border-radius: 0px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
@@ -1884,7 +1886,7 @@ table.mat-table {
   }
 }
 
-.mat-tab-label {
+.mat-mdc-tab {
   min-width: unset !important;
 }
 
@@ -1914,7 +1916,7 @@ table.mat-table {
   // border-top: 1px solid #ccc;
 }
 
-.mat-tab-body-wrapper {
+.mat-mdc-tab-body-wrapper {
   height: 100%;
 }
 
@@ -2051,7 +2053,7 @@ table.mat-table {
 
   .upload-button {
     // margin-bottom: 40px;
-    &.mat-button {
+    &.mat-mdc-button {
       display: flex;
       flex-direction: row;
       background: $primary;
@@ -2078,27 +2080,27 @@ table.mat-table {
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.06);
   border: none !important;
 
-  .mat-tab-label {
+  .mat-mdc-tab {
     font-family: $appFontTitle;
     font-size: 16px;
     font-weight: 500;
 
-    .mat-tab-label-content {
+    .mdc-tab__text-label {
       font-family: $appFont;
       font-weight: 600;
     }
 
-    &.mat-tab-label-active {
+    &.mdc-tab--active {
       color: $primary;
       opacity: 1;
     }
   }
 
-  .mat-tab-labels {
+  .mat-mdc-tab-labels {
     justify-content: flex-start;
   }
 
-  .mat-tab-label {
+  .mat-mdc-tab {
     min-width: unset !important;
   }
 
@@ -2123,13 +2125,13 @@ table.mat-table {
     padding: 0;
   }
 
-  .mat-checkbox {
+  .mat-mdc-checkbox {
     margin: 0 8px 12px;
   }
 }
 
-.mat-list-base .mat-list-item .mat-list-text,
-.mat-list-base .mat-list-option .mat-list-text {
+.mat-mdc-list-base .mat-mdc-list-item .mat-mdc-list-item-unscoped-content,
+.mat-mdc-list-base .mat-mdc-list-option .mat-mdc-list-item-unscoped-content {
   overflow: visible !important;
 }
 
@@ -2223,7 +2225,7 @@ table.mat-table {
   width: 100% !important;
   overflow: hidden;
 
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100% !important;
@@ -2295,7 +2297,7 @@ table.mat-table {
     color: #666;
     font-size: 14px;
 
-    .mat-list-item-content {
+    .mat-mdc-list-item-unscoped-content {
       padding: 0 !important;
     }
 
@@ -2436,18 +2438,18 @@ iframe,
     display: block;
   }
 
-  button.mat-menu-item {
+  button.mat-mdc-menu-item {
     padding: 0 24px;
     min-height: 38px;
     line-height: 38px;
     display: block;
   }
 
-  .mat-menu-content {
+  .mat-mdc-menu-content {
     padding: 0 !important;
   }
 
-  .mat-menu-item-submenu-trigger::after {
+  .mat-mdc-menu-item-submenu-trigger::after {
     width: 0;
     height: 0;
     border-style: solid;
@@ -2520,7 +2522,7 @@ tbody {
 }
 
 .tag-content {
-  &.mat-menu-content {
+  &.mat-mdc-menu-content {
     padding: 0 !important;
   }
 
@@ -2554,7 +2556,7 @@ tbody {
 }
 
 .nopadding {
-  .mat-menu-content {
+  .mat-mdc-menu-content {
     padding: 0 !important;
   }
 }
@@ -2564,8 +2566,8 @@ tbody {
 }
 
 .user-lists {
-  &.mat-list {
-    .mat-list-item {
+  &.mat-mdc-list {
+    .mat-mdc-list-item {
       border-radius: 8px;
       border: solid 1px #ebebeb;
       margin-bottom: 4px;
@@ -2583,17 +2585,17 @@ tbody {
 }
 
 .search-box {
-  .mat-form-field-wrapper {
+  .mat-mdc-text-field-wrapper {
     flex: 1;
     padding: 0;
 
-    .mat-form-field-flex {
+    .mat-mdc-form-field-flex {
       min-width: 260px;
       max-width: 400px;
       padding: 0;
       background-color: #f5f5f5 !important;
 
-      .mat-form-field-infix {
+      .mat-mdc-form-field-infix {
         padding: 0;
         border: none;
       }
@@ -2672,7 +2674,7 @@ tbody {
   align-self: flex-start;
   flex: 1;
 
-  .mat-button {
+  .mat-mdc-button {
     border-radius: 4px 0 0 4px;
     padding: 0;
     min-width: 36px;
@@ -2725,15 +2727,15 @@ tbody {
     display: flex;
     flex-direction: column;
 
-    .mat-radio-button {
+    .mat-mdc-radio-button {
       margin-bottom: 6px;
     }
 
-    .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    .mat-mdc-radio-button.mat-accent .mdc-radio__inner-circle {
       background-color: $primary;
     }
 
-    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    .mat-mdc-radio-button.mat-accent.mat-mdc-radio-checked .mdc-radio__outer-circle {
       border-color: $primary;
     }
   }
@@ -2834,8 +2836,8 @@ tbody {
 }
 
 .mat-progress-doc {
-  &.mat-progress-bar {
-    .mat-progress-bar-fill::after {
+  &.mat-mdc-progress-bar {
+    .mdc-linear-progress__bar-inner::after {
       background-color: $svgfillcolor;
     }
   }
@@ -3032,7 +3034,7 @@ tbody {
 }
 
 .login-with-btn {
-  &.mat-button {
+  &.mat-mdc-button {
     align-items: center;
     background-color: $btnBg;
     color: $color;
@@ -3074,18 +3076,31 @@ tbody {
   }
 }
 
-.mat-progress-bar-fill::after {
+.mdc-linear-progress__bar-inner::after {
   background-color: $primary !important;
 }
 
 .cs-dialog-wrapper {
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     padding: 0;
     position: relative;
-    border-radius: 16px;
     overflow: unset;
 
-    .mat-dialog-content {
+    // Legacy's single .mat-dialog-container served as both the outer wrapper
+    // and the actual visible surface (background/shadow/radius all on one
+    // element). MDC split that into two nested elements: .mat-mdc-dialog-
+    // container (outer, layout/positioning only) and .mat-mdc-dialog-surface
+    // (inner, the element that actually renders the visible box -- shadow,
+    // background, and border-radius). The class-rename sweep correctly
+    // updated .mat-dialog-container -> .mat-mdc-dialog-container, but that
+    // alone sets border-radius on an element with no visible box to round;
+    // the surface still falls back to MDC's own 4px default, giving the
+    // dialog much squarer corners than intended.
+    .mat-mdc-dialog-surface {
+      border-radius: 16px;
+    }
+
+    .mat-mdc-dialog-content {
       max-height: unset;
       flex: 1;
       display: flex;
@@ -3119,7 +3134,7 @@ tbody {
       cursor: pointer;
     }
 
-    .mat-dialog-title {
+    .mat-mdc-dialog-title {
       margin: 0;
       padding: 0;
       font-family: $appFontTitle;
@@ -3132,12 +3147,12 @@ tbody {
     flex: 1;
   }
 
-  .mat-dialog-actions .dialog-options {
+  .mat-mdc-dialog-actions .dialog-options {
     display: flex;
     flex-direction: column;
   }
 
-  .mat-dialog-content {
+  .mat-mdc-dialog-content {
     padding: 16px;
     margin: 0;
 
@@ -3165,7 +3180,7 @@ tbody {
     }
   }
 
-  .mat-dialog-actions {
+  .mat-mdc-dialog-actions {
     padding: 16px;
     margin: 0;
     border-top: solid 1px #ebebeb;
@@ -3312,44 +3327,41 @@ tbody {
     }
   }
 
-  .mat-tab-header,
-  .mat-tab-nav-bar {
+  .mat-mdc-tab-header,
+  .mat-mdc-tab-nav-bar {
     width: 100%;
     display: flex;
     border-bottom: solid 1px $border;
-
-    &.cs-tab-group-nav {
-      .mat-tab-label-active {
-        color: $link;
-      }
-    }
   }
 
-  .mat-tab-links {
-    height: 48px;
+  // Brief (~1s) flash on first load where the underline sits below the
+  // divider before snapping into its final position: font loading is ruled
+  // out (verified byte-identical @font-face/index.html against the old app),
+  // leaving MDC's own built-in measurement/transition on the tab list and
+  // indicator as the cause -- a mechanism legacy's tab-nav-bar didn't have.
+  // This page only ever has one tab, so there's no sliding/pagination
+  // animation to lose by disabling it. NOT globalized: pages with more than
+  // one tab need that transition for the sliding-indicator animation between
+  // tabs. Scoped to just these two elements (not a blanket
+  // `.mat-mdc-tab-nav-bar *`, which also killed the click ripple's own
+  // animation -- .mat-ripple-element/.mdc-tab__ripple::before are a separate,
+  // wanted effect and must keep their transition).
+  .mat-mdc-tab-list,
+  .mdc-tab-indicator__content {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  // Tab look (color, height, underline, margins, pagination-hiding, overflow)
+  // now lives in the global rule in styles.scss so every tab bar in the app
+  // shares it instead of duplicating it per page.
+  & {
+    overflow: visible !important;
+  }
+
+  .mat-mdc-tab-links {
     min-width: 96px;
     margin: 0 10px 0 0;
-
-    a {
-      color: $color;
-      text-transform: capitalize;
-      font-weight: 600;
-      font-size: 16px;
-      font-family: $appFont;
-
-      &.mat-tab-link {
-        height: 60px !important;
-        min-width: unset !important;
-        margin: -3px 10px !important;
-        padding: 10px 5px !important;
-        opacity: 1;
-      }
-
-      &.mat-tab-label-active {
-        color: $primary;
-        opacity: 1;
-      }
-    }
   }
 }
 
@@ -3526,22 +3538,22 @@ tbody {
     }
   }
 
-  .mat-tab-nav-bar {
+  .mat-mdc-tab-nav-bar {
     padding: 0 24px;
   }
 
-  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  .mat-mdc-tab-nav-bar.mat-primary .mdc-tab-indicator__content--underline {
     background-color: $primary !important;
   }
 
-  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  .mat-mdc-tab-nav-bar.mat-primary .mdc-tab-indicator__content--underline {
     display: block !important;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     height: 3px;
   }
 
-  .mat-tab-link {
+  .mat-mdc-tab-link {
     min-width: unset;
     height: 44px;
     padding: 0 16px !important;
@@ -3550,7 +3562,7 @@ tbody {
     color: $color;
     font-family: $font !important;
 
-    &.mat-tab-label-active {
+    &.mdc-tab--active {
       color: $primary;
       opacity: 1;
       position: relative;
@@ -3572,6 +3584,23 @@ tbody {
 
   &.tb-mb {
     margin-bottom: 80px;
+  }
+
+  // This project's own M2 theme generates a 48px icon-button default
+  // app-wide (--mdc-icon-button-state-layer-size: 48px, confirmed directly
+  // in the compiled theme output earlier this session), vs. legacy's native
+  // 40px (confirmed from the old app's installed Material v12 package). In
+  // a table row, that 8px difference becomes the row's own height (the
+  // tallest thing in the row), making every row ~8px taller than the old
+  // app and fewer rows fit on screen. Restoring 40px specifically for
+  // in-table icon buttons (not globally, which could affect other uses of
+  // the same component elsewhere that may actually want 48px).
+  .mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 40px;
+    --mat-icon-button-state-layer-size: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
   }
 
   &.as-table-home-wrapper {
@@ -3878,14 +3907,14 @@ tbody {
     margin: 0 auto;
 
     &.mat-doc-nav-bar {
-      .mat-tab-header,
-      .mat-tab-nav-bar {
+      .mat-mdc-tab-header,
+      .mat-mdc-tab-nav-bar {
         width: 100%;
         display: flex;
         border-bottom: none;
       }
 
-      .mat-tab-links {
+      .mat-mdc-tab-links {
         height: 48px;
         min-width: 96px;
         margin: 0 10px 0 0;
@@ -3897,7 +3926,7 @@ tbody {
           font-size: 14px;
           font-family: $appFont;
 
-          &.mat-tab-link {
+          &.mat-mdc-tab-link {
             height: 60px;
             min-width: unset;
             margin: -3px 10px;
@@ -3909,7 +3938,7 @@ tbody {
             }
           }
 
-          &.mat-tab-label-active {
+          &.mdc-tab--active {
             color: $primary;
             opacity: 1;
           }
@@ -4679,7 +4708,7 @@ tbody {
     margin: 16px 16px 6px;
     flex: 1;
 
-    .mat-form-field {
+    .mat-mdc-form-field {
       width: 100%;
     }
   }
@@ -4695,7 +4724,7 @@ tbody {
     align-items: center;
     font-size: inherit;
 
-    .mat-button {
+    .mat-mdc-button {
       background-color: #e4e6eb;
       border-radius: 4px;
       font-weight: 600;
@@ -4725,7 +4754,7 @@ tbody {
   }
 }
 
-.mat-list {
+.mat-mdc-list {
   &.mat-pos-office {
     line-height: normal;
 
@@ -4741,7 +4770,7 @@ tbody {
   }
 }
 
-.mat-chip.mat-standard-chip {
+.mat-mdc-chip.mat-mdc-standard-chip {
   background-color: #e4e6eb;
 }
 
@@ -5037,7 +5066,7 @@ tbody {
     height: auto;
   }
 
-  .mat-progress-bar {
+  .mat-mdc-progress-bar {
     z-index: 99;
   }
 
@@ -5139,7 +5168,7 @@ tbody {
       margin: 0 0 0 6px;
       padding: 0;
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         color: #6b6c71;
         background-color: #eff2f5;
         height: 30px !important;
@@ -5179,7 +5208,7 @@ tbody {
   &.jcs {
     justify-content: flex-start;
 
-    .mat-button {
+    .mat-mdc-button {
       margin-right: 8px;
     }
 
@@ -5208,13 +5237,13 @@ tbody {
     .doc-sticky-action {
       flex-direction: row;
 
-      .mat-button {
+      .mat-mdc-button {
         margin: 0 2px;
       }
     }
   }
 
-  .mat-button {
+  .mat-mdc-button {
     background-color: #e4e6eb;
     font-family: $appFontStrong;
     border-radius: 30px;
@@ -5225,7 +5254,7 @@ tbody {
   }
 
   .mat-done {
-    &.mat-button {
+    &.mat-mdc-button {
       background-color: $link;
       color: #fff;
       font-family: $appFontStrong;
@@ -5234,7 +5263,7 @@ tbody {
   }
 
   .mat-disable {
-    &.mat-button {
+    &.mat-mdc-button {
       background-color: $red;
       color: #fff;
       font-family: $appFontStrong;
@@ -5623,7 +5652,7 @@ p {
   }
 }
 
-.mat-menu-panel {
+.mat-mdc-menu-panel {
   max-width: unset !important;
   min-height: unset !important;
 }
@@ -5817,7 +5846,7 @@ p {
   }
 
   .mat-pin-doc {
-    &.mat-button {
+    &.mat-mdc-button {
       font-family: $appFont;
       min-width: unset;
       padding: 0 10px;
@@ -5836,7 +5865,7 @@ p {
   }
 
   .mat-publish {
-    &.mat-button {
+    &.mat-mdc-button {
       background-color: $link;
       color: #fff;
       font-family: $appFontStrong;
@@ -5844,7 +5873,7 @@ p {
   }
 
   .mat-option-menu {
-    &.mat-button {
+    &.mat-mdc-button {
       color: $link;
       border: solid 2px #e7f3ff;
       line-height: 32px;
@@ -5856,7 +5885,7 @@ p {
     }
   }
 
-  .mat-button {
+  .mat-mdc-button {
     background-color: #e4e6eb;
     margin-right: 8px;
     font-family: $appFontStrong;
@@ -5876,7 +5905,7 @@ p {
       width: 32px;
     }
 
-    .mat-button {
+    .mat-mdc-button {
       background-color: transparent;
       padding: 0 8px;
     }
@@ -5910,7 +5939,7 @@ p {
     align-items: center;
 
     .Normal {
-      &.mat-menu-item {
+      &.mat-mdc-menu-item {
         .mat-icon {
           color: $link;
         }
@@ -5918,20 +5947,20 @@ p {
     }
 
     .Urgent {
-      &.mat-menu-item {
+      &.mat-mdc-menu-item {
         .mat-icon {
           color: $red;
         }
       }
     }
 
-    .mat-menu-item .mat-icon {
+    .mat-mdc-menu-item .mat-icon {
       &.mat-checked-icon {
         color: $link;
       }
     }
 
-    .mat-button {
+    .mat-mdc-button {
       flex: 1;
     }
   }
@@ -6022,7 +6051,7 @@ p {
       right: 30px;
 
       // display: flex;
-      .mat-add-new.mat-button {
+      .mat-add-new.mat-mdc-button {
         margin-right: 8px;
 
         &:hover {
@@ -6034,7 +6063,7 @@ p {
         }
       }
 
-      .mat-option-menu.mat-button {
+      .mat-option-menu.mat-mdc-button {
         color: #1a73e8;
         border: 2px solid #e7f3ff;
         line-height: 32px;
@@ -6077,7 +6106,7 @@ p {
         margin-left: 8px;
         color: #f44336 !important;
 
-        .mat-icon-button {
+        .mat-mdc-icon-button {
           color: #f44336 !important;
         }
       }
@@ -6102,7 +6131,7 @@ p {
         margin-left: 10px;
       }
 
-      &.mat-button-disabled {
+      &.mat-mdc-button-disabled {
         box-shadow: none;
 
         &:hover {
@@ -6128,7 +6157,7 @@ p {
         margin-bottom: 6px;
       }
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         background-color: $btnBg;
         margin-right: 8px;
       }
@@ -6157,7 +6186,7 @@ p {
     .right-box-dbc {
       display: flex;
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         background-color: $btnBg;
       }
     }
@@ -6166,7 +6195,7 @@ p {
   .doc-preview-comment-row-icon {
     justify-content: flex-end;
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       background-color: $btnBg;
       margin-left: 8px;
     }
@@ -6175,7 +6204,7 @@ p {
   .doc-preview-comment-btn-group {
     display: flex;
 
-    .mat-button {
+    .mat-mdc-button {
       border-radius: 30px;
       background-color: $btnBg;
       margin-right: 8px;
@@ -6203,15 +6232,15 @@ p {
     flex: 1;
     overflow-y: auto;
 
-    .mat-list-base .mat-list-item,
-    .mat-list-base .mat-list-option {
+    .mat-mdc-list-base .mat-mdc-list-item,
+    .mat-mdc-list-base .mat-mdc-list-option {
       font-family: $appFont;
       line-height: normal;
       height: unset;
       padding: 6px;
       font-size: 14px;
 
-      &.mat-list-item-disabled {
+      &.mdc-list-item--disabled {
         background-color: transparent;
         color: $descColor;
       }
@@ -6548,7 +6577,7 @@ p {
   }
 }
 
-.mat-menu-panel.cmat-menu-container {
+.mat-mdc-menu-panel.cmat-menu-container {
   min-width: 312px;
 
   .cmat-menu-content {
@@ -6602,7 +6631,7 @@ p {
   }
 }
 
-.mat-menu-panel.cmat-menu-container {
+.mat-mdc-menu-panel.cmat-menu-container {
   .cmat-menu-c-container {
     position: relative;
     padding: 12px 20px;
@@ -6845,7 +6874,7 @@ p {
   align-items: center;
   font-family: $appFont;
 
-  .mat-spinner {
+  .mat-mdc-progress-spinner {
     margin-right: 6px;
   }
 }
@@ -6873,7 +6902,7 @@ p {
       font-family: $appFont;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       color: $descColor;
 
       &.link {
@@ -6890,7 +6919,7 @@ p {
     margin: 8px;
     position: relative;
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       box-shadow: 0 2px 6px rgb(0 0 0 / 10%);
       background-color: #fff;
       color: #1c1d21;
@@ -7049,25 +7078,25 @@ p {
   }
 }
 
-.mat-list-checkbox {
-  &.mat-selection-list {
+.mat-mdc-list-option-checkbox-before {
+  &.mat-mdc-selection-list {
     font-family: $appFont;
 
-    .mat-list-item {
+    .mat-mdc-list-item {
       font-family: $appFont;
     }
   }
 }
 
-.mat-selection-list {
+.mat-mdc-selection-list {
   font-family: $appFont;
 
   &.mat-select-form {
-    .mat-list-item {
+    .mat-mdc-list-item {
       font-family: $appFont;
       height: 36px;
 
-      .mat-list-item-content {
+      .mat-mdc-list-item-unscoped-content {
         padding: 0 6px;
         border-radius: 2px;
       }
@@ -7078,7 +7107,7 @@ p {
 .cs-tab-group {
   height: 100%;
 
-  .mat-tab-label {
+  .mat-mdc-tab {
     background-color: #e4e6eb;
     margin: 4px;
     min-width: 68px !important;
@@ -7088,7 +7117,7 @@ p {
     opacity: 1;
     font-family: $appFont;
 
-    &.mat-tab-label-active {
+    &.mdc-tab--active {
       background-color: #e7f3ff;
       color: $link;
     }
@@ -7104,8 +7133,8 @@ p {
     }
   }
 
-  &.mat-tab-group.mat-primary .mat-ink-bar,
-  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  &.mat-mdc-tab-group.mat-primary .mdc-tab-indicator__content--underline,
+  .mat-mdc-tab-nav-bar.mat-primary .mdc-tab-indicator__content--underline {
     display: none;
   }
 }
@@ -7115,11 +7144,11 @@ p {
   margin-left: 8px;
   margin-right: 8px;
 
-  .mat-tab-header-pagination-disabled {
+  .mat-mdc-tab-header-pagination-disabled {
     display: none !important;
   }
 
-  .mat-tab-link {
+  .mat-mdc-tab-link {
     min-width: unset;
     font-family: $appFontStrong;
     color: $subtitle;
@@ -7129,7 +7158,7 @@ p {
   }
 }
 
-.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+.mat-mdc-tab-header-pagination-controls-enabled .mat-mdc-tab-header-pagination {
   border-radius: 80px;
   width: 40px;
   height: 40px;
@@ -7216,7 +7245,7 @@ p {
     background-color: #fff;
     border: none;
 
-    .mat-tab-link {
+    .mat-mdc-tab-link {
       height: 326px;
       width: 326px;
       opacity: 1;
@@ -7224,7 +7253,7 @@ p {
     }
   }
 
-  .mat-tab-header-pagination {
+  .mat-mdc-tab-header-pagination {
     height: 50px;
     position: absolute;
     border-radius: 50%;
@@ -7233,15 +7262,15 @@ p {
     background-color: #fff;
   }
 
-  .mat-tab-header-pagination-after {
+  .mat-mdc-tab-header-pagination-after {
     right: 6px;
   }
 
-  .mat-tab-header-pagination-before {
+  .mat-mdc-tab-header-pagination-before {
     left: 6px;
   }
 
-  .mat-tab-header-pagination-disabled {
+  .mat-mdc-tab-header-pagination-disabled {
     display: none !important;
   }
 
@@ -7373,7 +7402,7 @@ p {
     background-color: #fff;
     border: none;
 
-    .mat-tab-link {
+    .mat-mdc-tab-link {
       height: 326px;
       width: 326px;
       opacity: 1;
@@ -7381,7 +7410,7 @@ p {
     }
   }
 
-  .mat-tab-header-pagination {
+  .mat-mdc-tab-header-pagination {
     height: 50px;
     position: absolute;
     border-radius: 50%;
@@ -7390,15 +7419,15 @@ p {
     background-color: #fff;
   }
 
-  .mat-tab-header-pagination-after {
+  .mat-mdc-tab-header-pagination-after {
     right: 6px;
   }
 
-  .mat-tab-header-pagination-before {
+  .mat-mdc-tab-header-pagination-before {
     left: 6px;
   }
 
-  .mat-tab-header-pagination-disabled {
+  .mat-mdc-tab-header-pagination-disabled {
     display: none !important;
   }
 
@@ -7545,7 +7574,7 @@ p {
 .map-auto-complete {
   max-height: calc(100vh - 160px);
 
-  &.mat-option {
+  &.mat-mdc-option {
     height: unset;
     padding: 0;
   }
@@ -7611,7 +7640,7 @@ p {
   }
 }
 
-.mat-progress-bar {
+.mat-mdc-progress-bar {
   &.task-loading {
     z-index: 9999;
     position: absolute;
@@ -7629,7 +7658,7 @@ p {
     border-right: solid 1px $border;
     position: relative;
 
-    .mat-selection-list {
+    .mat-mdc-selection-list {
       height: 431px;
       position: sticky;
       overflow: auto;
@@ -7801,7 +7830,7 @@ p {
   }
 }
 
-.mat-radio-group {
+.mat-mdc-radio-group {
   &.permission-radio-group {
     display: flex;
     flex-direction: column;
@@ -7962,7 +7991,7 @@ p {
   }
 }
 
-.mat-autocomplete-panel {
+.mat-mdc-autocomplete-panel {
   &.header-auto-complete {
     max-height: calc(100% - 90px) !important;
     min-width: 315px !important;
@@ -7981,8 +8010,30 @@ p {
       }
     }
 
-    .mat-option-text {
+    .mdc-list-item__primary-text {
       overflow: unset;
+      /* Material's own option CSS puts margin-right: auto on this span (a flex
+         child of .mat-mdc-option) to shove text flush-left and leave room for a
+         trailing checkmark icon. For this icon-less empty-state row that auto
+         margin instead pins the whole block to the left edge, so cancel it and
+         let the span fill the option's full content width. */
+      width: 100%;
+      margin-right: 0;
+    }
+
+    .empty-block {
+      width: 100%;
+
+      .center-block-empty {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .empty-state-desc {
+        white-space: nowrap;
+        margin: 0;
+        text-align: center;
+      }
     }
 
     .search-content-item {
@@ -8030,7 +8081,7 @@ p {
         }
       }
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         height: 33px;
         width: 33px;
         display: flex;
@@ -8049,7 +8100,7 @@ p {
       }
     }
 
-    .mat-option {
+    .mat-mdc-option {
       height: unset;
 
       &:hover {
@@ -8211,12 +8262,12 @@ p {
     box-shadow: none;
   }
 
-  .mat-tab-nav-bar {
+  .mat-mdc-tab-nav-bar {
     border: none;
   }
 
-  .mat-tab-header,
-  .mat-tab-nav-bar {
+  .mat-mdc-tab-header,
+  .mat-mdc-tab-nav-bar {
     backdrop-filter: saturate(180%) blur(20px);
     background-color: rgba(255, 255, 255, 1);
     width: 100%;
@@ -8226,13 +8277,13 @@ p {
     top: 115px;
   }
 
-  .mat-tab-links {
+  .mat-mdc-tab-links {
     height: 44px !important;
     min-width: 96px !important;
     margin: 0 10px !important;
 
     a {
-      &.mat-tab-link {
+      &.mat-mdc-tab-link {
         height: 50px !important;
         min-width: unset !important;
         margin: 0 10px !important;
@@ -8248,7 +8299,7 @@ p {
       font-weight: 500;
       font-size: 15px;
 
-      &.mat-tab-label-active {
+      &.mdc-tab--active {
         color: $appprimaryColor;
         opacity: 1;
       }
@@ -8403,7 +8454,7 @@ p {
           background-color: $appprimaryColor;
         }
 
-        .list-items .mat-button {
+        .list-items .mat-mdc-button {
           border-radius: 0;
           padding-left: 16px;
           padding-right: 16px;
@@ -8427,7 +8478,7 @@ p {
           font-weight: 700;
         }
 
-        .mat-button {
+        .mat-mdc-button {
           min-width: 0;
           width: 100%;
           padding: 8px 0;
@@ -8455,7 +8506,7 @@ p {
             }
           }
 
-          .mat-button-wrapper {
+          .mdc-button__label {
             width: 100%;
             display: flex;
           }
@@ -8603,7 +8654,7 @@ p {
           }
         }
 
-        .mat-button {
+        .mat-mdc-button {
           margin-left: 12px;
         }
       }
@@ -8737,7 +8788,7 @@ p {
         .new-data {
           padding: 15px;
 
-          .mat-raised-button {
+          .mat-mdc-raised-button {
             display: flex;
             width: 100%;
             background-color: #f2f3f4;
@@ -8874,7 +8925,7 @@ p {
       margin-right: 12px;
       font-family: $appFont;
 
-      .mat-button-wrapper {
+      .mdc-button__label {
         display: flex;
         align-items: center;
       }
@@ -9057,7 +9108,7 @@ p {
           justify-content: center;
           z-index: 2;
 
-          .mat-icon-button {
+          .mat-mdc-icon-button {
             background-color: #fff;
 
             .mat-icon {
@@ -9100,7 +9151,7 @@ p {
       display: flex;
       align-items: center;
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         background-color: #fff;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 
@@ -9133,7 +9184,7 @@ p {
           }
         }
 
-        .mat-button {
+        .mat-mdc-button {
           margin-left: 12px;
         }
       }
@@ -9267,7 +9318,7 @@ p {
         .new-data {
           padding: 15px;
 
-          .mat-raised-button {
+          .mat-mdc-raised-button {
             display: flex;
             width: 100%;
             background-color: #f2f3f4;
@@ -9338,7 +9389,7 @@ p {
         display: flex;
         align-items: center;
 
-        .mat-icon-button {
+        .mat-mdc-icon-button {
           background-color: #fff;
           box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 
@@ -9407,7 +9458,7 @@ app-geo-data {
   }
 }
 
-.mat-dialog-title {
+.mat-mdc-dialog-title {
   &.txt-h1 {
     font-family: $appFontTitle;
     font-size: 16px;
@@ -9466,9 +9517,9 @@ app-geo-data {
   }
 }
 
-.mat-tab-nav-bar {
+.mat-mdc-tab-nav-bar {
   &.cs-tab-group-nav {
-    .mat-tab-label-active {
+    .mdc-tab--active {
       color: $link;
       opacity: 1;
     }
@@ -9555,7 +9606,7 @@ app-geo-data {
   width: 100%;
   align-items: center;
 
-  .mat-tab-link {
+  .mat-mdc-tab-link {
     padding: 0;
     opacity: 1;
     width: 100%;
@@ -9564,8 +9615,8 @@ app-geo-data {
     height: 100%;
   }
 
-  &.mat-tab-nav-bar,
-  &.mat-tab-header {
+  &.mat-mdc-tab-nav-bar,
+  &.mat-mdc-tab-header {
     border-bottom: 0;
   }
 
@@ -9573,7 +9624,7 @@ app-geo-data {
     margin-left: 0;
   }
 
-  .mat-tab-header-pagination-disabled {
+  .mat-mdc-tab-header-pagination-disabled {
     display: none !important;
   }
 }
@@ -10088,20 +10139,20 @@ app-geo-data {
         font-family: $appFontTitle;
       }
 
-      .mat-button {
+      .mat-mdc-button {
         background-color: #e4e6eb;
         border-radius: 8px;
         margin-left: 8px;
       }
     }
 
-    .mat-tab-header {
+    .mat-mdc-tab-header {
       // width: 100%;
       flex: 1;
       margin: 0 20px;
     }
 
-    .mat-tab-link {
+    .mat-mdc-tab-link {
       flex: 1;
       font-size: 16px;
       font-family: $appFont;
@@ -10112,7 +10163,7 @@ app-geo-data {
         margin-right: 8px;
       }
 
-      &.mat-tab-label-active {
+      &.mdc-tab--active {
         color: $primary;
       }
     }
@@ -10163,7 +10214,7 @@ app-geo-data {
       display: flex;
       align-items: center;
 
-      .mat-slide-toggle {
+      .mat-mdc-slide-toggle {
         margin-left: 16px;
       }
     }
@@ -10189,7 +10240,7 @@ app-geo-data {
       box-shadow: 0 2px 4px 0 #0000000f;
       font-family: $appFont;
 
-      .mat-form-field {
+      .mat-mdc-form-field {
         flex: 1;
       }
 
@@ -10198,19 +10249,19 @@ app-geo-data {
         width: 70px;
       }
 
-      .mat-form-field-wrapper {
+      .mat-mdc-text-field-wrapper {
         padding: 0;
       }
 
-      .mat-form-field-appearance-outline .mat-form-field-infix {
+      .mat-form-field-appearance-outline .mat-mdc-form-field-infix {
         padding: 0;
       }
 
-      .mat-form-field-infix {
+      .mat-mdc-form-field-infix {
         border-top: 0;
       }
 
-      .mat-input-element {
+      .mat-mdc-input-element {
         height: 46px;
         font-family: $appFont;
         margin: 0;
@@ -10218,24 +10269,26 @@ app-geo-data {
         text-align: right;
       }
 
-      .mat-form-field-appearance-outline .mat-form-field-outline {
+      .mat-form-field-appearance-outline .mdc-notched-outline {
         display: none;
       }
 
-      .mat-form-field-appearance-outline .mat-form-field-wrapper {
+      .mat-form-field-appearance-outline .mat-mdc-text-field-wrapper {
         margin: 0;
       }
 
-      .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+      .mat-form-field-appearance-outline .mat-mdc-select-arrow-wrapper {
         transform: translateY(0);
       }
 
-      .mat-select-value {
+      .mat-mdc-select-value {
         text-align: right;
       }
 
-      .mat-form-field-appearance-outline .mat-form-field-prefix,
-      .mat-form-field-appearance-outline .mat-form-field-suffix {
+      .mat-form-field-appearance-outline .mat-mdc-form-field-icon-prefix,
+      .mat-form-field-appearance-outline .mat-mdc-form-field-text-prefix,
+      .mat-form-field-appearance-outline .mat-mdc-form-field-icon-suffix,
+      .mat-form-field-appearance-outline .mat-mdc-form-field-text-suffix {
         top: 0;
       }
     }
@@ -10394,7 +10447,7 @@ app-document-search-listing {
     }
   }
 
-  .mat-button {
+  .mat-mdc-button {
     background: #e4e6eb;
     color: #050505;
     font-family: $appFont;
@@ -10491,13 +10544,13 @@ app-document-search-listing {
 
 .audio-swot {
   &.own {
-    .mat-card {
+    .mat-mdc-card {
       background-color: $link;
       color: #fff;
     }
   }
 
-  .mat-card {
+  .mat-mdc-card {
     box-shadow: none;
     background-color: $background;
     border-radius: 24px;
@@ -10654,14 +10707,14 @@ aside.special-memo {
 }
 
 .template-listing {
-  &.mat-list-base {
+  &.mat-mdc-list-base {
     display: grid;
     grid-template-columns: 49% 49%;
     grid-gap: 10px;
   }
 
-  &.mat-list-base .mat-list-item,
-  &.mat-list-base .mat-list-option {
+  &.mat-mdc-list-base .mat-mdc-list-item,
+  &.mat-mdc-list-base .mat-mdc-list-option {
     height: unset;
     box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
     border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
@@ -10685,7 +10738,7 @@ aside.special-memo {
 }
 
 .cs-dialog-setup-wrapper {
-  .mat-dialog-container {
+  .mat-mdc-dialog-container {
     box-shadow: none;
     background-color: transparent;
   }
@@ -10761,12 +10814,12 @@ aside.special-memo {
     display: flex;
     flex-direction: row;
 
-    .mat-form-field-wrapper {
+    .mat-mdc-text-field-wrapper {
       padding-bottom: 0;
     }
   }
 
-  .mat-form-field {
+  .mat-mdc-form-field {
     margin-right: 16px;
   }
 }
@@ -10774,7 +10827,7 @@ aside.special-memo {
 .filter-container-wrap {
   max-width: 1200px;
 
-  .mat-form-field-appearance-outline .mat-form-field-infix {
+  .mat-form-field-appearance-outline .mat-mdc-form-field-infix {
     padding: 0.7em 0 0.7em 0;
     border-top: 0.44375em solid transparent;
   }
@@ -10830,7 +10883,7 @@ aside.special-memo {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
 
-  .mat-form-field {
+  .mat-mdc-form-field {
     margin-right: 0;
   }
 }
@@ -10908,7 +10961,7 @@ aside.special-memo {
 }
 
 .container-form {
-  .mat-form-field-appearance-outline .mat-form-field-infix {
+  .mat-form-field-appearance-outline .mat-mdc-form-field-infix {
     min-height: 70px;
     max-height: 170px;
     display: flex;
@@ -10923,7 +10976,7 @@ aside.special-memo {
 }
 
 .mat-option-align-center {
-  .mat-option-text {
+  .mdc-list-item__primary-text {
     display: flex;
     align-items: center;
   }
@@ -10951,7 +11004,7 @@ aside.special-memo {
       align-items: center;
       cursor: pointer;
 
-      .mat-button-wrapper {
+      .mdc-button__label {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -10960,6 +11013,10 @@ aside.special-memo {
       .icon-container {
         display: grid;
         place-items: center;
+        --mdc-icon-button-state-layer-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
 
         &.active {
           .active-space {
@@ -11099,16 +11156,31 @@ aside.special-memo {
       .side-nav-item {
         display: flex;
         align-items: center;
+        justify-content: flex-start !important;
         flex-direction: row;
         line-height: unset!important;
         padding: 12px 0 !important;
         padding-left: 22px !important;
         white-space: break-spaces;
-        &.mat-button {
+        width: 100%;
+        height: auto !important;
+        text-align: left;
+        &.mat-mdc-button {
           border-radius: 0;
           font-family: $appFontStrong;
           color: $text-primary;
           cursor: pointer;
+          width: 100%;
+          justify-content: flex-start;
+
+          .mdc-button__label {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            text-align: left;
+            white-space: break-spaces;
+          }
 
           &:hover {
             color: $text-primary;
@@ -11117,6 +11189,7 @@ aside.special-memo {
           ion-icon {
             font-size: 20px;
             margin-right: 8px;
+            flex-shrink: 0;
           }
 
           &.active {
@@ -11130,6 +11203,20 @@ aside.special-memo {
               color: $appprimaryColor;
             }
           }
+        }
+      }
+
+      .side-nav-child.side-nav-item {
+        padding: 13px 0 !important;
+
+        &.mat-mdc-button {
+          min-height: 46px;
+        }
+      }
+
+      .side-nav-panel {
+        .mat-expansion-panel-header {
+          padding-right: 16px;
         }
       }
     }
@@ -11362,19 +11449,19 @@ aside.special-memo {
   }
 }
 
-.mat-tab-header {
+.mat-mdc-tab-header {
   &.fire-tabs {
     &.tab-no-b {
       border: none;
     }
 
-    .mat-tab-links {
+    .mat-mdc-tab-links {
       min-width: unset;
       margin: 0 7px;
       padding: 0;
 
       a {
-        &.mat-tab-label-active {
+        &.mdc-tab--active {
           opacity: 1;
           color: $link;
         }
@@ -11466,7 +11553,7 @@ aside.special-memo {
         &.jcs {
           justify-content: flex-start;
 
-          .mat-button {
+          .mat-mdc-button {
             background-color: #e4e6eb;
             font-family: $appFontStrong;
             border-radius: 30px;
@@ -11505,7 +11592,7 @@ aside.special-memo {
   display: flex;
   flex-direction: column;
 
-  .mat-progress-bar {
+  .mat-mdc-progress-bar {
     z-index: 99999;
   }
 
@@ -12223,7 +12310,7 @@ aside.special-memo {
     }
   }
 
-  .img-r-b.mat-icon-button {
+  .img-r-b.mat-mdc-icon-button {
     box-shadow: 0 2px 6px #0000001a;
     background-color: #fff;
     color: #1c1d21;
@@ -12243,8 +12330,12 @@ aside.special-memo {
   flex-direction: row;
   align-items: center;
   display: flex;
+  height: 126px;
+  min-height: 126px;
+  max-height: 126px;
+  box-sizing: border-box;
 
-  &.mat-button {
+  &.mat-mdc-button {
     line-height: normal;
     outline: none;
     transition: color 0.2s linear;
@@ -12253,6 +12344,11 @@ aside.special-memo {
     color: $text-primary;
     padding: 4px 16px;
     padding-right: 10px;
+    height: 126px !important;
+    min-height: 126px;
+    max-height: 126px;
+    box-sizing: border-box;
+    white-space: normal;
     &.warn {
       background-color: #fce8e6;
     }
@@ -12260,12 +12356,12 @@ aside.special-memo {
       // background-color: $background;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       display: flex;
       justify-content: center;
       align-items: center;
 
-      .mat-button-wrapper {
+      .mdc-button__label {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -12286,11 +12382,11 @@ aside.special-memo {
       color: $text-primary;
     }
 
-    .mat-button-wrapper {
+    .mdc-button__label {
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding: 6px 0;
+      padding: 9px 0;
       font-family: $appFont;
       flex: 1;
 
@@ -12547,7 +12643,7 @@ aside.special-memo {
     width: 100%;
   }
 
-  .mat-button-wrapper {
+  .mdc-button__label {
     width: 100%;
   }
 
@@ -12908,6 +13004,10 @@ aside.special-memo {
 
     .wrapper {
       display: flex;
+      // Flex items with an explicit height (the Remark pill uses height: fit-content)
+      // don't stretch under the default align-items, so they align to the cross-start
+      // (top) instead of centering against the 40px icon buttons in the same row.
+      align-items: center;
       gap: 12px;
       max-width: 1240px;
       width: 100%;
@@ -13440,7 +13540,7 @@ aside.special-memo {
     cursor: pointer;
   }
 
-  .mat-icon-button {
+  .mat-mdc-icon-button {
     background-color: $btnBg;
     display: flex;
     align-items: center;
@@ -13479,7 +13579,7 @@ ion-icon {
 }
 
 .form-group {
-  .mat-form-field-appearance-outline .mat-form-field-infix {
+  .mat-form-field-appearance-outline .mat-mdc-form-field-infix {
     padding: 0.9em 0 0.9em 0;
     border-top: 0 solid transparent;
   }
@@ -14129,7 +14229,7 @@ ion-icon {
   }
 
   .filter-panel-item {
-    &.mat-button {
+    &.mat-mdc-button {
       border: solid 1px #ebebeb;
       border-radius: 100px;
       margin-right: 12px;
@@ -14175,7 +14275,7 @@ ion-icon {
 
   .field,
   .from-date-to-date {
-    .mat-select {
+    .mat-mdc-select {
       background-color: #fff;
       border: 1px solid #dedede;
       font-size: 15px;
@@ -14185,7 +14285,7 @@ ion-icon {
       width: 100%;
       border-radius: 4px;
 
-      .mat-select-trigger {
+      .mat-mdc-select-trigger {
         padding: 8px 10px !important;
       }
     }
@@ -14198,7 +14298,7 @@ ion-icon {
     margin-top: 12px;
 
     .btn-apply {
-      &.mat-button {
+      &.mat-mdc-button {
         border: solid 1px $active;
         border-radius: 100px;
         color: $active;
@@ -14242,7 +14342,7 @@ ion-icon {
   }
 
   &.primary {
-    &.mat-button {
+    &.mat-mdc-button {
       font-weight: 600;
       border-radius: 100px;
       margin: 0 0 0 12px;
@@ -14269,7 +14369,7 @@ ion-icon {
     }
   }
 
-  &.mat-button {
+  &.mat-mdc-button {
     font-weight: 500;
     // border: solid 1px #e8f0fe;
     border-radius: 100px;
@@ -14553,7 +14653,7 @@ ion-icon {
         margin-left: 8px;
         color: #f44336 !important;
 
-        .mat-icon-button {
+        .mat-mdc-icon-button {
           color: #f44336 !important;
         }
       }
@@ -14578,7 +14678,7 @@ ion-icon {
         margin-left: 10px;
       }
 
-      &.mat-button-disabled {
+      &.mat-mdc-button-disabled {
         box-shadow: none;
 
         &:hover {
@@ -14604,7 +14704,7 @@ ion-icon {
         margin-bottom: 6px;
       }
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         background-color: $btnBg;
         margin-right: 8px;
       }
@@ -14633,7 +14733,7 @@ ion-icon {
     .right-box-dbc {
       display: flex;
 
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         background-color: $btnBg;
       }
     }
@@ -14642,7 +14742,7 @@ ion-icon {
   .doc-preview-comment-row-icon {
     justify-content: flex-end;
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       background-color: $btnBg;
       margin-left: 8px;
     }
@@ -14651,7 +14751,7 @@ ion-icon {
   .doc-preview-comment-btn-group {
     display: flex;
 
-    .mat-button {
+    .mat-mdc-button {
       border-radius: 30px;
       background-color: $btnBg;
       margin-right: 8px;
@@ -14679,15 +14779,15 @@ ion-icon {
     flex: 1;
     overflow-y: auto;
 
-    .mat-list-base .mat-list-item,
-    .mat-list-base .mat-list-option {
+    .mat-mdc-list-base .mat-mdc-list-item,
+    .mat-mdc-list-base .mat-mdc-list-option {
       font-family: $appFont;
       line-height: normal;
       height: unset;
       padding: 6px;
       font-size: 14px;
 
-      &.mat-list-item-disabled {
+      &.mdc-list-item--disabled {
         background-color: transparent;
         color: $descColor;
       }
@@ -15393,7 +15493,7 @@ ion-icon {
 }
 
 .form-choose {
-  .mat-form-field-infix {
+  .mat-mdc-form-field-infix {
     border-top: 0;
   }
 }
@@ -15903,7 +16003,7 @@ ion-icon {
           flex-direction: column;
           cursor: pointer;
 
-          .mat-list-item-content {
+          .mat-mdc-list-item-unscoped-content {
             align-items: flex-start;
           }
 
@@ -15979,7 +16079,7 @@ ion-icon {
       box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
     }
   }
-  .mat-icon-button {
+  .mat-mdc-icon-button {
     position: absolute;
     right: 10px;
   }
@@ -16112,7 +16212,7 @@ ion-icon {
         display: flex;
         flex-wrap: wrap;
         .att-button-f {
-          &.mat-button {
+          &.mat-mdc-button {
             text-decoration: none;
             background-color: #e4e6eb;
             border-radius: 26px;
@@ -16196,7 +16296,7 @@ ion-icon {
       margin-bottom: 12px;
       border-radius: max(0px, min(8px, ((100vw - 4px) - 100%) * 9999)) / 8px;
       cursor: pointer;
-      .mat-icon-button {
+      .mat-mdc-icon-button {
         margin-right: 8px;
         background-color: #e4e6eb;
       }
@@ -16261,7 +16361,7 @@ ion-icon {
   .das-nav {
     margin-bottom: 32px;
 
-    .mat-button {
+    .mat-mdc-button {
       border-radius: 24px;
       background-color: #fff;
       margin-right: 12px;
@@ -16849,7 +16949,7 @@ ion-icon {
 }
 
 
-.mat-spinner{
+.mat-mdc-progress-spinner{
   &.spinner-white{
     circle {
       stroke: $whiteColor!important;

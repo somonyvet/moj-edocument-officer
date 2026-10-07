@@ -1,221 +1,227 @@
 <div class="officer-profile-info-container doc-preview-wrapper new-ui">
 
-    <button style=" position: absolute; top: 30px; right: 30px;" matTooltip="បោះពុម្ព" mat-button mat-icon-button
-        class="mat-add-new" (click)="print()">
-        <mat-icon class="mat-18">print</mat-icon>
-    </button>
+  <button style=" position: absolute; top: 30px; right: 30px;" matTooltip="បោះពុម្ព" mat-icon-button
+    class="mat-add-new" (click)="print()">
+    <mat-icon class="mat-18">print</mat-icon>
+  </button>
 
-    <div style="margin-top:10px">
-        <div class="eform" id="printD" style="margin: 0 auto;">
-            <div class="header-print" style="width: 100%;">
+  <div style="margin-top:10px">
+    <div class="eform" id="printD" style="margin: 0 auto;">
+      <div class="header-print" style="width: 100%;">
 
-                <div class="head-item" style="text-align: center;">
-                    <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
-                    <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                    <p class="star">3</p>
-                </div>
-
-
-                <div class="head-center">
-                    <div class="head-item">
-                        <div class="doc-template-row" *ngIf="auth?.APP_INFO?.key==='moj'">
-                            <div class="bl-title-left">
-                                <img [src]="auth?.APP_INFO?.logo" width="120px" />
-                                <p>ក្រសួងយុត្តិធម៍</p>
-                                <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
-                            </div>
-
-                            <div class="bl-title-left bl-title-right moj-d">
-                                <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
-                                <p>បញ្ចីលេខរៀង {{store?.selectedGroupDoc?.name | khmerNumber}}</p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="flex1"></div>
-
-                    <div class="pn-date">
-                        រាជធានីភ្នំពេញ ថ្ងៃទី {{ printDate | khmerDateOnly:'day'}} ខែ {{ printDate |
-                        khmerDateOnly:'month'}} ឆ្នាំ {{ printDate | khmerDateOnly:'year'}}
-                    </div>
-
-                </div>
-
-                <div class="head-item" style="text-align: center;">
-                    <p class="feTitle">កំណត់បង្ហាញ</p>
-                    <p class="feTitle">សូមគោរពជូន</p>
-                    <p class="feTitle">ឯកឧត្តម រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
-
-                </div>
-
-                <div class="pn-title-note" style="display: flex; font-size:16px; padding-top: 0;">
-                    <p class="feTitle" style="text-decoration: underline;"> កម្មវត្ថុ :</p>
-                    <span>
-                        <p class="n-title">&nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន {{criminalRecords?.length |
-                            khmerNumber}}
-                            ច្បាប់ ស្នើសុំសេវា ({{criminalGroupService?.urgent_obj?.key | khmerNumber}} ថ្ងៃ)
-                            នៃថ្ងៃធ្វើការ
-                            ដែលមានឈ្មោះ
-                        </p>
-                        <p class="n-title">&nbsp;ក្នុងបញ្ជីលេខរៀង៖ {{store?.selectedGroupDoc?.name | khmerNumber}}
-                            ចុះថ្ងៃទី
-                            {{store?.selectedGroupDoc?.created_at?.toDate()| dateDayKh}} ខែ
-                            {{store?.selectedGroupDoc?.created_at?.toDate()| dateMonthKh}} ឆ្នាំ
-                            {{store?.selectedGroupDoc?.created_at?.toDate()| dateYearKh}} ដូចមានឈ្មោះខាងក្រោម៖
-                        </p>
-                    </span>
-                </div>
-
-
-            </div>
-
-            <div class="body" style="margin: 0; width: 100%;">
-                <div class="body-item" style="margin: 0">
-                    <div class="row-item">
-                        <div class="f-table">
-                            <table class="tb-input">
-
-                                <tbody>
-                                    <tr class="thead-th">
-                                        <th class="center" rowspan="2">ល.រ</th>
-                                        <th class="center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
-                                        <th class="center" rowspan="2">ភេទ</th>
-                                        <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំកំណើត</th>
-                                        <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំទទួល</th>
-                                        <th class="center" colspan="3">រយៈពេលស្នើសុំ</th>
-                                        <th class="center" rowspan="2">ចុះលេខព្រឹត្តិបត្រ</th>
-                                        <th class="center" rowspan="2">ផ្សេងៗ</th>
-                                        <th class="center" rowspan="2"
-                                            *ngIf="store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.APPROVED?.key || store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.RECEIVED?.key">
-                                        </th>
-                                    </tr>
-                                    <tr class="thead-th">
-                                        <th class="center">
-                                          ២០ ថ្ងៃ
-                                          <br />
-                                          នៃថ្ងៃធ្វើការ
-                                        </th>
-                                        <th class="center">
-                                          ១២ ថ្ងៃ
-                                          <br />
-                                          នៃថ្ងៃធ្វើការ
-                                        </th>
-                                        <th class="center">បកប្រែ</th>
-                                      </tr>
-                                    <ng-container *ngFor="let item of criminalRecords; let i = index">
-                                        <tr>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{i+1}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.last_name}} {{item?.first_name}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.gender?.name}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.dateOfBirthDay?.name}} <span *ngIf="item?.dateOfBirthMonth?.name">/</span>
-                                                    {{item?.dateOfBirthMonth?.name}} <span *ngIf="item?.dateOfBirthYear?.name">/</span>
-                                                    {{item?.dateOfBirthYear?.name}}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    {{item?.created_at?.toDate() | dateDayKh}} /
-                                                    {{item?.created_at?.toDate() | dateMonthKh}} /
-                                                    {{item?.created_at?.toDate() | dateYearKh}}
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                  {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key : '' | khmerNumber}}
-                                                  {{item?.urgent_obj?.key === 20 ? 'ថ្ងៃ' : ''}}
-                                                </div>
-                                              </td>
-                        
-                                              <td>
-                                                <div class="ftb-input">
-                                                  {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key : '' | khmerNumber}}
-                                                  {{item?.urgent_obj?.key === 12 ? 'ថ្ងៃ' : ''}}
-                                                </div>
-                                              </td>
-                        
-                                              <td>
-                                                <div class="ftb-input">
-                                                  {{item?.criminal_language | checkHaveTranslate}}
-                                                </div>
-                                              </td>
-
-                                            <td>
-                                                <div class="ftb-input">
-                                                    <span *ngIf="item?.code_kh">{{item?.code_kh | khmerNumber}}</span>
-                                                    <!-- <span *ngIf="item?.code_en">,{{item?.code_en}}</span> -->
-                                                    <!-- <span *ngIf="item?.code_fr">,{{item?.code_fr}}</span> -->
-                                                </div>
-                                            </td>
-                                            <td>
-
-                                            </td>
-                                            <td
-                                                *ngIf="store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.APPROVED?.key || store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.RECEIVED?.key">
-                                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                                    aria-label="Example icon-button with a menu">
-                                                    <mat-icon>more_vert</mat-icon>
-                                                </button>
-                                                <mat-menu #menu="matMenu">
-                                                    <button mat-menu-item (click)="addReceiveNo(item)">
-                                                        <mat-icon>{{store?.selectedGroupDoc?.status?.key ===
-                                                            STATUS_OBJ?.APPROVED?.key ? 'add' :
-                                                            'logout'}}</mat-icon>
-                                                        <span>{{store?.selectedGroupDoc?.status?.key ===
-                                                            STATUS_OBJ?.APPROVED?.key ? 'ចុះលេខឯកសារ' :
-                                                            'ដកឯកសារ'}}</span>
-                                                    </button>
-                                                </mat-menu>
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="pn-footer">
-                        <div class="flex1"></div>
-                        <div class="">
-                            <p class="sg">
-                                <strong>
-                                    ហត្ថលេខា
-                                </strong>
-                            </p>
-
-                            <p class="ssg">
-                                មន្ត្រីទទួលបន្ទុករៀបចំ នឹងបញ្ជូនព្រឹត្តិបត្រថ្កោលទោស
-                            </p>
-
-                            <p *ngIf="store?.selectedGroupDoc?.classification_signatureFile">
-                                <img [src]="store?.selectedGroupDoc?.classification_signatureFile?.downloadUrl"
-                                    alt="img" style="width: 128px;">
-                            </p>
-                            <!-- <p>
-                  <strong>សួនសុវណ្ណ</strong>
-                </p> -->
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
+        <div class="head-item" style="text-align: center;">
+          <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+          <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+          <p class="star">3</p>
         </div>
+
+
+        <div class="head-center">
+          <div class="head-item">
+            @if (auth?.APP_INFO?.key==='moj') {
+              <div class="doc-template-row">
+                <div class="bl-title-left">
+                  <img [src]="$safeNavigationMigration(auth?.APP_INFO?.logo)" width="120px" />
+                  <p>ក្រសួងយុត្តិធម៍</p>
+                  <p>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</p>
+                </div>
+                <div class="bl-title-left bl-title-right moj-d">
+                  <p>នាយកដ្ឋានកិច្ចការថ្កោលទោស</p>
+                  <p>បញ្ចីលេខរៀង {{$safeNavigationMigration(store?.selectedGroupDoc?.name) | khmerNumber}}</p>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="flex1"></div>
+
+          <div class="pn-date">
+            រាជធានីភ្នំពេញ ថ្ងៃទី {{ printDate | khmerDateOnly:'day'}} ខែ {{ printDate |
+            khmerDateOnly:'month'}} ឆ្នាំ {{ printDate | khmerDateOnly:'year'}}
+          </div>
+
+        </div>
+
+        <div class="head-item" style="text-align: center;">
+          <p class="feTitle">កំណត់បង្ហាញ</p>
+          <p class="feTitle">សូមគោរពជូន</p>
+          <p class="feTitle">ឯកឧត្តម រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
+
+        </div>
+
+        <div class="pn-title-note" style="display: flex; font-size:16px; padding-top: 0;">
+          <p class="feTitle" style="text-decoration: underline;"> កម្មវត្ថុ :</p>
+          <span>
+            <p class="n-title">&nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ចំនួន {{$safeNavigationMigration(criminalRecords?.length) |
+              khmerNumber}}
+              ច្បាប់ ស្នើសុំសេវា ({{$safeNavigationMigration(criminalGroupService?.urgent_obj?.key) | khmerNumber}} ថ្ងៃ)
+              នៃថ្ងៃធ្វើការ
+              ដែលមានឈ្មោះ
+            </p>
+            <p class="n-title">&nbsp;ក្នុងបញ្ជីលេខរៀង៖ {{$safeNavigationMigration(store?.selectedGroupDoc?.name) | khmerNumber}}
+              ចុះថ្ងៃទី
+              {{$safeNavigationMigration(store?.selectedGroupDoc?.created_at?.toDate())| dateDayKh}} ខែ
+              {{$safeNavigationMigration(store?.selectedGroupDoc?.created_at?.toDate())| dateMonthKh}} ឆ្នាំ
+              {{$safeNavigationMigration(store?.selectedGroupDoc?.created_at?.toDate())| dateYearKh}} ដូចមានឈ្មោះខាងក្រោម៖
+            </p>
+          </span>
+        </div>
+
+
+      </div>
+
+      <div class="body" style="margin: 0; width: 100%;">
+        <div class="body-item" style="margin: 0">
+          <div class="row-item">
+            <div class="f-table">
+              <table class="tb-input">
+
+                <tbody>
+                  <tr class="thead-th">
+                    <th class="center" rowspan="2">ល.រ</th>
+                    <th class="center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
+                    <th class="center" rowspan="2">ភេទ</th>
+                    <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំកំណើត</th>
+                    <th class="center" rowspan="2">ថ្ងៃ-ខែ-ឆ្នាំទទួល</th>
+                    <th class="center" colspan="3">រយៈពេលស្នើសុំ</th>
+                    <th class="center" rowspan="2">ចុះលេខព្រឹត្តិបត្រ</th>
+                    <th class="center" rowspan="2">ផ្សេងៗ</th>
+                    @if (store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.APPROVED?.key || store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.RECEIVED?.key) {
+                      <th class="center" rowspan="2"
+                        >
+                      </th>
+                    }
+                  </tr>
+                  <tr class="thead-th">
+                    <th class="center">
+                      ២០ ថ្ងៃ
+                      <br />
+                      នៃថ្ងៃធ្វើការ
+                    </th>
+                    <th class="center">
+                      ១២ ថ្ងៃ
+                      <br />
+                      នៃថ្ងៃធ្វើការ
+                    </th>
+                    <th class="center">បកប្រែ</th>
+                  </tr>
+                  @for (item of criminalRecords; track item; let i = $index) {
+                    <tr>
+                      <td>
+                        <div class="ftb-input">
+                          {{i+1}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{item?.last_name}} {{item?.first_name}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{item?.gender?.name}}
+                        </div>
+                      </td>
+                      <td>
+                        <div class="ftb-input">
+                          {{item?.dateOfBirthDay?.name}} @if (item?.dateOfBirthMonth?.name) {
+                          <span>/</span>
+                        }
+                        {{item?.dateOfBirthMonth?.name}} @if (item?.dateOfBirthYear?.name) {
+                        <span>/</span>
+                      }
+                      {{item?.dateOfBirthYear?.name}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ftb-input">
+                      {{$safeNavigationMigration(item?.created_at?.toDate()) | dateDayKh}} /
+                      {{$safeNavigationMigration(item?.created_at?.toDate()) | dateMonthKh}} /
+                      {{$safeNavigationMigration(item?.created_at?.toDate()) | dateYearKh}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ftb-input">
+                      {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key : '' | khmerNumber}}
+                      {{item?.urgent_obj?.key === 20 ? 'ថ្ងៃ' : ''}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ftb-input">
+                      {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key : '' | khmerNumber}}
+                      {{item?.urgent_obj?.key === 12 ? 'ថ្ងៃ' : ''}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ftb-input">
+                      {{$safeNavigationMigration(item?.criminal_language) | checkHaveTranslate}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="ftb-input">
+                      @if (item?.code_kh) {
+                        <span>{{$safeNavigationMigration(item?.code_kh) | khmerNumber}}</span>
+                      }
+                      <!-- <span *ngIf="item?.code_en">,{{item?.code_en}}</span> -->
+                      <!-- <span *ngIf="item?.code_fr">,{{item?.code_fr}}</span> -->
+                    </div>
+                  </td>
+                  <td>
+                  </td>
+                  @if (store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.APPROVED?.key || store?.selectedGroupDoc?.status?.key === STATUS_OBJ?.RECEIVED?.key) {
+                    <td
+                      >
+                      <button mat-icon-button [matMenuTriggerFor]="menu"
+                        aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="addReceiveNo(item)">
+                          <mat-icon>{{store?.selectedGroupDoc?.status?.key ===
+                            STATUS_OBJ?.APPROVED?.key ? 'add' :
+                          'logout'}}</mat-icon>
+                          <span>{{store?.selectedGroupDoc?.status?.key ===
+                            STATUS_OBJ?.APPROVED?.key ? 'ចុះលេខឯកសារ' :
+                          'ដកឯកសារ'}}</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="pn-footer">
+        <div class="flex1"></div>
+        <div class="">
+          <p class="sg">
+            <strong>
+              ហត្ថលេខា
+            </strong>
+          </p>
+
+          <p class="ssg">
+            មន្ត្រីទទួលបន្ទុករៀបចំ នឹងបញ្ជូនព្រឹត្តិបត្រថ្កោលទោស
+          </p>
+
+          @if (store?.selectedGroupDoc?.classification_signatureFile) {
+            <p>
+              <img [src]="$safeNavigationMigration(store?.selectedGroupDoc?.classification_signatureFile?.downloadUrl)"
+                alt="img" style="width: 128px;">
+            </p>
+          }
+          <!-- <p>
+          <strong>សួនសុវណ្ណ</strong>
+        </p> -->
+
+      </div>
+
     </div>
+
+
+  </div>
+</div>
+</div>
+</div>

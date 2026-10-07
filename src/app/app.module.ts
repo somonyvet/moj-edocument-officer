@@ -1,12 +1,11 @@
 import { HumanResourceModule } from './modules/human-resource/human-resource.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { provideHttpClient, withJsonpSupport, withXhr } from '@angular/common/http';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContextMenuModule } from 'ngx-contextmenu';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAnalyticsModule, CONFIG, ScreenTrackingService, UserTrackingService } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { SharedModule } from './shared/shared.module';
@@ -27,7 +26,10 @@ import { ChatBoxLeftComponent } from './shared/components/chat/chat-box-left/cha
 import { ChatBoxRightComponent } from './shared/components/chat/chat-box-right/chat-box-right.component';
 import { SignInFormComponent } from './pages/sign-in-form/sign-in-form.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
+import { MAT_TABS_CONFIG } from '@angular/material/tabs';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS } from '@angular/material/slide-toggle';
 import player from 'lottie-web';
 import { RegisterFormComponent } from './pages/auth/register-form/register-form.component';
 import { HomeSidenavComponent } from './modules/home-sidenav/home-sidenav.component';
@@ -75,16 +77,13 @@ export function playerFactory() {
     BrowserAnimationsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAnalyticsModule,
     AngularFireFunctionsModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    ContextMenuModule.forRoot(),
     SharedModule,
     NgbModule,
-    LottieModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -93,17 +92,22 @@ export function playerFactory() {
     }),
   ],
   providers: [
+    provideHttpClient(withXhr(), withJsonpSupport()),
+    provideLottieOptions({ player: playerFactory }),
     BnNgIdleService,
     { provide: REGION, useValue: 'asia-east2' },
-    {
-      provide: CONFIG, useValue: {
-        send_page_view: false,
-        allow_ad_personalization_signals: false,
-        anonymize_ip: true
-      }
-    },
-    ScreenTrackingService,
-    UserTrackingService
+    { provide: MAT_TABS_CONFIG, useValue: { stretchTabs: false, alignTabs: 'start' } },
+    // ~400 of the app's form-fields never set an explicit `appearance` and relied
+    // on Angular 12's default, which was the legacy underline-only style. MDC
+    // removed the 'legacy'/'standard' appearances entirely, so those same
+    // form-fields silently fell back to MDC's own default, 'fill' (a filled grey
+    // background) -- a pervasive, app-wide visual regression. 'outline' is the
+    // closest MDC equivalent to the old look and also matches the ~130
+    // form-fields that already explicitly request appearance="outline".
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+    // MDC slide-toggles show a checkmark/minus icon inside the handle by
+    // default; legacy toggles never had icons at all. hideIcon restores that.
+    { provide: MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, useValue: { hideIcon: true } },
   ],
   bootstrap: [AppComponent],
 })

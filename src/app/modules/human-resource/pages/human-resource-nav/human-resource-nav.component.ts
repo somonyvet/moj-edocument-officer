@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { HrStore } from '../../stores/hr.store';
 
 @Component({
-  selector: 'app-human-resource-nav',
-  templateUrl: './human-resource-nav.component.html',
-  styleUrls: ['./human-resource-nav.component.scss']
+    selector: 'app-human-resource-nav',
+    templateUrl: './human-resource-nav.component.html',
+    styleUrls: ['./human-resource-nav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceNavComponent implements OnInit {
   selected: Date | null = new Date();

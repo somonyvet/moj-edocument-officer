@@ -1,6 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -16,13 +16,15 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { HrStore } from '../../stores/hr.store';
 
 @Component({
-  selector: 'app-human-resource-approval',
-  templateUrl: './human-resource-approval.component.html',
-  styleUrls: ['./human-resource-approval.component.scss']
+    selector: 'app-human-resource-approval',
+    templateUrl: './human-resource-approval.component.html',
+    styleUrls: ['./human-resource-approval.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceApprovalComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   position: AbstractControl;
   filterPosition: Observable<IPosition[]>;
 
@@ -37,7 +39,7 @@ export class HumanResourceApprovalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<HumanResourceApprovalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: OfficerStore,
     public ds: DataService,
     private auth: AuthStore,

@@ -2,7 +2,7 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>{{title}}</h2>
     <div class="space1"></div>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </button>
   </div>
@@ -13,9 +13,11 @@
         <mat-label>ប្រភេទចំណារ</mat-label>
         <input formControlName="type" [matAutocomplete]="type" matInput>
         <mat-autocomplete [displayWith]="ds.displayName" #type="matAutocomplete">
-          <mat-option *ngFor="let item of note_type;let i=index" [value]="item">
-            {{item?.name}}
-          </mat-option>
+          @for (item of note_type; track item; let i = $index) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
         </mat-autocomplete>
       </mat-form-field>
     </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -10,9 +10,11 @@ import { ReportPaidMonthly } from 'src/app/stores/report-paid-monthly.store';
 import { paymentOptionStore } from '../../../stores/paymentOption.store';
 
 @Component({
-  selector: 'app-paid-monthly-report',
-  templateUrl: './paid-monthly-report.component.html',
-  styleUrls: ['./paid-monthly-report.component.scss']
+    selector: 'app-paid-monthly-report',
+    templateUrl: './paid-monthly-report.component.html',
+    styleUrls: ['./paid-monthly-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PaidMonthlyReportComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

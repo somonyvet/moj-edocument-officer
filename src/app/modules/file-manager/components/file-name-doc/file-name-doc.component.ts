@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { driveObj } from 'src/app/dummy/status';
 import { FileManager } from 'src/app/stores/fileDrive.store';
 import { Router } from '@angular/router';
@@ -8,9 +8,11 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { OpenFileComponent } from '../open-file/open-file.component';
 
 @Component({
-  selector: 'file-name-doc',
-  templateUrl: './file-name-doc.component.html',
-  styleUrls: ['./file-name-doc.component.scss']
+    selector: 'file-name-doc',
+    templateUrl: './file-name-doc.component.html',
+    styleUrls: ['./file-name-doc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FileNameDocComponent implements OnInit {
 

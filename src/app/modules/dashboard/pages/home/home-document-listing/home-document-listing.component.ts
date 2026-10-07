@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -7,9 +7,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-home-document-listing',
-  templateUrl: './home-document-listing.component.html',
-  styleUrls: ['./home-document-listing.component.scss']
+    selector: 'app-home-document-listing',
+    templateUrl: './home-document-listing.component.html',
+    styleUrls: ['./home-document-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomeDocumentListingComponent implements OnInit, OnDestroy {
   tabs = tabs.inbox;

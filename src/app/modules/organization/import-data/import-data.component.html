@@ -1,217 +1,227 @@
 <div class="page-container" *mobxAutorun>
 
 
-    <div class="page-doc">
+  <div class="page-doc">
 
-        <div class="as-tb-wrap">
-            <div class="page-header">
-                <h4 (click)="onUpdateStatistic()">តួនាទី
+    <div class="as-tb-wrap">
+      <div class="page-header">
+        <h4 (click)="onUpdateStatistic()">តួនាទី
 
-                    <!-- {{ date | toDateKhmerFull }} -->
+          <!-- {{ date | toDateKhmerFull }} -->
 
-                </h4>
-                <!-- <div class="tb-search-box">
-                    <a>
-                        <mat-icon class="mat-18">search</mat-icon>
-                    </a>
-                    <input type="text" placeholder="Search">
-                </div> -->
-                <!-- <button class="primary" mat-button (click)="create()">
-                    <mat-icon>add</mat-icon>
-                    <span>បង្កើតតួនាទី</span>
-                </button> -->
-                <button mat-button class="options-dashboard primary" (click)="exportExcel()">
-                    <i class="material-icons">get_app</i>
-                    <span>ទាញយកឯកសារជា EXCEL</span>
-                </button>
+        </h4>
+        <!-- <div class="tb-search-box">
+        <a>
+          <mat-icon class="mat-18">search</mat-icon>
+        </a>
+        <input type="text" placeholder="Search">
+      </div> -->
+      <!-- <button class="primary" mat-button (click)="create()">
+      <mat-icon>add</mat-icon>
+      <span>បង្កើតតួនាទី</span>
+    </button> -->
+    <button mat-button class="options-dashboard primary" (click)="exportExcel()">
+      <i class="material-icons">get_app</i>
+      <span>ទាញយកឯកសារជា EXCEL</span>
+    </button>
 
-                <div class="action-item" style="cursor: pointer; margin-right: 15px;"
-                    *ngIf="store?.excelData?.length > 0">
-                    <button mat-button class="enbutton primary" (click)="_onClear()">
-                        Clear Data
-                    </button>
-                </div>
+    @if (store?.excelData?.length > 0) {
+      <div class="action-item" style="cursor: pointer; margin-right: 15px;"
+        >
+        <button mat-button class="enbutton primary" (click)="_onClear()">
+          Clear Data
+        </button>
+      </div>
+    }
 
-                <div class="action-item" style="cursor: pointer; margin-right: 15px;"
-                    *ngIf="store?.excelData?.length > 0">
-                    <button mat-button class="enbutton primary" (click)="create()">
-                        Import user
-                    </button>
-                </div>
-                <div class="action-item" style="cursor: pointer;" *ngIf="store?.excelData?.length === 0">
-                    <button mat-button class="enbutton primary">
-                        <input type="file" id="file-input" (change)="store?.fileImportStudentFromExcel($event)" />
-                        Select Excel File
-                    </button>
-                </div>
+    @if (store?.excelData?.length > 0) {
+      <div class="action-item" style="cursor: pointer; margin-right: 15px;"
+        >
+        <button mat-button class="enbutton primary" (click)="create()">
+          Import user
+        </button>
+      </div>
+    }
+    @if (store?.excelData?.length === 0) {
+      <div class="action-item" style="cursor: pointer;">
+        <button mat-button class="enbutton primary">
+          <input type="file" id="file-input" (change)="store?.fileImportStudentFromExcel($event)" />
+          Select Excel File
+        </button>
+      </div>
+    }
 
-            </div>
+  </div>
 
-            <table #table class="as-table-wrapper" *ngIf="store?.excelData?.length>0 && !store?.loading">
-                <thead>
-                    <tr>
-                        <th class="center">
-                            No
-                        </th>
-                        <th class="left">
-                            Name (KH)
-                        </th>
-                        <th class="left">
-                            Gender
-                        </th>
-                        <th class="left">
-                            Office ID
-                        </th>
-                        <th class="left">
-                            Title
-                        </th>
-                        <th class="left">
-                            Position
-                        </th>
-                        <th class="left">
-                            Name (EN)
-                        </th>
-                        <th class="left">
-                            Phone
-                        </th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of store?.excelData; let i = index">
-                        <td class="center">
-                            {{i+1}}
-                        </td>
-                        <td> {{item?.full_name}} </td>
-                        <td> {{item?.gender}} </td>
-                        <td> {{item?.id_number}} </td>
-                        <td> {{item?.title}} </td>
-                        <td> {{item?.position}} </td>
-                        <td> {{item?.full_name_en}} </td>
-                        <td> {{item?.phone}} </td>
-                       
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <!-- <table #table class="as-table-wrapper" *ngIf="ITEMS?.length>0 && !store?.loading">
-                <thead>
-                    <tr>
-                        <th class="center">
-                            No
-                        </th>
-                        <th class="left">
-                            GEO_ID
-                        </th>
-                        <th class="left">
-                            PROVINCE_ID
-                        </th>
-                        <th class="left">
-                            ID
-                        </th>
-                        <th class="left">
-                            CODE
-                        </th>
-                        <th class="left">
-                            Thai Name
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of ITEMS; let i = index">
-                        <td class="center">
-                            {{i+1}}
-                        </td>
-                        <td>
-                            {{item?.GEO_ID}}
-                        </td>
-                        <td>
-                            {{item?.PROVINCE_ID}}
-                        </td>
-                        <td>
-                            {{item?.DISTRICT_ID}}
-                        </td>
-                        <td>
-                            {{item?.DISTRICT_CODE}}
-                        </td>
-                        <td>
-                            {{item?.DISTRICT_NAME}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
+  @if (store?.excelData?.length>0 && !store?.loading) {
+    <table #table class="as-table-wrapper">
+      <thead>
+        <tr>
+          <th class="center">
+            No
+          </th>
+          <th class="left">
+            Name (KH)
+          </th>
+          <th class="left">
+            Gender
+          </th>
+          <th class="left">
+            Office ID
+          </th>
+          <th class="left">
+            Title
+          </th>
+          <th class="left">
+            Position
+          </th>
+          <th class="left">
+            Name (EN)
+          </th>
+          <th class="left">
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of store?.excelData; track item; let i = $index) {
+          <tr>
+            <td class="center">
+              {{i+1}}
+            </td>
+            <td> {{item?.full_name}} </td>
+            <td> {{item?.gender}} </td>
+            <td> {{item?.id_number}} </td>
+            <td> {{item?.title}} </td>
+            <td> {{item?.position}} </td>
+            <td> {{item?.full_name_en}} </td>
+            <td> {{item?.phone}} </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
 
-            <!-- <table class="as-table-wrapper" *ngIf="store?.roles?.length>0 && !store?.loading">
-                <thead>
-                    <tr>
-                        <th class="center">
-                            ល.រ
-                        </th>
-    
-                        <th class="left">
-                            ឈ្មោះ
-                        </th>
-                        <th class="left">
-                            ការពិពណ៌នា
-                        </th>
-                        <th>
-    
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of store?.roles; let i = index">
-                        <td class="center">
-                            {{i+1}}
-                        </td>
-                        <td>
-                            {{item?.name}}
-                        </td>
-                        <td>
-                            <div style="white-space: normal; max-width: 260px;">
-                                {{item?.description}}
-                            </div>
-                        </td>
-    
-                        <td style="width: 64px;">
-                            <div class="card-list-action">
-                                <button mat-icon-button [matMenuTriggerFor]="menu">
-                                    <i class="material-icons">more_vert</i>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <button mat-menu-item (click)="create(item)">
-                                        <mat-icon>edit</mat-icon>
-                                        <span>កែប្រែ</span>
-                                    </button>
-                                </mat-menu>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
+  <!-- <table #table class="as-table-wrapper" *ngIf="ITEMS?.length>0 && !store?.loading">
+  <thead>
+    <tr>
+      <th class="center">
+        No
+      </th>
+      <th class="left">
+        GEO_ID
+      </th>
+      <th class="left">
+        PROVINCE_ID
+      </th>
+      <th class="left">
+        ID
+      </th>
+      <th class="left">
+        CODE
+      </th>
+      <th class="left">
+        Thai Name
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of ITEMS; let i = index">
+      <td class="center">
+        {{i+1}}
+      </td>
+      <td>
+        {{item?.GEO_ID}}
+      </td>
+      <td>
+        {{item?.PROVINCE_ID}}
+      </td>
+      <td>
+        {{item?.DISTRICT_ID}}
+      </td>
+      <td>
+        {{item?.DISTRICT_CODE}}
+      </td>
+      <td>
+        {{item?.DISTRICT_NAME}}
+      </td>
+    </tr>
+  </tbody>
+</table> -->
 
-            <!-- <ng-container *ngIf="!store?.roles?.length>0 && !store?.loading">
-                <div class="empty-block">
-                    <div class="center-block-empty">
-                        <div class="empty-img">
-                            <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                                alt="empty">
-                        </div>
-                        <div class="empty-text">
-                            <p class="empty-state-title">
-                                ពុំមានទិន្នន័យតួនាទីមទេ
-                            </p>
-                            <p class="empty-state-desc">
-                                សូមបញ្ជូលទិន្នន័យតួនាទី
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </ng-container> -->
-            <app-spinner *ngIf="store?.loading"></app-spinner>
-        </div>
 
+<!-- <table class="as-table-wrapper" *ngIf="store?.roles?.length>0 && !store?.loading">
+<thead>
+  <tr>
+    <th class="center">
+      ល.រ
+    </th>
+
+    <th class="left">
+      ឈ្មោះ
+    </th>
+    <th class="left">
+      ការពិពណ៌នា
+    </th>
+    <th>
+
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of store?.roles; let i = index">
+    <td class="center">
+      {{i+1}}
+    </td>
+    <td>
+      {{item?.name}}
+    </td>
+    <td>
+      <div style="white-space: normal; max-width: 260px;">
+        {{item?.description}}
+      </div>
+    </td>
+
+    <td style="width: 64px;">
+      <div class="card-list-action">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <i class="material-icons">more_vert</i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="create(item)">
+            <mat-icon>edit</mat-icon>
+            <span>កែប្រែ</span>
+          </button>
+        </mat-menu>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table> -->
+
+<!-- <ng-container *ngIf="!store?.roles?.length>0 && !store?.loading">
+<div class="empty-block">
+  <div class="center-block-empty">
+    <div class="empty-img">
+      <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+        alt="empty">
     </div>
+    <div class="empty-text">
+      <p class="empty-state-title">
+        ពុំមានទិន្នន័យតួនាទីមទេ
+      </p>
+      <p class="empty-state-desc">
+        សូមបញ្ជូលទិន្នន័យតួនាទី
+      </p>
+    </div>
+  </div>
+</div>
+</ng-container> -->
+@if (store?.loading) {
+  <app-spinner></app-spinner>
+}
+</div>
+
+</div>
 </div>

@@ -2,7 +2,7 @@
     <div class="dialog-header">
         <h2 mat-dialog-title>ជ្រើសរើសគំរូ និងចរន្តឯកសារ</h2>
         <div class="space1"></div>
-        <div mat-button mat-icon-button (click)="dialogRef.close()">
+        <div mat-icon-button (click)="dialogRef.close()">
             <mat-icon class="mat-18">clear</mat-icon>
         </div>
     </div>
@@ -18,11 +18,11 @@
     <mat-dialog-content class="form-wrapper vt-wrapper" #parentScroll>
         <div class="cl-vt">
             <h4>គំរូ និងចរន្តឯកសារ</h4>
-            <virtual-scroller #scrollAccount [items]="store?.data" [parentScroll]="parentScroll" (vsEnd)="_onScroll($event)">
-                <a (click)="onSelectTemplate(item)" class="profile-avatar" *ngFor="let item of scrollAccount?.viewPortItems">
+            <cdk-virtual-scroll-viewport itemSize="60" #scrollAccount autosize (vsEnd)="_onScroll($event)">
+                <a (click)="onSelectTemplate(item)" class="profile-avatar" *cdkVirtualFor="let item of $safeNavigationMigration(store?.data)">
                     <div class="letter" [ngStyle]="{
                                 'width':'60px',
-                                'background-image': 'linear-gradient(-225deg, '+(item?.selectedChatBoxColor?.length>1?  item?.selectedChatBoxColor[0] + ', ' + item?.selectedChatBoxColor[1]:chatBoxColor[0]+', ' + chatBoxColor[1]) + ')'
+                                'background-image': 'linear-gradient(-225deg, '+(item?.selectedChatBoxColor?.length>1?  $safeNavigationMigration(item?.selectedChatBoxColor[0]) + ', ' + $safeNavigationMigration(item?.selectedChatBoxColor[1]):chatBoxColor[0]+', ' + chatBoxColor[1]) + ')'
                               }">
                         <h4 [ngStyle]="{'font-size': '26px'}">{{ item?.chatAvatar }}</h4>
                     </div>
@@ -32,7 +32,7 @@
                     </div>
 
                 </a>
-            </virtual-scroller>
+            </cdk-virtual-scroll-viewport>
         </div>
 
         <!-- <mat-selection-list [multiple]="false" class="template-listing" (selectionChange)="onSelectTemplate($event)">

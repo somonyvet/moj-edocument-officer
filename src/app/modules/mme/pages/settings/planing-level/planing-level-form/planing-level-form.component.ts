@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -13,22 +13,24 @@ import { PlaningCategoryStore } from 'src/app/modules/mme/store/planingCategory.
 import { IPlaningCategory } from 'src/app/modules/mme/interfaces/document.interface';
 
 @Component({
-  selector: 'app-planing-level-form',
-  templateUrl: './planing-level-form.component.html',
-  styleUrls: ['./planing-level-form.component.scss']
+    selector: 'app-planing-level-form',
+    templateUrl: './planing-level-form.component.html',
+    styleUrls: ['./planing-level-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PlaningLevelFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតកម្រិតគោលនយោបាយ";
-  form: FormGroup;
+  form: UntypedFormGroup;
   filteredOptionsOfficer: any;
   filterSourceBudget: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<PlaningLevelFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: PlaningCategoryStore,
     private ds: DataService,
     private db: DatabaseService,

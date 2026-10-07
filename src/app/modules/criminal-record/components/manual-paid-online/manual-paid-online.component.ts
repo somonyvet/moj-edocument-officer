@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NATIONALITY_APPLICAITON } from 'src/app/dummy/status';
 import { APPLY_OBJECT, CRIMINAL_APPLICATION_LANGUAGE_ARRAY, MANUAL_PAID, STATUS_OBJ, URGENT_OBJ_ARRAY } from 'src/app/dummy/appinfo';
@@ -13,12 +13,14 @@ import { LanguageStore } from 'src/app/languages/translate.store';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-manual-paid-online',
-  templateUrl: './manual-paid-online.component.html',
-  styleUrls: ['./manual-paid-online.component.scss']
+    selector: 'app-manual-paid-online',
+    templateUrl: './manual-paid-online.component.html',
+    styleUrls: ['./manual-paid-online.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ManualPaidOnlineComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   NATIONALITY_APPLICAITON: any = NATIONALITY_APPLICAITON
   STATUS_OBJ = STATUS_OBJ;
   URGENT_OBJ_ARRAY = URGENT_OBJ_ARRAY;
@@ -33,7 +35,7 @@ export class ManualPaidOnlineComponent implements OnInit {
   priceOptions: any = [];
   selectedPaymentOption: any = null;
   loading: boolean = true;
-  formPayment: FormGroup;
+  formPayment: UntypedFormGroup;
   // confirmAgreement: FormControl = new FormControl()
   subscribeForm = null;
 
@@ -47,7 +49,7 @@ export class ManualPaidOnlineComponent implements OnInit {
     public store: CriminalApplicationStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
-    private fb : FormBuilder,
+    private fb : UntypedFormBuilder,
     public lang: LanguageStore,
     private ds: DatabaseService
   ) { }

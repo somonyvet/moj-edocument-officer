@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -9,9 +9,11 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
 import { CriminalPaymentComponent } from '../criminal-payment/criminal-payment.component';
 
 @Component({
-  selector: 'app-criminal-application-direct',
-  templateUrl: './criminal-application-direct.component.html',
-  styleUrls: ['./criminal-application-direct.component.scss']
+    selector: 'app-criminal-application-direct',
+    templateUrl: './criminal-application-direct.component.html',
+    styleUrls: ['./criminal-application-direct.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationDirectComponent implements OnInit, OnDestroy {
   loading: boolean = true;

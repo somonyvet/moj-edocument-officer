@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SYS_MODULES } from 'src/app/dummy/config';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalStore } from '../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criminal-application',
-  templateUrl: './criminal-application.component.html',
-  styleUrls: ['./criminal-application.component.scss']
+    selector: 'app-criminal-application',
+    templateUrl: './criminal-application.component.html',
+    styleUrls: ['./criminal-application.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationComponent implements OnInit {
   apps_items = SYS_MODULES.CRIMINAL?.filter(m => m?.key !== 'public_applications')

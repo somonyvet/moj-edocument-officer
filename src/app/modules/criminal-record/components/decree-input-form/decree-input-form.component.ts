@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOCUMENT_NOTE_TYPE_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -7,16 +7,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DataService } from 'src/app/shared/services/data.service';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 import { Router } from '@angular/router';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { DOCUMENT_FLOW_CATEGORY } from '../../dummy/criminal.dummy';
 @Component({
-  selector: 'app-decree-input-form',
-  templateUrl: './decree-input-form.component.html',
-  styleUrls: ['./decree-input-form.component.scss']
+    selector: 'app-decree-input-form',
+    templateUrl: './decree-input-form.component.html',
+    styleUrls: ['./decree-input-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DecreeInputFormComponent implements OnInit {
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   process: boolean = false;
   note_type = DOCUMENT_NOTE_TYPE_ARRAY;
 
@@ -25,7 +27,7 @@ export class DecreeInputFormComponent implements OnInit {
   french: boolean = false;
 
 
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     toolbar: [
       'fontfamily',
@@ -86,7 +88,7 @@ export class DecreeInputFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DecreeInputFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     public ds: DataService,

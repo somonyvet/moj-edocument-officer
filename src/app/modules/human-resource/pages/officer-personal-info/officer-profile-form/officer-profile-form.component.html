@@ -1,7 +1,7 @@
 <div class="officer-profile-page">
   <div class="header">
     <div class="wrapper">
-      <nav mat-tab-nav-bar class="fire-tabs" style="flex:1;">
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs" style="flex:1;">
         <a mat-tab-link [routerLink]="'certificate'" routerLinkActive (click)="childrenRoute = 'certificate'"
           #rla1="routerLinkActive" [active]="rla1.isActive">សាលាកប័ត្រព័ត៌មាន
         </a>
@@ -14,12 +14,13 @@
           #rla3="routerLinkActive" [active]="rla3.isActive">ឯកសារភ្ជាប់
         </a>
       </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <!-- <div style="flex:1"></div> -->
-      <a matTooltip="ធ្វើបច្ចុប្បន្នភាព" mat-button mat-icon-button class="mat-add-new"
+      <a matTooltip="ធ្វើបច្ចុប្បន្នភាព" mat-icon-button class="mat-add-new"
         [routerLink]="['/hr/officer-application-form/' + docKey]" [queryParams]="{backUrl:backUrl}">
         <mat-icon class="mat-18">edit</mat-icon>
       </a>
-      <button [disabled]="childrenRoute === 'attachment'" matTooltip="បោះពុម្ព" mat-button mat-icon-button
+      <button [disabled]="childrenRoute === 'attachment'" matTooltip="បោះពុម្ព" mat-icon-button
         class="mat-add-new" (click)="print()">
         <mat-icon class="mat-18">print</mat-icon>
       </button>
@@ -27,8 +28,8 @@
     </div>
   </div>
   <div class="body">
-    <ng-container *ngIf="!loading">
+    @if (!loading) {
       <router-outlet></router-outlet>
-    </ng-container>
+    }
   </div>
 </div>

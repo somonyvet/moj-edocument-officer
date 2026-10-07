@@ -1,8 +1,8 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { config } from 'src/app/dummy/config';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { MmeSubProgramStore } from 'src/app/stores/document/mme-sub-program.store';
 import { DataService } from 'src/app/shared/services/data.service';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -10,20 +10,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 
 @Component({
-  selector: 'app-fourth-quarter',
-  templateUrl: './fourth-quarter.component.html',
-  styleUrls: ['./fourth-quarter.component.scss']
+    selector: 'app-fourth-quarter',
+    templateUrl: './fourth-quarter.component.html',
+    styleUrls: ['./fourth-quarter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FourthQuarterComponent implements OnInit {
   title = 'សូចនាករប្រចាំត្រីមាសទី៣';
-  form: FormGroup;
+  form: UntypedFormGroup;
   ITEM: any;
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = config;
   constructor(
     public dialogRef: MatDialogRef<FourthQuarterComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: MmeSubProgramStore,
     private ds: DataService,
     private db: DatabaseService,

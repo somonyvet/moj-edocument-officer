@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject} from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 import { MappingService } from 'src/app/shared/services/mapping.service';
@@ -7,9 +7,11 @@ import { CRIMINAL_APPLICATION_LANGUAGE_OBJECT } from 'src/app/dummy/appinfo';
 import { DOCUMENT_FLOW_CATEGORY } from '../../../dummy/criminal.dummy';
 
 @Component({
-  selector: 'app-criminal-application-fullview-dialog',
-  templateUrl: './criminal-application-fullview-dialog.component.html',
-  styleUrls: ['./criminal-application-fullview-dialog.component.scss'],
+    selector: 'app-criminal-application-fullview-dialog',
+    templateUrl: './criminal-application-fullview-dialog.component.html',
+    styleUrls: ['./criminal-application-fullview-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationFullviewDialogComponent implements OnInit {
   CRfiles = []

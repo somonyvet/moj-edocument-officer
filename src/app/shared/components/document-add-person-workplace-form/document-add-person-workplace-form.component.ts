@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { pushObjArray, toUniq, updateObjArray } from 'src/app/shared/services/convert.service';
@@ -12,15 +12,17 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-document-add-person-workplace-form',
-  templateUrl: './document-add-person-workplace-form.component.html',
-  styleUrls: ['./document-add-person-workplace-form.component.scss']
+    selector: 'app-document-add-person-workplace-form',
+    templateUrl: './document-add-person-workplace-form.component.html',
+    styleUrls: ['./document-add-person-workplace-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentAddPersonWorkplaceFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   title: any = "បញ្ចូលកន្លែង ឬអ្នកត្រូវទទួលអនុវត្ត";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   hashtagItems: string[];
   filteredOfficeList;
   officeLists = [];
@@ -37,7 +39,7 @@ export class DocumentAddPersonWorkplaceFormComponent implements OnInit, OnDestro
   constructor(
     public dialogRef: MatDialogRef<DocumentAddPersonWorkplaceFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     public auth: AuthStore,
     public ds: DatabaseService,

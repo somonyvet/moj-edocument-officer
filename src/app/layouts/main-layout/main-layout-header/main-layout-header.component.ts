@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { APP_NAME, PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -20,15 +20,17 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { FileManager } from 'src/app/stores/fileDrive.store';
 
 @Component({
-  selector: 'app-main-layout-header',
-  templateUrl: './main-layout-header.component.html',
-  styleUrls: ['./main-layout-header.component.scss']
+    selector: 'app-main-layout-header',
+    templateUrl: './main-layout-header.component.html',
+    styleUrls: ['./main-layout-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MainLayoutHeaderComponent implements OnInit, OnDestroy {
   @Input() activeAccount: boolean;
 
   uploadPercent: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   subscriptionRef: Subscription = null;
   START_UPLOAD: boolean = false;
@@ -44,7 +46,7 @@ export class MainLayoutHeaderComponent implements OnInit, OnDestroy {
   NO_AVATAR = 'https://firebasestorage.googleapis.com/v0/b/sysanotta.appspot.com/o/no_image.svg?alt=media&token=f25af902-6c62-47e6-bdf3-48e3b0c6fe8c'
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private chat: ChatStore,
     public notify: NotificationStore,

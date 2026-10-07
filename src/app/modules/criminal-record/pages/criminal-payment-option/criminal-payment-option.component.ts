@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -12,9 +12,11 @@ import { PaymentOptionFormComponent } from './payment-option-form/payment-option
 import { paymentOptionStore } from '../../stores/paymentOption.store';
 
 @Component({
-  selector: 'app-criminal-payment-option',
-  templateUrl: './criminal-payment-option.component.html',
-  styleUrls: ['./criminal-payment-option.component.scss']
+    selector: 'app-criminal-payment-option',
+    templateUrl: './criminal-payment-option.component.html',
+    styleUrls: ['./criminal-payment-option.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalPaymentOptionComponent implements OnInit {
 

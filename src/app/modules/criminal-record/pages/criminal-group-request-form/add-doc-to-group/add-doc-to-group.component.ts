@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DOC_CATEGORY_APP_ARRAY, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -17,14 +17,16 @@ import { toJS } from 'mobx';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 import { BaseStore } from 'src/app/stores/base.store';
 @Component({
-  selector: 'app-add-doc-to-group',
-  templateUrl: './add-doc-to-group.component.html',
-  styleUrls: ['./add-doc-to-group.component.scss']
+    selector: 'app-add-doc-to-group',
+    templateUrl: './add-doc-to-group.component.html',
+    styleUrls: ['./add-doc-to-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddDocToGroupComponent implements OnInit, OnDestroy {
 
   titleForm: any = "បញ្ទូលឯកសារ";
-  form: FormGroup;
+  form: UntypedFormGroup;
   document: AbstractControl;
 
   filteredStockVisaOptions: Observable<IStockVisa[]>;
@@ -32,7 +34,7 @@ export class AddDocToGroupComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<AddDocToGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: CriminalApplicationStore,
     public ds: DataService,
     private auth: AuthStore,

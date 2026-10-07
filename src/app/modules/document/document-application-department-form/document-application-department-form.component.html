@@ -1,127 +1,134 @@
 <div class="doc-form-container" *mobxAutorun>
-    <div class="doc-form-block" #spacer>
-        <div class="doc-form-item form-wrapper" [formGroup]="form">
+  <div class="doc-form-block" #spacer>
+    <div class="doc-form-item form-wrapper" [formGroup]="form">
 
-            <div class="doc-template-wrapper">
-                <div class="doc-template-page">
-                    <div class="doc-template-row">
-                        <div class="bl-title-left">
-                            <p>ក្រសួងមហាផ្ទៃ</p>
-                            <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
-                            <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
-                            <p>និងបច្ចេកវិទ្យា</p>
-                            <p>ការិយាល័យរដ្ឋបាលសរុប</p>
-                            <p>លេខ៖ ...
-                                <span *ngFor="let item of store?.documentDataDoc?.numberRefData">
-                                    {{item?.number_ref}}
-                                </span>
-                            </p>
-                            <p class="star">3</p>
-                        </div>
-                        <div class="bl-space"></div>
-                        <div class="bl-title-right">
-                            <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
-                            <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                            <p class="star">3</p>
-                        </div>
-                    </div>
-
-                    <div class="doc-template-row">
-                        <div class="doc-form-content">
-                            <p [innerHtml]="Item?.title | safe:'html'"></p>
-                        </div>
-                    </div>
-
-                    <div class="doc-template-row" #elReference *ngFor="let item of Item?.header;let i = index;">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <p [innerHtml]="item?.content | safe:'html'"></p>
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteHeaderGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
-                    </div>
-
-
-                    <div class="doc-template-row" #elReference *ngFor="let item of Item?.section;let i = index;">
-                        <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
-                            <ng-container *ngIf="item.type.key === 1">
-                                <p [innerHtml]="item?.remark | safe:'html'"></p>
-                            </ng-container>
-                            <ng-container *ngIf="item.type.key === 2">
-                                <p [innerHtml]="item?.content | safe:'html'"></p>
-                            </ng-container>
-
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteSessionGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
-                    </div>
-
-                    <div class="doc-template-row" #elReference *ngFor="let item of Item?.footer;let i = index;">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <ng-container *ngIf="item.type.key === 1">
-                                <div class="doc-template-row">
-                                    <div class="bl-space"></div>
-                                    <div class="bl-date-right">
-                                        <p class="fMoul" style="margin-bottom: 88px;">
-                                            ការិយាល័យរដ្ឋបាលសរុប
-                                        </p>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="item.type.key === 2">
-                                <div class="doc-template-row">
-                                    <table class="doc-table-footer">
-                                        <tr>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អគ្គនាយករង</p>
-                                                    <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
-                                                    <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
-                                                    <p [innerHtml]="item?.content??'' | safe:'html'"></p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="item.type.key === 3 || item.type.key === 4">
-                                <div class="doc-template-row">
-                                    <div class="doc-form-content" style="padding: 0;">
-                                        <p [innerHtml]="item?.content??'' | safe:'html'"></p>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="doc-form-action">
-                            <!-- <button mat-icon-button (click)="deleteFooterGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button> -->
-                        </div>
-                    </div>
-
-
-                </div>
+      <div class="doc-template-wrapper">
+        <div class="doc-template-page">
+          <div class="doc-template-row">
+            <div class="bl-title-left">
+              <p>ក្រសួងមហាផ្ទៃ</p>
+              <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+              <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
+              <p>និងបច្ចេកវិទ្យា</p>
+              <p>ការិយាល័យរដ្ឋបាលសរុប</p>
+              <p>លេខ៖ ...
+                @for (item of store?.documentDataDoc?.numberRefData; track item) {
+                  <span>
+                    {{item?.number_ref}}
+                  </span>
+                }
+              </p>
+              <p class="star">3</p>
             </div>
+            <div class="bl-space"></div>
+            <div class="bl-title-right">
+              <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+              <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+              <p class="star">3</p>
+            </div>
+          </div>
 
-        </div>
-    </div>
+          <div class="doc-template-row">
+            <div class="doc-form-content">
+              <p [innerHtml]="$safeNavigationMigration(Item?.title) | safe:'html'"></p>
+            </div>
+          </div>
 
-    <div class="doc-form-sticky">
-        <div class="doc-sticky-action">
-            <button mat-icon-button (click)="create()" matTooltip="បញ្ចូលលេខយោង" [matTooltipPosition]="'after'">
-                <mat-icon class="mat-18">post_add</mat-icon>
-            </button>
+          @for (item of Item?.header; track item; let i = $index) {
+            <div class="doc-template-row" #elReference>
+              <div class="doc-form-content" style="padding: 0;">
+                <p [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></p>
+              </div>
+              <div class="doc-form-action">
+                <!-- <button mat-icon-button (click)="deleteHeaderGroup(i)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button> -->
+            </div>
+          </div>
+        }
+
+
+        @for (item of Item?.section; track item; let i = $index) {
+          <div class="doc-template-row" #elReference>
+            <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
+              @if (item.type.key === 1) {
+                <p [innerHtml]="$safeNavigationMigration(item?.remark) | safe:'html'"></p>
+              }
+              @if (item.type.key === 2) {
+                <p [innerHtml]="$safeNavigationMigration(item?.content) | safe:'html'"></p>
+              }
+            </div>
+            <div class="doc-form-action">
+              <!-- <button mat-icon-button (click)="deleteSessionGroup(i)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button> -->
+          </div>
         </div>
-    </div>
+      }
+
+      @for (item of Item?.footer; track item; let i = $index) {
+        <div class="doc-template-row" #elReference>
+          <div class="doc-form-content" style="padding: 0;">
+            @if (item.type.key === 1) {
+              <div class="doc-template-row">
+                <div class="bl-space"></div>
+                <div class="bl-date-right">
+                  <p class="fMoul" style="margin-bottom: 88px;">
+                    ការិយាល័យរដ្ឋបាលសរុប
+                  </p>
+                </div>
+              </div>
+            }
+            @if (item.type.key === 2) {
+              <div class="doc-template-row">
+                <table class="doc-table-footer">
+                  <tr>
+                    <td>
+                      <div class="tb-title-text">
+                        <p>អគ្គនាយករង</p>
+                        <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
+                        <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="tb-title-text">
+                        <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
+                        <p [innerHtml]="item?.content??'' | safe:'html'"></p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            }
+            @if (item.type.key === 3 || item.type.key === 4) {
+              <div class="doc-template-row">
+                <div class="doc-form-content" style="padding: 0;">
+                  <p [innerHtml]="item?.content??'' | safe:'html'"></p>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="doc-form-action">
+            <!-- <button mat-icon-button (click)="deleteFooterGroup(i)">
+            <mat-icon class="mat-18">delete</mat-icon>
+          </button> -->
+        </div>
+      </div>
+    }
+
+
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="doc-form-sticky">
+  <div class="doc-sticky-action">
+    <button mat-icon-button (click)="create()" matTooltip="បញ្ចូលលេខយោង" [matTooltipPosition]="'after'">
+      <mat-icon class="mat-18">post_add</mat-icon>
+    </button>
+  </div>
+</div>
 
 </div>

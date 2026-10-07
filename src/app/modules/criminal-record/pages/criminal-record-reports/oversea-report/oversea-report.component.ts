@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { criminal_tabs } from '../../../dummy/criminal.dummy';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -8,9 +8,11 @@ import * as XLSX from 'xlsx';
 import { ReportOversea } from 'src/app/stores/report-oversea.store';
 
 @Component({
-  selector: 'app-oversea-report',
-  templateUrl: './oversea-report.component.html',
-  styleUrls: ['./oversea-report.component.scss']
+    selector: 'app-oversea-report',
+    templateUrl: './oversea-report.component.html',
+    styleUrls: ['./oversea-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OverseaReportComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -7,7 +7,7 @@ import { AuthStore } from 'src/app/stores/auth.store';
 @Injectable({
   providedIn: 'root'
 })
-export class UserPermissionGuard implements CanActivate {
+export class UserPermissionGuard  {
   constructor(private auth: AuthStore, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -33,7 +33,7 @@ export class UserPermissionGuard implements CanActivate {
 @Injectable({
   providedIn: 'root'
 })
-export class UserDirectionGuard implements CanActivate {
+export class UserDirectionGuard  {
   constructor(private auth: AuthStore, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -69,7 +69,7 @@ export class UserDirectionGuard implements CanActivate {
 @Injectable({
   providedIn: 'root'
 })
-export class DecreeRecordDirectionGuard implements CanActivate {
+export class DecreeRecordDirectionGuard  {
   constructor(private auth: AuthStore, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,

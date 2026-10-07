@@ -3,12 +3,14 @@
     <!-- <h2 mat-dialog-title (click)="generateMOL()">{{titleForm}}</h2> -->
     <h2 mat-dialog-title>{{titleForm}}</h2>
     <div class="space1"></div>
-    <div mat-button mat-icon-button (click)="dialogRef.close()">
+    <div mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </div>
   </div>
-  <mat-progress-bar mode="determinate" [value]="storage?.uploadPercent | async " *ngIf="storage?.startUpload">
-  </mat-progress-bar>
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+    </mat-progress-bar>
+  }
   <mat-dialog-content class="form-wrapper">
     <div class="photo-pro">
       <div class="avatar">
@@ -31,33 +33,36 @@
           required
           formControlName="application_country"
           [matAutocomplete]="autoCountry"
-        />
+          />
         <mat-autocomplete
           #autoCountry="matAutocomplete"
           [displayWith]="displayItemCountry"
           (optionSelected)="optionSelectedCountry($event.option.value)"
-        >
-          <mat-option
-            *ngFor="let option of filterCountry"
-            [value]="option"
           >
-            {{ option?.en_short_name }}
-          </mat-option>
+          @for (option of filterCountry; track option) {
+            <mat-option
+              [value]="option"
+              >
+              {{ option?.en_short_name }}
+            </mat-option>
+          }
         </mat-autocomplete>
-        <mat-error
-          *ngIf="
-            form.controls['application_country'].hasError('required')
-          "
-        >
-           ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-        </mat-error>
-        <mat-error
-          *ngIf="
-            form.controls['application_country'].hasError('validKey')
-          "
-        >
-           សូមជ្រើសរើសពីតារាង
-        </mat-error>
+        @if (
+          form.controls['application_country'].hasError('required')
+          ) {
+          <mat-error
+            >
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+          </mat-error>
+        }
+        @if (
+          form.controls['application_country'].hasError('validKey')
+          ) {
+          <mat-error
+            >
+            សូមជ្រើសរើសពីតារាង
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -70,38 +75,41 @@
           required
           formControlName="application_embassy"
           [matAutocomplete]="autoEmbassy"
-        />
+          />
         <mat-autocomplete
           #autoEmbassy="matAutocomplete"
           [displayWith]="displayEmbassy"
-        >
-          <mat-option
-            class="custom-option"
-            *ngFor="let option of filterEmbassy"
-            [value]="option"
           >
-            <div class="embassy-menu-options">
-              <p class="title">
-                {{ option?.name }}
-              </p>
-              <p class="address">អាស័យដ្ឋាន: {{ option?.address }}</p>
-            </div>
-          </mat-option>
+          @for (option of filterEmbassy; track option) {
+            <mat-option
+              class="custom-option"
+              [value]="option"
+              >
+              <div class="embassy-menu-options">
+                <p class="title">
+                  {{ option?.name }}
+                </p>
+                <p class="address">អាស័យដ្ឋាន: {{ option?.address }}</p>
+              </div>
+            </mat-option>
+          }
         </mat-autocomplete>
-        <mat-error
-          *ngIf="
-            form.controls['application_embassy'].hasError('required')
-          "
-        >
-         ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-        </mat-error>
-        <mat-error
-          *ngIf="
-            form.controls['application_embassy'].hasError('validKey')
-          "
-        >
-         សូមជ្រើសរើសពីតារាង
-        </mat-error>
+        @if (
+          form.controls['application_embassy'].hasError('required')
+          ) {
+          <mat-error
+            >
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+          </mat-error>
+        }
+        @if (
+          form.controls['application_embassy'].hasError('validKey')
+          ) {
+          <mat-error
+            >
+            សូមជ្រើសរើសពីតារាង
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -109,12 +117,16 @@
       <mat-form-field appearance="outline">
         <mat-label>គណនី</mat-label>
         <input #inputRef formControlName="officerId" required matInput placeholder="គណនី">
-        <mat-error *ngIf="form.controls['officerId'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
-        <mat-error *ngIf="form.controls['officerId'].hasError('nameAvailable')" class="error-message">
-          គណនីប្រើម្ដងហើយ
-        </mat-error>
+        @if (form.controls['officerId'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (form.controls['officerId'].hasError('nameAvailable')) {
+          <mat-error class="error-message">
+            គណនីប្រើម្ដងហើយ
+          </mat-error>
+        }
         <mat-hint>ឈ្មោះគណនីចូលប្រើប្រាស់ប្រព័ន្ធ</mat-hint>
       </mat-form-field>
     </div>
@@ -122,33 +134,41 @@
       <mat-form-field appearance="outline">
         <mat-label>នាមត្រកូល</mat-label>
         <input #inputRef formControlName="last_name" required matInput placeholder="នាមត្រកូល">
-        <mat-error *ngIf="form.controls['last_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['last_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>នាមខ្លួន</mat-label>
         <input #inputRef cdkFocusInitial matInputAutofocus formControlName="first_name" required matInput
           placeholder="នាមខ្លួន">
-        <mat-error *ngIf="form.controls['first_name'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['first_name'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
     <div class="form-group two">
       <mat-form-field appearance="outline">
         <mat-label>នាមត្រកូល (អង់គ្លេស)</mat-label>
         <input formControlName="last_name_en" required matInput placeholder="នាមត្រកូល (អង់គ្លេស)">
-        <mat-error *ngIf="form.controls['last_name_en'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['last_name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>នាមខ្លួន (អង់គ្លេស)</mat-label>
         <input formControlName="first_name_en" required matInput placeholder="នាមខ្លួន (អង់គ្លេស)">
-        <mat-error *ngIf="form.controls['first_name_en'].hasError('required')">
-          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-        </mat-error>
+        @if (form.controls['first_name_en'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
       </mat-form-field>
     </div>
 

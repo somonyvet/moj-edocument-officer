@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { StartProcessDocDialogComponent } from 'src/app/shared/components/start-process-doc-dialog/start-process-doc-dialog.component';
@@ -14,9 +14,11 @@ import { CriminalStore } from '../../stores/criminal.store';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-payment-online-draft',
-  templateUrl: './criminal-payment-online-draft.component.html',
-  styleUrls: ['./criminal-payment-online-draft.component.scss']
+    selector: 'app-criminal-payment-online-draft',
+    templateUrl: './criminal-payment-online-draft.component.html',
+    styleUrls: ['./criminal-payment-online-draft.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalPaymentOnlineDraftComponent implements OnInit {
   tabs = tabs.process_doc_online

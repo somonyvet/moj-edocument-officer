@@ -1,5 +1,7 @@
-<mat-chip-list class="example-chip">
-    <mat-chip class="example-box" *ngFor="let pos of item?.positionManager">
-        {{pos.name}}
-    </mat-chip>
-</mat-chip-list>
+<mat-chip-grid class="example-chip">
+  @for (pos of item?.positionManager; track pos) {
+    <mat-chip-row class="example-box">
+      {{pos.name}}
+    </mat-chip-row>
+  }
+</mat-chip-grid>

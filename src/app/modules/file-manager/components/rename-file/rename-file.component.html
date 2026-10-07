@@ -1,32 +1,36 @@
 <form class="dialog-wrapper form-dialog-wrapper" *mobxAutorun>
-    <div class="dialog-header">
-        <div class="title">
-            កែឈ្មោះ
-        </div>
-        <div class="flex1"></div>
-        <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
-            <i class="material-icons">&#xE14C;</i>
-        </a>
+  <div class="dialog-header">
+    <div class="title">
+      កែឈ្មោះ
     </div>
-    <div class="dialog-content">
-        <div class="form-wrapper" [formGroup]="form">
-            <div class="form-group ">
-                <mat-form-field appearance="outline">
-                    <mat-label>ឈ្មោះ</mat-label>
-                    <input required placeholder="" aria-label="" matInput formControlName="name">
-                    <mat-error *ngIf="form.controls['name'].hasError('required')">
-                        <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
+    <div class="flex1"></div>
+    <a mat-dialog-close class="close-dialog" (click)="dialogRef.close('no')">
+      <i class="material-icons">&#xE14C;</i>
+    </a>
+  </div>
+  <div class="dialog-content">
+    <div class="form-wrapper" [formGroup]="form">
+      <div class="form-group ">
+        <mat-form-field appearance="outline">
+          <mat-label>ឈ្មោះ</mat-label>
+          <input required placeholder="" aria-label="" matInput formControlName="name">
+          @if (form.controls['name'].hasError('required')) {
+            <mat-error>
+              <div>ព័ត៌មាននេះតម្រូវឲ្យបំពេញ</div>
+            </mat-error>
+          }
+        </mat-form-field>
+      </div>
     </div>
-    <div class="dialog-footer">
-        <div class="flex-1"></div>
-        <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>បោះបង់</span></a>
-        <app-primary-button (onPress)="onSave(form.value)" [disable]="!form.valid" [process]="store?.process"
-            label="រក្សាទុក">
-        </app-primary-button>
-    </div>
-    <app-spinner *ngIf="store?.loading"></app-spinner>
+  </div>
+  <div class="dialog-footer">
+    <div class="flex-1"></div>
+    <a mat-button class="mat-puc cancel" (click)="dialogRef.close('no')"><span>បោះបង់</span></a>
+    <app-primary-button (onPress)="onSave(form.value)" [disable]="!form.valid" [process]="$safeNavigationMigration(store?.process)"
+      label="រក្សាទុក">
+    </app-primary-button>
+  </div>
+  @if (store?.loading) {
+    <app-spinner></app-spinner>
+  }
 </form>

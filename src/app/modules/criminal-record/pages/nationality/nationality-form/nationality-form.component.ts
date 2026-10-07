@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -14,16 +14,18 @@ import { GeoStore } from '../../../stores/geo.store';
 import { NationalityStore } from '../../../stores/nationality.store';
 
 @Component({
-  selector: 'app-nationality-form',
-  templateUrl: './nationality-form.component.html',
-  styleUrls: ['./nationality-form.component.scss']
+    selector: 'app-nationality-form',
+    templateUrl: './nationality-form.component.html',
+    styleUrls: ['./nationality-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NationalityFormComponent implements OnInit {
   title: any = "បង្កើតសញ្ជាតិ";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   kh_short_name: AbstractControl
   description: AbstractControl
   en_short_name: AbstractControl
@@ -36,7 +38,7 @@ export class NationalityFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<NationalityFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

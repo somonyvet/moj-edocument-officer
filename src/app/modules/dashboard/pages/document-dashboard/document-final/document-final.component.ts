@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-final',
-  templateUrl: './document-final.component.html',
-  styleUrls: ['./document-final.component.scss']
+    selector: 'app-document-final',
+    templateUrl: './document-final.component.html',
+    styleUrls: ['./document-final.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentFinalComponent implements OnInit {
   queryParams: any = { periodKey: 'all' };

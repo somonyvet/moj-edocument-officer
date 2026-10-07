@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfirmOverwriteComponent } from './confirm-overwrite.component';
 
@@ -6,7 +6,7 @@ describe('ConfirmOverwriteComponent', () => {
   let component: ConfirmOverwriteComponent;
   let fixture: ComponentFixture<ConfirmOverwriteComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConfirmOverwriteComponent ]
     })

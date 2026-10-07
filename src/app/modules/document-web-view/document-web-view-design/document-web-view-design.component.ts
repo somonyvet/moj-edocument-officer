@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -8,9 +8,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-web-view-design',
-  templateUrl: './document-web-view-design.component.html',
-  styleUrls: ['./document-web-view-design.component.scss']
+    selector: 'app-document-web-view-design',
+    templateUrl: './document-web-view-design.component.html',
+    styleUrls: ['./document-web-view-design.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentWebViewDesignComponent implements OnInit {
 

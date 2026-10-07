@@ -1,129 +1,145 @@
-<mat-progress-bar mode="indeterminate" *ngIf="processing" class="app-loader"></mat-progress-bar>
+@if (processing) {
+  <mat-progress-bar mode="indeterminate" class="app-loader"></mat-progress-bar>
+}
 
 <div class="verify-report-page-wrapper">
-    <div class="verify-report-page">
-        <div class="listing-header row">
-            <div>
-                <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
-                    aria-label="Example icon-button with a menu">
-                    <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
-                    <i class="material-icons">arrow_drop_down</i>
-                </button>
-                <mat-menu #menuPeriod="matMenu">
-                    <div class="options-lags" (click)="$event.stopPropagation();">
-                    <app-report-filter-period reportRoute='/criminal-record/reports/verify-online-report'>
-                    </app-report-filter-period>
-                    </div>
-                </mat-menu>
-            </div>
-            <div class="flex1"></div>
-            <button mat-button class="options-dashboard primary" (click)="getReportAndProcess()" [disabled]="processing">
-                <!-- <i class="material-icons">print</i> -->
-                <span>Process Verify Report</span>
-            </button>
-        </div>
-        <div class="file-attachment col" (click)="fileInput.click()">
-            <div class="center-div">
-                <ion-icon name="document-attach-outline"></ion-icon>
-                <p>សូមបញ្ចូលឯកសាររបាយការណ៍ Excel Account Statement</p>
-            </div>
-            <input #fileInput id="fileInput" type="file" accept='.xlsx' (change)="onSelectedFile($event)"
-            style="display:none;" />
-        </div>
-        <div class="file-attachment col" (click)="fileInputCard.click()">
-            <div class="center-div">
-                <ion-icon name="document-attach-outline"></ion-icon>
-                <p>សូមបញ្ចូលឯកសាររបាយការណ៍ Excel Credit/Debit Card Transactions</p>
-            </div>
-            <input #fileInputCard id="fileInput" type="file" accept='.xlsx' (change)="onSelectedFileCard($event)"
-            style="display:none;" />
-        </div>
-
-        <div class="card-info" *ngIf="fileName">
-            <div class="result-container">
-                <p class="card-subtitle">Excel Account Statement : {{fileName}} </p>
-                <p class="card-subtitle">Total online payment rows found in file : {{onlinePaymentRowFromFile?.length}} </p>
-            </div>
-        </div>
-
-        <div class="card-info" *ngIf="fileCreditCardName">
-            <div class="result-container" >
-                <p class="card-subtitle">Excel Credit/Debit Card Transactions : {{fileCreditCardName}} </p>
-                <p class="card-subtitle">Total online payment rows found in file : {{onlinePaymentRowFromFile?.length}} </p>
-            </div>
-        </div>
-
-        <div class="card-info" *ngIf="tranFromFileNotFoundInSystem?.length && !processing">
-            <div class="result-container" >
-                <p class="card-title">មានទឹកប្រាក់ក្នុងរបាយការណ៍ ACLEDA Account Statement Report តែមិនមាននៅក្នុងប្រព័ន្ធ</p>
-                <!-- <p class="card-title">ePayment(KHQR) records from Account Statement Report not found in our system</p> -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Transaction ID</th>
-                            <th>Paid Amount</th>
-                            <th>Application ID</th>
-                            <th>Full Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of tranFromFileNotFoundInSystem; let i=index">
-                            <td>{{i+1}}</td>
-                            <td>{{item?.key}}</td>
-                            <td>{{item?.amount}}៛</td>
-                            <td>
-                                {{item?.applicationKey || 'Not found'}}
-                            </td>
-                            <td>
-                                {{item?.last_name? (item?.last_name + " " + item?.first_name) : (item?.last_name_en + " " + item?.first_name_en)}}
-                            </td>
-                            <td>KHQR</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-info" *ngIf="notFoundFromSystem?.length && !processing">
-            <div class="result-container">
-                <p class="card-title">មានក្នុងប្រព័ន្ធ តែមិនមានក្នុងរបាយការណ៍ ACLEDA Account Statement Report</p>
-                <!-- <p class="card-title">Records in our system and not found in Account Statement Report(KHQR) + Credit/Debit Card Transactions Report</p> -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Transaction ID</th>
-                            <th>Paid Amount</th>
-                            <th>Application ID</th>
-                            <th>Full Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of notFoundFromSystem; let i=index">
-                            <td>{{i+1}}</td>
-                            <td>{{item?.receipt_ref}}</td>
-                            <td>{{item?.paid_amount}}៛</td>
-                            <td>{{item?.key}}</td>
-                            <td>
-                                {{item?.last_name? (item?.last_name + " " + item?.first_name) : (item?.last_name_en + " " + item?.first_name_en)}}
-                            </td>
-                            <td>
-                                <ng-container *ngIf="item?.paid_online">
-                                    {{((item?.payment_option?.name === 'Credit/Debit Card') || ( item?.pay_option?.name === 'ប័ណ្ណឥណទាន')) ? 'Credit/Debit Card' : 'KHQR'}}
-                                </ng-container>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <p class="title-success" *ngIf="reportProcessDocumentFromSystem?.length && !notFoundFromSystem?.length && !tranFromFileNotFoundInSystem?.length && !processing">
-            ផ្ទៀងផ្ទាត់រួចរាល់ នឹងមិនមានភាពមិនប្រក្រតី។
-        </p>
-
+  <div class="verify-report-page">
+    <div class="listing-header row">
+      <div>
+        <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+          aria-label="Example icon-button with a menu">
+          <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menuPeriod="matMenu">
+          <div class="options-lags" (click)="$event.stopPropagation();">
+            <app-report-filter-period reportRoute='/criminal-record/reports/verify-online-report'>
+            </app-report-filter-period>
+          </div>
+        </mat-menu>
+      </div>
+      <div class="flex1"></div>
+      <button mat-button class="options-dashboard primary" (click)="getReportAndProcess()" [disabled]="processing">
+        <!-- <i class="material-icons">print</i> -->
+        <span>Process Verify Report</span>
+      </button>
     </div>
+    <div class="file-attachment col" (click)="fileInput.click()">
+      <div class="center-div">
+        <ion-icon name="document-attach-outline"></ion-icon>
+        <p>សូមបញ្ចូលឯកសាររបាយការណ៍ Excel Account Statement</p>
+      </div>
+      <input #fileInput id="fileInput" type="file" accept='.xlsx' (change)="onSelectedFile($event)"
+        style="display:none;" />
+    </div>
+    <div class="file-attachment col" (click)="fileInputCard.click()">
+      <div class="center-div">
+        <ion-icon name="document-attach-outline"></ion-icon>
+        <p>សូមបញ្ចូលឯកសាររបាយការណ៍ Excel Credit/Debit Card Transactions</p>
+      </div>
+      <input #fileInputCard id="fileInput" type="file" accept='.xlsx' (change)="onSelectedFileCard($event)"
+        style="display:none;" />
+    </div>
+
+    @if (fileName) {
+      <div class="card-info">
+        <div class="result-container">
+          <p class="card-subtitle">Excel Account Statement : {{fileName}} </p>
+          <p class="card-subtitle">Total online payment rows found in file : {{onlinePaymentRowFromFile?.length}} </p>
+        </div>
+      </div>
+    }
+
+    @if (fileCreditCardName) {
+      <div class="card-info">
+        <div class="result-container" >
+          <p class="card-subtitle">Excel Credit/Debit Card Transactions : {{fileCreditCardName}} </p>
+          <p class="card-subtitle">Total online payment rows found in file : {{onlinePaymentRowFromFile?.length}} </p>
+        </div>
+      </div>
+    }
+
+    @if (tranFromFileNotFoundInSystem?.length && !processing) {
+      <div class="card-info">
+        <div class="result-container" >
+          <p class="card-title">មានទឹកប្រាក់ក្នុងរបាយការណ៍ ACLEDA Account Statement Report តែមិនមាននៅក្នុងប្រព័ន្ធ</p>
+          <!-- <p class="card-title">ePayment(KHQR) records from Account Statement Report not found in our system</p> -->
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Transaction ID</th>
+                <th>Paid Amount</th>
+                <th>Application ID</th>
+                <th>Full Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of tranFromFileNotFoundInSystem; track item; let i = $index) {
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{item?.key}}</td>
+                  <td>{{item?.amount}}៛</td>
+                  <td>
+                    {{item?.applicationKey || 'Not found'}}
+                  </td>
+                  <td>
+                    {{item?.last_name? (item?.last_name + " " + item?.first_name) : (item?.last_name_en + " " + item?.first_name_en)}}
+                  </td>
+                  <td>KHQR</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    @if (notFoundFromSystem?.length && !processing) {
+      <div class="card-info">
+        <div class="result-container">
+          <p class="card-title">មានក្នុងប្រព័ន្ធ តែមិនមានក្នុងរបាយការណ៍ ACLEDA Account Statement Report</p>
+          <!-- <p class="card-title">Records in our system and not found in Account Statement Report(KHQR) + Credit/Debit Card Transactions Report</p> -->
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Transaction ID</th>
+                <th>Paid Amount</th>
+                <th>Application ID</th>
+                <th>Full Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of notFoundFromSystem; track item; let i = $index) {
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{item?.receipt_ref}}</td>
+                  <td>{{item?.paid_amount}}៛</td>
+                  <td>{{item?.key}}</td>
+                  <td>
+                    {{item?.last_name? (item?.last_name + " " + item?.first_name) : (item?.last_name_en + " " + item?.first_name_en)}}
+                  </td>
+                  <td>
+                    @if (item?.paid_online) {
+                      {{((item?.payment_option?.name === 'Credit/Debit Card') || ( item?.pay_option?.name === 'ប័ណ្ណឥណទាន')) ? 'Credit/Debit Card' : 'KHQR'}}
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    @if (reportProcessDocumentFromSystem?.length && !notFoundFromSystem?.length && !tranFromFileNotFoundInSystem?.length && !processing) {
+      <p class="title-success">
+        ផ្ទៀងផ្ទាត់រួចរាល់ នឹងមិនមានភាពមិនប្រក្រតី។
+      </p>
+    }
+
+  </div>
 </div>

@@ -1,26 +1,31 @@
 <div class="page-container" *mobxAutorun>
   <div class="action-bar">
-      <div class="nav-content">
-          <h3 class="head-title">
-            រចនាសម្ព័ន្ធចរន្តឯកសារ
-          </h3>
-          <div class="action-item">
-              <button mat-button (click)="create()" class="enbutton primary">បង្កើតរចនាសម្ព័ន្ធ</button>
-          </div>
+    <div class="nav-content">
+      <h3 class="head-title">
+        រចនាសម្ព័ន្ធចរន្តឯកសារ
+      </h3>
+      <div class="action-item">
+        <button mat-button (click)="create()" class="enbutton primary">បង្កើតរចនាសម្ព័ន្ធ</button>
       </div>
-      <nav mat-tab-nav-bar>
-          <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-              [active]="rla.isActive">{{link.label}}</a>
-      </nav>
+    </div>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+      @for (link of tabs; track link) {
+        <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">{{link.label}}</a>
+      }
+    </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
   </div>
 
   <div class="page-doc nav-r-container">
-    <div id="print" class="chart0-container" *ngIf="nodes?.length>0">
-      <div class="charts-container">
-        <div class="chart-container">
-          <app-org-chart class="org-chart" [nodes]="nodes"></app-org-chart>
+    @if (nodes?.length>0) {
+      <div id="print" class="chart0-container">
+        <div class="charts-container">
+          <div class="chart-container">
+            <app-org-chart class="org-chart" [nodes]="nodes"></app-org-chart>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 </div>

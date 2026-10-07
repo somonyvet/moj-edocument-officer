@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentFormComponent } from 'src/app/modules/document/document-form/document-form.component';
 import { MemoStore } from 'src/app/stores/document/memo.store';
 
 @Component({
-  selector: 'app-home-document-nav',
-  templateUrl: './home-document-nav.component.html',
-  styleUrls: ['./home-document-nav.component.scss']
+    selector: 'app-home-document-nav',
+    templateUrl: './home-document-nav.component.html',
+    styleUrls: ['./home-document-nav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomeDocumentNavComponent implements OnInit {
   selected: Date | null = new Date();

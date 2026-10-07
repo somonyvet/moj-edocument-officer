@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-approval-type',
-  templateUrl: './approval-type.component.html',
-  styleUrls: ['./approval-type.component.scss']
+    selector: 'app-approval-type',
+    templateUrl: './approval-type.component.html',
+    styleUrls: ['./approval-type.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ApprovalTypeComponent implements OnInit {
 

@@ -3,7 +3,8 @@ import { Pipe, PipeTransform, ChangeDetectorRef, NgZone } from '@angular/core';
 import { SetStatusStore } from '../../stores/set-status.store';
 
 @Pipe({
-    name: 'coStatus'
+    name: 'coStatus',
+    standalone: false
 })
 export class coStatusPipe {
     constructor(

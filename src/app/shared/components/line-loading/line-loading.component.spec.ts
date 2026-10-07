@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LineLoadingComponent } from './line-loading.component';
 
@@ -6,7 +6,7 @@ describe('LineLoadingComponent', () => {
   let component: LineLoadingComponent;
   let fixture: ComponentFixture<LineLoadingComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LineLoadingComponent ]
     })

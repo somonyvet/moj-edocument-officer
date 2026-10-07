@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { FileManager } from 'src/app/stores/fileDrive.store';
@@ -13,9 +13,11 @@ import { NewFolderComponent } from 'src/app/modules/file-manager/components/new-
 
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LayoutComponent implements OnInit {
 

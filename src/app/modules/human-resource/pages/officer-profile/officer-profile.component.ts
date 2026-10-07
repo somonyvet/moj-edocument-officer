@@ -1,5 +1,5 @@
 import { M } from '@angular/cdk/keycodes';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,9 +12,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-officer-profile',
-  templateUrl: './officer-profile.component.html',
-  styleUrls: ['./officer-profile.component.scss']
+    selector: 'app-officer-profile',
+    templateUrl: './officer-profile.component.html',
+    styleUrls: ['./officer-profile.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerProfileComponent implements OnInit {
   params: any = null;

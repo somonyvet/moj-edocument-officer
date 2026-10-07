@@ -1,22 +1,24 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+
+import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { MappingService } from 'src/app/shared/services/mapping.service';
 import { searchStore } from 'src/app/stores/document/search.store';
 
 @Component({
-  selector: 'app-document-search-listing',
-  templateUrl: './document-search-listing.component.html',
-  styleUrls: ['./document-search-listing.component.scss']
+    selector: 'app-document-search-listing',
+    templateUrl: './document-search-listing.component.html',
+    styleUrls: ['./document-search-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentSearchListingComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   filterOffice: Observable<any[]>;
   department: AbstractControl;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: searchStore,
     public ds: DatabaseService,
     @Inject(DOCUMENT) public document: Document,

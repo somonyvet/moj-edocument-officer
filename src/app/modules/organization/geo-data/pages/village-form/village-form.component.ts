@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -13,16 +13,18 @@ import { GeoService } from '../../services/geo.service';
 import { Geo } from '../../stores/geo.store';
 
 @Component({
-  selector: 'app-village-form',
-  templateUrl: './village-form.component.html',
-  styleUrls: ['./village-form.component.scss']
+    selector: 'app-village-form',
+    templateUrl: './village-form.component.html',
+    styleUrls: ['./village-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VillageFormComponent implements OnInit {
   title: any = "បង្កើតភូមិ";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -34,7 +36,7 @@ export class VillageFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<VillageFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

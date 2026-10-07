@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConvertService } from 'src/app/shared/services/convert.service';
@@ -10,9 +10,11 @@ import { DocumentStore } from 'src/app/stores/document/document.store';
 import { docStatusObj } from 'src/app/dummy/status';
 
 @Component({
-  selector: 'app-document-void',
-  templateUrl: './document-void.component.html',
-  styleUrls: ['./document-void.component.scss']
+    selector: 'app-document-void',
+    templateUrl: './document-void.component.html',
+    styleUrls: ['./document-void.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentVoidComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -20,7 +22,7 @@ export class DocumentVoidComponent implements OnInit {
   @ViewChild('docAttachFile') docAttachFile: ElementRef;
 
   titleForm: any = "មោឃៈឯកសារ";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   process: boolean = false;
 
@@ -33,7 +35,7 @@ export class DocumentVoidComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DocumentVoidComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     private auth: AuthStore,
     private snackBar: MatSnackBar,

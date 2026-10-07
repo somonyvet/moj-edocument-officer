@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -9,9 +9,11 @@ import { HrStore } from '../../../stores/hr.store';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-officer-application-listing',
-  templateUrl: './officer-application-listing.component.html',
-  styleUrls: ['./officer-application-listing.component.scss']
+    selector: 'app-officer-application-listing',
+    templateUrl: './officer-application-listing.component.html',
+    styleUrls: ['./officer-application-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerApplicationListingComponent implements OnInit, OnDestroy {
   tabs = tabs.hr_officers_listing;
@@ -28,7 +30,7 @@ export class OfficerApplicationListingComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
     public store: HrStore,
     public auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {

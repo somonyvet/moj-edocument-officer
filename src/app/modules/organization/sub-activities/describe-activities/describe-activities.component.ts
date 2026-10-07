@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, Inject, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -13,9 +13,11 @@ import { MmeSubActivitiesStore } from 'src/app/stores/document/mme-sub-activitie
 
 
 @Component({
-  selector: 'app-describe-activities',
-  templateUrl: './describe-activities.component.html',
-  styleUrls: ['./describe-activities.component.scss']
+    selector: 'app-describe-activities',
+    templateUrl: './describe-activities.component.html',
+    styleUrls: ['./describe-activities.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DescribeActivitiesComponent implements OnInit {
   title = 'បរិយាយសកម្មភាព';

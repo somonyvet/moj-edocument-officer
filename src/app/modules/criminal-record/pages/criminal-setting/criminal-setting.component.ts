@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,13 +9,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalStore } from '../../stores/criminal.store';
 
 @Component({
-  selector: 'app-criminal-setting',
-  templateUrl: './criminal-setting.component.html',
-  styleUrls: ['./criminal-setting.component.scss']
+    selector: 'app-criminal-setting',
+    templateUrl: './criminal-setting.component.html',
+    styleUrls: ['./criminal-setting.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalSettingComponent implements OnInit {
   loading: boolean = true;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   country_khmer: AbstractControl;
   criminal_record_category: AbstractControl;
@@ -36,7 +38,7 @@ export class CriminalSettingComponent implements OnInit {
   document_note = DOCUMENT_NOTE_TYPE
 
   constructor(private route: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private criminal: CriminalStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

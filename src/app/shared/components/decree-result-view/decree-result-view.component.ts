@@ -1,12 +1,14 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { DECREE_STATUS_OBJ, PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { transformImageSameTokenNo } from 'src/app/shared/services/fireStorage.service';
 import { ICriminalRecord } from 'src/app/interfaces/criminal.interface';
 
 @Component({
-  selector: 'app-decree-result-view',
-  templateUrl: './decree-result-view.component.html',
-  styleUrls: ['./decree-result-view.component.scss']
+    selector: 'app-decree-result-view',
+    templateUrl: './decree-result-view.component.html',
+    styleUrls: ['./decree-result-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DecreeResultViewComponent implements OnChanges {
   @Input() criminalRecord: ICriminalRecord;

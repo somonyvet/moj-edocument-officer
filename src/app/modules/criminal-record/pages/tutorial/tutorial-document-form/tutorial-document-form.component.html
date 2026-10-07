@@ -3,40 +3,48 @@
   <div class="dialog-header">
     <h2 mat-dialog-title>បញ្ចូលរបៀបប្រើប្រាស់</h2>
     <div class="space1"></div>
-    <button mat-button mat-icon-button (click)="dialogRef.close()">
+    <button mat-icon-button (click)="dialogRef.close()">
       <mat-icon class="mat-18">clear</mat-icon>
     </button>
   </div>
 
-  <div class="select-type-tutorial" *ngIf="!store?.selectedType">
-    <div class="box-center">
-      <h3 class='title'>ជ្រើសរើសប្រភេទរបៀបប្រើប្រាស់</h3>
-      <a mat-button class="btn-item" *ngFor="let item of tutorialTypeArray" (click)="buildForm(item)">
-        {{item.name}}
-      </a>
+  @if (!store?.selectedType) {
+    <div class="select-type-tutorial">
+      <div class="box-center">
+        <h3 class='title'>ជ្រើសរើសប្រភេទរបៀបប្រើប្រាស់</h3>
+        @for (item of tutorialTypeArray; track item) {
+          <a mat-button class="btn-item" (click)="buildForm(item)">
+            {{item.name}}
+          </a>
+        }
+      </div>
     </div>
-  </div>
+  }
 
-  <ng-container *ngIf="store?.selectedType">
+  @if (store?.selectedType) {
     <mat-dialog-content>
-      <ng-container *ngIf="store?.selectedType?.key === 1">
+      @if (store?.selectedType?.key === 1) {
         <h3 class='tutorial-input-title'>· {{store?.selectedType?.name}}</h3>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>សំណួរ</mat-label>
             <input formControlName="question" required matInput placeholder="សំណួរ">
-            <mat-error *ngIf="form.controls['question'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['question'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>សំណួរ(ជាភាសាអង់គ្លេស)</mat-label>
             <input formControlName="question_en" required matInput placeholder="សំណួរ(ជាភាសាអង់គ្លេស)">
-            <mat-error *ngIf="form.controls['question_en'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['question_en'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="form-group quill">
@@ -45,135 +53,136 @@
         <div class="form-group quill">
           <quill-editor [(ngModel)]="answer_en" [modules]="quillModules" formControlName="answer_en" placeholder="ចម្លើយ(ជាភាសាអង់គ្លេស)"></quill-editor>
         </div>
-      </ng-container>
-
-      <ng-container *ngIf="store?.selectedType?.key === 3">
+      }
+      @if (store?.selectedType?.key === 3) {
         <h3 class='tutorial-input-title'>· {{store?.selectedType?.name}}</h3>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ចំណងជើង</mat-label>
             <input formControlName="title" required matInput placeholder="ចំណងជើង">
-            <mat-error *ngIf="form.controls['title'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['title'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ចំណងជើង(ជាភាសាអង់គ្លេស)</mat-label>
             <input formControlName="title_en" required matInput placeholder="ចំណងជើង(ជាភាសាអង់គ្លេស)">
-            <mat-error *ngIf="form.controls['title_en'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['title_en'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>តំណភ្ជាប់វីដេអូ</mat-label>
             <input formControlName="url" required matInput placeholder="តំណភ្ជាប់វីដេអូ">
-            <mat-error *ngIf="form.controls['url'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['url'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
-
         <div class="form-group">
           <button mat-button (click)="photoFile.click()">រូបភាពតំណាង</button>
           <h3>{{selected_cover?.name}}</h3>
           <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
-          accept=".png, .jpg, .jpeg" (change)="onSelectVideoCover($event)">
+            accept=".png, .jpg, .jpeg" (change)="onSelectVideoCover($event)">
         </div>
-
-      </ng-container>
-
-      <ng-container *ngIf="store?.selectedType?.key === 2">
+      }
+      @if (store?.selectedType?.key === 2) {
         <h3 class='tutorial-input-title'>· {{store?.selectedType?.name}}</h3>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ចំណងជើង</mat-label>
             <input formControlName="title" required matInput placeholder="ចំណងជើង">
-            <mat-error *ngIf="form.controls['title'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['title'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ចំណងជើង(ជាភាសាអង់គ្លេស)</mat-label>
             <input formControlName="title_en" required matInput placeholder="ចំណងជើង(ជាភាសាអង់គ្លេស)">
-            <mat-error *ngIf="form.controls['title_en'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-            </mat-error>
+            @if (form.controls['title_en'].hasError('required')) {
+              <mat-error>
+                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+              </mat-error>
+            }
           </mat-form-field>
         </div>
-
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ពិពណ៌នា</mat-label>
             <input formControlName="description" matInput placeholder="ពិពណ៌នា">
           </mat-form-field>
         </div>
-
         <div class="form-group">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>ពិពណ៌នា(ជាភាសាអង់គ្លេស)</mat-label>
             <input formControlName="description_en" matInput placeholder="ពិពណ៌នា(ជាភាសាអង់គ្លេស)">
           </mat-form-field>
         </div>
-
-        <ng-container formArrayName="content_array"
-          *ngFor="let item of form.get('content_array')?.controls;let i = index;">
-          <div class="group-content" [formGroupName]="i">
-            <ng-container *ngIf="item?.value?.type?.key === content_type?.IMAGE?.key;else otherTemplate">
-              <a mat-button (click)="photoFile.click()">{{item?.value?.type?.placeholder}}</a>
-              <h3>{{selected_photo|filterArrayWithFieldIndex:i}}</h3>
-              <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
-                accept=".png, .jpg, .jpeg" (change)="onSelectedFile($event,i)">
-            </ng-container>
-            <ng-template #otherTemplate>
-              <ng-container *ngIf="item?.value?.type?.key === content_type?.VIDEO?.key; else otherType">
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>{{item?.value?.type?.name}}</mat-label>
-                  <input formControlName="content" required matInput [placeholder]="item?.value?.type?.placeholder">
-                </mat-form-field>
-                <div class="form-group">
-                  <button mat-button (click)="photoFile.click()">រូបភាពតំណាង</button>
-                  <h3>{{selected_cover_array|filterArrayWithFieldIndex:i}}</h3>
-                  <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
-                  accept=".png, .jpg, .jpeg" (change)="onSelectVideoCover_array($event,i)">
-                </div>
-              </ng-container>
-              <ng-template #otherType>
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>{{item?.value?.type?.name}}</mat-label>
-                  <input formControlName="content" required matInput [placeholder]="item?.value?.type?.placeholder">
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <mat-label>{{item?.value?.type?.name}}(ជាភាសាអង់គ្លេស)</mat-label>
-                  <input formControlName="content_en" required matInput [placeholder]="item?.value?.type?.placeholder+'(ជាភាសាអង់គ្លេស)'">
-                </mat-form-field>
-              </ng-template>
-            </ng-template>
-            <a mat-button (click)="removeFormArray(i)">លុបមាតិកា</a>
-          </div>
-        </ng-container>
-
+        @for (item of form.get('content_array')?.controls; track item; let i = $index) {
+          <ng-container formArrayName="content_array"
+            >
+            <div class="group-content" [formGroupName]="i">
+              @if (item?.value?.type?.key === content_type?.IMAGE?.key) {
+                <a mat-button (click)="photoFile.click()">{{item?.value?.type?.placeholder}}</a>
+                <h3>{{selected_photo|filterArrayWithFieldIndex:i}}</h3>
+                <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
+                  accept=".png, .jpg, .jpeg" (change)="onSelectedFile($event,i)">
+              } @else {
+                @if (item?.value?.type?.key === content_type?.VIDEO?.key) {
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{item?.value?.type?.name}}</mat-label>
+                    <input formControlName="content" required matInput [placeholder]="$safeNavigationMigration(item?.value?.type?.placeholder)">
+                  </mat-form-field>
+                  <div class="form-group">
+                    <button mat-button (click)="photoFile.click()">រូបភាពតំណាង</button>
+                    <h3>{{selected_cover_array|filterArrayWithFieldIndex:i}}</h3>
+                    <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
+                      accept=".png, .jpg, .jpeg" (change)="onSelectVideoCover_array($event,i)">
+                  </div>
+                } @else {
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{item?.value?.type?.name}}</mat-label>
+                    <input formControlName="content" required matInput [placeholder]="$safeNavigationMigration(item?.value?.type?.placeholder)">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>{{item?.value?.type?.name}}(ជាភាសាអង់គ្លេស)</mat-label>
+                    <input formControlName="content_en" required matInput [placeholder]="$safeNavigationMigration(item?.value?.type?.placeholder)+'(ជាភាសាអង់គ្លេស)'">
+                  </mat-form-field>
+                }
+              }
+              <a mat-button (click)="removeFormArray(i)">លុបមាតិកា</a>
+            </div>
+          </ng-container>
+        }
         <a mat-button class="btn-content" [matMenuTriggerFor]="menu">ជ្រើសរើសប្រភេទមាតិកាដើម្បីបញ្ចូល</a>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="addFormArray(item)" *ngFor="let item of content_type_array">
-            <span>{{item?.name}}</span>
-          </button>
+          @for (item of content_type_array; track item) {
+            <button mat-menu-item (click)="addFormArray(item)">
+              <span>{{item?.name}}</span>
+            </button>
+          }
         </mat-menu>
-
-      </ng-container>
-
+      }
     </mat-dialog-content>
-
     <mat-dialog-actions align="end">
       <div class="flex1"></div>
       <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
-      <button class="enbutton primary" [disabled]="process || !form?.valid" mat-button type="submit" (click)="_onSave(form?.value)">រក្សាទុក</button>
+      <button class="enbutton primary" [disabled]="process || !form?.valid" mat-button type="submit" (click)="_onSave($safeNavigationMigration(form?.value))">រក្សាទុក</button>
     </mat-dialog-actions>
-  </ng-container>
+  }
 
 </form>

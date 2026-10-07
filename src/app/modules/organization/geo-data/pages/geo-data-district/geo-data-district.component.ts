@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -9,9 +9,11 @@ import { Geo } from '../../stores/geo.store';
 import { DistrictFormComponent } from '../district-form/district-form.component';
 
 @Component({
-  selector: 'app-geo-data-district',
-  templateUrl: './geo-data-district.component.html',
-  styleUrls: ['./geo-data-district.component.scss']
+    selector: 'app-geo-data-district',
+    templateUrl: './geo-data-district.component.html',
+    styleUrls: ['./geo-data-district.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoDataDistrictComponent implements OnInit, OnDestroy {
   provinceKey: string;

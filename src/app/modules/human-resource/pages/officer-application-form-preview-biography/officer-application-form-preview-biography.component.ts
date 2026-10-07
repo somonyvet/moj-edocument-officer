@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -12,13 +12,15 @@ import { HrStore } from '../../stores/hr.store';
 import { HumanResourceApprovalComponent } from '../human-resource-approval/human-resource-approval.component';
 
 @Component({
-  selector: 'app-officer-application-form-preview-biography',
-  templateUrl: './officer-application-form-preview-biography.component.html',
-  styleUrls: ['./officer-application-form-preview-biography.component.scss']
+    selector: 'app-officer-application-form-preview-biography',
+    templateUrl: './officer-application-form-preview-biography.component.html',
+    styleUrls: ['./officer-application-form-preview-biography.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerApplicationFormPreviewBiographyComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   parentParams: any;
   GENDER_KH = GENDER_DATA;

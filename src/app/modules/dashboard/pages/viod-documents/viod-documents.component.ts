@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-viod-documents',
-  templateUrl: './viod-documents.component.html',
-  styleUrls: ['./viod-documents.component.scss']
+    selector: 'app-viod-documents',
+    templateUrl: './viod-documents.component.html',
+    styleUrls: ['./viod-documents.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ViodDocumentsComponent implements OnInit {
   queryParams: any = { periodKey: 'all' };

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { ReportPaidForm } from 'src/app/stores/report-paid-form.store';
 import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
-  selector: 'app-report-paid-online-process',
-  templateUrl: './report-paid-online-process.component.html',
-  styleUrls: ['./report-paid-online-process.component.scss']
+    selector: 'app-report-paid-online-process',
+    templateUrl: './report-paid-online-process.component.html',
+    styleUrls: ['./report-paid-online-process.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ReportPaidOnlineProcessComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

@@ -1,3 +1,4 @@
+@use "/src/assets/styles/variable.scss" as *;
 .new-print {
     margin: 0.5cm 1cm !important;
   }
@@ -35,7 +36,6 @@
     margin-right: 6px;
   }
   
-  @import "/src/assets/styles/variable.scss";
   
   
   p {
@@ -251,7 +251,7 @@
   
   }
   
-  .mat-standard-chip {
+  .mat-mdc-standard-chip {
     font-family: $appFont;
   }
   
@@ -304,21 +304,21 @@
   }
   
   
-  ::ng-deep.mat-tab-label.mat-tab-label-active {
+  ::ng-deep.mat-mdc-tab.mdc-tab--active {
     color: $link !important;
     opacity: 1 !important;
   }
   
   
-  ::ng-deep .mat-tab-labels {
+  ::ng-deep .mat-mdc-tab-labels {
     div {
-      &.mat-tab-label-active {
-        .mat-tab-label-content{
+      &.mdc-tab--active {
+        .mdc-tab__text-label{
           color: $link !important;
           opacity: 1 !important;
         }
       }
-      .mat-tab-label-content {
+      .mdc-tab__text-label {
         color: #202124;
         text-transform: capitalize;
         font-weight: 600;
@@ -350,18 +350,18 @@
     width: 360px;
   }
   
-  ::ng-deep .mat-checkbox-checked.mat-accent {
-    .mat-checkbox-ripple .mat-ripple-element {
+  ::ng-deep .mat-mdc-checkbox-checked.mat-accent {
+    .mat-mdc-checkbox-ripple .mat-ripple-element {
         background-color: #1A73E8 !important;
     }
   
-    .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    .mdc-checkbox__background, .mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
         background-color: #1A73E8;
      }
   }
   
-  ::ng-deep .mat-checkbox.mat-accent {
-    .mat-checkbox-ripple .mat-ripple-element {
+  ::ng-deep .mat-mdc-checkbox.mat-accent {
+    .mat-mdc-checkbox-ripple .mat-ripple-element {
         background-color: #1A73E8 !important;
     }
   }

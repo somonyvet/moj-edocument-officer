@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { debounceTime, tap, switchMap } from 'rxjs/operators';
@@ -12,16 +12,18 @@ import { DepartmentStore } from 'src/app/stores/document/department.store';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-add-people-cc-document',
-  templateUrl: './add-people-cc-document.component.html',
-  styleUrls: ['./add-people-cc-document.component.scss']
+    selector: 'app-add-people-cc-document',
+    templateUrl: './add-people-cc-document.component.html',
+    styleUrls: ['./add-people-cc-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddPeopleCcDocumentComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បញ្ចូលគណនីទទួលអនុវត្ត";
-  form: FormGroup;
+  form: UntypedFormGroup;
   office: AbstractControl;
   filterOffice: Observable<IDepartment[]>;
 
@@ -30,7 +32,7 @@ export class AddPeopleCcDocumentComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddPeopleCcDocumentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DepartmentStore,
     public offices: OfficerStore,
     public ds: DataService,

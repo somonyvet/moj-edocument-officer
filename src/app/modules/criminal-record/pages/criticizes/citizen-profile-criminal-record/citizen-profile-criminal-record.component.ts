@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import { CitizenProfileCriminalFormComponent } from '../citizen-profile-criminal-form/citizen-profile-criminal-form.component';
 
 @Component({
-  selector: 'app-citizen-profile-criminal-record',
-  templateUrl: './citizen-profile-criminal-record.component.html',
-  styleUrls: ['./citizen-profile-criminal-record.component.scss']
+    selector: 'app-citizen-profile-criminal-record',
+    templateUrl: './citizen-profile-criminal-record.component.html',
+    styleUrls: ['./citizen-profile-criminal-record.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CitizenProfileCriminalRecordComponent implements OnInit,OnDestroy {
   tabs = criminal_tabs.criminal_record_tabs;

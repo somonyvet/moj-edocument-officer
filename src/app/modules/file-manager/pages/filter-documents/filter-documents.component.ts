@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toJS } from 'mobx';
@@ -13,12 +13,14 @@ import { FileManager } from 'src/app/stores/fileDrive.store';
 import { OpenFileComponent } from '../../components/open-file/open-file.component';
 
 @Component({
-  selector: 'app-filter-documents',
-  templateUrl: './filter-documents.component.html',
-  styleUrls: ['./filter-documents.component.scss']
+    selector: 'app-filter-documents',
+    templateUrl: './filter-documents.component.html',
+    styleUrls: ['./filter-documents.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FilterDocumentsComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form: UntypedFormGroup;
   organization: AbstractControl;
   category: AbstractControl;
   sector: AbstractControl;
@@ -31,7 +33,7 @@ export class FilterDocumentsComponent implements OnInit, OnDestroy {
   params: any;
   parentFolder = "my_files";
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     public ds: DataService,
     private auth: AuthStore,
     private route: ActivatedRoute,

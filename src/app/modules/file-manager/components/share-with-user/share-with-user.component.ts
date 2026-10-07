@@ -1,19 +1,21 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AddUserShareComponent } from '../add-user-share/add-user-share.component';
 
 @Component({
-  selector: 'app-share-with-user',
-  templateUrl: './share-with-user.component.html',
-  styleUrls: ['./share-with-user.component.scss']
+    selector: 'app-share-with-user',
+    templateUrl: './share-with-user.component.html',
+    styleUrls: ['./share-with-user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ShareWithUserComponent implements OnInit {
 
   msg: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: AbstractControl;
-  toppings = new FormControl();
+  toppings = new UntypedFormControl();
   url:any;
 
   @ViewChild('viewRefButton', { static: false }) public viewRefButton: ElementRef

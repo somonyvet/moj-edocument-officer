@@ -1,7 +1,7 @@
 import { NationalityStore } from './../../../stores/nationality.store';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -11,16 +11,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { GeoStore } from '../../../stores/geo.store';
 
 @Component({
-  selector: 'app-criminal-record-categories-form',
-  templateUrl: './criminal-record-categories-form.component.html',
-  styleUrls: ['./criminal-record-categories-form.component.scss']
+    selector: 'app-criminal-record-categories-form',
+    templateUrl: './criminal-record-categories-form.component.html',
+    styleUrls: ['./criminal-record-categories-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordCategoriesFormComponent implements OnInit {
   title: any = "បង្កើតប្រភេទព្រឹត្តប័ត្រ";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -33,7 +35,7 @@ export class CriminalRecordCategoriesFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CriminalRecordCategoriesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

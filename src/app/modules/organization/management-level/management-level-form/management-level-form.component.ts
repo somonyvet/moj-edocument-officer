@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,16 +16,18 @@ import { ManagementLevelStore } from 'src/app/stores/document/managementLevel.st
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 
 @Component({
-  selector: 'app-management-level-form',
-  templateUrl: './management-level-form.component.html',
-  styleUrls: ['./management-level-form.component.scss']
+    selector: 'app-management-level-form',
+    templateUrl: './management-level-form.component.html',
+    styleUrls: ['./management-level-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ManagementLevelFormComponent implements OnInit, OnDestroy {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតកម្រិតគ្រប់គ្រង";
-  form: FormGroup;
+  form: UntypedFormGroup;
   SELECTED_PHOTO: any = null;
   START_UPLOAD: boolean = false;
   URL: any = PHOTO_LIB.EMPTY_PHOTO;
@@ -43,7 +45,7 @@ export class ManagementLevelFormComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<ManagementLevelFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: ManagementLevelStore,
     public ds: DataService,
     private auth: AuthStore,

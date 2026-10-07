@@ -1,8 +1,8 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { DocTemplateStore } from 'src/app/stores/document/doc-template.store';
 import { TemplateDialogSetupComponent } from '../template-dialog-setup/template-dialog-setup.component';
@@ -10,12 +10,14 @@ import { debounceTime, tap, switchMap } from 'rxjs/operators';
 import { chatBoxColor } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-choose-template-dialog',
-  templateUrl: './choose-template-dialog.component.html',
-  styleUrls: ['./choose-template-dialog.component.scss']
+    selector: 'app-choose-template-dialog',
+    templateUrl: './choose-template-dialog.component.html',
+    styleUrls: ['./choose-template-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChooseTemplateDialogComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   loading: boolean = true;
   chatBoxColor: any = chatBoxColor;
@@ -27,7 +29,7 @@ export class ChooseTemplateDialogComponent implements OnInit, OnDestroy {
     private auth: AuthStore,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private fb:FormBuilder,
+    private fb:UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {

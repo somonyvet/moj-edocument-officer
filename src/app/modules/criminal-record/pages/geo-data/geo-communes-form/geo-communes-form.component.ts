@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -13,16 +13,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { GeoStore } from '../../../stores/geo.store';
 import firebase from 'firebase/compat/app';
 @Component({
-  selector: 'app-geo-communes-form',
-  templateUrl: './geo-communes-form.component.html',
-  styleUrls: ['./geo-communes-form.component.scss']
+    selector: 'app-geo-communes-form',
+    templateUrl: './geo-communes-form.component.html',
+    styleUrls: ['./geo-communes-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoCommunesFormComponent implements OnInit {
   title: any = "បង្កើតឃុំសង្កាត់";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -35,7 +37,7 @@ export class GeoCommunesFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GeoCommunesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

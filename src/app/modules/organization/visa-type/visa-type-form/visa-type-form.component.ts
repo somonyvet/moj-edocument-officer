@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -13,22 +13,24 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { BaseStore } from 'src/app/stores/base.store';
 
 @Component({
-  selector: 'app-visa-type-form',
-  templateUrl: './visa-type-form.component.html',
-  styleUrls: ['./visa-type-form.component.scss']
+    selector: 'app-visa-type-form',
+    templateUrl: './visa-type-form.component.html',
+    styleUrls: ['./visa-type-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VisaTypeFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "បង្កើតប្រភេទទិដ្ឋាការ";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   VISA_SETTING_LIST = VISA_SETTING
   constructor(
     public dialogRef: MatDialogRef<VisaTypeFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: BaseStore,
     public ds: DataService,
     private auth: AuthStore,

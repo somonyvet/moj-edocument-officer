@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ACCOUNT_PERMISSION_OBJECT, ACCOUNT_PERMISSION_OBJECT_ARRAY } from 'src/app/dummy/config';
 import { IOfficer, IUserPermission } from 'src/app/interfaces/document/document.interface';
@@ -7,12 +7,14 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-head-option',
-  templateUrl: './document-head-option.component.html',
-  styleUrls: ['./document-head-option.component.scss']
+    selector: 'app-document-head-option',
+    templateUrl: './document-head-option.component.html',
+    styleUrls: ['./document-head-option.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentHeadOptionComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   title: any = "សិទ្ធិប្រើប្រាស់ឯកសារ";
 
   ACCOUNT_PERMISSION_OBJECT_ARRAY = ACCOUNT_PERMISSION_OBJECT_ARRAY;
@@ -21,7 +23,7 @@ export class DocumentHeadOptionComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: DocumentStore,
     public ds: DataService,
-    private fb: FormBuilder) { }
+    private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     const item = (this.data?.item || null) as IUserPermission;

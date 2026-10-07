@@ -1,4 +1,6 @@
 <div id="page-wrapper" class="page-wrapper" *mobxAutorun>
-    <app-main-layout-header [activeAccount]="auth?.accountActive" *ngIf="auth?.isCompany"></app-main-layout-header>
-    <router-outlet></router-outlet>
+  @if (auth?.isCompany) {
+    <app-main-layout-header [activeAccount]="$safeNavigationMigration(auth?.accountActive)"></app-main-layout-header>
+  }
+  <router-outlet></router-outlet>
 </div>

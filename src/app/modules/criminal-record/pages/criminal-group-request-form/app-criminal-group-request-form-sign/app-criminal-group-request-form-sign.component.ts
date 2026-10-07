@@ -1,6 +1,6 @@
 import { IOfficer } from '../../../../../interfaces/document/document.interface';
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -13,9 +13,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { MappingService } from 'src/app/shared/services/mapping.service';
 import { PrintService } from 'src/app/shared/services/print.service';
 @Component({
-  selector: 'app-app-criminal-group-request-form-sign',
-  templateUrl: './app-criminal-group-request-form-sign.component.html',
-  styleUrls: ['./app-criminal-group-request-form-sign.component.scss']
+    selector: 'app-app-criminal-group-request-form-sign',
+    templateUrl: './app-criminal-group-request-form-sign.component.html',
+    styleUrls: ['./app-criminal-group-request-form-sign.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AppCriminalGroupRequestFormSignComponent implements OnInit {
 
@@ -24,7 +26,7 @@ export class AppCriminalGroupRequestFormSignComponent implements OnInit {
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',

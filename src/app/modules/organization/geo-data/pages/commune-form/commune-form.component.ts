@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ, COMMUNE_ARRAY_PREFIX } from 'src/app/dummy/appinfo';
@@ -14,16 +14,18 @@ import { GeoService } from '../../services/geo.service';
 import { Geo } from '../../stores/geo.store';
 
 @Component({
-  selector: 'app-commune-form',
-  templateUrl: './commune-form.component.html',
-  styleUrls: ['./commune-form.component.scss']
+    selector: 'app-commune-form',
+    templateUrl: './commune-form.component.html',
+    styleUrls: ['./commune-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CommuneFormComponent implements OnInit {
   title: any = "បង្កើតឃុំសង្កាត់";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   en_name: AbstractControl
   id: AbstractControl
@@ -38,7 +40,7 @@ export class CommuneFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CommuneFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

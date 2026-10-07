@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, UntypedFormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MappingService } from 'src/app/shared/services/mapping.service';
@@ -8,13 +8,15 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { FileManager } from 'src/app/stores/fileDrive.store';
 
 @Component({
-  selector: 'app-add-user-share',
-  templateUrl: './add-user-share.component.html',
-  styleUrls: ['./add-user-share.component.scss']
+    selector: 'app-add-user-share',
+    templateUrl: './add-user-share.component.html',
+    styleUrls: ['./add-user-share.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddUserShareComponent implements OnInit {
   @ViewChild('focusInput', { static: false }) inputEl: ElementRef;
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: AbstractControl;
 
   error: any;
@@ -25,7 +27,7 @@ export class AddUserShareComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddUserShareComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: FileManager,
     public auth: AuthStore,
 

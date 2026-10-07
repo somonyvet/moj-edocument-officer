@@ -1,19 +1,24 @@
 <div class="officer-profile-info-container" *mobxAutorun>
-  <mat-progress-bar mode="indeterminate" *ngIf="(loading || process) && !storage?.startUpload" class="app-loader">
-  </mat-progress-bar>
-  <mat-progress-bar *ngIf="storage?.startUpload" mode="determinate" class="app-loader"
-    [value]="storage?.uploadPercent | async ">
-  </mat-progress-bar>
+  @if ((loading || process) && !storage?.startUpload) {
+    <mat-progress-bar mode="indeterminate" class="app-loader">
+    </mat-progress-bar>
+  }
+  @if (storage?.startUpload) {
+    <mat-progress-bar mode="determinate" class="app-loader"
+      [value]="$safeNavigationMigration(storage?.uploadPercent) | async ">
+    </mat-progress-bar>
+  }
 
-  <form class="scrolling-container" *ngIf="!loading" [formGroup]="form">
-    <div class="eform-action-controls" [ngClass]="hideSidebar?'sm':''">
-      <div class="action-control-container">
-        <!-- <a mat-button mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
+  @if (!loading) {
+    <form class="scrolling-container" [formGroup]="form">
+      <div class="eform-action-controls" [ngClass]="hideSidebar?'sm':''">
+        <div class="action-control-container">
+          <!-- <a mat-icon-button [routerLink]="[backUrl]" class="mat-add-new m-r16" *ngIf="backUrl">
           <mat-icon>arrow_back</mat-icon>
         </a> -->
         <h4 style="margin-left: 20px;">សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស</h4>
         <div class="flex1"></div>
-        <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)" [disable]="process">
+        <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave($safeNavigationMigration(form?.value))" [disable]="process">
         </app-primary-button>
       </div>
     </div>
@@ -23,986 +28,1131 @@
           <div class="row-item" style="flex-direction: column; gap: 12px; margin-top:20px;">
             <div class="f-item"
               [ngClass]="form.get('footer_phone')?.errors&&form.get('footer_phone')?.touched?'has-error':''">
-              <span>ទូរស័ព្ទទំនាក់ទំនងលេខ<span class="star-req"
-                  *ngIf="form.get('footer_phone')?.invalid">*</span></span>
+              <span>ទូរស័ព្ទទំនាក់ទំនងលេខ@if (form.get('footer_phone')?.invalid) {
+                <span class="star-req"
+                >*</span>
+              }</span>
               <input class="f-input" type="text" formControlName="footer_phone">
             </div>
-            <span class="error-message" *ngIf="form.get('footer_phone')?.errors&&form.get('footer_phone')?.touched">
-              លេខទូរស័ព្ទអនុញ្ញាតឱ្យបញ្ចូលតែលេខ 0 - 9 និងយ៉ាងតិច 9 ខ្ទង់។
-            </span>
+            @if (form.get('footer_phone')?.errors&&form.get('footer_phone')?.touched) {
+              <span class="error-message">
+                លេខទូរស័ព្ទអនុញ្ញាតឱ្យបញ្ចូលតែលេខ 0 - 9 និងយ៉ាងតិច 9 ខ្ទង់។
+              </span>
+            }
           </div>
         </div>
       </div>
     </div>
-
     <div class="eform">
       <div class="head p-rel">
         <div class="head-item">
           <div class="profile-box container-header-input" (click)="photoFile.click()" style="height: 180px">
-            <div *ngIf="!URL">
-              <p>រូបថត</p>
-              <p>៤x៦</p>
-              <br>
-              <p>PNG JPG JPEG</p>
-              <p></p>
+            @if (!URL) {
+              <div>
+                <p>រូបថត</p>
+                <p>៤x៦</p>
+                <br>
+                  <p>PNG JPG JPEG</p>
+                  <p></p>
+                </div>
+              }
+              @if (URL) {
+                <img [src]="URL" />
+              }
+              <button mat-button [disabled]="form.disabled || process || loading" mat-icon-button class="slp">
+                <mat-icon class="mat-18">photo_camera</mat-icon>
+              </button>
             </div>
-            <img *ngIf="URL" [src]="URL" />
-            <button mat-button [disabled]="form.disabled || process || loading" mat-icon-button class="slp">
-              <mat-icon class="mat-18">photo_camera</mat-icon>
-            </button>
-
+            @if (!URL && !PAID_UN_FILLED) {
+              <div class="error-warning">
+                <span>
+                  *រូបថតនេះតម្រូវឲ្យមាន
+                </span>
+              </div>
+            }
+            <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
+              accept=".png, .jpg, .jpeg" (change)="onSelectedFile($event)">
           </div>
-          <ng-container *ngIf="!URL && !PAID_UN_FILLED">
-            <div class="error-warning">
-              <span>
-                *រូបថតនេះតម្រូវឲ្យមាន
+          <div class="flex1"></div>
+          <div class="head-item" style="transform: translateX(100px);">
+            <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+            <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+            <p class="star">3</p>
+            <div class="img-logo" style="height:0px;">
+            </div>
+            <div class="head-item long-w">
+              <span class="container-header-input">
+                <div class="row-item khmer-date-picker ds-f">
+                  <div class="f-item">
+                    <span class="nor-fam">ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
+                    <div class="nor-fam" style="width:200px;text-align: center;justify-content: center;">
+                      {{ (form.get('last_name_kh')?.value?form.get('last_name_kh')?.value:"") +" "+
+                      (form.get('first_name_kh')?.value?form.get('first_name_kh')?.value:"")}}
+                    </div>
+                  </div>
+                </div>
               </span>
             </div>
-          </ng-container>
-          <input #photoFile type="file" class="no-border" placeholder="" style="display: none;"
-            accept=".png, .jpg, .jpeg" (change)="onSelectedFile($event)">
-        </div>
-        <div class="flex1"></div>
-
-        <div class="head-item" style="transform: translateX(100px);">
-          <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
-          <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-          <p class="star">3</p>
-          <div class="img-logo" style="height:0px;">
+            <p class="feTitle">សូមគោរពជូន</p>
+            <p class="feTitle" style="white-space: nowrap;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
           </div>
-
-          <div class="head-item long-w">
+          <div class="flex1"></div>
+          <div class="head-item long-w"
+            style="width: 500px !important; min-width: unset; max-width: unset;    min-width: 500px; align-items: flex-start;">
             <span class="container-header-input">
-              <div class="row-item khmer-date-picker ds-f">
+              <div class="khmer-date-picker">
                 <div class="f-item">
-                  <span class="nor-fam">ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
-                  <div class="nor-fam" style="width:200px;text-align: center;justify-content: center;">
-                    {{ (form.get('last_name_kh')?.value?form.get('last_name_kh')?.value:"") +" "+
-                    (form.get('first_name_kh')?.value?form.get('first_name_kh')?.value:"")}}
-                  </div>
+                  <span class="nor-fam">រាជធានីភ្នំពេញ,</span>
+                  <span class="nor-fam">
+                    <span>&nbsp;ថ្ងៃទី @if (form.get('day_header')?.invalid) {
+                      <span class="star-req">*</span>
+                    }</span>
+                    <input [matAutocomplete]="autoCompleteDay" formControlName="day_header" class="w-day">
+                    <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteDay="matAutocomplete">
+                      @for (item of filteredDay | async; track item; let i = $index) {
+                        <mat-option [value]="item">
+                          {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
+                        </mat-option>
+                      }
+                    </mat-autocomplete>
+                  </span>
+                  <span class="nor-fam">
+                    <span>ខែ @if (form.get('month_header')?.invalid) {
+                      <span class="star-req">*</span>
+                    }</span>
+                    <input [matAutocomplete]="autoCompleteMonth" formControlName="month_header" class="w-day">
+                    <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteMonth="matAutocomplete">
+                      @for (item of filteredMonth | async; track item; let i = $index) {
+                        <mat-option [value]="item">
+                          {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
+                        </mat-option>
+                      }
+                    </mat-autocomplete>
+                  </span>
+                  <span class="nor-fam">
+                    <span>ឆ្នាំ @if (form.get('year_header')?.invalid) {
+                      <span class="star-req">*</span>
+                    }</span>
+                    <input [matAutocomplete]="autoCompleteYear" formControlName="year_header" class="w-day">
+                    <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteYear="matAutocomplete">
+                      @for (item of filteredYear | async; track item; let i = $index) {
+                        <mat-option [value]="item">
+                          {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
+                        </mat-option>
+                      }
+                    </mat-autocomplete>
+                  </span>
                 </div>
               </div>
             </span>
           </div>
-
-          <p class="feTitle">សូមគោរពជូន</p>
-          <p class="feTitle" style="white-space: nowrap;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
-
         </div>
-        <div class="flex1"></div>
-        <div class="head-item long-w"
-          style="width: 500px !important; min-width: unset; max-width: unset;    min-width: 500px; align-items: flex-start;">
-          <span class="container-header-input">
-            <div class="khmer-date-picker">
-              <div class="f-item">
-
-                <span class="nor-fam">រាជធានីភ្នំពេញ,</span>
-                <span class="nor-fam">
-                  <span>&nbsp;ថ្ងៃទី <span class="star-req" *ngIf="form.get('day_header')?.invalid">*</span></span>
-                  <input [matAutocomplete]="autoCompleteDay" formControlName="day_header" class="w-day">
-                  <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteDay="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredDay | async;let i=index" [value]="item">
-                      {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </span>
-                <span class="nor-fam">
-                  <span>ខែ <span class="star-req" *ngIf="form.get('month_header')?.invalid">*</span></span>
-                  <input [matAutocomplete]="autoCompleteMonth" formControlName="month_header" class="w-day">
-                  <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteMonth="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredMonth | async;let i=index" [value]="item">
-                      {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </span>
-                <span class="nor-fam">
-                  <span>ឆ្នាំ <span class="star-req" *ngIf="form.get('year_header')?.invalid">*</span></span>
-                  <input [matAutocomplete]="autoCompleteYear" formControlName="year_header" class="w-day">
-                  <mat-autocomplete [displayWith]="displayNameAndNameEn" #autoCompleteYear="matAutocomplete">
-                    <mat-option *ngFor="let item of filteredYear | async;let i=index" [value]="item">
-                      {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </span>
+        <div class="body">
+          <div class="body-item">
+            <div class="title"
+              style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
+              <h3 class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</h3>
+              <span class="text-black">
+                <p class="n-title">&nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ។</p>
+                <p class="n-title">&nbsp;ខ្ញុំបាទ-នាងខ្ញុំសូមជូនកំណត់បង្ហាញផ្ទាល់ខ្លួនដូចខាងក្រោម :</p>
+              </span>
+            </div>
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('last_name_kh')?.errors&&form.get('last_name_kh')?.touched?'has-error':''">
+                <span>I-នាមត្រកូល(ខ្មែរ)@if (form.get('last_name_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="last_name_kh">
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('first_name_kh')?.errors&&form.get('first_name_kh')?.touched?'has-error':''">
+                <span>នាមខ្លួន(ខ្មែរ)@if (form.get('first_name_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="first_name_kh">
               </div>
             </div>
-          </span>
-        </div>
-      </div>
-      <div class="body">
-        <div class="body-item">
-          <div class="title"
-            style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
-            <h3 class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</h3>
-            <span class="text-black">
-              <p class="n-title">&nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស ។</p>
-              <p class="n-title">&nbsp;ខ្ញុំបាទ-នាងខ្ញុំសូមជូនកំណត់បង្ហាញផ្ទាល់ខ្លួនដូចខាងក្រោម :</p>
-            </span>
-          </div>
-
-          <div class="row-item">
-
-            <div class="f-item"
-              [ngClass]="form.get('last_name_kh')?.errors&&form.get('last_name_kh')?.touched?'has-error':''">
-              <span>I-នាមត្រកូល(ខ្មែរ)<span class="star-req" *ngIf="form.get('last_name_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="last_name_kh">
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('last_name_en')?.errors&&form.get('last_name_en')?.touched?'has-error':''">
+                <span>នាមត្រកូល(ឡាតាំង) @if (form.get('last_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="last_name_en">
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('first_name_en')?.errors&&form.get('first_name_en')?.touched?'has-error':''">
+                <span>នាមខ្លួន(ឡាតាំង) @if (form.get('first_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="first_name_en">
+              </div>
             </div>
-
-            <div class="f-item"
-              [ngClass]="form.get('first_name_kh')?.errors&&form.get('first_name_kh')?.touched?'has-error':''">
-              <span>នាមខ្លួន(ខ្មែរ)<span class="star-req" *ngIf="form.get('first_name_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="first_name_kh">
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('nick_name')?.errors&&form.get('nick_name')?.touched?'has-error':''">
+                <span>ឈ្មោះហៅក្រៅ(ខ្មែរ)@if (form.get('nick_name')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="nick_name">
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('nick_name_en')?.errors&&form.get('nick_name_en')?.touched?'has-error':''">
+                <span>ឈ្មោះហៅក្រៅ(ឡាតាំង)@if (form.get('nick_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="nick_name_en">
+              </div>
+              <div class="f-item" style="width:30%;" [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
+                <span>ភេទ@if (form.get('gender')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+                <mat-autocomplete [displayWith]="displayNameAndNameEn" #gender="matAutocomplete">
+                  @for (item of GENDER_KH; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
             </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('last_name_en')?.errors&&form.get('last_name_en')?.touched?'has-error':''">
-              <span>នាមត្រកូល(ឡាតាំង) <span class="star-req" *ngIf="form.get('last_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="last_name_en">
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('before_nationality')?.errors&&form.get('before_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិដើម@if (form.get('before_nationality')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" #before_nationality type="text" formControlName="before_nationality"
+                  [matAutocomplete]="autoBeforeNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH" #autoBeforeNation="matAutocomplete"
+                  (optionSelected)="_onSelectedOldNationally($event,'current_nationality')">
+                  @for (row of filteredBirthNationality|async; track row; let i = $index) {
+                    <mat-option [value]="row">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?row?.kh_nationality:row?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('current_nationality')?.errors&&form.get('current_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិបច្ចុប្បន្ន@if (form.get('current_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #current_nationality type="text" formControlName="current_nationality"
+                  [matAutocomplete]="autoCurrentNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH" (optionSelected)="_onSelectedNationally($event)"
+                  #autoCurrentNation="matAutocomplete">
+                  @for (row of filteredNationality|async; track row; let i = $index) {
+                    <mat-option [value]="row">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?row?.kh_nationality:row?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
             </div>
-
-            <div class="f-item"
-              [ngClass]="form.get('first_name_en')?.errors&&form.get('first_name_en')?.touched?'has-error':''">
-              <span>នាមខ្លួន(ឡាតាំង) <span class="star-req" *ngIf="form.get('first_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="first_name_en">
+            <div class="row-item">
+              <div class="f-item">
+                @if (dateOfBirthInvalid) {
+                  <div class="inValid-date">
+                    ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                  </div>
+                }
+                <app-khmer-date-form-picker [required]="true" [isKhmer]="$safeNavigationMigration(criminalStore?.isKhmerForm)"
+                  [class]="dateOfBirthInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
+                  (onSelectedItem)="onSelectedDateOfBirth($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត ថ្ងៃ'"
+                  [day]="form.get('dateOfBirthDay')?.value||null" [month]="form.get('dateOfBirthMonth')?.value||null"
+                  [year]="form.get('dateOfBirthYear')?.value||null" [disabled]="disableDate">
+                </app-khmer-date-form-picker>
+              </div>
             </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('nick_name')?.errors&&form.get('nick_name')?.touched?'has-error':''">
-              <span>ឈ្មោះហៅក្រៅ(ខ្មែរ)<span class="star-req" *ngIf="form.get('nick_name')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="nick_name">
+            <div class="row-item">
+              <div class="f-item">
+                <mat-checkbox class="form-input-cv" (change)="onTextAddressChange($event)" formControlName="isTextAddress">អាសយដ្ឋានបញ្ចូលដោយដៃ</mat-checkbox>
+              </div>
             </div>
-            <div class="f-item"
-              [ngClass]="form.get('nick_name_en')?.errors&&form.get('nick_name_en')?.touched?'has-error':''">
-              <span>ឈ្មោះហៅក្រៅ(ឡាតាំង)<span class="star-req" *ngIf="form.get('nick_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="nick_name_en">
-            </div>
-            <div class="f-item" style="width:30%;" [ngClass]="form.get('gender')?.errors&&form.get('gender')?.touched?'has-error':''">
-              <span>ភេទ<span class="star-req" *ngIf="form.get('gender')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
-              <mat-autocomplete [displayWith]="displayNameAndNameEn" #gender="matAutocomplete">
-                <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
-                  {{criminalStore?.isKhmerForm?item?.name: item?.name_en}}
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-            [ngClass]="form.get('before_nationality')?.errors&&form.get('before_nationality')?.touched?'has-error':''">
-            <span>សញ្ជាតិដើម<span class="star-req" *ngIf="form.get('before_nationality')?.invalid">*</span></span>
-            <input class="f-input" #before_nationality type="text" formControlName="before_nationality"
-              [matAutocomplete]="autoBeforeNation">
-            <mat-autocomplete [displayWith]="displayNationalityKH" #autoBeforeNation="matAutocomplete"
-              (optionSelected)="_onSelectedOldNationally($event,'current_nationality')">
-              <mat-option *ngFor="let row of filteredBirthNationality|async;let i=index" [value]="row">
-                <div class="rows">
-                  <span>{{criminalStore?.isKhmerForm?row?.kh_nationality:row?.nationality}}</span>
+            @if (!form.get('isTextAddress')?.value) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('bd_province')?.errors&&form.get('bd_province')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត@if (form.get('bd_province')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
+                  <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoProvinceBD="matAutocomplete">
+                    @for (row of bdProvince|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
                 </div>
-              </mat-option>
-            </mat-autocomplete>
-          </div>
-          <div class="f-item"
-            [ngClass]="form.get('current_nationality')?.errors&&form.get('current_nationality')?.touched?'has-error':''">
-            <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
-                *ngIf="form.get('current_nationality')?.invalid">*</span></span>
-            <input class="f-input" #current_nationality type="text" formControlName="current_nationality"
-              [matAutocomplete]="autoCurrentNation">
-            <mat-autocomplete [displayWith]="displayNationalityKH" (optionSelected)="_onSelectedNationally($event)"
-              #autoCurrentNation="matAutocomplete">
-              <mat-option *ngFor="let row of filteredNationality|async;let i=index" [value]="row">
-                <div class="rows">
-                  <span>{{criminalStore?.isKhmerForm?row?.kh_nationality:row?.nationality}}</span>
+                <div class="f-item"
+                  [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
+                  <span>ស្រុក/ខណ្ឌ@if (form.get('bd_district')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_district"
+                    [matAutocomplete]="autoGeoDistrictBD">
+                  <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoDistrictBD="matAutocomplete">
+                    @for (row of bdDistrict|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
                 </div>
-              </mat-option>
-            </mat-autocomplete>
-          </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item">
-              <div class="inValid-date" *ngIf="dateOfBirthInvalid">
-                ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
               </div>
-              <app-khmer-date-form-picker [required]="true" [isKhmer]="criminalStore?.isKhmerForm"
-                [class]="dateOfBirthInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' "
-                (onSelectedItem)="onSelectedDateOfBirth($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត ថ្ងៃ'"
-                [day]="form.get('dateOfBirthDay')?.value||null" [month]="form.get('dateOfBirthMonth')?.value||null"
-                [year]="form.get('dateOfBirthYear')?.value||null" [disabled]="disableDate">
-              </app-khmer-date-form-picker>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item">
-              <mat-checkbox class="form-input-cv" (change)="onTextAddressChange($event)" formControlName="isTextAddress">អាសយដ្ឋានបញ្ចូលដោយដៃ</mat-checkbox>
-            </div>
-          </div>
-
-          <ng-container *ngIf="!form.get('isTextAddress')?.value;else textAddressTemplate">
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
+                  <span>ឃុំ/សង្កាត់@if (form.get('bd_commune')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_commune"
+                    [matAutocomplete]="autoGeoCommuneBD">
+                  <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoCommuneBD="matAutocomplete">
+                    @for (row of bdCommune|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
+                  <span>ភូមិ@if (form.get('bd_village')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_village"
+                    [matAutocomplete]="autoGeoVillageBD">
+                  <mat-autocomplete [displayWith]="displayNameAndEnName" #autoGeoVillageBD="matAutocomplete">
+                    @for (row of bdVillage|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+            } @else {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('foreignerPlaceOfBirth')?.errors&&form.get('foreignerPlaceOfBirth')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត(ខ្មែរ)@if (form.get('foreignerPlaceOfBirth')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" required formControlName="foreignerPlaceOfBirth">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.english_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('foreignerPlaceOfBirth_en')?.errors&&form.get('foreignerPlaceOfBirth_en')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="foreignerPlaceOfBirth_en">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('foreignerPlaceOfBirth_fr')?.errors&&form.get('foreignerPlaceOfBirth_fr')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="foreignerPlaceOfBirth_fr">
+                </div>
+              </div>
+            }
+            @if (!form.get('isTextAddress')?.value) {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន - ផ្លូវ</span>
+                  <input class="f-input" formControlName="street_no_kh" type="text">
+                </div>
+                <div class="f-item">
+                  <span>ផ្ទះលេខ</span>
+                  <input class="f-input" formControlName="home_no_kh" type="text">
+                </div>
+              </div>
+              <div class="row-item" >
+                <div class="f-item"
+                  [ngClass]="form.get('live_province')?.errors&&form.get('live_province')?.touched?'has-error':''">
+                  <span>រាជធានី/ខេត្ត@if (form.get('live_province')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" formControlName="live_province"
+                    [matAutocomplete]="autoGeoProvinceLive">
+                  <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoProvinceLive="matAutocomplete">
+                    @for (row of liveProvince|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
+                  <span>ស្រុក/ខណ្ឌ@if (form.get('live_district')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_district"
+                    [matAutocomplete]="autoGeoDistrictLive">
+                  <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoDistrictLive="matAutocomplete">
+                    @for (row of liveDistrict|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
+                  <span>ឃុំ/សង្កាត់@if (form.get('live_commune')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_commune"
+                    [matAutocomplete]="autoGeoCommuneLive">
+                  <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="displayNameAndEnName"
+                    #autoGeoCommuneLive="matAutocomplete">
+                    @for (row of liveCommune|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
+                  <span>ភូមិ@if (form.get('live_village')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_village"
+                    [matAutocomplete]="autoGeoVillageLive">
+                  <mat-autocomplete [displayWith]="displayNameAndEnName" #autoGeoVillageLive="matAutocomplete">
+                    @for (row of liveVillage|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+            } @else {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('permanentAddressText')?.errors&&form.get('permanentAddressText')?.touched?'has-error':''">
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន(ខ្មែរ)@if (form.get('permanentAddressText')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" required formControlName="permanentAddressText">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.english_form) {
+              <div class="row-item">
+                <div class="f-item" >
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន(អង់គ្លេស)</span>
+                  <input class="f-input" formControlName="permanentAddressText_en" type="text">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item" >
+                  <span>អាសយដ្ឋានបច្ចុប្បន្ន(បារាំង)</span>
+                  <input class="f-input" formControlName="permanentAddressText_fr" type="text">
+                </div>
+              </div>
+            }
             <div class="row-item">
               <div class="f-item"
-                [ngClass]="form.get('bd_province')?.errors&&form.get('bd_province')?.touched?'has-error':''">
-                <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត<span class="star-req"
-                    *ngIf="form.get('bd_province')?.invalid">*</span></span>
-                <input class="f-input" type="text" formControlName="bd_province" [matAutocomplete]="autoGeoProvinceBD">
-                <mat-autocomplete (optionSelected)="_selectProvince($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoProvinceBD="matAutocomplete">
-                  <mat-option *ngFor="let row of bdProvince|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
+                [ngClass]="form.get('occupation_kh')?.errors&&form.get('occupation_kh')?.touched?'has-error':''">
+                <span>មុខរបរ(ខ្មែរ)@if (form.get('occupation_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="occupation_kh">
               </div>
-              <div class="f-item"
-                [ngClass]="form.get('bd_district')?.errors&&form.get('bd_district')?.touched?'has-error':''">
-                <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('bd_district')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_district"
-                  [matAutocomplete]="autoGeoDistrictBD">
-                <mat-autocomplete (optionSelected)="_selectDistrict($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoDistrictBD="matAutocomplete">
-                  <mat-option *ngFor="let row of bdDistrict|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
+              @if (criminalStore?.applicationConfig?.english_form) {
+                <div class="f-item"
+                  [ngClass]="form.get('occupation_en')?.errors&&form.get('occupation_en')?.touched?'has-error':''">
+                  <span>មុខរបរ(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="occupation_en">
+                </div>
+              }
             </div>
-
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('occupation_fr')?.errors&&form.get('occupation_fr')?.touched?'has-error':''">
+                  <span>មុខរបរ(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="occupation_fr">
+                </div>
+              </div>
+            }
             <div class="row-item">
               <div class="f-item"
-                [ngClass]="form.get('bd_commune')?.errors&&form.get('bd_commune')?.touched?'has-error':''">
-                <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('bd_commune')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_commune"
-                  [matAutocomplete]="autoGeoCommuneBD">
-                <mat-autocomplete (optionSelected)="_selectCommune($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoCommuneBD="matAutocomplete">
-                  <mat-option *ngFor="let row of bdCommune|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
+                [ngClass]="form.get('father_name_kh')?.errors&&form.get('father_name_kh')?.touched?'has-error':''">
+                <span>II-ឪពុកឈ្មោះ(ខ្មែរ)@if (form.get('father_name_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="father_name_kh">
               </div>
               <div class="f-item"
-                [ngClass]="form.get('bd_village')?.errors&&form.get('bd_village')?.touched?'has-error':''">
-                <span>ភូមិ<span class="star-req" *ngIf="form.get('bd_village')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="bd_village"
-                  [matAutocomplete]="autoGeoVillageBD">
-                <mat-autocomplete [displayWith]="displayNameAndEnName" #autoGeoVillageBD="matAutocomplete">
-                  <mat-option *ngFor="let row of bdVillage|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
+                [ngClass]="form.get('father_name_en')?.errors&&form.get('father_name_en')?.touched?'has-error':''">
+                <span>ឈ្មោះ(ឡាតាំង)@if (form.get('father_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="father_name_en">
               </div>
             </div>
-          </ng-container>
-
-          <ng-template #textAddressTemplate>
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('foreignerPlaceOfBirth')?.errors&&form.get('foreignerPlaceOfBirth')?.touched?'has-error':''">
-                <span>ទីកន្លែងកំណើត(ខ្មែរ)<span class="star-req"
-                    *ngIf="form.get('foreignerPlaceOfBirth')?.invalid">*</span></span>
-                <input class="f-input" type="text" required formControlName="foreignerPlaceOfBirth">
-              </div>
-            </div>
-          </ng-template>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.english_form">
-            <div class="f-item"
-              [ngClass]="form.get('foreignerPlaceOfBirth_en')?.errors&&form.get('foreignerPlaceOfBirth_en')?.touched?'has-error':''">
-              <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="foreignerPlaceOfBirth_en">
-            </div>
-          </div>
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item"
-              [ngClass]="form.get('foreignerPlaceOfBirth_fr')?.errors&&form.get('foreignerPlaceOfBirth_fr')?.touched?'has-error':''">
-              <span>ទីកន្លែងកំណើត(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="foreignerPlaceOfBirth_fr">
-            </div>
-          </div>
-
-          <ng-container *ngIf="!form.get('isTextAddress')?.value;else textCurrentAddressTemplate">
-            <div class="row-item">
-              <div class="f-item">
-                <span>អាសយដ្ឋានបច្ចុប្បន្ន - ផ្លូវ</span>
-                <input class="f-input" formControlName="street_no_kh" type="text">
-              </div>
-              <div class="f-item">
-                <span>ផ្ទះលេខ</span>
-                <input class="f-input" formControlName="home_no_kh" type="text">
-              </div>
-            </div>
-            <div class="row-item" >
-              <div class="f-item"
-                [ngClass]="form.get('live_province')?.errors&&form.get('live_province')?.touched?'has-error':''">
-                <span>រាជធានី/ខេត្ត<span class="star-req"
-                    *ngIf="form.get('live_province')?.invalid">*</span></span>
-                <input class="f-input" type="text" formControlName="live_province"
-                  [matAutocomplete]="autoGeoProvinceLive">
-                <mat-autocomplete (optionSelected)="_selectLiveProvince($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoProvinceLive="matAutocomplete">
-                  <mat-option *ngFor="let row of liveProvince|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('live_district')?.errors&&form.get('live_district')?.touched?'has-error':''">
-                <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('live_district')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_district"
-                  [matAutocomplete]="autoGeoDistrictLive">
-                <mat-autocomplete (optionSelected)="_selectLiveDistrict($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoDistrictLive="matAutocomplete">
-                  <mat-option *ngFor="let row of liveDistrict|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('live_commune')?.errors&&form.get('live_commune')?.touched?'has-error':''">
-                <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('live_commune')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_commune"
-                  [matAutocomplete]="autoGeoCommuneLive">
-                <mat-autocomplete (optionSelected)="_selectLiveCommune($event)" [displayWith]="displayNameAndEnName"
-                  #autoGeoCommuneLive="matAutocomplete">
-                  <mat-option *ngFor="let row of liveCommune|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('live_village')?.errors&&form.get('live_village')?.touched?'has-error':''">
-                <span>ភូមិ<span class="star-req" *ngIf="form.get('live_village')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="live_village"
-                  [matAutocomplete]="autoGeoVillageLive">
-                <mat-autocomplete [displayWith]="displayNameAndEnName" #autoGeoVillageLive="matAutocomplete">
-                  <mat-option *ngFor="let row of liveVillage|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-          </ng-container>
-
-          <ng-template #textCurrentAddressTemplate>
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('permanentAddressText')?.errors&&form.get('permanentAddressText')?.touched?'has-error':''">
-                <span>អាសយដ្ឋានបច្ចុប្បន្ន(ខ្មែរ)<span class="star-req"
-                    *ngIf="form.get('permanentAddressText')?.invalid">*</span></span>
-                <input class="f-input" type="text" required formControlName="permanentAddressText">
-              </div>
-            </div>
-          </ng-template>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.english_form">
-            <div class="f-item" >
-              <span>អាសយដ្ឋានបច្ចុប្បន្ន(អង់គ្លេស)</span>
-              <input class="f-input" formControlName="permanentAddressText_en" type="text">
-            </div>
-          </div>
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item" >
-              <span>អាសយដ្ឋានបច្ចុប្បន្ន(បារាំង)</span>
-              <input class="f-input" formControlName="permanentAddressText_fr" type="text">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('occupation_kh')?.errors&&form.get('occupation_kh')?.touched?'has-error':''">
-              <span>មុខរបរ(ខ្មែរ)<span class="star-req" *ngIf="form.get('occupation_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="occupation_kh">
-            </div>
-            <div class="f-item" *ngIf="criminalStore?.applicationConfig?.english_form"
-              [ngClass]="form.get('occupation_en')?.errors&&form.get('occupation_en')?.touched?'has-error':''">
-              <span>មុខរបរ(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="occupation_en">
-            </div>
-          </div>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item"
-              [ngClass]="form.get('occupation_fr')?.errors&&form.get('occupation_fr')?.touched?'has-error':''">
-              <span>មុខរបរ(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="occupation_fr">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('father_name_kh')?.errors&&form.get('father_name_kh')?.touched?'has-error':''">
-              <span>II-ឪពុកឈ្មោះ(ខ្មែរ)<span class="star-req" *ngIf="form.get('father_name_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="father_name_kh">
-            </div>
-            <div class="f-item"
-              [ngClass]="form.get('father_name_en')?.errors&&form.get('father_name_en')?.touched?'has-error':''">
-              <span>ឈ្មោះ(ឡាតាំង)<span class="star-req" *ngIf="form.get('father_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="father_name_en">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="criminalStore?.isKhmerForm"
-                [disabled]="form?.controls['first_name_en'].disabled" (onSelectedItem)="onSelectedDateFatherDob($event)"
-                style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'" [day]="form.get('fatherDob')?.value?.day||null"
-                [month]="form.get('fatherDob')?.value?.month||null" [year]="form.get('fatherDob')?.value?.year||null">
-              </app-khmer-date-form-picker>
-            </div>
-
-            <div class="f-item overfh cr-radio" style="width: 300px;">
-              <mat-radio-group (change)="onChangeLiveStatusFather($event)" style="display: flex;" formControlName="fatherIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [value]="item"
-                  style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:item?.name_en}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('father_before_nationality')?.errors&&form.get('father_before_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិដើម<span class="star-req"
-                  *ngIf="form.get('father_before_nationality')?.invalid">*</span></span>
-              <input class="f-input" #father_before_nationality type="text" formControlName="father_before_nationality"
-                [matAutocomplete]="autoFatherBeforeNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH"
-                (optionSelected)="_onSelectedOldNationally($event,'father_current_nationality')"
-                #autoFatherBeforeNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredFatherBirthNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-            <div class="f-item"
-              [ngClass]="form.get('father_current_nationality')?.errors&&form.get('father_current_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
-                  *ngIf="form.get('father_current_nationality')?.invalid">*</span></span>
-              <input #father_current_nationality class="f-input" type="text"
-                formControlName="father_current_nationality" [matAutocomplete]="autoNowNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH" #autoNowNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredFatherNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-          </div>
-
-          <ng-container *ngIf="!form.get('isTextAddress')?.value;else fatherTextAddressTemplate">
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('father_bd_province')?.errors&&form.get('father_bd_province')?.touched?'has-error':''">
-                <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត<span class="star-req"
-                    *ngIf="form.get('father_bd_province')?.invalid">*</span></span>
-                <input class="f-input" type="text" formControlName="father_bd_province"
-                  [matAutocomplete]="autoFatherGeoProvinceBD">
-                <mat-autocomplete (optionSelected)="_selectFatherProvince($event)" [displayWith]="displayNameAndEnName"
-                  #autoFatherGeoProvinceBD="matAutocomplete">
-                  <mat-option *ngFor="let row of father_bdProvince|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('father_bd_district')?.errors&&form.get('father_bd_district')?.touched?'has-error':''">
-                <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('father_bd_district')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_district"
-                  [matAutocomplete]="autoFatherGeoDistrictBD">
-                <mat-autocomplete (optionSelected)="_selectFatherDistrict($event)" [displayWith]="displayNameAndEnName"
-                  #autoFatherGeoDistrictBD="matAutocomplete">
-                  <mat-option *ngFor="let row of father_bdDistrict|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('father_bd_commune')?.errors&&form.get('father_bd_commune')?.touched?'has-error':''">
-                <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('father_bd_commune')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_commune"
-                  [matAutocomplete]="autoFatherGeoCommuneBD">
-                <mat-autocomplete (optionSelected)="_selectFatherCommune($event)" [displayWith]="displayNameAndEnName"
-                  #autoFatherGeoCommuneBD="matAutocomplete">
-                  <mat-option *ngFor="let row of father_bdCommune|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('father_bd_village')?.errors&&form.get('father_bd_village')?.touched?'has-error':''">
-                <span>ភូមិ<span class="star-req" *ngIf="form.get('father_bd_village')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_village"
-                  [matAutocomplete]="autoFatherGeoVillageBD">
-                <mat-autocomplete [displayWith]="displayNameAndEnName" #autoFatherGeoVillageBD="matAutocomplete">
-                  <mat-option *ngFor="let row of father_bdVillage|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-          </ng-container>
-
-          <ng-template #fatherTextAddressTemplate>
-            <div class="row-item">
-              <div class="f-item">
-                <span>ទីកន្លែងកំណើត(ខ្មែរ)</span>
-                <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress">
-              </div>
-            </div>
-          </ng-template>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.english_form">
-            <div class="f-item">
-              <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress_en">
-            </div>
-          </div>
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item">
-              <span>ទីកន្លែងកំណើត(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress_fr">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('fatherCurrentOccupation_kh')?.errors&&form.get('fatherCurrentOccupation_kh')?.touched?'has-error':''">
-              <span>មុខរបរ(ខ្មែរ):</span>
-              <input class="f-input" type="text" formControlName="fatherCurrentOccupation_kh">
-            </div>
-            <div class="f-item" *ngIf="criminalStore?.applicationConfig?.english_form"
-              [ngClass]="form.get('fatherCurrentOccupation_en')?.errors&&form.get('fatherCurrentOccupation_en')?.touched?'has-error':''">
-              <span>មុខរបរ(អង់គ្លេស):</span>
-              <input class="f-input" type="text" formControlName="fatherCurrentOccupation_en">
-            </div>
-          </div>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item"
-              [ngClass]="form.get('fatherCurrentOccupation_fr')?.errors&&form.get('fatherCurrentOccupation_fr')?.touched?'has-error':''">
-              <span>មុខរបរ(បារាំង):</span>
-              <input class="f-input" type="text" formControlName="fatherCurrentOccupation_fr">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('mother_name_kh')?.errors&&form.get('mother_name_kh')?.touched?'has-error':''">
-              <span>III-ម្ដាយឈ្មោះ(ខ្មែរ)<span class="star-req" *ngIf="form.get('mother_name_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="mother_name_kh">
-            </div>
-            <div class="f-item"
-              [ngClass]="form.get('mother_name_en')?.errors&&form.get('mother_name_en')?.touched?'has-error':''">
-              <span>ឈ្មោះ(ឡាតាំង)<span class="star-req" *ngIf="form.get('mother_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="mother_name_en">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="criminalStore?.isKhmerForm"
-                (onSelectedItem)="onSelectedDateMotherDob($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                [day]="form.get('motherDob')?.value?.day||null" [month]="form.get('motherDob')?.value?.month||null"
-                [year]="form.get('motherDob')?.value?.year||null">
-              </app-khmer-date-form-picker>
-            </div>
-
-            <div class="f-item overfh cr-radio" style="width: 300px;">
-              <mat-radio-group (change)="onChangeLiveStatusMother($event)" style="display: flex;" formControlName="motherIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [value]="item"
-                  style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('mother_before_nationality')?.errors&&form.get('mother_before_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិដើម<span class="star-req"
-                  *ngIf="form.get('mother_before_nationality')?.invalid">*</span></span>
-              <input class="f-input" #mother_before_nationality type="text" formControlName="mother_before_nationality"
-                [matAutocomplete]="autoMotherBeforeNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH"
-                (optionSelected)="_onSelectedOldNationally($event,'mother_current_nationality')"
-                #autoMotherBeforeNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredMotherBirthNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-            <div class="f-item"
-              [ngClass]="form.get('mother_current_nationality')?.errors&&form.get('mother_current_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
-                  *ngIf="form.get('mother_current_nationality')?.invalid">*</span></span>
-              <input class="f-input" #mother_current_nationality type="text"
-                formControlName="mother_current_nationality" [matAutocomplete]="autoMotherCurrentNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH" #autoMotherCurrentNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredMotherNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-          </div>
-
-          <ng-container *ngIf="!form.get('isTextAddress')?.value;else motherTextAddressTemplate">
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('mother_bd_province')?.errors&&form.get('mother_bd_province')?.touched?'has-error':''">
-                <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត<span class="star-req"
-                    *ngIf="form.get('mother_bd_province')?.invalid">*</span></span>
-                <input class="f-input" type="text" formControlName="mother_bd_province"
-                  [matAutocomplete]="automotherGeoProvinceBD">
-                <mat-autocomplete (optionSelected)="_selectMotherProvince($event)" [displayWith]="displayNameAndEnName"
-                  #automotherGeoProvinceBD="matAutocomplete">
-                  <mat-option *ngFor="let row of mother_bdProvince|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('mother_bd_district')?.errors&&form.get('mother_bd_district')?.touched?'has-error':''">
-                <span>ស្រុក/ខណ្ឌ<span class="star-req" *ngIf="form.get('mother_bd_district')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_district"
-                  [matAutocomplete]="automotherGeoDistrictBD">
-                <mat-autocomplete (optionSelected)="_selectMotherDistrict($event)" [displayWith]="displayNameAndEnName"
-                  #automotherGeoDistrictBD="matAutocomplete">
-                  <mat-option *ngFor="let row of mother_bdDistrict|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-            <div class="row-item">
-              <div class="f-item"
-                [ngClass]="form.get('mother_bd_commune')?.errors&&form.get('mother_bd_commune')?.touched?'has-error':''">
-                <span>ឃុំ/សង្កាត់<span class="star-req" *ngIf="form.get('mother_bd_commune')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_commune"
-                  [matAutocomplete]="automotherGeoCommuneBD">
-                <mat-autocomplete (optionSelected)="_selectMotherCommune($event)" [displayWith]="displayNameAndEnName"
-                  #automotherGeoCommuneBD="matAutocomplete">
-                  <mat-option *ngFor="let row of mother_bdCommune|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-              <div class="f-item"
-                [ngClass]="form.get('mother_bd_village')?.errors&&form.get('mother_bd_village')?.touched?'has-error':''">
-                <span>ភូមិ<span class="star-req" *ngIf="form.get('mother_bd_village')?.invalid">*</span></span>
-                <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_village"
-                  [matAutocomplete]="automotherGeoVillageBD">
-                <mat-autocomplete [displayWith]="displayNameAndEnName" #automotherGeoVillageBD="matAutocomplete">
-                  <mat-option *ngFor="let row of mother_bdVillage|async;let i=index" [value]="row">
-                    <div class="rows">
-                      <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
-                      <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
-                    </div>
-                  </mat-option>
-                </mat-autocomplete>
-              </div>
-            </div>
-          </ng-container>
-
-          <ng-template #motherTextAddressTemplate>
             <div class="row-item">
               <div class="f-item">
-                <span>ទីកន្លែងកំណើត(ខ្មែរ)</span>
-                <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress">
+                <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="$safeNavigationMigration(criminalStore?.isKhmerForm)"
+                  [disabled]="form?.controls['first_name_en'].disabled" (onSelectedItem)="onSelectedDateFatherDob($event)"
+                  style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'" [day]="form.get('fatherDob')?.value?.day||null"
+                  [month]="form.get('fatherDob')?.value?.month||null" [year]="form.get('fatherDob')?.value?.year||null">
+                </app-khmer-date-form-picker>
+              </div>
+              <div class="f-item overfh cr-radio" style="width: 300px;">
+                <mat-radio-group (change)="onChangeLiveStatusFather($event)" style="display: flex;" formControlName="fatherIsDead">
+                  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                    <mat-radio-button [value]="item"
+                      style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:item?.name_en}}
+                    </mat-radio-button>
+                  }
+                </mat-radio-group>
               </div>
             </div>
-          </ng-template>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.english_form">
-            <div class="f-item">
-              <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress_en">
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('father_before_nationality')?.errors&&form.get('father_before_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិដើម@if (form.get('father_before_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #father_before_nationality type="text" formControlName="father_before_nationality"
+                  [matAutocomplete]="autoFatherBeforeNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH"
+                  (optionSelected)="_onSelectedOldNationally($event,'father_current_nationality')"
+                  #autoFatherBeforeNation="matAutocomplete">
+                  @for (item of filteredFatherBirthNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('father_current_nationality')?.errors&&form.get('father_current_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិបច្ចុប្បន្ន@if (form.get('father_current_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input #father_current_nationality class="f-input" type="text"
+                  formControlName="father_current_nationality" [matAutocomplete]="autoNowNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH" #autoNowNation="matAutocomplete">
+                  @for (item of filteredFatherNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
             </div>
-          </div>
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item">
-              <span>ទីកន្លែងកំណើត(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress_fr">
+            @if (!form.get('isTextAddress')?.value) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('father_bd_province')?.errors&&form.get('father_bd_province')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត@if (form.get('father_bd_province')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" formControlName="father_bd_province"
+                    [matAutocomplete]="autoFatherGeoProvinceBD">
+                  <mat-autocomplete (optionSelected)="_selectFatherProvince($event)" [displayWith]="displayNameAndEnName"
+                    #autoFatherGeoProvinceBD="matAutocomplete">
+                    @for (row of father_bdProvince|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('father_bd_district')?.errors&&form.get('father_bd_district')?.touched?'has-error':''">
+                  <span>ស្រុក/ខណ្ឌ@if (form.get('father_bd_district')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_district"
+                    [matAutocomplete]="autoFatherGeoDistrictBD">
+                  <mat-autocomplete (optionSelected)="_selectFatherDistrict($event)" [displayWith]="displayNameAndEnName"
+                    #autoFatherGeoDistrictBD="matAutocomplete">
+                    @for (row of father_bdDistrict|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('father_bd_commune')?.errors&&form.get('father_bd_commune')?.touched?'has-error':''">
+                  <span>ឃុំ/សង្កាត់@if (form.get('father_bd_commune')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_commune"
+                    [matAutocomplete]="autoFatherGeoCommuneBD">
+                  <mat-autocomplete (optionSelected)="_selectFatherCommune($event)" [displayWith]="displayNameAndEnName"
+                    #autoFatherGeoCommuneBD="matAutocomplete">
+                    @for (row of father_bdCommune|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('father_bd_village')?.errors&&form.get('father_bd_village')?.touched?'has-error':''">
+                  <span>ភូមិ@if (form.get('father_bd_village')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="father_bd_village"
+                    [matAutocomplete]="autoFatherGeoVillageBD">
+                  <mat-autocomplete [displayWith]="displayNameAndEnName" #autoFatherGeoVillageBD="matAutocomplete">
+                    @for (row of father_bdVillage|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+            } @else {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(ខ្មែរ)</span>
+                  <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.english_form) {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress_en">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="foreignerFatherBirthAddress_fr">
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('fatherCurrentOccupation_kh')?.errors&&form.get('fatherCurrentOccupation_kh')?.touched?'has-error':''">
+                <span>មុខរបរ(ខ្មែរ):</span>
+                <input class="f-input" type="text" formControlName="fatherCurrentOccupation_kh">
+              </div>
+              @if (criminalStore?.applicationConfig?.english_form) {
+                <div class="f-item"
+                  [ngClass]="form.get('fatherCurrentOccupation_en')?.errors&&form.get('fatherCurrentOccupation_en')?.touched?'has-error':''">
+                  <span>មុខរបរ(អង់គ្លេស):</span>
+                  <input class="f-input" type="text" formControlName="fatherCurrentOccupation_en">
+                </div>
+              }
             </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('motherCurrentOccupation_kh')?.errors&&form.get('motherCurrentOccupation_kh')?.touched?'has-error':''">
-              <span>មុខរបរ(ខ្មែរ)</span>
-              <input class="f-input" type="text" formControlName="motherCurrentOccupation_kh">
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('fatherCurrentOccupation_fr')?.errors&&form.get('fatherCurrentOccupation_fr')?.touched?'has-error':''">
+                  <span>មុខរបរ(បារាំង):</span>
+                  <input class="f-input" type="text" formControlName="fatherCurrentOccupation_fr">
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('mother_name_kh')?.errors&&form.get('mother_name_kh')?.touched?'has-error':''">
+                <span>III-ម្ដាយឈ្មោះ(ខ្មែរ)@if (form.get('mother_name_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="mother_name_kh">
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('mother_name_en')?.errors&&form.get('mother_name_en')?.touched?'has-error':''">
+                <span>ឈ្មោះ(ឡាតាំង)@if (form.get('mother_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="mother_name_en">
+              </div>
             </div>
-            <div class="f-item" *ngIf="criminalStore?.applicationConfig?.english_form"
-              [ngClass]="form.get('motherCurrentOccupation_en')?.errors&&form.get('motherCurrentOccupation_en')?.touched?'has-error':''">
-              <span>មុខរបរ(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="motherCurrentOccupation_en">
+            <div class="row-item">
+              <div class="f-item">
+                <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="$safeNavigationMigration(criminalStore?.isKhmerForm)"
+                  (onSelectedItem)="onSelectedDateMotherDob($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="form.get('motherDob')?.value?.day||null" [month]="form.get('motherDob')?.value?.month||null"
+                  [year]="form.get('motherDob')?.value?.year||null">
+                </app-khmer-date-form-picker>
+              </div>
+              <div class="f-item overfh cr-radio" style="width: 300px;">
+                <mat-radio-group (change)="onChangeLiveStatusMother($event)" style="display: flex;" formControlName="motherIsDead">
+                  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                    <mat-radio-button [value]="item"
+                      style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}
+                    </mat-radio-button>
+                  }
+                </mat-radio-group>
+              </div>
             </div>
-
-          </div>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item"
-              [ngClass]="form.get('motherCurrentOccupation_fr')?.errors&&form.get('motherCurrentOccupation_fr')?.touched?'has-error':''">
-              <span>មុខរបរ(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="motherCurrentOccupation_fr">
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('mother_before_nationality')?.errors&&form.get('mother_before_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិដើម@if (form.get('mother_before_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #mother_before_nationality type="text" formControlName="mother_before_nationality"
+                  [matAutocomplete]="autoMotherBeforeNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH"
+                  (optionSelected)="_onSelectedOldNationally($event,'mother_current_nationality')"
+                  #autoMotherBeforeNation="matAutocomplete">
+                  @for (item of filteredMotherBirthNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('mother_current_nationality')?.errors&&form.get('mother_current_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិបច្ចុប្បន្ន@if (form.get('mother_current_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #mother_current_nationality type="text"
+                  formControlName="mother_current_nationality" [matAutocomplete]="autoMotherCurrentNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH" #autoMotherCurrentNation="matAutocomplete">
+                  @for (item of filteredMotherNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
             </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('spouse_name_kh')?.errors&&form.get('spouse_name_kh')?.touched?'has-error':''">
-              <span>IV-ប្ដី ឬប្រពន្ធឈ្មោះ(ខ្មែរ)<span class="star-req" *ngIf="form.get('spouse_name_kh')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="spouse_name_kh">
+            @if (!form.get('isTextAddress')?.value) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('mother_bd_province')?.errors&&form.get('mother_bd_province')?.touched?'has-error':''">
+                  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត@if (form.get('mother_bd_province')?.invalid) {
+                    <span class="star-req"
+                    >*</span>
+                  }</span>
+                  <input class="f-input" type="text" formControlName="mother_bd_province"
+                    [matAutocomplete]="automotherGeoProvinceBD">
+                  <mat-autocomplete (optionSelected)="_selectMotherProvince($event)" [displayWith]="displayNameAndEnName"
+                    #automotherGeoProvinceBD="matAutocomplete">
+                    @for (row of mother_bdProvince|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('mother_bd_district')?.errors&&form.get('mother_bd_district')?.touched?'has-error':''">
+                  <span>ស្រុក/ខណ្ឌ@if (form.get('mother_bd_district')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_district"
+                    [matAutocomplete]="automotherGeoDistrictBD">
+                  <mat-autocomplete (optionSelected)="_selectMotherDistrict($event)" [displayWith]="displayNameAndEnName"
+                    #automotherGeoDistrictBD="matAutocomplete">
+                    @for (row of mother_bdDistrict|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('mother_bd_commune')?.errors&&form.get('mother_bd_commune')?.touched?'has-error':''">
+                  <span>ឃុំ/សង្កាត់@if (form.get('mother_bd_commune')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_commune"
+                    [matAutocomplete]="automotherGeoCommuneBD">
+                  <mat-autocomplete (optionSelected)="_selectMotherCommune($event)" [displayWith]="displayNameAndEnName"
+                    #automotherGeoCommuneBD="matAutocomplete">
+                    @for (row of mother_bdCommune|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+                <div class="f-item"
+                  [ngClass]="form.get('mother_bd_village')?.errors&&form.get('mother_bd_village')?.touched?'has-error':''">
+                  <span>ភូមិ@if (form.get('mother_bd_village')?.invalid) {
+                    <span class="star-req">*</span>
+                  }</span>
+                  <input style="min-width: 120px;" class="f-input" type="text" formControlName="mother_bd_village"
+                    [matAutocomplete]="automotherGeoVillageBD">
+                  <mat-autocomplete [displayWith]="displayNameAndEnName" #automotherGeoVillageBD="matAutocomplete">
+                    @for (row of mother_bdVillage|async; track row; let i = $index) {
+                      <mat-option [value]="row">
+                        <div class="rows">
+                          <!-- <span>{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}</span> -->
+                          <span>{{ row?.isKhmer? row?.name : row?.en_name }}</span>
+                        </div>
+                      </mat-option>
+                    }
+                  </mat-autocomplete>
+                </div>
+              </div>
+            } @else {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(ខ្មែរ)</span>
+                  <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.english_form) {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress_en">
+                </div>
+              </div>
+            }
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item">
+                  <span>ទីកន្លែងកំណើត(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="foreignerMotherBirthAddress_fr">
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('motherCurrentOccupation_kh')?.errors&&form.get('motherCurrentOccupation_kh')?.touched?'has-error':''">
+                <span>មុខរបរ(ខ្មែរ)</span>
+                <input class="f-input" type="text" formControlName="motherCurrentOccupation_kh">
+              </div>
+              @if (criminalStore?.applicationConfig?.english_form) {
+                <div class="f-item"
+                  [ngClass]="form.get('motherCurrentOccupation_en')?.errors&&form.get('motherCurrentOccupation_en')?.touched?'has-error':''">
+                  <span>មុខរបរ(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="motherCurrentOccupation_en">
+                </div>
+              }
             </div>
-            <div class="f-item"
-              [ngClass]="form.get('spouse_name_en')?.errors&&form.get('spouse_name_en')?.touched?'has-error':''">
-              <span>ឈ្មោះ(ឡាតាំង)<span class="star-req" *ngIf="form.get('spouse_name_en')?.invalid">*</span></span>
-              <input class="f-input" type="text" formControlName="spouse_name_en">
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('motherCurrentOccupation_fr')?.errors&&form.get('motherCurrentOccupation_fr')?.touched?'has-error':''">
+                  <span>មុខរបរ(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="motherCurrentOccupation_fr">
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <div class="f-item" [ngClass]="form.get('spouse_name_kh')?.errors&&form.get('spouse_name_kh')?.touched?'has-error':''">
+                <span>IV-ប្ដី ឬប្រពន្ធឈ្មោះ(ខ្មែរ)@if (form.get('spouse_name_kh')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="spouse_name_kh">
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('spouse_name_en')?.errors&&form.get('spouse_name_en')?.touched?'has-error':''">
+                <span>ឈ្មោះ(ឡាតាំង)@if (form.get('spouse_name_en')?.invalid) {
+                  <span class="star-req">*</span>
+                }</span>
+                <input class="f-input" type="text" formControlName="spouse_name_en">
+              </div>
             </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="criminalStore?.isKhmerForm"
-                (onSelectedItem)="onSelectedDateSpouse($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                [day]="form.get('spouseDob')?.value?.day||null" [month]="form.get('spouseDob')?.value?.month||null"
-                [year]="form.get('spouseDob')?.value?.year||null">
-              </app-khmer-date-form-picker>
+            <div class="row-item">
+              <div class="f-item">
+                <app-khmer-date-form-picker [class]="'khmer-date-picker'" [isKhmer]="$safeNavigationMigration(criminalStore?.isKhmerForm)"
+                  (onSelectedItem)="onSelectedDateSpouse($event)" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+                  [day]="form.get('spouseDob')?.value?.day||null" [month]="form.get('spouseDob')?.value?.month||null"
+                  [year]="form.get('spouseDob')?.value?.year||null">
+                </app-khmer-date-form-picker>
+              </div>
+              <div class="f-item overfh cr-radio" style="width: 300px;">
+                <mat-radio-group (change)="onChangeLiveStatusSpouse($event)" style="display: flex;" formControlName="spouseIsDead">
+                  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+                    <mat-radio-button [value]="item"
+                      style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}
+                    </mat-radio-button>
+                  }
+                </mat-radio-group>
+              </div>
             </div>
-            <div class="f-item overfh cr-radio" style="width: 300px;">
-              <mat-radio-group (change)="onChangeLiveStatusSpouse($event)" style="display: flex;" formControlName="spouseIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [value]="item"
-                  style="margin-right: 16px;">{{criminalStore?.isKhmerForm?item?.name:(item?.name_en || item?.name)}}
-                </mat-radio-button>
-              </mat-radio-group>
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('spouse_before_nationality')?.errors&&form.get('spouse_before_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិដើម@if (form.get('spouse_before_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #spouse_before_nationality type="text" formControlName="spouse_before_nationality"
+                  [matAutocomplete]="autoSpouseBeforeNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH"
+                  (optionSelected)="_onSelectedOldNationally($event,'spouse_current_nationality')"
+                  #autoSpouseBeforeNation="matAutocomplete">
+                  @for (item of filteredSpouseBirthNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
+              <div class="f-item"
+                [ngClass]="form.get('spouse_current_nationality')?.errors&&form.get('spouse_current_nationality')?.touched?'has-error':''">
+                <span>សញ្ជាតិបច្ចុប្បន្ន@if (form.get('spouse_current_nationality')?.invalid) {
+                  <span class="star-req"
+                  >*</span>
+                }</span>
+                <input class="f-input" #spouse_current_nationality type="text"
+                  formControlName="spouse_current_nationality" [matAutocomplete]="autoSpouseCurrentNation">
+                <mat-autocomplete [displayWith]="displayNationalityKH" #autoSpouseCurrentNation="matAutocomplete">
+                  @for (item of filteredSpouseNationality|async; track item; let i = $index) {
+                    <mat-option [value]="item">
+                      <div class="rows">
+                        <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
+                      </div>
+                    </mat-option>
+                  }
+                </mat-autocomplete>
+              </div>
             </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('spouse_before_nationality')?.errors&&form.get('spouse_before_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិដើម<span class="star-req"
-                  *ngIf="form.get('spouse_before_nationality')?.invalid">*</span></span>
-              <input class="f-input" #spouse_before_nationality type="text" formControlName="spouse_before_nationality"
-                [matAutocomplete]="autoSpouseBeforeNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH"
-                (optionSelected)="_onSelectedOldNationally($event,'spouse_current_nationality')"
-                #autoSpouseBeforeNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredSpouseBirthNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
+            <div class="row-item">
+              <div class="f-item"
+                [ngClass]="form.get('spouseCurrentOccupation_kh')?.errors&&form.get('spouseCurrentOccupation_kh')?.touched?'has-error':''">
+                <span>មុខរបរ(ខ្មែរ)</span>
+                <input class="f-input" type="text" formControlName="spouseCurrentOccupation_kh">
+              </div>
+              @if (criminalStore?.applicationConfig?.english_form) {
+                <div class="f-item"
+                  [ngClass]="form.get('spouseCurrentOccupation_en')?.errors&&form.get('spouseCurrentOccupation_en')?.touched?'has-error':''">
+                  <span>មុខរបរ(អង់គ្លេស)</span>
+                  <input class="f-input" type="text" formControlName="spouseCurrentOccupation_en">
+                </div>
+              }
             </div>
-            <div class="f-item"
-              [ngClass]="form.get('spouse_current_nationality')?.errors&&form.get('spouse_current_nationality')?.touched?'has-error':''">
-              <span>សញ្ជាតិបច្ចុប្បន្ន<span class="star-req"
-                  *ngIf="form.get('spouse_current_nationality')?.invalid">*</span></span>
-              <input class="f-input" #spouse_current_nationality type="text"
-                formControlName="spouse_current_nationality" [matAutocomplete]="autoSpouseCurrentNation">
-              <mat-autocomplete [displayWith]="displayNationalityKH" #autoSpouseCurrentNation="matAutocomplete">
-                <mat-option *ngFor="let item of filteredSpouseNationality|async;let i=index" [value]="item">
-                  <div class="rows">
-                    <span>{{criminalStore?.isKhmerForm?item?.kh_nationality:item?.nationality}}</span>
-                  </div>
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item"
-              [ngClass]="form.get('spouseCurrentOccupation_kh')?.errors&&form.get('spouseCurrentOccupation_kh')?.touched?'has-error':''">
-              <span>មុខរបរ(ខ្មែរ)</span>
-              <input class="f-input" type="text" formControlName="spouseCurrentOccupation_kh">
-            </div>
-            <div class="f-item" *ngIf="criminalStore?.applicationConfig?.english_form"
-              [ngClass]="form.get('spouseCurrentOccupation_en')?.errors&&form.get('spouseCurrentOccupation_en')?.touched?'has-error':''">
-              <span>មុខរបរ(អង់គ្លេស)</span>
-              <input class="f-input" type="text" formControlName="spouseCurrentOccupation_en">
-            </div>
-          </div>
-
-          <div class="row-item" *ngIf="criminalStore?.applicationConfig?.france_form">
-            <div class="f-item"
-              [ngClass]="form.get('spouseCurrentOccupation_fr')?.errors&&form.get('spouseCurrentOccupation_fr')?.touched?'has-error':''">
-              <span>មុខរបរ(បារាំង)</span>
-              <input class="f-input" type="text" formControlName="spouseCurrentOccupation_fr">
-            </div>
-          </div>
-
-          <div class="row-item">
-            <!-- <div class="f-item">
+            @if (criminalStore?.applicationConfig?.france_form) {
+              <div class="row-item">
+                <div class="f-item"
+                  [ngClass]="form.get('spouseCurrentOccupation_fr')?.errors&&form.get('spouseCurrentOccupation_fr')?.touched?'has-error':''">
+                  <span>មុខរបរ(បារាំង)</span>
+                  <input class="f-input" type="text" formControlName="spouseCurrentOccupation_fr">
+                </div>
+              </div>
+            }
+            <div class="row-item">
+              <!-- <div class="f-item">
               <span style="margin-left: 40px;">សូមឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌ មេត្តាអនុញ្ញាតចេញព្រឹត្តបត្រថ្កោលទោសដល់ខ្ញុំបាទ -
-                នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</span>
+              នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</span>
             </div> -->
           </div>
-
           <!-- <div class="row-item">
-            <div class="f-item" style="justify-content: space-between;">
-              <div class="c-item">
-                <span style="text-decoration: underline;">សូមជូនភ្ជាប់មកជាមួយនូវ ៖</span>
-                <span style="margin-left: 20px; display: flex; flex-direction: column; padding: 0;" class="p-rel">
-                 <ng-container *ngIf="criminalStore?.isKhmerForm">
+          <div class="f-item" style="justify-content: space-between;">
+            <div class="c-item">
+              <span style="text-decoration: underline;">សូមជូនភ្ជាប់មកជាមួយនូវ ៖</span>
+              <span style="margin-left: 20px; display: flex; flex-direction: column; padding: 0;" class="p-rel">
+                <ng-container *ngIf="criminalStore?.isKhmerForm">
                   <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
                   <span class="n-title">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
                   <span class="n-title">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅ ឬសៀវភៅគ្រួសារច្បាប់ដើម ព្រមទាំងថតចម្លង
-                    (១ច្បាប់) មួយផង។</span>
-                 </ng-container>
-                  <span class="n-title" *ngIf="!criminalStore?.isKhmerForm">- ចំពោះជនបរទេសត្រូវមានលិខិតបញ្ជាក់ទីលំនៅពិតប្រាកដ ចេញដោយអញ្ញាធរ ឃុំ. សង្កាត់
-                    (ច្បាប់ដើម ១ច្បាប់) ព្រមទាំងថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព (១ ច្បាប់)។</span>
-                </span>
-              </div>
+                  (១ច្បាប់) មួយផង។</span>
+                </ng-container>
+                <span class="n-title" *ngIf="!criminalStore?.isKhmerForm">- ចំពោះជនបរទេសត្រូវមានលិខិតបញ្ជាក់ទីលំនៅពិតប្រាកដ ចេញដោយអញ្ញាធរ ឃុំ. សង្កាត់
+                (ច្បាប់ដើម ១ច្បាប់) ព្រមទាំងថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព (១ ច្បាប់)។</span>
+              </span>
             </div>
-          </div> -->
-        </div>
+          </div>
+        </div> -->
       </div>
     </div>
-
-    <div class="eform" style="grid-gap: 0;">
-
-
-      <div style="padding: 40px 80px 12px 80px;" *ngIf="isEntryOnly; else MojOfficerTemplate">
+  </div>
+  <div class="eform" style="grid-gap: 0;">
+    @if (isEntryOnly) {
+      <div style="padding: 40px 80px 12px 80px;">
         <mat-radio-group style="display: flex; flex-wrap: wrap; gap: 16px 32px;" formControlName="attachment_status">
-          <mat-radio-button *ngFor="let item of ATTACHMENT_STATUS" [value]="item">
-            <h4 style="margin-bottom: 0">{{item?.name}}</h4>
-          </mat-radio-button>
+          @for (item of ATTACHMENT_STATUS; track item) {
+            <mat-radio-button [value]="item">
+              <h4 style="margin-bottom: 0">{{item?.name}}</h4>
+            </mat-radio-button>
+          }
         </mat-radio-group>
       </div>
-
-      <ng-template #MojOfficerTemplate>
-        <div style="padding: 40px 80px 12px 80px;">
-          <ng-container *ngIf="form?.get('attachment_status')?.value?.key">
-            <h4>{{form?.get('attachment_status')?.value?.name}}</h4>
-          </ng-container>
-          <h4 *ngIf="!form?.get('attachment_status')?.value?.key">សូមជូនភ្ជាប់មកជាមួយនូវ</h4>
-        </div>
-      </ng-template>
-
-      <ng-container *ngIf="form?.get('attachment_status')?.value?.key === 1;else FakeDiv">
-        <div class="criminal-attac">
-          <ul class="doc-att-items">
-            <li class="doc-att-item" *ngFor="let item of criminalStore?.attachment_files">
+    } @else {
+      <div style="padding: 40px 80px 12px 80px;">
+        @if (form?.get('attachment_status')?.value?.key) {
+          <h4>{{form?.get('attachment_status')?.value?.name}}</h4>
+        }
+        @if (!form?.get('attachment_status')?.value?.key) {
+          <h4>សូមជូនភ្ជាប់មកជាមួយនូវ</h4>
+        }
+      </div>
+    }
+    @if (form?.get('attachment_status')?.value?.key === 1) {
+      <div class="criminal-attac">
+        <ul class="doc-att-items">
+          @for (item of criminalStore?.attachment_files; track item) {
+            <li class="doc-att-item">
               <div class="doc-att-preview">
                 <strong>{{criminalStore?.isKhmerForm?item?.docType?.name:item?.docType?.name_en}}</strong>
                 <div class="doc-file-p">
-                  <div class="attach-file-img" *ngIf="item?.image">
-                    <a class="ref-img" target="_blank" [href]="item?.downloadUrl">
-                      <img [src]="item?.photoUrl">
-                    </a>
-                    <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
-                      <mat-icon>close</mat-icon>
-                    </a>
-                  </div>
-                  <div class="attach-file-pdf" *ngIf="!item?.image">
-                    <a target="_blank" [href]="item?.downloadUrl">{{item?.name}}</a>
-                    <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
-                      <mat-icon>close</mat-icon>
-                    </a>
-                  </div>
+                  @if (item?.image) {
+                    <div class="attach-file-img">
+                      <a class="ref-img" target="_blank" [href]="$safeNavigationMigration(item?.downloadUrl)">
+                        <img [src]="$safeNavigationMigration(item?.photoUrl)">
+                      </a>
+                      <a mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </div>
+                  }
+                  @if (!item?.image) {
+                    <div class="attach-file-pdf">
+                      <a target="_blank" [href]="$safeNavigationMigration(item?.downloadUrl)">{{item?.name}}</a>
+                      <a mat-icon-button class="mat-add-new" (click)="_onRemoveAttachment(item)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </div>
+                  }
                 </div>
               </div>
             </li>
-          </ul>
-        </div>
-
-        <div class="doc-att-items">
-          <div class="doc-att-item" *ngFor="let item of DOCUMENT_ATTACHMENT_TYPES">
+          }
+        </ul>
+      </div>
+      <div class="doc-att-items">
+        @for (item of DOCUMENT_ATTACHMENT_TYPES; track item) {
+          <div class="doc-att-item">
             <div class="doc-att-preview">
               <a mat-button class="mat-button attach-button" (click)="_onOpenSelected(docFile,item)">
                 <mat-icon>attach_file</mat-icon>{{criminalStore?.isKhmerForm?item?.name:item?.name_en}}
               </a>
-              <div class="doc-file-p" *ngFor="let row of item?.data">
-                <div class="attach-file-img" *ngIf="row?.image">
-                  <img [src]="row?.url">
-                  <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
-                    <mat-icon>close</mat-icon>
-                  </a>
+              @for (row of item?.data; track row) {
+                <div class="doc-file-p">
+                  @if (row?.image) {
+                    <div class="attach-file-img">
+                      <img [src]="$safeNavigationMigration(row?.url)">
+                      <a mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </div>
+                  }
+                  @if (!row?.image) {
+                    <div class="attach-file-pdf">
+                      <p>{{row?.file?.name}}</p>
+                      <a mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
+                        <mat-icon>close</mat-icon>
+                      </a>
+                    </div>
+                  }
                 </div>
-                <div class="attach-file-pdf" *ngIf="!row?.image">
-                  <p>{{row?.file?.name}}</p>
-                  <a mat-button mat-icon-button class="mat-add-new" (click)="_onRemoveFile(row)">
-                    <mat-icon>close</mat-icon>
-                  </a>
-                </div>
-              </div>
+              }
             </div>
           </div>
-          <input #docFile (change)="onSelectedAttachmentFile($event)" type="file" style="display: none;"
-            accept=".png, .jpg, .jpeg, .pdf">
-        </div>
-      </ng-container>
-
-      <ng-template #FakeDiv>
-        <div style="padding: 8px;"></div>
-      </ng-template>
-
-      <div class="fake"></div>
-      <div class="abs-b">
-        <div class="icon-container" [ngStyle]="setStyleAbsIcon()" (click)="absPanelState = !absPanelState">
-          <ion-icon name="chevron-down-outline"></ion-icon>
-        </div>
-        <ng-container *ngIf="absPanelState">
-          <div class="people-card" *ngFor="let item of searchPeopleList"  (click)="patchForm(item)">
+        }
+        <input #docFile (change)="onSelectedAttachmentFile($event)" type="file" style="display: none;"
+          accept=".png, .jpg, .jpeg, .pdf">
+      </div>
+    } @else {
+      <div style="padding: 8px;"></div>
+    }
+    <div class="fake"></div>
+    <div class="abs-b">
+      <div class="icon-container" [ngStyle]="setStyleAbsIcon()" (click)="absPanelState = !absPanelState">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </div>
+      @if (absPanelState) {
+        @for (item of searchPeopleList; track item) {
+          <div class="people-card"  (click)="patchForm(item)">
             <div class="img-container">
-              <img [src]="item?.photoUrl">
+              <img [src]="$safeNavigationMigration(item?.photoUrl)">
             </div>
             <div class="people-info">
               <p class="name">{{(item?.last_name||'')}} {{(item?.first_name||'')}}</p>
               <p class="sub">{{item?.dateOfBirthDay?.name}}-{{item?.dateOfBirthMonth?.name}}-{{item?.dateOfBirthYear?.name_en}}</p>
             </div>
           </div>
-        </ng-container>
-      </div>
-
+        }
+      }
     </div>
-  </form>
+  </div>
+</form>
+}
 </div>

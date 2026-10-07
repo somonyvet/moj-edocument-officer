@@ -1,70 +1,86 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+
+    <div class="form-group">
+      <mat-label class="f-ml">Spacing</mat-label>
     </div>
-    <mat-dialog-content class="form-wrapper">
+    <div class="form-group two">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="spacing" [compareWith]="compareWith"
+          (selectionChange)="_selectionChangeSpacing($event)">
+          @for (item of docSpacingArray; track item) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.controls['spacing'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
 
-        <div class="form-group">
-            <mat-label class="f-ml">Spacing</mat-label>
-        </div>
-        <div class="form-group two">
-            <mat-form-field appearance="outline">
-                <mat-select formControlName="spacing" [compareWith]="compareWith"
-                    (selectionChange)="_selectionChangeSpacing($event)">
-                    <mat-option *ngFor="let item of docSpacingArray" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.controls['spacing'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <input type="number" formControlName="spacing_value" required matInput>
-                <mat-error *ngIf="form.controls['spacing_value'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-                <mat-error *ngIf="spacing_value.hasError('validAmount')">
-                    ការបញ្ចូលរបស់អ្នកមិនត្រូវតូចជាងសូន្យទេ
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-label class="f-ml">Position</mat-label>
-        </div>
-        <div class="form-group two">
-            <mat-form-field appearance="outline">
-                <mat-select formControlName="position" [compareWith]="compareWith"
-                    (selectionChange)="_selectionChangePosition($event)">
-                    <mat-option *ngFor="let item of docPositionArray" [value]="item">
-                        {{item?.name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.controls['position'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <input type="number" formControlName="position_value" required matInput>
-                <mat-error *ngIf="form.controls['position_value'].hasError('required')">
-                    ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                </mat-error>
-                <mat-error *ngIf="position_value.hasError('validAmount')">
-                    ការបញ្ចូលរបស់អ្នកមិនត្រូវតូចជាងសូន្យទេ
-                </mat-error>
-            </mat-form-field>
-        </div>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input type="number" formControlName="spacing_value" required matInput>
+        @if (form.controls['spacing_value'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (spacing_value.hasError('validAmount')) {
+          <mat-error>
+            ការបញ្ចូលរបស់អ្នកមិនត្រូវតូចជាងសូន្យទេ
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-label class="f-ml">Position</mat-label>
+    </div>
+    <div class="form-group two">
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="position" [compareWith]="compareWith"
+          (selectionChange)="_selectionChangePosition($event)">
+          @for (item of docPositionArray; track item) {
+            <mat-option [value]="item">
+              {{item?.name}}
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.controls['position'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input type="number" formControlName="position_value" required matInput>
+        @if (form.controls['position_value'].hasError('required')) {
+          <mat-error>
+            ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+          </mat-error>
+        }
+        @if (position_value.hasError('validAmount')) {
+          <mat-error>
+            ការបញ្ចូលរបស់អ្នកមិនត្រូវតូចជាងសូន្យទេ
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
 
 
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
-        <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="cancel-btn">បោះបង់</a>
+    <button class="submit-btn" mat-button type="submit" (click)="_onSave(form.value)">រក្សាទុក</button>
+  </mat-dialog-actions>
 </form>

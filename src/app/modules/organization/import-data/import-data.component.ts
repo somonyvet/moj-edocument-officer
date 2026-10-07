@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmApprovalComponent } from 'src/app/shared/components/confirm-approval/confirm-approval.component';
@@ -6,9 +6,11 @@ import { UserAccountStore } from 'src/app/stores/userAccount.store';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-import-data',
-  templateUrl: './import-data.component.html',
-  styleUrls: ['./import-data.component.scss']
+    selector: 'app-import-data',
+    templateUrl: './import-data.component.html',
+    styleUrls: ['./import-data.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ImportDataComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

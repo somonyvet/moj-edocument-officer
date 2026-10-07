@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -20,9 +20,11 @@ import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-succe
 import { AnimationOptions } from 'ngx-lottie';
 import { debounceTime, take, map } from 'rxjs/operators';
 @Component({
-  selector: 'app-letter-three-form',
-  templateUrl: './letter-three-form.component.html',
-  styleUrls: ['./letter-three-form.component.scss']
+    selector: 'app-letter-three-form',
+    templateUrl: './letter-three-form.component.html',
+    styleUrls: ['./letter-three-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class LetterThreeFormComponent implements OnInit {
 
@@ -45,7 +47,7 @@ export class LetterThreeFormComponent implements OnInit {
   filteredNationality: Observable<Array<any>>;
   nationals: any = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   footer_phone: AbstractControl;
 
   GENDER_KH = GENDER_DATA;
@@ -146,7 +148,7 @@ export class LetterThreeFormComponent implements OnInit {
 
   constructor(
     public criminal: CriminalStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

@@ -10,10 +10,11 @@
           (onSelectedYear)="onChangePlan($event)"
         ></app-project-sidebar-head>
         <div class="nav-dock-body">
-          <nav mat-tab-nav-bar>
+          <nav mat-tab-nav-bar [tabPanel]="tabPanel">
             <a mat-tab-link *ngFor="let link of tabs" [queryParams]="store?.queryParams||null" [routerLink]="link.path"
               routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
           </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
           <router-outlet *ngIf="!loading else treeLoading"></router-outlet>
           <ng-template #treeLoading>
             <app-skeleton-loader></app-skeleton-loader>
@@ -60,7 +61,7 @@
     </div>
     <div class="nav-container-fill flex-c">
       <div class="breadcrumb sticky-0">
-        <a mat-button mat-icon-button class="mat-btn-n"
+        <a mat-icon-button class="mat-btn-n"
           [routerLink]="['/planing/annual-project/na/all']">
           <mat-icon>home</mat-icon>
         </a>
@@ -76,8 +77,7 @@
       <ng-container *ngIf="!loadingActivities else tableLoading">
         <ng-container *ngIf="store?.activities?.length > 0">
           <div #scrollingBlock class="annual-table-wrapper w-h-100">
-            <virtual-scroller class="v-scroller" #scroll [items]="store?.activities"
-            [parentScroll]="scrollingBlock" [enableUnequalChildrenSizes]="true">
+            <div class="v-scroller" #scroll>
             <table class="annual-table">
                 <thead #header>
                     <tr>
@@ -160,7 +160,7 @@
                 </thead>
 
                 <tbody #container>
-                  <ng-container *ngFor="let doc of scroll.viewPortItems|filterProgramLevel:programLevelFilter">
+                  <ng-container *ngFor="let doc of store?.activities|filterProgramLevel:programLevelFilter">
                     <tr
                         [style.background-color]="doc?.category?.backgroundColor"
                         [style.color]="doc?.category?.color">
@@ -173,7 +173,7 @@
                                     <div class="rows">
                                       <ng-container *ngIf="currentQuarter">
                                         <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
-                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-icon-button>
                                         <mat-icon>add</mat-icon>
                                         </a>
                                       </ng-container>
@@ -224,7 +224,7 @@
                                     <div style="display: flex; column-gap: 10px; align-items: center;height:100%">
                                       <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
                                         matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
-                                        mat-button mat-icon-button>
+                                        mat-icon-button>
                                         <mat-icon>open_in_new</mat-icon>
                                       </a>
                                       <div [style.width]="col?.width" class="max6-line">
@@ -263,7 +263,7 @@
                                     <div class="rows">
                                       <ng-container *ngIf="currentQuarter">
                                         <a (click)="_addPlaning(doc)" matTooltip="បញ្ចូលផែនការប្រចាំត្រីមាស" *ngIf="doc?.canDoPlaning"
-                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-button mat-icon-button>
+                                        matTooltipPosition="right" matTooltipClass="tooltipClass" mat-icon-button>
                                         <mat-icon>add</mat-icon>
                                         </a>
                                       </ng-container>
@@ -311,7 +311,7 @@
                                     <div style="display: flex; column-gap: 10px; align-items: center;height:100%">
                                       <a (click)="showDetail(doc, store?.quaters)" *ngIf="col?.btnDetail" class="mat-btn-n"
                                         matTooltip="ពិភាក្សាលើផែនការសកម្មភាព" matTooltipPosition="right" matTooltipClass="tooltipClass"
-                                        mat-button mat-icon-button>
+                                        mat-icon-button>
                                         <mat-icon>open_in_new</mat-icon>
                                       </a>
                                       <div [style.width]="col?.width" class="max6-line">
@@ -413,7 +413,7 @@
                 </tbody>
             </table>
             <div style="height: 50px;"></div>
-            </virtual-scroller>
+            </div>
           </div>
         </ng-container>
         <ng-template #emptyActivities>

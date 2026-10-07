@@ -4,18 +4,18 @@
     width: 360px;
   }
   
-  ::ng-deep .mat-checkbox-checked.mat-accent {
-    .mat-checkbox-ripple .mat-ripple-element {
+  ::ng-deep .mat-mdc-checkbox-checked.mat-accent {
+    .mat-mdc-checkbox-ripple .mat-ripple-element {
         background-color: #1A73E8 !important;
     }
   
-    .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    .mdc-checkbox__background, .mat-mdc-checkbox.mat-accent .mdc-checkbox__native-control:indeterminate ~ .mdc-checkbox__background {
         background-color: #1A73E8;
      }
   }
   
-  ::ng-deep .mat-checkbox.mat-accent {
-    .mat-checkbox-ripple .mat-ripple-element {
+  ::ng-deep .mat-mdc-checkbox.mat-accent {
+    .mat-mdc-checkbox-ripple .mat-ripple-element {
         background-color: #1A73E8 !important;
     }
   }

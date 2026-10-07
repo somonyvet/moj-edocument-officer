@@ -71,7 +71,7 @@
           </span>
           <span class="f-input">{{store?.selectedCriminalRecord?.dateOfBirthDay?.name + '-' +
             store?.selectedCriminalRecord?.dateOfBirthMonth?.name + "-" +
-            store?.selectedCriminalRecord?.dateOfBirthYear?.name}} </span>
+          store?.selectedCriminalRecord?.dateOfBirthYear?.name}} </span>
         </div>
       </div>
       <div class="row-item">
@@ -81,35 +81,30 @@
             <span>:</span>
           </span>
 
-          <span class="f-input text-a-s" *ngIf="store?.selectedCriminalRecord?.national_application?.key==='foreigner';else khmerBirthPlaceTemplate">
-            {{store?.selectedCriminalRecord?.foreignerPlaceOfBirth}}
-          </span>
-
-          <ng-template #khmerBirthPlaceTemplate>
+          @if (store?.selectedCriminalRecord?.national_application?.key==='foreigner') {
             <span class="f-input text-a-s">
-              <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.village?.name">
-                ភូមិ {{store?.selectedCriminalRecord?.birthAddress?.village?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.commune?.name">
-                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.birthAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.district?.name">
-                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.birthAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.birthAddress?.province?.name">
-                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.birthAddress?.province?.name}}
-              </ng-container>
+              {{store?.selectedCriminalRecord?.foreignerPlaceOfBirth}}
             </span>
-          </ng-template>
+          } @else {
+            <span class="f-input text-a-s">
+              @if (store?.selectedCriminalRecord?.birthAddress?.village?.name) {
+                ភូមិ {{store?.selectedCriminalRecord?.birthAddress?.village?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.birthAddress?.commune?.name) {
+                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.birthAddress?.commune?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.birthAddress?.district?.name) {
+                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.birthAddress?.district?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.birthAddress?.province?.name) {
+                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.birthAddress?.province?.name}}
+              }
+            </span>
+          }
+
 
         </div>
       </div>
@@ -121,39 +116,39 @@
           </span>
           <span class="f-input text-a-s">
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.home_no">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.home_no) {
               ផ្ទះលេខ {{store?.selectedCriminalRecord?.permanentAddress?.home_no}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.street_no">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.street_no) {
               ផ្លូវ {{store?.selectedCriminalRecord?.permanentAddress?.street_no}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.village?.name">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.village?.name) {
               ភូមិ {{store?.selectedCriminalRecord?.permanentAddress?.village?.name}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.commune?.name">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.commune?.name) {
               ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.permanentAddress?.commune?.name}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.district?.name">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.district?.name) {
               ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.permanentAddress?.district?.name}}
-            </ng-container>
+            }
 
             <span class="space30"></span>
 
-            <ng-container *ngIf="store?.selectedCriminalRecord?.permanentAddress?.province?.name">
+            @if (store?.selectedCriminalRecord?.permanentAddress?.province?.name) {
               រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.permanentAddress?.province?.name}}
-            </ng-container>
+            }
           </span>
         </div>
       </div>
@@ -210,35 +205,30 @@
             <span>:</span>
           </span>
 
-          <span class="f-input text-a-s" *ngIf="store?.selectedCriminalRecord?.national_application?.key==='foreigner';else khmerFatherBirthPlaceTemplate">
-            {{store?.selectedCriminalRecord?.foreignerFatherBirthAddress}}
-          </span>
-
-          <ng-template #khmerFatherBirthPlaceTemplate>
+          @if (store?.selectedCriminalRecord?.national_application?.key==='foreigner') {
             <span class="f-input text-a-s">
-              <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name">
-                ភូមិ {{store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name">
-                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name">
-                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name">
-                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name}}
-              </ng-container>
+              {{store?.selectedCriminalRecord?.foreignerFatherBirthAddress}}
             </span>
-          </ng-template>
+          } @else {
+            <span class="f-input text-a-s">
+              @if (store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name) {
+                ភូមិ {{store?.selectedCriminalRecord?.fatherBirthAddress?.village?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name) {
+                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.fatherBirthAddress?.commune?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name) {
+                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.fatherBirthAddress?.district?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name) {
+                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.fatherBirthAddress?.province?.name}}
+              }
+            </span>
+          }
+
 
         </div>
       </div>
@@ -285,35 +275,30 @@
             <span>:</span>
           </span>
 
-          <span class="f-input text-a-s" *ngIf="store?.selectedCriminalRecord?.national_application?.key==='foreigner';else khmerMotherBirthPlaceTemplate">
-            {{store?.selectedCriminalRecord?.foreignerMotherBirthAddress}}
-          </span>
-
-          <ng-template #khmerMotherBirthPlaceTemplate>
+          @if (store?.selectedCriminalRecord?.national_application?.key==='foreigner') {
             <span class="f-input text-a-s">
-              <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.village?.name">
-                ភូមិ {{store?.selectedCriminalRecord?.motherBirthAddress?.village?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name">
-                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.district?.name">
-                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.motherBirthAddress?.district?.name}}
-              </ng-container>
-
-              <span class="space30"></span>
-
-              <ng-container *ngIf="store?.selectedCriminalRecord?.motherBirthAddress?.province?.name">
-                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.motherBirthAddress?.province?.name}}
-              </ng-container>
+              {{store?.selectedCriminalRecord?.foreignerMotherBirthAddress}}
             </span>
-          </ng-template>
+          } @else {
+            <span class="f-input text-a-s">
+              @if (store?.selectedCriminalRecord?.motherBirthAddress?.village?.name) {
+                ភូមិ {{store?.selectedCriminalRecord?.motherBirthAddress?.village?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name) {
+                ឃុំ/សង្កាត់ {{store?.selectedCriminalRecord?.motherBirthAddress?.commune?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.motherBirthAddress?.district?.name) {
+                ស្រុក/ខណ្ឌ {{store?.selectedCriminalRecord?.motherBirthAddress?.district?.name}}
+              }
+              <span class="space30"></span>
+              @if (store?.selectedCriminalRecord?.motherBirthAddress?.province?.name) {
+                រាជធានី/ខេត្ត {{store?.selectedCriminalRecord?.motherBirthAddress?.province?.name}}
+              }
+            </span>
+          }
+
         </div>
       </div>
 
@@ -372,103 +357,107 @@
         <div class="f-item">
           <span class="f-input no-underline">
             ឈ្មោះខាងលើនេះ (<strong> {{store?.selectedCriminalRecord?.last_name+"
-              "+store?.selectedCriminalRecord?.first_name}} </strong>)
-            {{store?.selectedCriminalRecord?.decree_result?.name}}
-          </span>
-        </div>
+          "+store?.selectedCriminalRecord?.first_name}} </strong>)
+          {{store?.selectedCriminalRecord?.decree_result?.name}}
+        </span>
       </div>
-      <div class="row-item" style="flex-direction: column; border-top: solid 1px">
-        <div class="f-item">
-          <span class="title" style="font-size: 14px; padding: 0;color:black">*
-            ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
-        </div>
-        <div class="f-item expire-date" *ngIf="store?.selectedCriminalRecord?.expired_date">
+    </div>
+    <div class="row-item" style="flex-direction: column; border-top: solid 1px">
+      <div class="f-item">
+        <span class="title" style="font-size: 14px; padding: 0;color:black">*
+        ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
+      </div>
+      @if (store?.selectedCriminalRecord?.expired_date) {
+        <div class="f-item expire-date">
           <span>
             លិខិតនេះមានសុពលភាព ៣ខែ ផុតកំណត់ថ្ងៃទី
-            {{store?.selectedCriminalRecord?.expired_date?.toDate()|dateDayKh}} -
-            {{store?.selectedCriminalRecord?.expired_date?.toDate()|dateMonthKh}} -
-            {{store?.selectedCriminalRecord?.expired_date?.toDate()|dateYearKh}}
+            {{$safeNavigationMigration(store?.selectedCriminalRecord?.expired_date?.toDate())|dateDayKh}} -
+            {{$safeNavigationMigration(store?.selectedCriminalRecord?.expired_date?.toDate())|dateMonthKh}} -
+            {{$safeNavigationMigration(store?.selectedCriminalRecord?.expired_date?.toDate())|dateYearKh}}
           </span>
         </div>
-      </div>
+      }
+    </div>
 
-      <div class="row-item" style="height: 18rem;">
-        <div class="f-item" style="justify-content: space-between;">
+    <div class="row-item" style="height: 18rem;">
+      <div class="f-item" style="justify-content: space-between;">
 
-          <div class="head-item long-w"
-            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-            <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
-              <span
-                style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                class="p-rel">
-                <span class="n-title" style="color:black">បានឃើញ</span>
-              </span>
-              <span class="feTitle new"
-                style="display: flex; justify-content: center; line-height: 2; font-size: 16px;">រដ្ឋមន្រ្តី</span>
-              <div class="signature">
-                <img [src]="signatureLeft?.default_signatureFile?.downloadUrl" alt="">
-                <img class="stam-name" [src]="signatureLeft?.default_stampFile?.downloadUrl" alt="">
-              </div>
-            </div>
-
-            <span class="container-header-input" style="width: unset">
-              <div class="row-item khmer-date-picker" style="padding-right: 0;">
-                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
-                  <div class="f-item">
-                    <span class="nor-fam">ធ្វើនៅរាជធានីភ្នំពេញ, </span>
-                    <span class="nor-fam">
-                      <span style="color:#77867B">&nbsp;ថ្ងៃទី</span>
-                      <span style="padding: 0 16px;color:#77867B;border-bottom: 1px #77867B dotted;">{{this.docDate|dateDayKh}}</span>
-                    </span>
-
-                    <span class="nor-fam">
-                      <span style="color:#77867B">ខែ</span>
-                      <span style="padding: 0 16px;border-bottom: 1px #77867B dotted;color:#77867B;">
-                        {{this.docDate|dateMonthKh}}</span>
-                    </span>
-
-                    <span class="nor-fam">
-                      <span style="color:#77867B">ឆ្នាំ</span>
-                      <span style="padding: 0 16px;border-bottom: 1px #77867B dotted;color:#77867B;">{{this.docDate|dateYearKh}}</span>
-
-                    </span>
-                  </div>
-
-                  <div class="c-item">
-                    <span class="feTitle new">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ
-                      <ng-container *ngIf="signatureRight?.default_signatureFile || signatureRight?.default_stampFile">
-                        <img  src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
-                      </ng-container>
-                    </span>
-                    <div class="signature">
-                      <img [src]="signatureRight?.default_signatureFile?.downloadUrl" alt="">
-                      <img class="stam-name" [src]="signatureRight?.default_stampFile?.downloadUrl" alt="">
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+        <div class="head-item long-w"
+          style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+          <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
+            <span
+              style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+              class="p-rel">
+              <span class="n-title" style="color:black">បានឃើញ</span>
             </span>
+            <span class="feTitle new"
+            style="display: flex; justify-content: center; line-height: 2; font-size: 16px;">រដ្ឋមន្រ្តី</span>
+            <div class="signature">
+              <img [src]="$safeNavigationMigration(signatureLeft?.default_signatureFile?.downloadUrl)" alt="">
+              <img class="stam-name" [src]="$safeNavigationMigration(signatureLeft?.default_stampFile?.downloadUrl)" alt="">
+            </div>
           </div>
 
-        </div>
-      </div>
+          <span class="container-header-input" style="width: unset">
+            <div class="row-item khmer-date-picker" style="padding-right: 0;">
+              <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+                <div class="f-item">
+                  <span class="nor-fam">ធ្វើនៅរាជធានីភ្នំពេញ, </span>
+                  <span class="nor-fam">
+                    <span style="color:#77867B">&nbsp;ថ្ងៃទី</span>
+                    <span style="padding: 0 16px;color:#77867B;border-bottom: 1px #77867B dotted;">{{this.docDate|dateDayKh}}</span>
+                  </span>
 
-      <div class="row-item" style="justify-content: center; align-items: center; margin-bottom: 0!important">
-        <div class="f-item" style="border-top: solid 1px;flex:1;justify-content: center;">
-          <span class="n-title" style="font-size: 14px;color:#77867B;">មហាវិថីសម្ដេចសុធារស.ខ័ណ្ឌដូនពេញ.រាជធានីធ្នំពេញ ទូរស័ព្ទ : 023
-            216 322, 023 217 841, 023 212 693។</span>
+                  <span class="nor-fam">
+                    <span style="color:#77867B">ខែ</span>
+                    <span style="padding: 0 16px;border-bottom: 1px #77867B dotted;color:#77867B;">
+                    {{this.docDate|dateMonthKh}}</span>
+                  </span>
+
+                  <span class="nor-fam">
+                    <span style="color:#77867B">ឆ្នាំ</span>
+                    <span style="padding: 0 16px;border-bottom: 1px #77867B dotted;color:#77867B;">{{this.docDate|dateYearKh}}</span>
+
+                  </span>
+                </div>
+
+                <div class="c-item">
+                  <span class="feTitle new">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ
+                    @if (signatureRight?.default_signatureFile || signatureRight?.default_stampFile) {
+                      <img  src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
+                    }
+                  </span>
+                  <div class="signature">
+                    <img [src]="$safeNavigationMigration(signatureRight?.default_signatureFile?.downloadUrl)" alt="">
+                    <img class="stam-name" [src]="$safeNavigationMigration(signatureRight?.default_stampFile?.downloadUrl)" alt="">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </span>
         </div>
+
+      </div>
+    </div>
+
+    <div class="row-item" style="justify-content: center; align-items: center; margin-bottom: 0!important">
+      <div class="f-item" style="border-top: solid 1px;flex:1;justify-content: center;">
+        <span class="n-title" style="font-size: 14px;color:#77867B;">មហាវិថីសម្ដេចសុធារស.ខ័ណ្ឌដូនពេញ.រាជធានីធ្នំពេញ ទូរស័ព្ទ : 023
+        216 322, 023 217 841, 023 212 693។</span>
+      </div>
+      @if (store?.selectedCriminalRecord?.key) {
         <div
-          *ngIf="store?.selectedCriminalRecord?.key">
-          <ngx-kjua [text]="store?.selectedCriminalRecord?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true"
+          >
+          <ngx-kjua [text]="$safeNavigationMigration(store?.selectedCriminalRecord?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true"
             [minVersion]="1" [ecLevel]="'H'" [size]="88" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'"
             [rounded]="100" [quiet]="1" [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'"
             [fontname]="'sans-serif'" [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
           </ngx-kjua>
         </div>
-      </div>
-
+      }
     </div>
+
   </div>
+</div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { PrintService } from 'src/app/shared/services/print.service';
@@ -9,9 +9,11 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { ReportMolSubmitStore } from 'src/app/stores/report-mol-submit.store';
 
 @Component({
-  selector: 'app-mol-submit-report',
-  templateUrl: './mol-submit-report.component.html',
-  styleUrls: ['./mol-submit-report.component.scss']
+    selector: 'app-mol-submit-report',
+    templateUrl: './mol-submit-report.component.html',
+    styleUrls: ['./mol-submit-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MolSubmitReportComponent implements OnInit {
   @ViewChild('table') table: ElementRef;

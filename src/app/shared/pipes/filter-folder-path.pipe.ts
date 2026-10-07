@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterFolderPath'
+    name: 'filterFolderPath',
+    standalone: false
 })
 export class FilterFolderPathPipe implements PipeTransform {
 

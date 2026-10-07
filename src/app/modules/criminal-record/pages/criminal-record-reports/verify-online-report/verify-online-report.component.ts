@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportPaidForm } from 'src/app/stores/report-paid-form.store';
 import * as XLSX from 'xlsx';
@@ -6,9 +6,11 @@ import { CriminalApplicationStore } from '../../../stores/criminalApplication.st
 import { groupBy } from 'src/app/shared/services/mapping.service';
 
 @Component({
-  selector: 'app-verify-online-report',
-  templateUrl: './verify-online-report.component.html',
-  styleUrls: ['./verify-online-report.component.scss']
+    selector: 'app-verify-online-report',
+    templateUrl: './verify-online-report.component.html',
+    styleUrls: ['./verify-online-report.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VerifyOnlineReportComponent implements OnInit {
   onlinePaymentRowFromFile: any[]=[];

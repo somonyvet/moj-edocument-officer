@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChartComponent } from '@swimlane/ngx-charts';
 import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ApexTheme, ApexTitleSubtitle, ApexFill, ApexYAxis, ApexStroke, ApexLegend, ApexPlotOptions, ApexTooltip, ApexAxisChartSeries, ApexDataLabels, ApexXAxis } from 'ng-apexcharts';
@@ -35,9 +35,11 @@ export type ChartOptions2 = {
   animationEnabled: any;
 };
 @Component({
-  selector: 'app-statistic-chart-view',
-  templateUrl: './statistic-chart-view.component.html',
-  styleUrls: ['./statistic-chart-view.component.scss']
+    selector: 'app-statistic-chart-view',
+    templateUrl: './statistic-chart-view.component.html',
+    styleUrls: ['./statistic-chart-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StatisticChartViewComponent implements OnInit {
   @Input() data: any[] = [];

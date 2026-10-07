@@ -1,149 +1,157 @@
 <div class="main-panel">
 
-    <div class="main-r">
-        <div class="page-container">
-            <div class="action-bar">
-                <div class="nav-content">
-                    <h3 class="head-title">
-                        {{title}}
-                    </h3>
-                    <div class="action-item">
-                        <button mat-button class="enbutton primary" (click)="createOrEdit()">{{'បង្កើត'}}</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="page-doc">
-                <virtual-scroller #scroll [items]="store?.data" *ngIf="!store?.fetching && !store?.empty"
-                    class="as-tb-wrap vt-doc" (vsEnd)="fetchMore($event)" id="tableWrapper">
-                    <table class="as-table-wrapper" *ngIf="store?.data?.length>0 && !store?.loading">
-                        <thead #header>
-                            <tr>
-                                <th class="center">
-                                    ល.រ
-                                </th>
-                                <th class="left">
-                                    អត្តលេខ
-                                </th>
-                                <th class="left">
-                                    ឈ្មោះ
-                                </th>
-                                <th class="left">
-                                    លេខទូរស័ព្ទ
-                                </th>
-                                <th class="left">
-                                    មុខងារតួនាទី
-                                </th>
-                                <th class="left">
-                                    ថ្ងៃចាប់ផ្ដើម
-                                </th>
-                                <th class="left">
-                                    ថ្ងៃបញ្ចប់
-                                </th>
-                                <th class="left">
-                                    រយៈពេល
-                                </th>
-                                <th class="left">
-                                    ព័ត៍មានបន្ថែម
-                                </th>
-                                <th>
-
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody #container>
-                            <tr *ngFor="let item of scroll.viewPortItems;let i = index;">
-                                <td class="center" style="width: 64px;">
-                                    {{i+1}}
-                                </td>
-                                <td>
-                                    <div class="rows">
-                                        <div class="avatar-tb">
-                                            <img [src]="item?.officer?.file?.downloadUrl || URL"
-                                                (error)="handleImgError($event)">
-                                        </div>
-                                        <strong>{{item?.officer?.officerId}}</strong>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="rows" style="white-space: normal; max-width: 260px;">
-                                        <span style="margin-right: 6px;"
-                                            *ngFor="let title of item?.officer?.title;let j=index">
-                                            {{title?.name}}{{(j+1)===item?.officer?.title?.length?'':' '}}
-                                        </span>
-                                        <span>{{item?.officer?.last_name}} {{item?.officer?.first_name}}</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    {{item?.officer?.phoneNumber ||'-'}}
-                                </td>
-                                <td>
-                                    <span *ngFor="let pos of item?.officer?.positions;let j=index">
-                                        {{pos?.name}}{{(j+1)===item?.officer?.positions?.length?'':', '}}
-                                    </span>
-                                </td>
-                                <th class="left">
-                                    {{(item?.startDate?.toDate() | dateKh) ||'-'}}
-                                </th>
-                                <th class="left">
-                                    {{(item?.endDate?.toDate() | dateKh) ||'-'}}
-                                </th>
-                                <th class="left">
-                                    {{toKhmerNumber(item?.duration)+' ថ្ងៃ' ||'-'}}
-                                </th>
-                                <th class="left">
-                                    {{(item?.description) ||'-'}}
-                                </th>
-                                <th>
-
-                                </th>
-                                <td style="width: 64px;">
-                                    <div class="card-list-action">
-                                        <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                                            <i class="material-icons">more_vert</i>
-                                        </button>
-                                        <mat-menu #menu="matMenu">
-                                            <button mat-menu-item type="button" (click)="createOrEdit(item)">
-                                                <mat-icon>edit</mat-icon>
-                                                <span>កែប្រែ</span>
-                                            </button>
-                                            <button mat-menu-item type="button" (click)="_onDelete(item)">
-                                                <mat-icon>delete</mat-icon>
-                                                <span>លុប</span>
-                                            </button>
-                                        </mat-menu>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                    <div class="empty-block" *ngIf="store?.fetching">
-                        <div class="center-block-empty">
-                            <app-spinner></app-spinner>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="store?.empty && !store?.fetching">
-                        <div class="empty-block">
-                            <div class="center-block-empty">
-                                <div class="empty-img">
-                                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                                        alt="empty">
-                                </div>
-                                <div class="empty-text">
-                                    <p class="empty-state-title">
-                                        ពុំមានទិន្នន័យ
-                                    </p>
-                                    <p class="empty-state-desc">
-                                        លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់មន្ត្រីសមត្ថកិច្ចដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </virtual-scroller>
-            </div>
+  <div class="main-r">
+    <div class="page-container">
+      <div class="action-bar">
+        <div class="nav-content">
+          <h3 class="head-title">
+            {{title}}
+          </h3>
+          <div class="action-item">
+            <button mat-button class="enbutton primary" (click)="createOrEdit()">{{'បង្កើត'}}</button>
+          </div>
         </div>
+      </div>
+
+      <div class="page-doc">
+        @if (!store?.fetching && !store?.empty) {
+          <div #scroll [appScrollEnd]="$safeNavigationMigration(store?.data)"
+            class="as-tb-wrap vt-doc" (vsEnd)="fetchMore($event)" id="tableWrapper">
+            @if (store?.data?.length>0 && !store?.loading) {
+              <table class="as-table-wrapper">
+                <thead #header>
+                  <tr>
+                    <th class="center">
+                      ល.រ
+                    </th>
+                    <th class="left">
+                      អត្តលេខ
+                    </th>
+                    <th class="left">
+                      ឈ្មោះ
+                    </th>
+                    <th class="left">
+                      លេខទូរស័ព្ទ
+                    </th>
+                    <th class="left">
+                      មុខងារតួនាទី
+                    </th>
+                    <th class="left">
+                      ថ្ងៃចាប់ផ្ដើម
+                    </th>
+                    <th class="left">
+                      ថ្ងៃបញ្ចប់
+                    </th>
+                    <th class="left">
+                      រយៈពេល
+                    </th>
+                    <th class="left">
+                      ព័ត៍មានបន្ថែម
+                    </th>
+                    <th>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody #container>
+                  @for (item of store?.data; track item; let i = $index) {
+                    <tr>
+                      <td class="center" style="width: 64px;">
+                        {{i+1}}
+                      </td>
+                      <td>
+                        <div class="rows">
+                          <div class="avatar-tb">
+                            <img [src]="item?.officer?.file?.downloadUrl || URL"
+                              (error)="handleImgError($event)">
+                          </div>
+                          <strong>{{item?.officer?.officerId}}</strong>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="rows" style="white-space: normal; max-width: 260px;">
+                          @for (title of item?.officer?.title; track title; let j = $index) {
+                            <span style="margin-right: 6px;"
+                              >
+                              {{title?.name}}{{(j+1)===item?.officer?.title?.length?'':' '}}
+                            </span>
+                          }
+                          <span>{{item?.officer?.last_name}} {{item?.officer?.first_name}}</span>
+                        </div>
+                      </td>
+                      <td>
+                        {{item?.officer?.phoneNumber ||'-'}}
+                      </td>
+                      <td>
+                        @for (pos of item?.officer?.positions; track pos; let j = $index) {
+                          <span>
+                            {{pos?.name}}{{(j+1)===item?.officer?.positions?.length?'':', '}}
+                          </span>
+                        }
+                      </td>
+                      <th class="left">
+                        {{($safeNavigationMigration(item?.startDate?.toDate()) | dateKh) ||'-'}}
+                      </th>
+                      <th class="left">
+                        {{($safeNavigationMigration(item?.endDate?.toDate()) | dateKh) ||'-'}}
+                      </th>
+                      <th class="left">
+                        {{toKhmerNumber($safeNavigationMigration(item?.duration))+' ថ្ងៃ' ||'-'}}
+                      </th>
+                      <th class="left">
+                        {{(item?.description) ||'-'}}
+                      </th>
+                      <th>
+                      </th>
+                      <td style="width: 64px;">
+                        <div class="card-list-action">
+                          <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <i class="material-icons">more_vert</i>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item type="button" (click)="createOrEdit(item)">
+                              <mat-icon>edit</mat-icon>
+                              <span>កែប្រែ</span>
+                            </button>
+                            <button mat-menu-item type="button" (click)="_onDelete(item)">
+                              <mat-icon>delete</mat-icon>
+                              <span>លុប</span>
+                            </button>
+                          </mat-menu>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            }
+            @if (store?.fetching) {
+              <div class="empty-block">
+                <div class="center-block-empty">
+                  <app-spinner></app-spinner>
+                </div>
+              </div>
+            }
+            @if (store?.empty && !store?.fetching) {
+              <div class="empty-block">
+                <div class="center-block-empty">
+                  <div class="empty-img">
+                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                      alt="empty">
+                  </div>
+                  <div class="empty-text">
+                    <p class="empty-state-title">
+                      ពុំមានទិន្នន័យ
+                    </p>
+                    <p class="empty-state-desc">
+                      លោកអ្នកអាចបញ្ចូលទិន្នន័យរបស់មន្ត្រីសមត្ថកិច្ចដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
     </div>
+  </div>
 </div>

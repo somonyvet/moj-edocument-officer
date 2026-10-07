@@ -1,7 +1,7 @@
 import { C } from '@angular/cdk/keycodes';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -15,16 +15,18 @@ import { GeoStore } from '../../../stores/geo.store';
 
 
 @Component({
-  selector: 'app-national-form',
-  templateUrl: './national-form.component.html',
-  styleUrls: ['./national-form.component.scss']
+    selector: 'app-national-form',
+    templateUrl: './national-form.component.html',
+    styleUrls: ['./national-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NationalFormComponent implements OnInit {
 
   title: any = "បង្កើតទិន្នន័យសញ្ជាតិ";
 
   @ViewChild("focusInput") inputEl: ElementRef;
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   // description: AbstractControl
   en_name: AbstractControl
@@ -34,7 +36,7 @@ export class NationalFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<NationalFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,
     private auth: AuthStore,

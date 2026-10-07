@@ -1,334 +1,303 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-      <div class="doc-in new">
-        <div class="listing-header row">
-          <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
-            aria-label="Example icon-button with a menu">
-            <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
-            <i class="material-icons">arrow_drop_down</i>
-          </button>
-          <mat-menu #menuPeriod="matMenu">
-            <div class="options-lags" (click)="$event.stopPropagation();">
-              <app-report-filter-period reportRoute='/criminal-record/reports/oversea-paid'>
-              </app-report-filter-period>
-            </div>
-          </mat-menu>
-          <div class="flex1"></div>
-  
-          <button mat-button class="options-dashboard primary" (click)="print()">
-            <i class="material-icons">print</i>
-            <span>បោះពុម្ពរបាយការណ៍</span>
-          </button>
-  
-          <button mat-button class="options-dashboard primary" (click)="exportExcel()">
-            <i class="material-icons">get_app</i>
-            <span>ទាញយកឯកសារជា EXCEL</span>
-          </button>
+  <div class="main-l doc-list">
+    <div class="doc-in new">
+      <div class="listing-header row">
+        <button mat-button class="options-dashboard" [matMenuTriggerFor]="menuPeriod"
+          aria-label="Example icon-button with a menu">
+          <span>{{'ជ្រើសរើសការបរិច្ឆេទ' }}</span>
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+        <mat-menu #menuPeriod="matMenu">
+          <div class="options-lags" (click)="$event.stopPropagation();">
+            <app-report-filter-period reportRoute='/criminal-record/reports/oversea-paid'>
+            </app-report-filter-period>
+          </div>
+        </mat-menu>
+        <div class="flex1"></div>
 
-        </div>
-        <ng-container *ngIf="!loading else loader">
-          <div class="doc-ls-items center new">
-  
-            <div class="report-wrapper" id="print" style="width: 980px; padding : 20px">
-              <table #table>
-  
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="page">
-                        <div class="report-header">
-                          <div class="d-flex">
-                            <div class="left-tbox">
-                              <div>ក្រសួងយុត្តិធម៍</div>
-                              <div>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</div>
-                              <div>នាយកដ្ឋានកិច្ចការថ្កោលទោស</div>
-  
-                              <div class="star">3</div>
-                            </div>
-                            <div class="flex-1"></div>
-                            <div class="bavacana">
-                              <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
-                              <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
-                              <div class="star">3</div>
-                            </div>
+        <button mat-button class="options-dashboard primary" (click)="print()">
+          <i class="material-icons">print</i>
+          <span>បោះពុម្ពរបាយការណ៍</span>
+        </button>
+
+        <button mat-button class="options-dashboard primary" (click)="exportExcel()">
+          <i class="material-icons">get_app</i>
+          <span>ទាញយកឯកសារជា EXCEL</span>
+        </button>
+
+      </div>
+      @if (!loading) {
+        <div class="doc-ls-items center new">
+          <div class="report-wrapper" id="print" style="width: 980px; padding : 20px">
+            <table #table>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="page">
+                      <div class="report-header">
+                        <div class="d-flex">
+                          <div class="left-tbox">
+                            <div>ក្រសួងយុត្តិធម៍</div>
+                            <div>អគ្គនាយកដ្ឋានកិច្ចការទោសព្រហ្មទណ្ឌ</div>
+                            <div>នាយកដ្ឋានកិច្ចការថ្កោលទោស</div>
+                            <div class="star">3</div>
                           </div>
-  
-                          <div class="d-flex">
-                            <div class="report-title" style="width: 100%;text-align: center;">
-                              <p>បញ្ជីស្នើសុំក្រៅប្រទេសបង់ប្រាក់រួច</p>
-                              <p>{{store.periodText}}</p>
-                            </div>
+                          <div class="flex-1"></div>
+                          <div class="bavacana">
+                            <div>ព្រះរាជាណាចក្រកម្ពុជា</div>
+                            <div>ជាតិ សាសនា ព្រះមហាក្សត្រ</div>
+                            <div class="star">3</div>
                           </div>
                         </div>
-  
-                        <table class="tb-master-print">
-                          <thead>
-                            <tr class="table-row">
-                              <th class="table-col center" rowspan="2">ល.រ</th>
-                              <th class="table-col center" rowspan="2">ប្រទេស</th>
-                              <th class="table-col center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
-                              <th class="table-col center" rowspan="2">ភេទ</th>
-                              <th class="table-col center" colspan="5">រយៈពេលស្នើសុំ និងចំនួនច្បាប់</th>
-                              <th class="table-col center" rowspan="2">ជនបរទេស</th>
-                              <th class="table-col center" rowspan="2">សិស្ស ឬនិស្សិត</th>
-                              <th class="table-col center" rowspan="2">លេខដុំបង្កាន់ដៃ</th>
-                            </tr>
-  
-                            <tr class="table-row">
-                              <th class="table-col center" style="width: 60px;">
-                                20 T
-                              </th>
-                              <th class="table-col center" style="width: 60px;">
-                                12 T
-                              </th>
-                              <th class="table-col center" style="width: 60px;">ខ្មែរ</th>
-                              <th class="table-col center" style="width: 60px;">អង់គ្លេស</th>
-                              <th class="table-col center" style="width: 60px;">បារាំង</th>
-                            </tr>
-                          </thead>
-  
-                          <ng-container *ngFor="let item of store?.data; let i = index">
-                            <tr class="table-row"
-                              [ngClass]="((item?.criminal_language | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
-                              <td class="table-col center">{{i+1}}</td>
-                              <td class="table-col">{{item?.application_country?.kh_short_name}}</td>
-                              <td class="table-col">
-                                {{item?.last_name}} {{item?.first_name}}
-                              </td>
-                              <td>
-                                <div class="ftb-input">
-                                  {{item?.gender?.name}}
-                                </div>
-                              </td>
-                              <td>
-                                <div class="ftb-input">
-                                  {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key :
-                                  '' |
-                                  khmerNumber}}
-                                  {{item?.urgent_obj?.key === 20 ? 'T' : ''}}
-                                </div>
-                              </td>
-  
-                              <td>
-                                <div class="ftb-input">
-                                  {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key :
-                                  '' |
-                                  khmerNumber}}
-                                  {{item?.urgent_obj?.key === 12 ? 'T' : ''}}
-                                </div>
-                              </td>
-  
-                              <td>
-                                <div class="ftb-input">
-                                  {{(item?.criminal_language | getKhmerCopyCount)
-                                  ?(item?.criminal_language | getKhmerCopyCount)
-                                  :''
-                                  }}
-                                </div>
-                              </td>
-  
-                              <td>
-                                <div class="ftb-input">
-                                  {{(item?.criminal_language | getEnglishCopyCount)
-                                  ?(item?.criminal_language | getEnglishCopyCount)
-                                  :''
-                                  }}
-                                </div>
-                              </td>
-  
-                              <td>
-                                <div class="ftb-input">
-                                  {{(item?.criminal_language | getFrenchCopyCount)
-                                  ?(item?.criminal_language | getFrenchCopyCount)
-                                  :''
-                                  }}
-                                </div>
-                              </td>
-                              <td class="table-col center">
-                                <ng-container *ngIf="item?.national_application?.key === 'foreigner'">
-                                  &#10003;
-                                </ng-container>
-                              </td>
-                              <td class="table-col center">
-                                <ng-container *ngIf="item?.isStudent">
-                                  &#10003;
-                                </ng-container>
-                              </td>
-                              <td>{{item?.criminal_folder_no}}</td>
-                            </tr>
-                          </ng-container>
-                        </table>
-                        <div class="fake-box"></div>
-                        <div class="flex-row b-r-fs">
-                          <div class="sum-statistic">
-                            <div class="t-travel">
-                              <div class="tt-d">
-                                <p class="l-text">សរុបអ្នកស្នើសុំ</p>
-                                <span class="lf-text">{{store?.statistic?.total}}
-                                  នាក់({{store?.statistic?.totalKhmer}}ច្បាប់)</span>
-                                  <span>បកប្រែ
-                                    {{store?.statistic?.total20T + store?.statistic?.total12T}}
-                                    នាក់({{store?.statistic?.total12TAmount+store?.statistic?.total20TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.total20}}
-                                  នាក់({{store?.statistic?.total20Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.total20T}}
-                                  នាក់({{store?.statistic?.total20TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.total12}}
-                                  នាក់({{store?.statistic?.total12Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.total12T}}
-                                  នាក់({{store?.statistic?.total12TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text">ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</p>
-                                <span class="lf-text">{{store?.statistic?.totalK}}
-                                  នាក់</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalK20}}
-                                  នាក់({{store?.statistic?.totalK20Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalK20T}}
-                                  នាក់({{store?.statistic?.totalK20TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalK12}}
-                                  នាក់({{store?.statistic?.totalK12Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalK12T}}
-                                  នាក់({{store?.statistic?.totalK12TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text">សិស្ស ឬនិស្សិត</p>
-                                <span class="lf-text">{{store?.statistic?.totalS}}
-                                  នាក់</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalS20}}
-                                  នាក់({{store?.statistic?.totalS20Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalS20T}}
-                                  នាក់({{store?.statistic?.totalS20TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalS12}}
-                                  នាក់({{store?.statistic?.totalS12Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalS12T}}
-                                  នាក់({{store?.statistic?.totalS12TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text">ជនបរទេស</p>
-                                <span class="lf-text">{{store?.statistic?.totalFor}}
-                                  នាក់</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalFor20}}
-                                  នាក់({{store?.statistic?.totalF20Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalFor20T}}
-                                  នាក់({{store?.statistic?.totalF20TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                              <div class="tt-d">
-                                <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
-                                <span class="lf-text">{{store?.statistic?.totalFor12}}
-                                  នាក់({{store?.statistic?.totalF12Amount}}ច្បាប់)</span>
-                                <span>បកប្រែ
-                                  {{store?.statistic?.totalFor12T}}
-                                  នាក់({{store?.statistic?.totalF12TAmount}}ច្បាប់)</span>
-                              </div>
-  
-                            </div>
-  
-                          </div>
-  
-                          <div class="bottom-dt">
-                            <div class="flex-row">
-                              ថ្ងៃ
-                              <div class="line-space ls120"></div>
-                              ខែ
-                              <div class="line-space"></div>
-                              ឆ្នាំ
-                              <div class="line-space ls100"></div>
-                              ព.ស
-                              <div class="line-space"></div>
-                            </div>
-                            <div class="flex-row">
-  
-                              , ថ្ងៃទី
-                              <div class="line-space"></div>
-                              ខែ
-                              <div class="line-space"></div>
-                              ឆ្នាំ
-                              <div class="line-space"></div>
-                            </div>
-  
-                            <div class="title" style="margin-bottom: 30px;">មន្ត្រីទទួលបន្ទុក
-                            </div>
+                        <div class="d-flex">
+                          <div class="report-title" style="width: 100%;text-align: center;">
+                            <p>បញ្ជីស្នើសុំក្រៅប្រទេសបង់ប្រាក់រួច</p>
+                            <p>{{store.periodText}}</p>
                           </div>
                         </div>
                       </div>
-                    </td>
-                  </tr>
-                </tbody>
-  
-                <tfoot>
-                  <tr>
-                    <td>
-                      <div class="page-footer-space"></div>
-                    </td>
-                  </tr>
-                </tfoot>
-  
-              </table>
-  
-              <app-spinner *ngIf="loading"></app-spinner>
-  
-            </div>
-  
+                      <table class="tb-master-print">
+                        <thead>
+                          <tr class="table-row">
+                            <th class="table-col center" rowspan="2">ល.រ</th>
+                            <th class="table-col center" rowspan="2">ប្រទេស</th>
+                            <th class="table-col center" rowspan="2">ឈ្មោះអ្នកស្នើសុំ</th>
+                            <th class="table-col center" rowspan="2">ភេទ</th>
+                            <th class="table-col center" colspan="5">រយៈពេលស្នើសុំ និងចំនួនច្បាប់</th>
+                            <th class="table-col center" rowspan="2">ជនបរទេស</th>
+                            <th class="table-col center" rowspan="2">សិស្ស ឬនិស្សិត</th>
+                            <th class="table-col center" rowspan="2">លេខដុំបង្កាន់ដៃ</th>
+                          </tr>
+                          <tr class="table-row">
+                            <th class="table-col center" style="width: 60px;">
+                              20 T
+                            </th>
+                            <th class="table-col center" style="width: 60px;">
+                              12 T
+                            </th>
+                            <th class="table-col center" style="width: 60px;">ខ្មែរ</th>
+                            <th class="table-col center" style="width: 60px;">អង់គ្លេស</th>
+                            <th class="table-col center" style="width: 60px;">បារាំង</th>
+                          </tr>
+                        </thead>
+                        @for (item of store?.data; track item; let i = $index) {
+                          <tr class="table-row"
+                            [ngClass]="(($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount) > 1) ? 'bg-blue' : ''">
+                            <td class="table-col center">{{i+1}}</td>
+                            <td class="table-col">{{item?.application_country?.kh_short_name}}</td>
+                            <td class="table-col">
+                              {{item?.last_name}} {{item?.first_name}}
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{item?.gender?.name}}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{item?.urgent_obj?.key === 20 ? item?.urgent_obj?.key :
+                                '' |
+                                khmerNumber}}
+                                {{item?.urgent_obj?.key === 20 ? 'T' : ''}}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{item?.urgent_obj?.key === 12 ? item?.urgent_obj?.key :
+                                '' |
+                                khmerNumber}}
+                                {{item?.urgent_obj?.key === 12 ? 'T' : ''}}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getKhmerCopyCount)
+                                :''
+                                }}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getEnglishCopyCount)
+                                :''
+                                }}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ftb-input">
+                                {{($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                                ?($safeNavigationMigration(item?.criminal_language) | getFrenchCopyCount)
+                                :''
+                                }}
+                              </div>
+                            </td>
+                            <td class="table-col center">
+                              @if (item?.national_application?.key === 'foreigner') {
+                                &#10003;
+                              }
+                            </td>
+                            <td class="table-col center">
+                              @if (item?.isStudent) {
+                                &#10003;
+                              }
+                            </td>
+                            <td>{{item?.criminal_folder_no}}</td>
+                          </tr>
+                        }
+                      </table>
+                      <div class="fake-box"></div>
+                      <div class="flex-row b-r-fs">
+                        <div class="sum-statistic">
+                          <div class="t-travel">
+                            <div class="tt-d">
+                              <p class="l-text">សរុបអ្នកស្នើសុំ</p>
+                              <span class="lf-text">{{store?.statistic?.total}}
+                              នាក់({{store?.statistic?.totalKhmer}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.total20T + store?.statistic?.total12T}}
+                              នាក់({{store?.statistic?.total12TAmount+store?.statistic?.total20TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.total20}}
+                              នាក់({{store?.statistic?.total20Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.total20T}}
+                              នាក់({{store?.statistic?.total20TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.total12}}
+                              នាក់({{store?.statistic?.total12Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.total12T}}
+                              នាក់({{store?.statistic?.total12TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text">ជនជាតិខ្មែរក្រៅពីសិស្ស ឬនិស្សិត</p>
+                              <span class="lf-text">{{store?.statistic?.totalK}}
+                              នាក់</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalK20}}
+                              នាក់({{store?.statistic?.totalK20Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalK20T}}
+                              នាក់({{store?.statistic?.totalK20TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalK12}}
+                              នាក់({{store?.statistic?.totalK12Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalK12T}}
+                              នាក់({{store?.statistic?.totalK12TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text">សិស្ស ឬនិស្សិត</p>
+                              <span class="lf-text">{{store?.statistic?.totalS}}
+                              នាក់</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalS20}}
+                              នាក់({{store?.statistic?.totalS20Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalS20T}}
+                              នាក់({{store?.statistic?.totalS20TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalS12}}
+                              នាក់({{store?.statistic?.totalS12Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalS12T}}
+                              នាក់({{store?.statistic?.totalS12TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text">ជនបរទេស</p>
+                              <span class="lf-text">{{store?.statistic?.totalFor}}
+                              នាក់</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ២០ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalFor20}}
+                              នាក់({{store?.statistic?.totalF20Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalFor20T}}
+                              នាក់({{store?.statistic?.totalF20TAmount}}ច្បាប់)</span>
+                            </div>
+                            <div class="tt-d">
+                              <p class="l-text tc">សេវា ១២ថ្ងៃ</p>
+                              <span class="lf-text">{{store?.statistic?.totalFor12}}
+                              នាក់({{store?.statistic?.totalF12Amount}}ច្បាប់)</span>
+                              <span>បកប្រែ
+                                {{store?.statistic?.totalFor12T}}
+                              នាក់({{store?.statistic?.totalF12TAmount}}ច្បាប់)</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="bottom-dt">
+                          <div class="flex-row">
+                            ថ្ងៃ
+                            <div class="line-space ls120"></div>
+                            ខែ
+                            <div class="line-space"></div>
+                            ឆ្នាំ
+                            <div class="line-space ls100"></div>
+                            ព.ស
+                            <div class="line-space"></div>
+                          </div>
+                          <div class="flex-row">
+                            , ថ្ងៃទី
+                            <div class="line-space"></div>
+                            ខែ
+                            <div class="line-space"></div>
+                            ឆ្នាំ
+                            <div class="line-space"></div>
+                          </div>
+                          <div class="title" style="margin-bottom: 30px;">មន្ត្រីទទួលបន្ទុក
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>
+                    <div class="page-footer-space"></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            @if (loading) {
+              <app-spinner></app-spinner>
+            }
           </div>
-  
-        </ng-container>
-        <ng-template #loader>
-          <app-spinner></app-spinner>
-        </ng-template>
-        <ng-template #emptyData>
-          <div class="doc-ls-items center">
-            <h1>EMPTY</h1>
-          </div>
-        </ng-template>
-      </div>
+        </div>
+      } @else {
+        <app-spinner></app-spinner>
+      }
+      <ng-template #emptyData>
+        <div class="doc-ls-items center">
+          <h1>EMPTY</h1>
+        </div>
+      </ng-template>
     </div>
-  
   </div>
-  
-  <div style="display: none;">
-    <div class="officer-profile-info-container">
-      <div style="margin-top:10px" id="printApplication">
-        <div *ngFor="let item of store?.data">
+
+</div>
+
+<div style="display: none;">
+  <div class="officer-profile-info-container">
+    <div style="margin-top:10px" id="printApplication">
+      @for (item of store?.data; track item) {
+        <div>
           <div class="eform eform-cs"  style="margin: 0 auto; margin-top: 0px;">
             <div class="fbl-text">
               ហាមកោសលុប
@@ -337,164 +306,150 @@
               <div class="head-item head-item-absolute-ps">
                 <div class="profile-box container-header-input pah"
                   style="width: 160px;height: 200px; background-color: #fafafa;">
-                  <div *ngIf="!item?.photoUrl">
-                    <p>រូបថត</p>
-                    <p>៤x៦</p>
-                    <br>
-                    <p></p>
-                    <p></p>
+                  @if (!item?.photoUrl) {
+                    <div>
+                      <p>រូបថត</p>
+                      <p>៤x៦</p>
+                      <br>
+                        <p></p>
+                        <p></p>
+                      </div>
+                    }
+                    @if (item?.photoUrl) {
+                      <img style="object-fit: cover;"
+                        [src]="$safeNavigationMigration(item?.photoUrl)" />
+                    }
+                    <button mat-icon-button class="slp">
+                      <mat-icon class="mat-18">photo_camera</mat-icon>
+                    </button>
                   </div>
-                  <img style="object-fit: cover;" *ngIf="item?.photoUrl"
-                    [src]="item?.photoUrl" />
-                  <button mat-icon-button class="slp">
-                    <mat-icon class="mat-18">photo_camera</mat-icon>
-                  </button>
+                </div>
+                <div class="flex1"></div>
+                <div class="head-item">
+                  <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
+                  <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                  <p class="star">3</p>
+                  <div class="img-logo" style="height:40px;"></div>
+                  <div class="head-item1">
+                    <span>ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
+                    <span class="flex1">
+                      <p class="f-input">
+                        {{item?.last_name + ' ' +
+                        item?.first_name}}
+                      </p>
+                    </span>
+                  </div>
+                  <p class="feTitle">សូមគោរពជូន</p>
+                  <p class="feTitle" style="white-space: nowrap;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
+                </div>
+                <div class="flex1"></div>
+                <div class="head-item long-w head-item-absolute-ps " style="right: 80px; left: unset;">
+                  <div class="f-item">
+                    <span class="nor-fam">រាជធានីភ្នំពេញ,</span>
+                    <span class="nor-fam">
+                      <span>&nbsp;ថ្ងៃទី</span>
+                      <p class="f-input w-day">{{$safeNavigationMigration(item?.day_header?.name) | pipeCut0}}</p>
+                    </span>
+                    <span class="nor-fam">
+                      <span>ខែ</span>
+                      <p class="f-input w-day">{{item?.month_header?.name}}</p>
+                    </span>
+                    <span class="nor-fam">
+                      <span>ឆ្នាំ</span>
+                      <p class="f-input w-day">{{item?.year_header?.name}}</p>
+                    </span>
+                  </div>
                 </div>
               </div>
-  
-              <div class="flex1"></div>
-  
-              <div class="head-item">
-                <p class="feTitle">ព្រះរាជាណាចក្រកម្ពុជា</p>
-                <p class="feTitle">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                <p class="star">3</p>
-                <div class="img-logo" style="height:40px;"></div>
-  
-                <div class="head-item1">
-                  <span>ខ្ញុំបាទ - នាងខ្ញុំឈ្មោះ</span>
-                  <span class="flex1">
-                    <p class="f-input">
-                      {{item?.last_name + ' ' +
-                      item?.first_name}}
-                    </p>
-                  </span>
-                </div>
-  
-                <p class="feTitle">សូមគោរពជូន</p>
-                <p class="feTitle" style="white-space: nowrap;">ឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌</p>
-  
-              </div>
-  
-              <div class="flex1"></div>
-  
-  
-              <div class="head-item long-w head-item-absolute-ps " style="right: 80px; left: unset;">
-                <div class="f-item">
-                  <span class="nor-fam">រាជធានីភ្នំពេញ,</span>
-                  <span class="nor-fam">
-                    <span>&nbsp;ថ្ងៃទី</span>
-                    <p class="f-input w-day">{{item?.day_header?.name | pipeCut0}}</p>
-                  </span>
-                  <span class="nor-fam">
-                    <span>ខែ</span>
-                    <p class="f-input w-day">{{item?.month_header?.name}}</p>
-                  </span>
-                  <span class="nor-fam">
-                    <span>ឆ្នាំ</span>
-                    <p class="f-input w-day">{{item?.year_header?.name}}</p>
-                  </span>
-                </div>
-              </div>
-  
-            </div>
-            <div class="body">
-              <div class="body-item">
-                <div class="title"
-                  style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
-                  <p class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</p>
+              <div class="body">
+                <div class="body-item">
+                  <div class="title"
+                    style="padding: 0; background-color: transparent; display: flex; align-items : center; align-items: baseline; text-align: start; justify-content: center">
+                    <p class="feTitle" style="text-decoration: underline; margin: 10px 0;">កម្មវត្ថុ :</p>
                   <div class="display: flex;
                                       flex-direction: column;
                                       justify-content: flex-start;
                                       align-items: self-start;">
-                    <div class="text-icon-wrapper" style="display: flex;">
-                      <p class="n-title">
-                        &nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ចំនួន {{item?.criminal_language|getKhmerAmount|khmerNumber}}ច្បាប់ បកប្រែជា ភាសាអង់គ្លេស&nbsp;
-                      </p>
-  
-                      <ng-container *ngIf="item?.criminal_language|getEnglishCopyCount">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24">
-                        <path
-                          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-  
-                      <ng-container *ngIf="!(item?.criminal_language|getEnglishCopyCount)">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24">
-                        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                      </svg>
-                      </ng-container>
-  
-                      <p class="n-title">
-                        &nbsp;  / ភាសាបារាំង &nbsp;
-                      </p>
-  
-                      <ng-container *ngIf="item?.criminal_language|getFrenchCopyCount">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24">
-                        <path
-                          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-  
-                      <ng-container *ngIf="!(item?.criminal_language|getFrenchCopyCount)">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24">
-                        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                      </svg>
-                      </ng-container>
+                      <div class="text-icon-wrapper" style="display: flex;">
+                        <p class="n-title">
+                          &nbsp;សំណើរសុំព្រឹត្តិបត្រថ្កោលទោសលេខ៣ ចំនួន {{$safeNavigationMigration(item?.criminal_language)|getKhmerAmount|khmerNumber}}ច្បាប់ បកប្រែជា ភាសាអង់គ្លេស&nbsp;
+                        </p>
+                        @if ($safeNavigationMigration(item?.criminal_language)|getEnglishCopyCount) {
+                          <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24">
+                            <path
+                              d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                          </svg>
+                        }
+                        @if (!($safeNavigationMigration(item?.criminal_language)|getEnglishCopyCount)) {
+                          <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24">
+                            <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                          </svg>
+                        }
+                        <p class="n-title">
+                          &nbsp;  / ភាសាបារាំង &nbsp;
+                        </p>
+                        @if ($safeNavigationMigration(item?.criminal_language)|getFrenchCopyCount) {
+                          <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24">
+                            <path
+                              d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                          </svg>
+                        }
+                        @if (!($safeNavigationMigration(item?.criminal_language)|getFrenchCopyCount)) {
+                          <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                            viewBox="0 0 24 24">
+                            <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                          </svg>
+                        }
+                      </div>
+                      <p class="n-title">&nbsp;ខ្ញុំបាទ-នាងខ្ញុំសូមជូនកំណត់បង្ហាញផ្ទាល់ខ្លួនដូចខាងក្រោម :</p>
                     </div>
-                    <p class="n-title">&nbsp;ខ្ញុំបាទ-នាងខ្ញុំសូមជូនកំណត់បង្ហាញផ្ទាល់ខ្លួនដូចខាងក្រោម :</p>
                   </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
-                    <p class="f-input">{{item?.last_name + ' ' +
-                      item?.first_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{(item?.last_name_en || '') + ' ' +
-                      (item?.first_name_en || '')}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>ឈ្មោះហៅក្រៅ</span>
-                    <p class="f-input">{{item?.nick_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>ភេទ</span>
-                    <p class="f-input">{{item?.gender?.text ||
-                      item?.gender?.name}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.before_nationality?.kh_nationality}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.current_nationality?.kh_nationality}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
+                  <div class="row-item">
                     <div class="f-item">
-                      <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                      <p style="width: 100%;" class="f-input">
-                        {{item?.dateOfBirthDay?.name | pipeCut0}}
-                        {{item?.dateOfBirthMonth?.name}}
-                        {{item?.dateOfBirthYear?.name}}
-                      </p>
-                      <!-- <p style="width: 15%;" class="f-input">{{item?.dateOfBirthDay?.name}}
+                      <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
+                      <p class="f-input">{{item?.last_name + ' ' +
+                      item?.first_name}}</p>
+                    </div>
+                    <div class="f-item">
+                      <span>អក្សរឡាតាំង</span>
+                      <p class="f-input">{{(item?.last_name_en || '') + ' ' +
+                      (item?.first_name_en || '')}}</p>
+                    </div>
+                  </div>
+                  <div class="row-item">
+                    <div class="f-item">
+                      <span>ឈ្មោះហៅក្រៅ</span>
+                      <p class="f-input">{{item?.nick_name}}</p>
+                    </div>
+                    <div class="f-item">
+                      <span>ភេទ</span>
+                      <p class="f-input">{{item?.gender?.text ||
+                      item?.gender?.name}}</p>
+                    </div>
+                  </div>
+                  <div class="row-item">
+                    <div class="f-item">
+                      <span>សញ្ជាតិដើម</span>
+                      <p class="f-input">{{item?.before_nationality?.kh_nationality}}</p>
+                    </div>
+                    <div class="f-item">
+                      <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+                      <p class="f-input">{{item?.current_nationality?.kh_nationality}}</p>
+                    </div>
+                  </div>
+                  <div class="row-item">
+                    <div class="f-item">
+                      <div class="f-item">
+                        <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+                        <p style="width: 100%;" class="f-input">
+                          {{$safeNavigationMigration(item?.dateOfBirthDay?.name) | pipeCut0}}
+                          {{item?.dateOfBirthMonth?.name}}
+                          {{item?.dateOfBirthYear?.name}}
+                        </p>
+                        <!-- <p style="width: 15%;" class="f-input">{{item?.dateOfBirthDay?.name}}
                       </p>
                       <span>ខែ</span>
                       <p style="width: 30%;" class="f-input">{{item?.dateOfBirthMonth?.name}}
@@ -505,1103 +460,1018 @@
                     </div>
                   </div>
                 </div>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else foreignerAddress1">
+                @if (!item?.isTextAddress ) {
                   <div class="row-item">
                     <div class="f-item" style="width: 100%;">
                       <span>ទីកន្លែងកំណើត</span>
                       <p class="f-input">
                         <!-- <ng-container *ngIf="item?.birthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.birthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.birthAddress?.street_no}}
-                        </ng-container> -->
-                        <ng-container *ngIf="item?.birthAddress?.village?.name">
-                          ភូមិ{{item?.birthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.commune?.name">
-                          {{(item?.birthAddress?.commune | geoDisplay: 'C' )+item?.birthAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.district?.name">
-                          {{(item?.birthAddress?.district | geoDisplay: 'D')+item?.birthAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.province?.name">
-                          {{(item?.birthAddress?.province | geoDisplay: 'P')+item?.birthAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-                  </div>
-                </ng-container>
-  
-                <ng-template #foreignerAddress1>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{item?.foreignerPlaceOfBirth }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else textAddressNow1">
-                  <div class="row-item">
-                    <div class="f-item" style="width: 100%;">
-                      <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
-                      <p class="f-input">
-                        <ng-container *ngIf="item?.permanentAddress?.home_no">
-                          ផ្ទះលេខ{{item?.permanentAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.street_no">
-                          ផ្លូវលេខ{{item?.permanentAddress?.street_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.village?.name">
-                          ភូមិ{{item?.permanentAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.commune?.name">
-                          {{item?.permanentAddress?.commune | geoDisplay: 'C'}}{{item?.permanentAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.district?.name">
-                          {{item?.permanentAddress?.district | geoDisplay: 'D'}}{{item?.permanentAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.province?.name">
-                          {{item?.permanentAddress?.province | geoDisplay: 'P'}}{{item?.permanentAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-                    <!-- <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{item?.permanentAddress?.district?.name}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{item?.permanentAddress?.commune?.name}}</p>
-                    </div> -->
-                  </div>
-                  <!-- <div class="row-item">
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{item?.permanentAddress?.village?.name}}</p>
-                    </div>
-                    <div class="f-item">
-                      <span>ផ្លូវ</span>
-                      <p class="f-input">
-                        {{item?.permanentAddress?.street_no}}
-                      </p>
-                    </div>
-                    <div class="f-item">
-                      <span>ផ្ទះលេខ</span>
-                      <p class="f-input">
-                        {{item?.permanentAddress?.home_no}}
-                      </p>
-                    </div>
-                  </div> -->
-                </ng-container>
-  
-                <ng-template #textAddressNow1>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
-                      <p class="f-input">{{item?.permanentAddressText}}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ</span>
-                    <p class="f-input">{{item?.occupation}}</p>
-                  </div>
-                </div>
-  
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
-                    <p class="f-input">{{item?.father_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.father_name_en}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-  
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.fatherDob?.day?.name | pipeCut0}}
-                      {{item?.fatherDob?.month?.name}}
-                      {{item?.fatherDob?.year?.name}}
-                    </p>
-  
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="this.item?.fatherDob?.day||null"
-                      [month]="this.item?.fatherDob?.month||null"
-                      [year]="this.item?.fatherDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <ng-container *ngIf="item?.fatherIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
+                        ផ្ទះលេខ{{item?.birthAddress?.home_no}}
                       </ng-container>
-                      <ng-container *ngIf="item?.fatherIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.fatherIsDead?.key ==
-                        item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-                      <span>{{item?.name}}</span>
-  
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.father_before_nationality?.kh_nationality}}
-                    </p>
-                  </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.father_current_nationality?.kh_nationality}}
+                      <ng-container *ngIf="item?.birthAddress?.street_no">
+                        ផ្លូវលេខ{{item?.birthAddress?.street_no}}
+                      </ng-container> -->
+                      @if (item?.birthAddress?.village?.name) {
+                        ភូមិ{{item?.birthAddress?.village?.name}}
+                      }
+                      @if (item?.birthAddress?.commune?.name) {
+                        {{($safeNavigationMigration(item?.birthAddress?.commune) | geoDisplay: 'C' )+item?.birthAddress?.commune?.name}}
+                      }
+                      @if (item?.birthAddress?.district?.name) {
+                        {{($safeNavigationMigration(item?.birthAddress?.district) | geoDisplay: 'D')+item?.birthAddress?.district?.name}}
+                      }
+                      @if (item?.birthAddress?.province?.name) {
+                        {{($safeNavigationMigration(item?.birthAddress?.province) | geoDisplay: 'P')+item?.birthAddress?.province?.name}}
+                      }
                     </p>
                   </div>
                 </div>
-                <ng-container *ngIf="!item?.isTextAddress ; else foreignerFatherAddress1">
-                  <div class="row-item">
-                    <div class="f-item" style="width: 100%;">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">
-                        <!-- <ng-container *ngIf="item?.fatherBirthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.fatherBirthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.fatherBirthAddress?.street_no}}
-                        </ng-container> -->
-                        <ng-container *ngIf="item?.fatherBirthAddress?.village?.name">
-                          ភូមិ{{item?.fatherBirthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.commune?.name">
-                          {{item?.fatherBirthAddress?.commune | geoDisplay: 'C'}}{{item?.fatherBirthAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.district?.name">
-                          {{item?.fatherBirthAddress?.district | geoDisplay: 'D'}}{{item?.fatherBirthAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.province?.name">
-                          {{item?.fatherBirthAddress?.province | geoDisplay: 'P'}}{{item?.fatherBirthAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-  
-                    <!-- <div class="f-item" style="width: 140%;">
-                      <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
-                      <p class="f-input">{{ isKhmerForm
-                        ?item?.fatherBirthAddress?.province?.name
-                        :item?.fatherBirthAddress?.province?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{ isKhmerForm
-                        ?item?.fatherBirthAddress?.district?.name
-                        :item?.fatherBirthAddress?.district?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{ isKhmerForm
-                        ?item?.fatherBirthAddress?.commune?.name
-                        :item?.fatherBirthAddress?.commune?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{ isKhmerForm
-                        ?item?.fatherBirthAddress?.village?.name
-                        :item?.fatherBirthAddress?.village?.name_en}}</p>
-                    </div> -->
-  
-                  </div>
-                </ng-container>
-  
-                <ng-template #foreignerFatherAddress1>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{item?.foreignerFatherBirthAddress }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
+              } @else {
                 <div class="row-item">
                   <div class="f-item">
-                    <span>មុខរបរ:</span>
-                    <p class="f-input">{{item?.fatherCurrentOccupation}}</p>
+                    <span>ទីកន្លែងកំណើត</span>
+                    <p class="f-input">{{item?.foreignerPlaceOfBirth }}</p>
                   </div>
                 </div>
-  
-  
+              }
+              @if (!item?.isTextAddress ) {
                 <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">III</span> - ម្ដាយឈ្មោះ:</span>
-                    <p class="f-input">{{item?.mother_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.mother_name_en}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.motherDob?.day?.name | pipeCut0}}
-                      {{item?.motherDob?.month?.name}}
-                      {{item?.motherDob?.year?.name}}
-                    </p>
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="item?.motherDob?.day||null"
-                      [month]="item?.motherDob?.month||null"
-                      [year]="item?.motherDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-  
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.motherIsDead?.key ==
-                        item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-  
-                      <ng-container *ngIf="item?.motherIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <ng-container *ngIf="item?.motherIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-  
-  
-                      <span>{{item?.name}}</span>
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-  
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.mother_before_nationality?.kh_nationality}}
+                  <div class="f-item" style="width: 100%;">
+                    <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                    <p class="f-input">
+                      @if (item?.permanentAddress?.home_no) {
+                        ផ្ទះលេខ{{item?.permanentAddress?.home_no}}
+                      }
+                      @if (item?.permanentAddress?.street_no) {
+                        ផ្លូវលេខ{{item?.permanentAddress?.street_no}}
+                      }
+                      @if (item?.permanentAddress?.village?.name) {
+                        ភូមិ{{item?.permanentAddress?.village?.name}}
+                      }
+                      @if (item?.permanentAddress?.commune?.name) {
+                        {{$safeNavigationMigration(item?.permanentAddress?.commune) | geoDisplay: 'C'}}{{item?.permanentAddress?.commune?.name}}
+                      }
+                      @if (item?.permanentAddress?.district?.name) {
+                        {{$safeNavigationMigration(item?.permanentAddress?.district) | geoDisplay: 'D'}}{{item?.permanentAddress?.district?.name}}
+                      }
+                      @if (item?.permanentAddress?.province?.name) {
+                        {{$safeNavigationMigration(item?.permanentAddress?.province) | geoDisplay: 'P'}}{{item?.permanentAddress?.province?.name}}
+                      }
                     </p>
                   </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.mother_current_nationality?.kh_nationality}}
-                    </p>
-                  </div>
+                  <!-- <div class="f-item" style="width: 60%;">
+                  <span>ស្រុក/ខណ្ឌ</span>
+                  <p class="f-input">{{item?.permanentAddress?.district?.name}}</p>
                 </div>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else foreignerMotherAddress1">
-                  <div class="row-item">
-                    <div class="f-item" style="width: 100%;">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">
-                        <!-- <ng-container *ngIf="item?.motherBirthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.motherBirthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.motherBirthAddress?.street_no}}
-                        </ng-container> -->
-                        <ng-container *ngIf="item?.motherBirthAddress?.village?.name">
-                          ភូមិ{{item?.motherBirthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.commune?.name">
-                          {{item?.motherBirthAddress?.commune | geoDisplay: 'C'}}{{item?.motherBirthAddress?.commune?.name}}
-  
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.district?.name">
-                          {{item?.motherBirthAddress?.district | geoDisplay: 'D'}}{{item?.motherBirthAddress?.district?.name}}
-  
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.province?.name">
-                          {{item?.motherBirthAddress?.province | geoDisplay: 'P'}}{{item?.motherBirthAddress?.province?.name}}
-  
-                        </ng-container>
-                      </p>
-                    </div>
-  
-  
-                    <!-- <div class="f-item" style="width: 140%;">
-                      <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
-                      <p class="f-input">{{
-                        isKhmerForm?item?.motherBirthAddress?.province?.name
-                        :item?.motherBirthAddress?.province?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{
-                        isKhmerForm?item?.motherBirthAddress?.district?.name
-                        :item?.motherBirthAddress?.district?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{
-                        isKhmerForm?item?.motherBirthAddress?.commune?.name
-                        :item?.motherBirthAddress?.commune?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{
-                        isKhmerForm?item?.motherBirthAddress?.village?.name
-                        :item?.motherBirthAddress?.village?.name_en }}</p>
-                    </div> -->
-                  </div>
-                </ng-container>
-  
-                <ng-template #foreignerMotherAddress1>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{item?.foreignerMotherBirthAddress }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ</span>
-                    <p class="f-input">{{item?.motherCurrentOccupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">IV</span> - ប្ដី ឬប្រពន្ធឈ្មោះ</span>
-                    <p class="f-input">{{item?.spouse}}</p>
-  
-  
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.spouse_name_en}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-  
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.spouseDob?.day?.name | pipeCut0}}
-                      {{item?.spouseDob?.month?.name}}
-                      {{item?.spouseDob?.year?.name}}
-                    </p>
-  
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="item?.spouseDob?.day||null"
-                      [month]="item?.spouseDob?.month||null"
-                      [year]="item?.spouseDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.spouseIsDead?.key ==
-                        item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-                      <ng-container *ngIf="item?.spouseIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <ng-container *ngIf="item?.spouseIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-  
-                      <span>{{item?.name}}</span>
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.spouse_before_nationality?.kh_nationality}}
-                    </p>
-                  </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.spouse_current_nationality?.kh_nationality}}
-                    </p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ</span>
-                    <p class="f-input">{{item?.spouseCurrentOccupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div style="text-indent: 40px; font-size: 20px; white-space: normal; line-height: normal;">សូមឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌
-                    មេត្តាអនុញ្ញាតចេញព្រឹត្តបត្រថ្កោលទោសដល់ខ្ញុំបាទ -
-                    នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</div>
-                </div>
-  
-  
-                <div class="row-item">
-                  <div class="f-item" style="justify-content: space-between;">
-                    <div class="c-item">
-                      <div>
-                        <span style="border-bottom: 1px solid #333;">សូមជូនភ្ជាប់មកជាមួយនូវ</span><span> ៖ </span>
-                      </div>
-                      <div style="display: flex; flex-direction: column; padding: 0;" class="p-rel">
-                        <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
-                        <span class="n-title small">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
-                        <span class="n-title small">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅច្បាប់ដើម
-                          ព្រមទាំងថតចម្លង (០១ច្បាប់) មួយផង។</span>
-                        <span class="n-title small">- ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។
-                        </span>
-                      </div>
-                      <div class="f-item small">
-                        <span>ទូរស័ព្ទទំនាក់ទំនងលេខ</span>
-                        <p class="f-input" style="width: 40%;">{{item?.phoneNumber}}</p>
-                      </div>
-                    </div>
-  
-                    <div class="c-item" style="width: 20%; text-align: end;">
-                      <div class="nor-fam" style="font-size: 20px;">ស្នាមមេដៃសាមីខ្លួន</div>
-                      <div style="height:150px;overflow:hidden"
-                        *ngIf="item?.finger_print_file">
-                        <!-- <img [src]="item?.finger_print_file?.downloadUrl" width="150px"
-                          height="150px" style="object-fit:cover"> -->
-                        <div class="fingerImgBox" [style.background-image]="'url(' + (item?.finger_print_file?.downloadUrl | removeImgWhiteSpace | async) + ')'"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div class="f-item" style="width: 60%;">
+                  <span>ឃុំ/សង្កាត់</span>
+                  <p class="f-input">{{item?.permanentAddress?.commune?.name}}</p>
+                </div> -->
               </div>
+              <!-- <div class="row-item">
+              <div class="f-item" style="width: 60%;">
+                <span>ភូមិ</span>
+                <p class="f-input">{{item?.permanentAddress?.village?.name}}</p>
+              </div>
+              <div class="f-item">
+                <span>ផ្លូវ</span>
+                <p class="f-input">
+                  {{item?.permanentAddress?.street_no}}
+                </p>
+              </div>
+              <div class="f-item">
+                <span>ផ្ទះលេខ</span>
+                <p class="f-input">
+                  {{item?.permanentAddress?.home_no}}
+                </p>
+              </div>
+            </div> -->
+          } @else {
+            <div class="row-item">
+              <div class="f-item">
+                <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+                <p class="f-input">{{item?.permanentAddressText}}</p>
+              </div>
+            </div>
+          }
+          <div class="row-item">
+            <div class="f-item">
+              <span>មុខរបរ</span>
+              <p class="f-input">{{item?.occupation}}</p>
             </div>
           </div>
-          <div style="page-break-after: always;"></div>
-          <div class="eform eform-cs" id="printD" style="margin: 0 auto;margin-top:62px!important">
-  
-            <div class="head p-rel">
-  
-              <div class="flex1"></div>
-              <div class="head-item">
-                <p class="moul-font" style="padding: 20px 0;padding-top: 60px;">ប្រវត្តិរូបសង្ខេប</p>
-              </div>
-              <div class="flex1"></div>
-  
+          <div class="row-item">
+            <div class="f-item">
+              <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
+              <p class="f-input">{{item?.father_name}}</p>
             </div>
-            <div class="body">
-              <div class="body-item">
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
-                    <p class="f-input">{{item?.last_name + ' ' + item?.first_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.last_name_en}} {{item?.first_name_en}}</p>
-                  </div>
-                  <div class="f-item" style="width: auto;">
-                    <span>ភេទ</span>
-                    <p class="f-input">{{item?.gender?.name}}</p>
-                  </div>
-                </div>
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.before_nationality?.kh_nationality}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.current_nationality?.kh_nationality}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <div class="f-item">
-                      <span>ថ្ងៃ ខែ ឆ្នាំកំណើត </span>
-                      <p style="width: 100%;" class="f-input">
-                        {{item?.dateOfBirthDay?.name | pipeCut0}} {{item?.dateOfBirthMonth?.name}} {{item?.dateOfBirthYear?.name}}
-                      </p>
-                      <!-- <span>ខែ</span>
-                      <p style="width: 30%;" class="f-input">
-                      </p>
-                      <span>ឆ្នាំ</span>
-                      <p style="width: 38%;" class="f-input">
-                      </p> -->
-                    </div>
-                  </div>
-                </div>
-  
-                <ng-container *ngIf="!item?.selectedCriminalRecord?.isTextAddress ; else foreignerAddress">
-                  <div class="row-item">
-                    <div class="f-item" style="width: 100%;">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">
-                        <ng-container *ngIf="item?.birthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.birthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.birthAddress?.street_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.village?.name">
-                          ភូមិ{{item?.birthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.commune?.name">
-                          {{item?.birthAddress?.commune | geoDisplay: 'C'}}{{item?.birthAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.district?.name">
-                          {{item?.birthAddress?.district | geoDisplay: 'D'}}{{item?.birthAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.birthAddress?.province?.name">
-                          {{item?.birthAddress?.province | geoDisplay: 'P'}}{{item?.birthAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-  
-                    <!-- <div class="f-item">
-                      <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.province?.name : item?.birthAddress?.province?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.district?.name : item?.birthAddress?.district?.name_en}}</p>
-                    </div> -->
-  
-                  </div>
-                  <!-- <div class="row-item">
-                    <div class="f-item" style="width: 67%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.commune?.name : item?.birthAddress?.commune?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.village?.name : item?.birthAddress?.village?.name_en}}</p>
-                    </div>
-                  </div> -->
-                </ng-container>
-  
-                <ng-template #foreignerAddress>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{ item?.foreignerPlaceOfBirth }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span style="width: 100%; line-height: 2;">ចាប់តាំងពីនាំ ១៩៧៩ មកដល់បច្ចុប្បន្ន :
-                      បើមិនធ្លាប់ទៅបរទេស
-                      ត្រូវដាក់លើចំណុចបន្ទាត់ខាងក្រោមថា : នៅប្រទេសកម្ពុជា
-                      បើធ្លាប់ទៅបរទេសត្រូវបញ្ជាក់ឲ្យបានច្បាស់នូវពេលវេលា
-                      គឺពីថ្ងៃ ខែ ឆ្នាំណា ដល់ថ្ងៃខែ ឆ្នាំណា? ។</span>
-                  </div>
-                </div>
-  
-                <div class="row-item" *ngFor="let item of item?.liveInForeign">
-                  <div class="f-item">
-                    <span style="width: 100%;" class="f-input">{{item?.name?.kh_short_name}}</span>
-                  </div>
-                  <div style="display: flex;" *ngIf="item?.name?.alpha_2_code !== 'KH'">
-                    <div class="f-item date-short">
-                      <app-display-khmer-date
-                        [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
-                        (onSelectedItem)="onSelectedFromDateArr($event,i)" style="width:100%;" [label]="'ពីថ្ងៃ'"
-                        [day]="item?.from_date?.day||null" [month]="item?.from_date?.month||null"
-                        [year]="item?.from_date?.year||null"></app-display-khmer-date>
-                    </div>
-                    <div class="f-item date-short">
-                      <app-display-khmer-date
-                        [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
-                        (onSelectedItem)="onSelectedToDateArr($event,i)" style="width:100%;" [label]="'ដល់ថ្ងៃ'"
-                        [day]="item?.to_date?.day||null" [month]="item?.to_date?.month||null"
-                        [year]="item?.to_date?.year||null"></app-display-khmer-date>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="row-item blank">
-                  <div class="f-item">
-                    <span style="width: 100%;" class="f-input"></span>
-                  </div>
-                </div>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else textAddressNow">
-                  <div class="row-item">
-  
-                    <div class="f-item" style="width: 100%;">
-                      <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
-                      <p class="f-input">
-                        <ng-container *ngIf="item?.permanentAddress?.home_no">
-                          ផ្ទះលេខ{{item?.permanentAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.street_no">
-                          ផ្លូវលេខ{{item?.permanentAddress?.street_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.village?.name">
-                          ភូមិ{{item?.permanentAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.commune?.name">
-                          {{item?.permanentAddress?.commune | geoDisplay: 'C'}}{{item?.permanentAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.district?.name">
-                          {{item?.permanentAddress?.district | geoDisplay: 'D'}}{{item?.permanentAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.permanentAddress?.province?.name">
-                          {{item?.permanentAddress?.province | geoDisplay: 'P'}}{{item?.permanentAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-  
-                    <!-- <div class="f-item" style="width: 100%;">
-                      <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត</span>
-                      <p  class="f-input">{{item?.permanentAddress?.province?.name}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p  class="f-input">{{item?.permanentAddress?.district?.name}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p  class="f-input">{{item?.permanentAddress?.commune?.name}}</p>
-                    </div> -->
-                  </div>
-                  <!-- <div class="row-item">
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p  class="f-input">{{item?.permanentAddress?.village?.name}}</p>
-                    </div>
-                    <div class="f-item">
-                      <span>ផ្លូវ</span>
-                      <p class="f-input">
-                        {{item?.permanentAddress?.street_no}}
-                      </p>
-                    </div>
-                    <div class="f-item">
-                      <span>ផ្ទះលេខ</span>
-                      <p class="f-input">
-                        {{item?.permanentAddress?.home_no}}
-                      </p>
-                    </div>
-                  </div> -->
-                </ng-container>
-  
-                <ng-template #textAddressNow>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
-                      <p class="f-input">{{item?.permanentAddressText}}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ</span>
-                    <p style="width: 96%;" class="f-input">{{item?.occupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
-                    <p class="f-input">{{item?.father_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.father_name_en}}</p>
-                  </div>
-                </div>
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.fatherDob?.day?.name | pipeCut0}} {{item?.fatherDob?.month?.name}} {{item?.fatherDob?.year?.name}}
-                    </p>
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="item?.fatherDob?.day||null" [month]="item?.fatherDob?.month||null"
-                      [year]="item?.fatherDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-  
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.fatherIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-                      <ng-container *ngIf="item?.fatherIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <ng-container *ngIf="item?.fatherIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <span>{{item?.name}}</span>
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-  
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.father_before_nationality?.kh_nationality}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.father_current_nationality?.kh_nationality}}</p>
-                  </div>
-                </div>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else foreignerFatherAddress">
-                  <div class="row-item">
-  
-                    <div class="f-item" style="width: 100%;">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">
-                        <ng-container *ngIf="item?.fatherBirthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.fatherBirthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.fatherBirthAddress?.street_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.village?.name">
-                          ភូមិ{{item?.fatherBirthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.commune?.name">
-                          {{item?.fatherBirthAddress?.commune | geoDisplay: 'C'}}{{item?.fatherBirthAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.district?.name">
-                          {{item?.fatherBirthAddress?.district | geoDisplay: 'D'}}{{item?.fatherBirthAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.fatherBirthAddress?.province?.name">
-                          {{item?.fatherBirthAddress?.province | geoDisplay: 'P'}}{{item?.fatherBirthAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-  
-                    <!-- <div class="f-item" style="width: 140%;">
-                      <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.province?.name : item?.fatherBirthAddress?.province?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.district?.name : item?.fatherBirthAddress?.district?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.commune?.name : item?.fatherBirthAddress?.commune?.name_en}}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.village?.name : item?.fatherBirthAddress?.village?.name_en}}</p>
-                    </div> -->
-  
-                  </div>
-                </ng-container>
-  
-                <ng-template #foreignerFatherAddress>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{ item?.foreignerFatherBirthAddress }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ:</span>
-                    <p class="f-input">{{item?.fatherCurrentOccupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span><span class="number-order">III</span> -ម្ដាយឈ្មោះ:</span>
-                    <p class="f-input">{{item?.mother_name}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.mother_name_en}}</p>
-                  </div>
-                </div>
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.motherDob?.day?.name | pipeCut0}} {{item?.motherDob?.month?.name}} {{item?.motherDob?.year?.name}}
-                    </p>
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="item?.motherDob?.day||null" [month]="item?.motherDob?.month||null"
-                      [year]="item?.motherDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-  
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.motherIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-                      <ng-container *ngIf="item?.motherIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <ng-container *ngIf="item?.motherIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <span>{{item?.name}}</span>
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-  
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.mother_before_nationality?.kh_nationality}}</p>
-                  </div>
-  
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.mother_current_nationality?.kh_nationality}}</p>
-                  </div>
-                </div>
-  
-                <ng-container *ngIf="!item?.isTextAddress ; else foreignerMotherAddress">
-                  <div class="row-item">
-  
-                    <div class="f-item" style="width: 100%;">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">
-                        <ng-container *ngIf="item?.motherBirthAddress?.home_no">
-                          ផ្ទះលេខ{{item?.motherBirthAddress?.home_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.street_no">
-                          ផ្លូវលេខ{{item?.motherBirthAddress?.street_no}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.village?.name">
-                          ភូមិ{{item?.motherBirthAddress?.village?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.commune?.name">
-                          {{item?.motherBirthAddress?.commune | geoDisplay: 'C'}}{{item?.motherBirthAddress?.commune?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.district?.name">
-                          {{item?.motherBirthAddress?.district | geoDisplay: 'D'}}{{item?.motherBirthAddress?.district?.name}}
-                        </ng-container>
-                        <ng-container *ngIf="item?.motherBirthAddress?.province?.name">
-                          {{item?.motherBirthAddress?.province | geoDisplay: 'P'}}{{item?.motherBirthAddress?.province?.name}}
-                        </ng-container>
-                      </p>
-                    </div>
-  
-                    <!-- <div class="f-item" style="width: 140%;">
-                      <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
-                      <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.province?.name : item?.motherBirthAddress?.province?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ស្រុក/ខណ្ឌ</span>
-                      <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.district?.name : item?.motherBirthAddress?.district?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ឃុំ/សង្កាត់</span>
-                      <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.commune?.name : item?.motherBirthAddress?.commune?.name_en }}</p>
-                    </div>
-                    <div class="f-item" style="width: 60%;">
-                      <span>ភូមិ</span>
-                      <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.village?.name : item?.motherBirthAddress?.village?.name_en }}</p>
-                    </div> -->
-                  </div>
-                </ng-container>
-  
-                <ng-template #foreignerMotherAddress>
-                  <div class="row-item">
-                    <div class="f-item">
-                      <span>ទីកន្លែងកំណើត</span>
-                      <p class="f-input">{{ item?.foreignerMotherBirthAddress }}</p>
-                    </div>
-                  </div>
-                </ng-template>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ:</span>
-                    <p class="f-input">{{item?.motherCurrentOccupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>IV-ប្ដី ឬប្រពន្ធឈ្មោះ</span>
-                    <p class="f-input">{{item?.spouse}}</p>
-                  </div>
-                  <div class="f-item">
-                    <span>អក្សរឡាតាំង</span>
-                    <p class="f-input">{{item?.spouse_name_en}}</p>
-                  </div>
-                </div>
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-                    <p style="width: 100%;" class="f-input">
-                      {{item?.spouseDob?.day?.name | pipeCut0}} {{item?.spouseDob?.month?.name}} {{item?.spouseDob?.year?.name}}
-                    </p>
-                    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-                      [day]="item?.spouseDob?.day||null" [month]="item?.spouseDob?.month||null"
-                      [year]="item?.spouseDob?.year||null">
-                    </app-display-khmer-date> -->
-                  </div>
-                  <div class="f-item overfh" style="width: 300px;">
-                    <section *ngFor="let item of STATUS_LIVES_ARRAY_DATA"
-                      style="display: flex; align-items: center; column-gap: 4px;">
-                      <!-- <i class="material-icons-sharp">
-                        {{(item?.spouseIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
-                      </i> -->
-                      <ng-container *ngIf="item?.spouseIsDead?.key === item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-                      <ng-container *ngIf="item?.spouseIsDead?.key !== item?.key">
-                        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                          viewBox="0 0 24 24">
-                          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
-                        </svg>
-                      </ng-container>
-  
-                      <span>{{item?.name}}</span>
-                      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
-                    </section>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>សញ្ជាតិដើម</span>
-                    <p class="f-input">{{item?.spouse_before_nationality?.kh_nationality}}</p>
-                  </div>
-  
-                  <div class="f-item">
-                    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
-                    <p class="f-input">{{item?.spouse_current_nationality?.kh_nationality}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item">
-                    <span>មុខរបរ:</span>
-                    <p class="f-input">{{item?.spouseCurrentOccupation}}</p>
-                  </div>
-                </div>
-  
-                <div class="row-item">
-                  <div class="f-item" style="flex-direction: column;">
-                    <div style="width: 100%; line-height: 2; text-indent: 40px;    font-size: 20px;">ខ្ញុំបាទ -
-                      នាងខ្ញុំសូមអះអាងថាសេចក្ដីប្រកាសប្រវត្តិរូបនេះ ពិតជាត្រឹមត្រូវប្រាកដមែន។
-                      បើសេចក្ដីរាយការណ៍ខាងលើនេះប្រាស់ចាកពីការពិត ខ្ញុំបាទ - នាងខ្ញុំសូមទទួលខុសត្រូវចំពោះមុខច្បាប់ជាធរមាន។
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="head-item long-w"
-                  style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row-reverse;">
-                  <span class="container-header-input" style="width: unset">
-                    <div class="row-item khmer-date-picker print" style="transform: translateX(-17px)">
-                      <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
-                        <div class="f-item">
-                          <span class="nor-fam">រាជធានីភ្នំពេញ, </span>
-                          <span class="nor-fam">
-                            <span>&nbsp;ថ្ងៃទី</span>
-                            <p class="f-input" style="min-width: 80px">{{item?.apply_at?.toDate() | dateDayKh | pipeCut0}}</p>
-                          </span>
-  
-                          <span class="nor-fam">
-                            <span>ខែ</span>
-                            <p class="f-input" style="min-width: 80px">{{item?.apply_at?.toDate()|dateMonthKh}}</p>
-                          </span>
-  
-                          <span class="nor-fam">
-                            <span>ឆ្នាំ</span>
-                            <p class="f-input" style="min-width: 100px">{{item?.apply_at?.toDate()|dateYearKh}}</p>
-                          </span>
-                        </div>
-  
-                        <div class="c-item" style=" text-align: center;">
-                          <div class="nor-fam" style="margin-bottom:20px;">ស្នាមមេដៃសាមីខ្លួន</div>
-                          <div style="height:150px;overflow:hidden"
-                          *ngIf="item?.finger_print_file">
-                          <!-- <img [src]="item?.finger_print_file?.downloadUrl" width="150px"
-                            height="150px" style="object-fit:cover"> -->
-  
-                          <div class="fingerImgBox" [style.background-image]="'url(' + (item?.finger_print_file?.downloadUrl | removeImgWhiteSpace | async) + ')'"></div>
-  
-                        </div>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </span>
-                </div>
-  
-              </div>
-  
+            <div class="f-item">
+              <span>អក្សរឡាតាំង</span>
+              <p class="f-input">{{item?.father_name_en}}</p>
             </div>
           </div>
-          <div style="page-break-after: always;"></div>
+          <div class="row-item">
+            <div class="f-item">
+              <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+              <p style="width: 100%;" class="f-input">
+                {{$safeNavigationMigration(item?.fatherDob?.day?.name) | pipeCut0}}
+                {{item?.fatherDob?.month?.name}}
+                {{item?.fatherDob?.year?.name}}
+              </p>
+              <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+              [day]="this.item?.fatherDob?.day||null"
+              [month]="this.item?.fatherDob?.month||null"
+              [year]="this.item?.fatherDob?.year||null">
+            </app-display-khmer-date> -->
+          </div>
+          <div class="f-item overfh" style="width: 300px;">
+            @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+              <section
+                style="display: flex; align-items: center; column-gap: 4px;">
+                @if (item?.fatherIsDead?.key === item?.key) {
+                  <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path
+                      d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                  </svg>
+                }
+                @if (item?.fatherIsDead?.key !== item?.key) {
+                  <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                    viewBox="0 0 24 24">
+                    <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+                  </svg>
+                }
+                <!-- <i class="material-icons-sharp">
+                {{(item?.fatherIsDead?.key ==
+                item?.key)?'check_box':'check_box_outline_blank'}}
+              </i> -->
+              <span>{{item?.name}}</span>
+              <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+            </section>
+          }
         </div>
       </div>
+      <div class="row-item">
+        <div class="f-item">
+          <span>សញ្ជាតិដើម</span>
+          <p class="f-input">{{item?.father_before_nationality?.kh_nationality}}
+          </p>
+        </div>
+        <div class="f-item">
+          <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+          <p class="f-input">{{item?.father_current_nationality?.kh_nationality}}
+          </p>
+        </div>
+      </div>
+      @if (!item?.isTextAddress ) {
+        <div class="row-item">
+          <div class="f-item" style="width: 100%;">
+            <span>ទីកន្លែងកំណើត</span>
+            <p class="f-input">
+              <!-- <ng-container *ngIf="item?.fatherBirthAddress?.home_no">
+              ផ្ទះលេខ{{item?.fatherBirthAddress?.home_no}}
+            </ng-container>
+            <ng-container *ngIf="item?.fatherBirthAddress?.street_no">
+              ផ្លូវលេខ{{item?.fatherBirthAddress?.street_no}}
+            </ng-container> -->
+            @if (item?.fatherBirthAddress?.village?.name) {
+              ភូមិ{{item?.fatherBirthAddress?.village?.name}}
+            }
+            @if (item?.fatherBirthAddress?.commune?.name) {
+              {{$safeNavigationMigration(item?.fatherBirthAddress?.commune) | geoDisplay: 'C'}}{{item?.fatherBirthAddress?.commune?.name}}
+            }
+            @if (item?.fatherBirthAddress?.district?.name) {
+              {{$safeNavigationMigration(item?.fatherBirthAddress?.district) | geoDisplay: 'D'}}{{item?.fatherBirthAddress?.district?.name}}
+            }
+            @if (item?.fatherBirthAddress?.province?.name) {
+              {{$safeNavigationMigration(item?.fatherBirthAddress?.province) | geoDisplay: 'P'}}{{item?.fatherBirthAddress?.province?.name}}
+            }
+          </p>
+        </div>
+        <!-- <div class="f-item" style="width: 140%;">
+        <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+        <p class="f-input">{{ isKhmerForm
+          ?item?.fatherBirthAddress?.province?.name
+        :item?.fatherBirthAddress?.province?.name_en}}</p>
+      </div>
+      <div class="f-item" style="width: 60%;">
+        <span>ស្រុក/ខណ្ឌ</span>
+        <p class="f-input">{{ isKhmerForm
+          ?item?.fatherBirthAddress?.district?.name
+        :item?.fatherBirthAddress?.district?.name_en}}</p>
+      </div>
+      <div class="f-item" style="width: 60%;">
+        <span>ឃុំ/សង្កាត់</span>
+        <p class="f-input">{{ isKhmerForm
+          ?item?.fatherBirthAddress?.commune?.name
+        :item?.fatherBirthAddress?.commune?.name_en}}</p>
+      </div>
+      <div class="f-item" style="width: 60%;">
+        <span>ភូមិ</span>
+        <p class="f-input">{{ isKhmerForm
+          ?item?.fatherBirthAddress?.village?.name
+        :item?.fatherBirthAddress?.village?.name_en}}</p>
+      </div> -->
+    </div>
+  } @else {
+    <div class="row-item">
+      <div class="f-item">
+        <span>ទីកន្លែងកំណើត</span>
+        <p class="f-input">{{item?.foreignerFatherBirthAddress }}</p>
+      </div>
+    </div>
+  }
+  <div class="row-item">
+    <div class="f-item">
+      <span>មុខរបរ:</span>
+      <p class="f-input">{{item?.fatherCurrentOccupation}}</p>
+    </div>
   </div>
-  
+  <div class="row-item">
+    <div class="f-item">
+      <span><span class="number-order">III</span> - ម្ដាយឈ្មោះ:</span>
+      <p class="f-input">{{item?.mother_name}}</p>
+    </div>
+    <div class="f-item">
+      <span>អក្សរឡាតាំង</span>
+      <p class="f-input">{{item?.mother_name_en}}</p>
+    </div>
+  </div>
+  <div class="row-item">
+    <div class="f-item">
+      <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+      <p style="width: 100%;" class="f-input">
+        {{$safeNavigationMigration(item?.motherDob?.day?.name) | pipeCut0}}
+        {{item?.motherDob?.month?.name}}
+        {{item?.motherDob?.year?.name}}
+      </p>
+      <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+      [day]="item?.motherDob?.day||null"
+      [month]="item?.motherDob?.month||null"
+      [year]="item?.motherDob?.year||null">
+    </app-display-khmer-date> -->
+  </div>
+  <div class="f-item overfh" style="width: 300px;">
+    @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+      <section
+        style="display: flex; align-items: center; column-gap: 4px;">
+        <!-- <i class="material-icons-sharp">
+        {{(item?.motherIsDead?.key ==
+        item?.key)?'check_box':'check_box_outline_blank'}}
+      </i> -->
+      @if (item?.motherIsDead?.key === item?.key) {
+        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+          viewBox="0 0 24 24">
+          <path
+            d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+        </svg>
+      }
+      @if (item?.motherIsDead?.key !== item?.key) {
+        <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+          viewBox="0 0 24 24">
+          <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+        </svg>
+      }
+      <span>{{item?.name}}</span>
+      <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+    </section>
+  }
+</div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>សញ្ជាតិដើម</span>
+    <p class="f-input">{{item?.mother_before_nationality?.kh_nationality}}
+    </p>
+  </div>
+  <div class="f-item">
+    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+    <p class="f-input">{{item?.mother_current_nationality?.kh_nationality}}
+    </p>
+  </div>
+</div>
+@if (!item?.isTextAddress ) {
+  <div class="row-item">
+    <div class="f-item" style="width: 100%;">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">
+        <!-- <ng-container *ngIf="item?.motherBirthAddress?.home_no">
+        ផ្ទះលេខ{{item?.motherBirthAddress?.home_no}}
+      </ng-container>
+      <ng-container *ngIf="item?.motherBirthAddress?.street_no">
+        ផ្លូវលេខ{{item?.motherBirthAddress?.street_no}}
+      </ng-container> -->
+      @if (item?.motherBirthAddress?.village?.name) {
+        ភូមិ{{item?.motherBirthAddress?.village?.name}}
+      }
+      @if (item?.motherBirthAddress?.commune?.name) {
+        {{$safeNavigationMigration(item?.motherBirthAddress?.commune) | geoDisplay: 'C'}}{{item?.motherBirthAddress?.commune?.name}}
+      }
+      @if (item?.motherBirthAddress?.district?.name) {
+        {{$safeNavigationMigration(item?.motherBirthAddress?.district) | geoDisplay: 'D'}}{{item?.motherBirthAddress?.district?.name}}
+      }
+      @if (item?.motherBirthAddress?.province?.name) {
+        {{$safeNavigationMigration(item?.motherBirthAddress?.province) | geoDisplay: 'P'}}{{item?.motherBirthAddress?.province?.name}}
+      }
+    </p>
+  </div>
+  <!-- <div class="f-item" style="width: 140%;">
+  <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+  <p class="f-input">{{
+    isKhmerForm?item?.motherBirthAddress?.province?.name
+  :item?.motherBirthAddress?.province?.name_en }}</p>
+</div>
+<div class="f-item" style="width: 60%;">
+  <span>ស្រុក/ខណ្ឌ</span>
+  <p class="f-input">{{
+    isKhmerForm?item?.motherBirthAddress?.district?.name
+  :item?.motherBirthAddress?.district?.name_en }}</p>
+</div>
+<div class="f-item" style="width: 60%;">
+  <span>ឃុំ/សង្កាត់</span>
+  <p class="f-input">{{
+    isKhmerForm?item?.motherBirthAddress?.commune?.name
+  :item?.motherBirthAddress?.commune?.name_en }}</p>
+</div>
+<div class="f-item" style="width: 60%;">
+  <span>ភូមិ</span>
+  <p class="f-input">{{
+    isKhmerForm?item?.motherBirthAddress?.village?.name
+  :item?.motherBirthAddress?.village?.name_en }}</p>
+</div> -->
+</div>
+} @else {
+  <div class="row-item">
+    <div class="f-item">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">{{item?.foreignerMotherBirthAddress }}</p>
+    </div>
+  </div>
+}
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ</span>
+    <p class="f-input">{{item?.motherCurrentOccupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span><span class="number-order">IV</span> - ប្ដី ឬប្រពន្ធឈ្មោះ</span>
+    <p class="f-input">{{item?.spouse}}</p>
+  </div>
+  <div class="f-item">
+    <span>អក្សរឡាតាំង</span>
+    <p class="f-input">{{item?.spouse_name_en}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+    <p style="width: 100%;" class="f-input">
+      {{$safeNavigationMigration(item?.spouseDob?.day?.name) | pipeCut0}}
+      {{item?.spouseDob?.month?.name}}
+      {{item?.spouseDob?.year?.name}}
+    </p>
+    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+    [day]="item?.spouseDob?.day||null"
+    [month]="item?.spouseDob?.month||null"
+    [year]="item?.spouseDob?.year||null">
+  </app-display-khmer-date> -->
+</div>
+<div class="f-item overfh" style="width: 300px;">
+  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+    <section
+      style="display: flex; align-items: center; column-gap: 4px;">
+      <!-- <i class="material-icons-sharp">
+      {{(item?.spouseIsDead?.key ==
+      item?.key)?'check_box':'check_box_outline_blank'}}
+    </i> -->
+    @if (item?.spouseIsDead?.key === item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path
+          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    @if (item?.spouseIsDead?.key !== item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    <span>{{item?.name}}</span>
+    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+  </section>
+}
+</div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>សញ្ជាតិដើម</span>
+    <p class="f-input">{{item?.spouse_before_nationality?.kh_nationality}}
+    </p>
+  </div>
+  <div class="f-item">
+    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+    <p class="f-input">{{item?.spouse_current_nationality?.kh_nationality}}
+    </p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ</span>
+    <p class="f-input">{{item?.spouseCurrentOccupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div style="text-indent: 40px; font-size: 20px; white-space: normal; line-height: normal;">សូមឯកឧត្តមឧបនាយករដ្ឋមន្ត្រី រដ្ឋមន្ត្រីក្រសួងយុត្តិធម៌
+    មេត្តាអនុញ្ញាតចេញព្រឹត្តបត្រថ្កោលទោសដល់ខ្ញុំបាទ -
+  នាងខ្ញុំដើម្បីបានយកទៅប្រើប្រាស់ តាមការដែលអាចប្រើបានដោយក្ដីអនុគ្រោះដ៏ខ្ពង់ខ្ពស់ ។</div>
+</div>
+<div class="row-item">
+  <div class="f-item" style="justify-content: space-between;">
+    <div class="c-item">
+      <div>
+        <span style="border-bottom: 1px solid #333;">សូមជូនភ្ជាប់មកជាមួយនូវ</span><span> ៖ </span>
+      </div>
+      <div style="display: flex; flex-direction: column; padding: 0;" class="p-rel">
+        <span class="n-title small">- ប្រវត្តិរូបសង្ខេប ០១ សន្លឹក។ </span>
+        <span class="n-title small">- ប័ណ្ណសម្គាល់ខ្លួន សិស្ស និស្សិត (បើនៅរៀន)។ </span>
+        <span class="n-title small">- សេចក្ដីចម្លងសំបុត្របញ្ជាក់កំណើត និងសៀវភៅស្នាក់នៅច្បាប់ដើម
+        ព្រមទាំងថតចម្លង (០១ច្បាប់) មួយផង។</span>
+        <span class="n-title small">- ចំពោះជនបរទេសត្រូវថតចម្លងលិខិតឆ្លងដែន មានសុពលភាព(០១ច្បាប់) និងទិដ្ឋាការចូលមកប្រទេសកម្ពុជា(០១ច្បាប់)។
+        </span>
+      </div>
+      <div class="f-item small">
+        <span>ទូរស័ព្ទទំនាក់ទំនងលេខ</span>
+        <p class="f-input" style="width: 40%;">{{item?.phoneNumber}}</p>
+      </div>
+    </div>
+    <div class="c-item" style="width: 20%; text-align: end;">
+      <div class="nor-fam" style="font-size: 20px;">ស្នាមមេដៃសាមីខ្លួន</div>
+      @if (item?.finger_print_file) {
+        <div style="height:150px;overflow:hidden"
+          >
+          <!-- <img [src]="item?.finger_print_file?.downloadUrl" width="150px"
+          height="150px" style="object-fit:cover"> -->
+          <div class="fingerImgBox" [style.background-image]="'url(' + ($safeNavigationMigration(item?.finger_print_file?.downloadUrl) | removeImgWhiteSpace | async) + ')'"></div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="eform eform-cs" id="printD" style="margin: 0 auto;margin-top:62px!important">
+  <div class="head p-rel">
+    <div class="flex1"></div>
+    <div class="head-item">
+      <p class="moul-font" style="padding: 20px 0;padding-top: 60px;">ប្រវត្តិរូបសង្ខេប</p>
+    </div>
+    <div class="flex1"></div>
+  </div>
+  <div class="body">
+    <div class="body-item">
+      <div class="row-item">
+        <div class="f-item">
+          <span><span class="number-order">I</span> - នាមត្រកូល និង នាមខ្លួន</span>
+          <p class="f-input">{{item?.last_name + ' ' + item?.first_name}}</p>
+        </div>
+        <div class="f-item">
+          <span>អក្សរឡាតាំង</span>
+          <p class="f-input">{{item?.last_name_en}} {{item?.first_name_en}}</p>
+        </div>
+        <div class="f-item" style="width: auto;">
+          <span>ភេទ</span>
+          <p class="f-input">{{item?.gender?.name}}</p>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-item">
+          <span>សញ្ជាតិដើម</span>
+          <p class="f-input">{{item?.before_nationality?.kh_nationality}}</p>
+        </div>
+        <div class="f-item">
+          <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+          <p class="f-input">{{item?.current_nationality?.kh_nationality}}</p>
+        </div>
+      </div>
+      <div class="row-item">
+        <div class="f-item">
+          <div class="f-item">
+            <span>ថ្ងៃ ខែ ឆ្នាំកំណើត </span>
+            <p style="width: 100%;" class="f-input">
+              {{$safeNavigationMigration(item?.dateOfBirthDay?.name) | pipeCut0}} {{item?.dateOfBirthMonth?.name}} {{item?.dateOfBirthYear?.name}}
+            </p>
+            <!-- <span>ខែ</span>
+            <p style="width: 30%;" class="f-input">
+            </p>
+            <span>ឆ្នាំ</span>
+            <p style="width: 38%;" class="f-input">
+            </p> -->
+          </div>
+        </div>
+      </div>
+      @if (!item?.selectedCriminalRecord?.isTextAddress ) {
+        <div class="row-item">
+          <div class="f-item" style="width: 100%;">
+            <span>ទីកន្លែងកំណើត</span>
+            <p class="f-input">
+              @if (item?.birthAddress?.home_no) {
+                ផ្ទះលេខ{{item?.birthAddress?.home_no}}
+              }
+              @if (item?.birthAddress?.street_no) {
+                ផ្លូវលេខ{{item?.birthAddress?.street_no}}
+              }
+              @if (item?.birthAddress?.village?.name) {
+                ភូមិ{{item?.birthAddress?.village?.name}}
+              }
+              @if (item?.birthAddress?.commune?.name) {
+                {{$safeNavigationMigration(item?.birthAddress?.commune) | geoDisplay: 'C'}}{{item?.birthAddress?.commune?.name}}
+              }
+              @if (item?.birthAddress?.district?.name) {
+                {{$safeNavigationMigration(item?.birthAddress?.district) | geoDisplay: 'D'}}{{item?.birthAddress?.district?.name}}
+              }
+              @if (item?.birthAddress?.province?.name) {
+                {{$safeNavigationMigration(item?.birthAddress?.province) | geoDisplay: 'P'}}{{item?.birthAddress?.province?.name}}
+              }
+            </p>
+          </div>
+          <!-- <div class="f-item">
+          <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+          <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.province?.name : item?.birthAddress?.province?.name_en}}</p>
+        </div>
+        <div class="f-item" style="width: 60%;">
+          <span>ស្រុក/ខណ្ឌ</span>
+          <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.district?.name : item?.birthAddress?.district?.name_en}}</p>
+        </div> -->
+      </div>
+      <!-- <div class="row-item">
+      <div class="f-item" style="width: 67%;">
+        <span>ឃុំ/សង្កាត់</span>
+        <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.commune?.name : item?.birthAddress?.commune?.name_en}}</p>
+      </div>
+      <div class="f-item" style="width: 60%;">
+        <span>ភូមិ</span>
+        <p class="f-input">{{ isKhmerForm ? item?.birthAddress?.village?.name : item?.birthAddress?.village?.name_en}}</p>
+      </div>
+    </div> -->
+  } @else {
+    <div class="row-item">
+      <div class="f-item">
+        <span>ទីកន្លែងកំណើត</span>
+        <p class="f-input">{{ item?.foreignerPlaceOfBirth }}</p>
+      </div>
+    </div>
+  }
+  <div class="row-item">
+    <div class="f-item">
+      <span style="width: 100%; line-height: 2;">ចាប់តាំងពីនាំ ១៩៧៩ មកដល់បច្ចុប្បន្ន :
+        បើមិនធ្លាប់ទៅបរទេស
+        ត្រូវដាក់លើចំណុចបន្ទាត់ខាងក្រោមថា : នៅប្រទេសកម្ពុជា
+        បើធ្លាប់ទៅបរទេសត្រូវបញ្ជាក់ឲ្យបានច្បាស់នូវពេលវេលា
+      គឺពីថ្ងៃ ខែ ឆ្នាំណា ដល់ថ្ងៃខែ ឆ្នាំណា? ។</span>
+    </div>
+  </div>
+  @for (item of item?.liveInForeign; track item) {
+    <div class="row-item">
+      <div class="f-item">
+        <span style="width: 100%;" class="f-input">{{item?.name?.kh_short_name}}</span>
+      </div>
+      @if (item?.name?.alpha_2_code !== 'KH') {
+        <div style="display: flex;">
+          <div class="f-item date-short">
+            <app-display-khmer-date
+              [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
+              (onSelectedItem)="onSelectedFromDateArr($event,i)" style="width:100%;" [label]="'ពីថ្ងៃ'"
+              [day]="item?.from_date?.day||null" [month]="item?.from_date?.month||null"
+            [year]="item?.from_date?.year||null"></app-display-khmer-date>
+          </div>
+          <div class="f-item date-short">
+            <app-display-khmer-date
+              [class]="dateOfBirthInvalid ? 'khmer-date-picker print invalid':'khmer-date-picker print' "
+              (onSelectedItem)="onSelectedToDateArr($event,i)" style="width:100%;" [label]="'ដល់ថ្ងៃ'"
+              [day]="item?.to_date?.day||null" [month]="item?.to_date?.month||null"
+            [year]="item?.to_date?.year||null"></app-display-khmer-date>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  <div class="row-item blank">
+    <div class="f-item">
+      <span style="width: 100%;" class="f-input"></span>
+    </div>
+  </div>
+  @if (!item?.isTextAddress ) {
+    <div class="row-item">
+      <div class="f-item" style="width: 100%;">
+        <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+        <p class="f-input">
+          @if (item?.permanentAddress?.home_no) {
+            ផ្ទះលេខ{{item?.permanentAddress?.home_no}}
+          }
+          @if (item?.permanentAddress?.street_no) {
+            ផ្លូវលេខ{{item?.permanentAddress?.street_no}}
+          }
+          @if (item?.permanentAddress?.village?.name) {
+            ភូមិ{{item?.permanentAddress?.village?.name}}
+          }
+          @if (item?.permanentAddress?.commune?.name) {
+            {{$safeNavigationMigration(item?.permanentAddress?.commune) | geoDisplay: 'C'}}{{item?.permanentAddress?.commune?.name}}
+          }
+          @if (item?.permanentAddress?.district?.name) {
+            {{$safeNavigationMigration(item?.permanentAddress?.district) | geoDisplay: 'D'}}{{item?.permanentAddress?.district?.name}}
+          }
+          @if (item?.permanentAddress?.province?.name) {
+            {{$safeNavigationMigration(item?.permanentAddress?.province) | geoDisplay: 'P'}}{{item?.permanentAddress?.province?.name}}
+          }
+        </p>
+      </div>
+      <!-- <div class="f-item" style="width: 100%;">
+      <span>អាសយដ្ឋានបច្ចុប្បន្ន -រាជធានី/ខេត្ត</span>
+      <p  class="f-input">{{item?.permanentAddress?.province?.name}}</p>
+    </div>
+    <div class="f-item" style="width: 60%;">
+      <span>ស្រុក/ខណ្ឌ</span>
+      <p  class="f-input">{{item?.permanentAddress?.district?.name}}</p>
+    </div>
+    <div class="f-item" style="width: 60%;">
+      <span>ឃុំ/សង្កាត់</span>
+      <p  class="f-input">{{item?.permanentAddress?.commune?.name}}</p>
+    </div> -->
+  </div>
+  <!-- <div class="row-item">
+  <div class="f-item" style="width: 60%;">
+    <span>ភូមិ</span>
+    <p  class="f-input">{{item?.permanentAddress?.village?.name}}</p>
+  </div>
+  <div class="f-item">
+    <span>ផ្លូវ</span>
+    <p class="f-input">
+      {{item?.permanentAddress?.street_no}}
+    </p>
+  </div>
+  <div class="f-item">
+    <span>ផ្ទះលេខ</span>
+    <p class="f-input">
+      {{item?.permanentAddress?.home_no}}
+    </p>
+  </div>
+</div> -->
+} @else {
+  <div class="row-item">
+    <div class="f-item">
+      <span>អាសយដ្ឋានបច្ចុប្បន្ន</span>
+      <p class="f-input">{{item?.permanentAddressText}}</p>
+    </div>
+  </div>
+}
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ</span>
+    <p style="width: 96%;" class="f-input">{{item?.occupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span><span class="number-order">II</span> - ឪពុកឈ្មោះ:</span>
+    <p class="f-input">{{item?.father_name}}</p>
+  </div>
+  <div class="f-item">
+    <span>អក្សរឡាតាំង</span>
+    <p class="f-input">{{item?.father_name_en}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+    <p style="width: 100%;" class="f-input">
+      {{$safeNavigationMigration(item?.fatherDob?.day?.name) | pipeCut0}} {{item?.fatherDob?.month?.name}} {{item?.fatherDob?.year?.name}}
+    </p>
+    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+    [day]="item?.fatherDob?.day||null" [month]="item?.fatherDob?.month||null"
+    [year]="item?.fatherDob?.year||null">
+  </app-display-khmer-date> -->
+</div>
+<div class="f-item overfh" style="width: 300px;">
+  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+    <section
+      style="display: flex; align-items: center; column-gap: 4px;">
+      <!-- <i class="material-icons-sharp">
+      {{(item?.fatherIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
+    </i> -->
+    @if (item?.fatherIsDead?.key === item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path
+          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    @if (item?.fatherIsDead?.key !== item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    <span>{{item?.name}}</span>
+    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+  </section>
+}
+</div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>សញ្ជាតិដើម</span>
+    <p class="f-input">{{item?.father_before_nationality?.kh_nationality}}</p>
+  </div>
+  <div class="f-item">
+    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+    <p class="f-input">{{item?.father_current_nationality?.kh_nationality}}</p>
+  </div>
+</div>
+@if (!item?.isTextAddress ) {
+  <div class="row-item">
+    <div class="f-item" style="width: 100%;">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">
+        @if (item?.fatherBirthAddress?.home_no) {
+          ផ្ទះលេខ{{item?.fatherBirthAddress?.home_no}}
+        }
+        @if (item?.fatherBirthAddress?.street_no) {
+          ផ្លូវលេខ{{item?.fatherBirthAddress?.street_no}}
+        }
+        @if (item?.fatherBirthAddress?.village?.name) {
+          ភូមិ{{item?.fatherBirthAddress?.village?.name}}
+        }
+        @if (item?.fatherBirthAddress?.commune?.name) {
+          {{$safeNavigationMigration(item?.fatherBirthAddress?.commune) | geoDisplay: 'C'}}{{item?.fatherBirthAddress?.commune?.name}}
+        }
+        @if (item?.fatherBirthAddress?.district?.name) {
+          {{$safeNavigationMigration(item?.fatherBirthAddress?.district) | geoDisplay: 'D'}}{{item?.fatherBirthAddress?.district?.name}}
+        }
+        @if (item?.fatherBirthAddress?.province?.name) {
+          {{$safeNavigationMigration(item?.fatherBirthAddress?.province) | geoDisplay: 'P'}}{{item?.fatherBirthAddress?.province?.name}}
+        }
+      </p>
+    </div>
+    <!-- <div class="f-item" style="width: 140%;">
+    <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+    <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.province?.name : item?.fatherBirthAddress?.province?.name_en}}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ស្រុក/ខណ្ឌ</span>
+    <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.district?.name : item?.fatherBirthAddress?.district?.name_en}}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ឃុំ/សង្កាត់</span>
+    <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.commune?.name : item?.fatherBirthAddress?.commune?.name_en}}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ភូមិ</span>
+    <p class="f-input">{{ isKhmerForm ? item?.fatherBirthAddress?.village?.name : item?.fatherBirthAddress?.village?.name_en}}</p>
+  </div> -->
+</div>
+} @else {
+  <div class="row-item">
+    <div class="f-item">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">{{ item?.foreignerFatherBirthAddress }}</p>
+    </div>
+  </div>
+}
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ:</span>
+    <p class="f-input">{{item?.fatherCurrentOccupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span><span class="number-order">III</span> -ម្ដាយឈ្មោះ:</span>
+    <p class="f-input">{{item?.mother_name}}</p>
+  </div>
+  <div class="f-item">
+    <span>អក្សរឡាតាំង</span>
+    <p class="f-input">{{item?.mother_name_en}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+    <p style="width: 100%;" class="f-input">
+      {{$safeNavigationMigration(item?.motherDob?.day?.name) | pipeCut0}} {{item?.motherDob?.month?.name}} {{item?.motherDob?.year?.name}}
+    </p>
+    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+    [day]="item?.motherDob?.day||null" [month]="item?.motherDob?.month||null"
+    [year]="item?.motherDob?.year||null">
+  </app-display-khmer-date> -->
+</div>
+<div class="f-item overfh" style="width: 300px;">
+  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+    <section
+      style="display: flex; align-items: center; column-gap: 4px;">
+      <!-- <i class="material-icons-sharp">
+      {{(item?.motherIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
+    </i> -->
+    @if (item?.motherIsDead?.key === item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path
+          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    @if (item?.motherIsDead?.key !== item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    <span>{{item?.name}}</span>
+    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+  </section>
+}
+</div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>សញ្ជាតិដើម</span>
+    <p class="f-input">{{item?.mother_before_nationality?.kh_nationality}}</p>
+  </div>
+  <div class="f-item">
+    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+    <p class="f-input">{{item?.mother_current_nationality?.kh_nationality}}</p>
+  </div>
+</div>
+@if (!item?.isTextAddress ) {
+  <div class="row-item">
+    <div class="f-item" style="width: 100%;">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">
+        @if (item?.motherBirthAddress?.home_no) {
+          ផ្ទះលេខ{{item?.motherBirthAddress?.home_no}}
+        }
+        @if (item?.motherBirthAddress?.street_no) {
+          ផ្លូវលេខ{{item?.motherBirthAddress?.street_no}}
+        }
+        @if (item?.motherBirthAddress?.village?.name) {
+          ភូមិ{{item?.motherBirthAddress?.village?.name}}
+        }
+        @if (item?.motherBirthAddress?.commune?.name) {
+          {{$safeNavigationMigration(item?.motherBirthAddress?.commune) | geoDisplay: 'C'}}{{item?.motherBirthAddress?.commune?.name}}
+        }
+        @if (item?.motherBirthAddress?.district?.name) {
+          {{$safeNavigationMigration(item?.motherBirthAddress?.district) | geoDisplay: 'D'}}{{item?.motherBirthAddress?.district?.name}}
+        }
+        @if (item?.motherBirthAddress?.province?.name) {
+          {{$safeNavigationMigration(item?.motherBirthAddress?.province) | geoDisplay: 'P'}}{{item?.motherBirthAddress?.province?.name}}
+        }
+      </p>
+    </div>
+    <!-- <div class="f-item" style="width: 140%;">
+    <span>ទីកន្លែងកំណើត -រាជធានី/ខេត្ត</span>
+    <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.province?.name : item?.motherBirthAddress?.province?.name_en }}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ស្រុក/ខណ្ឌ</span>
+    <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.district?.name : item?.motherBirthAddress?.district?.name_en }}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ឃុំ/សង្កាត់</span>
+    <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.commune?.name : item?.motherBirthAddress?.commune?.name_en }}</p>
+  </div>
+  <div class="f-item" style="width: 60%;">
+    <span>ភូមិ</span>
+    <p class="f-input">{{ isKhmerForm? item?.motherBirthAddress?.village?.name : item?.motherBirthAddress?.village?.name_en }}</p>
+  </div> -->
+</div>
+} @else {
+  <div class="row-item">
+    <div class="f-item">
+      <span>ទីកន្លែងកំណើត</span>
+      <p class="f-input">{{ item?.foreignerMotherBirthAddress }}</p>
+    </div>
+  </div>
+}
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ:</span>
+    <p class="f-input">{{item?.motherCurrentOccupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>IV-ប្ដី ឬប្រពន្ធឈ្មោះ</span>
+    <p class="f-input">{{item?.spouse}}</p>
+  </div>
+  <div class="f-item">
+    <span>អក្សរឡាតាំង</span>
+    <p class="f-input">{{item?.spouse_name_en}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+    <p style="width: 100%;" class="f-input">
+      {{$safeNavigationMigration(item?.spouseDob?.day?.name) | pipeCut0}} {{item?.spouseDob?.month?.name}} {{item?.spouseDob?.year?.name}}
+    </p>
+    <!-- <app-display-khmer-date [class]="'khmer-date-picker print'" style="width:100%;" [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+    [day]="item?.spouseDob?.day||null" [month]="item?.spouseDob?.month||null"
+    [year]="item?.spouseDob?.year||null">
+  </app-display-khmer-date> -->
+</div>
+<div class="f-item overfh" style="width: 300px;">
+  @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+    <section
+      style="display: flex; align-items: center; column-gap: 4px;">
+      <!-- <i class="material-icons-sharp">
+      {{(item?.spouseIsDead?.key == item?.key)?'check_box':'check_box_outline_blank'}}
+    </i> -->
+    @if (item?.spouseIsDead?.key === item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path
+          d="M11 17l-5-5.299 1.399-1.43 3.574 3.736 6.572-7.007 1.455 1.403-8 8.597zm11-15v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    @if (item?.spouseIsDead?.key !== item?.key) {
+      <svg style="margin:0 4px" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+        viewBox="0 0 24 24">
+        <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" />
+      </svg>
+    }
+    <span>{{item?.name}}</span>
+    <span class="no-lsc" [ngClass]="{'one': item?.key === 1, 'two': item?.key !== 1}">/</span>
+  </section>
+}
+</div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>សញ្ជាតិដើម</span>
+    <p class="f-input">{{item?.spouse_before_nationality?.kh_nationality}}</p>
+  </div>
+  <div class="f-item">
+    <span>សញ្ជាតិបច្ចុប្បន្ន</span>
+    <p class="f-input">{{item?.spouse_current_nationality?.kh_nationality}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item">
+    <span>មុខរបរ:</span>
+    <p class="f-input">{{item?.spouseCurrentOccupation}}</p>
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item" style="flex-direction: column;">
+    <div style="width: 100%; line-height: 2; text-indent: 40px;    font-size: 20px;">ខ្ញុំបាទ -
+      នាងខ្ញុំសូមអះអាងថាសេចក្ដីប្រកាសប្រវត្តិរូបនេះ ពិតជាត្រឹមត្រូវប្រាកដមែន។
+      បើសេចក្ដីរាយការណ៍ខាងលើនេះប្រាស់ចាកពីការពិត ខ្ញុំបាទ - នាងខ្ញុំសូមទទួលខុសត្រូវចំពោះមុខច្បាប់ជាធរមាន។
+    </div>
+  </div>
+</div>
+<div class="head-item long-w"
+  style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row-reverse;">
+  <span class="container-header-input" style="width: unset">
+    <div class="row-item khmer-date-picker print" style="transform: translateX(-17px)">
+      <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+        <div class="f-item">
+          <span class="nor-fam">រាជធានីភ្នំពេញ, </span>
+          <span class="nor-fam">
+            <span>&nbsp;ថ្ងៃទី</span>
+            <p class="f-input" style="min-width: 80px">{{$safeNavigationMigration(item?.apply_at?.toDate()) | dateDayKh | pipeCut0}}</p>
+          </span>
+          <span class="nor-fam">
+            <span>ខែ</span>
+            <p class="f-input" style="min-width: 80px">{{$safeNavigationMigration(item?.apply_at?.toDate())|dateMonthKh}}</p>
+          </span>
+          <span class="nor-fam">
+            <span>ឆ្នាំ</span>
+            <p class="f-input" style="min-width: 100px">{{$safeNavigationMigration(item?.apply_at?.toDate())|dateYearKh}}</p>
+          </span>
+        </div>
+        <div class="c-item" style=" text-align: center;">
+          <div class="nor-fam" style="margin-bottom:20px;">ស្នាមមេដៃសាមីខ្លួន</div>
+          @if (item?.finger_print_file) {
+            <div style="height:150px;overflow:hidden"
+              >
+              <!-- <img [src]="item?.finger_print_file?.downloadUrl" width="150px"
+              height="150px" style="object-fit:cover"> -->
+              <div class="fingerImgBox" [style.background-image]="'url(' + ($safeNavigationMigration(item?.finger_print_file?.downloadUrl) | removeImgWhiteSpace | async) + ')'"></div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+}
+</div>
+</div>

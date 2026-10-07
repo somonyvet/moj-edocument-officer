@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CriminalApplicationStore } from 'src/app/modules/criminal-record/stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-paid-online-information',
-  templateUrl: './paid-online-information.component.html',
-  styleUrls: ['./paid-online-information.component.scss']
+    selector: 'app-paid-online-information',
+    templateUrl: './paid-online-information.component.html',
+    styleUrls: ['./paid-online-information.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PaidOnlineInformationComponent implements OnInit, OnDestroy {
 

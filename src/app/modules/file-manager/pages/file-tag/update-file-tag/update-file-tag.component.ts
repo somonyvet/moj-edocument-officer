@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,15 +9,17 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { ConvertService } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-update-file-tag',
-  templateUrl: './update-file-tag.component.html',
-  styleUrls: ['./update-file-tag.component.scss']
+    selector: 'app-update-file-tag',
+    templateUrl: './update-file-tag.component.html',
+    styleUrls: ['./update-file-tag.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class UpdateFileTagComponent implements OnInit {
 
   @ViewChild('focusInput') inputEl: ElementRef;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   color:AbstractControl;
   nameChange: boolean = false;
@@ -30,7 +32,7 @@ export class UpdateFileTagComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UpdateFileTagComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: FileManager,
     public afs: AngularFirestore,
     public auth: AuthStore,

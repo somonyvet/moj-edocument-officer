@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -21,9 +21,11 @@ import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { FileManager } from 'src/app/stores/fileDrive.store';
 
 @Component({
-  selector: 'app-criminal-header',
-  templateUrl: './criminal-header.component.html',
-  styleUrls: ['./criminal-header.component.scss']
+    selector: 'app-criminal-header',
+    templateUrl: './criminal-header.component.html',
+    styleUrls: ['./criminal-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalHeaderComponent implements OnInit, OnDestroy {
   @Input() activeAccount: boolean;
@@ -36,7 +38,7 @@ export class CriminalHeaderComponent implements OnInit, OnDestroy {
   ]
 
   uploadPercent: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   subscriptionRef: Subscription = null;
   START_UPLOAD: boolean = false;
@@ -52,7 +54,7 @@ export class CriminalHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public lang: LanguageStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private chat: ChatStore,
     public notify: NotificationStore,

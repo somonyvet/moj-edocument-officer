@@ -5,27 +5,27 @@
         <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
           <h4 (click)="create()">{{title}}</h4>
         </div>
-        <nav mat-tab-nav-bar class="fire-tabs">
+        <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
           <a mat-tab-link [active]="true">ទាំងអស់</a>
         </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       </div>
-      <ng-container *ngIf="!loading else loader">
-        <ng-container *ngIf="store?.data?.length>0 else emptyData">
-          <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header">
-            <div class="rows" *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+      @if (!loading) {
+        @if (store?.data?.length>0) {
+          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header">
+            <div class="rows" *cdkVirtualFor="let item of $safeNavigationMigration(store?.data) ;let i=index; trackBy: trackByIdx">
               <a mat-button class="avatar-vt-item flex1" [ngClass]="item?.status?.key===STATUS_OBJ?.VOID?.key?'warn':''"
-                [routerLink]="item?.key" routerLinkActive="active" (click)="onSelectedApp(item)">
+                [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active" (click)="onSelectedApp(item)">
                 <div class="avatar">
-                  <img [src]="item?.photoUrl" (error)="handleImgError($event)">
+                  <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
                 </div>
                 <div class="av-vt-body">
                   <strong>{{item?.name}}</strong>
                   <div class="rows sub-text">
-
                   </div>
                 </div>
               </a>
-              <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
+              <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
@@ -40,17 +40,15 @@
               </mat-menu>
             </div>
             <div class="fake"></div>
-          </virtual-scroller>
-        </ng-container>
-      </ng-container>
-      <ng-template #loader>
+          </cdk-virtual-scroll-viewport>
+        } @else {
+          <div class="doc-ls-items center">
+            <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
+          </div>
+        }
+      } @else {
         <app-spinner></app-spinner>
-      </ng-template>
-      <ng-template #emptyData>
-        <div class="doc-ls-items center">
-          <app-empty className="empty-vt" name="ពុំមានសំណើរសុំព្រឹត្តិបត្រថ្កោលទោស" subtitle=""></app-empty>
-        </div>
-      </ng-template>
+      }
     </div>
   </div>
   <div class="main-r">

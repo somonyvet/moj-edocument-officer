@@ -72,13 +72,13 @@
     }
   }
 
-  .cs-mat-tab-link .mat-tab-link {
+  .cs-mat-tab-link .mat-mdc-tab-link {
     font-size: 13px;
     height: 33px;
     margin: 0 2px;
   }
 
-  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  .mat-mdc-tab-nav-bar.mat-primary .mdc-tab-indicator__content--underline {
     display: none;
   }
 
@@ -86,7 +86,7 @@
     font-size: 18px;
   }
 
-  .mat-puc.mat-button {
+  .mat-puc.mat-mdc-button {
     padding: 6px 16px;
     font-size: 14px;
   }
@@ -101,7 +101,7 @@
     margin: 0 8px;
   }
 
-  .mat-tab-links {
+  .mat-mdc-tab-links {
     flex-wrap: wrap;
   }
 }
@@ -183,19 +183,19 @@
     font-size: 14px;
   }
 
-  .cs-matmenu-wicon .mat-menu-item {
+  .cs-matmenu-wicon .mat-mdc-menu-item {
     font-size: 10px;
   }
 
   .form-wrapper .form-group {
     flex-wrap: wrap;
 
-    .mat-form-field {
+    .mat-mdc-form-field {
       width: 100% !important;
     }
   }
 
-  .mat-puc.mat-button {
+  .mat-puc.mat-mdc-button {
     padding: 4px 12px !important;
     font-size: 12px;
   }
@@ -203,7 +203,7 @@
   .full-page-dialog-action {
     padding: 18px 10px;
 
-    .mat-puc.mat-button {
+    .mat-puc.mat-mdc-button {
       margin-left: 10px;
     }
 

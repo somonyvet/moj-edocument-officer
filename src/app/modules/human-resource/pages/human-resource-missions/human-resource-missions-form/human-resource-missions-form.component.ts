@@ -1,7 +1,8 @@
+import { Timestamp } from 'firebase/firestore';
 import { ILeaveRequest } from 'src/app/interfaces/attendance';
 import { HrMissionStore } from './../../../stores/hr-mission.store';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PHOTO_LIB, } from 'src/app/dummy/appinfo';
@@ -18,15 +19,17 @@ import { observable } from 'mobx';
 import { IOfficer } from 'functions/src/interfaces/interface';
 
 @Component({
-  selector: 'app-human-resource-missions-form',
-  templateUrl: './human-resource-missions-form.component.html',
-  styleUrls: ['./human-resource-missions-form.component.scss']
+    selector: 'app-human-resource-missions-form',
+    templateUrl: './human-resource-missions-form.component.html',
+    styleUrls: ['./human-resource-missions-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HrMissionsFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើតបេសកកម្ម";
-  form: FormGroup;
+  form: UntypedFormGroup;
   @observable selectedOfficerArr = [];
 
   search: AbstractControl;
@@ -38,7 +41,7 @@ export class HrMissionsFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<HrMissionsFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: HrMissionStore,
     public docStore: DocumentStore,
     public officer: OfficerStore,
@@ -66,8 +69,8 @@ export class HrMissionsFormComponent implements OnInit {
       this.form.patchValue({
         description,
         duration,
-        startDate: (startDate as firebase.default.firestore.Timestamp).toDate(),
-        endDate: (endDate as firebase.default.firestore.Timestamp).toDate()
+        startDate: (startDate as Timestamp).toDate(),
+        endDate: (endDate as Timestamp).toDate()
       });
     }
 

@@ -1,51 +1,64 @@
-<div class="decree-card" *ngIf="decreeResult">
+@if (decreeResult) {
+  <div class="decree-card">
     <div class="decree-header">
-        <h3 class="header-title">លទ្ធផលនិទ្ទេស</h3>
-        <span class="status-pill" *ngIf="decreeStatus"
-            [ngClass]="isValidDecreeRecord ? 'is-valid' : 'is-invalid'">
-            <span>{{ decreeStatus }}</span>
+      <h3 class="header-title">លទ្ធផលនិទ្ទេស</h3>
+      @if (decreeStatus) {
+        <span class="status-pill"
+          [ngClass]="isValidDecreeRecord ? 'is-valid' : 'is-invalid'">
+          <span>{{ decreeStatus }}</span>
         </span>
+      }
     </div>
-
     <div class="decree-info-wrapper">
-        <p class="decree-result" [innerHTML]="decreeResult"></p>
-        <div class="decree-info" *ngIf="decreeBy || decreeAt">
-            <img class="img-profile" [src]="decreeBy?.photoUrl" [attr.alt]="decreeBy?.display_name || ''"
-                (error)="handleImgError($event)">
-            <span class="decree-info-text">
-                ផ្ដល់និទ្ទេសដោយ <strong>{{ decreeBy?.display_name || '-' }}</strong>
-                <ng-container *ngIf="decreeAt"> នៅថ្ងៃទី {{ decreeAt | dateTimeKh }}</ng-container>
-            </span>
+      <p class="decree-result" [innerHTML]="decreeResult"></p>
+      @if (decreeBy || decreeAt) {
+        <div class="decree-info">
+          <img class="img-profile" [src]="$safeNavigationMigration(decreeBy?.photoUrl)" [attr.alt]="decreeBy?.display_name || ''"
+            (error)="handleImgError($event)">
+          <span class="decree-info-text">
+            ផ្ដល់និទ្ទេសដោយ <strong>{{ decreeBy?.display_name || '-' }}</strong>
+            @if (decreeAt) {
+              នៅថ្ងៃទី {{ decreeAt | dateTimeKh }}
+            }
+          </span>
         </div>
-        <div class="decree-comment" *ngIf="isValidDecreeRecord && (workplaceComments?.length || decreeComment)">
-            <h4 class="comment-title">
-                <mat-icon>comment</mat-icon>
-                <span>យោបល់</span>
-            </h4>
-
-            <ng-container *ngIf="workplaceComments?.length; else officerCommentOnly">
-                <div class="comment-item" *ngFor="let item of workplaceComments">
-                    <div class="comment-item-header">
-                        <img class="img-profile" [src]="item?.approved_by?.photoUrl"
-                            [attr.alt]="item?.approved_by?.display_name || ''" (error)="handleImgError($event)">
-                        <div class="comment-identity">
-                            <div class="comment-dep" *ngIf="item?.department?.name">{{ item?.department?.name }}</div>
-                            <div class="comment-meta" *ngIf="item?.approved_by || item?.approved_at">
-                                <strong>{{ item?.approved_by?.display_name || '-' }}</strong>
-                                <ng-container *ngIf="item?.approved_at"> · {{ item?.approved_at | dateTimeKh }}
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment-body" [innerHTML]="item?.comment | sanitizeHtml"></div>
+      }
+      @if (isValidDecreeRecord && (workplaceComments?.length || decreeComment)) {
+        <div class="decree-comment">
+          <h4 class="comment-title">
+            <mat-icon>comment</mat-icon>
+            <span>យោបល់</span>
+          </h4>
+          @if (workplaceComments?.length) {
+            @for (item of workplaceComments; track item) {
+              <div class="comment-item">
+                <div class="comment-item-header">
+                  <img class="img-profile" [src]="$safeNavigationMigration(item?.approved_by?.photoUrl)"
+                    [attr.alt]="item?.approved_by?.display_name || ''" (error)="handleImgError($event)">
+                  <div class="comment-identity">
+                    @if (item?.department?.name) {
+                      <div class="comment-dep">{{ item?.department?.name }}</div>
+                    }
+                    @if (item?.approved_by || item?.approved_at) {
+                      <div class="comment-meta">
+                        <strong>{{ item?.approved_by?.display_name || '-' }}</strong>
+                        @if (item?.approved_at) {
+                          · {{ $safeNavigationMigration(item?.approved_at) | dateTimeKh }}
+                        }
+                      </div>
+                    }
+                  </div>
                 </div>
-            </ng-container>
-
-            <ng-template #officerCommentOnly>
-                <div class="comment-item">
-                    <div class="comment-body" [innerHTML]="decreeComment | sanitizeHtml"></div>
-                </div>
-            </ng-template>
+                <div class="comment-body" [innerHTML]="$safeNavigationMigration(item?.comment) | sanitizeHtml"></div>
+              </div>
+            }
+          } @else {
+            <div class="comment-item">
+              <div class="comment-body" [innerHTML]="decreeComment | sanitizeHtml"></div>
+            </div>
+          }
         </div>
+      }
     </div>
-</div>
+  </div>
+}

@@ -1,25 +1,34 @@
 <div *mobxAutorun>
-    <div class="doc-tile-listing-container">
-        <div class="doc-tile-listing-content-tab">
-            <div class="doc-ac-filter">
-                <h3>ឯកសារត្រូវពិនិត្យនិងឯកភាព</h3>
+  <div class="doc-tile-listing-container">
+    <div class="doc-tile-listing-content-tab">
+      <div class="doc-ac-filter">
+        <h3>ឯកសារត្រូវពិនិត្យនិងឯកភាព</h3>
+      </div>
+      <mat-divider></mat-divider>
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" disableRipple>
+        @for (link of tabs; track link) {
+          <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">
+            <div class="content-tab-btn">
+              <mat-icon class="mat-18">{{link?.icon}}</mat-icon>
+              {{link.label}}
             </div>
-            <mat-divider></mat-divider>
-            <nav mat-tab-nav-bar disableRipple>
-                <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-                    [active]="rla.isActive">
-                    <div class="content-tab-btn">
-                        <mat-icon class="mat-18">{{link?.icon}}</mat-icon>
-                        {{link.label}}
-                    </div>
-                </a>
-            </nav>
-        </div>
+          </a>
+        }
+      </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
     </div>
-    <div class="doc-tile-listing-container bd">
-        <div class="doc-tile-listing-content " *ngIf="!store?.loading">
-            <app-document-card [item]="item" *ngFor="let item of store?.data"></app-document-card>
-        </div>
-        <app-spinner *ngIf="store?.loading || store?.fetching"></app-spinner>
-    </div>
+  </div>
+  <div class="doc-tile-listing-container bd">
+    @if (!store?.loading) {
+      <div class="doc-tile-listing-content ">
+        @for (item of store?.data; track item) {
+          <app-document-card [item]="item"></app-document-card>
+        }
+      </div>
+    }
+    @if (store?.loading || store?.fetching) {
+      <app-spinner></app-spinner>
+    }
+  </div>
 </div>

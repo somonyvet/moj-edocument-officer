@@ -1,76 +1,81 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-        <div class="doc-in">
-            <div class="listing-header">
-                <h4>{{title}}: {{store?.selectedItem?.name}}</h4>
-                <div class="breadcrumb sticky-0" *ngIf="store?.geoPath?.length>0">
-                    <a mat-button mat-icon-button class="mat-btn-n" [routerLink]="['/criminal-record/applications/geo/provinces']">
-                        <mat-icon>home</mat-icon>
-                    </a>
-                    <a class="breadcrumb-item" [routerLink]="[item?.path || '']" *ngFor="let item of store?.geoPath">
-                        <span>{{item?.name}}</span>
-                    </a>
-                </div>
-                <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
-                </app-search-filter-box>
-                <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: flex-end;">
-                  <nav mat-tab-nav-bar class="fire-tabs">
-                    <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-                      [active]="rla.isActive">{{link.label}}</a>
-                  </nav>
-                  <div class="nav-right">
-                    <a style="width: 30px; height: 30px; display: flex;" routerLinkActive="active" mat-button mat-icon-button
-                      matTooltipClass="tooltipClass" class="btn-p-icon app-button" [matTooltip]="'បង្កើត'+title"
-                      (click)="criminal?.onCreate()">
-                      <mat-icon>
-                        <ion-icon name="add-outline"></ion-icon>
-                      </mat-icon>
-                    </a>
-                  </div>
-                </div>
-            </div>
-            <ng-container *ngIf="!loading else loader">
-                <ng-container *ngIf="store?.villages?.length>0 else emptyData">
-                    <virtual-scroller #scroll [items]="store?.villages" class="doc-ls-items seach-header"
-                        (vsEnd)="scrollHandler($event)">
-                        <a mat-button class="avatar-vt-item"
-                            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
-                            <div class="avatar sm">
-                                <img [src]="item?.uri" (error)="handleImgError($event)">
-                            </div>
-                            <a class="av-vt-body"
-                                routerLinkActive="active">
-                                <strong>{{item?.id}} · {{item?.name}}</strong>
-                            </a>
-                            <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                                <mat-icon>more_vert</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)="criminal.onCreate(item)">
-                                    <mat-icon>edit</mat-icon>
-                                    <span>កែសម្រួល</span>
-                                </button>
-                                <!-- <button mat-menu-item (click)="onDelete(item)">
-                                    <mat-icon>delete</mat-icon>
-                                    <span>លុប</span>
-                                </button> -->
-                            </mat-menu>
-                        </a>
-                        <div class="fake"></div>
-                    </virtual-scroller>
-                </ng-container>
-            </ng-container>
-            <ng-template #loader>
-                <app-spinner></app-spinner>
-            </ng-template>
-            <ng-template #emptyData>
-                <div class="doc-ls-items center">
-                    <app-empty className="empty-vt" name="ពុំមានរាជធានី/ខេត្ត" subtitle=""></app-empty>
-                </div>
-            </ng-template>
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <h4>{{title}}: {{store?.selectedItem?.name}}</h4>
+        @if (store?.geoPath?.length>0) {
+          <div class="breadcrumb sticky-0">
+            <a mat-icon-button class="mat-btn-n" [routerLink]="['/criminal-record/applications/geo/provinces']">
+              <mat-icon>home</mat-icon>
+            </a>
+            @for (item of store?.geoPath; track item) {
+              <a class="breadcrumb-item" [routerLink]="[item?.path || '']">
+                <span>{{item?.name}}</span>
+              </a>
+            }
+          </div>
+        }
+        <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
+        </app-search-filter-box>
+        <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: flex-end;">
+          <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+            @for (link of tabs; track link) {
+              <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+              [active]="rla.isActive">{{link.label}}</a>
+            }
+          </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+          <div class="nav-right">
+            <a style="width: 30px; height: 30px; display: flex;" routerLinkActive="active" mat-icon-button
+              matTooltipClass="tooltipClass" class="btn-p-icon app-button" [matTooltip]="'បង្កើត'+title"
+              (click)="criminal?.onCreate()">
+              <mat-icon>
+                <ion-icon name="add-outline"></ion-icon>
+              </mat-icon>
+            </a>
+          </div>
         </div>
-    </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
-    </div>
+      </div>
+      @if (!loading) {
+        @if (store?.villages?.length>0) {
+          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
+            (vsEnd)="scrollHandler($event)">
+            <a mat-button class="avatar-vt-item"
+              *cdkVirtualFor="let item of $safeNavigationMigration(store?.villages) ;let i=index; trackBy: trackByIdx">
+              <div class="avatar sm">
+                <img [src]="$safeNavigationMigration(item?.uri)" (error)="handleImgError($event)">
+              </div>
+              <a class="av-vt-body"
+                routerLinkActive="active">
+                <strong>{{item?.id}} · {{item?.name}}</strong>
+              </a>
+              <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="criminal.onCreate(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>កែសម្រួល</span>
+                </button>
+                <!-- <button mat-menu-item (click)="onDelete(item)">
+                <mat-icon>delete</mat-icon>
+                <span>លុប</span>
+              </button> -->
+            </mat-menu>
+          </a>
+          <div class="fake"></div>
+        </cdk-virtual-scroll-viewport>
+      } @else {
+        <div class="doc-ls-items center">
+          <app-empty className="empty-vt" name="ពុំមានរាជធានី/ខេត្ត" subtitle=""></app-empty>
+        </div>
+      }
+    } @else {
+      <app-spinner></app-spinner>
+    }
+  </div>
+</div>
+<div class="main-r">
+  <router-outlet></router-outlet>
+</div>
 </div>

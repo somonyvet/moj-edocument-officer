@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -13,16 +13,18 @@ import { ConvertService, orderBy, pushToArray, toUniq } from 'src/app/shared/ser
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 
 @Component({
-  selector: 'app-chart-of-account-form',
-  templateUrl: './chart-of-account-form.component.html',
-  styleUrls: ['./chart-of-account-form.component.scss']
+    selector: 'app-chart-of-account-form',
+    templateUrl: './chart-of-account-form.component.html',
+    styleUrls: ['./chart-of-account-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChartOfAccountFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   process: boolean = false;
   loading: boolean = true;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   accountType: AbstractControl;
   detailAccount: AbstractControl;
   subOfAccount: AbstractControl;
@@ -34,7 +36,7 @@ export class ChartOfAccountFormComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ChartOfAccountFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     public ds: SwotifyService,
     public store: ChartOfAccountStore,

@@ -1,19 +1,21 @@
 <div class="page-full">
-    <div class="nav-col">
-        <div class="nav-list-item" (click)="store.toggleMainL = !store.toggleMainL">
-            <button type="button" mat-button mat-icon-button class="icon-container">
-                <ion-icon name="menu-outline"></ion-icon>
-            </button>
-        </div>
-        <div class="nav-list-item" *ngFor="let item of apps_items">
-            <div class="active-space"></div>
-            <a class="icon-container" mat-button mat-icon-button #appTab="routerLinkActive" [routerLink]="[item?.url]"
-                routerLinkActive="active" [matTooltip]="item?.toolTip" matTooltipClass="tooltipClass">
-                <ion-icon [name]="item?.icon + (appTab?.isActive?'':'-outline')"></ion-icon>
-            </a>
-        </div>
+  <div class="nav-col">
+    <div class="nav-list-item" (click)="store.toggleMainL = !store.toggleMainL">
+      <button type="button" mat-icon-button class="icon-container">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
     </div>
-    <div class="nav-col-r">
-        <router-outlet></router-outlet>
-    </div>
+    @for (item of apps_items; track item) {
+      <div class="nav-list-item">
+        <div class="active-space"></div>
+        <a class="icon-container" mat-icon-button #appTab="routerLinkActive" [routerLink]="[$safeNavigationMigration(item?.url)]"
+          routerLinkActive="active" [matTooltip]="$safeNavigationMigration(item?.toolTip)" matTooltipClass="tooltipClass">
+          <ion-icon [name]="$safeNavigationMigration(item?.icon) + (appTab?.isActive?'':'-outline')"></ion-icon>
+        </a>
+      </div>
+    }
+  </div>
+  <div class="nav-col-r">
+    <router-outlet></router-outlet>
+  </div>
 </div>

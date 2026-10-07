@@ -1,7 +1,7 @@
 <nav class="app-navbar-header" aria-label="Top Toolbar" *mobxAutorun>
   <div class="nav-left">
     <a class="app-button brand" aria-label="GDI" [routerLink]="['/']">
-      <img [src]="auth?.APP_INFO?.system_logo" />
+      <img [src]="$safeNavigationMigration(auth?.APP_INFO?.system_logo)" />
       <div class="app-name">
         <!-- <span>ប្រព័ន្ធអេកូឡូស៊ីនៃក្រសួងយុត្តិធម៌</span> -->
         <span>{{auth?.APP_INFO?.name}}</span>
@@ -9,160 +9,160 @@
     </a>
   </div>
 
-  <div class="center-menu-nav-big center-menu-nav" *ngIf="activeAccount && !auth?.dataEntryOnly && !auth?.recipient && !auth?.isEmbassyUser">
-    <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស"
-      (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/applications']"
-      routerLinkActive="active" #criminalTab="routerLinkActive">
-      <mat-icon [matBadge]="auth?.totalDocNotify" [matBadgeHidden]="auth?.totalDocNotify<=0" matBadgeColor="warn">
-        <ion-icon [name]="criminalTab?.isActive?'home':'home-outline'"></ion-icon>
-      </mat-icon>
-    </a>
-    <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="បញ្ជីថ្កោលទោស"
-      (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/decree-record']"
-      routerLinkActive="active" #homeTab="routerLinkActive">
-      <mat-icon [matBadge]="auth?.totalDocNotify" [matBadgeHidden]="auth?.totalDocNotify<=0" matBadgeColor="warn">
-        <ion-icon [name]="homeTab?.isActive?'duplicate':'duplicate-outline'"></ion-icon>
-      </mat-icon>
-    </a>
-
-    <a matRipple class="app-button" #hrTab="routerLinkActive" (click)="onNotification('total_hr_notify')"
-      [routerLink]="['/criminal-record/folder']" matTooltipClass="tooltipClass" matTooltip="បញ្ជីលេខរៀង"
-      routerLinkActive="active">
-      <mat-icon [matBadge]="auth?.totalHrNotify" [matBadgeHidden]="auth?.totalHrNotify<=0" matBadgeColor="warn">
-        <ion-icon [name]="hrTab?.isActive?'folder-open':'folder-open-outline'"></ion-icon>
-      </mat-icon>
-    </a>
-
-    <a matRipple class="app-button" [routerLink]="['/criminal-record/approval']" #planingTab="routerLinkActive"
-      routerLinkActive="active" (click)="onNotification('total_criminal_notify_read')" matTooltipClass="tooltipClass"
-      matTooltip="អនុម័តព្រឹត្តិបត្រថ្កោលទោស">
-      <mat-icon [matBadge]="auth?.totalCriminalNotify" [matBadgeHidden]="auth?.totalCriminalNotify<=0"
-        matBadgeColor="warn">
-        <ion-icon [name]="planingTab?.isActive?'receipt':'receipt-outline'"></ion-icon>
-      </mat-icon>
-    </a>
-
-    <a matRipple class="app-button" [routerLink]="['/criminal-record/criminal-latter']" #driveTab="routerLinkActive"
-      routerLinkActive="active" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ពព្រឹត្តិបត្រថ្កោលទោស">
-      <ion-icon [name]="driveTab?.isActive?'albums':'albums-outline'"></ion-icon>
-    </a>
-
-  </div>
+  @if (activeAccount && !auth?.dataEntryOnly && !auth?.recipient && !auth?.isEmbassyUser) {
+    <div class="center-menu-nav-big center-menu-nav">
+      <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="សំណើរសុំព្រឹត្តិបត្រថ្កោលទោស"
+        (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/applications']"
+        routerLinkActive="active" #criminalTab="routerLinkActive">
+        <mat-icon [matBadge]="$safeNavigationMigration(auth?.totalDocNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalDocNotify)<=0" matBadgeColor="warn">
+          <ion-icon [name]="criminalTab?.isActive?'home':'home-outline'"></ion-icon>
+        </mat-icon>
+      </a>
+      <a matRipple class="app-button " matTooltipClass="tooltipClass" matTooltip="បញ្ជីថ្កោលទោស"
+        (click)="onNotification('total_doc_notify')" [routerLink]="['/criminal-record/decree-record']"
+        routerLinkActive="active" #homeTab="routerLinkActive">
+        <mat-icon [matBadge]="$safeNavigationMigration(auth?.totalDocNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalDocNotify)<=0" matBadgeColor="warn">
+          <ion-icon [name]="homeTab?.isActive?'duplicate':'duplicate-outline'"></ion-icon>
+        </mat-icon>
+      </a>
+      <a matRipple class="app-button" #hrTab="routerLinkActive" (click)="onNotification('total_hr_notify')"
+        [routerLink]="['/criminal-record/folder']" matTooltipClass="tooltipClass" matTooltip="បញ្ជីលេខរៀង"
+        routerLinkActive="active">
+        <mat-icon [matBadge]="$safeNavigationMigration(auth?.totalHrNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalHrNotify)<=0" matBadgeColor="warn">
+          <ion-icon [name]="hrTab?.isActive?'folder-open':'folder-open-outline'"></ion-icon>
+        </mat-icon>
+      </a>
+      <a matRipple class="app-button" [routerLink]="['/criminal-record/approval']" #planingTab="routerLinkActive"
+        routerLinkActive="active" (click)="onNotification('total_criminal_notify_read')" matTooltipClass="tooltipClass"
+        matTooltip="អនុម័តព្រឹត្តិបត្រថ្កោលទោស">
+        <mat-icon [matBadge]="$safeNavigationMigration(auth?.totalCriminalNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalCriminalNotify)<=0"
+          matBadgeColor="warn">
+          <ion-icon [name]="planingTab?.isActive?'receipt':'receipt-outline'"></ion-icon>
+        </mat-icon>
+      </a>
+      <a matRipple class="app-button" [routerLink]="['/criminal-record/criminal-latter']" #driveTab="routerLinkActive"
+        routerLinkActive="active" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ពព្រឹត្តិបត្រថ្កោលទោស">
+        <ion-icon [name]="driveTab?.isActive?'albums':'albums-outline'"></ion-icon>
+      </a>
+    </div>
+  }
 
   <div class="nav-right">
 
-    <ng-container *ngIf="!auth?.isEmbassyUser && !auth?.dataEntryOnly">
-      <a mat-icon-button class="btn-search-icon" matTooltipClass="tooltipClass" *ngIf="activeAccount">
-        <ion-icon name="search"></ion-icon>
-      </a>
-      <form *ngIf="activeAccount" [formGroup]="form" class="g-search">
-        <button type="submit" mat-button mat-icon-button>
+    @if (!auth?.isEmbassyUser && !auth?.dataEntryOnly) {
+      @if (activeAccount) {
+        <a mat-icon-button class="btn-search-icon" matTooltipClass="tooltipClass">
           <ion-icon name="search"></ion-icon>
-        </button>
-        <input formControlName="search" [placeholder]="'ស្វែងរកព្រឹត្តិបត្រថ្កោលទោស'" [matAutocomplete]="autoSearch" />
-        <mat-autocomplete #autoSearch="matAutocomplete" class="header-auto-complete" (click)="$event.stopPropagation()">
-          <ng-container *ngIf="searchData && searchData?.length > 0 && !isFileManager">
-            <mat-option *ngFor="let item of searchData" [value]=""
-              [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]" (click)="goSearchDetail(item)">
-              <div class="search-content-item two-col">
-                <div class="image-box">
-                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
-                </div>
-                <div class="info-text" routerLinkActive="active">
-                  <p class="title">
-                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
-                  </p>
-                  <p class="no">
-                    {{item?.documentNo}}
-                  </p>
-                </div>
-              </div>
-            </mat-option>
-          </ng-container>
-
-          <ng-container *ngIf="searchData && searchData?.length > 0 && !store?.loadingSearch && isFileManager">
-            <mat-option *ngFor="let item of searchData" [value]="" (click)="goShowDetail(item)">
-              <div class="search-content-item two-col">
-                <div class="file-display">
-                  <file-name-doc [item]="item" [noEye]="true">
-                  </file-name-doc>
-                </div>
-              </div>
-            </mat-option>
-          </ng-container>
-
-          <ng-container *ngIf="store?.loadingSearch && isFileManager">
-            <app-spinner></app-spinner>
-          </ng-container>
-
-          <ng-container
-            *ngIf="searchData && searchData?.length === 0 && store?.documentRecentSearch?.length === 0 && !searching && !store?.loadingSearch">
-            <mat-option [disabled]="true">
-              <div class="empty-block">
-                <div class="center-block-empty" style="flex-direction: row; align-items: center;">
-                  <div class="empty-text">
+        </a>
+      }
+      @if (activeAccount) {
+        <form [formGroup]="form" class="g-search">
+          <button type="submit" mat-icon-button>
+            <ion-icon name="search"></ion-icon>
+          </button>
+          <input formControlName="search" [placeholder]="'ស្វែងរកព្រឹត្តិបត្រថ្កោលទោស'" [matAutocomplete]="autoSearch" />
+          <mat-autocomplete #autoSearch="matAutocomplete" class="header-auto-complete" (click)="$event.stopPropagation()">
+            @if (searchData && searchData?.length > 0 && !isFileManager) {
+              @for (item of searchData; track item) {
+                <mat-option [value]=""
+                  [routerLink]="['/edoc/documents/my-files/all/'+ $safeNavigationMigration(item?.key)]" (click)="goSearchDetail(item)">
+                  <div class="search-content-item two-col">
+                    <div class="image-box">
+                      <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+                    </div>
+                    <div class="info-text" routerLinkActive="active">
+                      <p class="title">
+                        {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+                      </p>
+                      <p class="no">
+                        {{item?.documentNo}}
+                      </p>
+                    </div>
+                  </div>
+                </mat-option>
+              }
+            }
+            @if (searchData && searchData?.length > 0 && !store?.loadingSearch && isFileManager) {
+              @for (item of searchData; track item) {
+                <mat-option [value]="" (click)="goShowDetail(item)">
+                  <div class="search-content-item two-col">
+                    <div class="file-display">
+                      <file-name-doc [item]="item" [noEye]="true">
+                      </file-name-doc>
+                    </div>
+                  </div>
+                </mat-option>
+              }
+            }
+            @if (store?.loadingSearch && isFileManager) {
+              <app-spinner></app-spinner>
+            }
+            @if (searchData && searchData?.length === 0 && store?.documentRecentSearch?.length === 0 && !searching && !store?.loadingSearch) {
+              <mat-option [disabled]="true">
+                <div class="empty-block">
+                  <div class="center-block-empty" style="flex-direction: row; align-items: center;">
+                    <div class="empty-text">
                     <p class="empty-state-desc" style="margin: 0;
                         font-size: 15px;">
-                      ពុំមានប្រវត្តិស្វែងរកឯកសារ
-                    </p>
+                        ពុំមានប្រវត្តិស្វែងរកឯកសារ
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </mat-option>
-          </ng-container>
-
-          <ng-container *ngIf="searchData?.length === 0  && searching">
-            <mat-option>
-              <div class="search-content-item-header">
-                ស្វែងរក
-                <span class="search-text">{{search?.value.length > 30 ?search?.value.substring(0, 30) +
+              </mat-option>
+            }
+            @if (searchData?.length === 0  && searching) {
+              <mat-option>
+                <div class="search-content-item-header">
+                  ស្វែងរក
+                  <span class="search-text">{{search?.value.length > 30 ?search?.value.substring(0, 30) +
                   '...':search?.value}}</span>
-              </div>
-            </mat-option>
-          </ng-container>
-
-          <ng-container *ngIf="searchData?.length === 0 && store?.documentRecentSearch?.length > 0 && !searching">
-
-            <mat-option>
-              <div class="search-content-item-header">
-                ប្រវត្តិស្វែងរក
-              </div>
-            </mat-option>
-            <mat-option *ngFor="let item of store?.documentRecentSearch" [value]="">
-              <a class="search-content-item" [routerLink]="['/edoc/documents/my-files/all/'+ item?.key]">
-                <div class="image-box">
-                  <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
                 </div>
-                <div class="info-text">
-                  <p class="title">
-                    {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
-                  </p>
-                  <p class="no">
-                    {{item?.documentNo}}
-                  </p>
+              </mat-option>
+            }
+            @if (searchData?.length === 0 && store?.documentRecentSearch?.length > 0 && !searching) {
+              <mat-option>
+                <div class="search-content-item-header">
+                  ប្រវត្តិស្វែងរក
                 </div>
-                <button class="remove-recent" mat-icon-button (click)="removeRecentSearch(item)">
-                  <mat-icon class="mat-18">clear</mat-icon>
-                </button>
-              </a>
-            </mat-option>
-          </ng-container>
-        </mat-autocomplete>
-      </form>
+              </mat-option>
+              @for (item of store?.documentRecentSearch; track item) {
+                <mat-option [value]="">
+                  <a class="search-content-item" [routerLink]="['/edoc/documents/my-files/all/'+ $safeNavigationMigration(item?.key)]">
+                    <div class="image-box">
+                      <img style="max-width: 100px;" [src]="item?.photoUrl|| item?.coverFile?.downloadURL??defaultImg" alt="">
+                    </div>
+                    <div class="info-text">
+                      <p class="title">
+                        {{item?.documentTitle?.length > 30 ?item?.documentTitle.substring(0, 30) + '...':item?.documentTitle}}
+                      </p>
+                      <p class="no">
+                        {{item?.documentNo}}
+                      </p>
+                    </div>
+                    <button class="remove-recent" mat-icon-button (click)="removeRecentSearch(item)">
+                      <mat-icon class="mat-18">clear</mat-icon>
+                    </button>
+                  </a>
+                </mat-option>
+              }
+            }
+          </mat-autocomplete>
+        </form>
+      }
+      @if (auth?.profile?.isAdmin) {
+        <a routerLinkActive="active" mat-icon-button matTooltipClass="tooltipClass" [routerLink]="['/apps']" class="btn-p-icon app-button btn-sm-icon"
+          matTooltip="ទិន្នន័យប្រព័ន្ធ">
+          <mat-icon>
+            <ion-icon name="apps"></ion-icon>
+          </mat-icon>
+        </a>
+      }
+    }
 
-      <a *ngIf="auth?.profile?.isAdmin" routerLinkActive="active" mat-button
-        mat-icon-button matTooltipClass="tooltipClass" [routerLink]="['/apps']" class="btn-p-icon app-button"
-        matTooltip="ទិន្នន័យប្រព័ន្ធ">
-        <mat-icon>
-          <ion-icon name="apps"></ion-icon>
-        </mat-icon>
-      </a>
-
-    </ng-container>
-
-    <a mat-button mat-icon-button [matMenuTriggerFor]="notificationsMenu" matTooltipClass="tooltipClass"
-      (click)="onNotification('total_notify')" [matBadge]="auth?.totalNotify" [matBadgeHidden]="auth?.totalNotify<=0"
-      matBadgeColor="warn" class="btn-p-icon app-button" matTooltip="ជូនដំណឹង">
+    <a mat-icon-button [matMenuTriggerFor]="notificationsMenu" matTooltipClass="tooltipClass"
+      (click)="onNotification('total_notify')" [matBadge]="$safeNavigationMigration(auth?.totalNotify)" [matBadgeHidden]="$safeNavigationMigration(auth?.totalNotify)<=0"
+      matBadgeColor="warn" class="btn-p-icon app-button btn-sm-icon" matTooltip="ជូនដំណឹង">
       <mat-icon>
         <ion-icon name="notifications"></ion-icon>
       </mat-icon>
@@ -174,28 +174,36 @@
           <h4>ជូនដំណឹង</h4>
         </div>
         <mat-divider></mat-divider>
-        <div class="noNotify" *ngIf="notify?.notifications?.length === 0">
-          មិនមានទិន្នន័យ
-        </div>
-        <virtual-scroller #scroll [items]="notify?.notifications" (vsEnd)="fetchMore($event)">
+        @if (notify?.notifications?.length === 0) {
+          <div class="noNotify">
+            មិនមានទិន្នន័យ
+          </div>
+        }
+        <cdk-virtual-scroll-viewport itemSize="80" #scroll autosize (vsEnd)="fetchMore($event)">
           <div class="notify-list-item" (click)="onDocument(item,i)"
-            *ngFor="let item of scroll.viewPortItems;let i=index">
+            *cdkVirtualFor="let item of $safeNavigationMigration(notify?.notifications);let i=index">
             <div class="img-box">
-              <img *ngIf="item?.notifyBy?.photoUrl" [src]="item?.notifyBy?.photoUrl" alt="">
-              <img *ngIf="!item?.notifyBy?.photoUrl" [src]="NO_AVATAR" alt="">
+              @if (item?.notifyBy?.photoUrl) {
+                <img [src]="$safeNavigationMigration(item?.notifyBy?.photoUrl)" alt="">
+              }
+              @if (!item?.notifyBy?.photoUrl) {
+                <img [src]="NO_AVATAR" alt="">
+              }
             </div>
             <div class="list-text">
               <strong>{{item?.body}}</strong>
-              <span>{{item?.created_at?.toDate() | amTimeAgo}}</span>
+              <span>{{$safeNavigationMigration(item?.created_at?.toDate()) | amTimeAgo}}</span>
             </div>
           </div>
-          <app-spinner *ngIf="notify.fetching"></app-spinner>
-        </virtual-scroller>
+          @if (notify.fetching) {
+            <app-spinner></app-spinner>
+          }
+        </cdk-virtual-scroll-viewport>
       </div>
     </mat-menu>
 
 
-    <a mat-button mat-icon-button [matMenuTriggerFor]="userMenu" matTooltipClass="tooltipClass" matTooltip="គណនី"
+    <a mat-icon-button [matMenuTriggerFor]="userMenu" matTooltipClass="tooltipClass" matTooltip="គណនី"
       class="btn-p-icon">
       <img [src]="photoUrl" alt="GDI" alt="user">
     </a>
@@ -203,10 +211,14 @@
     <mat-menu #userMenu="matMenu">
       <div class="user-notify" (click)="$event.stopPropagation();">
         <div class="notify-lists-header">
-          <ng-container *ngFor="let item of auth?.currentDepartment?.workplaceDisplayPath;let i=index;">
-            <h4 *ngIf="i===0">{{item?.name}}</h4>
-            <p *ngIf="i>0">{{item?.name}}</p>
-          </ng-container>
+          @for (item of auth?.currentDepartment?.workplaceDisplayPath; track item; let i = $index) {
+            @if (i===0) {
+              <h4>{{item?.name}}</h4>
+            }
+            @if (i>0) {
+              <p>{{item?.name}}</p>
+            }
+          }
         </div>
         <div class="wellcome-user" style="text-align: center;">
           <div class="empty-avatar" style="height: 120px; width: 120px; margin: 0 auto;">
@@ -224,31 +236,41 @@
           <div class="wellcome-text k-wellcome-text" style="margin-top: 5px;">
             <span>{{auth?.employee?.displayName}}</span>
           </div>
-          <mat-progress-bar *ngIf="START_UPLOAD" mode="determinate" [value]="uploadPercent | async ">
-          </mat-progress-bar>
+          @if (START_UPLOAD) {
+            <mat-progress-bar mode="determinate" [value]="uploadPercent | async ">
+            </mat-progress-bar>
+          }
         </div>
 
-        <div class="nav-committee-u" *ngIf="auth?.currentDepartment">
-          <mat-icon>stay_current_portrait</mat-icon>
-          <div class="nav-committee-u-t">
-            <h5>{{auth?.employee?.currentTitle}}</h5>
-          </div>
-        </div>
-
-        <ng-container *ngIf="auth?.employee?.workplace?.length>0">
-          <button type="button" mat-button class="devsite-cpwd"
-            [ngClass]="auth?.currentDepartment?.key===item?.key?'active':''"
-            *ngFor="let item of auth?.employee?.workplace" (click)="onChangeApps(item)">
-            <div class="devsite-list-text">
-              <div class="icon-round" *ngIf="!item?.file?.downloadUrl">
-                <mat-icon>maps_home_work</mat-icon>
-              </div>
-              <img [src]="item?.file?.downloadUrl" *ngIf="item?.file?.downloadUrl">
-              <span>{{item?.name}}</span>
-              <mat-icon>{{auth?.currentDepartment?.key===item?.key?'check_circle':'keyboard_arrow_right'}}</mat-icon>
+        @if (auth?.currentDepartment) {
+          <div class="nav-committee-u">
+            <mat-icon>stay_current_portrait</mat-icon>
+            <div class="nav-committee-u-t">
+              <h5>{{auth?.employee?.currentTitle}}</h5>
             </div>
-          </button>
-        </ng-container>
+          </div>
+        }
+
+        @if (auth?.employee?.workplace?.length>0) {
+          @for (item of auth?.employee?.workplace; track item) {
+            <button type="button" mat-button class="devsite-cpwd"
+              [ngClass]="auth?.currentDepartment?.key===item?.key?'active':''"
+              (click)="onChangeApps(item)">
+              <div class="devsite-list-text">
+                @if (!item?.file?.downloadUrl) {
+                  <div class="icon-round">
+                    <mat-icon>maps_home_work</mat-icon>
+                  </div>
+                }
+                @if (item?.file?.downloadUrl) {
+                  <img [src]="$safeNavigationMigration(item?.file?.downloadUrl)">
+                }
+                <span>{{item?.name}}</span>
+                <mat-icon>{{auth?.currentDepartment?.key===item?.key?'check_circle':'keyboard_arrow_right'}}</mat-icon>
+              </div>
+            </button>
+          }
+        }
 
         <mat-divider></mat-divider>
         <button type="button" mat-button class="devsite-cpwd" (click)="changePassword()">

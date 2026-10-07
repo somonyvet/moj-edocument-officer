@@ -1,18 +1,20 @@
 <div class="filter-penal" style="width: 350px;">
   <!-- <h4>របាយការណ៍សង្ខេបតាម</h4>
-    <div class="filter-box">
-      <button mat-button (click)="_onPress(true)" class="filter-panel-item">
-        បទល្មើសទាំងអស់
-      </button>
-    </div> -->
+  <div class="filter-box">
+    <button mat-button (click)="_onPress(true)" class="filter-panel-item">
+      បទល្មើសទាំងអស់
+    </button>
+  </div> -->
   <h4>ជ្រើសរើសតាមប៉ុស្តិ៍</h4>
   <label class="label-date">ប៉ុស្តិ៍</label>
   <div class="from-date-to-date  w-full">
     <div class="date-bl">
       <mat-select [formControl]="inspection" [compareWith]="compareWith">
-        <mat-option *ngFor="let item of inspectionList" [value]="item">
-          {{item?.name}}
-        </mat-option>
+        @for (item of inspectionList; track item) {
+          <mat-option [value]="item">
+            {{item?.name}}
+          </mat-option>
+        }
       </mat-select>
     </div>
   </div>

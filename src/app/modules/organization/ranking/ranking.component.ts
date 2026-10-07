@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
 import { IRanking } from 'src/app/interfaces/document/document.interface';
@@ -12,9 +12,11 @@ import { RankingStore } from 'src/app/stores/document/ranking.store';
 import { RankingFormComponent } from './ranking-form/ranking-form.component';
 
 @Component({
-  selector: 'app-ranking',
-  templateUrl: './ranking.component.html',
-  styleUrls: ['./ranking.component.scss']
+    selector: 'app-ranking',
+    templateUrl: './ranking.component.html',
+    styleUrls: ['./ranking.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RankingComponent implements OnInit, OnDestroy {
   tabs = tabs.ranking

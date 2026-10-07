@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,9 +13,11 @@ import { DOCUMENT_FLOW_CATEGORY } from 'src/app/modules/criminal-record/dummy/cr
 import { ICriminalRecord } from 'src/app/interfaces/criminal.interface';
 
 @Component({
-  selector: 'app-criminal-application-decree',
-  templateUrl: './criminal-application-decree.component.html',
-  styleUrls: ['./criminal-application-decree.component.scss']
+    selector: 'app-criminal-application-decree',
+    templateUrl: './criminal-application-decree.component.html',
+    styleUrls: ['./criminal-application-decree.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationDecreeComponent implements OnInit {
   lottie: AnimationOptions = {

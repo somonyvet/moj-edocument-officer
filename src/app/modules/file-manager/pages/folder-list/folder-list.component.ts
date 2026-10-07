@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,9 +14,11 @@ import { OpenFileComponent } from '../../components/open-file/open-file.componen
 import { SideNavService } from 'src/app/shared/services/sidenav.servce';
 
 @Component({
-  selector: 'app-folder-list',
-  templateUrl: './folder-list.component.html',
-  styleUrls: ['./folder-list.component.scss']
+    selector: 'app-folder-list',
+    templateUrl: './folder-list.component.html',
+    styleUrls: ['./folder-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class FolderListComponent implements OnInit {
 

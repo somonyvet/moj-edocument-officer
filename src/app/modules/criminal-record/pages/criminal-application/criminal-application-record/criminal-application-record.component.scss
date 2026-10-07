@@ -1,4 +1,4 @@
-@import '../../../../../../assets/styles/variable.scss';
+@use '../../../../../../assets/styles/variable.scss' as *;
 
 .search-result-container {
   display: flex;
@@ -51,7 +51,7 @@
         flex-direction: column;
         cursor: pointer;
 
-        .mat-list-item-content {
+        .mat-mdc-list-item-unscoped-content {
           align-items: flex-start;
         }
 

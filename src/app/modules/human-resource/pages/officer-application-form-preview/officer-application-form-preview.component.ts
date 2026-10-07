@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -13,13 +13,15 @@ import { HrStore } from '../../stores/hr.store';
 import { HumanResourceApprovalComponent } from '../human-resource-approval/human-resource-approval.component';
 
 @Component({
-  selector: 'app-officer-application-form-preview',
-  templateUrl: './officer-application-form-preview.component.html',
-  styleUrls: ['./officer-application-form-preview.component.scss']
+    selector: 'app-officer-application-form-preview',
+    templateUrl: './officer-application-form-preview.component.html',
+    styleUrls: ['./officer-application-form-preview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class OfficerApplicationFormPreviewComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   params: any;
   parentParams: any;
   GENDER_KH = GENDER_DATA;
@@ -68,7 +70,7 @@ export class OfficerApplicationFormPreviewComponent implements OnInit {
   positionHistoryArray = [];
   rankHistoryArray = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
@@ -189,7 +191,7 @@ export class OfficerApplicationFormPreviewComponent implements OnInit {
   }
   //multiform
   removeFormArrayWithField(name: string, index?: number) {
-    const formArray = this.form.get(name) as FormArray;
+    const formArray = this.form.get(name) as UntypedFormArray;
 
     if (formArray?.controls?.length === 1) return;
     formArray.removeAt(formArray?.controls?.length - 1);
@@ -204,7 +206,7 @@ export class OfficerApplicationFormPreviewComponent implements OnInit {
   }
 
   addFormArrayWithFields(name: string, fields: any[], index?: number) {
-    const formArray = this.form?.get(name) as FormArray;
+    const formArray = this.form?.get(name) as UntypedFormArray;
     if (index) {
       if (index === formArray?.length) {
         let object = {}
@@ -230,7 +232,7 @@ export class OfficerApplicationFormPreviewComponent implements OnInit {
     }
   }
   getFormArrvalueFields(name: string, fields: string[]) {
-    const formArr = this.form.get(name) as FormArray;
+    const formArr = this.form.get(name) as UntypedFormArray;
     return formArr?.controls?.filter(f => f?.get(fields[0])?.value).map(m => {
       let obj = {};
       fields.forEach(m1 => {

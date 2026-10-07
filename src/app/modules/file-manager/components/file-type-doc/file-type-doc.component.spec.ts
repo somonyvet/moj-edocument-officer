@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileTypeDocComponent } from './file-type-doc.component';
 
@@ -6,7 +6,7 @@ describe('FileTypeDocComponent', () => {
   let component: FileTypeDocComponent;
   let fixture: ComponentFixture<FileTypeDocComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FileTypeDocComponent ]
     })

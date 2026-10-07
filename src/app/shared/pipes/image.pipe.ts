@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IUserPined } from 'src/app/interfaces/document/document.interface';
 
 @Pipe({
-  name: 'removeImgWhiteSpace'
+    name: 'removeImgWhiteSpace',
+    standalone: false
 })
 export class removeImgWhiteSpacePipe implements PipeTransform {
   transform(imgUrl: string):any {

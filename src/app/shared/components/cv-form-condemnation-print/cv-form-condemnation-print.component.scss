@@ -1,4 +1,4 @@
-@import "/src/assets/styles/variable.scss";
+@use "/src/assets/styles/variable.scss" as *;
 
 
 p {
@@ -207,7 +207,7 @@ h3 {
 
 }
 
-.mat-standard-chip {
+.mat-mdc-standard-chip {
   font-family: $appFont;
 }
 

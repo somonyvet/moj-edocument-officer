@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { SettingStore } from 'src/app/stores/settings/setting.store';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { PrintService } from 'src/app/shared/services/print.service';
 
 @Component({
-  selector: 'app-settings-detail',
-  templateUrl: './settings-detail.component.html',
-  styleUrls: ['./settings-detail.component.scss']
+    selector: 'app-settings-detail',
+    templateUrl: './settings-detail.component.html',
+    styleUrls: ['./settings-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SettingsDetailComponent implements OnInit {
   @Input() title: string;

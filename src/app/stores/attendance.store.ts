@@ -118,7 +118,7 @@ export class AttendanceStore {
                 this.ds.officerAttendancesRef(this.auth.User.key)
                     .doc(dateKey.toString())
                     .snapshotChanges().subscribe((att) => {
-                        this.attendanceRef = att.payload.ref;
+                        this.attendanceRef = (att.payload as any).ref;
                         this.attendance = pushToObject(att.payload);
                     })
 

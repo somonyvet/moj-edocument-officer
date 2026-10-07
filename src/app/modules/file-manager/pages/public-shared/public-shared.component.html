@@ -2,64 +2,68 @@
   <mat-sidenav-content>
     <div class="page-section" *mobxAutorun>
       <div class="cs-container file-content">
-        <ng-container *ngIf="!store?.loading && !loading">
-          <app-empty
-            *ngIf="store?.empty"
-            [subtitle]="APP_SUBTITLE"
-            [name]="APP_INFO"
-            [img]="APP_IMG"
-          >
-          </app-empty>
+        @if (!store?.loading && !loading) {
+          @if (store?.empty) {
+            <app-empty
+              [subtitle]="APP_SUBTITLE"
+              [name]="APP_INFO"
+              [img]="APP_IMG"
+              >
+            </app-empty>
+          }
           <div class="scrollable-table">
-            <table class="table-wrapper" *ngIf="!store?.empty">
-              <thead class="table-header">
-                <tr class="table-row">
-                  <th class="table-col">ល.រ</th>
-                  <th class="table-col">ឯកសារ</th>
-                  <th class="table-col">ម្ចាស់ឯកសារ</th>
-                  <th class="table-col">បច្ចុប្បន្នភាព</th>
-                  <th class="table-col">ទំហំ</th>
-                </tr>
-              </thead>
-              <tbody class="table-body">
-                <ng-container>
-                  <tr
+            @if (!store?.empty) {
+              <table class="table-wrapper">
+                <thead class="table-header">
+                  <tr class="table-row">
+                    <th class="table-col">ល.រ</th>
+                    <th class="table-col">ឯកសារ</th>
+                    <th class="table-col">ម្ចាស់ឯកសារ</th>
+                    <th class="table-col">បច្ចុប្បន្នភាព</th>
+                    <th class="table-col">ទំហំ</th>
+                  </tr>
+                </thead>
+                <tbody class="table-body">
+                  <ng-container>
+                    @for (item of store?.data; track item; let i = $index) {
+                      <tr
                     [ngClass]="
                       store?.selectedItem?.key === item?.key ? 'active' : ''
                     "
-                    *ngFor="let item of store?.data; let i = index"
-                    (click)="onSelectedItem(item)"
-                    (dblclick)="onOpenItem(item)"
+                        (click)="onSelectedItem(item)"
+                        (dblclick)="onOpenItem(item)"
                     (contextmenu)="
                       rightMenu($event, item); $event.preventDefault()
                     "
-                  >
-                    <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
-                    <td class="table-col">
-                      <div class="file-display">
-                        <file-name-doc
-                          [parentFolder]="parentFolder"
-                          [selectedItem]="store?.selectedItem"
-                          [item]="item"
                         >
-                        </file-name-doc>
-                      </div>
-                    </td>
-                    <td class="table-col">
-                      {{
-                        item?.created_by?.key === auth?.user?.uid
+                        <td class="table-col" style="width: 12px">{{ i + 1 }}</td>
+                        <td class="table-col">
+                          <div class="file-display">
+                            <file-name-doc
+                              [parentFolder]="parentFolder"
+                              [selectedItem]="$safeNavigationMigration(store?.selectedItem)"
+                              [item]="item"
+                              >
+                            </file-name-doc>
+                          </div>
+                        </td>
+                        <td class="table-col">
+                          {{
+                          item?.created_by?.key === auth?.user?.uid
                           ? "me"
                           : item?.created_by?.displayName
-                      }}
-                    </td>
-                    <td class="table-col">
-                      {{ item?.updated_at?.toDate() | date: "medium" }}
-                    </td>
-                    <td class="table-col">{{ item | fileSize }}</td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
+                          }}
+                        </td>
+                        <td class="table-col">
+                          {{ $safeNavigationMigration(item?.updated_at?.toDate()) | date: "medium" }}
+                        </td>
+                        <td class="table-col">{{ item | fileSize }}</td>
+                      </tr>
+                    }
+                  </ng-container>
+                </tbody>
+              </table>
+            }
           </div>
           <div
             class="no-item"
@@ -67,8 +71,10 @@
               rightMenu($event, store.selectedItem); $event.preventDefault()
             "
           ></div>
-        </ng-container>
-        <app-placeholder *ngIf="store?.loading || loading"></app-placeholder>
+        }
+        @if (store?.loading || loading) {
+          <app-placeholder></app-placeholder>
+        }
       </div>
     </div>
     <ng-container>
@@ -94,10 +100,10 @@
     [fixedInViewport]="true"
     [fixedTopGap]="122"
     [fixedBottomGap]="0"
-  >
+    >
     <app-file-info
       *mobxAutorun
-      [selectedItem]="store?.selectedItem"
+      [selectedItem]="$safeNavigationMigration(store?.selectedItem)"
     ></app-file-info>
   </mat-sidenav>
 </mat-sidenav-container>

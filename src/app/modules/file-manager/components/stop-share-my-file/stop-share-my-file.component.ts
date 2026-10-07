@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,12 +15,14 @@ import { statusObj, driveObj, PERMISSION_OPTIONS } from 'src/app/dummy/status';
 import { IShareFile } from 'src/app/interfaces/file-manager';
 
 @Component({
-  selector: 'app-stop-share-my-file',
-  templateUrl: './stop-share-my-file.component.html',
-  styleUrls: ['./stop-share-my-file.component.scss']
+    selector: 'app-stop-share-my-file',
+    templateUrl: './stop-share-my-file.component.html',
+    styleUrls: ['./stop-share-my-file.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class StopShareMyFileComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: AbstractControl;
 
   PERMISSION_OPTIONS: any[] = PERMISSION_OPTIONS
@@ -34,7 +36,7 @@ export class StopShareMyFileComponent implements OnInit {
   file_ref:any;
   constructor(public dialogRef: MatDialogRef<StopShareMyFileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: FileManager,
     public afs: AngularFirestore,
     public auth: AuthStore,

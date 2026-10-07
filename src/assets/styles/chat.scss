@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "variable.scss" as *;
+
 $navbar-width: 360px;
 $chatbox-width: 328px;
 $chatbox-height: 455px;
@@ -328,7 +331,7 @@ $chatbox-header-shadow-color: rgb(197, 197, 197);
 
             width: 0px;
             height: 40px;
-            background-color: lighten($color: $primary, $amount: 10);
+            background-color: color.adjust($primary, $lightness: 10%);
           }
 
           .top-buttons {
@@ -348,7 +351,7 @@ $chatbox-header-shadow-color: rgb(197, 197, 197);
               outline: none;
               padding: 6px 7px;
               border-radius: 20px;
-              background-color: $white;
+              background-color: $whiteColor;
 
               display: flex;
               align-items: center;

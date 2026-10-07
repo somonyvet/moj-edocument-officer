@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
 import { tabs } from 'src/app/dummy/tabs';
@@ -21,9 +21,11 @@ const STATUS_QUERY = {
 }
 
 @Component({
-  selector: 'app-criminal-application-direct-letter3-general',
-  templateUrl: './criminal-application-direct-letter3-general.component.html',
-  styleUrls: ['./criminal-application-direct-letter3-general.component.scss']
+    selector: 'app-criminal-application-direct-letter3-general',
+    templateUrl: './criminal-application-direct-letter3-general.component.html',
+    styleUrls: ['./criminal-application-direct-letter3-general.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalApplicationDirectLetter3GeneralComponent implements OnInit, OnDestroy {
   loading: boolean = true;

@@ -1,7 +1,7 @@
 import { pushToArray, pushToObject } from 'src/app/shared/services/convert.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { Component, Inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { OfficerStore } from 'src/app/stores/document/officer.store';
 import { tabs } from 'src/app/dummy/tabs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,9 +23,11 @@ import { FourthQuarterComponent } from './fourth-quarter/fourth-quarter.componen
 
 
 @Component({
-  selector: 'app-indicators',
-  templateUrl: './indicators.component.html',
-  styleUrls: ['./indicators.component.scss']
+    selector: 'app-indicators',
+    templateUrl: './indicators.component.html',
+    styleUrls: ['./indicators.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class IndicatorsComponent implements OnInit {
   title = 'សូចនាករ';

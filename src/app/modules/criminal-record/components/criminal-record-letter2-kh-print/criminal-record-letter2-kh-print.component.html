@@ -1,552 +1,545 @@
 <div class="eform new" style="margin:0 auto 0 auto">
-    <div class="head p-rel c-head-print kh3-head" [ngStyle]="{'height': (296 + headHeight)+'px'}">
-      <div class="head-item head-item-print" style="align-items: flex-start;">
-        <div class="profile-box container-header-input" style="border: none;">
-          <img class="no-print" src="../../../../../../assets/images/moj.png">
-          <span class="feTitle b no-print" style="white-space:nowrap;font-size:24px;">
-            ក្រសួងយុត្តិធម៌
-          </span>
-        </div>
-        <div class="row-item kh3-row-item khmer-date-picker ds-f" style="margin-top: 20px; padding: 0;">
-          <div class="f-item" style="display: flex; margin-left: -18px;">
-            <span class="nor-fam no-print" style="border-bottom: 1px solid #28803f!important;font-size:22px">លេខ: </span>
-            <!-- <p class="nor-fam-field" style="width: 160px; border-bottom: 1px dotted #28803f!important;">
-            </p> -->
-          </div>
-        </div>
+  <div class="head p-rel c-head-print kh3-head" [ngStyle]="{'height': (296 + headHeight)+'px'}">
+    <div class="head-item head-item-print" style="align-items: flex-start;">
+      <div class="profile-box container-header-input" style="border: none;">
+        <img class="no-print" src="../../../../../../assets/images/moj.png">
+        <span class="feTitle b no-print" style="white-space:nowrap;font-size:24px;">
+          ក្រសួងយុត្តិធម៌
+        </span>
       </div>
-      <div class="flex1"></div>
-      <div class="head-item">
-        <p class="feTitle b no-print" style="font-size:32px">ព្រះរាជាណាចក្រកម្ពុជា</p>
-        <p class="feTitle b no-print">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-        <p class="star no-print" style="color:#28803f">3</p>
-        <div style="height: 6px; margin:0">
-        </div>
-        <p class="feTitle b no-print" style="font-size:30px;white-space: nowrap;">ព្រឹត្តិបត្រថ្កោលទោសលេខ
-          <strong>៣</strong>
-        </p>
-      </div>
-      <div class="flex1"></div>
-      <div class="head-item">
+      <div class="row-item kh3-row-item khmer-date-picker ds-f" style="margin-top: 20px; padding: 0;">
+        <div class="f-item" style="display: flex; margin-left: -18px;">
+          <span class="nor-fam no-print" style="border-bottom: 1px solid #28803f!important;font-size:22px">លេខ: </span>
+          <!-- <p class="nor-fam-field" style="width: 160px; border-bottom: 1px dotted #28803f!important;">
+        </p> -->
       </div>
     </div>
-    <div class="body" style="width:100%;">
-      <div class="body-item kh-3" style="height:1330px">
-        <div class="row-item kh3-row-item" style="position:relative">
-          <div class="abs-slider">
-            <div class="example-label-container">
-              <label class="example-value-label">{{headHeight}}</label>
-            </div>
-            <mat-slider style="width:200px;" (change)="changeSlider($event,true)" min="-50" max="50" step="5" [value]="headHeight">
-              <input matSliderThumb>
-            </mat-slider>
-          </div>
-          <div class="abs-div-btn">
-            <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS1 = sizeS1 - 1" class="decree1">A-</button>
-            <button class="btn-p-icon app-button no-print-btn" style="margin-right:492px" mat-button (click)="sizeS1 = sizeS1 + 1" class="decree1">A+</button>
-            <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS2 = sizeS2 - 1" class="decree1">A-</button>
-            <button class="btn-p-icon app-button no-print-btn" style="margin-right:83px" mat-button (click)="sizeS2 = sizeS2 + 1" class="decree1">A+</button>
-            <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS3 = sizeS3 - 1" class="decree1">A-</button>
-            <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS3 = sizeS3 + 1" class="decree1">A+</button>
-          </div>
-          <div class="f-1 kh3-f1-name " style="min-width: 480px;">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">នាមត្រកូលនិងនាមខ្លួន</span>
-                <span>:</span>
-              </span>
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand" style="padding: 0 12px;">
-              <strong [ngStyle]="{'font-size': sizeS1+'px'}" [innerHTML]="((Item?.last_name||'')+' '+(Item?.first_name||''))|addMoreSpaceToString"></strong>
-            </p>
-          </div>
-          <div class="f-1 kh3-f1-3" style="flex: none;">
-            <span class="label-title no-print-kh3">ភេទ</span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n2">{{Item?.gender?.name}} </p>
-          </div>
-          <div class="f-1 kh3-f1-1">
-            <span class="label-title no-print-kh3">សញ្ជាតិដើម</span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1" [ngStyle]="{'font-size': sizeS2+'px'}">{{Item?.before_nationality?.kh_nationality}} </p>
-          </div>
-          <div class="f-1 kh3-f1-2">
-            <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន</span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n" [ngStyle]="{'font-size': sizeS3+'px'}">{{Item?.current_nationality?.kh_nationality}} </p>
-          </div>
+  </div>
+  <div class="flex1"></div>
+  <div class="head-item">
+    <p class="feTitle b no-print" style="font-size:32px">ព្រះរាជាណាចក្រកម្ពុជា</p>
+    <p class="feTitle b no-print">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+    <p class="star no-print" style="color:#28803f">3</p>
+    <div style="height: 6px; margin:0">
+    </div>
+    <p class="feTitle b no-print" style="font-size:30px;white-space: nowrap;">ព្រឹត្តិបត្រថ្កោលទោសលេខ
+      <strong>៣</strong>
+    </p>
+  </div>
+  <div class="flex1"></div>
+  <div class="head-item">
+  </div>
+</div>
+<div class="body" style="width:100%;">
+  <div class="body-item kh-3" style="height:1330px">
+    <div class="row-item kh3-row-item" style="position:relative">
+      <div class="abs-slider">
+        <div class="example-label-container">
+          <label class="example-value-label">{{headHeight}}</label>
         </div>
-        <div class="row-item kh3-row-item">
-          <div class="f-1 ">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ឈ្មោះហៅក្រៅ</span>
-                <span>:</span>
-              </span>
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-pd1" [innerHTML]="(Item?.nick_name|nicknameSpace)?(Item?.nick_name|addMoreSpaceToString):'/'"></p>
-          </div>
+        <mat-slider style="width:200px;" (change)="changeSlider($event,true)" min="-50" max="50" step="5" [value]="headHeight">
+          <input matSliderThumb>
+        </mat-slider>
+      </div>
+      <div class="abs-div-btn">
+        <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS1 = sizeS1 - 1" class="decree1">A-</button>
+        <button class="btn-p-icon app-button no-print-btn" style="margin-right:492px" mat-button (click)="sizeS1 = sizeS1 + 1" class="decree1">A+</button>
+        <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS2 = sizeS2 - 1" class="decree1">A-</button>
+        <button class="btn-p-icon app-button no-print-btn" style="margin-right:83px" mat-button (click)="sizeS2 = sizeS2 + 1" class="decree1">A+</button>
+        <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS3 = sizeS3 - 1" class="decree1">A-</button>
+        <button class="btn-p-icon app-button no-print-btn" mat-button (click)="sizeS3 = sizeS3 + 1" class="decree1">A+</button>
+      </div>
+      <div class="f-1 kh3-f1-name " style="min-width: 480px;">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">នាមត្រកូលនិងនាមខ្លួន</span>
+            <span>:</span>
+          </span>
         </div>
-        <div class="row-item kh3-row-item">
-          <div class="f-1 ">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត
-                </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-pd1 ali-ce">
-              {{Item?.dateOfBirthDay?.name | pipeCut0}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.dateOfBirthMonth?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.dateOfBirthYear?.name}}
-            </p>
-          </div>
+        <p class="f-input f-input-kh-3 font-fastHand" style="padding: 0 12px;">
+          <strong [ngStyle]="{'font-size': sizeS1+'px'}" [innerHTML]="((Item?.last_name||'')+' '+(Item?.first_name||''))|addMoreSpaceToString"></strong>
+        </p>
+      </div>
+      <div class="f-1 kh3-f1-3" style="flex: none;">
+        <span class="label-title no-print-kh3">ភេទ</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n2">{{Item?.gender?.name}} </p>
+      </div>
+      <div class="f-1 kh3-f1-1">
+        <span class="label-title no-print-kh3">សញ្ជាតិដើម</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1" [ngStyle]="{'font-size': sizeS2+'px'}">{{Item?.before_nationality?.kh_nationality}} </p>
+      </div>
+      <div class="f-1 kh3-f1-2">
+        <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន</span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-input-n" [ngStyle]="{'font-size': sizeS3+'px'}">{{Item?.current_nationality?.kh_nationality}} </p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ឈ្មោះហៅក្រៅ</span>
+            <span>:</span>
+          </span>
         </div>
-        <div class="row-item kh3-row-item ali-start kh3-mg1">
-          <div class="f-1 ">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-              *ngIf="Item?.isTextAddress;else khmerBirthPlaceTemplate">
-              <span [innerHTML]="Item?.foreignerPlaceOfBirth|addMoreSpaceToStringAddress"></span>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-pd1" [innerHTML]="($safeNavigationMigration(Item?.nick_name)|nicknameSpace)?($safeNavigationMigration(Item?.nick_name)|addMoreSpaceToString):'/'"></p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត
             </span>
-  
-            <ng-template #khmerBirthPlaceTemplate>
-              <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-                <ng-container *ngIf="Item?.birthAddress?.village?.name">
-                  {{Item?.birthAddress?.village?.geo_prefix?.name?Item?.birthAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{Item?.birthAddress?.village?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-  
-                <ng-container *ngIf="Item?.birthAddress?.commune?.name">
-                  {{Item?.birthAddress?.commune?.geo_prefix?.name?Item?.birthAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{Item?.birthAddress?.commune?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <wbr>
-                <ng-container *ngIf="Item?.birthAddress?.district?.name">
-                  {{Item?.birthAddress?.district?.geo_prefix?.name?Item?.birthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.birthAddress?.district?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <wbr>
-                <ng-container *ngIf="Item?.birthAddress?.province?.name">
+            <span>:</span>
+          </span>
+
+        </div>
+        <p class="f-input f-input-kh-3 font-fastHand kh3-pd1 ali-ce">
+          {{$safeNavigationMigration(Item?.dateOfBirthDay?.name) | pipeCut0}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.dateOfBirthMonth?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.dateOfBirthYear?.name}}
+        </p>
+      </div>
+    </div>
+    <div class="row-item kh3-row-item ali-start kh3-mg1">
+      <div class="f-1 ">
+        <div class="kh3-label-container">
+          <span class="container-title-fom  no-print">
+            <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+            <span>:</span>
+          </span>
+
+        </div>
+        @if (Item?.isTextAddress) {
+          <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+            >
+            <span [innerHTML]="$safeNavigationMigration(Item?.foreignerPlaceOfBirth)|addMoreSpaceToStringAddress"></span>
+          </span>
+        } @else {
+          <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+            @if (Item?.birthAddress?.village?.name) {
+              {{Item?.birthAddress?.village?.geo_prefix?.name?Item?.birthAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{Item?.birthAddress?.village?.name}}
+            }
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            @if (Item?.birthAddress?.commune?.name) {
+              {{Item?.birthAddress?.commune?.geo_prefix?.name?Item?.birthAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{Item?.birthAddress?.commune?.name}}
+            }
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <wbr>
+              @if (Item?.birthAddress?.district?.name) {
+                {{Item?.birthAddress?.district?.geo_prefix?.name?Item?.birthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.birthAddress?.district?.name}}
+              }
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <wbr>
+                @if (Item?.birthAddress?.province?.name) {
                   {{Item?.birthAddress?.province?.geo_prefix?.name?Item?.birthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.birthAddress?.province?.name}}
-                </ng-container>
+                }
               </span>
-            </ng-template>
-  
+            }
+
+
           </div>
         </div>
         <div class="row-item kh3-row-item ali-start kh3-mg1">
           <div class="f-1 ">
-  
+
             <div class="kh3-label-container">
               <span class="container-title-fom  no-print">
                 <span class="label-title no-print-kh3">អាសយដ្ឋានបច្ចុប្បន្ន </span>
                 <span>:</span>
               </span>
             </div>
-            <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line" style="padding-right:32px"
-              *ngIf="Item?.isTextAddress;else khmerPermanentAddressTextTemplate">
-              <span [innerHTML]="Item?.permanentAddressText|addMoreSpaceToStringAddress"></span>
-            </p>
-  
-            <ng-template #khmerPermanentAddressTextTemplate>
+            @if (Item?.isTextAddress) {
+              <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line" style="padding-right:32px"
+                >
+                <span [innerHTML]="$safeNavigationMigration(Item?.permanentAddressText)|addMoreSpaceToStringAddress"></span>
+              </p>
+            } @else {
               <p class="f-input f-input-kh-3 font-fastHand text-a-s sp2-line" style="padding-right:32px">
-  
-                <ng-container *ngIf="Item?.permanentAddress?.home_no">
-                  <span [innerHTML]="'ផ្ទះលេខ ' +(Item?.permanentAddress?.home_no|khmerNumAddress)"></span>
-                </ng-container>
-  
-                <span class="space30" *ngIf="Item?.permanentAddress?.home_no"></span>
-  
-                <ng-container *ngIf="Item?.permanentAddress?.street_no">
-                  <span [innerHTML]="'ផ្លូវ ' +(Item?.permanentAddress?.street_no|khmerNumAddress)"></span>
-                </ng-container>
-  
-                <span class="space30" *ngIf="Item?.permanentAddress?.street_no"></span>
-  
-                <ng-container *ngIf="Item?.permanentAddress?.village?.name">
+                @if (Item?.permanentAddress?.home_no) {
+                  <span [innerHTML]="'ផ្ទះលេខ ' +($safeNavigationMigration(Item?.permanentAddress?.home_no)|khmerNumAddress)"></span>
+                }
+                @if (Item?.permanentAddress?.home_no) {
+                  <span class="space30"></span>
+                }
+                @if (Item?.permanentAddress?.street_no) {
+                  <span [innerHTML]="'ផ្លូវ ' +($safeNavigationMigration(Item?.permanentAddress?.street_no)|khmerNumAddress)"></span>
+                }
+                @if (Item?.permanentAddress?.street_no) {
+                  <span class="space30"></span>
+                }
+                @if (Item?.permanentAddress?.village?.name) {
                   {{Item?.permanentAddress?.village?.geo_prefix?.name?Item?.permanentAddress?.village?.geo_prefix?.name:'ភូមិ'}}{{Item?.permanentAddress?.village?.name}}
-                </ng-container>
-  
-                <span class="space30" *ngIf="Item?.permanentAddress?.village?.name"></span>
-  
-                <ng-container *ngIf="Item?.permanentAddress?.commune?.name">
+                }
+                @if (Item?.permanentAddress?.village?.name) {
+                  <span class="space30"></span>
+                }
+                @if (Item?.permanentAddress?.commune?.name) {
                   {{Item?.permanentAddress?.commune?.geo_prefix?.name?Item?.permanentAddress?.commune?.geo_prefix?.name:'ឃុំ'}}{{Item?.permanentAddress?.commune?.name}}
-                </ng-container>
-  
-                <span class="space30" *ngIf="Item?.permanentAddress?.commune?.name"></span>
-                <ng-container *ngIf="Item?.permanentAddress?.district?.name">
+                }
+                @if (Item?.permanentAddress?.commune?.name) {
+                  <span class="space30"></span>
+                }
+                @if (Item?.permanentAddress?.district?.name) {
                   <wbr>
-                  <span>
-                    {{Item?.permanentAddress?.district?.geo_prefix?.name?Item?.permanentAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.permanentAddress?.district?.name}}
+                    <span>
+                      {{Item?.permanentAddress?.district?.geo_prefix?.name?Item?.permanentAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.permanentAddress?.district?.name}}
+                    </span>
+                  }
+                  @if (Item?.permanentAddress?.district?.name) {
+                    <span class="space30"></span>
+                  }
+                  @if (Item?.permanentAddress?.province?.name) {
+                    <wbr>
+                      <span>
+                        {{Item?.permanentAddress?.province?.geo_prefix?.name?Item?.permanentAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.permanentAddress?.province?.name}}
+                      </span>
+                    }
+                  </p>
+                }
+
+              </div>
+            </div>
+            <div class="row-item kh3-row-item ali-start kh3-mg1">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">មុខរបរ </span>
+                    <span>:</span>
                   </span>
-                </ng-container>
-  
-                <span class="space30" *ngIf="Item?.permanentAddress?.district?.name"></span>
-                <ng-container *ngIf="Item?.permanentAddress?.province?.name">
-                  <wbr>
-                  <span>
-                    {{Item?.permanentAddress?.province?.geo_prefix?.name?Item?.permanentAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.permanentAddress?.province?.name}}
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand">
+                  {{Item?.occupation}}
+                </p>
+              </div>
+            </div>
+
+            <div class="row-item kh3-row-item ali-start">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <div class="abs-div-btn-father abs-div-btn hideOnPrint">
+                    <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS4 = sizeS4 - 1" >A-</button>
+                    <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 60px;" mat-button (click)="sizeS4 = sizeS4 + 1" >A+</button>
+                  </div>
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ឪពុកឈ្មោះ </span>
+                    <span>:</span>
                   </span>
-                </ng-container>
-              </p>
-            </ng-template>
-          </div>
-        </div>
-        <div class="row-item kh3-row-item ali-start kh3-mg1">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">មុខរបរ </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand">
-              {{Item?.occupation}}
-            </p>
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item ali-start">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <div class="abs-div-btn-father abs-div-btn hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS4 = sizeS4 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 60px;" mat-button (click)="sizeS4 = sizeS4 + 1" >A+</button>
-              </div>
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ឪពុកឈ្មោះ </span>
-                <span>:</span>
-              </span>
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-              <span [ngStyle]="{'font-size': sizeS4+'px'}" [innerHTML]="Item?.father_name?(Item?.father_name|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
-            </p>
-          </div>
-          <div class="f-1 small" style="width: 40%;">
-            <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-            <ng-container *ngIf="Item?.fatherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate1">
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                (ស្លាប់)
-              </p>
-            </ng-container>
-            <ng-template #notDeadTemplate1>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="(Item?.fatherDob?.year||Item?.fatherDob?.month||Item?.fatherDob?.day);else ftp1">
-                {{Item?.fatherDob?.day?.name | pipeCut0 }}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.fatherDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.fatherDob?.year?.name}}
-              </p>
-              <ng-template #ftp1>
-                <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                  /
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                  <span [ngStyle]="{'font-size': sizeS4+'px'}" [innerHTML]="Item?.father_name?($safeNavigationMigration(Item?.father_name)|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
                 </p>
-              </ng-template>
-            </ng-template>
-          </div>
-        </div>
-        <div class="row-item kh3-row-item">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-                <span>:</span>
-              </span>
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-              {{Item?.father_before_nationality?.kh_nationality?Item?.father_before_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-          <div class="f-1" style="width: 40%;flex: none;">
-            <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-              {{Item?.father_current_nationality?.kh_nationality?Item?.father_current_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-        </div>
-        <div class="row-item kh3-row-item">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-              *ngIf="Item?.isTextAddress;else khmerFatherBirthPlaceTemplate">
-              <span [innerHTML]="Item?.foreignerFatherBirthAddress?(Item?.foreignerFatherBirthAddress|addMoreSpaceToStringAddress):'/'"></span>
-            </span>
-  
-            <ng-template #khmerFatherBirthPlaceTemplate>
-              <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-                <ng-container *ngIf="Item?.fatherBirthAddress?.district?.name">
-                  {{Item?.fatherBirthAddress?.district?.geo_prefix?Item?.fatherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.fatherBirthAddress?.district?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-  
-                <ng-container *ngIf="Item?.fatherBirthAddress?.province?.name">
-                  {{Item?.fatherBirthAddress?.province?.geo_prefix?Item?.fatherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.fatherBirthAddress?.province?.name}}
-                </ng-container>
-              </span>
-            </ng-template>
-  
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item ali-start">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <div class="abs-div-btn-father abs-div-btn hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS5 = sizeS5 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 60px;" mat-button (click)="sizeS5 = sizeS5 + 1" >A+</button>
               </div>
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ម្តាយឈ្មោះ </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-              <span [ngStyle]="{'font-size': sizeS5+'px'}"  [innerHTML]="Item?.mother_name?(Item?.mother_name|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
-            </p>
-          </div>
-          <div class="f-1 small" style="width: 40%;">
-            <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-            <ng-container *ngIf="Item?.motherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate2">
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                (ស្លាប់)
-              </p>
-            </ng-container>
-            <ng-template #notDeadTemplate2>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="(Item?.motherDob?.year||Item?.motherDob?.month||Item?.motherDob?.day);else mdtp1">
-                {{Item?.motherDob?.day?.name | pipeCut0 }}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.motherDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.motherDob?.year?.name}}
-              </p>
-              <ng-template #mdtp1>
-                <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                  /
-                </p>
-              </ng-template>
-            </ng-template>
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-              {{Item?.mother_before_nationality?.kh_nationality?Item?.mother_before_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-          <div class="f-1" style="width: 40%;flex: none;">
-            <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-              {{Item?.mother_current_nationality?.kh_nationality?Item?.mother_current_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
-                <span>:</span>
-              </span>
-  
-            </div>
-            <span class="f-input f-input-kh-3 font-fastHand text-a-s"
-              *ngIf="Item?.isTextAddress;else khmerMotherBirthPlaceTemplate">
-              <span [innerHTML]="Item?.foreignerMotherBirthAddress ? (Item?.foreignerMotherBirthAddress|addMoreSpaceToStringAddress) : '/'"></span>
-            </span>
-  
-            <ng-template #khmerMotherBirthPlaceTemplate>
-              <span class="f-input f-input-kh-3 font-fastHand text-a-s">
-  
-                <!-- <ng-container *ngIf="Item?.motherBirthAddress?.village?.name">
-                  ភូមិ {{Item?.motherBirthAddress?.village?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-  
-                <ng-container *ngIf="Item?.motherBirthAddress?.commune?.name">
-                  ឃុំ/សង្កាត់ {{Item?.motherBirthAddress?.commune?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp; -->
-  
-                <ng-container *ngIf="Item?.motherBirthAddress?.district?.name">
-                  {{Item?.motherBirthAddress?.district?.geo_prefix?Item?.motherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.motherBirthAddress?.district?.name}}
-                </ng-container>
-  
-                &nbsp;&nbsp;&nbsp;&nbsp;
-  
-                <ng-container *ngIf="Item?.motherBirthAddress?.province?.name">
-                  {{Item?.motherBirthAddress?.province?.geo_prefix?Item?.motherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.motherBirthAddress?.province?.name}}
-                </ng-container>
-  
-              </span>
-            </ng-template>
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item ali-start">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <div class="abs-div-btn-father abs-div-btn hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS6 = sizeS6 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 80px;" mat-button (click)="sizeS6 = sizeS6 + 1" >A+</button>
+              <div class="f-1 small" style="width: 40%;">
+                <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+                @if (Item?.fatherIsDead?.key === STATUS_LIVES.DEAD.key) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    (ស្លាប់)
+                  </p>
+                } @else {
+                  @if ((Item?.fatherDob?.year||Item?.fatherDob?.month||Item?.fatherDob?.day)) {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      {{$safeNavigationMigration(Item?.fatherDob?.day?.name) | pipeCut0 }}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.fatherDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.fatherDob?.year?.name}}
+                    </p>
+                  } @else {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      /
+                    </p>
+                  }
+                }
               </div>
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">ឈ្មោះប្ដីឬប្រពន្ធ </span>
-                <span>:</span>
-              </span>
             </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-              <span [ngStyle]="{'font-size': sizeS6+'px'}" [innerHTML]="Item?.spouse?(Item?.spouse|addMoreSpaceToString):'/'"></span>
-            </p>
-          </div>
-          <div class="f-1 small" style="width: 40%;">
-            <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
-  
-            <ng-container *ngIf="Item?.spouseIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate3">
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                (ស្លាប់)
-              </p>
-            </ng-container>
-  
-            <ng-template #notDeadTemplate3>
-              <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n" *ngIf="(Item?.spouseDob?.day || Item?.spouseDob?.month || Item?.spouseDob?.year);else noSpouseTemplate">
-                {{Item?.spouseDob?.day?.name | pipeCut0}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.spouseDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.spouseDob?.year?.name}}
-              </p>
-              <ng-template #noSpouseTemplate>
-                <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
-                  /
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                    <span>:</span>
+                  </span>
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                  {{Item?.father_before_nationality?.kh_nationality?Item?.father_before_nationality?.kh_nationality:'/'}}
                 </p>
-              </ng-template>
-            </ng-template>
-  
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
-                <span>:</span>
-              </span>
-  
+              </div>
+              <div class="f-1" style="width: 40%;flex: none;">
+                <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                  {{Item?.father_current_nationality?.kh_nationality?Item?.father_current_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
             </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
-              {{Item?.spouse_before_nationality?.kh_nationality?Item?.spouse_before_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-          <div class="f-1" style="width: 40%;flex: none;">
-            <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
-              {{Item?.spouse_current_nationality?.kh_nationality?Item?.spouse_current_nationality?.kh_nationality:'/'}}
-            </p>
-          </div>
-        </div>
-  
-        <div class="row-item kh3-row-item ali-start">
-          <div class="f-1">
-            <div class="kh3-label-container">
-              <span class="container-title-fom  no-print">
-                <span class="label-title no-print-kh3">មុខរបរ </span>
-                <span>:</span>
-              </span>
-  
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                @if (Item?.isTextAddress) {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+                    >
+                    <span [innerHTML]="Item?.foreignerFatherBirthAddress?($safeNavigationMigration(Item?.foreignerFatherBirthAddress)|addMoreSpaceToStringAddress):'/'"></span>
+                  </span>
+                } @else {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+                    @if (Item?.fatherBirthAddress?.district?.name) {
+                      {{Item?.fatherBirthAddress?.district?.geo_prefix?Item?.fatherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.fatherBirthAddress?.district?.name}}
+                    }
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @if (Item?.fatherBirthAddress?.province?.name) {
+                      {{Item?.fatherBirthAddress?.province?.geo_prefix?Item?.fatherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.fatherBirthAddress?.province?.name}}
+                    }
+                  </span>
+                }
+
+
+              </div>
             </div>
-            <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
-              <span [innerHTML]="Item?.spouseCurrentOccupation?(Item?.spouseCurrentOccupation|addMoreSpaceToString):'/'"></span>
-            </p>
+
+            <div class="row-item kh3-row-item ali-start">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <div class="abs-div-btn-father abs-div-btn hideOnPrint">
+                    <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS5 = sizeS5 - 1" >A-</button>
+                    <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 60px;" mat-button (click)="sizeS5 = sizeS5 + 1" >A+</button>
+                  </div>
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ម្តាយឈ្មោះ </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                  <span [ngStyle]="{'font-size': sizeS5+'px'}"  [innerHTML]="Item?.mother_name?($safeNavigationMigration(Item?.mother_name)|addMoreSpaceToString):'(&ensp;មិនដឹង&ensp;)'"></span>
+                </p>
+              </div>
+              <div class="f-1 small" style="width: 40%;">
+                <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+                @if (Item?.motherIsDead?.key === STATUS_LIVES.DEAD.key) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    (ស្លាប់)
+                  </p>
+                } @else {
+                  @if ((Item?.motherDob?.year||Item?.motherDob?.month||Item?.motherDob?.day)) {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      {{$safeNavigationMigration(Item?.motherDob?.day?.name) | pipeCut0 }}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.motherDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.motherDob?.year?.name}}
+                    </p>
+                  } @else {
+                    <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                      /
+                    </p>
+                  }
+                }
+              </div>
+            </div>
+
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                  {{Item?.mother_before_nationality?.kh_nationality?Item?.mother_before_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+              <div class="f-1" style="width: 40%;flex: none;">
+                <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+                <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                  {{Item?.mother_current_nationality?.kh_nationality?Item?.mother_current_nationality?.kh_nationality:'/'}}
+                </p>
+              </div>
+            </div>
+
+            <div class="row-item kh3-row-item">
+              <div class="f-1">
+                <div class="kh3-label-container">
+                  <span class="container-title-fom  no-print">
+                    <span class="label-title no-print-kh3">ទីកន្លែងកំណើត </span>
+                    <span>:</span>
+                  </span>
+
+                </div>
+                @if (Item?.isTextAddress) {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s"
+                    >
+                    <span [innerHTML]="Item?.foreignerMotherBirthAddress ? ($safeNavigationMigration(Item?.foreignerMotherBirthAddress)|addMoreSpaceToStringAddress) : '/'"></span>
+                  </span>
+                } @else {
+                  <span class="f-input f-input-kh-3 font-fastHand text-a-s">
+                    <!-- <ng-container *ngIf="Item?.motherBirthAddress?.village?.name">
+                    ភូមិ {{Item?.motherBirthAddress?.village?.name}}
+                  </ng-container>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <ng-container *ngIf="Item?.motherBirthAddress?.commune?.name">
+                    ឃុំ/សង្កាត់ {{Item?.motherBirthAddress?.commune?.name}}
+                  </ng-container>
+                  &nbsp;&nbsp;&nbsp;&nbsp; -->
+                  @if (Item?.motherBirthAddress?.district?.name) {
+                    {{Item?.motherBirthAddress?.district?.geo_prefix?Item?.motherBirthAddress?.district?.geo_prefix?.name:'ស្រុក'}}{{Item?.motherBirthAddress?.district?.name}}
+                  }
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  @if (Item?.motherBirthAddress?.province?.name) {
+                    {{Item?.motherBirthAddress?.province?.geo_prefix?Item?.motherBirthAddress?.province?.geo_prefix?.name:'ខេត្ត'}}{{Item?.motherBirthAddress?.province?.name}}
+                  }
+                </span>
+              }
+
+            </div>
           </div>
-        </div>
-  
-        <div class="row-item kh3-row-item kh3-min-height" style="padding: 20px 20px 0px 92px;position: relative;" [ngStyle]="{'min-height': (50 + bodyHeight)+'px'}">
-          <div class="f-item">
-            <span class="feTitle new b no-print-kh3"
+
+          <div class="row-item kh3-row-item ali-start">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <div class="abs-div-btn-father abs-div-btn hideOnPrint">
+                  <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS6 = sizeS6 - 1" >A-</button>
+                  <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 80px;" mat-button (click)="sizeS6 = sizeS6 + 1" >A+</button>
+                </div>
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">ឈ្មោះប្ដីឬប្រពន្ធ </span>
+                  <span>:</span>
+                </span>
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                <span [ngStyle]="{'font-size': sizeS6+'px'}" [innerHTML]="Item?.spouse?($safeNavigationMigration(Item?.spouse)|addMoreSpaceToString):'/'"></span>
+              </p>
+            </div>
+            <div class="f-1 small" style="width: 40%;">
+              <span class="label-title no-print-kh3">ថ្ងៃ&nbsp;&nbsp;&nbsp;&nbsp;ខែ&nbsp;&nbsp;&nbsp;&nbsp;ឆ្នាំកំណើត</span>
+
+              @if (Item?.spouseIsDead?.key === STATUS_LIVES.DEAD.key) {
+                <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                  (ស្លាប់)
+                </p>
+              } @else {
+                @if ((Item?.spouseDob?.day || Item?.spouseDob?.month || Item?.spouseDob?.year)) {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    {{$safeNavigationMigration(Item?.spouseDob?.day?.name) | pipeCut0}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.spouseDob?.month?.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{Item?.spouseDob?.year?.name}}
+                  </p>
+                } @else {
+                  <p class="f-input f-input-kh-3 font-fastHand ali-ce kh3-input-n">
+                    /
+                  </p>
+                }
+              }
+
+
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">សញ្ជាតិដើម </span>
+                  <span>:</span>
+                </span>
+
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-pd1">
+                {{Item?.spouse_before_nationality?.kh_nationality?Item?.spouse_before_nationality?.kh_nationality:'/'}}
+              </p>
+            </div>
+            <div class="f-1" style="width: 40%;flex: none;">
+              <span class="label-title no-print-kh3">សញ្ជាតិបច្ចុប្បន្ន </span>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-input-n1">
+                {{Item?.spouse_current_nationality?.kh_nationality?Item?.spouse_current_nationality?.kh_nationality:'/'}}
+              </p>
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item ali-start">
+            <div class="f-1">
+              <div class="kh3-label-container">
+                <span class="container-title-fom  no-print">
+                  <span class="label-title no-print-kh3">មុខរបរ </span>
+                  <span>:</span>
+                </span>
+
+              </div>
+              <p class="f-input f-input-kh-3 font-fastHand kh3-mg1">
+                <span [innerHTML]="Item?.spouseCurrentOccupation?($safeNavigationMigration(Item?.spouseCurrentOccupation)|addMoreSpaceToString):'/'"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="row-item kh3-row-item kh3-min-height" style="padding: 20px 20px 0px 92px;position: relative;" [ngStyle]="{'min-height': (50 + bodyHeight)+'px'}">
+            <div class="f-item">
+              <span class="feTitle new b no-print-kh3"
               style="text-decoration: underline;font-size:22px!important;min-height:20px">សេចក្ដីបញ្ជាក់ :</span>
-          </div>
-          <div class="abs-slider" style="top:0">
-            <div class="example-label-container">
-              <label class="example-value-label">{{bodyHeight}}</label>
             </div>
-            <mat-slider style="width:200px;" (change)="changeSlider($event,false)" min="-20" max="20" step="2" [value]="bodyHeight">
-              <input matSliderThumb>
-            </mat-slider>
+            <div class="abs-slider" style="top:0">
+              <div class="example-label-container">
+                <label class="example-value-label">{{bodyHeight}}</label>
+              </div>
+              <mat-slider style="width:200px;" (change)="changeSlider($event,false)" min="-20" max="20" step="2" [value]="bodyHeight">
+                <input matSliderThumb>
+              </mat-slider>
+            </div>
           </div>
-        </div>
-        <div class="row-item" style="padding-top:0;position: relative;">
-          <div class="f-item-v3" style="padding:0 20px;padding-right: 26px;padding-bottom: 14px;">
-            <div class="font-fastHand" style="line-height: normal;">
+          <div class="row-item" style="padding-top:0;position: relative;">
+            <div class="f-item-v3" style="padding:0 20px;padding-right: 26px;padding-bottom: 14px;">
+              <div class="font-fastHand" style="line-height: normal;">
               <ckeditor  style="width:100%" [config]="{
                 toolbar:config.toolbar,
                 fontSize:config.fontSize,
                 fontFamily:config.fontFamily,
                 placeholder: 'សូមបញ្ចូលចំណារនៅទីនេះ'
               }" [editor]="Editor" data="" [formControl]="decree_result" (change)="onEditorChange()"></ckeditor>
+              </div>
+            </div>
+            <div class="abs-print-date">
+              <div class="inside-abs">
+                <p class="font-fastHand kh3-date1">{{$safeNavigationMigration(criminalLetterDate?.toDate())|dateDayKh | pipeCut0}}</p>
+                <p class="font-fastHand kh3-date2">{{$safeNavigationMigration(criminalLetterDate?.toDate())|dateMonthKh}}</p>
+                <p class="font-fastHand kh3-date">{{$safeNavigationMigration(criminalLetterDate?.toDate())|dateYearKh}}</p>
+              </div>
             </div>
           </div>
-          <div class="abs-print-date">
-            <div class="inside-abs">
-              <p class="font-fastHand kh3-date1">{{criminalLetterDate?.toDate()|dateDayKh | pipeCut0}}</p>
-              <p class="font-fastHand kh3-date2">{{criminalLetterDate?.toDate()|dateMonthKh}}</p>
-              <p class="font-fastHand kh3-date">{{criminalLetterDate?.toDate()|dateYearKh}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="row-item kh3-row-item no-print"
-          style="flex-direction: column; border-top: solid 1px #28803f;padding: 12px 0;margin: 0 40px 0 80px;">
-          <div class="f-item">
-            <span class="title no-print" style="font-size: 16px; padding: 0">*
+          <div class="row-item kh3-row-item no-print"
+            style="flex-direction: column; border-top: solid 1px #28803f;padding: 12px 0;margin: 0 40px 0 80px;">
+            <div class="f-item">
+              <span class="title no-print" style="font-size: 16px; padding: 0">*
               ក្រសួងយុត្តិធម៌ទទួលខុសត្រូវតែលើអត្ថបទបកប្រែព្រឹត្តិថ្កោលទោសដែលចេញដោយក្រសួងយុត្តិធម៌ប៉ុណ្ណោះ។ </span>
-          </div>
-          <div class="f-item expire-date no-print" *ngIf="Item?.expired_date">
-            <span style="color:red!important;">
-              លិខិតនេះមានសុពលភាព ៣ខែ ផុតកំណត់ថ្ងៃទី
-              {{Item?.expired_date?.toDate()|dateDayKh | pipeCut0}} -
-              {{Item?.expired_date?.toDate()|dateMonthKh}} -
-              {{Item?.expired_date?.toDate()|dateYearKh}}
-            </span>
-          </div>
-        </div>
-  
-  
-        <div class="row-item kh3-row-item" style="flex:1;">
-          <div class="f-item" style="justify-content: space-between;">
-  
-            <div class="head-item long-w"
-              style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-              <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
-                <span
-                  style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                  class="p-rel">
-                  <span class="n-title no-print" style="color:black">បានឃើញ</span>
+            </div>
+            @if (Item?.expired_date) {
+              <div class="f-item expire-date no-print">
+                <span style="color:red!important;">
+                  លិខិតនេះមានសុពលភាព ៣ខែ ផុតកំណត់ថ្ងៃទី
+                  {{$safeNavigationMigration(Item?.expired_date?.toDate())|dateDayKh | pipeCut0}} -
+                  {{$safeNavigationMigration(Item?.expired_date?.toDate())|dateMonthKh}} -
+                  {{$safeNavigationMigration(Item?.expired_date?.toDate())|dateYearKh}}
                 </span>
-                <span class="feTitle new b no-print"
-                  style="display: flex; justify-content: center; line-height: 2; font-size: 22px!important;"><span
-                    class="feTitle new b no-print" style="margin-right: 6px;font-size:22px !important">ជ.</span>
-                  រដ្ឋមន្រ្តី</span>
+              </div>
+            }
+          </div>
+
+
+          <div class="row-item kh3-row-item" style="flex:1;">
+            <div class="f-item" style="justify-content: space-between;">
+
+              <div class="head-item long-w"
+                style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+                <div class="c-item" style="width: 50%; justify-content: flex-start; margin-top: 40px;">
+                  <span
+                    style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+                    class="p-rel">
+                    <span class="n-title no-print" style="color:black">បានឃើញ</span>
+                  </span>
+                  <span class="feTitle new b no-print"
+                    style="display: flex; justify-content: center; line-height: 2; font-size: 22px!important;"><span
+                  class="feTitle new b no-print" style="margin-right: 6px;font-size:22px !important">ជ.</span>
+                រដ្ឋមន្រ្តី</span>
                 <div class="signature no-print">
-                  <img [src]="signatureLeft?.default_signatureFile?.downloadUrl" alt="">
+                  <img [src]="$safeNavigationMigration(signatureLeft?.default_signatureFile?.downloadUrl)" alt="">
                   <!-- <img class="stam-name" [src]="signatureLeft?.default_stampFile?.downloadUrl" alt=""> -->
                 </div>
               </div>
-  
+
               <span class="container-header-input no-print" style="width: unset">
                 <div class="row-item kh3-row-item khmer-date-picker" style="padding-right: 0;">
                   <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
@@ -555,62 +548,65 @@
                       <span class="nor-fam">
                         <span class="no-print" style="color:#28803f!important; ">&nbsp;ថ្ងៃទី</span>
                         <span class="no-fam-date"
-                          style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important ;">{{criminalLetterDate?.toDate() | dateDayKh | pipeCut0}}</span>
+                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important ;">{{$safeNavigationMigration(criminalLetterDate?.toDate()) | dateDayKh | pipeCut0}}</span>
                       </span>
-  
+
                       <span class="nor-fam">
                         <span class="no-print" style="color:#28803f!important; ">ខែ</span>
-                        <span class="no-fam-date" style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;">{{criminalLetterDate?.toDate()|dateMonthKh}}</span>
+                        <span class="no-fam-date" style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;">{{$safeNavigationMigration(criminalLetterDate?.toDate())|dateMonthKh}}</span>
                       </span>
-  
+
                       <span class="nor-fam">
                         <span class="no-print" style="color:#28803f!important; ">ឆ្នាំ</span>
                         <span class="no-fam-date"
-                          style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;">{{criminalLetterDate?.toDate()|dateYearKh}}</span>
+                        style="padding: 0 16px;border-bottom: 1px #28803f  dotted!important;">{{$safeNavigationMigration(criminalLetterDate?.toDate())|dateYearKh}}</span>
                       </span>
                     </div>
-  
+
                     <div class="c-item">
                       <span class="feTitle new b no-print" style="font-size:22px!important;">អគ្គនាយកកិច្ចការទោសព្រហ្មទណ្ឌ
-                        <ng-container class="no-print"
-                          *ngIf="signatureRight?.default_signatureFile || signatureRight?.default_stampFile">
-                          <img src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
-                        </ng-container>
+                        @if (signatureRight?.default_signatureFile || signatureRight?.default_stampFile) {
+                          <ng-container class="no-print"
+                            >
+                            <img src="../../../../../../assets/images/marksign.PNG" style="width:30px;height:30px">
+                          </ng-container>
+                        }
                       </span>
                       <div class="signature no-print">
-                        <img [src]="signatureRight?.default_signatureFile?.downloadUrl" alt="">
+                        <img [src]="$safeNavigationMigration(signatureRight?.default_signatureFile?.downloadUrl)" alt="">
                         <!-- <img class="stam-name" [src]="signatureRight?.default_stampFile?.downloadUrl" alt=""> -->
                       </div>
                     </div>
                   </div>
-  
+
                 </div>
               </span>
             </div>
-  
+
           </div>
         </div>
-  
+
         <!-- qr print -->
         <div class="kh3-print-qr">
-          <div *ngIf="Item?.key" class="kh3-on-print-qr">
-            <ngx-kjua [text]="Item?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
-              [ecLevel]="'H'" [size]="100" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
-              [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
-              [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
-            </ngx-kjua>
-          </div>
+          @if (Item?.key) {
+            <div class="kh3-on-print-qr">
+              <ngx-kjua [text]="$safeNavigationMigration(Item?.key)" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
+                [ecLevel]="'H'" [size]="100" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
+                [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
+                [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+              </ngx-kjua>
+            </div>
+          }
         </div>
-  
+
         <div class="row-item kh3-row-item no-print"
           style="justify-content: center; align-items: center; margin-bottom: 0!important">
           <div class="f-item" style="border-top: solid 1px #28803f!important;flex:1;justify-content: center;">
             <span class="n-title" style="font-size: 18px;color:#28803f!important;">មហាវិថីសម្ដេចសុធារស ខ័ណ្ឌដូនពេញ
-              រាជធានីធ្នំពេញ (ទល់មុខព្រះបរមរាជវាំង) ទូរស័ព្ទ : ០២៣ ២១៦ ៣២២, ០២៣ ២១៧ ៨៤១, ០២៣ ២១២ ៦៩៣</span>
+            រាជធានីធ្នំពេញ (ទល់មុខព្រះបរមរាជវាំង) ទូរស័ព្ទ : ០២៣ ២១៦ ៣២២, ០២៣ ២១៧ ៨៤១, ០២៣ ២១២ ៦៩៣</span>
           </div>
         </div>
-  
+
       </div>
     </div>
   </div>
-  

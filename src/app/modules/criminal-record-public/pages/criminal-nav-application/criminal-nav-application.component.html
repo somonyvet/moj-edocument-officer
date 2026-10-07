@@ -5,17 +5,18 @@
                 <h4>{{title}}</h4>
                 <app-search-filter-box [placeholder]="'ស្វែងរក'+title" (searchValue)="onSearch($event)">
                 </app-search-filter-box>
-                <nav mat-tab-nav-bar class="fire-tabs">
+                <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
                     <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
                         #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
                 </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
             </div>
             <ng-container *ngIf="!loading else loader">
                 <ng-container *ngIf="store?.data?.length>0 else emptyData">
-                    <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header"
+                    <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
                         (vsEnd)="scrollHandler($event)">
                         <a mat-button class="avatar-vt-item" [ngClass]="item?.status?.key!==STATUS_OBJ?.ACTIVE?.key?'draft':''" [routerLink]="item?.key" routerLinkActive="active"
-                            *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
+                            *cdkVirtualFor="let item of store?.data ;let i=index; trackBy: trackByIdx">
                             <div class="avatar">
                                 <img [src]="item?.photoUrl" (error)="handleImgError($event)">
                             </div>
@@ -42,7 +43,7 @@
                                 </div>
                             </div>
                         </a>
-                    </virtual-scroller>
+                    </cdk-virtual-scroll-viewport>
                 </ng-container>
 
             </ng-container>

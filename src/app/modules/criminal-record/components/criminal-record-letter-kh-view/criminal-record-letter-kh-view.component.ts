@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { STATUS_LIVES } from 'src/app/dummy/appinfo';
 import { toKhmerNumber, toNumber } from 'src/app/shared/services/mapping.service';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
@@ -9,12 +9,14 @@ import { CriminalApplicationStore } from '../../stores/criminalApplication.store
  * The calibration values themselves are still applied so the page matches what gets printed.
  */
 @Component({
-  selector: 'app-criminal-record-letter-kh-view',
-  templateUrl: './criminal-record-letter-kh-view.component.html',
-  styleUrls: [
-    '../criminal-record-letter-kh-print/criminal-record-letter-kh-print.component.scss',
-    './criminal-record-letter-kh-view.component.scss',
-  ],
+    selector: 'app-criminal-record-letter-kh-view',
+    templateUrl: './criminal-record-letter-kh-view.component.html',
+    styleUrls: [
+        '../criminal-record-letter-kh-print/criminal-record-letter-kh-print.component.scss',
+        './criminal-record-letter-kh-view.component.scss',
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordLetterKhViewComponent implements OnInit {
   @Input() Item: any;

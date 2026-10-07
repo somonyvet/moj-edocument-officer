@@ -9,143 +9,160 @@
         <p>សូមជ្រើសរើសសញ្ជាតិ សេវា និងភាសាព្រឹត្តិបត្រថ្កោលទោសដែលលោកអ្នកចង់ស្នើសុំ</p>
       </div>
       <div class="flex1"></div>
-      <a mat-button mat-icon-button class="mat-add-new" (click)="dialogRef.close()">
+      <a mat-icon-button class="mat-add-new" (click)="dialogRef.close()">
         <mat-icon>clear</mat-icon>
       </a>
     </div>
 
-    <form [formGroup]="form" class="form-choose-item" *ngIf="form">
-      <div class="section">
-        <span class="txt-label"><mat-icon class="lbl-icon">public</mat-icon>តើលោកអ្នកជាជនជាតិខ្មែរឬជនជាតិបរទេស</span>
-        <mat-radio-group aria-label="Select an option" class="choice-group" formControlName="nationality">
-          <mat-radio-button class="choice-card" [value]="item" *ngFor="let item of data">
-            <div class="choice-content">
-              <img [src]="item?.icon" class="choice-flag" alt="">
-              <span>{{tran?.language==='en'?item?.name_en: item?.name}}</span>
-            </div>
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-
-      <div class="section">
-        <span class="txt-label"><mat-icon class="lbl-icon">event_available</mat-icon>ជ្រើសរើសសេវា</span>
-        <mat-radio-group aria-label="Select an option" class="choice-group" formControlName="duration">
-          <mat-radio-button class="choice-card" *ngFor="let item of duration; let i = index" [value]="item">
-            <div class="choice-content">
-              <span>{{tran?.language==='en'?item?.name_en: item?.name}}</span>
-            </div>
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-
-      <div class="section">
-        <span class="txt-label"><mat-icon class="lbl-icon">translate</mat-icon>ជ្រើសរើសភាសា និងចំនួនព្រឹត្តិបត្រថ្កោលទោស</span>
-
-        <div class="lang-list">
-          <div class="lang-card active locked">
-            <div class="lang-head">
-              <div class="lang-title">
-                <img class="lang-flag" src="/assets/logo/cambodia_flag.svg" alt="ភាសាខ្មែរ">
-                <mat-slide-toggle formControlName="khmer_form" color="primary"></mat-slide-toggle>
-                <strong>ភាសាខ្មែរ</strong>
-                <span class="badge-required">តម្រូវជាចាំបាច់</span>
+    @if (form) {
+      <form [formGroup]="form" class="form-choose-item">
+        <div class="section">
+          <span class="txt-label"><mat-icon class="lbl-icon">public</mat-icon>តើលោកអ្នកជាជនជាតិខ្មែរឬជនជាតិបរទេស</span>
+          <mat-radio-group aria-label="Select an option" class="choice-group" formControlName="nationality">
+            @for (item of data; track item) {
+              <mat-radio-button class="choice-card" [value]="item">
+                <div class="choice-content">
+                  <img [src]="$safeNavigationMigration(item?.icon)" class="choice-flag" alt="">
+                  <span>{{tran?.language==='en'?item?.name_en: item?.name}}</span>
+                </div>
+              </mat-radio-button>
+            }
+          </mat-radio-group>
+        </div>
+        <div class="section">
+          <span class="txt-label"><mat-icon class="lbl-icon">event_available</mat-icon>ជ្រើសរើសសេវា</span>
+          <mat-radio-group aria-label="Select an option" class="choice-group" formControlName="duration">
+            @for (item of duration; track item; let i = $index) {
+              <mat-radio-button class="choice-card" [value]="item">
+                <div class="choice-content">
+                  <span>{{tran?.language==='en'?item?.name_en: item?.name}}</span>
+                </div>
+              </mat-radio-button>
+            }
+          </mat-radio-group>
+        </div>
+        <div class="section">
+          <span class="txt-label"><mat-icon class="lbl-icon">translate</mat-icon>ជ្រើសរើសភាសា និងចំនួនព្រឹត្តិបត្រថ្កោលទោស</span>
+          <div class="lang-list">
+            <div class="lang-card active locked">
+              <div class="lang-head">
+                <div class="lang-title">
+                  <img class="lang-flag" src="/assets/logo/cambodia_flag.svg" alt="ភាសាខ្មែរ">
+                  <mat-slide-toggle formControlName="khmer_form" color="primary"></mat-slide-toggle>
+                  <strong>ភាសាខ្មែរ</strong>
+                  <span class="badge-required">តម្រូវជាចាំបាច់</span>
+                </div>
               </div>
-            </div>
-            <div class="amount-row">
-              <span class="amount-label">ចំនួនច្បាប់</span>
-              <div class="stepper">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', -1)">
-                  <mat-icon>remove</mat-icon>
-                </button>
-                <input type="number" required formControlName="khmer_amount" class="stepper-input">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', 1)">
-                  <mat-icon>add</mat-icon>
-                </button>
+              <div class="amount-row">
+                <span class="amount-label">ចំនួនច្បាប់</span>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', -1)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <input type="number" required formControlName="khmer_amount" class="stepper-input">
+                  <button type="button" class="stepper-btn" (click)="bumpAmount('khmer_amount', 1)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
               </div>
+              @if (form.controls['khmer_amount'].hasError('required')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                </div>
+              }
+              @if (form.controls['khmer_amount'].hasError('min')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+                </div>
+              }
             </div>
-            <div class="field-error" *ngIf="form.controls['khmer_amount'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-            </div>
-            <div class="field-error" *ngIf="form.controls['khmer_amount'].hasError('min')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
-            </div>
-          </div>
-
-          <div class="lang-card" [class.active]="form?.value?.france_form">
-            <div class="lang-head">
-              <div class="lang-title">
-                <img class="lang-flag" src="/assets/logo/france_flag.svg" alt="ភាសាបារាំង">
-                <mat-slide-toggle formControlName="france_form" color="primary"
+            <div class="lang-card" [class.active]="form?.value?.france_form">
+              <div class="lang-head">
+                <div class="lang-title">
+                  <img class="lang-flag" src="/assets/logo/france_flag.svg" alt="ភាសាបារាំង">
+                  <mat-slide-toggle formControlName="france_form" color="primary"
                   (change)="onChangeLanguage($event,'france_amount')"></mat-slide-toggle>
-                <strong>ភាសាបារាំង</strong>
+                  <strong>ភាសាបារាំង</strong>
+                </div>
               </div>
+              @if (form?.value?.france_form) {
+                <div class="amount-row">
+                  <span class="amount-label">ចំនួនច្បាប់</span>
+                  <div class="stepper">
+                    <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', -1)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <input type="number" required formControlName="france_amount" class="stepper-input">
+                    <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', 1)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              }
+              @if (form?.value?.france_form && form.controls['france_amount'].hasError('required')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                </div>
+              }
+              @if (form?.value?.france_form && form.controls['france_amount'].hasError('min')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+                </div>
+              }
             </div>
-            <div class="amount-row" *ngIf="form?.value?.france_form">
-              <span class="amount-label">ចំនួនច្បាប់</span>
-              <div class="stepper">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', -1)">
-                  <mat-icon>remove</mat-icon>
-                </button>
-                <input type="number" required formControlName="france_amount" class="stepper-input">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('france_amount', 1)">
-                  <mat-icon>add</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="field-error" *ngIf="form?.value?.france_form && form.controls['france_amount'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-            </div>
-            <div class="field-error" *ngIf="form?.value?.france_form && form.controls['france_amount'].hasError('min')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
-            </div>
-          </div>
-
-          <div class="lang-card" [class.active]="form?.value?.english_form">
-            <div class="lang-head">
-              <div class="lang-title">
-                <img class="lang-flag" src="/assets/logo/english_flag.svg" alt="ភាសាអង់គ្លេស">
-                <mat-slide-toggle formControlName="english_form" color="primary"
+            <div class="lang-card" [class.active]="form?.value?.english_form">
+              <div class="lang-head">
+                <div class="lang-title">
+                  <img class="lang-flag" src="/assets/logo/english_flag.svg" alt="ភាសាអង់គ្លេស">
+                  <mat-slide-toggle formControlName="english_form" color="primary"
                   (change)="onChangeLanguage($event,'english_amount')"></mat-slide-toggle>
-                <strong>ភាសាអង់គ្លេស</strong>
+                  <strong>ភាសាអង់គ្លេស</strong>
+                </div>
               </div>
-            </div>
-            <div class="amount-row" *ngIf="form?.value?.english_form">
-              <span class="amount-label">ចំនួនច្បាប់</span>
-              <div class="stepper">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', -1)">
-                  <mat-icon>remove</mat-icon>
-                </button>
-                <input type="number" required formControlName="english_amount" class="stepper-input">
-                <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', 1)">
-                  <mat-icon>add</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="field-error" *ngIf="form?.value?.english_form && form.controls['english_amount'].hasError('required')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-            </div>
-            <div class="field-error" *ngIf="form?.value?.english_form && form.controls['english_amount'].hasError('min')">
-              ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+              @if (form?.value?.english_form) {
+                <div class="amount-row">
+                  <span class="amount-label">ចំនួនច្បាប់</span>
+                  <div class="stepper">
+                    <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', -1)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <input type="number" required formControlName="english_amount" class="stepper-input">
+                    <button type="button" class="stepper-btn" (click)="bumpAmount('english_amount', 1)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              }
+              @if (form?.value?.english_form && form.controls['english_amount'].hasError('required')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+                </div>
+              }
+              @if (form?.value?.english_form && form.controls['english_amount'].hasError('min')) {
+                <div class="field-error">
+                  ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+                </div>
+              }
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="summary-bar">
-        <mat-icon>summarize</mat-icon>
-        <span>សរុបចំនួនព្រឹត្តិបត្រថ្កោលទោស៖</span>
-        <strong>{{totalCopies}} ច្បាប់</strong>
-      </div>
-
-      <mat-dialog-actions align="end">
-        <button class="enbutton ghost" mat-button type="button" (click)="dialogRef.close()">បោះបង់</button>
-        <div class="flex1"></div>
-        <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || proccess"
-          (click)="create(form.value)">
-          <mat-icon *ngIf="proccess" class="spin">autorenew</mat-icon>
-          <span>យល់ព្រម</span>
-        </button>
-      </mat-dialog-actions>
-    </form>
+        <div class="summary-bar">
+          <mat-icon>summarize</mat-icon>
+          <span>សរុបចំនួនព្រឹត្តិបត្រថ្កោលទោស៖</span>
+          <strong>{{totalCopies}} ច្បាប់</strong>
+        </div>
+        <mat-dialog-actions align="end">
+          <button class="enbutton ghost" mat-button type="button" (click)="dialogRef.close()">បោះបង់</button>
+          <div class="flex1"></div>
+          <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || proccess"
+            (click)="create(form.value)">
+            @if (proccess) {
+              <mat-icon class="spin">autorenew</mat-icon>
+            }
+            <span>យល់ព្រម</span>
+          </button>
+        </mat-dialog-actions>
+      </form>
+    }
   </div>
 </div>

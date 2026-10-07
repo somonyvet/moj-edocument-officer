@@ -6,28 +6,32 @@
       </h3>
 
       <!-- <div class="action-item">
-        <button mat-button (click)="create()" class="enbutton primary">បង្កើតកម្មវិធី</button>
-      </div> -->
-    </div>
-    <div class="nav-content">
-      <div class="page__section">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/workplace">ទំព័រដើម</a></li>
-            <li class="breadcrumb-item active" >គ្រប់កម្មវិធី</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <nav mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">{{link.label}}</a>
-    </nav>
+      <button mat-button (click)="create()" class="enbutton primary">បង្កើតកម្មវិធី</button>
+    </div> -->
   </div>
+  <div class="nav-content">
+    <div class="page__section">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/workplace">ទំព័រដើម</a></li>
+          <li class="breadcrumb-item active" >គ្រប់កម្មវិធី</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+    @for (link of tabs; track link) {
+      <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">{{link.label}}</a>
+    }
+  </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</div>
 
-  <div class="page-doc">
-    <virtual-scroller #scroll (vsEnd)="_onScroll($event)" [items]="store?.data" class="as-tb-wrap vt-doc">
-      <table class="as-table-wrapper" *ngIf="store?.data?.length > 0 && !store?.loading">
+<div class="page-doc">
+  <div #scroll (vsEnd)="_onScroll($event)" [appScrollEnd]="$safeNavigationMigration(store?.data)" class="as-tb-wrap vt-doc">
+    @if (store?.data?.length > 0 && !store?.loading) {
+      <table class="as-table-wrapper">
         <thead #header>
           <tr>
             <th class="center">
@@ -52,32 +56,32 @@
               ទៅកាន់ថ្នាក់ក្រោមរបស់
             </th>
             <th>
-
             </th>
           </tr>
         </thead>
         <tbody #container>
-          <tr *ngFor="let item of scroll?.viewPortItems; let i = index">
-            <td class="center" style="width: 64px;">
-              {{item?.index}}
-            </td>
-            <td>
-              <div class="rows">
-                <div class="avatar-tb">
-                  <img [src]="item?.file?.downloadUrl || URL">
+          @for (item of store?.data; track item; let i = $index) {
+            <tr>
+              <td class="center" style="width: 64px;">
+                {{item?.index}}
+              </td>
+              <td>
+                <div class="rows">
+                  <div class="avatar-tb">
+                    <img [src]="item?.file?.downloadUrl || URL">
+                  </div>
+                  <strong>{{item?.code}}</strong>
                 </div>
-                <strong>{{item?.code}}</strong>
-              </div>
-            </td>
-            <td>
-              <div class="rows" style="white-space: normal; max-width: 260px;">
-                <span style="margin-right: 6px;">
-                  {{item?.name}}
-                </span>
-                <!-- <span>{{item?.last_name}} {{item?.first_name}}</span> -->
-              </div>
-            </td>
-            <!-- <td>
+              </td>
+              <td>
+                <div class="rows" style="white-space: normal; max-width: 260px;">
+                  <span style="margin-right: 6px;">
+                    {{item?.name}}
+                  </span>
+                  <!-- <span>{{item?.last_name}} {{item?.first_name}}</span> -->
+                </div>
+              </td>
+              <!-- <td>
               {{item?.phoneNumber ||'-'}}
             </td> -->
             <td>
@@ -90,11 +94,11 @@
               {{item?.kh_budget_mfe? item.kh_budget_mfe : '0.00'}}
             </td>
             <td>
-              <a [routerLink]="'/apps/program/' + item?.ranking?.keyPath + '/' + item.key ">{{item?.ranking?.name}}</a>
+              <a [routerLink]="'/apps/program/' + $safeNavigationMigration(item?.ranking?.keyPath) + '/' + item.key ">{{item?.ranking?.name}}</a>
             </td>
             <td style="width: 64px;">
               <div class="card-list-action">
-                <button mat-button mat-icon-button [matMenuTriggerFor]="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
                   <i class="material-icons">more_vert</i>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -106,30 +110,34 @@
               </div>
             </td>
           </tr>
-        </tbody>
-      </table>
-      <ng-container *ngIf="store?.data?.length===0 && !store?.loading">
-        <div class="empty-block">
-          <div class="center-block-empty">
-            <div class="empty-img">
-              <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                alt="empty">
-            </div>
-            <div class="empty-text">
-              <p class="empty-state-title">
-                ពុំមានទិន្នន័យ
-              </p>
-              <p class="empty-state-desc">
-                លោកអ្នកអាចបញ្ចូលកម្មវិធីថ្មីដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
-              </p>
-            </div>
-          </div>
+        }
+      </tbody>
+    </table>
+  }
+  @if (store?.data?.length===0 && !store?.loading) {
+    <div class="empty-block">
+      <div class="center-block-empty">
+        <div class="empty-img">
+          <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+            alt="empty">
         </div>
-      </ng-container>
-      <app-spinner *ngIf="store?.loading"></app-spinner>
-      <!-- <app-spinner *ngIf="store?.fetching"></app-spinner> -->
-    </virtual-scroller>
-  </div>
+        <div class="empty-text">
+          <p class="empty-state-title">
+            ពុំមានទិន្នន័យ
+          </p>
+          <p class="empty-state-desc">
+            លោកអ្នកអាចបញ្ចូលកម្មវិធីថ្មីដោយគ្រាន់តែចុចប៊ូតុងបង្កើត
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+  @if (store?.loading) {
+    <app-spinner></app-spinner>
+  }
+  <!-- <app-spinner *ngIf="store?.fetching"></app-spinner> -->
+</div>
+</div>
 </div>
 
 <router-outlet></router-outlet>

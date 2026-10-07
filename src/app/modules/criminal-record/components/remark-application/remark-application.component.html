@@ -1,28 +1,34 @@
 <form [formGroup]="form" class="dialog-content-wrapper" *mobxAutorun>
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{isReject ? 'បដិសេធពាក្យស្នើសុំ' : 'Remark Application'}}</h2>
-        <div class="space1"></div>
-        <a mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </a>
-    </div>
-    <mat-dialog-content class="form-wrapper">
-        <div class="preset-reasons" *ngIf="isReject">
-            <button type="button" mat-stroked-button class="preset-reason-btn" *ngFor="let reason of presetReasons"
-                [class.active]="isPresetSelected(reason)" (click)="togglePreset(reason)">{{reason}}</button>
-        </div>
-        <mat-form-field appearance="outline">
-            <mat-label>{{isReject ? 'មូលហេតុបដិសេធ' : 'Remark'}}</mat-label>
-            <textarea type="text" matInput [placeholder]="isReject ? 'មូលហេតុបដិសេធ' : 'Remark'" formControlName="remark_application" rows="5"></textarea>
-            <mat-error *ngIf="form.controls['remark_application'].hasError('required')">
-                ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបញ្ចូល
-            </mat-error>
-        </mat-form-field>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
-        <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
-            (click)="save()">យល់ព្រម</button>
-    </mat-dialog-actions>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{isReject ? 'បដិសេធពាក្យស្នើសុំ' : 'Remark Application'}}</h2>
+    <div class="space1"></div>
+    <a mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </a>
+  </div>
+  <mat-dialog-content class="form-wrapper">
+    @if (isReject) {
+      <div class="preset-reasons">
+        @for (reason of presetReasons; track reason) {
+          <button type="button" mat-stroked-button class="preset-reason-btn"
+          [class.active]="isPresetSelected(reason)" (click)="togglePreset(reason)">{{reason}}</button>
+        }
+      </div>
+    }
+    <mat-form-field appearance="outline">
+      <mat-label>{{isReject ? 'មូលហេតុបដិសេធ' : 'Remark'}}</mat-label>
+      <textarea type="text" matInput [placeholder]="isReject ? 'មូលហេតុបដិសេធ' : 'Remark'" formControlName="remark_application" rows="5"></textarea>
+      @if (form.controls['remark_application'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបញ្ចូល
+        </mat-error>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <div class="flex1"></div>
+    <a mat-button mat-dialog-close class="enbutton cancel" (click)="dialogRef.close()">បោះបង់</a>
+    <button class="enbutton primary" mat-button type="submit" [disabled]="!form?.valid || process"
+    (click)="save()">យល់ព្រម</button>
+  </mat-dialog-actions>
 </form>

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CriminalRecordPublicRoutingModule } from './criminal-record-public-routing.module';
@@ -46,9 +46,11 @@ export function playerFactory() {
     CommonModule,
     CriminalRecordPublicRoutingModule,
     SharedModule,
-    LottieModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    provideLottieOptions({ player: playerFactory }),
+  ],
 })
 export class CriminalRecordPublicModule { }

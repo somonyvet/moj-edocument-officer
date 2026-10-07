@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -7,32 +7,34 @@ import { FireStorageService } from 'src/app/shared/services/fireStorage.service'
 import { AuthStore } from 'src/app/stores/auth.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 import { config } from 'src/app/dummy/config';
-import * as customBuild from 'src/ckeditor5/build/ckeditor';
+import CustomEditor from 'src/app/shared/ckeditor/custom-editor';
 import { ConfirmSuccessComponent } from 'src/app/shared/components/confirm-success/confirm-success.component';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
 
 
 @Component({
-  selector: 'app-citizen-profile-criminal-form',
-  templateUrl: './citizen-profile-criminal-form.component.html',
-  styleUrls: ['./citizen-profile-criminal-form.component.scss']
+    selector: 'app-citizen-profile-criminal-form',
+    templateUrl: './citizen-profile-criminal-form.component.html',
+    styleUrls: ['./citizen-profile-criminal-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CitizenProfileCriminalFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
-  public Editor = customBuild;
+  public Editor = CustomEditor;
   public config = {
     ...config,
     placeholder: "សូមបញ្ចូលសាច់រឿងសង្ខេបព្រឹត្តិបត្រថ្កោលទោសនៅទីនេះ"
   };
   process: boolean = false;
   title: any = "សង្ខេបសាច់រឿង";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<CitizenProfileCriminalFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: CriminalApplicationStore,
     private ds: DataService,
     private auth: AuthStore,

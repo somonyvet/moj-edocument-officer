@@ -1,5 +1,5 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, OnDestroy, SimpleChanges, ChangeDetectorRef, AfterContentChecked, AfterContentInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, OnDestroy, SimpleChanges, ChangeDetectorRef, AfterContentChecked, AfterContentInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AudioRecorderService } from 'src/app/shared/services/audio-recorder.service';
 import { Subscription } from 'rxjs';
 import { ChatTypeEnum } from 'src/app/dummy/chat';
@@ -13,9 +13,11 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { ChatStore } from 'src/app/stores/chat.store';
 
 @Component({
-  selector: 'app-chat-box',
-  templateUrl: './chat-box.component.html',
-  styleUrls: ['./chat-box.component.scss']
+    selector: 'app-chat-box',
+    templateUrl: './chat-box.component.html',
+    styleUrls: ['./chat-box.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChatBoxComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
 
@@ -29,7 +31,7 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked, AfterViewInit
   fromUserData: any = null;
   chats: Array<any> = [];
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   type: string = ChatTypeEnum.text;
 
   userId: string = null;
@@ -50,7 +52,7 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked, AfterViewInit
     public chatStore: ChatStore,
     private authStore: AuthStore,
     public storage: FireStorageService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private uploadService: FirestorageFilesUploadService,
     private audioRecorderService: AudioRecorderService,

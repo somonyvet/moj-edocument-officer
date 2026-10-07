@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -11,19 +11,21 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-template-document-form',
-  templateUrl: './template-document-form.component.html',
-  styleUrls: ['./template-document-form.component.scss']
+    selector: 'app-template-document-form',
+    templateUrl: './template-document-form.component.html',
+    styleUrls: ['./template-document-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TemplateDocumentFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   process: boolean = false;
   title: string = 'បង្កើតគំរូឯកសារ'
   constructor(
     public dialogRef: MatDialogRef<TemplateDocumentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private auth: AuthStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ds: DataService,
     private snackBar: MatSnackBar,
     private router: Router,

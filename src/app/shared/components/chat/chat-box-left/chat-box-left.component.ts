@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ChatTypeEnum } from 'src/app/dummy/chat';
 
 @Component({
-  selector: 'app-chat-box-left',
-  templateUrl: './chat-box-left.component.html',
-  styleUrls: ['./chat-box-left.component.scss']
+    selector: 'app-chat-box-left',
+    templateUrl: './chat-box-left.component.html',
+    styleUrls: ['./chat-box-left.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChatBoxLeftComponent implements OnInit {
 

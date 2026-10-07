@@ -1,116 +1,138 @@
 <form [formGroup]="form" class="dialog-content-wrapper">
-    <div class="dialog-header">
-        <h2 mat-dialog-title>{{title}}</h2>
-        <div class="space1"></div>
-        <button mat-button mat-icon-button (click)="dialogRef.close()">
-            <mat-icon class="mat-18">clear</mat-icon>
-        </button>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <div class="space1"></div>
+    <button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon class="mat-18">clear</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content class="form-wrapper form-choose-item">
+
+    <div class="row-item">
+      <span class="txt-label">តើលោកអ្នកជាជនជាតិខ្មែរឬជនជាតិបរទេស</span>
+      <mat-radio-group aria-label="Select an option" class="group-gap" formControlName="nationality">
+        @for (item of data; track item) {
+          <mat-radio-button [checked]="item?.key === criminalData?.national_application?.key" [value]="item"
+            ><span>{{tran?.language==='en'?item?.name_en:
+          item?.name}} </span></mat-radio-button>
+        }
+      </mat-radio-group>
     </div>
-    <mat-dialog-content class="form-wrapper form-choose-item">
 
-        <div class="row-item">
-            <span class="txt-label">តើលោកអ្នកជាជនជាតិខ្មែរឬជនជាតិបរទេស</span>
-            <mat-radio-group aria-label="Select an option" class="group-gap" formControlName="nationality">
-                <mat-radio-button [checked]="item?.key === criminalData?.national_application?.key" [value]="item"
-                    *ngFor="let item of data"><span>{{tran?.language==='en'?item?.name_en:
-                        item?.name}} </span></mat-radio-button>
-            </mat-radio-group>
-        </div>
+    <div class="row-item" style="margin-top: 14px;">
+      <mat-checkbox class="txt-label" formControlName="isStudent">ជាសិស្ស/និស្សិត</mat-checkbox>
+    </div>
 
-        <div class="row-item" style="margin-top: 14px;">
-          <mat-checkbox class="txt-label" formControlName="isStudent">ជាសិស្ស/និស្សិត</mat-checkbox>
-        </div>
+    <div class="row-item">
+      <span class="txt-label">ស្នើសុំក្នុងប្រទេសកម្ពុជា ឬក្រៅប្រទេស?</span>
+      <mat-radio-group
+        aria-label="Select an option" class="group-gap" formControlName="apply_from">
+        @for (item of APPLY_OBJECT_ARRAY; track item) {
+          <mat-radio-button [value]="item"><span>{{tran?.language==='en'?item?.name_en:
+          item?.name}} </span>
+        </mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
 
-        <div class="row-item">
-          <span class="txt-label">ស្នើសុំក្នុងប្រទេសកម្ពុជា ឬក្រៅប្រទេស?</span>
-          <mat-radio-group
-            aria-label="Select an option" class="group-gap" formControlName="apply_from">
-            <mat-radio-button [value]="item" *ngFor="let item of APPLY_OBJECT_ARRAY"><span>{{tran?.language==='en'?item?.name_en:
-                item?.name}} </span>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
+  <div class="row-item">
+    <span class="txt-label">ជ្រើសរើសសេវា</span>
+    <mat-radio-group aria-label="Select an option" class="group-gap" formControlName="duration">
+      @for (item of duration; track item) {
+        <mat-radio-button [checked]="item?.key === criminalData?.urgent_obj?.key"
+          [value]="item"><span>{{tran?.language==='en'?item?.name_en:
+        item?.name}}</span>
+      </mat-radio-button>
+    }
+  </mat-radio-group>
+</div>
+<div class="row-item">
+  <span class="txt-label">ជ្រើសរើសភាសា និងតម្លៃព្រឹត្តិបត្រថ្កោលទោស</span>
+</div>
+<div class="item-wrapper">
+  <div class="row-item">
+    <div class="item-lg">
+      <strong style="margin-left:12px">ភាសាខ្មែរ</strong>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>តម្លៃ</mat-label>
+      <input matInput type="number" required formControlName="khmer_price">
+      <!-- <span matSuffix>៛</span> -->
+      @if (form.controls['khmer_price'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+        </mat-error>
+      }
+      @if (form.controls['khmer_price'].hasError('min')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="row-item">
+    <div class="item-lg">
+      <span style="margin-left:12px">ភាសាបារាំង</span>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>តម្លៃ</mat-label>
+      <input matInput type="number" required formControlName="france_price">
+      <!-- <span matSuffix>៛</span> -->
+      @if (form.controls['france_price'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+        </mat-error>
+      }
+      @if (form.controls['france_price'].hasError('min')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="row-item">
+    <div class="item-lg">
+      <span style="margin-left:12px">ភាសាអង់គ្លេស</span>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>តម្លៃ</mat-label>
+      <input matInput type="number" required formControlName="english_price">
+      <!-- <span matSuffix>៛</span> -->
+      @if (form.controls['english_price'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
+        </mat-error>
+      }
+      @if (form.controls['english_price'].hasError('min')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>ថ្លៃប្រតិបត្តិការ</mat-label>
+      <!-- <span matSuffix>៛</span> -->
+      <input formControlName="tran_fee" matInput placeholder="tran_fee" type="number" />
+      @if (form.controls['tran_fee'].hasError('required')) {
+        <mat-error>
+          ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
+        </mat-error>
+      }
+    </mat-form-field>
+  </div>
+</div>
+@if (process) {
+  <app-spinner class="abs-spinner"></app-spinner>
+}
 
-        <div class="row-item">
-            <span class="txt-label">ជ្រើសរើសសេវា</span>
-            <mat-radio-group aria-label="Select an option" class="group-gap" formControlName="duration">
-                <mat-radio-button [checked]="item?.key === criminalData?.urgent_obj?.key" *ngFor="let item of duration"
-                    [value]="item"><span>{{tran?.language==='en'?item?.name_en:
-                        item?.name}}</span>
-                </mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <div class="row-item">
-            <span class="txt-label">ជ្រើសរើសភាសា និងតម្លៃព្រឹត្តិបត្រថ្កោលទោស</span>
-        </div>
-        <div class="item-wrapper">
-            <div class="row-item">
-                <div class="item-lg">
-                    <strong style="margin-left:12px">ភាសាខ្មែរ</strong>
-                </div>
-                <mat-form-field appearance="outline">
-                    <mat-label>តម្លៃ</mat-label>
-                    <input matInput type="number" required formControlName="khmer_price">
-                    <!-- <span matSuffix>៛</span> -->
-                    <mat-error *ngIf="form.controls['khmer_price'].hasError('required')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['khmer_price'].hasError('min')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="row-item">
-                <div class="item-lg">
-                    <span style="margin-left:12px">ភាសាបារាំង</span>
-                </div>
-                <mat-form-field appearance="outline">
-                    <mat-label>តម្លៃ</mat-label>
-                    <input matInput type="number" required formControlName="france_price">
-                    <!-- <span matSuffix>៛</span> -->
-                    <mat-error *ngIf="form.controls['france_price'].hasError('required')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['france_price'].hasError('min')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="row-item">
-                <div class="item-lg">
-                    <span style="margin-left:12px">ភាសាអង់គ្លេស</span>
-                </div>
-                <mat-form-field appearance="outline">
-                    <mat-label>តម្លៃ</mat-label>
-                    <input matInput type="number" required formControlName="english_price">
-                    <!-- <span matSuffix>៛</span> -->
-                    <mat-error *ngIf="form.controls['english_price'].hasError('required')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ
-                    </mat-error>
-                    <mat-error *ngIf="form.controls['english_price'].hasError('min')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញចំនួនតិចបំផុត១ច្បាប់
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>ថ្លៃប្រតិបត្តិការ</mat-label>
-                    <!-- <span matSuffix>៛</span> -->
-                    <input formControlName="tran_fee" matInput placeholder="tran_fee" type="number" />
-                    <mat-error *ngIf="form.controls['tran_fee'].hasError('required')">
-                        ព័ត៌មាននេះតម្រូវឲ្យលោកអ្នកបំពេញ។
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <app-spinner class="abs-spinner" *ngIf="process"></app-spinner>
-
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-        <div class="flex1"></div>
-        <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
-        <!-- <button class="enbutton primary" mat-button type="submit" *ngIf="!data?.item" (click)="create(form.value, true)">រក្សាទុករួចធ្វើបន្ត</button> -->
-        <button class="enbutton primary" mat-button type="submit"
-            (click)="create(form.value, false)">{{item?'រក្សាទុក':'រក្សាទុករួចបិទ'}}</button>
-    </mat-dialog-actions>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="flex1"></div>
+  <a mat-button mat-dialog-close class="enbutton cancel">បោះបង់</a>
+  <!-- <button class="enbutton primary" mat-button type="submit" *ngIf="!data?.item" (click)="create(form.value, true)">រក្សាទុករួចធ្វើបន្ត</button> -->
+  <button class="enbutton primary" mat-button type="submit"
+  (click)="create(form.value, false)">{{item?'រក្សាទុក':'រក្សាទុករួចបិទ'}}</button>
+</mat-dialog-actions>
 </form>

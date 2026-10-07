@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IPageInfo } from 'ngx-virtual-scroller';
+import { IPageInfo } from 'src/app/directives/virtual-scroll-end.directive';
 import { tabs } from 'src/app/dummy/tabs';
 import { IVisaType } from 'src/app/interfaces/document/document.interface';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
@@ -11,9 +11,11 @@ import { BaseStore } from 'src/app/stores/base.store';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 
 @Component({
-  selector: 'app-supplier-listing',
-  templateUrl: './supplier-listing.component.html',
-  styleUrls: ['./supplier-listing.component.scss']
+    selector: 'app-supplier-listing',
+    templateUrl: './supplier-listing.component.html',
+    styleUrls: ['./supplier-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SupplierListingComponent implements OnInit, OnDestroy {
   tabs = tabs.suppliers

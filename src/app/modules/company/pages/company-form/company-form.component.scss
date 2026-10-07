@@ -11,32 +11,32 @@ $heightProgress: 8px;
     color: #3c7abc;
 }
 
-::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+::ng-deep .mat-mdc-radio-button.mat-accent.mat-mdc-radio-checked .mdc-radio__outer-circle {
     border-color: #3c7abc !important;
 }
 
-::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+::ng-deep .mat-mdc-radio-button.mat-accent .mdc-radio__inner-circle {
     color: #3c7abc !important;
     background-color: #3c7abc !important;
 }
 
-::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+::ng-deep .mat-mdc-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
     background-color: #3c7abc !important;
 }
 
-::ng-deep .mat-progress-bar-fill::after {
+::ng-deep .mdc-linear-progress__bar-inner::after {
     background-color: #1e457c;
 }
 
-::ng-deep .mat-progress-bar-buffer {
+::ng-deep .mdc-linear-progress__buffer {
     background: #e4e8eb;
 }
 
-::ng-deep .mat-progress-bar {
+::ng-deep .mat-mdc-progress-bar {
     border-radius: 4px;
     height: 8px;
 }
-::ng-deep .mat-form-field-wrapper {
+::ng-deep .mat-mdc-text-field-wrapper {
     padding-bottom: 0 !important;
 }
 

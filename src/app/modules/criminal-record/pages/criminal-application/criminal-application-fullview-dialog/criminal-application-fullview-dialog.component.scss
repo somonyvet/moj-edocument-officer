@@ -1,4 +1,4 @@
-@import "/src/assets/styles/variable.scss";
+@use "/src/assets/styles/variable.scss" as *;
 
 
 p {
@@ -215,7 +215,7 @@ h3 {
 
 }
 
-.mat-standard-chip {
+.mat-mdc-standard-chip {
   font-family: $appFont;
 }
 
@@ -267,21 +267,21 @@ h3 {
 }
 
 
-::ng-deep.mat-tab-label.mat-tab-label-active {
+::ng-deep.mat-mdc-tab.mdc-tab--active {
   color: $link !important;
   opacity: 1 !important;
 }
 
 
-::ng-deep .mat-tab-labels {
+::ng-deep .mat-mdc-tab-labels {
   div {
-    &.mat-tab-label-active {
-      .mat-tab-label-content{
+    &.mdc-tab--active {
+      .mdc-tab__text-label{
         color: $link !important;
         opacity: 1 !important;
       }
     }
-    .mat-tab-label-content {
+    .mdc-tab__text-label {
       color: #202124;
       text-transform: capitalize;
       font-weight: 600;

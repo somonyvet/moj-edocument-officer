@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from 'src/app/shared/services/data.service';
@@ -12,9 +12,11 @@ import { Observable } from 'rxjs';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-record-approval',
-  templateUrl: './criminal-record-approval.component.html',
-  styleUrls: ['./criminal-record-approval.component.scss']
+    selector: 'app-criminal-record-approval',
+    templateUrl: './criminal-record-approval.component.html',
+    styleUrls: ['./criminal-record-approval.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalRecordApprovalComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
@@ -24,7 +26,7 @@ export class CriminalRecordApprovalComponent implements OnInit {
   @ViewChild('stampFile') stampFile: ElementRef;
 
   titleForm: any = "បានពិនិត្យ និងឯកភាព";
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   process: boolean = false;
 
@@ -46,7 +48,7 @@ export class CriminalRecordApprovalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CriminalRecordApprovalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public ds: DataService,
     public auth: AuthStore,
     private snackBar: MatSnackBar,

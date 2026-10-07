@@ -98,15 +98,15 @@
                                             *ngIf="arrayAuditors.length <= 0">សូមជ្រើសរើសទិន្នន័យក្នុងប្រអប់។</span><span
                                             class="rq-sign">*</span>
                                     </mat-label>
-                                    <mat-chip-list #chipListAuditor aria-label="selection">
-                                        <mat-chip *ngFor="let item of arrayAuditors" [selectable]="false"
+                                    <mat-chip-grid #chipListAuditor aria-label="selection">
+                                        <mat-chip-row *ngFor="let item of arrayAuditors"
                                             [removable]="true" (removed)="removeDepartment(item,'AUDITOR')">
                                             {{item?.displayName}}
                                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                        </mat-chip>
+                                        </mat-chip-row>
                                         <input placeholder="ជ្រើសរើសអង្គភាព..." formControlName="auditor"
                                             [matAutocomplete]="autoAuditor" [matChipInputFor]="chipListAuditor">
-                                    </mat-chip-list>
+                                    </mat-chip-grid>
                                 </mat-form-field>
                                 <mat-autocomplete #autoAuditor="matAutocomplete"
                                     (optionSelected)="selectedDepartment($event,'AUDITOR')">
@@ -124,7 +124,7 @@
                         <div class="rows justify-content-between">
                             <p>អង្គភាព និងជនបង្គោល​​</p>
                             <div class="action-container">
-                                <a mat-button mat-icon-button class="mat-btn-n" *ngIf="i!==0"
+                                <a mat-icon-button class="mat-btn-n" *ngIf="i!==0"
                                     (click)="deleteFormArrayItem(i,'department_officer')">
                                     <mat-icon>close</mat-icon>
                                 </a>
@@ -170,15 +170,15 @@
                                                 class="rq-sign">*</span>
                                         </span>
                                     </mat-label>
-                                    <mat-chip-list formControlName="officers" #chipListOfficer aria-label="selection">
-                                        <mat-chip *ngFor="let item of arrayOfficers2d[i]" [selectable]="false"
+                                    <mat-chip-grid formControlName="officers" #chipListOfficer aria-label="selection">
+                                        <mat-chip-row *ngFor="let item of arrayOfficers2d[i]"
                                             [removable]="true" (removed)="removeDepartmentFormArr(item,'OFFICER',i)">
                                             {{item?.displayName}}
                                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                                        </mat-chip>
+                                        </mat-chip-row>
                                         <input placeholder="ជ្រើសរើសអង្គភាព..." [matAutocomplete]="autoOfficer"
                                             [matChipInputFor]="chipListOfficer">
-                                    </mat-chip-list>
+                                    </mat-chip-grid>
                                 </mat-form-field>
                                 <mat-autocomplete #autoOfficer="matAutocomplete"
                                     (optionSelected)="selectedDepartmentFormArr($event,'OFFICER',i)">
@@ -203,7 +203,7 @@
                     <div class="psrTitle">
                       <div class="rows justify-content-between">
                           <p>សូចនាករសមត្ថកម្មប្រចាំឆ្នាំ និង គោលដៅ</p>
-                          <a mat-button mat-icon-button class="mat-btn-n" *ngIf="i!==0"
+                          <a mat-icon-button class="mat-btn-n" *ngIf="i!==0"
                             (click)="deleteFormArrayItem(i,'remark_indicator')">
                             <mat-icon>close</mat-icon>
                           </a>

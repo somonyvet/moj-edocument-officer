@@ -1,134 +1,133 @@
 <div class="main-panel">
-    <div class="main-r">
-        <div class="page-container">
-            <div class="action-bar">
-                <div class="nav-content">
-                    <h3 class="head-title">
-                        {{title}}
-                    </h3>
-                    <div class="action-item">
-                        <button mat-button class="enbutton primary" (click)="create()">{{'បង្កើត'}}</button>
-                    </div>
-                </div>
-            </div>
-            <div class="page-doc">
-
-                <virtual-scroller #scroll [items]="store?.data" class="as-tb-wrap vt-doc" style="overflow-x: hidden;"
-                    *ngIf="!store?.fetching && !store?.empty" (vsEnd)="fetchMore($event)" id="tableWrapper">
-
-                    <tr>
-                        <table class="as-table-wrapper first-table" id="firstTable">
-                            <tbody #container>
-                                <tr class="sticky-head">
-                                    <th class="center">
-                                        ល.រ
-                                    </th>
-                                    <th class="center">
-                                        ឈ្មោះ
-                                    </th>
-                                </tr>
-
-                                <ng-container *ngFor="let item of scroll.viewPortItems">
-                                    <tr>
-                                        <td class="center">
-                                            {{item.rowIndex}}
-                                        </td>
-                                        <td class="center">
-                                            {{ item?.officer?.displayName }}
-                                        </td>
-                                    </tr>
-                                </ng-container>
-
-                            </tbody>
-                        </table>
-                        <div id="secondTable">
-                            <table class="as-table-wrapper second-table">
-                                <tbody #container>
-                                    <tr class="sticky-head">
-                                        <ng-container *ngFor="let day of daysArr">
-                                            <th class="center">
-                                                {{'ថ្ងៃទី'+ day }}
-                                            </th>
-                                        </ng-container>
-                                    </tr>
-
-                                    <ng-container *ngFor="let item of scroll.viewPortItems">
-                                        <tr>
-                                            <ng-container *ngFor="let day of daysArr;index as i">
-                                                <td class="attendance-box"
-                                                    [ngClass]="{noRightBorder: i===daysArr.length-1}">
-                                                    <ion-icon name="checkmark-circle-outline"
-                                                        *ngIf="item?.attendance | displayAttendance: i+1">
-                                                    </ion-icon>
-                                                </td>
-                                            </ng-container>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                            </table>
-                        </div>
-                        <table class="as-table-wrapper third-table" id="thirdTable">
-
-                            <tbody #container>
-                                <tr class="sticky-head">
-                                    <th class="left">
-                                        វត្តមានសរុប
-                                    </th>
-                                    <th class="left">
-                                        អវត្តមានសរុប
-                                    </th>
-                                    <th class="left">
-                                        ផ្សេងៗ
-                                    </th>
-                                </tr>
-
-                                <ng-container *ngFor="let item of scroll.viewPortItems">
-                                    <tr>
-                                        <td class="center">
-                                            {{item?.attendance | totalPresent}}
-                                        </td>
-                                        <td class="center">
-                                            {{item?.attendance | totalAbsent}}
-                                        </td>
-                                        <td class="center">
-                                            <div class="card-list-action">
-                                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                                    class="option-button">
-                                                    <i class="material-icons">more_vert</i>
-                                                </button>
-                                                <mat-menu #menu="matMenu">
-                                                </mat-menu>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </ng-container>
-
-                            </tbody>
-                        </table>
-                    </tr>
-                    <div class="empty-block" *ngIf="store?.fetching">
-                        <div class="center-block-empty">
-                            <app-spinner></app-spinner>
-                        </div>
-                    </div>
-                    <ng-container *ngIf="store?.empty && !store?.fetching">
-                        <div class="empty-block">
-                            <div class="center-block-empty">
-                                <div class="empty-img">
-                                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
-                                        alt="empty">
-                                </div>
-                                <div class="empty-text">
-                                    <p class="empty-state-title">
-                                        ពុំមានទិន្នន័យ
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </virtual-scroller>
-
-            </div>
+  <div class="main-r">
+    <div class="page-container">
+      <div class="action-bar">
+        <div class="nav-content">
+          <h3 class="head-title">
+            {{title}}
+          </h3>
+          <div class="action-item">
+            <button mat-button class="enbutton primary" (click)="create()">{{'បង្កើត'}}</button>
+          </div>
         </div>
+      </div>
+      <div class="page-doc">
+
+        @if (!store?.fetching && !store?.empty) {
+          <div #scroll [appScrollEnd]="$safeNavigationMigration(store?.data)" class="as-tb-wrap vt-doc" style="overflow-x: hidden;"
+            (vsEnd)="fetchMore($event)" id="tableWrapper">
+            <tr>
+              <table class="as-table-wrapper first-table" id="firstTable">
+                <tbody #container>
+                  <tr class="sticky-head">
+                    <th class="center">
+                      ល.រ
+                    </th>
+                    <th class="center">
+                      ឈ្មោះ
+                    </th>
+                  </tr>
+                  @for (item of store?.data; track item) {
+                    <tr>
+                      <td class="center">
+                        {{item.rowIndex}}
+                      </td>
+                      <td class="center">
+                        {{ item?.officer?.displayName }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+              <div id="secondTable">
+                <table class="as-table-wrapper second-table">
+                  <tbody #container>
+                    <tr class="sticky-head">
+                      @for (day of daysArr; track day) {
+                        <th class="center">
+                          {{'ថ្ងៃទី'+ day }}
+                        </th>
+                      }
+                    </tr>
+                    @for (item of store?.data; track item) {
+                      <tr>
+                        @for (day of daysArr; track day; let i = $index) {
+                          <td class="attendance-box"
+                            [ngClass]="{noRightBorder: i===daysArr.length-1}">
+                            @if ($safeNavigationMigration(item?.attendance) | displayAttendance: i+1) {
+                              <ion-icon name="checkmark-circle-outline"
+                                >
+                              </ion-icon>
+                            }
+                          </td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <table class="as-table-wrapper third-table" id="thirdTable">
+                <tbody #container>
+                  <tr class="sticky-head">
+                    <th class="left">
+                      វត្តមានសរុប
+                    </th>
+                    <th class="left">
+                      អវត្តមានសរុប
+                    </th>
+                    <th class="left">
+                      ផ្សេងៗ
+                    </th>
+                  </tr>
+                  @for (item of store?.data; track item) {
+                    <tr>
+                      <td class="center">
+                        {{$safeNavigationMigration(item?.attendance) | totalPresent}}
+                      </td>
+                      <td class="center">
+                        {{$safeNavigationMigration(item?.attendance) | totalAbsent}}
+                      </td>
+                      <td class="center">
+                        <div class="card-list-action">
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            class="option-button">
+                            <i class="material-icons">more_vert</i>
+                          </button>
+                          <mat-menu #menu="matMenu">
+                          </mat-menu>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </tr>
+            @if (store?.fetching) {
+              <div class="empty-block">
+                <div class="center-block-empty">
+                  <app-spinner></app-spinner>
+                </div>
+              </div>
+            }
+            @if (store?.empty && !store?.fetching) {
+              <div class="empty-block">
+                <div class="center-block-empty">
+                  <div class="empty-img">
+                    <img src="https://mobilecenter.azureedge.net/generated/img/no-apps-db6363dd644196e2291b243bc210e1b0.svg"
+                      alt="empty">
+                  </div>
+                  <div class="empty-text">
+                    <p class="empty-state-title">
+                      ពុំមានទិន្នន័យ
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+      </div>
     </div>
+  </div>
 </div>

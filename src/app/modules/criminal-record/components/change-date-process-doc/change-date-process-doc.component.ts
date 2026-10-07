@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CriminalApplicationStore } from '../../stores/criminalApplication.store';
@@ -7,15 +7,17 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { toKhDate } from 'src/app/shared/services/mapping.service';
 
 @Component({
-  selector: 'app-change-date-process-doc',
-  templateUrl: './change-date-process-doc.component.html',
-  styleUrls: ['./change-date-process-doc.component.scss']
+    selector: 'app-change-date-process-doc',
+    templateUrl: './change-date-process-doc.component.html',
+    styleUrls: ['./change-date-process-doc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChangeDateProcessDocComponent implements OnInit {
 
   report_date : any = null;
   withdraw_date : any = null;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeDateProcessDocComponent>,
@@ -23,7 +25,7 @@ export class ChangeDateProcessDocComponent implements OnInit {
     public store: CriminalApplicationStore,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { 
   }
 

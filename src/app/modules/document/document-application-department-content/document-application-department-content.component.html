@@ -1,32 +1,33 @@
 <div class="doc-form-container f-col" *mobxAutorun>
-    <div class="doc-form-block" #spacer>
-        <div class="doc-form-item form-wrapper" [formGroup]="form">
-            <div class="doc-template-wrapper">
-                <div class="doc-template-page">
-                    <div class="doc-template-row">
-                        <div class="bl-title-left">
-                            <p>ក្រសួងមហាផ្ទៃ</p>
-                            <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
-                            <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
-                            <p>និងបច្ចេកវិទ្យា</p>
-                            <p>ការិយាល័យរដ្ឋបាលសរុប</p>
-                            <p>លេខ៖ {{Item?.documentNo}}</p>
-                            <p class="star">3</p>
-                        </div>
-                        <div class="bl-space"></div>
-                        <div class="bl-title-right">
-                            <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
-                            <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
-                            <p class="star">3</p>
-                        </div>
-                    </div>
+  <div class="doc-form-block" #spacer>
+    <div class="doc-form-item form-wrapper" [formGroup]="form">
+      <div class="doc-template-wrapper">
+        <div class="doc-template-page">
+          <div class="doc-template-row">
+            <div class="bl-title-left">
+              <p>ក្រសួងមហាផ្ទៃ</p>
+              <p>អគ្គនាយកដ្ឋានអន្តោប្រវេសន៍</p>
+              <p>នាយកដ្ឋានជនបរទេសមិនមែនអន្តោប្រវេសន្ត</p>
+              <p>និងបច្ចេកវិទ្យា</p>
+              <p>ការិយាល័យរដ្ឋបាលសរុប</p>
+              <p>លេខ៖ {{Item?.documentNo}}</p>
+              <p class="star">3</p>
+            </div>
+            <div class="bl-space"></div>
+            <div class="bl-title-right">
+              <p>ព្រះរាជាណាចក្រកម្ពុជា</p>
+              <p>ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+              <p class="star">3</p>
+            </div>
+          </div>
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of headerForm().controls;let i = index;" [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <ng-container>
-                                <div class="form-group">
-                                    <div class="editor" id="{{'editor'+i}}">
+          @for (contentGroup of headerForm().controls; track contentGroup; let i = $index) {
+            <div class="doc-template-row" #elReference
+              [formGroup]="contentGroup">
+              <div class="doc-form-content" style="padding: 0;">
+                <ng-container>
+                  <div class="form-group">
+                    <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onHeaderBlur($event, i)" [config]="{
                                             toolbar:config.toolbar, 
                                             fontSize:config.fontSize,
@@ -34,28 +35,29 @@
                                             table:config.table,
                                             placeholder: contentGroup.value.type.placeholder
                                         }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="content"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="doc-form-action">
-                            <button mat-icon-button (click)="deleteHeaderGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button>
-                        </div>
+                      formControlName="content"></ckeditor>
                     </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="doc-form-action">
+                <button mat-icon-button (click)="deleteHeaderGroup(i)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of sessionForm().controls;let i = index;" [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
-
-                            <ng-container *ngIf="contentGroup.value.type.key === 1">
-                                <div class="form-group">
-                                    <span style="white-space: nowrap; margin-top: 16px; margin-left: 6px;">
-                                        {{contentGroup.value.type.name}} :
-                                    </span>
-                                    <div class="editor" id="{{'editor'+i}}">
+          @for (contentGroup of sessionForm().controls; track contentGroup; let i = $index) {
+            <div class="doc-template-row" #elReference
+              [formGroup]="contentGroup">
+              <div class="doc-form-content" style="padding: 0 16px; background-color: #fafafa;">
+                @if (contentGroup.value.type.key === 1) {
+                  <div class="form-group">
+                    <span style="white-space: nowrap; margin-top: 16px; margin-left: 6px;">
+                      {{contentGroup.value.type.name}} :
+                    </span>
+                    <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
                                                 toolbar:config.toolbar, 
                                                 fontSize:config.fontSize,
@@ -63,13 +65,13 @@
                                                 table:config.table,
                                                 placeholder: contentGroup.value.type.placeholder
                                             }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="remark"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="contentGroup.value.type.key === 2">
-                                <div class="form-group">
-                                    <div class="editor" id="{{'editor'+i}}">
+                      formControlName="remark"></ckeditor>
+                    </div>
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 2) {
+                  <div class="form-group">
+                    <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onSectionBlur($event, i)" [config]="{
                                                 toolbar:config.toolbar, 
                                                 fontSize:config.fontSize,
@@ -77,49 +79,48 @@
                                                 table:config.table,
                                                 placeholder: contentGroup.value.type.placeholder
                                             }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="content"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-
-                        </div>
-                        <div class="doc-form-action">
-                            <button mat-icon-button (click)="deleteSessionGroup(contentGroup.value, i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button>
-                        </div>
+                      formControlName="content"></ckeditor>
                     </div>
+                  </div>
+                }
+              </div>
+              <div class="doc-form-action">
+                <button mat-icon-button (click)="deleteSessionGroup(contentGroup.value, i)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
 
-                    <div class="doc-template-row" #elReference
-                        *ngFor="let contentGroup of footerForm().controls;let i = index;" [formGroup]="contentGroup">
-                        <div class="doc-form-content" style="padding: 0;">
-                            <ng-container *ngIf="contentGroup.value.type.key === 1">
-                                <div class="doc-template-row">
-                                    <div class="bl-space"></div>
-                                    <div class="bl-date-right">
-
-                                        <p class="fMoul" style="margin-bottom: 88px;">
-                                            ការិយាល័យរដ្ឋបាលសរុប
-                                        </p>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="contentGroup.value.type.key === 2">
-                                <div class="doc-template-row">
-                                    <table class="doc-table-footer">
-                                        <tr>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អគ្គនាយករង</p>
-                                                    <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
-                                                    <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
-                                                </div>
-
-                                            </td>
-                                            <td>
-                                                <div class="tb-title-text">
-                                                    <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
-                                                    <div class="editor" id="{{'editor'+i}}">
+          @for (contentGroup of footerForm().controls; track contentGroup; let i = $index) {
+            <div class="doc-template-row" #elReference
+              [formGroup]="contentGroup">
+              <div class="doc-form-content" style="padding: 0;">
+                @if (contentGroup.value.type.key === 1) {
+                  <div class="doc-template-row">
+                    <div class="bl-space"></div>
+                    <div class="bl-date-right">
+                      <p class="fMoul" style="margin-bottom: 88px;">
+                        ការិយាល័យរដ្ឋបាលសរុប
+                      </p>
+                    </div>
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 2) {
+                  <div class="doc-template-row">
+                    <table class="doc-table-footer">
+                      <tr>
+                        <td>
+                          <div class="tb-title-text">
+                            <p>អគ្គនាយករង</p>
+                            <p>និងជា ប្រធាននាយកដ្ឋានជនបរទេស</p>
+                            <p>មិនមែនអន្តោប្រវេសន្ត និងបច្ចេកវិទ្យា</p>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="tb-title-text">
+                            <p>អនុប្រធាននាយកដ្ឋានទទួលបន្ទុក</p>
+                            <div class="editor" id="{{'editor'+i}}">
                                                         <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                                 toolbar:config.toolbar, 
                                                                 fontSize:config.fontSize,
@@ -127,21 +128,20 @@
                                                                 table:config.table,
                                                                 placeholder: '.....'
                                                             }" [editor]="Editor" data=""
-                                                            formControlName="content"></ckeditor>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </ng-container>
-
-                            <ng-container *ngIf="contentGroup.value.type.key === 3">
-                                <div class="form-group">
-                                    <span style="white-space: nowrap; margin-top: 16px;">
-                                        {{contentGroup.value.type.name}} :
-                                    </span>
-                                    <div class="editor" id="{{'editor'+i}}">
+                              formControlName="content"></ckeditor>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 3) {
+                  <div class="form-group">
+                    <span style="white-space: nowrap; margin-top: 16px;">
+                      {{contentGroup.value.type.name}} :
+                    </span>
+                    <div class="editor" id="{{'editor'+i}}">
                                         <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
                                                 toolbar:config.toolbar, 
                                                 fontSize:config.fontSize,
@@ -149,91 +149,92 @@
                                                 table:config.table,
                                                 placeholder: contentGroup.value.type.placeholder
                                             }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="content"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="contentGroup.value.type.key === 4">
-                                <div class="form-group">
-                                    <!-- <span style="white-space: nowrap; margin-top: 16px; margin-left: 6px;">
-                                        {{contentGroup.value.type.name}} :
-                                    </span> -->
-                                    <div class="editor" id="{{'editor'+i}}">
-                                        <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
-                                                toolbar:config.toolbar, 
-                                                fontSize:config.fontSize,
-                                                fontFamily:config.fontFamily,
-                                                table:config.table,
-                                                placeholder: contentGroup.value.type.placeholder
-                                            }" (ready)="onReady($event, i)" [editor]="Editor" data=""
-                                            formControlName="content"></ckeditor>
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="doc-form-action">
-                            <button mat-icon-button (click)="deleteFooterGroup(i)">
-                                <mat-icon class="mat-18">delete</mat-icon>
-                            </button>
-                        </div>
+                      formControlName="content"></ckeditor>
                     </div>
-
-
+                  </div>
+                }
+                @if (contentGroup.value.type.key === 4) {
+                  <div class="form-group">
+                    <!-- <span style="white-space: nowrap; margin-top: 16px; margin-left: 6px;">
+                    {{contentGroup.value.type.name}} :
+                  </span> -->
+                  <div class="editor" id="{{'editor'+i}}">
+                                        <ckeditor (blur)="onFooterBlur($event, i)" [config]="{
+                                                toolbar:config.toolbar, 
+                                                fontSize:config.fontSize,
+                                                fontFamily:config.fontFamily,
+                                                table:config.table,
+                                                placeholder: contentGroup.value.type.placeholder
+                                            }" (ready)="onReady($event, i)" [editor]="Editor" data=""
+                    formControlName="content"></ckeditor>
+                  </div>
                 </div>
+              }
             </div>
+            <div class="doc-form-action">
+              <button mat-icon-button (click)="deleteFooterGroup(i)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        }
 
-        </div>
+
+      </div>
     </div>
 
-    <div class="comment">
-        <div class="c-t">
-            <div class="c-t-l">
-                <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%2318AFFF'/%3e%3cstop offset='100%25' stop-color='%230062DF'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z'/%3e%3c/g%3e%3c/svg%3e"
-                    alt="" width="18px" height="18px">
-                <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%23FF6680'/%3e%3cstop offset='100%25' stop-color='%23E61739'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0.710144928 0 0 0 0 0 0 0 0 0 0.117780134 0 0 0 0.349786932 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 100 16A8 8 0 008 0z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M10.473 4C8.275 4 8 5.824 8 5.824S7.726 4 5.528 4c-2.114 0-2.73 2.222-2.472 3.41C3.736 10.55 8 12.75 8 12.75s4.265-2.2 4.945-5.34c.257-1.188-.36-3.41-2.472-3.41'/%3e%3c/g%3e%3c/svg%3e"
-                    alt="" width="18px" height="18px">
+  </div>
+</div>
 
-                <p><a href="">230</a></p>
-            </div>
-            <div class="flex1"></div>
-            <div class="c-t-c">
-                <p><a href="">145 Comments</a></p>
-            </div>
-        </div>
-        <mat-divider></mat-divider>
+<div class="comment">
+  <div class="c-t">
+    <div class="c-t-l">
+      <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%2318AFFF'/%3e%3cstop offset='100%25' stop-color='%230062DF'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0 0 0 0 0 0.299356041 0 0 0 0 0.681187726 0 0 0 0.3495684 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 00-8 8 8 8 0 1016 0 8 8 0 00-8-8z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M12.162 7.338c.176.123.338.245.338.674 0 .43-.229.604-.474.725a.73.73 0 01.089.546c-.077.344-.392.611-.672.69.121.194.159.385.015.62-.185.295-.346.407-1.058.407H7.5c-.988 0-1.5-.546-1.5-1V7.665c0-1.23 1.467-2.275 1.467-3.13L7.361 3.47c-.005-.065.008-.224.058-.27.08-.079.301-.2.635-.2.218 0 .363.041.534.123.581.277.732.978.732 1.542 0 .271-.414 1.083-.47 1.364 0 0 .867-.192 1.879-.199 1.061-.006 1.749.19 1.749.842 0 .261-.219.523-.316.666zM3.6 7h.8a.6.6 0 01.6.6v3.8a.6.6 0 01-.6.6h-.8a.6.6 0 01-.6-.6V7.6a.6.6 0 01.6-.6z'/%3e%3c/g%3e%3c/svg%3e"
+        alt="" width="18px" height="18px">
+      <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 16 16'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='0%25' y2='100%25'%3e%3cstop offset='0%25' stop-color='%23FF6680'/%3e%3cstop offset='100%25' stop-color='%23E61739'/%3e%3c/linearGradient%3e%3cfilter id='c' width='118.8%25' height='118.8%25' x='-9.4%25' y='-9.4%25' filterUnits='objectBoundingBox'%3e%3cfeGaussianBlur in='SourceAlpha' result='shadowBlurInner1' stdDeviation='1'/%3e%3cfeOffset dy='-1' in='shadowBlurInner1' result='shadowOffsetInner1'/%3e%3cfeComposite in='shadowOffsetInner1' in2='SourceAlpha' k2='-1' k3='1' operator='arithmetic' result='shadowInnerInner1'/%3e%3cfeColorMatrix in='shadowInnerInner1' values='0 0 0 0 0.710144928 0 0 0 0 0 0 0 0 0 0.117780134 0 0 0 0.349786932 0'/%3e%3c/filter%3e%3cpath id='b' d='M8 0a8 8 0 100 16A8 8 0 008 0z'/%3e%3c/defs%3e%3cg fill='none'%3e%3cuse fill='url(%23a)' xlink:href='%23b'/%3e%3cuse fill='black' filter='url(%23c)' xlink:href='%23b'/%3e%3cpath fill='white' d='M10.473 4C8.275 4 8 5.824 8 5.824S7.726 4 5.528 4c-2.114 0-2.73 2.222-2.472 3.41C3.736 10.55 8 12.75 8 12.75s4.265-2.2 4.945-5.34c.257-1.188-.36-3.41-2.472-3.41'/%3e%3c/g%3e%3c/svg%3e"
+        alt="" width="18px" height="18px">
 
-        <div class="c-c">
-            <img src="https://scontent.fpnh12-1.fna.fbcdn.net/v/t1.6435-1/cp0/p40x40/37423472_1718074051581165_3851244870211469312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=7206a8&_nc_ohc=z3CicbvACW8AX-unYFv&_nc_ht=scontent.fpnh12-1.fna&oh=441053cdf996b18e34ce8dbbb08e8936&oe=6176BDC5"
-                    alt="" width="18px" height="18px">
-        </div>
+      <p><a href="">230</a></p>
     </div>
-
-    <div class="doc-form-sticky">
-        <div class="doc-sticky-action">
-            <ng-container *ngFor="let item of headerDocItem">
-                <button mat-icon-button (click)="addNewHeaderGroup(item)" [matTooltip]="item?.name"
-                    [matTooltipPosition]="'after'">
-                    <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-                </button>
-            </ng-container>
-
-            <mat-divider></mat-divider>
-            <ng-container *ngFor="let item of bodyDocItem">
-                <button mat-icon-button (click)="addNewSessionGroup(item)" [matTooltip]="item?.name"
-                    [matTooltipPosition]="'after'">
-                    <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-                </button>
-            </ng-container>
-            <mat-divider></mat-divider>
-
-            <ng-container *ngFor="let item of footerDocItem">
-                <button mat-icon-button (click)="addNewFooterGroup(item)" [matTooltip]="item?.name"
-                    [matTooltipPosition]="'after'">
-                    <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
-                </button>
-            </ng-container>
-
-        </div>
+    <div class="flex1"></div>
+    <div class="c-t-c">
+      <p><a href="">145 Comments</a></p>
     </div>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="c-c">
+    <img src="https://scontent.fpnh12-1.fna.fbcdn.net/v/t1.6435-1/cp0/p40x40/37423472_1718074051581165_3851244870211469312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=7206a8&_nc_ohc=z3CicbvACW8AX-unYFv&_nc_ht=scontent.fpnh12-1.fna&oh=441053cdf996b18e34ce8dbbb08e8936&oe=6176BDC5"
+      alt="" width="18px" height="18px">
+  </div>
+</div>
+
+<div class="doc-form-sticky">
+  <div class="doc-sticky-action">
+    @for (item of headerDocItem; track item) {
+      <button mat-icon-button (click)="addNewHeaderGroup(item)" [matTooltip]="$safeNavigationMigration(item?.name)"
+        [matTooltipPosition]="'after'">
+        <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+      </button>
+    }
+
+    <mat-divider></mat-divider>
+    @for (item of bodyDocItem; track item) {
+      <button mat-icon-button (click)="addNewSessionGroup(item)" [matTooltip]="$safeNavigationMigration(item?.name)"
+        [matTooltipPosition]="'after'">
+        <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+      </button>
+    }
+    <mat-divider></mat-divider>
+
+    @for (item of footerDocItem; track item) {
+      <button mat-icon-button (click)="addNewFooterGroup(item)" [matTooltip]="$safeNavigationMigration(item?.name)"
+        [matTooltipPosition]="'after'">
+        <mat-icon class="mat-18">{{item?.icon}}</mat-icon>
+      </button>
+    }
+
+  </div>
+</div>
 
 </div>

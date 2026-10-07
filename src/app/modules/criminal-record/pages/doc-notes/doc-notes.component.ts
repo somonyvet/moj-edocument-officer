@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,10 +11,12 @@ import { NationalityStore } from '../../stores/nationality.store';
 import { DocNotesFormComponent } from './doc-notes-form/doc-notes-form.component';
 
 @Component({
-  selector: 'app-doc-notes',
-  templateUrl: './doc-notes.component.html',
-  styleUrls: ['./doc-notes.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-doc-notes',
+    templateUrl: './doc-notes.component.html',
+    styleUrls: ['./doc-notes.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocNotesComponent implements OnInit,OnDestroy {
   tabs = criminal_tabs.crime_note;

@@ -1,5 +1,5 @@
 import { HrMissionStore } from './../../stores/hr-mission.store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { HrMissionsFormComponent } from './human-resource-missions-form/human-resource-missions-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,9 +7,11 @@ import { tabs } from 'src/app/dummy/tabs';
 import { ConvertService, toLocaleNumber } from 'src/app/shared/services/convert.service';
 
 @Component({
-  selector: 'app-human-resource-missions',
-  templateUrl: './human-resource-missions.component.html',
-  styleUrls: ['./human-resource-missions.component.scss']
+    selector: 'app-human-resource-missions',
+    templateUrl: './human-resource-missions.component.html',
+    styleUrls: ['./human-resource-missions.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HumanResourceMissionsComponent implements OnInit {
   tabs = tabs.missions;

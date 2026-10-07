@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimationOptions } from 'ngx-lottie';
 import { STATUS_LIVES_ARRAY, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -8,9 +8,11 @@ import { CitizenStore } from '../../../stores/citizen.store';
 import { CriminalApplicationStore } from '../../../stores/criminalApplication.store';
 
 @Component({
-  selector: 'app-criminal-group-request-form-paid',
-  templateUrl: './criminal-group-request-form-paid.component.html',
-  styleUrls: ['./criminal-group-request-form-paid.component.scss']
+    selector: 'app-criminal-group-request-form-paid',
+    templateUrl: './criminal-group-request-form-paid.component.html',
+    styleUrls: ['./criminal-group-request-form-paid.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormPaidComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -12,9 +12,11 @@ import { GeoProvinceFormComponent } from '../geo-data/geo-province-form/geo-prov
 import { NationalFormComponent } from './national-form/national-form.component';
 
 @Component({
-  selector: 'app-national-data',
-  templateUrl: './national-data.component.html',
-  styleUrls: ['./national-data.component.scss']
+    selector: 'app-national-data',
+    templateUrl: './national-data.component.html',
+    styleUrls: ['./national-data.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NationalDataComponent implements OnInit, OnDestroy {
   

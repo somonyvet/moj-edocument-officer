@@ -1,10 +1,14 @@
 <button [id]="btnId" [disabled]="process || disable" mat-button class="mat-puc" [type]="btnType || 'submit'"
-    [ngClass]="css || class" (click)="_onPress()">
-    <div class="puc-primary">
-        <img [src]="img" *ngIf="img">
-        <div class="flex1 rows">
-            <mat-spinner *ngIf="process"></mat-spinner>
-            <span>{{label}}{{process?'...':''}}</span>
-        </div>
+  [ngClass]="css || class" (click)="_onPress()">
+  <div class="puc-primary">
+    @if (img) {
+      <img [src]="img">
+    }
+    <div class="flex1 rows">
+      @if (process) {
+        <mat-spinner></mat-spinner>
+      }
+      <span>{{label}}{{process?'...':''}}</span>
     </div>
+  </div>
 </button>

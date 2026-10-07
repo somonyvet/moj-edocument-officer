@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PublicSharedComponent } from './public-shared.component';
 
@@ -6,7 +6,7 @@ describe('PublicSharedComponent', () => {
   let component: PublicSharedComponent;
   let fixture: ComponentFixture<PublicSharedComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PublicSharedComponent ]
     })

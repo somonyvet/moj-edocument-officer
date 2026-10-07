@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
 import { AuthStore } from 'src/app/stores/auth.store';
@@ -13,14 +13,16 @@ import { IOfficer, IUserPermission } from 'src/app/interfaces/document/document.
 import { toJS } from 'mobx';
 
 @Component({
-  selector: 'app-workplace-account-form',
-  templateUrl: './workplace-account-form.component.html',
-  styleUrls: ['./workplace-account-form.component.scss']
+    selector: 'app-workplace-account-form',
+    templateUrl: './workplace-account-form.component.html',
+    styleUrls: ['./workplace-account-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class WorkplaceAccountFormComponent implements OnInit, OnDestroy {
   title: any = "គណនីមានសិទ្ធិលើឯកសារ";
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   search: AbstractControl;
   loading: boolean = true;
 
@@ -29,7 +31,7 @@ export class WorkplaceAccountFormComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<WorkplaceAccountFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public store: DocumentStore,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private auth: AuthStore,
     private officer: OfficerStore,
     private ds: DataService,

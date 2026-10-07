@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GeoDataCommuneComponent } from './geo-data-commune.component';
 
@@ -6,7 +6,7 @@ describe('GeoDataCommuneComponent', () => {
   let component: GeoDataCommuneComponent;
   let fixture: ComponentFixture<GeoDataCommuneComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GeoDataCommuneComponent ]
     })

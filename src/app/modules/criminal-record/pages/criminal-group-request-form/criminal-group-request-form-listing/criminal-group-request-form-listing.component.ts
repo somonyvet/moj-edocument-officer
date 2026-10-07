@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { CRIMINAL_APPLICATION_LANGUAGE_OBJECT, PHOTO_LIB, STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -18,9 +18,11 @@ import { CriminalStore } from '../../../stores/criminal.store';
 import { CriminalRecordApprovalTopMComponent } from '../../criminal-record-approval-top-m/criminal-record-approval-top-m.component';
 import { CriminalLetterPrintByLanguageComponent } from '../../../components/criminal-letter-print-by-language/criminal-letter-print-by-language.component';
 @Component({
-  selector: 'app-criminal-group-request-form-listing',
-  templateUrl: './criminal-group-request-form-listing.component.html',
-  styleUrls: ['./criminal-group-request-form-listing.component.scss']
+    selector: 'app-criminal-group-request-form-listing',
+    templateUrl: './criminal-group-request-form-listing.component.html',
+    styleUrls: ['./criminal-group-request-form-listing.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CriminalGroupRequestFormListingComponent implements OnInit, OnDestroy {
   tabs = tabs.officers;
@@ -28,7 +30,7 @@ export class CriminalGroupRequestFormListingComponent implements OnInit, OnDestr
   formFocus: boolean;
 
   isAdmin = false
-  form: FormGroup
+  form: UntypedFormGroup
 
   lottie: AnimationOptions = {
     path: '../../../../assets/animate/109279-checklist.json',
@@ -56,7 +58,7 @@ export class CriminalGroupRequestFormListingComponent implements OnInit, OnDestr
     private ps: PrintService,
     public pa: PositionStore,
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) {
     this.form= this.fb.group({
       date_string: [null],

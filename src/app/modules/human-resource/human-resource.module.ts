@@ -37,7 +37,7 @@ import { HumanResourcePregnancyBreakComponent } from './pages/human-resource-pre
 import { HumanResourceMyFilesComponent } from './pages/human-resource-my-files/human-resource-my-files.component';
 import { HumanResourceArchivedComponent } from './pages/human-resource-archived/human-resource-archived.component';
 import { HumanResourceRejectedComponent } from './pages/human-resource-rejected/human-resource-rejected.component';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
 import { OfficerProfileFormComponent } from './pages/officer-personal-info/officer-profile-form/officer-profile-form.component';
 import { OfficerFormPreviewRouteComponent } from './pages/officer-personal-info/officer-form-preview-route/officer-form-preview-route.component';
@@ -122,8 +122,10 @@ export function playerFactory() {
     SharedModule,
     HumanResourceRoutingModule,
     // IonicModule.forRoot(),
-    LottieModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieComponent,
   ], schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    provideLottieOptions({ player: playerFactory }),
+  ],
 })
 export class HumanResourceModule { }

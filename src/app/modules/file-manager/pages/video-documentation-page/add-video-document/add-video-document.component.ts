@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import getVideoId from 'get-video-id';
 
@@ -16,9 +16,11 @@ import { generateKeywords } from 'src/app/shared/services/mapping.service';
 import { VideoDocumentStore } from 'src/app/stores/video-document.store';
 
 @Component({
-  selector: 'app-add-video-document',
-  templateUrl: './add-video-document.component.html',
-  styleUrls: ['./add-video-document.component.scss']
+    selector: 'app-add-video-document',
+    templateUrl: './add-video-document.component.html',
+    styleUrls: ['./add-video-document.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddVideoDocumentComponent implements OnInit {
 
@@ -26,7 +28,7 @@ export class AddVideoDocumentComponent implements OnInit {
 
   status_lists = statusLists
   tagType_Lists = tagTypeLists
-  form: FormGroup;
+  form: UntypedFormGroup;
   name: AbstractControl;
   color: AbstractControl;
   order: number;
@@ -39,7 +41,7 @@ export class AddVideoDocumentComponent implements OnInit {
   isCreate: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public auth: AuthStore,

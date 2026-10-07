@@ -57,18 +57,26 @@
             <td class="t-col-space">:</td>
 
             <td style="padding-right: 24px; min-width:430px">
-              <span *ngIf="Item?.last_name_en && Item?.first_name_en">
-                <b [ngStyle]="{'font-size': sizeS1+'px'}"
-                   [innerHTML]="(Item?.last_name_en|stringUpperCase)+' '+(Item?.first_name_en|stringUpperCase)"></b>
-              </span>
-              <p class="f-input" *ngIf="!(Item?.last_name_en && Item?.first_name_en)" style="height: fit-content;">/</p>
+              @if (Item?.last_name_en && Item?.first_name_en) {
+                <span>
+                  <b [ngStyle]="{'font-size': sizeS1+'px'}"
+                  [innerHTML]="($safeNavigationMigration(Item?.last_name_en)|stringUpperCase)+' '+($safeNavigationMigration(Item?.first_name_en)|stringUpperCase)"></b>
+                </span>
+              }
+              @if (!(Item?.last_name_en && Item?.first_name_en)) {
+                <p class="f-input" style="height: fit-content;">/</p>
+              }
 
             </td>
 
             <td>
               Gender : &ensp;
-              <span *ngIf="Item?.gender?.name_en">{{Item?.gender?.name_en}}</span>
-              <p class="f-input" *ngIf="!Item?.gender?.name_en" style="height: fit-content;">/</p>
+              @if (Item?.gender?.name_en) {
+                <span>{{Item?.gender?.name_en}}</span>
+              }
+              @if (!Item?.gender?.name_en) {
+                <p class="f-input" style="height: fit-content;">/</p>
+              }
 
             </td>
 
@@ -76,516 +84,580 @@
           <tr>
             <td class="t-col" style="position: relative;">
               <!-- <div class="abs-div-btn-father hideOnPrint">
-                <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation1 = sizeNation1 - 1" >A1-</a>
-                <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation2 = sizeNation2 - 1" >A1-</a>
+              <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation1 = sizeNation1 - 1" >A1-</a>
+              <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation2 = sizeNation2 - 1" >A1-</a>
 
-                <a class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 95px;" mat-button (click)="sizeNation1 = sizeNation1 + 1" >A2+</a>
-                <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation2 = sizeNation2 + 1" >A2+</a>
-              </div> -->
-              Nationality
-            </td>
-            <td class="t-col-space">:</td>
-            <td>
-              <span> Origin&ensp;</span>
-              <span *ngIf="Item?.before_nationality?.en_nationality">
+              <a class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 95px;" mat-button (click)="sizeNation1 = sizeNation1 + 1" >A2+</a>
+              <a class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeNation2 = sizeNation2 + 1" >A2+</a>
+            </div> -->
+            Nationality
+          </td>
+          <td class="t-col-space">:</td>
+          <td>
+            <span> Origin&ensp;</span>
+            @if (Item?.before_nationality?.en_nationality) {
+              <span>
                 <span [ngStyle]="{'font-size': sizeNation1+'px'}"
-                  [innerHTML]="Item?.before_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.before_nationality?.en_nationality|stringDoubleSpace)"></span>
+                [innerHTML]="Item?.before_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.before_nationality?.en_nationality)|stringDoubleSpace)"></span>
               </span>
-              <p class="f-input" *ngIf="!Item?.before_nationality?.en_nationality" style="height: fit-content;">/</p>
+            }
+            @if (!Item?.before_nationality?.en_nationality) {
+              <p class="f-input" style="height: fit-content;">/</p>
+            }
 
-            </td>
-            <td>
-              <span> Current&ensp;</span>
-              <span *ngIf="Item?.current_nationality?.en_nationality">
+          </td>
+          <td>
+            <span> Current&ensp;</span>
+            @if (Item?.current_nationality?.en_nationality) {
+              <span>
                 <span [ngStyle]="{'font-size': sizeNation2+'px'}"
-                  [innerHTML]="Item?.current_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.current_nationality?.en_nationality|stringDoubleSpace)"></span>
+                [innerHTML]="Item?.current_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.current_nationality?.en_nationality)|stringDoubleSpace)"></span>
               </span>
-              <p class="f-input" *ngIf="!Item?.current_nationality?.en_nationality" style="height: fit-content;">/</p>
+            }
+            @if (!Item?.current_nationality?.en_nationality) {
+              <p class="f-input" style="height: fit-content;">/</p>
+            }
 
-            </td>
+          </td>
 
-          </tr>
-          <tr>
-            <td class="t-col">
-              Alias(es)
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.nick_name_en|nicknameSpace">
-                <span [innerHTML]="Item?.nick_name_en|stringUpperCase"></span>
+        </tr>
+        <tr>
+          <td class="t-col">
+            Alias(es)
+          </td>
+          <td class="t-col-space">:</td>
+          <td colspan="2">
+            @if ($safeNavigationMigration(Item?.nick_name_en)|nicknameSpace) {
+              <span>
+                <span [innerHTML]="$safeNavigationMigration(Item?.nick_name_en)|stringUpperCase"></span>
               </span>
-              <p class="f-input ali-start pd-start" *ngIf="!(Item?.nick_name_en|nicknameSpace)">/</p>
+            }
+            @if (!($safeNavigationMigration(Item?.nick_name_en)|nicknameSpace)) {
+              <p class="f-input ali-start pd-start">/</p>
+            }
 
-            </td>
-          </tr>
+          </td>
+        </tr>
 
-          <tr>
-            <td class="t-col">
-              Date of birth
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
+        <tr>
+          <td class="t-col">
+            Date of birth
+          </td>
+          <td class="t-col-space">:</td>
+          <td colspan="2">
+            @if (($safeNavigationMigration(Item?.dateOfBirthDay?.name_en) | validDob:$safeNavigationMigration(Item?.dateOfBirthMonth?.name_en):$safeNavigationMigration(Item?.dateOfBirthYear?.name_en))) {
               <span
-                *ngIf="(Item?.dateOfBirthDay?.name_en | validDob:Item?.dateOfBirthMonth?.name_en:Item?.dateOfBirthYear?.name_en)">
-                {{Item?.dateOfBirthMonth?.name_en}} {{Item?.dateOfBirthDay?.name_en | pipeCut0}}<ng-container
-                  *ngIf="Item?.dateOfBirthMonth?.name_en||Item?.dateOfBirthDay?.name_en">,</ng-container>
-                {{Item?.dateOfBirthYear?.name_en}}
-              </span>
-              <p class="f-input"
-                *ngIf="!(Item?.dateOfBirthDay?.name_en | validDob:Item?.dateOfBirthMonth?.name_en:Item?.dateOfBirthYear?.name_en)"
-                style="height: fit-content;">/</p>
-            </td>
-          </tr>
+                >
+                {{Item?.dateOfBirthMonth?.name_en}} {{$safeNavigationMigration(Item?.dateOfBirthDay?.name_en) | pipeCut0}}@if (Item?.dateOfBirthMonth?.name_en||Item?.dateOfBirthDay?.name_en) {
+                ,
+              }
+              {{Item?.dateOfBirthYear?.name_en}}
+            </span>
+          }
+          @if (!($safeNavigationMigration(Item?.dateOfBirthDay?.name_en) | validDob:$safeNavigationMigration(Item?.dateOfBirthMonth?.name_en):$safeNavigationMigration(Item?.dateOfBirthYear?.name_en))) {
+            <p class="f-input"
+            style="height: fit-content;">/</p>
+          }
+        </td>
+      </tr>
 
 
-          <tr>
-            <td class="t-col">
-              Place of birth
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <p *ngIf="Item?.foreignerPlaceOfBirth_en" [innerHTML]="Item?.foreignerPlaceOfBirth_en|moreSpaceEnAddress"
-                style="white-space: nowrap;"></p>
-              <p class="f-input" *ngIf="!Item?.foreignerPlaceOfBirth_en" style="height: fit-content;">/</p>
-            </td>
-          </tr>
+      <tr>
+        <td class="t-col">
+          Place of birth
+        </td>
+        <td class="t-col-space">:</td>
+        <td colspan="2">
+          @if (Item?.foreignerPlaceOfBirth_en) {
+            <p [innerHTML]="$safeNavigationMigration(Item?.foreignerPlaceOfBirth_en)|moreSpaceEnAddress"
+            style="white-space: nowrap;"></p>
+          }
+          @if (!Item?.foreignerPlaceOfBirth_en) {
+            <p class="f-input" style="height: fit-content;">/</p>
+          }
+        </td>
+      </tr>
 
-          <tr>
-            <td class="t-col">
-              Current address
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.permanentAddressText_en">
-                <span [innerHTML]="Item?.permanentAddressText_en|moreSpaceEnAddress"
-                  style="white-space: nowrap;"></span>
-              </span>
-              <p class="f-input" *ngIf="!Item?.permanentAddressText_en" style="height: fit-content;">/</p>
-            </td>
-          </tr>
+      <tr>
+        <td class="t-col">
+          Current address
+        </td>
+        <td class="t-col-space">:</td>
+        <td colspan="2">
+          @if (Item?.permanentAddressText_en) {
+            <span>
+              <span [innerHTML]="$safeNavigationMigration(Item?.permanentAddressText_en)|moreSpaceEnAddress"
+              style="white-space: nowrap;"></span>
+            </span>
+          }
+          @if (!Item?.permanentAddressText_en) {
+            <p class="f-input" style="height: fit-content;">/</p>
+          }
+        </td>
+      </tr>
 
-          <tr>
-            <td class="t-col">
-              Occupation
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.occupation_en">
-                <span [innerHTML]="Item?.occupation_en|stringDoubleSpace"></span>
-              </span>
-              <p class="f-input" *ngIf="!Item?.occupation_en" style="height: fit-content;">/</p>
-            </td>
-          </tr>
+      <tr>
+        <td class="t-col">
+          Occupation
+        </td>
+        <td class="t-col-space">:</td>
+        <td colspan="2">
+          @if (Item?.occupation_en) {
+            <span>
+              <span [innerHTML]="$safeNavigationMigration(Item?.occupation_en)|stringDoubleSpace"></span>
+            </span>
+          }
+          @if (!Item?.occupation_en) {
+            <p class="f-input" style="height: fit-content;">/</p>
+          }
+        </td>
+      </tr>
 
-          <tr>
-            <td class="t-col" style="position: relative;">
-              <div class="abs-div-btn-father hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS2 = sizeS2 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 120px;" mat-button (click)="sizeS2 = sizeS2 + 1" >A+</button>
-              </div>
-              Father's name
-            </td>
-            <td class="t-col-space">:</td>
-            <td style="padding-right: 24px;">
-              <span *ngIf="Item?.father_name_en">
-                <b [ngStyle]="{'font-size': sizeS2+'px'}" [innerHTML]="Item?.father_name_en|stringUpperCase"></b>
-              </span>
-              <p class="f-input" *ngIf="!Item?.father_name_en" style="height: fit-content;">/</p>
-            </td>
-            <td style="white-space:nowrap">
+      <tr>
+        <td class="t-col" style="position: relative;">
+          <div class="abs-div-btn-father hideOnPrint">
+            <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS2 = sizeS2 - 1" >A-</button>
+            <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 120px;" mat-button (click)="sizeS2 = sizeS2 + 1" >A+</button>
+          </div>
+          Father's name
+        </td>
+        <td class="t-col-space">:</td>
+        <td style="padding-right: 24px;">
+          @if (Item?.father_name_en) {
+            <span>
+              <b [ngStyle]="{'font-size': sizeS2+'px'}" [innerHTML]="$safeNavigationMigration(Item?.father_name_en)|stringUpperCase"></b>
+            </span>
+          }
+          @if (!Item?.father_name_en) {
+            <p class="f-input" style="height: fit-content;">/</p>
+          }
+        </td>
+        <td style="white-space:nowrap">
 
-              <ng-container *ngIf="Item?.fatherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate1">
-                <span>Date of birth : </span>
-                <span>(Deceased)</span>
-              </ng-container>
-
-              <ng-template #notDeadTemplate1>
-                <ng-container
-                  *ngIf="(Item?.fatherDob?.day?.name_en | validDob:Item?.fatherDob?.month?.name_en:Item?.fatherDob?.year?.name_en)">
-                  <span>Date of birth : </span>
-                  <span>
-                    {{Item?.fatherDob?.month?.name_en}} {{Item?.fatherDob?.day?.name_en | pipeCut0}}<ng-container
-                      *ngIf="Item?.fatherDob?.month||Item?.fatherDob?.day">,</ng-container>
-                    {{Item?.fatherDob?.year?.name_en}}
-                  </span>
-                </ng-container>
-                <div
-                  *ngIf="!(Item?.fatherDob?.day?.name_en | validDob:Item?.fatherDob?.month?.name_en:Item?.fatherDob?.year?.name_en)"
-                  style="display:flex;">
-                  <span>Date of birth : </span>
-                  <p class="f-input" style="flex:1;height: fit-content;">/</p>
-                </div>
-              </ng-template>
-
-            </td>
-          </tr>
-          <tr>
-            <td class="t-col">
-              Nationality
-            </td>
-            <td class="t-col-space">:</td>
-            <td>
-              <ng-container *ngIf="Item?.father_before_nationality?.en_nationality">
-                <span> Origin&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.father_before_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.father_before_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
-
-              <div style="display:flex;" *ngIf="!Item?.father_before_nationality?.en_nationality">
-                <span> Origin&ensp;</span>
-                <p class="f-input" style="flex:1;height: fit-content;">/</p>
-              </div>
-            </td>
-            <td>
-              <ng-container *ngIf="Item?.father_current_nationality?.en_nationality">
-                <span> Current&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.father_current_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.father_current_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
+          @if (Item?.fatherIsDead?.key === STATUS_LIVES.DEAD.key) {
+            <span>Date of birth : </span>
+            <span>(Deceased)</span>
+          } @else {
+            @if (($safeNavigationMigration(Item?.fatherDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.fatherDob?.month?.name_en):$safeNavigationMigration(Item?.fatherDob?.year?.name_en))) {
+              <span>Date of birth : </span>
+              <span>
+                {{Item?.fatherDob?.month?.name_en}} {{$safeNavigationMigration(Item?.fatherDob?.day?.name_en) | pipeCut0}}@if (Item?.fatherDob?.month||Item?.fatherDob?.day) {
+                ,
+              }
+              {{Item?.fatherDob?.year?.name_en}}
+            </span>
+          }
+          @if (!($safeNavigationMigration(Item?.fatherDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.fatherDob?.month?.name_en):$safeNavigationMigration(Item?.fatherDob?.year?.name_en))) {
+            <div
+              style="display:flex;">
+              <span>Date of birth : </span>
+              <p class="f-input" style="flex:1;height: fit-content;">/</p>
+            </div>
+          }
+        }
 
 
-              <div style="display:flex;" *ngIf="!Item?.father_current_nationality?.en_nationality">
-                <span> Current&ensp;</span>
-                <p class="f-input" style="flex:1;height: fit-content;">/</p>
-              </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="t-col">
+        Nationality
+      </td>
+      <td class="t-col-space">:</td>
+      <td>
+        @if (Item?.father_before_nationality?.en_nationality) {
+          <span> Origin&ensp;</span>
+          <span>
+            <span
+            [innerHTML]="Item?.father_before_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.father_before_nationality?.en_nationality)|stringDoubleSpace)"></span>
+          </span>
+        }
 
-            </td>
-
-          </tr>
-          <tr>
-            <td class="t-col">
-              Place of birth
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.foreignerFatherBirthAddress_en">
-                <span [innerHTML]="Item?.foreignerFatherBirthAddress_en|moreSpaceEnAddress"
-                  style="white-space: nowrap;"></span>
-              </span>
-              <p class="f-input" *ngIf="!Item?.foreignerFatherBirthAddress_en" style="height: fit-content;">/</p>
-
-            </td>
-          </tr>
+        @if (!Item?.father_before_nationality?.en_nationality) {
+          <div style="display:flex;">
+            <span> Origin&ensp;</span>
+            <p class="f-input" style="flex:1;height: fit-content;">/</p>
+          </div>
+        }
+      </td>
+      <td>
+        @if (Item?.father_current_nationality?.en_nationality) {
+          <span> Current&ensp;</span>
+          <span>
+            <span
+            [innerHTML]="Item?.father_current_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.father_current_nationality?.en_nationality)|stringDoubleSpace)"></span>
+          </span>
+        }
 
 
-          <tr>
-            <td class="t-col" style="position:relative;">
-              <div class="abs-div-btn-father hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS3 = sizeS3 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 130px;" mat-button (click)="sizeS3 = sizeS3 + 1" >A+</button>
-              </div>
-              Mother's name
-            </td>
-            <td class="t-col-space">:</td>
-            <td style="padding-right: 24px;">
-              <span *ngIf="Item?.mother_name_en">
-                <b [ngStyle]="{'font-size': sizeS3+'px'}" [innerHTML]="Item?.mother_name_en|stringUpperCase"></b>
-              </span>
-              <p class="f-input" *ngIf="!Item?.mother_name_en" style="height: fit-content;">/</p>
-            </td>
-            <td style="white-space:nowrap">
+        @if (!Item?.father_current_nationality?.en_nationality) {
+          <div style="display:flex;">
+            <span> Current&ensp;</span>
+            <p class="f-input" style="flex:1;height: fit-content;">/</p>
+          </div>
+        }
 
-              <ng-container *ngIf="Item?.motherIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate2">
-                <span>Date of birth : </span>
-                <ng-container>
-                  <span>(Deceased)</span>
-                </ng-container>
-              </ng-container>
-              <ng-template #notDeadTemplate2>
+      </td>
 
-                <ng-container
-                  *ngIf="(Item?.motherDob?.day?.name_en | validDob:Item?.motherDob?.month?.name_en:Item?.motherDob?.year?.name_en)">
-                  <span>Date of birth : </span>
-                  <span>
-                    {{Item?.motherDob?.month?.name_en}} {{Item?.motherDob?.day?.name_en | pipeCut0 }}<ng-container
-                      *ngIf="Item?.motherDob?.month||Item?.motherDob?.day">,</ng-container>
-                    {{Item?.motherDob?.year?.name_en}}
-                  </span>
-                </ng-container>
+    </tr>
+    <tr>
+      <td class="t-col">
+        Place of birth
+      </td>
+      <td class="t-col-space">:</td>
+      <td colspan="2">
+        @if (Item?.foreignerFatherBirthAddress_en) {
+          <span>
+            <span [innerHTML]="$safeNavigationMigration(Item?.foreignerFatherBirthAddress_en)|moreSpaceEnAddress"
+            style="white-space: nowrap;"></span>
+          </span>
+        }
+        @if (!Item?.foreignerFatherBirthAddress_en) {
+          <p class="f-input" style="height: fit-content;">/</p>
+        }
 
-                <div style="display:flex;"
-                  *ngIf="!(Item?.motherDob?.day?.name_en | validDob:Item?.motherDob?.month?.name_en:Item?.motherDob?.year?.name_en)">
-                  <span>Date of birth : </span>
-                  <p class="f-input" style="flex:1;height: fit-content;">/</p>
-                </div>
+      </td>
+    </tr>
 
-              </ng-template>
 
-            </td>
-          </tr>
-          <tr>
-            <td class="t-col">
-              Nationality
-            </td>
-            <td class="t-col-space">:</td>
-            <td>
-              <ng-container *ngIf="Item?.mother_before_nationality?.en_nationality">
-                <span> Origin&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.mother_before_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.mother_before_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
-
-              <div style="display:flex;" *ngIf="!Item?.mother_before_nationality?.en_nationality">
-                <span> Origin&ensp;</span>
-                <p class="f-input" style="flex:1;height: fit-content;">/</p>
-              </div>
-
-            </td>
-            <td>
-
-              <ng-container *ngIf="Item?.mother_current_nationality?.en_nationality">
-                <span> Current&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.mother_current_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.mother_current_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
-
-              <div style="display:flex;" *ngIf="!Item?.mother_current_nationality?.en_nationality">
-                <span> Current&ensp;</span>
-                <p class="f-input" style="flex:1;height: fit-content;">/</p>
-              </div>
-
-            </td>
-          </tr>
-          <tr>
-            <td class="t-col">
-              Place of birth
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.foreignerMotherBirthAddress_en">
-                <span [innerHTML]="Item?.foreignerMotherBirthAddress_en|moreSpaceEnAddress"
-                  style="white-space: nowrap;"></span>
-              </span>
-              <p class="f-input" *ngIf="!Item?.foreignerMotherBirthAddress_en" style="height: fit-content;">/</p>
-            </td>
-          </tr>
-
-          <tr>
-            <td class="t-col" style="position: relative;">
-              <div class="abs-div-btn-father hideOnPrint">
-                <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS4 = sizeS4 - 1" >A-</button>
-                <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 130px;" mat-button (click)="sizeS4 = sizeS4 + 1" >A+</button>
-              </div>
-              Spouse's name
-            </td>
-            <td class="t-col-space">:</td>
-            <td>
-              <span *ngIf="Item?.spouse_en">
-                <b  [ngStyle]="{'font-size': sizeS4+'px'}"  [innerHTML]="Item?.spouse_en|stringUpperCase"></b>
-              </span>
-              <p class="f-input" *ngIf="!Item?.spouse_en" style="height: fit-content;">/</p>
-
-            </td>
-            <td style="white-space:nowrap">
-
-              <ng-container *ngIf="Item?.spouseIsDead?.key === STATUS_LIVES.DEAD.key;else notDeadTemplate3">
-                <span>Date of birth : </span>
-                <ng-container>
-                  <span>(Deceased)</span>
-                </ng-container>
-              </ng-container>
-
-              <ng-template #notDeadTemplate3>
-
-                <ng-container
-                  *ngIf="(Item?.spouseDob?.day?.name_en | validDob:Item?.spouseDob?.month?.name_en:Item?.spouseDob?.year?.name_en)">
-                  <span>Date of birth : </span>
-                  <span>
-                    {{Item?.spouseDob?.month?.name_en}} {{Item?.spouseDob?.day?.name_en | pipeCut0}}<ng-container
-                      *ngIf="Item?.spouseDob?.month||Item?.spouseDob?.day">,</ng-container>
-                    {{Item?.spouseDob?.year?.name_en}}
-                  </span>
-                </ng-container>
-
-                <div style="display:flex;"
-                  *ngIf="!(Item?.spouseDob?.day?.name_en | validDob:Item?.spouseDob?.month?.name_en:Item?.spouseDob?.year?.name_en)">
-                  <span>Date of birth : </span>
-                  <p class="f-input" style="flex:1; height: fit-content">/</p>
-                </div>
-
-              </ng-template>
-            </td>
-          </tr>
-          <tr>
-            <td class="t-col">
-              Nationality
-            </td>
-            <td class="t-col-space">:</td>
-            <td>
-              <ng-container *ngIf="Item?.spouse_before_nationality?.en_nationality">
-                <span> Origin&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.spouse_before_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.spouse_before_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
-              <div *ngIf="!Item?.spouse_before_nationality?.en_nationality" style="display: flex;">
-                <span> Origin&ensp;</span>
-                <p class="f-input" style="height: fit-content;">/</p>
-              </div>
-            </td>
-            <td>
-              <ng-container *ngIf="Item?.spouse_current_nationality?.en_nationality">
-                <span> Current&ensp;</span>
-                <span>
-                  <span
-                    [innerHTML]="Item?.spouse_current_nationality?.en_nationality==='Cambodian'?'Khmer':(Item?.spouse_current_nationality?.en_nationality|stringDoubleSpace)"></span>
-                </span>
-              </ng-container>
-              <div *ngIf="!Item?.spouse_current_nationality?.en_nationality" style="display: flex;">
-                <span> Current&ensp;</span>
-                <p class="f-input" style="height: fit-content;">/</p>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="t-col">
-              Occupation
-            </td>
-            <td class="t-col-space">:</td>
-            <td colspan="2">
-              <span *ngIf="Item?.spouseCurrentOccupation_en">
-                {{Item?.spouseCurrentOccupation_en}}
-              </span>
-              <p class="f-input" *ngIf="!Item?.spouseCurrentOccupation_en">/</p>
-            </td>
-          </tr>
-
-        </table>
-
-        <div class="f-item">
-          <span class="feTitle new"
-            style="font-size: 25px; font-weight: bold;text-decoration: underline;text-underline-position: under;color:black; font-family: initial;">NOTE:</span>
+    <tr>
+      <td class="t-col" style="position:relative;">
+        <div class="abs-div-btn-father hideOnPrint">
+          <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS3 = sizeS3 - 1" >A-</button>
+          <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 130px;" mat-button (click)="sizeS3 = sizeS3 + 1" >A+</button>
         </div>
-        <div class="f-item-v2" style="margin-top:-10px; width: 106%;">
+        Mother's name
+      </td>
+      <td class="t-col-space">:</td>
+      <td style="padding-right: 24px;">
+        @if (Item?.mother_name_en) {
+          <span>
+            <b [ngStyle]="{'font-size': sizeS3+'px'}" [innerHTML]="$safeNavigationMigration(Item?.mother_name_en)|stringUpperCase"></b>
+          </span>
+        }
+        @if (!Item?.mother_name_en) {
+          <p class="f-input" style="height: fit-content;">/</p>
+        }
+      </td>
+      <td style="white-space:nowrap">
 
-          <div style="line-height: normal;">
-            <ckeditor style="width:100%" 
-              [disabled]="criminalStore?.selectedCriminalPrint?.verify_qr_en !== undefined"  
+        @if (Item?.motherIsDead?.key === STATUS_LIVES.DEAD.key) {
+          <span>Date of birth : </span>
+          <ng-container>
+            <span>(Deceased)</span>
+          </ng-container>
+        } @else {
+          @if (($safeNavigationMigration(Item?.motherDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.motherDob?.month?.name_en):$safeNavigationMigration(Item?.motherDob?.year?.name_en))) {
+            <span>Date of birth : </span>
+            <span>
+              {{Item?.motherDob?.month?.name_en}} {{$safeNavigationMigration(Item?.motherDob?.day?.name_en) | pipeCut0 }}@if (Item?.motherDob?.month||Item?.motherDob?.day) {
+              ,
+            }
+            {{Item?.motherDob?.year?.name_en}}
+          </span>
+        }
+        @if (!($safeNavigationMigration(Item?.motherDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.motherDob?.month?.name_en):$safeNavigationMigration(Item?.motherDob?.year?.name_en))) {
+          <div style="display:flex;"
+            >
+            <span>Date of birth : </span>
+            <p class="f-input" style="flex:1;height: fit-content;">/</p>
+          </div>
+        }
+      }
+
+    </td>
+  </tr>
+  <tr>
+    <td class="t-col">
+      Nationality
+    </td>
+    <td class="t-col-space">:</td>
+    <td>
+      @if (Item?.mother_before_nationality?.en_nationality) {
+        <span> Origin&ensp;</span>
+        <span>
+          <span
+          [innerHTML]="Item?.mother_before_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.mother_before_nationality?.en_nationality)|stringDoubleSpace)"></span>
+        </span>
+      }
+
+      @if (!Item?.mother_before_nationality?.en_nationality) {
+        <div style="display:flex;">
+          <span> Origin&ensp;</span>
+          <p class="f-input" style="flex:1;height: fit-content;">/</p>
+        </div>
+      }
+
+    </td>
+    <td>
+
+      @if (Item?.mother_current_nationality?.en_nationality) {
+        <span> Current&ensp;</span>
+        <span>
+          <span
+          [innerHTML]="Item?.mother_current_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.mother_current_nationality?.en_nationality)|stringDoubleSpace)"></span>
+        </span>
+      }
+
+      @if (!Item?.mother_current_nationality?.en_nationality) {
+        <div style="display:flex;">
+          <span> Current&ensp;</span>
+          <p class="f-input" style="flex:1;height: fit-content;">/</p>
+        </div>
+      }
+
+    </td>
+  </tr>
+  <tr>
+    <td class="t-col">
+      Place of birth
+    </td>
+    <td class="t-col-space">:</td>
+    <td colspan="2">
+      @if (Item?.foreignerMotherBirthAddress_en) {
+        <span>
+          <span [innerHTML]="$safeNavigationMigration(Item?.foreignerMotherBirthAddress_en)|moreSpaceEnAddress"
+          style="white-space: nowrap;"></span>
+        </span>
+      }
+      @if (!Item?.foreignerMotherBirthAddress_en) {
+        <p class="f-input" style="height: fit-content;">/</p>
+      }
+    </td>
+  </tr>
+
+  <tr>
+    <td class="t-col" style="position: relative;">
+      <div class="abs-div-btn-father hideOnPrint">
+        <button class="btn-p-icon app-button no-print-btn decree1" mat-button (click)="sizeS4 = sizeS4 - 1" >A-</button>
+        <button class="btn-p-icon app-button no-print-btn decree1" style="margin-left: 130px;" mat-button (click)="sizeS4 = sizeS4 + 1" >A+</button>
+      </div>
+      Spouse's name
+    </td>
+    <td class="t-col-space">:</td>
+    <td>
+      @if (Item?.spouse_en) {
+        <span>
+          <b  [ngStyle]="{'font-size': sizeS4+'px'}"  [innerHTML]="$safeNavigationMigration(Item?.spouse_en)|stringUpperCase"></b>
+        </span>
+      }
+      @if (!Item?.spouse_en) {
+        <p class="f-input" style="height: fit-content;">/</p>
+      }
+
+    </td>
+    <td style="white-space:nowrap">
+
+      @if (Item?.spouseIsDead?.key === STATUS_LIVES.DEAD.key) {
+        <span>Date of birth : </span>
+        <ng-container>
+          <span>(Deceased)</span>
+        </ng-container>
+      } @else {
+        @if (($safeNavigationMigration(Item?.spouseDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.spouseDob?.month?.name_en):$safeNavigationMigration(Item?.spouseDob?.year?.name_en))) {
+          <span>Date of birth : </span>
+          <span>
+            {{Item?.spouseDob?.month?.name_en}} {{$safeNavigationMigration(Item?.spouseDob?.day?.name_en) | pipeCut0}}@if (Item?.spouseDob?.month||Item?.spouseDob?.day) {
+            ,
+          }
+          {{Item?.spouseDob?.year?.name_en}}
+        </span>
+      }
+      @if (!($safeNavigationMigration(Item?.spouseDob?.day?.name_en) | validDob:$safeNavigationMigration(Item?.spouseDob?.month?.name_en):$safeNavigationMigration(Item?.spouseDob?.year?.name_en))) {
+        <div style="display:flex;"
+          >
+          <span>Date of birth : </span>
+          <p class="f-input" style="flex:1; height: fit-content">/</p>
+        </div>
+      }
+    }
+
+  </td>
+</tr>
+<tr>
+  <td class="t-col">
+    Nationality
+  </td>
+  <td class="t-col-space">:</td>
+  <td>
+    @if (Item?.spouse_before_nationality?.en_nationality) {
+      <span> Origin&ensp;</span>
+      <span>
+        <span
+        [innerHTML]="Item?.spouse_before_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.spouse_before_nationality?.en_nationality)|stringDoubleSpace)"></span>
+      </span>
+    }
+    @if (!Item?.spouse_before_nationality?.en_nationality) {
+      <div style="display: flex;">
+        <span> Origin&ensp;</span>
+        <p class="f-input" style="height: fit-content;">/</p>
+      </div>
+    }
+  </td>
+  <td>
+    @if (Item?.spouse_current_nationality?.en_nationality) {
+      <span> Current&ensp;</span>
+      <span>
+        <span
+        [innerHTML]="Item?.spouse_current_nationality?.en_nationality==='Cambodian'?'Khmer':($safeNavigationMigration(Item?.spouse_current_nationality?.en_nationality)|stringDoubleSpace)"></span>
+      </span>
+    }
+    @if (!Item?.spouse_current_nationality?.en_nationality) {
+      <div style="display: flex;">
+        <span> Current&ensp;</span>
+        <p class="f-input" style="height: fit-content;">/</p>
+      </div>
+    }
+  </td>
+</tr>
+<tr>
+  <td class="t-col">
+    Occupation
+  </td>
+  <td class="t-col-space">:</td>
+  <td colspan="2">
+    @if (Item?.spouseCurrentOccupation_en) {
+      <span>
+        {{Item?.spouseCurrentOccupation_en}}
+      </span>
+    }
+    @if (!Item?.spouseCurrentOccupation_en) {
+      <p class="f-input">/</p>
+    }
+  </td>
+</tr>
+
+</table>
+
+<div class="f-item">
+  <span class="feTitle new"
+  style="font-size: 25px; font-weight: bold;text-decoration: underline;text-underline-position: under;color:black; font-family: initial;">NOTE:</span>
+</div>
+<div class="f-item-v2" style="margin-top:-10px; width: 106%;">
+
+  <div style="line-height: normal;">
+    <ckeditor style="width:100%"
+      [disabled]="$safeNavigationMigration(criminalStore?.selectedCriminalPrint?.verify_qr_en) !== undefined"
               [config]="{
               toolbar:config.toolbar,
               fontSize:config.fontSize,
               fontFamily:config.fontFamily,
               placeholder: 'សូមបញ្ចូលចំណារនៅទីនេះ'
             }" [editor]="Editor" data="" [formControl]="decree_result" (change)="onEditorChange()"></ckeditor>
-          </div>
+  </div>
 
-        </div>
+</div>
 
+</div>
+
+<div class="row-item" style="flex-direction: column; border-top: solid 1px black;padding: 6px 0;margin: 0 80px;">
+  <div class="f-item">
+
+    <div style="display:flex;width:100%;justify-content: space-between;">
+      <div class="title" style="font-size: 13px; padding: 0;color:#333">
+        *The Ministry of Justice is responsible for only the translation of this document made by the
+        Ministry.
+      </div>
+      <!-- *ngIf="Item?.expired_date" -->
+      <div class="title"
+        style="font-size: 13px; padding: 0;color:#333; white-space: nowrap; display: flex;">
+        <p>
+          * This bulletin is valid within 3months. Invalid on date :
+        </p>
+        {{$safeNavigationMigration(Item?.expired_date?.toDate())|dateOnly}}
+        @if (!Item?.expired_date) {
+          <p class="f-input" style="width: 140px; height: 18px"></p>
+        }
       </div>
 
-      <div class="row-item" style="flex-direction: column; border-top: solid 1px black;padding: 6px 0;margin: 0 80px;">
-        <div class="f-item">
+    </div>
 
-          <div style="display:flex;width:100%;justify-content: space-between;">
-            <div class="title" style="font-size: 13px; padding: 0;color:#333">
-              *The Ministry of Justice is responsible for only the translation of this document made by the
-              Ministry.
-            </div>
-            <!-- *ngIf="Item?.expired_date" -->
-            <div class="title"
-              style="font-size: 13px; padding: 0;color:#333; white-space: nowrap; display: flex;">
-              <p>
-                * This bulletin is valid within 3months. Invalid on date :
-              </p>
-              {{Item?.expired_date?.toDate()|dateOnly}}
-              <p class="f-input" *ngIf="!Item?.expired_date" style="width: 140px; height: 18px"></p>
-            </div>
+  </div>
 
-          </div>
+</div>
 
-        </div>
+<div class="row-item" style="height:100%">
+  <div class="f-item" style="justify-content: space-between;">
 
+    <div class="head-item long-w"
+      style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
+      <div class="c-item" style="justify-content: flex-start; padding-left:40px; padding-top: 30px;">
+        <span
+          style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
+          class="p-rel">
+          <span class="n-title" style="color:black">
+            Seen
+          </span>
+          <span class="n-title" style="color:black">
+            For the Minister
+          </span>
+          <span class="n-title" style="color:black">
+            Secretary of State
+          </span>
+          <span class="n-title" style="color:black">
+            <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"> </span> Signature
+            and seal <span> <img src="../../../../../assets/images/Right.svg" alt="" style="width: 11px;"> </span>
+          </span>
+          <span class="n-title showOnPrint"
+            style="display:none;color:black;margin-top: 10px;font-weight: bold;">
+            {{minister_name_eng}}
+          </span>
+          <input class="f-input n-title hideOnPrint" [value]="minister_name_eng" type="text"
+            style="color:black;margin-top: 10px;font-weight: bold;" (change)="onChangeMinisterName($event)">
+
+        </span>
       </div>
 
-      <div class="row-item" style="height:100%">
-        <div class="f-item" style="justify-content: space-between;">
-
-          <div class="head-item long-w"
-            style="width: 100% !important; max-width: unset; min-width: unset; flex-direction: row; justify-content: space-between;">
-            <div class="c-item" style="justify-content: flex-start; padding-left:40px; padding-top: 30px;">
+      <span class="container-header-input" style="width: unset">
+        <div class="row-item khmer-date-picker" style="padding-right: 36px;">
+          <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
+            <div class="c-item">
               <span
                 style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
                 class="p-rel">
                 <span class="n-title" style="color:black">
-                  Seen
+                  Phnom Penh, {{$safeNavigationMigration(criminalLetterDate?.toDate()) | date:'MMMM'}} {{$safeNavigationMigration(criminalLetterDate?.toDate()) |
+                  date: 'dd' | pipeCut0}}, {{$safeNavigationMigration(criminalLetterDate?.toDate()) | date: 'yyyy'}}
                 </span>
                 <span class="n-title" style="color:black">
-                  For the Minister
+                  Director-General of Criminal Penalty Affairs
                 </span>
                 <span class="n-title" style="color:black">
-                  Secretary of State
-                </span>
-                <span class="n-title" style="color:black">
-                  <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"> </span> Signature
-                  and seal <span> <img src="../../../../../assets/images/Right.svg" alt="" style="width: 11px;"> </span>
-                </span>
-                <span class="n-title showOnPrint"
-                  style="display:none;color:black;margin-top: 10px;font-weight: bold;">
-                  {{minister_name_eng}}
-                </span>
-                <input class="f-input n-title hideOnPrint" [value]="minister_name_eng" type="text"
-                  style="color:black;margin-top: 10px;font-weight: bold;" (change)="onChangeMinisterName($event)">
-
+                  <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"></span>
+                  Signature <span><img src="../../../../../assets/images/Right.svg" alt=""
+                style="width: 11px;"></span>
               </span>
-            </div>
-
-            <span class="container-header-input" style="width: unset">
-              <div class="row-item khmer-date-picker" style="padding-right: 36px;">
-                <div class="f-item" style="flex-direction: column; align-items: center; row-gap: 20px;">
-                  <div class="c-item">
-                    <span
-                      style="display: flex; flex-direction: column; padding: 0; justify-content: center; align-items: center;"
-                      class="p-rel">
-                      <span class="n-title" style="color:black">
-                        Phnom Penh, {{criminalLetterDate?.toDate() | date:'MMMM'}} {{criminalLetterDate?.toDate() |
-                        date: 'dd' | pipeCut0}}, {{criminalLetterDate?.toDate() | date: 'yyyy'}}
-                      </span>
-                      <span class="n-title" style="color:black">
-                        Director-General of Criminal Penalty Affairs
-                      </span>
-                      <span class="n-title" style="color:black">
-                        <span> <img src="../../../../../assets/images/Left.svg" alt="" style="width: 11px;"></span>
-                        Signature <span><img src="../../../../../assets/images/Right.svg" alt=""
-                            style="width: 11px;"></span>
-                      </span>
-                      <span class="n-title showOnPrint"
-                        style="display:none;color:black;margin-top: 10px;font-weight: bold;">
-                        {{director_name_eng}}
-                      </span>
-                      <input class="f-input n-title hideOnPrint" [value]="director_name_eng" type="text"
-                        style="color:black;margin-top: 10px;font-weight: bold;" (change)="onChangeDirectorName($event)">
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <span class="n-title showOnPrint"
+                style="display:none;color:black;margin-top: 10px;font-weight: bold;">
+                {{director_name_eng}}
+              </span>
+              <input class="f-input n-title hideOnPrint" [value]="director_name_eng" type="text"
+                style="color:black;margin-top: 10px;font-weight: bold;" (change)="onChangeDirectorName($event)">
             </span>
           </div>
         </div>
       </div>
-
-      <!-- qr print -->
-      <div class="row-item kh3-row-item">
-        <div class="kh3-print-qr">
-          <div *ngIf="criminalStore?.selectedCriminalPrint?.verify_qr_en" class="kh3-on-print-qr">
-            <img class="verify-img" [src]="criminalStore?.selectedCriminalPrint?.verify_qr_en" />
-            <!-- <ngx-kjua [text]="Item?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
-              [ecLevel]="'H'" [size]="100" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
-              [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
-              [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
-            </ngx-kjua> -->
-          </div>
-        </div>
-      </div>
-
-    </div>
+    </span>
   </div>
+</div>
+</div>
+
+<!-- qr print -->
+<div class="row-item kh3-row-item">
+  <div class="kh3-print-qr">
+    @if (criminalStore?.selectedCriminalPrint?.verify_qr_en) {
+      <div class="kh3-on-print-qr">
+        <img class="verify-img" [src]="$safeNavigationMigration(criminalStore?.selectedCriminalPrint?.verify_qr_en)" />
+        <!-- <ngx-kjua [text]="Item?.key" [renderAsync]="false" [render]="'svg'" [crisp]="true" [minVersion]="1"
+        [ecLevel]="'H'" [size]="100" [ratio]="undefined" [fill]="'#333'" [back]="'#fff'" [rounded]="100" [quiet]="1"
+        [mode]="'plain'" [mSize]="20" [mPosX]="50" [mPosY]="50" [label]="'EWIS'" [fontname]="'sans-serif'"
+        [fontcolor]="'#ff9818'" [image]="" [cssClass]="'image-auto'">
+      </ngx-kjua> -->
+    </div>
+  }
+</div>
+</div>
+
+</div>
+</div>
 </div>

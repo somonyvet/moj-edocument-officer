@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { STATUS_OBJ } from 'src/app/dummy/appinfo';
@@ -11,16 +11,18 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { Geo } from '../../stores/geo.store';
 
 @Component({
-  selector: 'app-geo-group-form',
-  templateUrl: './geo-group-form.component.html',
-  styleUrls: ['./geo-group-form.component.scss']
+    selector: 'app-geo-group-form',
+    templateUrl: './geo-group-form.component.html',
+    styleUrls: ['./geo-group-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GeoGroupFormComponent implements OnInit {
   title: any = "បង្កើតក្រុម";
 
   @ViewChild("focusInput") inputEl: ElementRef;
 
-  form: FormGroup
+  form: UntypedFormGroup
   name: AbstractControl
   description: AbstractControl
   en_name: AbstractControl
@@ -32,7 +34,7 @@ export class GeoGroupFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<GeoGroupFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public auth: AuthStore,
     private snackBar: MatSnackBar,
     private afs: AngularFirestore,

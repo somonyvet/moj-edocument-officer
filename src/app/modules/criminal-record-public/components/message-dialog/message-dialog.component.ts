@@ -1,13 +1,15 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AnimationOptions } from 'ngx-lottie';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { LanguageStore } from 'src/app/languages/translate.store';
 
 @Component({
-  selector: 'app-message-dialog',
-  templateUrl: './message-dialog.component.html',
-  styleUrls: ['./message-dialog.component.scss']
+    selector: 'app-message-dialog',
+    templateUrl: './message-dialog.component.html',
+    styleUrls: ['./message-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class MessageDialogComponent implements OnInit {
 

@@ -1,247 +1,260 @@
 <div class="scrolling-container">
-    <div class="eform" [formGroup]="form">
+  <div class="eform" [formGroup]="form">
 
-      <div class="body">
-        <div class="body-item">
-          <!-- <div class="title" *ngIf="form?.valid">
-            <h3>៨-ព័ត៌មានគ្រួសារៈ</h3>
-          </div> -->
-          <div class="row-item" style="margin-top: 30px">
-            <div class="f-item" [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
-              <span><strong>ក-ប្ដី ឬប្រពន្ធឈ្មោះ :</strong></span>
-              <input class="f-input" type="text" formControlName="spouse">
-            </div>
-            <div class="f-item overfh" style="width: 300px;">
-              <mat-radio-group style="display: flex;" formControlName="spouseIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [checked]="spouseDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <!-- <div class="f-item" [ngClass]="form.get('spouseDob')?.errors&&form.get('spouseDob')?.touched?'has-error':''">
-              <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-              <input class="f-input" type="text" formControlName="spouseDob" [matDatepicker]="pickerspouseDob" (focus)="pickerspouseDob.open()">
-              <mat-datepicker #pickerspouseDob></mat-datepicker>
-            </div> -->
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateSpouse($event)" style="width:100%;"
-              [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-              [day]="form.get('spouseDob')?.value?.day||null"
-              [month]="form.get('spouseDob')?.value?.month||null"
-              [year]="form.get('spouseDob')?.value?.year||null"
-              ></app-khmer-date-form-picker>
-            </div>
-          </div>
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('spousePlaceOfBirth')?.errors&&form.get('spousePlaceOfBirth')?.touched?'has-error':''">
-              <span>- ទីកន្លែងកំណើត:</span>
-              <input class="f-input" type="text" formControlName="spousePlaceOfBirth">
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
-              <span>- មុខរបរបច្ចុប្បន្ន:</span>
-              <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('spouseCurrentAddress')?.errors&&form.get('spouseCurrentAddress')?.touched?'has-error':''">
-              <span>- អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-              <input class="f-input" type="text" formControlName="spouseCurrentAddress">
-            </div>
-          </div>
-
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('childrenNumber')?.errors&&form.get('childrenNumber')?.touched?'has-error':''">
-              <span><strong>ខ-មានកូនចំនួន :</strong></span>
-              <input class="f-input" type="text" formControlName="childrenNumber">
-              <span>នាក់&nbsp;,&nbsp;</span>
-            </div>
-
-            <div class="f-item" [ngClass]="form.get('childrenFemaleNumber')?.errors&&form.get('childrenFemaleNumber')?.touched?'has-error':''">
-              <span>ស្រី</span>
-              <input class="f-input" type="text" formControlName="childrenFemaleNumber">
-              <span>នាក់&nbsp;,&nbsp;</span>
-            </div>
-
-            <div class="f-item" [ngClass]="form.get('childrenMaleNumber')?.errors&&form.get('childrenMaleNumber')?.touched?'has-error':''">
-              <span>ប្រុស</span>
-              <input class="f-input" type="text" formControlName="childrenMaleNumber">
-              <span>នាក់</span>
-            </div>
-
-          </div>
-
-
-          <div class="row-item">
-            <div class="f-table">
-              <table class="tb-input">
-                <thead>
-                  <tr>
-                    <th class="center"></th>
-                    <th class="center">ឈ្មោះ</th>
-                    <th  class="center">ភេទ</th>
-                    <th  class="center">ថ្ងៃខែឆ្នាំកំណើត</th>
-                    <th  class="center">មុខរបរ</th>
-                    <th class="center" width="64px"></th>
-                  </tr>
-
-                </thead>
-                <tbody>
-                  <ng-container formArrayName="childrenInfo" *ngFor="let item of form.get('childrenInfo')?.controls;let i = index;">
-                    <tr [formGroupName]="i">
-                      <td>{{i+1}}</td>
-                      <td>
-                        <div  class="ftb-input" [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="name">
-                        </div>
-                      </td>
-                      <td>
-                        <div  class="ftb-input" [ngClass]="item.get('gender')?.errors&&item.get('gender')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
-                          <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
-                            <mat-option *ngFor="let item of GENDER_KH;let i=index" [value]="item">
-                                {{item?.text}}
-                            </mat-option>
-                          </mat-autocomplete>
-                        </div>
-                      </td>
-                      <td>
-                        <!-- <div  class="ftb-input" [ngClass]="item.get('dob')?.errors&&item.get('dob')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="dob" [matDatepicker]="pickerdob" (focus)="pickerdob.open()">
-                          <mat-datepicker #pickerdob></mat-datepicker>
-                        </div> -->
-                        <div class="ftb-input">
-                          <div class="inValid-date" *ngIf="dateInvalid" >
-                            ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
-                          </div>
-                          <app-khmer-date-form-picker [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' " (onSelectedItem)="onSelectedDateChildDoB($event,i)" style="width:100%;"
-                          [label]="'ថ្ងៃ'"
-                          [day]="item.get('dob')?.value?.day||null"
-                          [month]="item.get('dob')?.value?.month||null"
-                          [year]="item.get('dob')?.value?.year||null"
-                          ></app-khmer-date-form-picker>
-                        </div>
-                      </td>
-                      <td>
-                        <div  class="ftb-input" [ngClass]="item.get('occupation')?.errors&&item.get('occupation')?.touched?'has-error':''">
-                          <input class="f-input" type="text" formControlName="occupation">
-                        </div>
-                      </td>
-                      <td>
-                        <a mat-button mat-icon-button *ngIf="i>0"
-                          (click)="removeFormArrayWithField('childrenInfo')">
-                          <mat-icon>close</mat-icon>
-                        </a>
-                      </td>
-
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
-              <div class="fw-box">
-                <a mat-button class="btn-text" (click)="addFormArrayWithFields('childrenInfo',[{field:'name',value:null},{field:'gender',value:null},{field:'dob',value:null},{field:'occupation',value:null}])">
-                  <span>បន្ថែមប្រអប់បញ្ចូល</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('fatherName')?.errors&&form.get('fatherName')?.touched?'has-error':''">
-              <span><strong>គ-ឪពុកឈ្មោះ:</strong></span>
-              <input class="f-input" type="text" formControlName="fatherName">
-            </div>
-            <div class="f-item overfh" style="width: 300px;">
-              <mat-radio-group style="display: flex;" formControlName="fatherIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [checked]="fatherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateFatherDob($event)" style="width:100%;"
-              [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-              [day]="form.get('fatherDob')?.value?.day||null"
-              [month]="form.get('fatherDob')?.value?.month||null"
-              [year]="form.get('fatherDob')?.value?.year||null"
-              ></app-khmer-date-form-picker>
-            </div>
-
-          </div>
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
-              <span>ស្រុកកំណើត:</span>
-              <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
-            </div>
-            <div class="f-item" [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
-              <span>មុខរបរ:</span>
-              <input class="f-input" type="text" formControlName="fatherCurrentOccupation">
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('fatherCurrentAddress')?.errors&&form.get('fatherCurrentAddress')?.touched?'has-error':''">
-              <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-              <input class="f-input" type="text" formControlName="fatherCurrentAddress">
-            </div>
-          </div>
-
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('motherName')?.errors&&form.get('motherName')?.touched?'has-error':''">
-              <span><strong>ឃ-ម្ដាយឈ្មោះ:</strong></span>
-              <input class="f-input" type="text" formControlName="motherName">
-            </div>
-            <div class="f-item overfh" style="width: 300px;">
-              <mat-radio-group style="display: flex;" formControlName="motherIsDead">
-                <mat-radio-button *ngFor="let item of STATUS_LIVES_ARRAY_DATA" [checked]="motherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <!-- <div class="f-item" [ngClass]="form.get('motherDob')?.errors&&form.get('motherDob')?.touched?'has-error':''">
-              <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
-              <input class="f-input" type="text" formControlName="motherDob" [matDatepicker]="pickermotherDob" (focus)="pickermotherDob.open()">
-              <mat-datepicker #pickermotherDob></mat-datepicker>
-            </div> -->
-
-            <div class="f-item">
-              <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateMotherDob($event)" style="width:100%;"
-              [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
-              [day]="form.get('motherDob')?.value?.day||null"
-              [month]="form.get('motherDob')?.value?.month||null"
-              [year]="form.get('motherDob')?.value?.year||null"
-              ></app-khmer-date-form-picker>
-            </div>
-
-          </div>
-
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
-              <span>ស្រុកកំណើត:</span>
-              <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
-            </div>
-            <div class="f-item" [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
-              <span>មុខរបរ:</span>
-              <input class="f-input" type="text" formControlName="motherCurrentOccupation">
-            </div>
-          </div>
-          <div class="row-item">
-            <div class="f-item" [ngClass]="form.get('motherCurrentAddress')?.errors&&form.get('motherCurrentAddress')?.touched?'has-error':''">
-              <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
-              <input class="f-input" type="text" formControlName="motherCurrentAddress">
-            </div>
-          </div>
+    <div class="body">
+      <div class="body-item">
+        <!-- <div class="title" *ngIf="form?.valid">
+        <h3>៨-ព័ត៌មានគ្រួសារៈ</h3>
+      </div> -->
+      <div class="row-item" style="margin-top: 30px">
+        <div class="f-item" [ngClass]="form.get('spouse')?.errors&&form.get('spouse')?.touched?'has-error':''">
+          <span><strong>ក-ប្ដី ឬប្រពន្ធឈ្មោះ :</strong></span>
+          <input class="f-input" type="text" formControlName="spouse">
         </div>
+        <div class="f-item overfh" style="width: 300px;">
+          <mat-radio-group style="display: flex;" formControlName="spouseIsDead">
+            @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+              <mat-radio-button [checked]="spouseDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
+            }
+          </mat-radio-group>
+        </div>
+        <!-- <div class="f-item" [ngClass]="form.get('spouseDob')?.errors&&form.get('spouseDob')?.touched?'has-error':''">
+        <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+        <input class="f-input" type="text" formControlName="spouseDob" [matDatepicker]="pickerspouseDob" (focus)="pickerspouseDob.open()">
+        <mat-datepicker #pickerspouseDob></mat-datepicker>
+      </div> -->
+      <div class="f-item">
+        <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateSpouse($event)" style="width:100%;"
+          [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+          [day]="form.get('spouseDob')?.value?.day||null"
+          [month]="form.get('spouseDob')?.value?.month||null"
+          [year]="form.get('spouseDob')?.value?.year||null"
+        ></app-khmer-date-form-picker>
       </div>
-      <div class="eform-action-controls">
-        <div class="action-control-container">
-          <h4>៨-ព័ត៌មានគ្រួសារៈ</h4>
-          <div class="flex1"></div>
-            <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave(form?.value)" [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
-          </app-primary-button>
-        </div>
+    </div>
+
+    <div class="row-item">
+      <div class="f-item" [ngClass]="form.get('spousePlaceOfBirth')?.errors&&form.get('spousePlaceOfBirth')?.touched?'has-error':''">
+        <span>- ទីកន្លែងកំណើត:</span>
+        <input class="f-input" type="text" formControlName="spousePlaceOfBirth">
+      </div>
+    </div>
+    <div class="row-item">
+      <div class="f-item" [ngClass]="form.get('spouseCurrentOccupation')?.errors&&form.get('spouseCurrentOccupation')?.touched?'has-error':''">
+        <span>- មុខរបរបច្ចុប្បន្ន:</span>
+        <input class="f-input" type="text" formControlName="spouseCurrentOccupation">
+      </div>
+    </div>
+    <div class="row-item">
+      <div class="f-item" [ngClass]="form.get('spouseCurrentAddress')?.errors&&form.get('spouseCurrentAddress')?.touched?'has-error':''">
+        <span>- អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+        <input class="f-input" type="text" formControlName="spouseCurrentAddress">
+      </div>
+    </div>
+
+
+    <div class="row-item">
+      <div class="f-item" [ngClass]="form.get('childrenNumber')?.errors&&form.get('childrenNumber')?.touched?'has-error':''">
+        <span><strong>ខ-មានកូនចំនួន :</strong></span>
+        <input class="f-input" type="text" formControlName="childrenNumber">
+        <span>នាក់&nbsp;,&nbsp;</span>
+      </div>
+
+      <div class="f-item" [ngClass]="form.get('childrenFemaleNumber')?.errors&&form.get('childrenFemaleNumber')?.touched?'has-error':''">
+        <span>ស្រី</span>
+        <input class="f-input" type="text" formControlName="childrenFemaleNumber">
+        <span>នាក់&nbsp;,&nbsp;</span>
+      </div>
+
+      <div class="f-item" [ngClass]="form.get('childrenMaleNumber')?.errors&&form.get('childrenMaleNumber')?.touched?'has-error':''">
+        <span>ប្រុស</span>
+        <input class="f-input" type="text" formControlName="childrenMaleNumber">
+        <span>នាក់</span>
       </div>
 
     </div>
+
+
+    <div class="row-item">
+      <div class="f-table">
+        <table class="tb-input">
+          <thead>
+            <tr>
+              <th class="center"></th>
+              <th class="center">ឈ្មោះ</th>
+              <th  class="center">ភេទ</th>
+              <th  class="center">ថ្ងៃខែឆ្នាំកំណើត</th>
+              <th  class="center">មុខរបរ</th>
+              <th class="center" width="64px"></th>
+            </tr>
+
+          </thead>
+          <tbody>
+            @for (item of form.get('childrenInfo')?.controls; track item; let i = $index) {
+              <ng-container formArrayName="childrenInfo">
+                <tr [formGroupName]="i">
+                  <td>{{i+1}}</td>
+                  <td>
+                    <div  class="ftb-input" [ngClass]="item.get('name')?.errors&&item.get('name')?.touched?'has-error':''">
+                      <input class="f-input" type="text" formControlName="name">
+                    </div>
+                  </td>
+                  <td>
+                    <div  class="ftb-input" [ngClass]="item.get('gender')?.errors&&item.get('gender')?.touched?'has-error':''">
+                      <input class="f-input" type="text" formControlName="gender" [matAutocomplete]="gender">
+                      <mat-autocomplete [displayWith]="ds.displayTextOnly" #gender="matAutocomplete">
+                        @for (item of GENDER_KH; track item; let i = $index) {
+                          <mat-option [value]="item">
+                            {{item?.text}}
+                          </mat-option>
+                        }
+                      </mat-autocomplete>
+                    </div>
+                  </td>
+                  <td>
+                    <!-- <div  class="ftb-input" [ngClass]="item.get('dob')?.errors&&item.get('dob')?.touched?'has-error':''">
+                    <input class="f-input" type="text" formControlName="dob" [matDatepicker]="pickerdob" (focus)="pickerdob.open()">
+                    <mat-datepicker #pickerdob></mat-datepicker>
+                  </div> -->
+                  <div class="ftb-input">
+                    @if (dateInvalid) {
+                      <div class="inValid-date" >
+                        ថ្ងៃខែឆ្នាំមិនត្រឹមត្រូវ។
+                      </div>
+                    }
+                    <app-khmer-date-form-picker [class]="dateInvalid ? 'khmer-date-picker invalid':'khmer-date-picker' " (onSelectedItem)="onSelectedDateChildDoB($event,i)" style="width:100%;"
+                      [label]="'ថ្ងៃ'"
+                      [day]="item.get('dob')?.value?.day||null"
+                      [month]="item.get('dob')?.value?.month||null"
+                      [year]="item.get('dob')?.value?.year||null"
+                    ></app-khmer-date-form-picker>
+                  </div>
+                </td>
+                <td>
+                  <div  class="ftb-input" [ngClass]="item.get('occupation')?.errors&&item.get('occupation')?.touched?'has-error':''">
+                    <input class="f-input" type="text" formControlName="occupation">
+                  </div>
+                </td>
+                <td>
+                  @if (i>0) {
+                    <a mat-icon-button
+                      (click)="removeFormArrayWithField('childrenInfo')">
+                      <mat-icon>close</mat-icon>
+                    </a>
+                  }
+                </td>
+              </tr>
+            </ng-container>
+          }
+        </tbody>
+      </table>
+      <div class="fw-box">
+        <a mat-button class="btn-text" (click)="addFormArrayWithFields('childrenInfo',[{field:'name',value:null},{field:'gender',value:null},{field:'dob',value:null},{field:'occupation',value:null}])">
+          <span>បន្ថែមប្រអប់បញ្ចូល</span>
+        </a>
+      </div>
+    </div>
   </div>
+
+
+  <div class="row-item">
+    <div class="f-item" [ngClass]="form.get('fatherName')?.errors&&form.get('fatherName')?.touched?'has-error':''">
+      <span><strong>គ-ឪពុកឈ្មោះ:</strong></span>
+      <input class="f-input" type="text" formControlName="fatherName">
+    </div>
+    <div class="f-item overfh" style="width: 300px;">
+      <mat-radio-group style="display: flex;" formControlName="fatherIsDead">
+        @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+          <mat-radio-button [checked]="fatherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+
+    <div class="f-item">
+      <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateFatherDob($event)" style="width:100%;"
+        [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+        [day]="form.get('fatherDob')?.value?.day||null"
+        [month]="form.get('fatherDob')?.value?.month||null"
+        [year]="form.get('fatherDob')?.value?.year||null"
+      ></app-khmer-date-form-picker>
+    </div>
+
+  </div>
+
+  <div class="row-item">
+    <div class="f-item" [ngClass]="form.get('fatherPlaceOfBirth')?.errors&&form.get('fatherPlaceOfBirth')?.touched?'has-error':''">
+      <span>ស្រុកកំណើត:</span>
+      <input class="f-input" type="text" formControlName="fatherPlaceOfBirth">
+    </div>
+    <div class="f-item" [ngClass]="form.get('fatherCurrentOccupation')?.errors&&form.get('fatherCurrentOccupation')?.touched?'has-error':''">
+      <span>មុខរបរ:</span>
+      <input class="f-input" type="text" formControlName="fatherCurrentOccupation">
+    </div>
+  </div>
+  <div class="row-item">
+    <div class="f-item" [ngClass]="form.get('fatherCurrentAddress')?.errors&&form.get('fatherCurrentAddress')?.touched?'has-error':''">
+      <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+      <input class="f-input" type="text" formControlName="fatherCurrentAddress">
+    </div>
+  </div>
+
+
+  <div class="row-item">
+    <div class="f-item" [ngClass]="form.get('motherName')?.errors&&form.get('motherName')?.touched?'has-error':''">
+      <span><strong>ឃ-ម្ដាយឈ្មោះ:</strong></span>
+      <input class="f-input" type="text" formControlName="motherName">
+    </div>
+    <div class="f-item overfh" style="width: 300px;">
+      <mat-radio-group style="display: flex;" formControlName="motherIsDead">
+        @for (item of STATUS_LIVES_ARRAY_DATA; track item) {
+          <mat-radio-button [checked]="motherDeadStatus?.key === item.key" [value]="item" style="margin-right: 16px;">{{item?.text}}</mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    <!-- <div class="f-item" [ngClass]="form.get('motherDob')?.errors&&form.get('motherDob')?.touched?'has-error':''">
+    <span>ថ្ងៃ ខែ ឆ្នាំកំណើត</span>
+    <input class="f-input" type="text" formControlName="motherDob" [matDatepicker]="pickermotherDob" (focus)="pickermotherDob.open()">
+    <mat-datepicker #pickermotherDob></mat-datepicker>
+  </div> -->
+
+  <div class="f-item">
+    <app-khmer-date-form-picker [class]="'khmer-date-picker'" (onSelectedItem)="onSelectedDateMotherDob($event)" style="width:100%;"
+      [label]="'ថ្ងៃ ខែ ឆ្នាំកំណើត'"
+      [day]="form.get('motherDob')?.value?.day||null"
+      [month]="form.get('motherDob')?.value?.month||null"
+      [year]="form.get('motherDob')?.value?.year||null"
+    ></app-khmer-date-form-picker>
+  </div>
+
+</div>
+
+<div class="row-item">
+  <div class="f-item" [ngClass]="form.get('motherPlaceOfBirth')?.errors&&form.get('motherPlaceOfBirth')?.touched?'has-error':''">
+    <span>ស្រុកកំណើត:</span>
+    <input class="f-input" type="text" formControlName="motherPlaceOfBirth">
+  </div>
+  <div class="f-item" [ngClass]="form.get('motherCurrentOccupation')?.errors&&form.get('motherCurrentOccupation')?.touched?'has-error':''">
+    <span>មុខរបរ:</span>
+    <input class="f-input" type="text" formControlName="motherCurrentOccupation">
+  </div>
+</div>
+<div class="row-item">
+  <div class="f-item" [ngClass]="form.get('motherCurrentAddress')?.errors&&form.get('motherCurrentAddress')?.touched?'has-error':''">
+    <span>អាសយដ្ឋានបច្ចុប្បន្ន:</span>
+    <input class="f-input" type="text" formControlName="motherCurrentAddress">
+  </div>
+</div>
+</div>
+</div>
+<div class="eform-action-controls">
+  <div class="action-control-container">
+    <h4>៨-ព័ត៌មានគ្រួសារៈ</h4>
+    <div class="flex1"></div>
+    <app-primary-button label="រក្សាទុក" [process]="process" (onPress)="_onSave($safeNavigationMigration(form?.value))" [disable]="process || !form?.valid || store?.registrationFormDoc?.status?.key !== STATUS_OBJ?.PENDING?.key">
+    </app-primary-button>
+  </div>
+</div>
+
+</div>
+</div>
 

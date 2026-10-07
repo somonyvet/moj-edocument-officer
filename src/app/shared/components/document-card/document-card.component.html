@@ -1,60 +1,74 @@
 <div class="doc-tile-listing-item">
-    <div class="edoc-body">
-        <div class="doc-main-img" [routerLink]="[link]">
-            <!-- <img *ngIf="item?.coverFile?.downloadURL" [src]="item?.coverFile?.downloadURL" alt="">
-            <img *ngIf="!item?.coverFile?.downloadURL" [src]="img" alt=""> -->
-        </div>
-        <div class="doc-main-info">
-            <div class="doc-main-info-row">
-                <div class="l-content">
-                    <a [routerLink]="[link]" class="dNo"> {{item?.documentNo}} · {{item?.documentTitle}}</a>
-                    <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{item?.created_at?.toDate()|date:'mediumDate'}} ·
-                        {{item?.created_at?.toDate()|amTimeAgo}}
-                    </p>
-                    <app-avatar-officer *ngIf="item" [officerKey]="item?.created_by"></app-avatar-officer>
-                </div>
-                <div class="r-content">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="_onPinDoc(item)" >
-                            <mat-icon class="pin-icon" [ngClass]="(item?.key|pinDoc:auth?.userPinedDocuments)?'active':''">push_pin</mat-icon>
-                            <span>{{(item?.key|pinDoc:auth?.userPinedDocuments)?'ដកចេញពីទុកចំណាំ':'ទុកចំណាំ'}}</span>
-                        </button>
-                    </mat-menu>
-                </div>
-            </div>
-        </div>
+  <div class="edoc-body">
+    <div class="doc-main-img" [routerLink]="[link]">
+      <!-- <img *ngIf="item?.coverFile?.downloadURL" [src]="item?.coverFile?.downloadURL" alt="">
+      <img *ngIf="!item?.coverFile?.downloadURL" [src]="img" alt=""> -->
     </div>
-    <div class="edoc-footer" [ngClass]="isReport?'active':''" *ngIf="item?.category || item?.organizationRef">
-        <div class="footer-info">
-            <div class="doc-cat">
-                <span *ngIf="isReport">
-                    ឯកសារចូល
-                </span><span *ngIf="isReport"> · </span>{{item?.category?.name}}
-            </div>
-            <div class="doc-source-no">
-                #{{item?.refNo}} · {{item?.organizationRef?.name}}
-            </div>
+    <div class="doc-main-info">
+      <div class="doc-main-info-row">
+        <div class="l-content">
+          <a [routerLink]="[link]" class="dNo"> {{item?.documentNo}} · {{item?.documentTitle}}</a>
+          <p class="ct">បង្ថ្ងៃ ខែ ឆ្នាំកំណើតទី {{$safeNavigationMigration(item?.created_at?.toDate())|date:'mediumDate'}} ·
+            {{$safeNavigationMigration(item?.created_at?.toDate())|amTimeAgo}}
+          </p>
+          @if (item) {
+            <app-avatar-officer [officerKey]="$safeNavigationMigration(item?.created_by)"></app-avatar-officer>
+          }
         </div>
-        <div class="edoc-priority" [ngClass]="item?.priority?.name_en">
-            <mat-icon>{{item?.priority?.icon}}</mat-icon>
-            <strong>{{item?.priority?.name}}</strong>
+        <div class="r-content">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="_onPinDoc(item)" >
+              <mat-icon class="pin-icon" [ngClass]="($safeNavigationMigration(item?.key)|pinDoc:$safeNavigationMigration(auth?.userPinedDocuments))?'active':''">push_pin</mat-icon>
+              <span>{{($safeNavigationMigration(item?.key)|pinDoc:$safeNavigationMigration(auth?.userPinedDocuments))?'ដកចេញពីទុកចំណាំ':'ទុកចំណាំ'}}</span>
+            </button>
+          </mat-menu>
         </div>
+      </div>
     </div>
+  </div>
+  @if (item?.category || item?.organizationRef) {
+    <div class="edoc-footer" [ngClass]="isReport?'active':''">
+      <div class="footer-info">
+        <div class="doc-cat">
+          @if (isReport) {
+            <span>
+              ឯកសារចូល
+            </span>
+            }@if (isReport) {
+            <span> · </span>
+            }{{item?.category?.name}}
+          </div>
+          <div class="doc-source-no">
+            #{{item?.refNo}} · {{item?.organizationRef?.name}}
+          </div>
+        </div>
+        <div class="edoc-priority" [ngClass]="$safeNavigationMigration(item?.priority?.name_en)">
+          <mat-icon>{{item?.priority?.icon}}</mat-icon>
+          <strong>{{item?.priority?.name}}</strong>
+        </div>
+      </div>
+    }
     <div class="edoc-statistic">
-        <div class="note-cms">
-            <span *ngIf="statistic?.total_comments>0">
-                {{statistic?.total_comments}} មតិ
-            </span>
-            <span *ngIf="statistic?.total_visitor>0">{{statistic?.total_visitor}}នាក់បានឃើញ</span>
-        </div>
-        <div class="flex1"></div>
-        <div class="note-cms">
-            <span *ngIf="statistic?.total_view>0">ចូលមើល: {{statistic?.total_view}}
-                ដង
-            </span>
-        </div>
+      <div class="note-cms">
+        @if (statistic?.total_comments>0) {
+          <span>
+            {{statistic?.total_comments}} មតិ
+          </span>
+        }
+        @if (statistic?.total_visitor>0) {
+          <span>{{statistic?.total_visitor}}នាក់បានឃើញ</span>
+        }
+      </div>
+      <div class="flex1"></div>
+      <div class="note-cms">
+        @if (statistic?.total_view>0) {
+          <span>ចូលមើល: {{statistic?.total_view}}
+            ដង
+          </span>
+        }
+      </div>
     </div>
-</div>
+  </div>

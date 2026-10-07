@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-home-sidenav',
-  templateUrl: './home-sidenav.component.html',
-  styleUrls: ['./home-sidenav.component.scss']
+    selector: 'app-home-sidenav',
+    templateUrl: './home-sidenav.component.html',
+    styleUrls: ['./home-sidenav.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HomeSidenavComponent implements OnInit {
 

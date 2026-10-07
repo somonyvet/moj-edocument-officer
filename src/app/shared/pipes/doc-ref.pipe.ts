@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Pipe({
-  name: 'docRef'
+    name: 'docRef',
+    standalone: false
 })
 export class DocRefPipe implements PipeTransform {
 
@@ -20,7 +21,8 @@ export class DocRefPipe implements PipeTransform {
   // <strong>{{item?.countryRef|docRef:'name' | async}}</strong>
 }
 @Pipe({
-  name: 'docKeyRef'
+    name: 'docKeyRef',
+    standalone: false
 })
 export class DocKeyRefPipe implements PipeTransform {
   constructor(
@@ -41,7 +43,8 @@ export class DocKeyRefPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'docKeyCompanyRef'
+    name: 'docKeyCompanyRef',
+    standalone: false
 })
 export class DocKeyCompanyRefPipe implements PipeTransform {
   constructor(

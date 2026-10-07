@@ -1,6 +1,7 @@
+import { Timestamp } from 'firebase/firestore';
 import { HrPregnancyBreakStore } from '../../../stores/hr-pregnancy-break.store';
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { observable } from 'mobx';
@@ -20,15 +21,17 @@ import { HrMissionsFormComponent } from '../../human-resource-missions/human-res
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 
 @Component({
-  selector: 'app-human-resource-pregnancy-break-form',
-  templateUrl: './human-resource-pregnancy-break-form.component.html',
-  styleUrls: ['./human-resource-pregnancy-break-form.component.scss']
+    selector: 'app-human-resource-pregnancy-break-form',
+    templateUrl: './human-resource-pregnancy-break-form.component.html',
+    styleUrls: ['./human-resource-pregnancy-break-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HRPregnancyBreakFormComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
 
   title: any = "បង្កើត";
-  form: FormGroup;
+  form: UntypedFormGroup;
   @observable selectedOfficerArr = [];
 
   search: AbstractControl;
@@ -40,7 +43,7 @@ export class HRPregnancyBreakFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<HrMissionsFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: HrPregnancyBreakStore,
     public docStore: DocumentStore,
     public officer: OfficerStore,
@@ -69,8 +72,8 @@ export class HRPregnancyBreakFormComponent implements OnInit {
       this.form.patchValue({
         description,
         duration,
-        startDate: (startDate as firebase.default.firestore.Timestamp).toDate(),
-        endDate: (endDate as firebase.default.firestore.Timestamp).toDate()
+        startDate: (startDate as Timestamp).toDate(),
+        endDate: (endDate as Timestamp).toDate()
       });
     }
 

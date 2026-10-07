@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ActivatedRoute } from '@angular/router';
 import { PHOTO_LIB } from 'src/app/dummy/appinfo';
@@ -12,9 +12,11 @@ import { ChartOfAccountFormComponent } from './chart-of-account-form/chart-of-ac
 
 
 @Component({
-  selector: 'app-chart-of-accounts',
-  templateUrl: './chart-of-accounts.component.html',
-  styleUrls: ['./chart-of-accounts.component.scss']
+    selector: 'app-chart-of-accounts',
+    templateUrl: './chart-of-accounts.component.html',
+    styleUrls: ['./chart-of-accounts.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChartOfAccountsComponent implements OnInit {
   tabs = swotify_tabs.chartOfAccounts;

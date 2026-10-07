@@ -1,11 +1,15 @@
 <ul *mobxAutorun class="workplace-received-task">
-    <li *ngFor="let item of store?.documentReceivedWorkplaces">
-        <mat-icon> maps_home_work </mat-icon>
-        <div class="dr-f1"><strong>{{item?.office?.name}}</strong>
-            <span class="material-icons" *ngIf="item|workplaceCompletedReport:store?.headerDocument?.receivedWorkplaceCompletedByDocKeys">
-                check_circle
-                </span>
-        </div>
-        <button mat-button class="btn-normal" (click)="_onReceivedReport(item)" [disabled]="!store?.headerDocument?.final">ទទួលរបាយការណ៍</button>
-    </li>
+  @for (item of store?.documentReceivedWorkplaces; track item) {
+    <li>
+      <mat-icon> maps_home_work </mat-icon>
+      <div class="dr-f1"><strong>{{item?.office?.name}}</strong>
+      @if (item|workplaceCompletedReport:$safeNavigationMigration(store?.headerDocument?.receivedWorkplaceCompletedByDocKeys)) {
+        <span class="material-icons">
+          check_circle
+        </span>
+      }
+    </div>
+    <button mat-button class="btn-normal" (click)="_onReceivedReport(item)" [disabled]="!store?.headerDocument?.final">ទទួលរបាយការណ៍</button>
+  </li>
+}
 </ul>

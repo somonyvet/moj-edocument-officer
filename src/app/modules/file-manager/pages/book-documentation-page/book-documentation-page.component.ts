@@ -1,13 +1,15 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthStore } from 'src/app/stores/auth.store';
 import { BookDocumentStore } from 'src/app/stores/book-document.store';
 
 @Component({
-  selector: 'app-book-documentation-page',
-  templateUrl: './book-documentation-page.component.html',
-  styleUrls: ['./book-documentation-page.component.scss']
+    selector: 'app-book-documentation-page',
+    templateUrl: './book-documentation-page.component.html',
+    styleUrls: ['./book-documentation-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class BookDocumentationPageComponent implements OnInit {
 

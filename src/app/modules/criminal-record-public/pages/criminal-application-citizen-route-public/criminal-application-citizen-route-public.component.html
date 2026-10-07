@@ -2,15 +2,16 @@
 <div class="full-page-container">
     <div class="header">
         <div class="wrapper">
-          <nav mat-tab-nav-bar class="fire-tabs tab-no-b flex1">
+          <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs tab-no-b flex1">
               <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive
                   #rla="routerLinkActive" [active]="rla.isActive">{{link.label}}</a>
           </nav>
-          <button mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ព"
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+          <button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass" matTooltip="បោះពុម្ព"
               (click)="print()">
               <mat-icon class="mat-18">print</mat-icon>
           </button>
-          <a mat-button mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass"
+          <a mat-icon-button class="mat-add-new" matTooltipClass="tooltipClass"
               [routerLink]="backUrl">
               <mat-icon class="mat-18">close</mat-icon>
           </a>

@@ -1,47 +1,52 @@
 <div class="main-panel">
-    <div class="main-l" [ngStyle]="setToggle()">
-        <div class="head-bar">
-            <!-- <button mat-button class="enbutton primary" (click)="criminal.onCreate()">
-                <div class="rows">
-                    <ion-icon name="create-outline"></ion-icon>
-                    <span>{{criminal?.newButtonName}}</span>
-                </div>
-            </button> -->
-        </div>
-        <div class="main-body">
-            <div class="tog-side-nav">
-                <ng-container *ngFor="let item of nav_items">
-                    <a class="side-nav-item" mat-button *ngIf="!item?.children?.length" #appTab="routerLinkActive"
-                        routerLinkActive="active" [routerLink]="[item?.router]">
-                        <ion-icon [name]="item?.icon+(appTab?.isActive?'':'-outline')"></ion-icon>
-                        <span>{{item?.name}}</span>
-                    </a>
-
-                    <mat-expansion-panel class="side-nav-panel" #panel *ngIf="item?.children?.length" hideToggle
-                        [expanded]="isGroupExpanded(item)" (opened)="setGroupExpanded(item, true)"
-                        (closed)="setGroupExpanded(item, false)" [class.active]="isGroupActive(item)">
-                        <mat-expansion-panel-header collapsedHeight="40px" expandedHeight="40px">
-                            <mat-panel-title>
-                                <span>{{item?.name}}</span>
-                            </mat-panel-title>
-                            <ion-icon class="side-nav-caret"
-                                [name]="panel.expanded ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
-                        </mat-expansion-panel-header>
-                        <a class="side-nav-item side-nav-child" mat-button *ngFor="let child of item?.children"
-                            #childTab="routerLinkActive" routerLinkActive="active" [routerLink]="[child?.router]">
-                            <ion-icon [name]="child?.icon+(childTab?.isActive?'':'-outline')"></ion-icon>
-                            <span>{{child?.name}}</span>
-                        </a>
-                    </mat-expansion-panel>
-                </ng-container>
-            </div>
-        </div>
-        <div class="main-calendar">
-            <mat-divider></mat-divider>
-            <mat-calendar (selectedChange)="_onSelectedCalendar($event)" [(selected)]="selected"></mat-calendar>
-        </div>
+  <div class="main-l" [ngStyle]="setToggle()">
+    <div class="head-bar">
+      <!-- <button mat-button class="enbutton primary" (click)="criminal.onCreate()">
+      <div class="rows">
+        <ion-icon name="create-outline"></ion-icon>
+        <span>{{criminal?.newButtonName}}</span>
+      </div>
+    </button> -->
+  </div>
+  <div class="main-body">
+    <div class="tog-side-nav">
+      @for (item of nav_items; track item) {
+        @if (!item?.children?.length) {
+          <a class="side-nav-item" mat-button #appTab="routerLinkActive"
+            routerLinkActive="active" [routerLink]="[$safeNavigationMigration(item?.router)]">
+            <ion-icon [name]="$safeNavigationMigration(item?.icon)+(appTab?.isActive?'':'-outline')"></ion-icon>
+            <span>{{item?.name}}</span>
+          </a>
+        }
+        @if (item?.children?.length) {
+          <mat-expansion-panel class="side-nav-panel" #panel hideToggle
+            [expanded]="isGroupExpanded(item)" (opened)="setGroupExpanded(item, true)"
+            (closed)="setGroupExpanded(item, false)" [class.active]="isGroupActive(item)">
+            <mat-expansion-panel-header collapsedHeight="40px" expandedHeight="40px">
+              <mat-panel-title>
+                <span>{{item?.name}}</span>
+              </mat-panel-title>
+              <ion-icon class="side-nav-caret"
+              [name]="panel.expanded ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+            </mat-expansion-panel-header>
+            @for (child of item?.children; track child) {
+              <a class="side-nav-item side-nav-child" mat-button
+                #childTab="routerLinkActive" routerLinkActive="active" [routerLink]="[$safeNavigationMigration(child?.router)]">
+                <ion-icon [name]="$safeNavigationMigration(child?.icon)+(childTab?.isActive?'':'-outline')"></ion-icon>
+                <span>{{child?.name}}</span>
+              </a>
+            }
+          </mat-expansion-panel>
+        }
+      }
     </div>
-    <div class="main-r">
-        <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="main-calendar">
+    <mat-divider></mat-divider>
+    <mat-calendar (selectedChange)="_onSelectedCalendar($event)" [(selected)]="selected"></mat-calendar>
+  </div>
+</div>
+<div class="main-r">
+  <router-outlet></router-outlet>
+</div>
 </div>

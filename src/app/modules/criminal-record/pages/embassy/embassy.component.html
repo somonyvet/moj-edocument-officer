@@ -1,68 +1,69 @@
 <div class="main-panel">
-    <div class="main-l doc-list">
-      <div class="doc-in">
-        <div class="listing-header">
-          <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
-            <h4>{{title}}</h4>
-            <div class="flex1"></div>
-            <a (click)="create()" matTooltip="បង្កើតជម្រើសបង់ប្រាក់" matTooltipClass="tooltipClass" mat-button mat-icon-button
+  <div class="main-l doc-list">
+    <div class="doc-in">
+      <div class="listing-header">
+        <div style="display: flex; column-gap: 20px; justify-content: space-between; align-items: center;">
+          <h4>{{title}}</h4>
+          <div class="flex1"></div>
+          <a (click)="create()" matTooltip="បង្កើតជម្រើសបង់ប្រាក់" matTooltipClass="tooltipClass" mat-icon-button
               class="mat-b-bg" style="display:grid;place-items:center; background: #e4e6eb;
                           color: #111; margin-right: 15px;">
-              <mat-icon class="mat-18">add</mat-icon>
-            </a>
-          </div>
+            <mat-icon class="mat-18">add</mat-icon>
+          </a>
         </div>
+      </div>
 
-        <nav mat-tab-nav-bar class="fire-tabs">
-          <a mat-tab-link *ngFor="let link of tabs" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
-            [active]="rla.isActive">{{link.label}}</a>
-        </nav>
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="fire-tabs">
+        @for (link of tabs; track link) {
+          <a mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+          [active]="rla.isActive">{{link.label}}</a>
+        }
+      </nav>
+<mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
-        <ng-container *ngIf="!loading else loader">
-          <ng-container *ngIf="store?.data?.length>0 else emptyData">
-            <virtual-scroller #scroll [items]="store?.data" class="doc-ls-items seach-header">
-              <a mat-button class="avatar-vt-item"
-                *ngFor="let item of scroll.viewPortItems ;let i=index; trackBy: trackByIdx">
-                <div class="avatar sm">
-                  <img [src]="item?.file?.downloadUrl" (error)="handleImgError($event)">
-                </div>
-                <a class="av-vt-body" routerLinkActive="active">
-                  <span class="body-text">
-                    {{item?.name}}
-                  </span>
-                  <!-- <strong>{{item?.khName}}</strong> -->
-                  <span style="margin-top: 6px;">
-                  </span>
-                </a>
-                <button type="button" mat-button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="create(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>កែសម្រួល</span>
-                  </button>
-                  <button mat-menu-item (click)="onDelete(item)">
-                    <mat-icon>delete</mat-icon>
-                    <span>លុប</span>
-                  </button>
-                </mat-menu>
+      @if (!loading) {
+        @if (store?.data?.length>0) {
+          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header">
+            <a mat-button class="avatar-vt-item"
+              *cdkVirtualFor="let item of $safeNavigationMigration(store?.data) ;let i=index; trackBy: trackByIdx">
+              <div class="avatar sm">
+                <img [src]="$safeNavigationMigration(item?.file?.downloadUrl)" (error)="handleImgError($event)">
+              </div>
+              <a class="av-vt-body" routerLinkActive="active">
+                <span class="body-text">
+                  {{item?.name}}
+                </span>
+                <!-- <strong>{{item?.khName}}</strong> -->
+                <span style="margin-top: 6px;">
+                </span>
               </a>
-              <div class="fake"></div>
-            </virtual-scroller>
-          </ng-container>
-        </ng-container>
-        <ng-template #loader>
-          <app-spinner></app-spinner>
-        </ng-template>
-        <ng-template #emptyData>
+              <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="create(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>កែសម្រួល</span>
+                </button>
+                <button mat-menu-item (click)="onDelete(item)">
+                  <mat-icon>delete</mat-icon>
+                  <span>លុប</span>
+                </button>
+              </mat-menu>
+            </a>
+            <div class="fake"></div>
+          </cdk-virtual-scroll-viewport>
+        } @else {
           <div class="doc-ls-items center">
             <app-empty className="empty-vt" name="ពុំមានស្ថានទូត" subtitle=""></app-empty>
           </div>
-        </ng-template>
-      </div>
-    </div>
-    <div class="main-r">
-      <router-outlet></router-outlet>
+        }
+      } @else {
+        <app-spinner></app-spinner>
+      }
     </div>
   </div>
+  <div class="main-r">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Inject, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -14,22 +14,24 @@ import { AuthStore } from 'src/app/stores/auth.store';
 import { DocumentStore } from 'src/app/stores/document/document.store';
 
 @Component({
-  selector: 'app-document-add-block-note',
-  templateUrl: './document-add-block-note.component.html',
-  styleUrls: ['./document-add-block-note.component.scss']
+    selector: 'app-document-add-block-note',
+    templateUrl: './document-add-block-note.component.html',
+    styleUrls: ['./document-add-block-note.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DocumentAddBlockNoteComponent implements OnInit {
   @ViewChild('inputRef') inputRef: ElementRef;
   @ViewChild('photoFile') photoFile: ElementRef;
 
   title: any = "ជូនចំណាត់ការផ្សេងៗ";
-  form: FormGroup;
+  form: UntypedFormGroup;
   remark_officer: AbstractControl;
   remarkOfficer: Observable<Array<any>>;
   constructor(
     public dialogRef: MatDialogRef<DocumentAddBlockNoteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public store: DocumentStore,
     private ds: DataService,
     private auth: AuthStore,

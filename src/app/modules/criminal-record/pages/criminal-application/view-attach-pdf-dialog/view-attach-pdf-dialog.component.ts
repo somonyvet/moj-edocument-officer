@@ -1,10 +1,12 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-view-attach-pdf-dialog',
-  templateUrl: './view-attach-pdf-dialog.component.html',
-  styleUrls: ['./view-attach-pdf-dialog.component.scss']
+    selector: 'app-view-attach-pdf-dialog',
+    templateUrl: './view-attach-pdf-dialog.component.html',
+    styleUrls: ['./view-attach-pdf-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ViewAttachPdfDialogComponent implements OnInit {
 

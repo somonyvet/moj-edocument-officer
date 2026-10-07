@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,9 +10,11 @@ import { TutorialStore } from '../../stores/tutorial.store';
 import { TutorialDocumentFormComponent } from './tutorial-document-form/tutorial-document-form.component';
 
 @Component({
-  selector: 'app-tutorial',
-  templateUrl: './tutorial.component.html',
-  styleUrls: ['./tutorial.component.scss']
+    selector: 'app-tutorial',
+    templateUrl: './tutorial.component.html',
+    styleUrls: ['./tutorial.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TutorialComponent implements OnInit,OnDestroy {
   tabs = criminal_tabs.crime_tutorials;

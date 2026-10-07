@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-get-share-link',
-  templateUrl: './get-share-link.component.html',
-  styleUrls: ['./get-share-link.component.scss'],
+    selector: 'app-get-share-link',
+    templateUrl: './get-share-link.component.html',
+    styleUrls: ['./get-share-link.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GetShareLinkComponent implements OnInit {
 
@@ -13,9 +15,9 @@ export class GetShareLinkComponent implements OnInit {
   @ViewChild('viewRefButton', { static: false }) public viewRefButton: ElementRef
 
   msg: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: AbstractControl;
-  toppings = new FormControl();
+  toppings = new UntypedFormControl();
   url: any;
 
   constructor(

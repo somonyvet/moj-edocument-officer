@@ -9,115 +9,122 @@
                 height: 100%;
                 transform-origin: top left;transform: scale(0.8)" [ngStyle]=" criminalStore?.selectedCriminalRecord?.criminal_input_print? {transform:'unset',margin: '0 auto'} : {}">
 
-          <div class="apply-form-page offi" *ngIf="!criminalStore?.selectedCriminalRecord?.criminal_input_print">
-            <div class="eform small">
-              <div class="header-ef">
-                <h2>ព័ត៌មាន បកប្រែ និងចំនួន</h2>
+          @if (!criminalStore?.selectedCriminalRecord?.criminal_input_print) {
+            <div class="apply-form-page offi">
+              <div class="eform small">
+                <div class="header-ef">
+                  <h2>ព័ត៌មាន បកប្រែ និងចំនួន</h2>
+                </div>
+                <ul class="required-items">
+                  @if (criminalStore?.selectedCriminalRecord?.isStudent) {
+                    <li>
+                      <div class="ef-item done">
+                        <span class="ef-txt">ជាសិស្ស/និស្សិត</span>
+                      </div>
+                    </li>
+                  }
+                  <li>
+                    <div class="ef-item done">
+                      <span class="ef-txt">សេវា {{criminalStore?.selectedCriminalRecord?.urgent_obj?.name}}</span>
+                    </div>
+                  </li>
+                  @for (item of criminalStore?.selectedCriminalRecord?.criminal_language; track item) {
+                    <li>
+                      <div class="ef-item done">
+                        <span class="ef-txt">ភាសា {{item?.name}}
+                        ( {{item?.amount}} ច្បាប់ )</span>
+                      </div>
+                    </li>
+                  }
+                </ul>
               </div>
-              <ul class="required-items">
-                <li *ngIf="criminalStore?.selectedCriminalRecord?.isStudent">
-                  <div class="ef-item done">
-                    <span class="ef-txt">ជាសិស្ស/និស្សិត</span>
-                  </div>
-                </li>
-                <li>
-                  <div class="ef-item done">
-                    <span class="ef-txt">សេវា {{criminalStore?.selectedCriminalRecord?.urgent_obj?.name}}</span>
-                  </div>
-                </li>
-                <li *ngFor="let item of criminalStore?.selectedCriminalRecord?.criminal_language">
-                  <div class="ef-item done">
-                    <span class="ef-txt">ភាសា {{item?.name}}
-                      ( {{item?.amount}} ច្បាប់ )</span>
-                  </div>
-                </li>
-              </ul>
             </div>
-          </div>
+          }
 
           <div style="margin: 12px 0;">
             <app-letter-of-condemnation-form-in-fullview></app-letter-of-condemnation-form-in-fullview>
           </div>
 
-          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.document_flow_category?.key != DOCUMENT_FLOW_CATEGORY.digital.key">
-          <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.criminal_input_print; else loopTemplate">
-            <div style="margin-top: 12px;">
-              <app-criminal-record-letter-kh-print-fullview [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-kh-print-fullview>
-            </div>
-            <div>
-              <app-criminal-record-letter-en-print-fullview [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-en-print-fullview>
-            </div>
-            <div>
-              <app-criminal-record-letter-fr-print-fullview [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-fr-print-fullview>
-            </div>
-          </ng-container>
-
-          <ng-template #loopTemplate>
-            <ng-container *ngFor="let cri of criminalStore?.selectedCriminalRecord?.criminal_language">
-              <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key">
-                <div style="margin-top: 12px;">
-                  <app-criminal-record-letter-kh-print-fullview
-                    [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-kh-print-fullview>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.france?.key">
-                <div style="margin-top: 12px;">
-                  <app-criminal-record-letter-fr-print-fullview
-                    [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-fr-print-fullview>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.english?.key">
-                <div style="margin-top: 12px;">
-                  <app-criminal-record-letter-en-print-fullview
-                    [Item]="criminalStore?.selectedCriminalRecord"></app-criminal-record-letter-en-print-fullview>
-                </div>
-              </ng-container>
-          
-            </ng-container>
-          </ng-template>
-          </ng-container>
+          @if (criminalStore?.selectedCriminalRecord?.document_flow_category?.key != DOCUMENT_FLOW_CATEGORY.digital.key) {
+            @if (criminalStore?.selectedCriminalRecord?.criminal_input_print) {
+              <div style="margin-top: 12px;">
+                <app-criminal-record-letter-kh-print-fullview [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-kh-print-fullview>
+              </div>
+              <div>
+                <app-criminal-record-letter-en-print-fullview [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-en-print-fullview>
+              </div>
+              <div>
+                <app-criminal-record-letter-fr-print-fullview [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-fr-print-fullview>
+              </div>
+            } @else {
+              @for (cri of criminalStore?.selectedCriminalRecord?.criminal_language; track cri) {
+                @if (cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.khmer?.key) {
+                  <div style="margin-top: 12px;">
+                    <app-criminal-record-letter-kh-print-fullview
+                    [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-kh-print-fullview>
+                  </div>
+                }
+                @if (cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.france?.key) {
+                  <div style="margin-top: 12px;">
+                    <app-criminal-record-letter-fr-print-fullview
+                    [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-fr-print-fullview>
+                  </div>
+                }
+                @if (cri?.key===CRIMINAL_APPLICATION_LANGUAGE?.english?.key) {
+                  <div style="margin-top: 12px;">
+                    <app-criminal-record-letter-en-print-fullview
+                    [Item]="$safeNavigationMigration(criminalStore?.selectedCriminalRecord)"></app-criminal-record-letter-en-print-fullview>
+                  </div>
+                }
+              }
+            }
+          }
 
         </div>
       </div>
-      <ng-container *ngIf="criminalStore?.selectedCriminalRecord?.attachment_status?.key === 2;else DisplayImgTemplate">
+      @if (criminalStore?.selectedCriminalRecord?.attachment_status?.key === 2) {
         <div class="box-item right">
           <div class="img-view">
             <h4>* បញ្ជូនឯកសារដើមមកទីកន្លែងផ្ទាល់</h4>
           </div>
         </div>
-      </ng-container>
-      <ng-template #DisplayImgTemplate>
-        <div class="box-item right" *ngIf="!criminalStore?.selectedCriminalRecord?.criminal_input_print">
-          <div class="img-view" *ngFor="let row of CRfiles">
-            <h4>{{row?.name}}</h4>
-            <mat-divider></mat-divider>
-            <div class="img-group">
-              <div class="doc-b-img" style="width: 900px;" *ngFor="let file of row?.data">
-                <ng-container *ngIf="file?.fileType==='application/pdf';else imgTemplate">
-                  <pdf-viewer
-                  [src]="file?.downloadUrl||file?.file_uri"
-                  [rotation]="0"
-                  [original-size]="false"
-                  [show-all]="true"
-                  [fit-to-page]="false"
-                  [zoom]="1"
-                  [zoom-scale]="'page-width'"
-                  [stick-to-page]="false"
-                  [render-text]="true"
-                  [external-link-target]="'blank'"
-                  [autoresize]="true"
-                  [show-borders]="false"
-                  style="width: 100%; height: 90vh; overflow-x: hidden;"
-                ></pdf-viewer>
-                </ng-container>
-                <ng-template #imgTemplate>
-                  <img [src]="file?.file_uri || file?.downloadUrl">
-                </ng-template>
+      } @else {
+        @if (!criminalStore?.selectedCriminalRecord?.criminal_input_print) {
+          <div class="box-item right">
+            @for (row of CRfiles; track row) {
+              <div class="img-view">
+                <h4>{{row?.name}}</h4>
+                <mat-divider></mat-divider>
+                <div class="img-group">
+                  @for (file of row?.data; track file) {
+                    <div class="doc-b-img" style="width: 900px;">
+                      @if (file?.fileType==='application/pdf') {
+                        <pdf-viewer
+                          [src]="file?.downloadUrl||file?.file_uri"
+                          [rotation]="0"
+                          [original-size]="false"
+                          [show-all]="true"
+                          [fit-to-page]="false"
+                          [zoom]="1"
+                          [zoom-scale]="'page-width'"
+                          [stick-to-page]="false"
+                          [render-text]="true"
+                          [external-link-target]="'blank'"
+                          [autoresize]="true"
+                          [show-borders]="false"
+                          style="width: 100%; height: 90vh; overflow-x: hidden;"
+                        ></pdf-viewer>
+                      } @else {
+                        <img [src]="file?.file_uri || file?.downloadUrl">
+                      }
+                    </div>
+                  }
+                </div>
               </div>
-            </div>
+            }
           </div>
-        </div>
-      </ng-template>
+        }
+      }
     </div>
   </div>
 </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, OnDestroy, AfterViewChecked, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef, ChangeDetectorRef, OnDestroy, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter, take } from 'rxjs/operators';
@@ -20,9 +20,11 @@ import { SideNavService } from 'src/app/shared/services/sidenav.servce';
 import { NewFolderComponent } from '../../components/new-folder/new-folder.component';
 
 @Component({
-  selector: 'app-trash',
-  templateUrl: './trash.component.html',
-  styleUrls: ['./trash.component.scss']
+    selector: 'app-trash',
+    templateUrl: './trash.component.html',
+    styleUrls: ['./trash.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 
 export class TrashComponent implements OnInit, OnDestroy, AfterViewChecked, AfterViewInit {
