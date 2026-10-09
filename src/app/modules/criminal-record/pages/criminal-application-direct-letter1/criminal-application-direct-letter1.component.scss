@@ -5,3 +5,14 @@
 .listing-header{
   padding-bottom: 12px;
 }
+
+// .avatar-vt-item is a shared global class (main.scss, height: 126px !important) used
+// by dozens of other lists -- this list's rows (name + 2 lines of sub-text) are
+// shorter than the shared default. 107.5px is this list's own measured old-app
+// row height. Scoped here only -- do not move to the global stylesheet, since
+// other lists are scoped to their own different measured heights.
+.avatar-vt-item.mat-mdc-button {
+  height: 107.5px !important;
+  min-height: 107.5px !important;
+  max-height: 107.5px !important;
+}

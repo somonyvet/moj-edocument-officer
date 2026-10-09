@@ -24,8 +24,25 @@
   .btn-a-wrapper{
     display: flex;
     align-items: center;
+
+    // .avatar-vt-item is a shared global class (main.scss, height: 126px) used by
+    // dozens of other lists -- this list's rows are much shorter (avatar + name +
+    // date only), so 126px overlapped rows with the shared default. 79.98px is
+    // this list's own measured old-app row height. Scoped here only.
+    height: 79.98px;
+    min-height: 79.98px;
+    max-height: 79.98px;
+    box-sizing: border-box;
+
     .avatar-vt-item{
       flex: 1;
+
+      &.mat-mdc-button {
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        box-sizing: border-box;
+      }
     }
   }
   

@@ -15,8 +15,38 @@
 .btn-a-wrapper{
   display: flex;
   align-items: center;
+
+  // .avatar-vt-item is a shared global class (main.scss, height: 126px) used by
+  // dozens of other lists -- this list's rows are much shorter (avatar + name +
+  // date only), so 126px overlapped rows with the shared default. 79.98px is
+  // this list's own measured old-app row height (same fix as the identical
+  // criminal-letter3-business-input-print list). Scoped here only.
+  height: 79.98px;
+  min-height: 79.98px;
+  max-height: 79.98px;
+  box-sizing: border-box;
+
   .avatar-vt-item{
     flex: 1;
+
+    &.mat-mdc-button {
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      box-sizing: border-box;
+    }
+  }
+
+  // This project's M2 theme defaults .mat-mdc-icon-button to a 48px state-layer vs.
+  // legacy's native 40px (same root cause fixed elsewhere this session for table
+  // rows, the header, and the bulletin/paid-online lists).
+  .mat-mdc-icon-button {
+    --mdc-icon-button-state-layer-size: 40px;
+    --mat-icon-button-state-layer-size: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 2px;
+    align-self: center;
   }
 }
 

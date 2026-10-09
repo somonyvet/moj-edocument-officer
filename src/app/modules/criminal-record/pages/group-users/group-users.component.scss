@@ -1,5 +1,19 @@
 @use "../../../../../assets/styles/variable.scss" as *;
 
+// .avatar-vt-item is a shared global class (main.scss, height: 126px !important) used
+// by dozens of other lists -- this list's rows (avatar + name only, no sub-text)
+// are shorter than the shared default. 80px is this list's own measured old-app
+// row height. Scoped here only -- other lists have their own measured heights.
+.avatar-vt-item.mat-mdc-button {
+  height: 80px !important;
+  min-height: 80px !important;
+  max-height: 80px !important;
+}
+
+.mat-mdc-icon-button {
+  padding: 7px;
+}
+
 .list-items {
   height: calc(100vh - 159px);
   overflow: auto;

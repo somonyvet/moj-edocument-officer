@@ -4,6 +4,18 @@
     .avatar-vt-item{
         flex: 1;
     }
+
+    // This project's M2 theme defaults .mat-mdc-icon-button to a 48px state-layer vs.
+    // legacy's native 40px (same root cause fixed elsewhere this session for table
+    // rows, the header, and the bulletin/paid-online lists).
+    .mat-mdc-icon-button {
+        --mdc-icon-button-state-layer-size: 40px;
+        --mat-icon-button-state-layer-size: 40px;
+        width: 40px;
+        height: 40px;
+        padding: 2px;
+        align-self: center;
+    }
 }
 
 .action-item {

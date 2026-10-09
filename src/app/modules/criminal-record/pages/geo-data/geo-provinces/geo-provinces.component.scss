@@ -1,3 +1,26 @@
-.mdc-button__label{
+.avatar-vt-item.mat-mdc-button .mdc-button__label{
   display: flex !important;
+  height: 52px;
+  box-sizing: border-box;
+  padding: 6px 0 !important;
+}
+
+.avatar-vt-item.mat-mdc-button {
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mat-icon-button-state-layer-size: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  align-self: center;
+}
+.mat-mdc-tab-list,
+.mdc-tab-indicator__content {
+  transition: none !important;
+  animation: none !important;
 }

@@ -1,6 +1,9 @@
 {
   "name": "edocument",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=22.22.3 <23.0.0 || >=24.15.0 <25.0.0 || >=26.0.0"
+  },
   "scripts": {
     "ng": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",
     "build": "npm run ng build",

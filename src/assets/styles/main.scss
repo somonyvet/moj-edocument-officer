@@ -11451,6 +11451,12 @@ aside.special-memo {
 
 .mat-mdc-tab-header {
   &.fire-tabs {
+    // Legacy Material's tab theme mixin drew this border on .mat-tab-header by
+    // default (verified in the old app's compiled theme CSS); the MDC rebuild
+    // (Angular 15+) dropped it. rgba(0,0,0,.12) is Material's own standard
+    // light-theme divider color, matching what legacy rendered.
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
     &.tab-no-b {
       border: none;
     }
@@ -12503,6 +12509,13 @@ aside.special-memo {
 
   .av-vt-body {
     flex: 1;
+    // Flex items default to min-width: auto, meaning they won't shrink below
+    // their content's natural width even when the parent is narrower -- a long
+    // unwrapped line (e.g. a nowrap'd Transaction ID) can force this whole
+    // column, and therefore the row, wider than intended. 0 removes that floor
+    // so overflow/white-space rules on individual lines can actually constrain
+    // width instead of being overridden by it.
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

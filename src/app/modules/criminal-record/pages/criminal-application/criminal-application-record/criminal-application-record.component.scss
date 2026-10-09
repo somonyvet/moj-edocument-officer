@@ -1,5 +1,15 @@
 @use '../../../../../../assets/styles/variable.scss' as *;
 
+// .avatar-vt-item is a shared global class (main.scss, height: 126px !important) used
+// by dozens of other lists -- this list's rows don't match the shared default.
+// 107px is this list's own measured old-app row height. Scoped here only --
+// other lists using .avatar-vt-item have their own measured heights.
+.avatar-vt-item.mat-mdc-button {
+  height: 107px !important;
+  min-height: 107px !important;
+  max-height: 107px !important;
+}
+
 .search-result-container {
   display: flex;
   flex-direction: column;
