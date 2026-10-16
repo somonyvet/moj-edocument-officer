@@ -5,3 +5,33 @@
     white-space: break-spaces;
   }
 }
+
+.avatar-vt-item.mat-mdc-button .mdc-button__label{
+  display: flex !important;
+  height: 74px;
+  box-sizing: border-box;
+  padding: 6px 0 !important;
+}
+
+.avatar-vt-item.mat-mdc-button {
+  height: 74px !important;
+  min-height: 74px !important;
+  max-height: 74px !important;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mat-icon-button-state-layer-size: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  align-self: center;
+}
+
+.btn-p-icon.app-button.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 30px;
+  --mat-icon-button-state-layer-size: 30px;
+  padding: 0;
+  border-radius: 50% !important;
+  min-width: 0 !important;
+}

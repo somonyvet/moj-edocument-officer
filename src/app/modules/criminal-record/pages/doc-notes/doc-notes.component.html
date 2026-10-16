@@ -26,7 +26,7 @@
 <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       @if (!loading) {
         @if (store?.crimeReCate?.length>0) {
-          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
+          <cdk-virtual-scroll-viewport itemSize="74" #scroll autosize class="doc-ls-items seach-header"
             (vsEnd)="scrollHandler($event)">
             <a mat-button class="avatar-vt-item"
               *cdkVirtualFor="let item of $safeNavigationMigration(store?.crimeReCate) ;let i=index; trackBy: trackByIdx">

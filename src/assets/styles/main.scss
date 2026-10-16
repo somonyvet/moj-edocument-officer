@@ -11141,6 +11141,23 @@ aside.special-memo {
 
       .mat-calendar-period-button {
         font-family: $appFont;
+        padding: 0 8px;
+
+        .mdc-button__label {
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+        }
+      }
+
+      // The old app's weekday header used <abbr title="Sunday">S</abbr>, which
+      // browsers underline (dotted) by default. The newer Material datepicker
+      // replaced <abbr> with a visually-hidden span (for screen readers) plus
+      // a separate aria-hidden span for the visible letter, so there's no
+      // <abbr> left for the browser to underline.
+      .mat-calendar-table-header th span[aria-hidden="true"] {
+        text-decoration: underline dotted;
+        text-underline-offset: 2px;
       }
     }
   }
@@ -11207,7 +11224,14 @@ aside.special-memo {
       }
 
       .side-nav-child.side-nav-item {
-        padding: 13px 0 !important;
+        // The padding shorthand here was resetting padding-left back to 0,
+        // overriding the base .side-nav-item's padding-left: 22px !important
+        // (this rule is more specific, so it won despite both using
+        // !important) and losing the sub-item indentation. .side-nav-child
+        // doesn't exist in the old app at all -- this is a bug introduced
+        // during this app's own Angular 22 migration work, not an Angular
+        // Material default change. Preserving the 22px left padding explicitly.
+        padding: 13px 0 13px 22px !important;
 
         &.mat-mdc-button {
           min-height: 46px;
@@ -12389,6 +12413,7 @@ aside.special-memo {
     }
 
     .mdc-button__label {
+      margin-left: 8px;
       display: flex;
       flex-direction: row;
       align-items: center;

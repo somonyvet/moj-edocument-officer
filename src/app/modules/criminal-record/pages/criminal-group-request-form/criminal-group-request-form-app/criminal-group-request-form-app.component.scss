@@ -8,3 +8,15 @@
         margin-bottom: 0px;
     }
 }
+
+// .avatar-vt-item is a shared global class (main.scss, height: 126px !important) used
+// by dozens of other lists -- this list's rows are shorter than the shared
+// default. 88px is this list's own measured old-app row height. Scoped here
+// only -- other lists have their own measured heights. Targeting
+// .avatar-vt-item specifically (not the generic .rows wrapper div) since
+// .rows is also reused in this same template for an unrelated sub-text div.
+.avatar-vt-item.mat-mdc-button {
+  height: 88px !important;
+  min-height: 88px !important;
+  max-height: 88px !important;
+}

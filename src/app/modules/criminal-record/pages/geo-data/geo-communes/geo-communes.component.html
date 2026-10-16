@@ -38,7 +38,7 @@
       </div>
       @if (!loading) {
         @if (store?.communes?.length>0) {
-          <cdk-virtual-scroll-viewport itemSize="126" #scroll autosize class="doc-ls-items seach-header"
+          <cdk-virtual-scroll-viewport itemSize="60" #scroll autosize class="doc-ls-items seach-header"
             (vsEnd)="scrollHandler($event)">
             <a mat-button class="avatar-vt-item"
               *cdkVirtualFor="let item of $safeNavigationMigration(store?.communes) ;let i=index; trackBy: trackByIdx">

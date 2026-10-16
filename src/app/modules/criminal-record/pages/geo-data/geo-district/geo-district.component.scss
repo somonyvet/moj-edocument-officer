@@ -1,0 +1,52 @@
+.avatar-vt-item.mat-mdc-button .mdc-button__label{
+  display: flex !important;
+  height: 60px;
+  box-sizing: border-box;
+  padding: 6px 0 !important;
+  margin-left: 8px !important;
+}
+
+.avatar-vt-item.mat-mdc-button {
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mat-icon-button-state-layer-size: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  align-self: center;
+}
+.mat-mdc-tab-list,
+.mdc-tab-indicator__content {
+  transition: none !important;
+  animation: none !important;
+}
+
+.btn-p-icon.app-button.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 30px;
+  --mat-icon-button-state-layer-size: 30px;
+  padding: 0;
+}
+
+.btn-p-icon.app-button.mat-mdc-icon-button {
+  border-radius: 50% !important;
+  min-width: 0 !important;
+}
+
+.avatar-vt-item.mat-mdc-button .mdc-button__label::after {
+  width: auto !important;
+  right: 0 !important;
+  margin-left: 56px !important;
+}
+.breadcrumb .mat-btn-n.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 32px;
+  --mat-icon-button-state-layer-size: 32px;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  align-self: center;
+}

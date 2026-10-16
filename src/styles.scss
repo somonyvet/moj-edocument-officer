@@ -1,6 +1,3 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-/* Importing Bootstrap SCSS file. */
 @use "@angular/material" as mat;
 @use "./assets/styles/variable.scss" as *;
 // Plus imports for other components in your app.
@@ -45,9 +42,7 @@ html {
 
 @import "bootstrap/scss/bootstrap";
 
-/* You can add global styles to this file, and also import other style files */
 @import "material-icons/iconfont/material-icons.css";
-/* You can add global styles to this file, and also import other style files */
 @import "../src/assets/styles/app.scss";
 @import "~quill/dist/quill.core.css";
 @import "~quill/dist/quill.bubble.css";
@@ -108,9 +103,6 @@ body {
       margin-left: 10px !important;
       padding: 10px 5px !important;
       opacity: 1;
-      // Inactive nav-link color -- scoped here (not shared with tab-group)
-      // since tab-group's inactive label should keep Material's own default
-      // gray instead of inheriting this dark nav-link color.
       color: $color;
     }
 
@@ -121,14 +113,6 @@ body {
   }
 }
 
-// The real MDC indicator (.mdc-tab-indicator) depends on positioning context
-// that turned out unreliable across this app's tab usages (no position:relative
-// ancestor close by in Material's own CSS, confirmed by grepping the compiled
-// tabs stylesheet). Legacy's own ink-bar was a separate sibling element
-// positioned via JS-computed left/width -- MDC's per-tab indicator has no
-// equivalent, it just toggles opacity, which wasn't rendering reliably.
-// Drawing the underline ourselves instead: fully within our control, and
-// anchors correctly now that .mat-mdc-tab-link/.mdc-tab have position: relative.
 .mdc-tab-indicator {
   display: none !important;
 }
@@ -144,12 +128,6 @@ body {
   border-radius: 3px 3px 0 0;
 }
 
-// Label lift only for nav-link tabs -- they get padding: 10px 5px and
-// margin-bottom: -3px (see the .mat-mdc-tab-link rule above), and the -6px
-// compensates for that layout. Tab-group tabs no longer get that padding/
-// margin (removed earlier to fix the tab-group squeeze bug), so they don't
-// need the compensating lift either -- applying it unscoped made tab-group
-// labels (e.g. "អ្នកស្នើសុំ / ផ្ទៃក្នុង") float ~6px too high.
 .mat-mdc-tab-links .mat-mdc-tab-link .mdc-tab__content {
   position: relative;
   top: -6px;
@@ -216,8 +194,6 @@ body {
   min-width: 6em;
 }
 
-/* Scale down all heading previews because they are way too big to be presented in the UI.
-Preserve the relative scale, though. */
 .document-editor
   .ck-heading-dropdown
   .ck-list
@@ -316,4 +292,49 @@ a:hover {
   border-radius: 6px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   font-family: $appFont;
+}
+
+.mat-mdc-form-field {
+  --mat-form-field-container-text-font: inherit;
+  --mat-form-field-container-text-size: inherit;
+  --mat-form-field-container-text-line-height: inherit;
+  font-size: inherit;
+}
+
+.mat-mdc-select {
+  --mat-select-trigger-text-font: inherit;
+  --mat-select-trigger-text-size: inherit;
+}
+
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-form-field .mat-mdc-select {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: normal !important;
+}
+
+.mat-mdc-checkbox {
+  --mat-checkbox-selected-icon-color: #ff4081;
+  --mat-checkbox-selected-hover-icon-color: #ff4081;
+  --mat-checkbox-selected-focus-icon-color: #ff4081;
+  --mat-checkbox-selected-pressed-icon-color: #ff4081;
+}
+
+.mat-mdc-option {
+  min-height: 48px;
+  font-size: 16px;
+
+  .mdc-list-item__primary-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.mat-mdc-option .mat-pseudo-checkbox {
+  display: none;
+}
+
+.mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: inherit;
 }

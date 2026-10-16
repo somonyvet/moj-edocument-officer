@@ -4,5 +4,37 @@
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    // text-overflow: ellipsis has no effect without white-space: nowrap --
+    // without it, long names wrap onto multiple lines instead of truncating.
+    white-space: nowrap;
   }
+}
+
+// .avatar-vt-item is a shared global class (main.scss, height: 126px !important) used
+// by dozens of other lists -- this list's rows (single-line name only) are
+// shorter than the shared default. 60px is this list's own measured old-app
+// row height. Scoped here only -- other lists have their own measured heights.
+.avatar-vt-item.mat-mdc-button .mdc-button__label{
+  display: flex !important;
+  height: 60px;
+  box-sizing: border-box;
+  padding: 6px 0 !important;
+}
+
+.avatar-vt-item.mat-mdc-button {
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+}
+
+// This project's M2 theme defaults .mat-mdc-icon-button to a 48px state-layer vs.
+// legacy's native 40px (same root cause fixed elsewhere this session for other
+// lists) -- here the menu-trigger icon button sits inside the row's flex content.
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mat-icon-button-state-layer-size: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  align-self: center;
 }

@@ -18,6 +18,16 @@
     .avatar-vt-item{
       flex: 1;
     }
+
+    // .avatar-vt-item is a shared global class (main.scss, height: 126px) used by
+    // dozens of other lists -- this list's rows are much shorter (avatar + name +
+    // date only), so 126px overlapped rows with the shared default. 80px is
+    // this list's own measured old-app row height. Scoped here only.
+    .avatar-vt-item.mat-mdc-button {
+      height: 80px !important;
+      min-height: 80px !important;
+      max-height: 80px !important;
+    }
   }
   
   .listing-header{

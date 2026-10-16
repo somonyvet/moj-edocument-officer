@@ -1,5 +1,27 @@
 @use "../../../../../assets/styles/variable.scss" as *;
 
+.avatar-vt-item.mat-mdc-button .mdc-button__label{
+  display: flex !important;
+  height: 63px;
+  box-sizing: border-box;
+  padding: 6px 0 !important;
+}
+
+.avatar-vt-item.mat-mdc-button {
+  height: 63px !important;
+  min-height: 63px !important;
+  max-height: 63px !important;
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 40px;
+  --mat-icon-button-state-layer-size: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  align-self: center;
+}
+
 .list-items {
   height: calc(100vh - 159px);
   overflow: auto;

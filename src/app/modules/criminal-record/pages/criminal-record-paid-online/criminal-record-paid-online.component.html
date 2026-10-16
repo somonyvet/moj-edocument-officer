@@ -20,7 +20,7 @@
               <div class="result-item-container">
                 @for (item of searchResult; track item) {
                   <div class="btn-a-wrapper">
-                    <a mat-button class="avatar-vt-item" [ngClass]="item?.status?.key===STATUS_OBJ?.VOID?.key?'warn':''" [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active">
+                    <a mat-button class="avatar-vt-item" [ngClass]="{'warn': item?.status?.key===STATUS_OBJ?.VOID?.key, 'no-icon': item?.status?.key!==STATUS_OBJ?.PAID?.key}" [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active">
                       <div class="avatar">
                         <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
                       </div>
@@ -84,7 +84,7 @@
           <cdk-virtual-scroll-viewport [itemSize]="164.04" #scroll autosize class="doc-ls-items seach-header"
             (vsEnd)="scrollHandler($event)">
             <div class="btn-a-wrapper" *cdkVirtualFor="let item of $safeNavigationMigration(store?.data) ;let i=index; trackBy: trackByIdx">
-              <a mat-button class="avatar-vt-item" [ngClass]="item?.status?.key===STATUS_OBJ?.VOID?.key?'warn':''" [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active">
+              <a mat-button class="avatar-vt-item" [ngClass]="{'warn': item?.status?.key===STATUS_OBJ?.VOID?.key, 'no-icon': item?.status?.key!==STATUS_OBJ?.PAID?.key}" [routerLink]="$safeNavigationMigration(item?.key)" routerLinkActive="active">
                 <div class="avatar">
                   <img [src]="$safeNavigationMigration(item?.photoUrl)" (error)="handleImgError($event)">
                 </div>

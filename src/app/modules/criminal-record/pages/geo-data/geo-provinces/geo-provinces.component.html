@@ -27,7 +27,7 @@
 
       @if (!loading) {
         @if (store?.provinces?.length>0) {
-          <cdk-virtual-scroll-viewport itemSize="52" #scroll autosize class="doc-ls-items seach-header"
+          <cdk-virtual-scroll-viewport itemSize="60" #scroll autosize class="doc-ls-items seach-header"
             (vsEnd)="scrollHandler($event)">
             <a mat-button class="avatar-vt-item" routerLinkActive="active"
               *cdkVirtualFor="let item of $safeNavigationMigration(store?.provinces) ;let i=index; trackBy: trackByIdx">

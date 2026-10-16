@@ -729,11 +729,7 @@ app-component-nav {
   }
 }
 
-// .mat-drawer-container {
-//   // background-color: mat-color($background, if($is-dark-theme, 200, default));
-// }
 .app-component-viewer-nav-content {
-  // background: rgba(0, 0, 0, $nav-background-opacity);
 
   // &::-webkit-scrollbar-thumb {
   //   background: rgba(0, 0, 0, 0.26);
@@ -742,11 +738,6 @@ app-component-nav {
   .app-nav-content-btn {
     //   color: rgba(mat-color($foreground, text), 0.7);
     font-family: "Khmer OS Battambang", Roboto, "Helvetica Neue", sans-serif;
-
-    // &:focus {
-    //   // override the default background
-    //   // background: rgba(0, 0, 0, $nav-background-focus-opacity);
-    // }
   }
 
   hr {
@@ -755,10 +746,6 @@ app-component-nav {
   }
 
   a {
-    // &.app-component-viewer-sidenav-item-selected,
-    // &:hover {
-    //   // color: mat-color($primary, if($is-dark-theme, 200, 900));
-    // }
 
     &.app-component-viewer-sidenav-item-selected {
       color: $primary;
@@ -813,9 +800,6 @@ app-component-nav {
     margin-right: 10px;
   }
 
-  /* Genuinely 40px buttons only: the avatar. Grid/bell share .app-button with the
-     center-nav icons and render at 50x60 in the real old app (verified via its actual
-     rendered DOM), so they are deliberately excluded here. */
   .btn-p-icon:not(.app-button).mat-mdc-icon-button {
     --mdc-icon-button-state-layer-size: 40px;
     --mat-icon-button-state-layer-size: 40px;
@@ -832,8 +816,6 @@ app-component-nav {
     }
   }
 
-  /* Stuck focus/ripple highlight after click or menu close (MDC persistent state
-     layer), while still keeping real keyboard-focus visible for accessibility. */
   .mat-mdc-icon-button.cdk-program-focused .mat-mdc-button-persistent-ripple::before,
   .mat-mdc-icon-button.cdk-mouse-focused .mat-mdc-button-persistent-ripple::before,
   .mat-mdc-icon-button.cdk-focused .mat-focus-indicator::before {
@@ -853,12 +835,6 @@ app-component-nav {
       visibility: hidden;
     }
 
-    /* Verified via the real old app's rendered DOM: grid/bell (.app-button) are 60px
-       tall, matching the center-nav icons, not the 40px avatar circle. MDC's own
-       injected component height still wins over .app-button's height:60 for this
-       property specifically (width already resolves correctly via source order), so
-       it needs an explicit override here even though it's unrelated to the 40px rule
-       above (which deliberately excludes .app-button). */
     &.app-button {
       height: 60px;
     }

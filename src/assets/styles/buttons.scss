@@ -52,10 +52,6 @@
     text-decoration: none;
     padding: 0 16px;
     border-radius: 30px;
-    // MDC's own .mat-mdc-button:not(:disabled) color rule has the same
-    // specificity (2 classes/pseudo-classes) and is injected later in the
-    // cascade, so it silently wins over this plain `color: #fff` without
-    // !important (verified against the real compiled Material button CSS).
     color: #fff !important;
     min-height: 40px;
     font-size: 14px;
@@ -250,7 +246,7 @@
     font-size: 15px;
     font-weight: 600;
     border-radius: 100px;
-    color: #fff;
+    color: #fff !important;
     font-family: $appFontStrong;
 
     &.danger {
